@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">USER INVITE FLOW — FROM ADMIN INVITATION TO ACTIVE USER WITH ASSIGNED ROLE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <text x="100" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">1. ADMIN INVITES</text>
+  <text x="290" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">2. EMAIL SENT</text>
+  <text x="480" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">3. USER SIGNS IN</text>
+  <text x="670" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">4. ROLE APPLIED</text>
+  <text x="840" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">5. ACCESS</text>
+
+  <rect x="20" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="100" y="100" text-anchor="middle" font-size="14">👤</text>
+  <text x="100" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Admin sends invite</text>
+  <text x="100" y="140" text-anchor="middle" font-size="8" fill="#64748B">Settings → Users</text>
+  <text x="100" y="154" text-anchor="middle" font-size="8" fill="#64748B">→ Invite User</text>
+  <text x="100" y="168" text-anchor="middle" font-size="8" fill="#64748B">selects role at invite time</text>
+
+  <line x1="180" y1="124" x2="208" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="206,119 216,124 206,129" fill="#94A3B8"/>
+
+  <rect x="218" y="74" width="144" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="290" y="100" text-anchor="middle" font-size="14">📧</text>
+  <text x="290" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Email with link</text>
+  <text x="290" y="140" text-anchor="middle" font-size="8" fill="#64748B">Signed signup URL</text>
+  <text x="290" y="154" text-anchor="middle" font-size="8" fill="#64748B">valid for 72 hours</text>
+  <text x="290" y="168" text-anchor="middle" font-size="8" fill="#64748B">single-use</text>
+
+  <line x1="362" y1="124" x2="390" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="388,119 398,124 388,129" fill="#94A3B8"/>
+
+  <rect x="400" y="74" width="160" height="100" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14">🔐</text>
+  <text x="480" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">User authenticates</text>
+  <text x="480" y="140" text-anchor="middle" font-size="8" fill="#C7D2FE">Existing account → log in</text>
+  <text x="480" y="154" text-anchor="middle" font-size="8" fill="#C7D2FE">New account → set password</text>
+  <text x="480" y="168" text-anchor="middle" font-size="8" fill="#C7D2FE">+ MFA if required</text>
+
+  <line x1="560" y1="124" x2="588" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="586,119 596,124 586,129" fill="#94A3B8"/>
+
+  <rect x="598" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="678" y="100" text-anchor="middle" font-size="14">🎯</text>
+  <text x="678" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Role applied</text>
+  <text x="678" y="140" text-anchor="middle" font-size="8" fill="#64748B">Permission set computed</text>
+  <text x="678" y="154" text-anchor="middle" font-size="8" fill="#64748B">tenant_id scoped</text>
+  <text x="678" y="168" text-anchor="middle" font-size="8" fill="#64748B">audit log entry written</text>
+
+  <line x1="758" y1="124" x2="786" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="784,119 794,124 784,129" fill="#94A3B8"/>
+
+  <rect x="796" y="74" width="104" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="848" y="100" text-anchor="middle" font-size="14">✅</text>
+  <text x="848" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Active</text>
+  <text x="848" y="140" text-anchor="middle" font-size="8" fill="#64748B">Dashboard</text>
+  <text x="848" y="154" text-anchor="middle" font-size="8" fill="#64748B">access</text>
+  <text x="848" y="168" text-anchor="middle" font-size="8" fill="#64748B">granted</text>
+
+  <line x1="40" y1="200" x2="880" y2="200" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="222" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">SAFEGUARDS</text>
+  <text x="460" y="240" text-anchor="middle" font-size="9" fill="#64748B">Invite links are single-use, signed, and expire in 72h · MFA required for tenant_admin and above ·</text>
+  <text x="460" y="254" text-anchor="middle" font-size="9" fill="#64748B">SAML SSO mode skips the password step (IdP authenticates) · every transition logged in the audit trail</text>
+  <text x="460" y="270" text-anchor="middle" font-size="9" fill="#64748B">Role changes after activation propagate within 60 seconds via session re-validation</text>
+</svg>

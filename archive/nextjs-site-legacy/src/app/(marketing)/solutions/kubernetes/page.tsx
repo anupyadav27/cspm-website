@@ -1,0 +1,23 @@
+import type { Metadata } from 'next'
+import { CloudSolutionTemplate } from '@/components/solutions/CloudSolutionTemplate'
+export const metadata: Metadata = { title: 'Kubernetes Security — Onam', description: '250+ K8s security rules. RBAC, pod security, network policies, and workload-to-cloud IAM — 100% agentless, no daemonset.' }
+export default function KubernetesPage() {
+  return <CloudSolutionTemplate
+    breadcrumb="Solutions · Kubernetes"
+    headline="Production Kubernetes Security That Goes Beyond CIS Benchmarks"
+    sub="Kubernetes misconfigurations — privileged pods, exposed dashboards, RBAC bindings that grant cluster-admin — are a leading cause of container-based breaches. Onam audits every cluster object without deploying a sidecar or daemonset."
+    docsHref="/docs/onboarding/aws"
+    stats={[{value:'250+',label:'Kubernetes security rules'},{value:'100%',label:'agentless — no daemonset'},{value:'15+',label:'K8s object types scanned'},{value:'Multi-cluster',label:'EKS, AKS, GKE, OKE, ACK'}]}
+    services={['Pod & Deployment Specifications','RBAC Roles, ClusterRoles & Bindings','ServiceAccounts & Projected Volumes','Network Policies','Secrets & ConfigMaps','Ingress Controllers & Ingress Objects','PodSecurityAdmission & PSP (legacy)','Namespace Isolation & Resource Quotas','DaemonSets & StatefulSets','API Server Configuration & Audit Logging','Node Configuration & Kubelet Settings','Image Registry & Pull Policies','Persistent Volume Claims & Storage Classes','Admission Webhooks']}
+    frameworks={[{name:'CIS Kubernetes Benchmark v1.9'},{name:'CIS EKS / AKS / GKE Benchmarks'},{name:'NIST SP 800-190 Container Security'},{name:'SOC 2 Type II'},{name:'PCI-DSS v4.0'}]}
+    setupSteps={[{title:'Apply our read-only manifest',body:'Apply a single-file Kubernetes manifest that creates a read-only ClusterRole and ClusterRoleBinding — no privileged access, no daemonset, no persistent storage required.'},{title:'Generate a scoped kubeconfig',body:'Generate a kubeconfig scoped to the Onam service account. Managed clusters (EKS, AKS, GKE) support OIDC-based authentication for keyless credential rotation.'},{title:'Full cluster scan in < 5 minutes',body:'Onam enumerates all namespaces and cluster-scoped objects, correlates RBAC with workload identity, and surfaces your first findings in under 5 minutes.'}]}
+    uniqueFeatures={[{title:'RBAC Privilege Escalation Path Detection',body:'Onam maps every RBAC binding into an effective-permission graph and identifies chains that allow a low-privilege service account to escalate to cluster-admin without a direct binding.'},{title:'Workload-to-Cloud IAM Permission Correlation',body:'For EKS (IRSA), AKS (Workload Identity), and GKE (Workload Identity), Onam correlates Kubernetes service account annotations with cloud IAM roles to reveal workloads with excessive cloud permissions.'},{title:'Network Policy Coverage Heatmap',body:'Onam identifies every namespace and pod not covered by a Network Policy — distinguishing between pods that are intentionally exposed and those reachable from the entire cluster due to missing rules.'}]}
+    faqs={[
+      { question: 'Does Onam require a daemonset or agent installed on each node?', answer: 'No. Onam is 100% agentless and reads Kubernetes cluster state via the API server using a read-only ClusterRole. No daemonset, sidecar, or privileged container is deployed — and no software touches your nodes.' },
+      { question: 'Which Kubernetes distributions does Onam support?', answer: 'Onam supports EKS, AKS, GKE, OKE, ACK, and self-managed clusters. For managed distributions, OIDC-based authentication is supported for keyless credential rotation.' },
+      { question: 'How does Onam detect RBAC privilege escalation?', answer: 'Onam builds a complete effective-permission graph from all Roles, ClusterRoles, RoleBindings, and ClusterRoleBindings — then traces chains where a low-privilege service account can escalate to cluster-admin through intermediate bindings such as bind, escalate, or impersonate verbs.' },
+      { question: 'Can Onam correlate Kubernetes RBAC with cloud IAM?', answer: 'Yes. For EKS (IRSA), AKS (Workload Identity), and GKE (Workload Identity), Onam correlates service account annotations with cloud IAM role bindings to surface workloads that have excessive cloud permissions behind their Kubernetes identity.' },
+      { question: 'What Kubernetes compliance benchmarks does Onam use?', answer: 'Onam uses CIS Kubernetes Benchmark v1.9, CIS EKS/AKS/GKE distribution-specific benchmarks, and NIST SP 800-190 Container Security Guide as the primary control baselines.' },
+    ]}
+  />
+}

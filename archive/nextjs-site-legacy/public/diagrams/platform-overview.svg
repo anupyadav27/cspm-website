@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" font-family="Arial, sans-serif">
+  <!-- background -->
+  <rect width="920" height="430" fill="#F8FAFC" rx="10"/>
+
+  <!-- ── SECTION 1: Clouds ──────────────────────────── -->
+  <rect x="16" y="16" width="232" height="398" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <!-- section header -->
+  <text x="132" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#1D4ED8" letter-spacing="1.2">YOUR CLOUD ENVIRONMENTS</text>
+  <line x1="26" y1="46" x2="238" y2="46" stroke="#CBD5E1" stroke-width="1"/>
+  <!-- cloud chips -->
+  <rect x="30" y="56"  width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="80"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Amazon Web Services</text>
+  <rect x="30" y="102" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Microsoft Azure</text>
+  <rect x="30" y="148" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="172" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Google Cloud</text>
+  <rect x="30" y="194" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="218" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Oracle Cloud (OCI)</text>
+  <rect x="30" y="240" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="264" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Alibaba Cloud</text>
+  <rect x="30" y="286" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="310" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">IBM Cloud</text>
+  <rect x="30" y="332" width="204" height="38" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="356" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Kubernetes</text>
+
+  <!-- ── ARROW 1 (Clouds → Platform) ───────────────── -->
+  <line x1="248" y1="215" x2="298" y2="215" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="296,209 308,215 296,221" fill="#94A3B8"/>
+  <text x="273" y="208" text-anchor="middle" font-size="9" fill="#2563EB">API · SDK</text>
+
+  <!-- ── SECTION 2: Platform ────────────────────────── -->
+  <rect x="308" y="16" width="304" height="398" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <text x="460" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#1D4ED8" letter-spacing="1.2">CSPM PLATFORM</text>
+  <line x1="318" y1="46" x2="602" y2="46" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- step 1: Discover -->
+  <rect x="324" y="56" width="272" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="460" y="78" text-anchor="middle" font-size="12" font-weight="700" fill="#1E40AF">Discover All Resources</text>
+  <text x="460" y="96" text-anchor="middle" font-size="10" fill="#64748B">40+ services · Agentless · 7 clouds</text>
+  <!-- arrow -->
+  <line x1="460" y1="108" x2="460" y2="122" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="454,120 460,130 466,120" fill="#94A3B8"/>
+
+  <!-- step 2: Evaluate -->
+  <rect x="324" y="130" width="272" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="460" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#1E40AF">Evaluate Security Rules</text>
+  <text x="460" y="170" text-anchor="middle" font-size="10" fill="#64748B">1,900+ rules · PASS / FAIL scoring</text>
+  <!-- arrow -->
+  <line x1="460" y1="182" x2="460" y2="196" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="454,194 460,204 466,194" fill="#94A3B8"/>
+
+  <!-- step 3: Detect (dark) -->
+  <rect x="324" y="204" width="272" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="460" y="226" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Detect Threats</text>
+  <text x="460" y="244" text-anchor="middle" font-size="10" fill="#64748B">MITRE ATT&amp;CK · Attack path graph</text>
+  <!-- arrow -->
+  <line x1="460" y1="256" x2="460" y2="270" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="454,268 460,278 466,268" fill="#94A3B8"/>
+
+  <!-- step 4: Map (dark) -->
+  <rect x="324" y="278" width="272" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="460" y="300" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Map to Frameworks</text>
+  <text x="460" y="318" text-anchor="middle" font-size="10" fill="#64748B">CIS · NIST · PCI-DSS · HIPAA · GDPR</text>
+  <!-- arrow -->
+  <line x1="460" y1="330" x2="460" y2="344" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="454,342 460,352 466,342" fill="#94A3B8"/>
+
+  <!-- step 5: Score (dark) -->
+  <rect x="324" y="352" width="272" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="460" y="374" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Score Risk</text>
+  <text x="460" y="391" text-anchor="middle" font-size="10" fill="#64748B">FAIR model · 0–100 posture score</text>
+
+  <!-- ── ARROW 2 (Platform → Outcomes) ─────────────── -->
+  <line x1="612" y1="215" x2="660" y2="215" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="658,209 670,215 658,221" fill="#94A3B8"/>
+  <text x="636" y="208" text-anchor="middle" font-size="9" fill="#10B981">Results</text>
+
+  <!-- ── SECTION 3: Outcomes ────────────────────────── -->
+  <rect x="670" y="16" width="234" height="398" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="787" y="38" text-anchor="middle" font-size="9" font-weight="700" fill="#059669" letter-spacing="1.2">WHAT YOU GET</text>
+  <line x1="680" y1="46" x2="894" y2="46" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="684" y="56"  width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="79"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Security Findings</text>
+  <text x="787" y="98"  text-anchor="middle" font-size="10" fill="#64748B">Per resource · Severity ranked</text>
+
+  <rect x="684" y="120" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="143" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Posture Score</text>
+  <text x="787" y="162" text-anchor="middle" font-size="10" fill="#64748B">0–100 · Trend over time</text>
+
+  <rect x="684" y="184" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Compliance Reports</text>
+  <text x="787" y="226" text-anchor="middle" font-size="10" fill="#64748B">13 frameworks · Audit-ready</text>
+
+  <rect x="684" y="248" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="271" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Threat Alerts</text>
+  <text x="787" y="290" text-anchor="middle" font-size="10" fill="#64748B">MITRE ATT&amp;CK · Real-time</text>
+
+  <rect x="684" y="312" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Attack Graph</text>
+  <text x="787" y="354" text-anchor="middle" font-size="10" fill="#64748B">Neo4j · Blast radius · Paths</text>
+
+  <rect x="684" y="376" width="206" height="30" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="787" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Financial Risk View</text>
+</svg>

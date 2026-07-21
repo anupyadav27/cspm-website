@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" font-family="Arial, sans-serif">
+  <rect width="920" height="430" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SECURITY GROUP FINDINGS — WHAT THE PLATFORM FLAGS AT LAYER 4</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── BAND 1: CRITICAL ── -->
+  <rect x="16" y="48" width="888" height="216" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="32" y="68" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">CRITICAL — INBOUND OPEN TO 0.0.0.0/0 (THE INTERNET)</text>
+  <text x="32" y="82" font-size="8" fill="#64748B">Anyone on the internet can connect. Highest-impact misconfiguration class. Immediate alert.</text>
+  <line x1="32" y1="92" x2="888" y2="92" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- SSH -->
+  <rect x="32" y="104" width="168" height="146" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="116" y="128" text-anchor="middle" font-size="18">🔓</text>
+  <text x="116" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">SSH — Port 22</text>
+  <line x1="48" y1="156" x2="184" y2="156" stroke="#94A3B8" stroke-width="1"/>
+  <text x="116" y="174" text-anchor="middle" font-size="9" fill="#475569">Direct shell access to</text>
+  <text x="116" y="188" text-anchor="middle" font-size="9" fill="#475569">Linux instances</text>
+  <text x="116" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">Brute-force target</text>
+  <text x="116" y="224" text-anchor="middle" font-size="8" fill="#64748B">Use Session Manager or</text>
+  <text x="116" y="236" text-anchor="middle" font-size="8" fill="#64748B">a bastion host instead</text>
+
+  <!-- RDP -->
+  <rect x="208" y="104" width="168" height="146" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="292" y="128" text-anchor="middle" font-size="18">🖥️</text>
+  <text x="292" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">RDP — Port 3389</text>
+  <line x1="224" y1="156" x2="360" y2="156" stroke="#94A3B8" stroke-width="1"/>
+  <text x="292" y="174" text-anchor="middle" font-size="9" fill="#475569">Windows remote desktop</text>
+  <text x="292" y="188" text-anchor="middle" font-size="9" fill="#475569">access</text>
+  <text x="292" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">BlueKeep + ransomware</text>
+  <text x="292" y="224" text-anchor="middle" font-size="8" fill="#64748B">Restrict to VPN CIDRs or</text>
+  <text x="292" y="236" text-anchor="middle" font-size="8" fill="#64748B">use a jump host</text>
+
+  <!-- Database ports -->
+  <rect x="384" y="104" width="168" height="146" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="468" y="128" text-anchor="middle" font-size="18">🗄️</text>
+  <text x="468" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Database Ports</text>
+  <line x1="400" y1="156" x2="536" y2="156" stroke="#94A3B8" stroke-width="1"/>
+  <text x="468" y="174" text-anchor="middle" font-size="9" fill="#475569">3306 MySQL · 5432 Postgres</text>
+  <text x="468" y="188" text-anchor="middle" font-size="9" fill="#475569">1433 MSSQL · 27017 Mongo</text>
+  <text x="468" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">Direct data exfiltration</text>
+  <text x="468" y="224" text-anchor="middle" font-size="8" fill="#64748B">DBs should never be</text>
+  <text x="468" y="236" text-anchor="middle" font-size="8" fill="#64748B">internet-reachable</text>
+
+  <!-- Cache / KV -->
+  <rect x="560" y="104" width="168" height="146" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="644" y="128" text-anchor="middle" font-size="18">⚡</text>
+  <text x="644" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Cache / KV Stores</text>
+  <line x1="576" y1="156" x2="712" y2="156" stroke="#94A3B8" stroke-width="1"/>
+  <text x="644" y="174" text-anchor="middle" font-size="9" fill="#475569">6379 Redis</text>
+  <text x="644" y="188" text-anchor="middle" font-size="9" fill="#475569">11211 Memcached</text>
+  <text x="644" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">Session theft + RCE risk</text>
+  <text x="644" y="224" text-anchor="middle" font-size="8" fill="#64748B">Default no-auth makes</text>
+  <text x="644" y="236" text-anchor="middle" font-size="8" fill="#64748B">these especially dangerous</text>
+
+  <!-- Kubernetes -->
+  <rect x="736" y="104" width="152" height="146" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="812" y="128" text-anchor="middle" font-size="18">☸️</text>
+  <text x="812" y="148" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Kubernetes</text>
+  <line x1="752" y1="156" x2="872" y2="156" stroke="#94A3B8" stroke-width="1"/>
+  <text x="812" y="174" text-anchor="middle" font-size="9" fill="#475569">6443 API server</text>
+  <text x="812" y="188" text-anchor="middle" font-size="9" fill="#475569">10250 kubelet</text>
+  <text x="812" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">Cluster takeover</text>
+  <text x="812" y="224" text-anchor="middle" font-size="8" fill="#64748B">Use private clusters or</text>
+  <text x="812" y="236" text-anchor="middle" font-size="8" fill="#64748B">authorized-networks lists</text>
+
+  <!-- ── BAND 2: HIGH ── -->
+  <rect x="16" y="276" width="888" height="138" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="32" y="296" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">HIGH — OVERLY BROAD INBOUND OR ORPHANED RULES</text>
+  <text x="32" y="310" font-size="8" fill="#B45309">Not internet-open but still wider than the workload requires. Reduce blast radius if compromised.</text>
+  <line x1="32" y1="320" x2="888" y2="320" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- Admin ports -->
+  <rect x="32" y="332" width="282" height="68" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="50" y="354" font-size="14">⚠️</text>
+  <text x="78" y="352" font-size="10" font-weight="700" fill="#64748B">Admin / management ports</text>
+  <text x="78" y="368" font-size="9" fill="#475569">8080 · 8443 · 9090 open to large CIDR</text>
+  <text x="78" y="382" font-size="9" fill="#475569">Often dashboard / metric endpoints with weak auth</text>
+  <text x="78" y="394" font-size="8" fill="#B45309">→ Restrict to specific source IPs</text>
+
+  <!-- All TCP/UDP -->
+  <rect x="322" y="332" width="282" height="68" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="340" y="354" font-size="14">⚠️</text>
+  <text x="368" y="352" font-size="10" font-weight="700" fill="#64748B">All TCP / UDP allowed inbound</text>
+  <text x="368" y="368" font-size="9" fill="#475569">Inbound rule with `-1` protocol or full port range</text>
+  <text x="368" y="382" font-size="9" fill="#475569">Equivalent to "no firewall" for that source CIDR</text>
+  <text x="368" y="394" font-size="8" fill="#B45309">→ Specify ports explicitly; remove the catch-all rule</text>
+
+  <!-- Orphaned SG -->
+  <rect x="612" y="332" width="276" height="68" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="630" y="354" font-size="14">⚠️</text>
+  <text x="658" y="352" font-size="10" font-weight="700" fill="#64748B">Orphaned security group</text>
+  <text x="658" y="368" font-size="9" fill="#475569">SG with rules but no resources attached</text>
+  <text x="658" y="382" font-size="9" fill="#475569">Risk: accidental future attachment with stale rules</text>
+  <text x="658" y="394" font-size="8" fill="#B45309">→ Delete or document the intended purpose</text>
+</svg>

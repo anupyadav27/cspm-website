@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="480" viewBox="0 0 920 480" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="480" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">TRUST CENTER — SECURITY, PRIVACY AND COMPLIANCE</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- ===== ROW 1 ===== -->
+  <!-- Card 1: SOC 2 Type II -->
+  <rect x="20" y="36" width="275" height="130" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="157" y="62" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">SOC 2 Type II</text>
+  <text x="157" y="82" text-anchor="middle" fill="#64748B" font-size="9">Annual audit by independent CPA</text>
+  <text x="157" y="100" text-anchor="middle" fill="#64748B" font-size="9">Trust criteria: Security, Availability</text>
+  <text x="157" y="118" text-anchor="middle" fill="#64748B" font-size="9">Confidentiality · Processing Integrity</text>
+  <text x="157" y="136" text-anchor="middle" fill="#3B82F6" font-size="8">Report available under NDA</text>
+
+  <!-- Card 2: ISO 27001 -->
+  <rect x="315" y="36" width="275" height="130" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="452" y="62" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">ISO/IEC 27001</text>
+  <text x="452" y="82" text-anchor="middle" fill="#64748B" font-size="9">Information security management</text>
+  <text x="452" y="100" text-anchor="middle" fill="#64748B" font-size="9">Certified annually · Full scope: platform</text>
+  <text x="452" y="118" text-anchor="middle" fill="#64748B" font-size="9">Operations · Development · Support</text>
+  <text x="452" y="136" text-anchor="middle" fill="#3B82F6" font-size="8">Certificate available on request</text>
+
+  <!-- Card 3: Data Encryption (highlight) -->
+  <rect x="610" y="36" width="290" height="130" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="755" y="62" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Data Encryption</text>
+  <text x="755" y="82" text-anchor="middle" fill="#64748B" font-size="9">AES-256 at rest · TLS 1.3 in transit</text>
+  <text x="755" y="100" text-anchor="middle" fill="#64748B" font-size="9">Separate encryption keys per tenant</text>
+  <text x="755" y="118" text-anchor="middle" fill="#64748B" font-size="9">KMS-managed key rotation</text>
+  <text x="755" y="136" text-anchor="middle" fill="#64748B" font-size="8">No shared secrets across tenants</text>
+
+  <!-- ===== ROW 2 ===== -->
+  <!-- Card 4: Penetration Testing -->
+  <rect x="20" y="186" width="275" height="130" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="157" y="212" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Penetration Testing</text>
+  <text x="157" y="232" text-anchor="middle" fill="#64748B" font-size="9">Annual third-party pentest</text>
+  <text x="157" y="250" text-anchor="middle" fill="#64748B" font-size="9">Findings remediated &lt; 30 days</text>
+  <text x="157" y="268" text-anchor="middle" fill="#64748B" font-size="9">Scope: all external endpoints</text>
+  <text x="157" y="286" text-anchor="middle" fill="#3B82F6" font-size="8">Summary report available</text>
+
+  <!-- Card 5: GDPR Compliance -->
+  <rect x="315" y="186" width="275" height="130" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="452" y="212" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">GDPR Compliance</text>
+  <text x="452" y="232" text-anchor="middle" fill="#64748B" font-size="9">Data processing agreements (DPA)</text>
+  <text x="452" y="250" text-anchor="middle" fill="#64748B" font-size="9">EU data residency option</text>
+  <text x="452" y="268" text-anchor="middle" fill="#64748B" font-size="9">Right to erasure supported</text>
+  <text x="452" y="286" text-anchor="middle" fill="#3B82F6" font-size="8">SCCs available for EU transfers</text>
+
+  <!-- Card 6: Uptime SLA (green) -->
+  <rect x="610" y="186" width="290" height="130" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="755" y="212" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Uptime SLA</text>
+  <text x="755" y="232" text-anchor="middle" fill="#64748B" font-size="9">99.9% monthly SLA</text>
+  <text x="755" y="250" text-anchor="middle" fill="#64748B" font-size="9">Real-time status page</text>
+  <text x="755" y="268" text-anchor="middle" fill="#64748B" font-size="9">Incident comms &lt; 30 min</text>
+  <text x="755" y="286" text-anchor="middle" fill="#64748B" font-size="8">Historical uptime published monthly</text>
+
+  <!-- Bottom bar -->
+  <rect x="20" y="334" width="880" height="44" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="352" text-anchor="middle" fill="#64748B" font-size="9">Vulnerability disclosure program · Responsible disclosure policy</text>
+  <text x="460" y="368" text-anchor="middle" fill="#64748B" font-size="9">Security contact: security@onam.io · Bug bounty program active</text>
+
+  <!-- Additional row: Vendor Security -->
+  <rect x="20" y="396" width="275" height="70" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="157" y="416" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Vendor Security</text>
+  <text x="157" y="434" text-anchor="middle" fill="#64748B" font-size="9">Third-party risk assessments</text>
+  <text x="157" y="452" text-anchor="middle" fill="#3B82F6" font-size="8">Annual vendor reviews · SOC 2 required</text>
+
+  <rect x="315" y="396" width="275" height="70" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="452" y="416" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Incident Response</text>
+  <text x="452" y="434" text-anchor="middle" fill="#64748B" font-size="9">Tested IR plan · 4h P1 SLA</text>
+  <text x="452" y="452" text-anchor="middle" fill="#3B82F6" font-size="8">Post-mortem published within 72h</text>
+
+  <rect x="610" y="396" width="290" height="70" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="755" y="416" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Access Control</text>
+  <text x="755" y="434" text-anchor="middle" fill="#64748B" font-size="9">Zero-trust · MFA enforced for all staff</text>
+  <text x="755" y="452" text-anchor="middle" fill="#3B82F6" font-size="8">Least-privilege · quarterly access reviews</text>
+</svg>

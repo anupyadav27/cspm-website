@@ -1,0 +1,136 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" font-family="Arial, sans-serif">
+  <rect width="920" height="430" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">HOW DSPM WORKS — FROM DATA STORE DISCOVERY TO RISK-GRADED FINDINGS</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── COLUMN 1: DISCOVER ── -->
+  <rect x="16" y="48" width="206" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="119" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. DISCOVER</text>
+  <text x="119" y="82" text-anchor="middle" font-size="8" fill="#64748B">Find every data store</text>
+  <line x1="26" y1="90" x2="212" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="26" y="106" width="186" height="78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="119" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Object Storage</text>
+  <text x="119" y="143" text-anchor="middle" font-size="8" fill="#64748B">S3 · Blob · GCS</text>
+  <text x="119" y="156" text-anchor="middle" font-size="8" fill="#64748B">OSS · OCI Object</text>
+  <text x="119" y="172" text-anchor="middle" font-size="8" fill="#64748B">IBM COS · all buckets</text>
+
+  <rect x="26" y="194" width="186" height="78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="119" y="214" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Managed Databases</text>
+  <text x="119" y="231" text-anchor="middle" font-size="8" fill="#64748B">RDS · Azure SQL</text>
+  <text x="119" y="244" text-anchor="middle" font-size="8" fill="#64748B">Cosmos · BigQuery</text>
+  <text x="119" y="260" text-anchor="middle" font-size="8" fill="#64748B">DynamoDB · Redshift</text>
+
+  <rect x="26" y="282" width="186" height="78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="119" y="302" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Shadow Stores</text>
+  <text x="119" y="319" text-anchor="middle" font-size="8" fill="#64748B">EC2 with Postgres</text>
+  <text x="119" y="332" text-anchor="middle" font-size="8" fill="#64748B">Self-managed DBs</text>
+  <text x="119" y="348" text-anchor="middle" font-size="8" fill="#64748B">Unmanaged disks</text>
+
+  <text x="119" y="386" text-anchor="middle" font-size="8" fill="#64748B">Both managed &amp;</text>
+  <text x="119" y="396" text-anchor="middle" font-size="8" fill="#64748B">unmanaged stores</text>
+
+  <!-- arrow 1→2 -->
+  <line x1="222" y1="225" x2="240" y2="225" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="238,220 248,225 238,230" fill="#94A3B8"/>
+
+  <!-- ── COLUMN 2: CLASSIFY ── -->
+  <rect x="250" y="48" width="206" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="353" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">2. CLASSIFY</text>
+  <text x="353" y="82" text-anchor="middle" font-size="8" fill="#64748B">Identify sensitive data</text>
+  <line x1="260" y1="90" x2="446" y2="90" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="260" y="106" width="186" height="58" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="353" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">PII</text>
+  <text x="353" y="142" text-anchor="middle" font-size="8" fill="#C7D2FE">Names · SSN · Email</text>
+  <text x="353" y="155" text-anchor="middle" font-size="8" fill="#C7D2FE">Phone · Address · DOB</text>
+
+  <rect x="260" y="174" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="353" y="194" text-anchor="middle" font-size="10" font-weight="700" fill="#3730A3">PCI</text>
+  <text x="353" y="210" text-anchor="middle" font-size="8" fill="#475569">Card numbers · CVV</text>
+  <text x="353" y="223" text-anchor="middle" font-size="8" fill="#475569">Expiry · Cardholder</text>
+
+  <rect x="260" y="242" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="353" y="262" text-anchor="middle" font-size="10" font-weight="700" fill="#3730A3">PHI</text>
+  <text x="353" y="278" text-anchor="middle" font-size="8" fill="#475569">Medical record IDs</text>
+  <text x="353" y="291" text-anchor="middle" font-size="8" fill="#475569">Diagnoses · Rx</text>
+
+  <rect x="260" y="310" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="353" y="330" text-anchor="middle" font-size="10" font-weight="700" fill="#3730A3">Secrets</text>
+  <text x="353" y="346" text-anchor="middle" font-size="8" fill="#475569">API keys · Passwords</text>
+  <text x="353" y="359" text-anchor="middle" font-size="8" fill="#475569">Private keys · Tokens</text>
+
+  <text x="353" y="390" text-anchor="middle" font-size="8" fill="#64748B">Pattern matching + ML</text>
+
+  <!-- arrow 2→3 -->
+  <line x1="456" y1="225" x2="474" y2="225" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="472,220 482,225 472,230" fill="#94A3B8"/>
+
+  <!-- ── COLUMN 3: EVALUATE ── -->
+  <rect x="484" y="48" width="206" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="587" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">3. EVALUATE</text>
+  <text x="587" y="82" text-anchor="middle" font-size="8" fill="#64748B">Check security controls</text>
+  <line x1="494" y1="90" x2="680" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="494" y="106" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="587" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Encryption at Rest</text>
+  <text x="587" y="142" text-anchor="middle" font-size="8" fill="#64748B">KMS-managed key</text>
+  <text x="587" y="155" text-anchor="middle" font-size="8" fill="#64748B">Key rotation enabled</text>
+
+  <rect x="494" y="174" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="587" y="194" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Access Controls</text>
+  <text x="587" y="210" text-anchor="middle" font-size="8" fill="#64748B">Public? Authenticated?</text>
+  <text x="587" y="223" text-anchor="middle" font-size="8" fill="#64748B">Over-privileged identities?</text>
+
+  <rect x="494" y="242" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="587" y="262" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Retention</text>
+  <text x="587" y="278" text-anchor="middle" font-size="8" fill="#64748B">Lifecycle policy set</text>
+  <text x="587" y="291" text-anchor="middle" font-size="8" fill="#64748B">Stale data flagged</text>
+
+  <rect x="494" y="310" width="186" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="587" y="330" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Logging</text>
+  <text x="587" y="346" text-anchor="middle" font-size="8" fill="#64748B">Access logging on</text>
+  <text x="587" y="359" text-anchor="middle" font-size="8" fill="#475569">Audit trail complete</text>
+
+  <text x="587" y="390" text-anchor="middle" font-size="8" fill="#64748B">Plus residency checks</text>
+
+  <!-- arrow 3→4 -->
+  <line x1="690" y1="225" x2="708" y2="225" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="706,220 716,225 706,230" fill="#94A3B8"/>
+
+  <!-- ── COLUMN 4: FINDINGS ── -->
+  <rect x="718" y="48" width="186" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="811" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">4. FINDINGS</text>
+  <text x="811" y="82" text-anchor="middle" font-size="8" fill="#64748B">Prioritized output</text>
+  <line x1="728" y1="90" x2="894" y2="90" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="728" y="106" width="166" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <circle cx="744" cy="124" r="6" fill="#EF4444"/>
+  <text x="744" y="148" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">CRITICAL</text>
+  <text x="811" y="124" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Public + sensitive</text>
+  <text x="811" y="142" text-anchor="middle" font-size="8" fill="#475569">Exposed PII / PHI</text>
+  <text x="811" y="155" text-anchor="middle" font-size="8" fill="#475569">→ immediate action</text>
+
+  <rect x="728" y="170" width="166" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <circle cx="744" cy="188" r="6" fill="#F59E0B"/>
+  <text x="811" y="188" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">No encryption</text>
+  <text x="811" y="206" text-anchor="middle" font-size="8" fill="#475569">PII without KMS</text>
+  <text x="811" y="219" text-anchor="middle" font-size="8" fill="#475569">→ encrypt &amp; key rotation</text>
+
+  <rect x="728" y="234" width="166" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <circle cx="744" cy="252" r="6" fill="#F59E0B"/>
+  <text x="811" y="252" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">No logging</text>
+  <text x="811" y="270" text-anchor="middle" font-size="8" fill="#475569">No audit trail</text>
+  <text x="811" y="283" text-anchor="middle" font-size="8" fill="#475569">→ enable access logs</text>
+
+  <rect x="728" y="298" width="166" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <circle cx="744" cy="316" r="6" fill="#F59E0B"/>
+  <text x="811" y="316" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Stale data</text>
+  <text x="811" y="334" text-anchor="middle" font-size="8" fill="#475569">No retention policy</text>
+  <text x="811" y="347" text-anchor="middle" font-size="8" fill="#475569">→ set lifecycle rules</text>
+
+  <text x="811" y="386" text-anchor="middle" font-size="8" fill="#64748B">Severity-graded</text>
+  <text x="811" y="396" text-anchor="middle" font-size="8" fill="#64748B">framework-mapped</text>
+</svg>

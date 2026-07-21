@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="320" viewBox="0 0 920 320" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="320" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">CONNECT ALICLOUD — RAM ACCESS KEY</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- Panel 1: Create RAM User -->
+  <rect x="20" y="40" width="190" height="240" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <rect x="28" y="48" width="22" height="18" fill="#FFFFFF" rx="3" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="39" y="61" text-anchor="middle" fill="#1E3A8A" font-size="8" font-weight="700">01</text>
+  <text x="115" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Create RAM User</text>
+  <text x="115" y="106" text-anchor="middle" fill="#64748B" font-size="9">RAM Console → Users</text>
+  <text x="115" y="122" text-anchor="middle" fill="#64748B" font-size="9">Create User</text>
+  <text x="115" y="138" text-anchor="middle" fill="#64748B" font-size="9">Access: Programmatic</text>
+  <text x="115" y="154" text-anchor="middle" fill="#3B82F6" font-size="8">Save credentials securely</text>
+  <text x="115" y="170" text-anchor="middle" fill="#3B82F6" font-size="8">Note user ARN</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="210" y1="160" x2="228" y2="160" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="226,155 235,160 226,165" fill="#94A3B8"/>
+
+  <!-- Panel 2: Attach Read Policy -->
+  <rect x="235" y="40" width="190" height="240" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <rect x="243" y="48" width="22" height="18" fill="#FFFFFF" rx="3" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="254" y="61" text-anchor="middle" fill="#1E3A8A" font-size="8" font-weight="700">02</text>
+  <text x="330" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Attach Read Policy</text>
+  <text x="330" y="106" text-anchor="middle" fill="#64748B" font-size="9">Users → Add Permissions</text>
+  <text x="330" y="122" text-anchor="middle" fill="#64748B" font-size="9">ReadOnlyAccess</text>
+  <text x="330" y="138" text-anchor="middle" fill="#64748B" font-size="9">System managed policy</text>
+  <text x="330" y="154" text-anchor="middle" fill="#3B82F6" font-size="8">No console login needed</text>
+  <text x="330" y="170" text-anchor="middle" fill="#3B82F6" font-size="8">No write permissions</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="425" y1="160" x2="443" y2="160" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="441,155 450,160 441,165" fill="#94A3B8"/>
+
+  <!-- Panel 3: Enter Credentials -->
+  <rect x="450" y="40" width="190" height="240" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="458" y="48" width="22" height="18" fill="#FFFFFF" rx="3" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="469" y="61" text-anchor="middle" fill="#1E3A8A" font-size="8" font-weight="700">03</text>
+  <text x="545" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Enter Credentials</text>
+  <text x="545" y="106" text-anchor="middle" fill="#64748B" font-size="9">Settings → Cloud Accounts</text>
+  <text x="545" y="122" text-anchor="middle" fill="#64748B" font-size="9">Select AliCloud</text>
+  <text x="545" y="138" text-anchor="middle" fill="#64748B" font-size="9">Enter AccessKey ID</text>
+  <text x="545" y="154" text-anchor="middle" fill="#64748B" font-size="9">Enter AccessKey Secret</text>
+  <text x="545" y="170" text-anchor="middle" fill="#64748B" font-size="8">Click Connect</text>
+
+  <!-- Arrow 3->4 (green) -->
+  <line x1="640" y1="160" x2="658" y2="160" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="656,155 665,160 656,165" fill="#94A3B8"/>
+
+  <!-- Panel 4: Scan Running -->
+  <rect x="665" y="40" width="235" height="240" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="673" y="48" width="22" height="18" fill="#FFFFFF" rx="3" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="684" y="61" text-anchor="middle" fill="#1E3A8A" font-size="8" font-weight="700">✓</text>
+  <text x="782" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Scan Running</text>
+  <text x="782" y="106" text-anchor="middle" fill="#64748B" font-size="9">AliCloud resources scanned</text>
+  <text x="782" y="122" text-anchor="middle" fill="#64748B" font-size="9">ECS · OSS · RDS · VPC</text>
+  <text x="782" y="138" text-anchor="middle" fill="#64748B" font-size="9">IAM policies analysed</text>
+  <text x="782" y="154" text-anchor="middle" fill="#64748B" font-size="9">Results in dashboard</text>
+
+  <!-- Step labels -->
+  <text x="115" y="298" text-anchor="middle" fill="#64748B" font-size="8">Step 1</text>
+  <text x="330" y="298" text-anchor="middle" fill="#64748B" font-size="8">Step 2</text>
+  <text x="545" y="298" text-anchor="middle" fill="#64748B" font-size="8">Step 3</text>
+  <text x="782" y="298" text-anchor="middle" fill="#64748B" font-size="8">Complete</text>
+</svg>

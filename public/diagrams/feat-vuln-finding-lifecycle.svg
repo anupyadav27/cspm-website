@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">VULNERABILITY FINDING LIFECYCLE — STATES A FINDING MOVES THROUGH FROM DETECTION TO CLOSURE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- DETECTED state -->
+  <rect x="22" y="80" width="152" height="64" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="98" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">DETECTED</text>
+  <text x="98" y="122" text-anchor="middle" font-size="9" fill="#64748B">CVE matched to</text>
+  <text x="98" y="135" text-anchor="middle" font-size="9" fill="#64748B">workload</text>
+
+  <line x1="174" y1="112" x2="206" y2="112" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="204,107 214,112 204,117" fill="#94A3B8"/>
+
+  <!-- OPEN state -->
+  <rect x="216" y="80" width="152" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="292" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">OPEN</text>
+  <text x="292" y="122" text-anchor="middle" font-size="9" fill="#64748B">SLA timer running</text>
+  <text x="292" y="135" text-anchor="middle" font-size="9" fill="#64748B">finding visible</text>
+
+  <!-- self-loop on OPEN -->
+  <path d="M 270 80 Q 250 60 270 50 Q 292 40 314 50 Q 334 60 314 80" stroke="#94A3B8" stroke-width="1.5" fill="none"/>
+  <polygon points="312,76 318,82 320,72" fill="#94A3B8"/>
+  <text x="292" y="40" text-anchor="middle" font-size="8" fill="#64748B">persists across scans</text>
+
+  <line x1="368" y1="112" x2="400" y2="112" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="398,107 408,112 398,117" fill="#94A3B8"/>
+
+  <!-- ACKNOWLEDGED state -->
+  <rect x="410" y="80" width="152" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="486" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">ACKNOWLEDGED</text>
+  <text x="486" y="122" text-anchor="middle" font-size="9" fill="#B45309">Analyst saw it</text>
+  <text x="486" y="135" text-anchor="middle" font-size="9" fill="#B45309">SLA timer paused</text>
+
+  <line x1="562" y1="112" x2="594" y2="112" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="592,107 602,112 592,117" fill="#94A3B8"/>
+
+  <!-- REMEDIATED state -->
+  <rect x="604" y="80" width="152" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="680" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">REMEDIATED</text>
+  <text x="680" y="122" text-anchor="middle" font-size="9" fill="#64748B">Package upgraded</text>
+  <text x="680" y="135" text-anchor="middle" font-size="9" fill="#64748B">verified next scan</text>
+
+  <line x1="756" y1="112" x2="788" y2="112" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="786,107 796,112 786,117" fill="#94A3B8"/>
+
+  <!-- CLOSED state -->
+  <rect x="798" y="80" width="104" height="64" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="850" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">CLOSED</text>
+  <text x="850" y="122" text-anchor="middle" font-size="9" fill="#64748B">Auto-closed</text>
+  <text x="850" y="135" text-anchor="middle" font-size="9" fill="#64748B">on next scan</text>
+
+  <!-- SUPPRESSED state (offshoot from OPEN) -->
+  <line x1="292" y1="144" x2="292" y2="184" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <polygon points="287,182 292,192 297,182" fill="#94A3B8"/>
+  <text x="220" y="170" font-size="8" fill="#64748B">risk accepted</text>
+  <text x="220" y="180" font-size="8" fill="#64748B">w/ justification</text>
+
+  <rect x="216" y="194" width="152" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8" stroke-dasharray="4,3"/>
+  <text x="292" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#475569">SUPPRESSED</text>
+  <text x="292" y="232" text-anchor="middle" font-size="9" fill="#64748B">tracked separately for auditor</text>
+
+  <!-- arrow back from SUPPRESSED to OPEN if expired -->
+  <path d="M 216 215 Q 180 215 180 144 Q 180 135 200 132" stroke="#94A3B8" stroke-width="1" fill="none" stroke-dasharray="3,3"/>
+  <polygon points="198,127 206,134 198,138" fill="#94A3B8"/>
+  <text x="155" y="180" font-size="8" fill="#64748B">on expiry</text>
+
+  <!-- Footer -->
+  <text x="460" y="262" text-anchor="middle" font-size="9" fill="#64748B">Every state transition is logged in the audit trail · Suppressions require a documented reason and an optional expiry date · Closures verified by next scan</text>
+</svg>

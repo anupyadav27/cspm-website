@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <!-- Background -->
+    <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="20" y="20" width="920" height="560" as="geometry" />
+    </mxCell>
+    <!-- Title -->
+    <mxCell id="3" value="CSPM PLATFORM — HOW IT WORKS" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;fontColor=#4F46E5;letterSpacing=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="30" width="920" height="30" as="geometry" />
+    </mxCell>
+    <!-- Step 1: Connect -->
+    <mxCell id="10" value="&lt;b&gt;1. Connect&lt;/b&gt;&lt;br&gt;Read-only cloud credentials (AWS, Azure, GCP, OCI, AliCloud, IBM, K8s)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="80" width="840" height="60" as="geometry" />
+    </mxCell>
+    <!-- Arrow -->
+    <mxCell id="11" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="480" y="140" width="0" height="20" as="geometry" relative="0">
+        <Array as="points">
+          <mxPoint x="480" y="140" />
+          <mxPoint x="480" y="160" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Step 2: Discover -->
+    <mxCell id="12" value="&lt;b&gt;2. Discover&lt;/b&gt;&lt;br&gt;Enumerate 40+ cloud services — compute, storage, network, identity, security configurations" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="160" width="840" height="60" as="geometry" />
+    </mxCell>
+    <!-- Arrow -->
+    <mxCell id="13" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="480" y="220" width="0" height="20" as="geometry" relative="0">
+        <Array as="points">
+          <mxPoint x="480" y="220" />
+          <mxPoint x="480" y="240" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Step 3: Evaluate (highlight) -->
+    <mxCell id="14" value="&lt;b&gt;3. Evaluate 1,900+ Rules&lt;/b&gt;&lt;br&gt;PASS / FAIL assessment · Severity ranking · Compliance framework mapping" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2563EB;strokeColor=none;fontColor=#FFFFFF;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="240" width="840" height="60" as="geometry" />
+    </mxCell>
+    <!-- Arrow -->
+    <mxCell id="15" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="480" y="300" width="0" height="20" as="geometry" relative="0">
+        <Array as="points">
+          <mxPoint x="480" y="300" />
+          <mxPoint x="480" y="320" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Step 4: Prioritize -->
+    <mxCell id="16" value="&lt;b&gt;4. Prioritise&lt;/b&gt;&lt;br&gt;Risk-ranked findings · Remediation steps per finding · Attack surface context" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="320" width="840" height="60" as="geometry" />
+    </mxCell>
+    <!-- Arrow -->
+    <mxCell id="17" value="" style="endArrow=block;endFill=1;strokeColor=#10B981;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="480" y="380" width="0" height="20" as="geometry" relative="0">
+        <Array as="points">
+          <mxPoint x="480" y="380" />
+          <mxPoint x="480" y="400" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Step 5: Posture Score (green) -->
+    <mxCell id="18" value="&lt;b&gt;5. Posture Score&lt;/b&gt;&lt;br&gt;0–100 cloud security score · Compliance reports · Continuous re-evaluation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=none;fontColor=#FFFFFF;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="400" width="840" height="60" as="geometry" />
+    </mxCell>
+    <!-- Supporting text -->
+    <mxCell id="19" value="Read-only · No agents · Multi-cloud · Continuous" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#64748B;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="475" width="840" height="20" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

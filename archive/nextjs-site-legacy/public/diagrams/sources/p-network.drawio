@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="500" pageHeight="570" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <mxCell id="bg" value="" style="rounded=1;fillColor=#0B1628;strokeColor=#1D3461;strokeWidth=1;" vertex="1" parent="1">
+      <mxGeometry x="10" y="10" width="380" height="490" as="geometry" />
+    </mxCell>
+    <mxCell id="title" value="7-LAYER NETWORK SECURITY TOPOLOGY" style="text;html=1;align=center;fontColor=#818CF8;fontSize=8;fontStyle=1;letterSpacing=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="10" y="16" width="380" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="cont" value="" style="rounded=1;fillColor=#0F1E36;strokeColor=#1D3461;strokeWidth=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="42" width="360" height="436" as="geometry" />
+    </mxCell>
+    <!-- L1 -->
+    <mxCell id="l1b" value="L1" style="rounded=1;fillColor=#2563EB;strokeColor=none;fontColor=#fff;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="54" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l1t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Network Isolation&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;VPC segmentation · Peering · Transit gateways&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="54" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L2 -->
+    <mxCell id="l2b" value="L2" style="rounded=1;fillColor=#1E3A8A;strokeColor=#3B82F6;fontColor=#93C5FD;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="112" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l2t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Network Reachability&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;Route tables · NAT · Public/private subnet marking&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="112" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L3 -->
+    <mxCell id="l3b" value="L3" style="rounded=1;fillColor=#2563EB;strokeColor=none;fontColor=#fff;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="170" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l3t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Network ACLs&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;NACL rules at subnet boundary · Default-allow gaps&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="170" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L4 -->
+    <mxCell id="l4b" value="L4" style="rounded=1;fillColor=#1E3A8A;strokeColor=#3B82F6;fontColor=#93C5FD;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="228" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l4t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Security Groups&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;SSH/RDP/DB open to 0.0.0.0/0 · Orphaned SGs&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="228" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L5 -->
+    <mxCell id="l5b" value="L5" style="rounded=1;fillColor=#2563EB;strokeColor=none;fontColor=#fff;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="286" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l5t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Load Balancer Security&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;TLS versions · Internet-facing LBs · HTTPS redirect&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="286" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L6 -->
+    <mxCell id="l6b" value="L6" style="rounded=1;fillColor=#1E3A8A;strokeColor=#3B82F6;fontColor=#93C5FD;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="344" width="36" height="50" as="geometry" />
+    </mxCell>
+    <mxCell id="l6t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;WAF Protection&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#64748B;&apos;&gt;WAF coverage · OWASP rules · Rate limiting&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="344" width="295" height="50" as="geometry" />
+    </mxCell>
+    <!-- L7 (green) -->
+    <mxCell id="l7b" value="L7" style="rounded=1;fillColor=#10B981;strokeColor=none;fontColor=#fff;fontSize=10;fontStyle=1;" vertex="1" parent="1">
+      <mxGeometry x="30" y="402" width="36" height="52" as="geometry" />
+    </mxCell>
+    <mxCell id="l7t" value="&lt;b style=&apos;color:#E2E8F0;&apos;&gt;Network Monitoring&lt;/b&gt;&lt;br&gt;&lt;span style=&apos;font-size:9px;color:#D1FAE5;&apos;&gt;VPC Flow Logs · DNS logging · WAF logging&lt;/span&gt;" style="text;html=1;align=left;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;" vertex="1" parent="1">
+      <mxGeometry x="75" y="402" width="295" height="52" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

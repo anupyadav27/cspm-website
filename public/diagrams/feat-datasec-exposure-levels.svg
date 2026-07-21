@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DATA EXPOSURE LEVELS — HOW THE PLATFORM RATES WHO CAN REACH EACH DATA STORE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- exposure ladder header -->
+  <text x="32" y="62" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">RISK RANK ↓</text>
+  <text x="200" y="62" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">LEVEL</text>
+  <text x="500" y="62" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">WHO CAN REACH IT</text>
+  <text x="800" y="62" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">PLATFORM RESPONSE</text>
+
+  <!-- Public — RED -->
+  <rect x="20" y="76" width="884" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="36" y="104" font-size="10" font-weight="700" fill="#64748B">1</text>
+  <circle cx="80" cy="98" r="10" fill="#EF4444"/>
+  <text x="80" y="102" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">!</text>
+  <text x="120" y="94" font-size="12" font-weight="700" fill="#64748B">PUBLIC</text>
+  <text x="120" y="110" font-size="9" fill="#64748B">Reachable from the internet without auth</text>
+  <text x="370" y="102" font-size="9" fill="#64748B">Anyone on the internet · no credentials needed</text>
+  <text x="700" y="94" font-size="9" font-weight="700" fill="#64748B">CRITICAL finding</text>
+  <text x="700" y="108" font-size="9" fill="#64748B">if data is sensitive · immediate alert</text>
+
+  <!-- External — ORANGE -->
+  <rect x="20" y="128" width="884" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="36" y="156" font-size="10" font-weight="700" fill="#64748B">2</text>
+  <circle cx="80" cy="150" r="10" fill="#F59E0B"/>
+  <text x="80" y="154" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">▲</text>
+  <text x="120" y="146" font-size="12" font-weight="700" fill="#64748B">EXTERNAL</text>
+  <text x="120" y="162" font-size="9" fill="#B45309">Reachable by authenticated users outside the org</text>
+  <text x="370" y="154" font-size="9" fill="#64748B">External AWS accounts · SaaS partners · contractors</text>
+  <text x="700" y="146" font-size="9" font-weight="700" fill="#64748B">HIGH finding</text>
+  <text x="700" y="160" font-size="9" fill="#B45309">if scope unclear · trust review prompted</text>
+
+  <!-- Internal — YELLOW -->
+  <rect x="20" y="180" width="884" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="36" y="208" font-size="10" font-weight="700" fill="#713F12">3</text>
+  <circle cx="80" cy="202" r="10" fill="#EAB308"/>
+  <text x="80" y="206" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">·</text>
+  <text x="120" y="198" font-size="12" font-weight="700" fill="#713F12">INTERNAL</text>
+  <text x="120" y="214" font-size="9" fill="#854D0E">Reachable by anyone in your organization</text>
+  <text x="370" y="206" font-size="9" fill="#713F12">All employees · all service accounts in your tenant</text>
+  <text x="700" y="198" font-size="9" font-weight="700" fill="#713F12">MEDIUM finding</text>
+  <text x="700" y="212" font-size="9" fill="#854D0E">if access broader than role needs</text>
+
+  <!-- Restricted — GREEN -->
+  <rect x="20" y="232" width="884" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="36" y="256" font-size="10" font-weight="700" fill="#64748B">4</text>
+  <circle cx="80" cy="252" r="10" fill="#10B981"/>
+  <text x="80" y="256" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">✓</text>
+  <text x="120" y="248" font-size="12" font-weight="700" fill="#64748B">RESTRICTED</text>
+  <text x="120" y="262" font-size="9" fill="#64748B">Limited to specific authorized identities</text>
+  <text x="370" y="256" font-size="9" fill="#64748B">Named principals only · least-privilege enforced</text>
+  <text x="700" y="248" font-size="9" font-weight="700" fill="#64748B">No finding</text>
+  <text x="700" y="262" font-size="9" fill="#64748B">posture target — desired state</text>
+</svg>

@@ -1,0 +1,143 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 384" width="920" height="384" font-family="Arial, sans-serif">
+  <rect width="920" height="384" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SCAN PIPELINE — ORDERED EXECUTION PER scan_run_id</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- scan_run_id banner -->
+  <rect x="270" y="42" width="380" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="460" y="61" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">scan_run_id = single UUID shared by all engines in a scan run</text>
+
+  <!-- ── PIPELINE STEPS ── -->
+  <!-- Step 1: Onboarding -->
+  <rect x="16" y="90" width="118" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <rect x="16" y="90" width="118" height="22" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16" y="102" width="118" height="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="75" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 1</text>
+  <text x="75" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Onboarding</text>
+  <text x="75" y="142" text-anchor="middle" font-size="8" fill="#64748B">Credentials validated</text>
+  <text x="75" y="155" text-anchor="middle" font-size="8" fill="#64748B">scan_run_id assigned</text>
+
+  <line x1="134" y1="126" x2="148" y2="126" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="146,121 156,126 146,131" fill="#94A3B8"/>
+
+  <!-- Step 2: Discovery -->
+  <rect x="156" y="90" width="118" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <rect x="156" y="90" width="118" height="22" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="156" y="102" width="118" height="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="215" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 2</text>
+  <text x="215" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Discovery</text>
+  <text x="215" y="142" text-anchor="middle" font-size="8" fill="#64748B">40+ services scanned</text>
+  <text x="215" y="155" text-anchor="middle" font-size="8" fill="#64748B">Raw config captured</text>
+
+  <line x1="274" y1="126" x2="288" y2="126" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="286,121 296,126 286,131" fill="#94A3B8"/>
+
+  <!-- Step 3: Inventory -->
+  <rect x="296" y="90" width="118" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <rect x="296" y="90" width="118" height="22" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="296" y="102" width="118" height="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="355" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 3</text>
+  <text x="355" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Inventory</text>
+  <text x="355" y="142" text-anchor="middle" font-size="8" fill="#64748B">Assets normalized</text>
+  <text x="355" y="155" text-anchor="middle" font-size="8" fill="#64748B">Drift detected</text>
+
+  <line x1="414" y1="126" x2="428" y2="126" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="426,121 436,126 426,131" fill="#94A3B8"/>
+
+  <!-- Step 4: Check -->
+  <rect x="436" y="90" width="118" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="495" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 4</text>
+  <text x="495" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Check</text>
+  <text x="495" y="142" text-anchor="middle" font-size="8" fill="#64748B">1,918+ rules</text>
+  <text x="495" y="155" text-anchor="middle" font-size="8" fill="#64748B">PASS / FAIL per resource</text>
+
+  <line x1="554" y1="126" x2="568" y2="126" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="566,121 576,126 566,131" fill="#94A3B8"/>
+
+  <!-- Step 5: Threat -->
+  <rect x="576" y="90" width="118" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="635" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 5</text>
+  <text x="635" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Threat</text>
+  <text x="635" y="142" text-anchor="middle" font-size="8" fill="#64748B">MITRE ATT&amp;CK map</text>
+  <text x="635" y="155" text-anchor="middle" font-size="8" fill="#64748B">Attack chains built</text>
+
+  <!-- fan-out to domain engines -->
+  <line x1="694" y1="126" x2="712" y2="126" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="710,121 720,126 710,131" fill="#94A3B8"/>
+
+  <!-- Domain Engines (parallel) -->
+  <rect x="720" y="66" width="184" height="180" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="812" y="84" text-anchor="middle" font-size="8" font-weight="700" fill="#059669" letter-spacing="1">DOMAIN ENGINES</text>
+  <text x="812" y="97" text-anchor="middle" font-size="7" fill="#64748B">(run in parallel)</text>
+  <rect x="730" y="102" width="164" height="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="812" y="118" text-anchor="middle" font-size="8" fill="#64748B">Compliance · IAM · Network</text>
+  <rect x="730" y="132" width="164" height="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="812" y="148" text-anchor="middle" font-size="8" fill="#64748B">DSPM · CIEM · Vulnerability</text>
+  <rect x="730" y="162" width="164" height="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="812" y="178" text-anchor="middle" font-size="8" fill="#64748B">Container · DB Sec · AI Sec</text>
+  <rect x="730" y="192" width="164" height="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="812" y="208" text-anchor="middle" font-size="8" fill="#64748B">Encryption · SecOps</text>
+  <line x1="812" y1="246" x2="812" y2="262" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="806,260 812,270 818,260" fill="#94A3B8"/>
+
+  <!-- Risk Engine -->
+  <rect x="720" y="270" width="184" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="812" y="294" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Risk Engine</text>
+  <text x="812" y="310" text-anchor="middle" font-size="9" fill="#64748B">FAIR model · 0–100 posture score</text>
+
+  <!-- ── BOTTOM ROW: what each step produces ── -->
+  <rect x="16" y="190" width="888" height="108" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="10"/>
+  <text x="24" y="207" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="1.2">WHAT EACH STEP PRODUCES</text>
+
+  <rect x="28" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="77" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">credential_ref</text>
+  <text x="77" y="247" text-anchor="middle" font-size="8" fill="#64748B">stored in Secrets</text>
+  <text x="77" y="261" text-anchor="middle" font-size="8" fill="#64748B">Manager</text>
+  <text x="77" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Port 8008</text>
+
+  <rect x="140" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="189" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">discovery_findings</text>
+  <text x="189" y="247" text-anchor="middle" font-size="8" fill="#64748B">raw_config JSONB</text>
+  <text x="189" y="261" text-anchor="middle" font-size="8" fill="#64748B">per resource</text>
+  <text x="189" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Port 8001</text>
+
+  <rect x="252" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="301" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">inventory_assets</text>
+  <text x="301" y="247" text-anchor="middle" font-size="8" fill="#64748B">normalized asset</text>
+  <text x="301" y="261" text-anchor="middle" font-size="8" fill="#64748B">relationships</text>
+  <text x="301" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Port 8022</text>
+
+  <rect x="364" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="413" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">check_findings</text>
+  <text x="413" y="247" text-anchor="middle" font-size="8" fill="#64748B">PASS/FAIL</text>
+  <text x="413" y="261" text-anchor="middle" font-size="8" fill="#64748B">per rule per resource</text>
+  <text x="413" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Port 8002</text>
+
+  <rect x="476" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="525" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF">threat_findings</text>
+  <text x="525" y="247" text-anchor="middle" font-size="8" fill="#64748B">MITRE technique</text>
+  <text x="525" y="261" text-anchor="middle" font-size="8" fill="#64748B">attack chains</text>
+  <text x="525" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Port 8020</text>
+
+  <rect x="588" y="214" width="98" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="637" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">engine_findings</text>
+  <text x="637" y="247" text-anchor="middle" font-size="8" fill="#64748B">per security domain</text>
+  <text x="637" y="261" text-anchor="middle" font-size="8" fill="#64748B">10 parallel engines</text>
+  <text x="637" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">Ports 8000–8033</text>
+
+  <rect x="700" y="214" width="196" height="72" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="798" y="232" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">risk_summary</text>
+  <text x="798" y="247" text-anchor="middle" font-size="8" fill="#64748B">0–100 posture score</text>
+  <text x="798" y="261" text-anchor="middle" font-size="8" fill="#64748B">dollar exposure estimate</text>
+  <text x="798" y="278" text-anchor="middle" font-size="8" fill="#94A3B8">FAIR model output</text>
+
+  <!-- total engines label -->
+  <text x="460" y="340" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">All 15+ engines receive the same scan_run_id — findings are correlated across every engine</text>
+  <text x="460" y="358" text-anchor="middle" font-size="9" fill="#64748B">Agentless — read-only cloud APIs only — no changes to your cloud environment</text>
+
+  <!-- timing bar -->
+  <rect x="16" y="370" width="888" height="36" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="460" y="393" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Typical scan time: ~15 min (AWS account, 40+ services) · Results visible in real time as each engine completes</text>
+</svg>

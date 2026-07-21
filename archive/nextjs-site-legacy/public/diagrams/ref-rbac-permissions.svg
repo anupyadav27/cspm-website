@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" width="920" height="500" font-family="Arial, sans-serif">
+  <rect width="920" height="500" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">RBAC PERMISSIONS — 27 PERMISSIONS GROUPED BY DOMAIN, IN feature:action FORMAT</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Group: BASE READ (everyone) -->
+  <rect x="20" y="50" width="430" height="200" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="235" y="70" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">BASE READ — ALL ROLES (incl. viewer)</text>
+  <text x="235" y="84" text-anchor="middle" font-size="8" fill="#64748B">9 read permissions for non-sensitive engines</text>
+  <line x1="32" y1="92" x2="438" y2="92" stroke="#94A3B8" stroke-width="1"/>
+  <g font-family="ui-monospace, Monaco, monospace" font-size="9">
+    <rect x="36" y="104" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="119" fill="#64748B">discoveries:read</text>
+    <rect x="240" y="104" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="119" fill="#64748B">inventory:read</text>
+    <rect x="36" y="132" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="147" fill="#64748B">check:read</text>
+    <rect x="240" y="132" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="147" fill="#64748B">threat:read</text>
+    <rect x="36" y="160" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="175" fill="#64748B">compliance:read</text>
+    <rect x="240" y="160" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="175" fill="#64748B">iam:read</text>
+    <rect x="36" y="188" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="203" fill="#64748B">network:read</text>
+    <rect x="240" y="188" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="203" fill="#64748B">risk:read</text>
+    <rect x="36" y="216" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="231" fill="#64748B">scans:read · reports:read</text>
+  </g>
+
+  <!-- Group: SENSITIVE READ (analyst+) -->
+  <rect x="470" y="50" width="430" height="200" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="685" y="70" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">SENSITIVE READ — ANALYST+ ROLES</text>
+  <text x="685" y="84" text-anchor="middle" font-size="8" fill="#B45309">8 read permissions blocked for viewer (sensitive engines return 403)</text>
+  <line x1="482" y1="92" x2="888" y2="92" stroke="#94A3B8" stroke-width="1"/>
+  <g font-family="ui-monospace, Monaco, monospace" font-size="9">
+    <rect x="486" y="104" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="496" y="119" fill="#64748B">vulnerability:read</text>
+    <rect x="690" y="104" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="700" y="119" fill="#64748B">datasec:read</text>
+    <rect x="486" y="132" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="496" y="147" fill="#64748B">container:read</text>
+    <rect x="690" y="132" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="700" y="147" fill="#64748B">dbsec:read</text>
+    <rect x="486" y="160" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="496" y="175" fill="#64748B">ai_security:read</text>
+    <rect x="690" y="160" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="700" y="175" fill="#64748B">encryption:read</text>
+    <rect x="486" y="188" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="496" y="203" fill="#64748B">secops:read</text>
+    <rect x="690" y="188" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="700" y="203" fill="#64748B">ciem:read</text>
+    <rect x="486" y="216" width="398" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="685" y="231" text-anchor="middle" fill="#B45309" font-size="8">viewer role gets HTTP 403 on these 8 — by design</text>
+  </g>
+
+  <!-- Group: WRITE (tenant_admin+) -->
+  <rect x="20" y="262" width="430" height="220" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="235" y="282" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">WRITE — TENANT_ADMIN+ ROLES</text>
+  <text x="235" y="296" text-anchor="middle" font-size="8" fill="#475569">7 mutating permissions (some require org_admin)</text>
+  <line x1="32" y1="304" x2="438" y2="304" stroke="#CBD5E1" stroke-width="1"/>
+  <g font-family="ui-monospace, Monaco, monospace" font-size="9">
+    <rect x="36" y="316" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="331" fill="#1E40AF">scans:create</text>
+    <rect x="240" y="316" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="331" fill="#1E40AF">reports:write</text>
+    <rect x="36" y="344" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="359" fill="#1E40AF">tenants:read</text>
+    <rect x="240" y="344" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="359" fill="#1E40AF">tenants:write</text>
+    <rect x="36" y="372" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="387" fill="#1E40AF">users:read</text>
+    <rect x="240" y="372" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="387" fill="#1E40AF">users:write</text>
+    <rect x="36" y="400" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="46" y="415" fill="#1E40AF">accounts:read</text>
+    <rect x="240" y="400" width="194" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="250" y="415" fill="#64748B">accounts:write — org_admin+</text>
+    <rect x="36" y="428" width="398" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+    <text x="235" y="443" text-anchor="middle" fill="#64748B">billing:read — org_admin+ only</text>
+  </g>
+
+  <!-- Group: format reminder -->
+  <rect x="470" y="262" width="430" height="220" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="685" y="282" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">PERMISSION FORMAT &amp; ROLE GRANTING</text>
+  <text x="685" y="296" text-anchor="middle" font-size="8" fill="#64748B">How permissions and roles compose</text>
+  <line x1="482" y1="304" x2="888" y2="304" stroke="#94A3B8" stroke-width="1"/>
+
+  <text x="685" y="324" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">feature : action</text>
+  <text x="685" y="340" text-anchor="middle" font-size="8" fill="#64748B">e.g. discoveries:read, scans:create, tenants:write</text>
+
+  <line x1="540" y1="356" x2="830" y2="356" stroke="#94A3B8" stroke-width="1"/>
+
+  <text x="490" y="378" font-size="9" font-weight="700" fill="#3730A3">Roles inherit lower-level reads:</text>
+  <text x="490" y="394" font-size="9" fill="#475569">tenant_admin → analyst reads + writes</text>
+  <text x="490" y="408" font-size="9" fill="#475569">org_admin → tenant_admin + accounts:write + billing</text>
+  <text x="490" y="422" font-size="9" fill="#475569">platform_admin → all permissions, all tenants</text>
+
+  <text x="490" y="446" font-size="9" font-weight="700" fill="#3730A3">SAML group mappings → roles:</text>
+  <text x="490" y="462" font-size="9" fill="#475569">Map IdP groups to platform roles in SSO config</text>
+
+  <text x="685" y="490" text-anchor="middle" font-size="8" fill="#94A3B8">27 permissions total · 5 seeded roles · custom roles on Enterprise plan</text>
+</svg>

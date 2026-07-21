@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" width="920" height="360" font-family="Arial, sans-serif">
+  <rect width="920" height="360" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SAML 2.0 SSO FLOW — HOW A USER LOGS IN VIA YOUR IDENTITY PROVIDER</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- 4 actor lanes -->
+  <text x="115" y="60" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">USER</text>
+  <text x="115" y="74" text-anchor="middle" font-size="8" fill="#64748B">Browser session</text>
+  <line x1="115" y1="84" x2="115" y2="320" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="345" y="60" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">ONAM PLATFORM</text>
+  <text x="345" y="74" text-anchor="middle" font-size="8" fill="#64748B">Service Provider (SP)</text>
+  <line x1="345" y1="84" x2="345" y2="320" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="575" y="60" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">IDENTITY PROVIDER</text>
+  <text x="575" y="74" text-anchor="middle" font-size="8" fill="#64748B">Okta · Azure AD · Google · etc.</text>
+  <line x1="575" y1="84" x2="575" y2="320" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <text x="805" y="60" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">PLATFORM SESSION</text>
+  <text x="805" y="74" text-anchor="middle" font-size="8" fill="#64748B">post-auth state</text>
+  <line x1="805" y1="84" x2="805" y2="320" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="3,3"/>
+
+  <!-- Step 1 -->
+  <line x1="115" y1="100" x2="345" y2="100" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="343,95 353,100 343,105" fill="#94A3B8"/>
+  <rect x="135" y="86" width="190" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="230" y="98" text-anchor="middle" font-size="9" fill="#1E40AF">1. Navigate to /auth/saml/login</text>
+
+  <!-- Step 2 -->
+  <line x1="345" y1="130" x2="115" y2="130" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="117,125 107,130 117,135" fill="#94A3B8"/>
+  <rect x="135" y="116" width="190" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="230" y="128" text-anchor="middle" font-size="9" fill="#1E40AF">2. 302 Redirect to IdP w/ AuthnRequest</text>
+
+  <!-- Step 3 -->
+  <line x1="115" y1="160" x2="575" y2="160" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="573,155 583,160 573,165" fill="#94A3B8"/>
+  <rect x="265" y="146" width="220" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="375" y="158" text-anchor="middle" font-size="9" fill="#1E40AF">3. Browser POSTs SAML AuthnRequest to IdP</text>
+
+  <!-- Step 4 -->
+  <line x1="575" y1="190" x2="115" y2="190" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="117,185 107,190 117,195" fill="#94A3B8"/>
+  <rect x="265" y="176" width="220" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="375" y="188" text-anchor="middle" font-size="9" fill="#1E40AF">4. IdP prompts for credentials + MFA</text>
+
+  <!-- Step 5 (within IdP) -->
+  <rect x="450" y="206" width="250" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="575" y="218" text-anchor="middle" font-size="9" fill="#64748B">5. User authenticates at IdP (out of platform scope)</text>
+
+  <!-- Step 6 -->
+  <line x1="575" y1="240" x2="115" y2="240" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="117,235 107,240 117,245" fill="#94A3B8"/>
+  <rect x="265" y="226" width="220" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="375" y="238" text-anchor="middle" font-size="9" fill="#1E40AF">6. SAML Response — signed assertion to browser</text>
+
+  <!-- Step 7 -->
+  <line x1="115" y1="270" x2="345" y2="270" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="343,265 353,270 343,275" fill="#94A3B8"/>
+  <rect x="135" y="256" width="190" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="230" y="268" text-anchor="middle" font-size="9" fill="#1E40AF">7. POST /auth/saml/callback</text>
+
+  <!-- Step 8 (validation within platform) -->
+  <rect x="225" y="284" width="240" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="345" y="296" text-anchor="middle" font-size="9" fill="#3730A3">8. Validate signature · extract email · map groups</text>
+
+  <!-- Step 9 -->
+  <line x1="345" y1="316" x2="805" y2="316" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="803,311 813,316 803,321" fill="#94A3B8"/>
+  <rect x="488" y="302" width="270" height="18" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="3"/>
+  <text x="623" y="314" text-anchor="middle" font-size="9" fill="#64748B">9. Set access_token cookie · grant tenant_id-scoped session</text>
+
+  <!-- Footer -->
+  <text x="460" y="346" text-anchor="middle" font-size="8" fill="#64748B">Group-to-role mapping at step 8 lets you sync IdP groups to platform roles automatically · session is re-validated on every API request</text>
+</svg>

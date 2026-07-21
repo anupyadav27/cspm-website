@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 640" width="960" height="640" font-family="Arial, sans-serif">
+  <rect width="960" height="640" fill="#F8FAFC" rx="10"/>
+
+  <!-- ══ ROW 1: Portal ══════════════════════════════ -->
+  <rect x="330" y="16" width="300" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="480" y="38" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">CSPM Web Portal</text>
+  <text x="480" y="56" text-anchor="middle" font-size="10" fill="#64748B">Next.js 15  ·  React 19  ·  Real-time dashboard</text>
+
+  <!-- arrow down -->
+  <line x1="480" y1="68" x2="480" y2="84" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="474,82 480,92 486,82" fill="#94A3B8"/>
+
+  <!-- ══ ROW 2: Gateway ═════════════════════════════ -->
+  <rect x="230" y="92" width="500" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="480" y="114" text-anchor="middle" font-size="12" font-weight="700" fill="#1E40AF">API Gateway</text>
+  <text x="480" y="132" text-anchor="middle" font-size="10" fill="#64748B">Auth  ·  RBAC  ·  Routing  ·  BFF Views  ·  Tenant isolation</text>
+
+  <!-- arrow down -->
+  <line x1="480" y1="144" x2="480" y2="160" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="474,158 480,168 486,158" fill="#94A3B8"/>
+
+  <!-- ══ ROW 3: Core Pipeline ════════════════════════ -->
+  <rect x="16" y="168" width="928" height="104" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="24" y="185" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="1.2">CORE PIPELINE  (ordered)</text>
+
+  <!-- 5 pipeline boxes -->
+  <!-- Onboarding -->
+  <rect x="28" y="190" width="160" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="7"/>
+  <text x="108" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Onboarding</text>
+  <text x="108" y="230" text-anchor="middle" font-size="9" fill="#64748B">Cloud account</text>
+  <text x="108" y="244" text-anchor="middle" font-size="9" fill="#64748B">setup &amp; credentials</text>
+
+  <line x1="188" y1="222" x2="202" y2="222" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="200,218 208,222 200,226" fill="#94A3B8"/>
+
+  <!-- Discovery -->
+  <rect x="208" y="190" width="160" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="7"/>
+  <text x="288" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Discovery</text>
+  <text x="288" y="230" text-anchor="middle" font-size="9" fill="#64748B">Resource</text>
+  <text x="288" y="244" text-anchor="middle" font-size="9" fill="#64748B">enumeration</text>
+
+  <line x1="368" y1="222" x2="382" y2="222" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="380,218 388,222 380,226" fill="#94A3B8"/>
+
+  <!-- Inventory -->
+  <rect x="388" y="190" width="160" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="7"/>
+  <text x="468" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Inventory</text>
+  <text x="468" y="230" text-anchor="middle" font-size="9" fill="#64748B">Asset normalization</text>
+  <text x="468" y="244" text-anchor="middle" font-size="9" fill="#64748B">&amp; drift detection</text>
+
+  <line x1="548" y1="222" x2="562" y2="222" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="560,218 568,222 560,226" fill="#94A3B8"/>
+
+  <!-- Check -->
+  <rect x="568" y="190" width="160" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="7"/>
+  <text x="648" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Check</text>
+  <text x="648" y="230" text-anchor="middle" font-size="9" fill="#64748B">Rule evaluation</text>
+  <text x="648" y="244" text-anchor="middle" font-size="9" fill="#64748B">1,900+ PASS/FAIL</text>
+
+  <line x1="728" y1="222" x2="742" y2="222" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="740,218 748,222 740,226" fill="#94A3B8"/>
+
+  <!-- Threat -->
+  <rect x="748" y="190" width="160" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="7"/>
+  <text x="828" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Threat</text>
+  <text x="828" y="230" text-anchor="middle" font-size="9" fill="#64748B">MITRE ATT&amp;CK</text>
+  <text x="828" y="244" text-anchor="middle" font-size="9" fill="#64748B">attack path detection</text>
+
+  <!-- arrow down from pipeline to domain -->
+  <line x1="480" y1="272" x2="480" y2="292" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="474,290 480,300 486,290" fill="#94A3B8"/>
+
+  <!-- ══ ROW 4: Domain Engines ═══════════════════════ -->
+  <rect x="16" y="300" width="928" height="116" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="24" y="317" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="1.2">DOMAIN ENGINES  (parallel)</text>
+
+  <!-- 10 domain engine boxes in 2 rows of 5 -->
+  <!-- Row A -->
+  <rect x="28"  y="322" width="160" height="40" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="108" y="338" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Compliance</text>
+  <text x="108" y="354" text-anchor="middle" font-size="9"  fill="#64748B">13+ frameworks</text>
+
+  <rect x="204" y="322" width="160" height="40" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="284" y="338" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">IAM Security</text>
+  <text x="284" y="354" text-anchor="middle" font-size="9"  fill="#64748B">57 rules · 6 modules</text>
+
+  <rect x="380" y="322" width="160" height="40" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="460" y="338" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Network Security</text>
+  <text x="460" y="354" text-anchor="middle" font-size="9"  fill="#64748B">7-layer topology</text>
+
+  <rect x="556" y="322" width="160" height="40" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="636" y="338" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Data Security</text>
+  <text x="636" y="354" text-anchor="middle" font-size="9"  fill="#64748B">62 rules · DSPM</text>
+
+  <rect x="732" y="322" width="160" height="40" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="812" y="338" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Vulnerability</text>
+  <text x="812" y="354" text-anchor="middle" font-size="9"  fill="#64748B">CVE · EPSS · SBOM</text>
+
+  <!-- Row B -->
+  <rect x="28"  y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="108" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CIEM</text>
+  <text x="108" y="401" text-anchor="middle" font-size="9"  fill="#64748B">Entitlement analysis</text>
+
+  <rect x="204" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="284" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Container Security</text>
+  <text x="284" y="401" text-anchor="middle" font-size="9"  fill="#64748B">EKS · ECS · K8s RBAC</text>
+
+  <rect x="380" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="460" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">DB Security</text>
+  <text x="460" y="401" text-anchor="middle" font-size="9"  fill="#64748B">RDS · Cosmos · Cloud SQL</text>
+
+  <rect x="556" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="636" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AI Security</text>
+  <text x="636" y="401" text-anchor="middle" font-size="9"  fill="#64748B">SageMaker · Bedrock</text>
+
+  <rect x="732" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="812" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Encryption</text>
+  <text x="812" y="401" text-anchor="middle" font-size="9"  fill="#64748B">KMS · Certs · Secrets</text>
+
+  <!-- arrow down -->
+  <line x1="480" y1="416" x2="480" y2="436" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="474,434 480,444 486,434" fill="#94A3B8"/>
+
+  <!-- ══ ROW 5: Intelligence ══════════════════════════ -->
+  <rect x="16" y="444" width="928" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="24" y="461" font-size="8" font-weight="700" fill="#059669" letter-spacing="1.2">INTELLIGENCE LAYER</text>
+
+  <rect x="30"  y="466" width="280" height="48" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="170" y="487" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Risk Engine</text>
+  <text x="170" y="504" text-anchor="middle" font-size="9"  fill="#64748B">FAIR model · 0–100 score · Dollar exposure</text>
+
+  <rect x="340" y="466" width="280" height="48" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="480" y="487" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Security Graph</text>
+  <text x="480" y="504" text-anchor="middle" font-size="9"  fill="#64748B">Neo4j · Attack paths · Blast radius</text>
+
+  <rect x="650" y="466" width="280" height="48" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="790" y="487" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Threat Narrative</text>
+  <text x="790" y="504" text-anchor="middle" font-size="9"  fill="#64748B">AI summaries · Remediation guidance</text>
+
+  <!-- ══ PLATFORM SERVICES sidebar note ═══════════════ -->
+  <rect x="16" y="540" width="928" height="84" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="24" y="557" font-size="8" font-weight="700" fill="#94A3B8" letter-spacing="1.2">PLATFORM SERVICES</text>
+  <rect x="30"  y="562" width="270" height="50" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" rx="6"/>
+  <text x="165" y="582" text-anchor="middle" font-size="11" font-weight="700" fill="#374151">Django Auth</text>
+  <text x="165" y="598" text-anchor="middle" font-size="9"  fill="#94A3B8">Local · Google SSO · SAML · MFA</text>
+  <rect x="324" y="562" width="270" height="50" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" rx="6"/>
+  <text x="459" y="582" text-anchor="middle" font-size="11" font-weight="700" fill="#374151">Billing</text>
+  <text x="459" y="598" text-anchor="middle" font-size="9"  fill="#94A3B8">Stripe · Subscriptions · Scan tokens</text>
+  <rect x="618" y="562" width="270" height="50" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1" rx="6"/>
+  <text x="753" y="582" text-anchor="middle" font-size="11" font-weight="700" fill="#374151">Platform Admin</text>
+  <text x="753" y="598" text-anchor="middle" font-size="9"  fill="#94A3B8">Org management · Tenant CRUD · Audit</text>
+</svg>

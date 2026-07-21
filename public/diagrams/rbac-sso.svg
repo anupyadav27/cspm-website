@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="480" viewBox="0 0 920 480" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="480" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">RBAC ROLES AND SSO CONFIGURATION</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- ===== RBAC TABLE ===== -->
+  <!-- Header -->
+  <rect x="20" y="34" width="880" height="34" fill="#FFFFFF" rx="4" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="110" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Permission</text>
+  <text x="269" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Platform Admin</text>
+  <text x="403" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Org Admin</text>
+  <text x="537" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Tenant Admin</text>
+  <text x="671" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Analyst</text>
+  <text x="820" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Viewer</text>
+
+  <!-- Row 1: View Findings (even) -->
+  <rect x="20" y="68" width="880" height="30" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="88" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">View Findings</text>
+  <circle cx="269" cy="83" r="9" fill="#10B981"/>
+  <text x="269" y="87" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="83" r="9" fill="#10B981"/>
+  <text x="403" y="87" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="537" cy="83" r="9" fill="#10B981"/>
+  <text x="537" y="87" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="671" cy="83" r="9" fill="#10B981"/>
+  <text x="671" y="87" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="820" cy="83" r="9" fill="#10B981"/>
+  <text x="820" y="87" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <line x1="20" y1="98" x2="900" y2="98" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 2: Trigger Scans (odd) -->
+  <rect x="20" y="98" width="880" height="30" fill="#F8FAFC"/>
+  <text x="28" y="118" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">Trigger Scans</text>
+  <circle cx="269" cy="113" r="9" fill="#10B981"/>
+  <text x="269" y="117" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="113" r="9" fill="#10B981"/>
+  <text x="403" y="117" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="537" cy="113" r="9" fill="#10B981"/>
+  <text x="537" y="117" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="671" cy="113" r="9" fill="#10B981"/>
+  <text x="671" y="117" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="820" cy="113" r="9" fill="#F1F5F9"/>
+  <text x="820" y="117" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <line x1="20" y1="128" x2="900" y2="128" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 3: Manage Accounts (even) -->
+  <rect x="20" y="128" width="880" height="30" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="148" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">Manage Accounts</text>
+  <circle cx="269" cy="143" r="9" fill="#10B981"/>
+  <text x="269" y="147" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="143" r="9" fill="#10B981"/>
+  <text x="403" y="147" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="537" cy="143" r="9" fill="#10B981"/>
+  <text x="537" y="147" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="671" cy="143" r="9" fill="#F1F5F9"/>
+  <text x="671" y="147" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="820" cy="143" r="9" fill="#F1F5F9"/>
+  <text x="820" y="147" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <line x1="20" y1="158" x2="900" y2="158" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 4: Export Reports (odd) -->
+  <rect x="20" y="158" width="880" height="30" fill="#F8FAFC"/>
+  <text x="28" y="178" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">Export Reports</text>
+  <circle cx="269" cy="173" r="9" fill="#10B981"/>
+  <text x="269" y="177" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="173" r="9" fill="#10B981"/>
+  <text x="403" y="177" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="537" cy="173" r="9" fill="#10B981"/>
+  <text x="537" y="177" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="671" cy="173" r="9" fill="#10B981"/>
+  <text x="671" y="177" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="820" cy="173" r="9" fill="#F1F5F9"/>
+  <text x="820" y="177" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <line x1="20" y1="188" x2="900" y2="188" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 5: Manage Users (even) -->
+  <rect x="20" y="188" width="880" height="30" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="208" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">Manage Users</text>
+  <circle cx="269" cy="203" r="9" fill="#10B981"/>
+  <text x="269" y="207" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="203" r="9" fill="#10B981"/>
+  <text x="403" y="207" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="537" cy="203" r="9" fill="#F1F5F9"/>
+  <text x="537" y="207" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="671" cy="203" r="9" fill="#F1F5F9"/>
+  <text x="671" y="207" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="820" cy="203" r="9" fill="#F1F5F9"/>
+  <text x="820" y="207" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <line x1="20" y1="218" x2="900" y2="218" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 6: Platform Config (odd) -->
+  <rect x="20" y="218" width="880" height="30" fill="#F8FAFC"/>
+  <text x="28" y="238" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">Platform Config</text>
+  <circle cx="269" cy="233" r="9" fill="#10B981"/>
+  <text x="269" y="237" text-anchor="middle" fill="#64748B" font-size="9">✓</text>
+  <circle cx="403" cy="233" r="9" fill="#F1F5F9"/>
+  <text x="403" y="237" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="537" cy="233" r="9" fill="#F1F5F9"/>
+  <text x="537" y="237" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="671" cy="233" r="9" fill="#F1F5F9"/>
+  <text x="671" y="237" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <circle cx="820" cy="233" r="9" fill="#F1F5F9"/>
+  <text x="820" y="237" text-anchor="middle" fill="#94A3B8" font-size="9">✗</text>
+  <line x1="20" y1="248" x2="900" y2="248" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Table border -->
+  <rect x="20" y="34" width="880" height="244" fill="none" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <!-- Column separators -->
+  <line x1="204" y1="34" x2="204" y2="278" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="338" y1="34" x2="338" y2="278" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="472" y1="34" x2="472" y2="278" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="606" y1="34" x2="606" y2="278" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="740" y1="34" x2="740" y2="278" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- ===== SSO SECTION ===== -->
+  <text x="460" y="298" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">SINGLE SIGN-ON (SSO / SAML 2.0)</text>
+
+  <!-- Box 1: Identity Provider -->
+  <rect x="20" y="308" width="250" height="110" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="145" y="330" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Your Identity Provider</text>
+  <text x="145" y="350" text-anchor="middle" fill="#64748B" font-size="9">Okta · Azure AD · Google Workspace</text>
+  <text x="145" y="367" text-anchor="middle" fill="#64748B" font-size="9">SAML 2.0 IDP</text>
+  <text x="145" y="384" text-anchor="middle" fill="#3B82F6" font-size="8">Configure ACS URL + Entity ID</text>
+  <text x="145" y="400" text-anchor="middle" fill="#3B82F6" font-size="8">Metadata XML available</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="270" y1="363" x2="330" y2="363" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="328,358 338,363 328,368" fill="#94A3B8"/>
+
+  <!-- Box 2: SAML Assertion -->
+  <rect x="340" y="308" width="240" height="110" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="330" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">SAML Assertion</text>
+  <text x="460" y="350" text-anchor="middle" fill="#64748B" font-size="9">NameID (email)</text>
+  <text x="460" y="367" text-anchor="middle" fill="#64748B" font-size="9">Groups attribute mapping</text>
+  <text x="460" y="384" text-anchor="middle" fill="#64748B" font-size="9">Role mapping config</text>
+  <text x="460" y="400" text-anchor="middle" fill="#64748B" font-size="8">Encrypted assertion</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="580" y1="363" x2="640" y2="363" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="638,358 648,363 638,368" fill="#94A3B8"/>
+
+  <!-- Box 3: Onam Platform -->
+  <rect x="650" y="308" width="250" height="110" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="775" y="330" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Onam Platform</text>
+  <text x="775" y="350" text-anchor="middle" fill="#64748B" font-size="9">Auto-provision user</text>
+  <text x="775" y="367" text-anchor="middle" fill="#64748B" font-size="9">Map groups → roles</text>
+  <text x="775" y="384" text-anchor="middle" fill="#64748B" font-size="9">Session created (24h)</text>
+  <text x="775" y="400" text-anchor="middle" fill="#64748B" font-size="8">Audit logged · JIT provisioning</text>
+
+  <!-- Footer -->
+  <text x="460" y="468" text-anchor="middle" fill="#94A3B8" font-size="8">SCIM provisioning available · Group sync supported · Session timeout configurable</text>
+</svg>

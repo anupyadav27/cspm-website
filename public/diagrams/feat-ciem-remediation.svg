@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">REMEDIATION WORKFLOW — FROM A CIEM FINDING TO A VERIFIED LEAST-PRIVILEGE FIX</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Stage labels -->
+  <text x="106" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">1. DETECTED</text>
+  <text x="288" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">2. REVIEW</text>
+  <text x="470" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">3. SUGGESTED POLICY</text>
+  <text x="652" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">4. APPLY</text>
+  <text x="834" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">5. VERIFY</text>
+
+  <!-- Step 1: Finding (red) -->
+  <rect x="22" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="106" y="100" text-anchor="middle" font-size="14">⚠️</text>
+  <text x="106" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">CIEM Finding</text>
+  <text x="106" y="142" text-anchor="middle" font-size="9" fill="#64748B">Overprivileged role detected</text>
+  <text x="106" y="156" text-anchor="middle" font-size="9" fill="#64748B">Gap score 87 / 100</text>
+  <text x="106" y="168" text-anchor="middle" font-size="9" fill="#64748B">12 unused services</text>
+
+  <!-- Arrow 1 -->
+  <line x1="194" y1="124" x2="276" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="274,119 284,124 274,129" fill="#94A3B8"/>
+
+  <!-- Step 2: Review -->
+  <rect x="204" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="288" y="100" text-anchor="middle" font-size="14">🔍</text>
+  <text x="288" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Analyst Review</text>
+  <text x="288" y="142" text-anchor="middle" font-size="9" fill="#475569">Compare effective</text>
+  <text x="288" y="156" text-anchor="middle" font-size="9" fill="#475569">vs used permissions</text>
+  <text x="288" y="168" text-anchor="middle" font-size="9" fill="#475569">over last 90 days</text>
+
+  <!-- Arrow 2 -->
+  <line x1="376" y1="124" x2="458" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="456,119 466,124 456,129" fill="#94A3B8"/>
+
+  <!-- Step 3: Suggested Policy -->
+  <rect x="386" y="74" width="168" height="100" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="470" y="100" text-anchor="middle" font-size="14">📝</text>
+  <text x="470" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Generated Policy</text>
+  <text x="470" y="142" text-anchor="middle" font-size="9" fill="#C7D2FE">Platform synthesizes</text>
+  <text x="470" y="156" text-anchor="middle" font-size="9" fill="#C7D2FE">least-privilege JSON</text>
+  <text x="470" y="168" text-anchor="middle" font-size="9" fill="#C7D2FE">based on actual usage</text>
+
+  <!-- Arrow 3 -->
+  <line x1="558" y1="124" x2="640" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="638,119 648,124 638,129" fill="#94A3B8"/>
+
+  <!-- Step 4: Apply (decision diamond style as box with two outputs hint) -->
+  <rect x="568" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="652" y="100" text-anchor="middle" font-size="14">🛠️</text>
+  <text x="652" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">You Apply</text>
+  <text x="652" y="142" text-anchor="middle" font-size="9" fill="#475569">Manual: copy to Console / CLI</text>
+  <text x="652" y="156" text-anchor="middle" font-size="9" fill="#475569">Automated: approved pipeline</text>
+  <text x="652" y="168" text-anchor="middle" font-size="9" fill="#475569">Platform never auto-applies</text>
+
+  <!-- Arrow 4 -->
+  <line x1="740" y1="124" x2="822" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="820,119 830,124 820,129" fill="#94A3B8"/>
+
+  <!-- Step 5: Verify (green) -->
+  <rect x="750" y="74" width="158" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="829" y="100" text-anchor="middle" font-size="14">✅</text>
+  <text x="829" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">Verified</text>
+  <text x="829" y="142" text-anchor="middle" font-size="9" fill="#64748B">Next scan confirms</text>
+  <text x="829" y="156" text-anchor="middle" font-size="9" fill="#64748B">gap score reduced</text>
+  <text x="829" y="168" text-anchor="middle" font-size="9" fill="#64748B">finding auto-closes</text>
+
+  <!-- Footer -->
+  <line x1="60" y1="200" x2="860" y2="200" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="222" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">SAFETY GUARANTEE — YOU STAY IN CONTROL</text>
+  <text x="460" y="240" text-anchor="middle" font-size="9" fill="#64748B">The platform never modifies your IAM directly. Suggested policies are presented for your approval — you choose whether to apply manually,</text>
+  <text x="460" y="254" text-anchor="middle" font-size="9" fill="#64748B">via your IaC pipeline, or via an approved automation hook. The "verify" stage runs on the next scheduled scan and confirms the gap closed.</text>
+</svg>

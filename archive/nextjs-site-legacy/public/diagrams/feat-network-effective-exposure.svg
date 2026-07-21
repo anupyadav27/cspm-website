@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">EFFECTIVE EXPOSURE — TRACING WHETHER THE INTERNET CAN ACTUALLY REACH YOUR RESOURCE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Subtitle -->
+  <text x="460" y="56" text-anchor="middle" font-size="9" fill="#64748B">A port "open" in a security group is only a real risk if every preceding network gate also permits the traffic. The platform checks all 6 gates.</text>
+
+  <!-- Stage labels -->
+  <text x="65" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">SOURCE</text>
+  <text x="195" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">GATE 1</text>
+  <text x="325" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">GATE 2</text>
+  <text x="455" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">GATE 3</text>
+  <text x="585" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">GATE 4</text>
+  <text x="715" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">GATE 5</text>
+  <text x="855" y="82" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">RESULT</text>
+
+  <!-- Step 1: Internet -->
+  <rect x="22" y="96" width="86" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="65" y="120" text-anchor="middle" font-size="18">🌐</text>
+  <text x="65" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Internet</text>
+  <text x="65" y="158" text-anchor="middle" font-size="8" fill="#64748B">Every untrusted</text>
+  <text x="65" y="170" text-anchor="middle" font-size="8" fill="#64748B">attacker</text>
+
+  <!-- arrow 1 -->
+  <line x1="112" y1="136" x2="148" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="146,131 156,136 146,141" fill="#94A3B8"/>
+
+  <!-- Gate 1: Internet Gateway -->
+  <rect x="160" y="96" width="76" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="198" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Internet</text>
+  <text x="198" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Gateway</text>
+  <line x1="172" y1="138" x2="224" y2="138" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="198" y="152" text-anchor="middle" font-size="8" fill="#475569">Attached to</text>
+  <text x="198" y="164" text-anchor="middle" font-size="8" fill="#475569">VPC?</text>
+
+  <!-- arrow 2 -->
+  <line x1="240" y1="136" x2="276" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="274,131 284,136 274,141" fill="#94A3B8"/>
+
+  <!-- Gate 2: Route Table -->
+  <rect x="288" y="96" width="76" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="326" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Route</text>
+  <text x="326" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Table</text>
+  <line x1="300" y1="138" x2="352" y2="138" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="326" y="152" text-anchor="middle" font-size="8" fill="#475569">0.0.0.0/0</text>
+  <text x="326" y="164" text-anchor="middle" font-size="8" fill="#475569">→ IGW route?</text>
+
+  <!-- arrow 3 -->
+  <line x1="368" y1="136" x2="404" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="402,131 412,136 402,141" fill="#94A3B8"/>
+
+  <!-- Gate 3: Subnet -->
+  <rect x="416" y="96" width="76" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="454" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Subnet</text>
+  <text x="454" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Type</text>
+  <line x1="428" y1="138" x2="480" y2="138" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="454" y="152" text-anchor="middle" font-size="8" fill="#475569">Public</text>
+  <text x="454" y="164" text-anchor="middle" font-size="8" fill="#475569">subnet?</text>
+
+  <!-- arrow 4 -->
+  <line x1="496" y1="136" x2="532" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="530,131 540,136 530,141" fill="#94A3B8"/>
+
+  <!-- Gate 4: NACL -->
+  <rect x="544" y="96" width="76" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="582" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Network</text>
+  <text x="582" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">ACL</text>
+  <line x1="556" y1="138" x2="608" y2="138" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="582" y="152" text-anchor="middle" font-size="8" fill="#475569">Inbound</text>
+  <text x="582" y="164" text-anchor="middle" font-size="8" fill="#475569">port allowed?</text>
+
+  <!-- arrow 5 -->
+  <line x1="624" y1="136" x2="660" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="658,131 668,136 658,141" fill="#94A3B8"/>
+
+  <!-- Gate 5: Security Group -->
+  <rect x="672" y="96" width="86" height="80" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="715" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Security</text>
+  <text x="715" y="130" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Group</text>
+  <line x1="684" y1="138" x2="746" y2="138" stroke="#94A3B8" stroke-width="1"/>
+  <text x="715" y="152" text-anchor="middle" font-size="8" fill="#C7D2FE">Inbound</text>
+  <text x="715" y="164" text-anchor="middle" font-size="8" fill="#C7D2FE">from 0.0.0.0/0?</text>
+
+  <!-- arrow 6 -->
+  <line x1="762" y1="136" x2="798" y2="136" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="796,131 806,136 796,141" fill="#94A3B8"/>
+
+  <!-- Result: Effectively Exposed -->
+  <rect x="810" y="96" width="92" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="856" y="120" text-anchor="middle" font-size="18">🎯</text>
+  <text x="856" y="142" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Exposed</text>
+  <text x="856" y="158" text-anchor="middle" font-size="8" fill="#64748B">CRITICAL</text>
+  <text x="856" y="170" text-anchor="middle" font-size="8" fill="#64748B">finding</text>
+
+  <!-- Footer note -->
+  <line x1="40" y1="200" x2="880" y2="200" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="220" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">WHY THIS MATTERS</text>
+  <text x="460" y="238" text-anchor="middle" font-size="9" fill="#64748B">An SSH-open security group on a private-subnet instance with no IGW route is a low-priority finding. The same rule on a public-subnet instance</text>
+  <text x="460" y="252" text-anchor="middle" font-size="9" fill="#64748B">with an IGW route is CRITICAL. Effective exposure analysis prevents alert fatigue by ranking findings on actual reachability — not policy text alone.</text>
+  <text x="460" y="268" text-anchor="middle" font-size="9" fill="#64748B">All 6 gates must allow the path for the resource to be effectively exposed. Block any one and the path is closed.</text>
+</svg>

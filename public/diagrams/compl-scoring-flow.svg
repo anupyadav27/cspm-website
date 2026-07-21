@@ -1,0 +1,118 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 430" width="920" height="430" font-family="Arial, sans-serif">
+  <rect width="920" height="430" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">FRAMEWORK SCORING METHODOLOGY — HOW THE PLATFORM CALCULATES POSTURE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── COLUMN 1: INPUT & EVALUATE ── -->
+  <rect x="16" y="48" width="232" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="132" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">INPUT &amp; EVALUATION</text>
+  <line x1="26" y1="76" x2="238" y2="76" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- step 1: rule pool -->
+  <rect x="32" y="92" width="200" height="68" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="132" y="114" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Applicable Rules</text>
+  <text x="132" y="132" text-anchor="middle" font-size="9" fill="#64748B">Subset of 1,918 rules that apply</text>
+  <text x="132" y="146" text-anchor="middle" font-size="9" fill="#64748B">to this framework</text>
+
+  <!-- arrow down -->
+  <line x1="132" y1="162" x2="132" y2="186" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="126,184 132,194 138,184" fill="#94A3B8"/>
+
+  <!-- step 2: evaluate -->
+  <rect x="32" y="198" width="200" height="68" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="132" y="220" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Evaluate Each Rule</text>
+  <text x="132" y="238" text-anchor="middle" font-size="9" fill="#64748B">against every resource</text>
+  <text x="132" y="252" text-anchor="middle" font-size="9" fill="#64748B">in scope</text>
+
+  <!-- example resource counts -->
+  <text x="132" y="288" text-anchor="middle" font-size="8" font-weight="700" fill="#1E40AF" letter-spacing="1">EXAMPLE: PCI-DSS v4.0</text>
+  <text x="132" y="305" text-anchor="middle" font-size="9" fill="#64748B">145 rules apply</text>
+  <text x="132" y="320" text-anchor="middle" font-size="9" fill="#64748B">× 3,400 resources</text>
+  <text x="132" y="335" text-anchor="middle" font-size="9" fill="#64748B">= 493,000 evaluations</text>
+
+  <!-- ── arrow column 1 → column 2 ── -->
+  <line x1="248" y1="225" x2="278" y2="225" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="276,220 286,225 276,230" fill="#94A3B8"/>
+
+  <!-- ── COLUMN 2: OUTCOME PER PAIR ── -->
+  <rect x="288" y="48" width="290" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="433" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">OUTCOME PER RESOURCE × RULE</text>
+  <line x1="298" y1="76" x2="568" y2="76" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- PASS row -->
+  <rect x="304" y="96" width="258" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <circle cx="328" cy="120" r="10" fill="#10B981"/>
+  <text x="328" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">✓</text>
+  <text x="350" y="118" font-size="11" font-weight="700" fill="#64748B">PASS</text>
+  <text x="350" y="138" font-size="9" fill="#64748B">Resource satisfies the rule</text>
+  <text x="350" y="152" font-size="9" fill="#64748B">→ adds to pass count</text>
+  <text x="350" y="166" font-size="9" fill="#64748B">→ no finding generated</text>
+
+  <!-- FAIL row -->
+  <rect x="304" y="186" width="258" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <circle cx="328" cy="210" r="10" fill="#EF4444"/>
+  <text x="328" y="214" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">✕</text>
+  <text x="350" y="208" font-size="11" font-weight="700" fill="#64748B">FAIL</text>
+  <text x="350" y="228" font-size="9" fill="#64748B">Resource violates the rule</text>
+  <text x="350" y="242" font-size="9" fill="#64748B">→ adds to fail count</text>
+  <text x="350" y="256" font-size="9" fill="#64748B">→ finding created with severity</text>
+
+  <!-- N/A row -->
+  <rect x="304" y="276" width="258" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <circle cx="328" cy="300" r="10" fill="#94A3B8"/>
+  <text x="328" y="304" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">−</text>
+  <text x="350" y="298" font-size="11" font-weight="700" fill="#334155">NOT APPLICABLE</text>
+  <text x="350" y="318" font-size="9" fill="#475569">Rule does not apply to this</text>
+  <text x="350" y="332" font-size="9" fill="#475569">resource type or context</text>
+  <text x="350" y="346" font-size="9" fill="#475569">→ excluded from score</text>
+
+  <!-- footer note -->
+  <text x="433" y="378" text-anchor="middle" font-size="8" fill="#64748B">Suppressed findings (with documented justification)</text>
+  <text x="433" y="392" text-anchor="middle" font-size="8" fill="#64748B">are tracked separately and excluded from the score</text>
+
+  <!-- ── arrow column 2 → column 3 ── -->
+  <line x1="578" y1="225" x2="608" y2="225" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="606,220 616,225 606,230" fill="#94A3B8"/>
+
+  <!-- ── COLUMN 3: SCORE & STATUS ── -->
+  <rect x="618" y="48" width="286" height="354" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="761" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">FRAMEWORK SCORE &amp; STATUS</text>
+  <line x1="628" y1="76" x2="894" y2="76" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- formula box -->
+  <rect x="634" y="92" width="254" height="86" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="761" y="115" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A" letter-spacing="1">SCORE FORMULA</text>
+  <text x="761" y="142" text-anchor="middle" font-size="14" font-weight="700" fill="#1E3A8A">PASS</text>
+  <line x1="700" y1="148" x2="822" y2="148" stroke="#94A3B8" stroke-width="1.5"/>
+  <text x="761" y="166" text-anchor="middle" font-size="11" fill="#64748B">PASS + FAIL</text>
+  <text x="868" y="146" text-anchor="middle" font-size="11" fill="#64748B">× 100</text>
+
+  <!-- threshold label -->
+  <text x="761" y="200" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">SCORE THRESHOLDS</text>
+
+  <!-- compliant -->
+  <rect x="634" y="212" width="254" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <circle cx="660" cy="236" r="10" fill="#fff"/>
+  <text x="660" y="240" text-anchor="middle" font-size="11" font-weight="700" fill="#10B981">●</text>
+  <text x="684" y="232" font-size="11" font-weight="700" fill="#1E3A8A">≥ 80%</text>
+  <text x="684" y="248" font-size="9" fill="#64748B">Compliant — audit-ready</text>
+
+  <!-- partial -->
+  <rect x="634" y="268" width="254" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <circle cx="660" cy="292" r="10" fill="#fff"/>
+  <text x="660" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#F59E0B">●</text>
+  <text x="684" y="288" font-size="11" font-weight="700" fill="#1E3A8A">60 – 79%</text>
+  <text x="684" y="304" font-size="9" fill="#FEF3C7">Partially Compliant</text>
+
+  <!-- non-compliant -->
+  <rect x="634" y="324" width="254" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <circle cx="660" cy="348" r="10" fill="#fff"/>
+  <text x="660" y="352" text-anchor="middle" font-size="11" font-weight="700" fill="#EF4444">●</text>
+  <text x="684" y="344" font-size="11" font-weight="700" fill="#1E3A8A">&lt; 60%</text>
+  <text x="684" y="360" font-size="9" fill="#FEE2E2">Non-Compliant — gaps to remediate</text>
+
+  <!-- footer -->
+  <text x="761" y="392" text-anchor="middle" font-size="8" fill="#64748B">Recalculated after every scan · Trend tracked over time</text>
+</svg>

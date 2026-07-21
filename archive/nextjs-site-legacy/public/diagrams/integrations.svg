@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="460" viewBox="0 0 920 460" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="460" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">INTEGRATION CATALOG — SECURITY TOOLCHAIN CONNECTIONS</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- ===== COL 1: SIEM & Observability ===== -->
+  <rect x="20" y="36" width="270" height="38" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="155" y="61" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">SIEM &amp; Observability</text>
+
+  <!-- Splunk -->
+  <rect x="20" y="82" width="270" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="155" y="102" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Splunk</text>
+  <text x="155" y="120" text-anchor="middle" fill="#64748B" font-size="9">Findings → SIEM events</text>
+  <text x="155" y="137" text-anchor="middle" fill="#3B82F6" font-size="8">Saved searches · Dashboards</text>
+
+  <!-- Elastic SIEM -->
+  <rect x="20" y="170" width="270" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="155" y="190" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Elastic SIEM</text>
+  <text x="155" y="208" text-anchor="middle" fill="#64748B" font-size="9">CEF/JSON format</text>
+  <text x="155" y="225" text-anchor="middle" fill="#3B82F6" font-size="8">Index pattern included</text>
+
+  <!-- AWS Security Hub -->
+  <rect x="20" y="258" width="270" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="155" y="278" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">AWS Security Hub</text>
+  <text x="155" y="296" text-anchor="middle" fill="#64748B" font-size="9">Native ASFF format push</text>
+  <text x="155" y="313" text-anchor="middle" fill="#3B82F6" font-size="8">Auto-aggregation enabled</text>
+
+  <!-- Microsoft Sentinel -->
+  <rect x="20" y="346" width="270" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="155" y="366" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Microsoft Sentinel</text>
+  <text x="155" y="384" text-anchor="middle" fill="#64748B" font-size="9">Azure native connector</text>
+  <text x="155" y="401" text-anchor="middle" fill="#3B82F6" font-size="8">KQL query templates</text>
+
+  <!-- ===== COL 2: Ticketing & Workflow ===== -->
+  <rect x="310" y="36" width="290" height="38" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="455" y="61" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Ticketing &amp; Workflow</text>
+
+  <!-- Jira -->
+  <rect x="310" y="82" width="290" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="455" y="102" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Jira</text>
+  <text x="455" y="120" text-anchor="middle" fill="#64748B" font-size="9">Auto-create issues per severity</text>
+  <text x="455" y="137" text-anchor="middle" fill="#3B82F6" font-size="8">Bi-directional status sync</text>
+
+  <!-- ServiceNow -->
+  <rect x="310" y="170" width="290" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="455" y="190" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">ServiceNow</text>
+  <text x="455" y="208" text-anchor="middle" fill="#64748B" font-size="9">ITSM ticket workflow</text>
+  <text x="455" y="225" text-anchor="middle" fill="#3B82F6" font-size="8">SLA tracking included</text>
+
+  <!-- PagerDuty -->
+  <rect x="310" y="258" width="290" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="455" y="278" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">PagerDuty</text>
+  <text x="455" y="296" text-anchor="middle" fill="#64748B" font-size="9">Critical finding alerting</text>
+  <text x="455" y="313" text-anchor="middle" fill="#3B82F6" font-size="8">Escalation policies supported</text>
+
+  <!-- GitHub Issues -->
+  <rect x="310" y="346" width="290" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="455" y="366" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">GitHub Issues</text>
+  <text x="455" y="384" text-anchor="middle" fill="#64748B" font-size="9">Code-level security tracking</text>
+  <text x="455" y="401" text-anchor="middle" fill="#3B82F6" font-size="8">Label + milestone automation</text>
+
+  <!-- ===== COL 3: Alerting & CI/CD ===== -->
+  <rect x="620" y="36" width="280" height="38" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="760" y="61" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Alerting &amp; CI/CD</text>
+
+  <!-- Slack -->
+  <rect x="620" y="82" width="280" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="760" y="102" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Slack</text>
+  <text x="760" y="120" text-anchor="middle" fill="#64748B" font-size="9">Channel alerts + fix commands</text>
+  <text x="760" y="137" text-anchor="middle" fill="#3B82F6" font-size="8">Interactive remediation buttons</text>
+
+  <!-- Microsoft Teams -->
+  <rect x="620" y="170" width="280" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="760" y="190" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Microsoft Teams</text>
+  <text x="760" y="208" text-anchor="middle" fill="#64748B" font-size="9">Adaptive card notifications</text>
+  <text x="760" y="225" text-anchor="middle" fill="#3B82F6" font-size="8">Channel webhook delivery</text>
+
+  <!-- GitHub Actions -->
+  <rect x="620" y="258" width="280" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="760" y="278" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">GitHub Actions</text>
+  <text x="760" y="296" text-anchor="middle" fill="#64748B" font-size="9">PR gate: block on new criticals</text>
+  <text x="760" y="313" text-anchor="middle" fill="#3B82F6" font-size="8">SARIF upload supported</text>
+
+  <!-- Webhook -->
+  <rect x="620" y="346" width="280" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="760" y="366" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Webhook</text>
+  <text x="760" y="384" text-anchor="middle" fill="#64748B" font-size="9">Custom HTTP endpoint</text>
+  <text x="760" y="401" text-anchor="middle" fill="#3B82F6" font-size="8">Any tool · HMAC signed payloads</text>
+
+  <!-- Bottom bar -->
+  <rect x="20" y="434" width="880" height="20" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="448" text-anchor="middle" fill="#64748B" font-size="8" font-weight="600">All integrations configured in Settings → Integrations · Webhook + REST API available for any custom toolchain</text>
+</svg>

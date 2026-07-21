@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 524" width="920" height="524" font-family="Arial, sans-serif">
+  <rect width="920" height="524" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">MULTI-CLOUD COVERAGE — 7 PROVIDERS · READ-ONLY · AGENTLESS</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── TOP ROW: 4 CSPs ── -->
+  <!-- AWS -->
+  <rect x="16"  y="44" width="214" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="16"  y="44" width="214" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16"  y="72" width="214" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="123" y="70"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Amazon Web Services</text>
+  <text x="123" y="104" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="28"  y="110" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="123" y="125" text-anchor="middle" font-size="9"  fill="#374151">EC2 · EKS · Lambda · ECS · Fargate</text>
+  <text x="123" y="143" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="28"  y="149" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="123" y="164" text-anchor="middle" font-size="9"  fill="#374151">S3 · RDS · DynamoDB · Redshift</text>
+  <text x="123" y="182" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="28"  y="188" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="123" y="203" text-anchor="middle" font-size="9"  fill="#374151">IAM · KMS · Secrets Manager · WAF</text>
+  <rect x="28"  y="218" width="190" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="123" y="234" text-anchor="middle" font-size="9"  font-weight="700" fill="#C2410C">40+ services scanned</text>
+  <text x="123" y="248" text-anchor="middle" font-size="8"  fill="#C2410C">SageMaker · Bedrock · CloudTrail</text>
+
+  <!-- Azure -->
+  <rect x="242" y="44" width="214" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="242" y="44" width="214" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="242" y="72" width="214" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="349" y="70"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Microsoft Azure</text>
+  <text x="349" y="104" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="254" y="110" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="349" y="125" text-anchor="middle" font-size="9"  fill="#374151">VMs · AKS · Functions · Container Inst.</text>
+  <text x="349" y="143" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="254" y="149" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="349" y="164" text-anchor="middle" font-size="9"  fill="#374151">Blob Storage · SQL · Cosmos DB · ADX</text>
+  <text x="349" y="182" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="254" y="188" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="349" y="203" text-anchor="middle" font-size="9"  fill="#374151">Azure AD · Key Vault · Defender · NSG</text>
+  <rect x="254" y="218" width="190" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="349" y="234" text-anchor="middle" font-size="9"  font-weight="700" fill="#1E40AF">30+ services scanned</text>
+  <text x="349" y="248" text-anchor="middle" font-size="8"  fill="#1E40AF">OpenAI Service · App Service · VNet</text>
+
+  <!-- GCP -->
+  <rect x="468" y="44" width="214" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="468" y="44" width="214" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="468" y="72" width="214" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="575" y="70"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Google Cloud Platform</text>
+  <text x="575" y="104" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="480" y="110" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="575" y="125" text-anchor="middle" font-size="9"  fill="#374151">GCE · GKE · Cloud Run · App Engine</text>
+  <text x="575" y="143" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="480" y="149" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="575" y="164" text-anchor="middle" font-size="9"  fill="#374151">Cloud Storage · Cloud SQL · BigQuery</text>
+  <text x="575" y="182" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="480" y="188" width="190" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="575" y="203" text-anchor="middle" font-size="9"  fill="#374151">IAM · Cloud KMS · Audit Logs · Armor</text>
+  <rect x="480" y="218" width="190" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="575" y="234" text-anchor="middle" font-size="9"  font-weight="700" fill="#1E40AF">25+ services scanned</text>
+  <text x="575" y="248" text-anchor="middle" font-size="8"  fill="#1E40AF">Vertex AI · Firewall Rules · VPC</text>
+
+  <!-- OCI -->
+  <rect x="694" y="44" width="210" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="694" y="44" width="210" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="694" y="72" width="210" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="799" y="70"  text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Oracle Cloud (OCI)</text>
+  <text x="799" y="104" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="706" y="110" width="186" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="799" y="125" text-anchor="middle" font-size="9"  fill="#374151">Compute · OKE · Functions</text>
+  <text x="799" y="143" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="706" y="149" width="186" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="799" y="164" text-anchor="middle" font-size="9"  fill="#374151">Object Storage · DB Systems · ADW</text>
+  <text x="799" y="182" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="706" y="188" width="186" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="799" y="203" text-anchor="middle" font-size="9"  fill="#374151">IAM · Vault · Audit Service · WAF</text>
+  <rect x="706" y="218" width="186" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="799" y="234" text-anchor="middle" font-size="9"  font-weight="700" fill="#9B1C1C">20+ services scanned</text>
+  <text x="799" y="248" text-anchor="middle" font-size="8"  fill="#9B1C1C">VCN · Security Lists · Data Safe</text>
+
+  <!-- ── BOTTOM ROW: 3 CSPs ── -->
+  <!-- AliCloud -->
+  <rect x="16"  y="270" width="280" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="16"  y="270" width="280" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16"  y="298" width="280" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="156" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Alibaba Cloud</text>
+  <text x="156" y="330" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="28"  y="336" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="156" y="351" text-anchor="middle" font-size="9"  fill="#374151">ECS · ACK (K8s) · Function Compute</text>
+  <text x="156" y="369" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="28"  y="375" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="156" y="390" text-anchor="middle" font-size="9"  fill="#374151">OSS · RDS · Table Store · MaxCompute</text>
+  <text x="156" y="408" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="28"  y="414" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="156" y="429" text-anchor="middle" font-size="9"  fill="#374151">RAM · KMS · ActionTrail · Anti-DDoS</text>
+  <rect x="28"  y="444" width="256" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="156" y="460" text-anchor="middle" font-size="9"  font-weight="700" fill="#C2410C">20+ services · APAC cloud leader</text>
+  <text x="156" y="474" text-anchor="middle" font-size="8"  fill="#C2410C">VPC · Security Groups · WAF</text>
+
+  <!-- IBM Cloud -->
+  <rect x="312" y="270" width="296" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="312" y="270" width="296" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="312" y="298" width="296" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">IBM Cloud</text>
+  <text x="460" y="330" text-anchor="middle" font-size="9"  fill="#475569">Compute</text>
+  <rect x="324" y="336" width="272" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="460" y="351" text-anchor="middle" font-size="9"  fill="#374151">VSI · IKS (IBM Kubernetes) · Code Engine</text>
+  <text x="460" y="369" text-anchor="middle" font-size="9"  fill="#475569">Storage &amp; Data</text>
+  <rect x="324" y="375" width="272" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="460" y="390" text-anchor="middle" font-size="9"  fill="#374151">Cloud Object Storage · Db2 · Cloudant</text>
+  <text x="460" y="408" text-anchor="middle" font-size="9"  fill="#475569">Identity &amp; Security</text>
+  <rect x="324" y="414" width="272" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="460" y="429" text-anchor="middle" font-size="9"  fill="#374151">IAM · Key Protect · Activity Tracker</text>
+  <rect x="324" y="444" width="272" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="460" y="460" text-anchor="middle" font-size="9"  font-weight="700" fill="#1E40AF">20+ services · Watson AI posture</text>
+  <text x="460" y="474" text-anchor="middle" font-size="8"  fill="#1E40AF">VPC · Security Groups · Internet Svc</text>
+
+  <!-- Kubernetes -->
+  <rect x="624" y="270" width="280" height="210" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <rect x="624" y="270" width="280" height="40"  fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="624" y="298" width="280" height="12"  fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="764" y="296" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Kubernetes (any cluster)</text>
+  <text x="764" y="330" text-anchor="middle" font-size="9"  fill="#475569">Cluster Types</text>
+  <rect x="636" y="336" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="764" y="351" text-anchor="middle" font-size="9"  fill="#374151">EKS · AKS · GKE · OKE · IKS · Self-managed</text>
+  <text x="764" y="369" text-anchor="middle" font-size="9"  fill="#475569">Workloads &amp; RBAC</text>
+  <rect x="636" y="375" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="764" y="390" text-anchor="middle" font-size="9"  fill="#374151">Pods · Deployments · Roles · Bindings</text>
+  <text x="764" y="408" text-anchor="middle" font-size="9"  fill="#475569">Network &amp; Images</text>
+  <rect x="636" y="414" width="256" height="22" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="764" y="429" text-anchor="middle" font-size="9"  fill="#374151">Network Policies · Ingress · Container CVEs</text>
+  <rect x="636" y="444" width="256" height="28" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="5"/>
+  <text x="764" y="460" text-anchor="middle" font-size="9"  font-weight="700" fill="#1E40AF">Via read-only kubeconfig</text>
+  <text x="764" y="474" text-anchor="middle" font-size="8"  fill="#1E40AF">CIS K8s Benchmark · NSA/CISA Guide</text>
+
+  <!-- bottom bar -->
+  <rect x="16" y="492" width="888" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="514" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Read-only credentials only — no agents installed — no changes made to your cloud environment</text>
+  <text x="460" y="534" text-anchor="middle" font-size="9"  fill="#64748B">AWS cross-account IAM role · Azure Service Principal · GCP Service Account · OCI API Key · AliCloud RAM · IBM API Key · K8s kubeconfig</text>
+</svg>

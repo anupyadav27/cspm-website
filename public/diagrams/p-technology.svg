@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 380 444" width="380" height="444" font-family="Arial, sans-serif">
+  <rect width="380" height="444" fill="#F8FAFC" rx="10" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="190" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#4F46E5" letter-spacing="1.2">TECHNOLOGY ENGINE — 34 CLOUD TECHNOLOGIES</text>
+  <line x1="10" y1="34" x2="370" y2="34" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="20" y="44" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Technology Discovery</text>
+  <text x="190" y="86" text-anchor="middle" font-size="9" fill="#64748B">Databases · Message queues · Streaming · CI/CD</text>
+  <text x="190" y="101" text-anchor="middle" font-size="8" fill="#3B82F6">34 technology categories across 7 cloud providers</text>
+  <line x1="190" y1="110" x2="190" y2="122" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,120 190,128 195,120" fill="#94A3B8"/>
+
+  <rect x="20" y="130" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="155" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Version &amp; EOL Audit</text>
+  <text x="190" y="172" text-anchor="middle" font-size="9" fill="#64748B">Running version vs. latest secure release</text>
+  <text x="190" y="187" text-anchor="middle" font-size="8" fill="#3B82F6">End-of-life detection · Patch availability tracking</text>
+  <line x1="190" y1="196" x2="190" y2="208" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,206 190,214 195,206" fill="#94A3B8"/>
+
+  <rect x="20" y="216" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="241" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Configuration Checks</text>
+  <text x="190" y="258" text-anchor="middle" font-size="9" fill="#64748B">5,025 rules across all 34 technology categories</text>
+  <text x="190" y="273" text-anchor="middle" font-size="8" fill="#64748B">Auth · TLS · Encryption · Access control · Audit logging</text>
+  <line x1="190" y1="282" x2="190" y2="294" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,292 190,300 195,292" fill="#94A3B8"/>
+
+  <rect x="20" y="302" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="327" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Entitlement Analysis</text>
+  <text x="190" y="344" text-anchor="middle" font-size="9" fill="#64748B">Who has access to each technology service</text>
+  <text x="190" y="359" text-anchor="middle" font-size="8" fill="#3B82F6">Unused access · Overprivileged tech accounts</text>
+  <line x1="190" y1="368" x2="190" y2="380" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,378 190,386 195,378" fill="#94A3B8"/>
+
+  <rect x="20" y="388" width="340" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="411" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Technology Risk Score</text>
+  <text x="190" y="428" text-anchor="middle" font-size="9" fill="#64748B">Per-technology 0–100 posture · Remediation roadmap</text>
+</svg>

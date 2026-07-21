@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="560" viewBox="0 0 920 560" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="560" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">13 COMPLIANCE FRAMEWORKS — FULL COVERAGE</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- Table Header -->
+  <rect x="20" y="34" width="880" height="34" fill="#FFFFFF" rx="4" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="120" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Framework</text>
+  <text x="274" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Category</text>
+  <text x="478" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Key Requirements</text>
+  <text x="677" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Controls</text>
+  <text x="813" y="56" text-anchor="middle" fill="#64748B" font-size="10" font-weight="600">Primary Use</text>
+
+  <!-- Column separators in header -->
+  <line x1="224" y1="34" x2="224" y2="68" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="328" y1="34" x2="328" y2="68" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="632" y1="34" x2="632" y2="68" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="722" y1="34" x2="722" y2="68" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 0: CIS Benchmarks (even=#EFF6FF) -->
+  <rect x="20" y="68" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="89" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">CIS Benchmarks</text>
+  <text x="274" y="89" text-anchor="middle" fill="#64748B" font-size="9">Industry</text>
+  <text x="478" y="89" text-anchor="middle" fill="#64748B" font-size="9">Multi-cloud config hardening</text>
+  <text x="677" y="89" text-anchor="middle" fill="#64748B" font-size="9">400+</text>
+  <text x="813" y="89" text-anchor="middle" fill="#64748B" font-size="9">DevSecOps</text>
+  <line x1="20" y1="102" x2="900" y2="102" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 1: NIST CSF 2.0 (odd=#F8FAFC) -->
+  <rect x="20" y="102" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="123" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">NIST CSF 2.0</text>
+  <text x="274" y="123" text-anchor="middle" fill="#64748B" font-size="9">Government</text>
+  <text x="478" y="123" text-anchor="middle" fill="#64748B" font-size="9">Identify · Protect · Detect · Respond</text>
+  <text x="677" y="123" text-anchor="middle" fill="#64748B" font-size="9">106</text>
+  <text x="813" y="123" text-anchor="middle" fill="#64748B" font-size="9">US Enterprise</text>
+  <line x1="20" y1="136" x2="900" y2="136" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 2: ISO/IEC 27001 (even) -->
+  <rect x="20" y="136" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="157" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">ISO/IEC 27001</text>
+  <text x="274" y="157" text-anchor="middle" fill="#64748B" font-size="9">International</text>
+  <text x="478" y="157" text-anchor="middle" fill="#64748B" font-size="9">ISMS controls · Risk management</text>
+  <text x="677" y="157" text-anchor="middle" fill="#64748B" font-size="9">114</text>
+  <text x="813" y="157" text-anchor="middle" fill="#64748B" font-size="9">Global</text>
+  <line x1="20" y1="170" x2="900" y2="170" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 3: PCI-DSS v4.0 (odd) -->
+  <rect x="20" y="170" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="191" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">PCI-DSS v4.0</text>
+  <text x="274" y="191" text-anchor="middle" fill="#64748B" font-size="9">Industry</text>
+  <text x="478" y="191" text-anchor="middle" fill="#64748B" font-size="9">Cardholder data protection</text>
+  <text x="677" y="191" text-anchor="middle" fill="#64748B" font-size="9">390+</text>
+  <text x="813" y="191" text-anchor="middle" fill="#64748B" font-size="9">Payments</text>
+  <line x1="20" y1="204" x2="900" y2="204" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 4: HIPAA (even) -->
+  <rect x="20" y="204" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="225" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">HIPAA</text>
+  <text x="274" y="225" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="225" text-anchor="middle" fill="#64748B" font-size="9">PHI safeguards · Audit controls</text>
+  <text x="677" y="225" text-anchor="middle" fill="#64748B" font-size="9">54</text>
+  <text x="813" y="225" text-anchor="middle" fill="#64748B" font-size="9">Healthcare</text>
+  <line x1="20" y1="238" x2="900" y2="238" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 5: GDPR (odd) -->
+  <rect x="20" y="238" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="259" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">GDPR</text>
+  <text x="274" y="259" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="259" text-anchor="middle" fill="#64748B" font-size="9">Data privacy · Right to erasure</text>
+  <text x="677" y="259" text-anchor="middle" fill="#64748B" font-size="9">99</text>
+  <text x="813" y="259" text-anchor="middle" fill="#64748B" font-size="9">EU Operations</text>
+  <line x1="20" y1="272" x2="900" y2="272" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 6: SOC 2 Type II (even) -->
+  <rect x="20" y="272" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="293" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">SOC 2 Type II</text>
+  <text x="274" y="293" text-anchor="middle" fill="#64748B" font-size="9">Industry</text>
+  <text x="478" y="293" text-anchor="middle" fill="#64748B" font-size="9">Trust service criteria</text>
+  <text x="677" y="293" text-anchor="middle" fill="#64748B" font-size="9">64</text>
+  <text x="813" y="293" text-anchor="middle" fill="#64748B" font-size="9">SaaS / Cloud</text>
+  <line x1="20" y1="306" x2="900" y2="306" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 7: FedRAMP (odd) -->
+  <rect x="20" y="306" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="327" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">FedRAMP</text>
+  <text x="274" y="327" text-anchor="middle" fill="#64748B" font-size="9">Government</text>
+  <text x="478" y="327" text-anchor="middle" fill="#64748B" font-size="9">NIST 800-53 control baseline</text>
+  <text x="677" y="327" text-anchor="middle" fill="#64748B" font-size="9">325</text>
+  <text x="813" y="327" text-anchor="middle" fill="#64748B" font-size="9">US Federal</text>
+  <line x1="20" y1="340" x2="900" y2="340" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 8: DORA (even) -->
+  <rect x="20" y="340" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="361" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">DORA</text>
+  <text x="274" y="361" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="361" text-anchor="middle" fill="#64748B" font-size="9">ICT risk · Incident reporting</text>
+  <text x="677" y="361" text-anchor="middle" fill="#64748B" font-size="9">58</text>
+  <text x="813" y="361" text-anchor="middle" fill="#64748B" font-size="9">EU Finance</text>
+  <line x1="20" y1="374" x2="900" y2="374" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 9: CCPA (odd) -->
+  <rect x="20" y="374" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="395" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">CCPA</text>
+  <text x="274" y="395" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="395" text-anchor="middle" fill="#64748B" font-size="9">Consumer data rights · Opt-out</text>
+  <text x="677" y="395" text-anchor="middle" fill="#64748B" font-size="9">12</text>
+  <text x="813" y="395" text-anchor="middle" fill="#64748B" font-size="9">California</text>
+  <line x1="20" y1="408" x2="900" y2="408" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 10: CSA CCM v4 (even) -->
+  <rect x="20" y="408" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="429" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">CSA CCM v4</text>
+  <text x="274" y="429" text-anchor="middle" fill="#64748B" font-size="9">Industry</text>
+  <text x="478" y="429" text-anchor="middle" fill="#64748B" font-size="9">Cloud-native security domains</text>
+  <text x="677" y="429" text-anchor="middle" fill="#64748B" font-size="9">197</text>
+  <text x="813" y="429" text-anchor="middle" fill="#64748B" font-size="9">Cloud providers</text>
+  <line x1="20" y1="442" x2="900" y2="442" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 11: MAS TRM (odd) -->
+  <rect x="20" y="442" width="880" height="34" fill="#F8FAFC"/>
+  <text x="28" y="463" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">MAS TRM</text>
+  <text x="274" y="463" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="463" text-anchor="middle" fill="#64748B" font-size="9">IT risk · Outsourcing controls</text>
+  <text x="677" y="463" text-anchor="middle" fill="#64748B" font-size="9">90</text>
+  <text x="813" y="463" text-anchor="middle" fill="#64748B" font-size="9">Singapore</text>
+  <line x1="20" y1="476" x2="900" y2="476" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Row 12: NYDFS Part 500 (even) -->
+  <rect x="20" y="476" width="880" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="28" y="497" text-anchor="start" fill="#1E3A8A" font-size="10" font-weight="600">NYDFS Part 500</text>
+  <text x="274" y="497" text-anchor="middle" fill="#64748B" font-size="9">Regulatory</text>
+  <text x="478" y="497" text-anchor="middle" fill="#64748B" font-size="9">Cybersecurity program</text>
+  <text x="677" y="497" text-anchor="middle" fill="#64748B" font-size="9">23</text>
+  <text x="813" y="497" text-anchor="middle" fill="#64748B" font-size="9">NY Finance</text>
+  <line x1="20" y1="510" x2="900" y2="510" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Table outer border -->
+  <rect x="20" y="34" width="880" height="476" fill="none" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <!-- Column separators -->
+  <line x1="224" y1="34" x2="224" y2="510" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="328" y1="34" x2="328" y2="510" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="632" y1="34" x2="632" y2="510" stroke="#94A3B8" stroke-width="0.5"/>
+  <line x1="722" y1="34" x2="722" y2="510" stroke="#94A3B8" stroke-width="0.5"/>
+
+  <!-- Summary bar -->
+  <rect x="20" y="518" width="880" height="34" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="540" text-anchor="middle" fill="#64748B" font-size="9" font-weight="600">All 13 frameworks evaluated simultaneously per scan · Findings mapped on first discovery · No separate framework scans</text>
+</svg>

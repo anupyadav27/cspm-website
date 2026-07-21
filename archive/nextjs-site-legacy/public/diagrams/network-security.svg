@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" width="920" height="500" font-family="Arial, sans-serif">
+  <rect width="920" height="500" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="28" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">7-LAYER NETWORK TOPOLOGY ANALYSIS</text>
+  <line x1="16" y1="36" x2="904" y2="36" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- outer container -->
+  <rect x="16" y="44" width="888" height="440" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+
+  <!-- ── LAYER COLUMN HEADERS ── -->
+  <text x="76"  y="64" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" letter-spacing="1">LAYER</text>
+  <text x="280" y="64" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" letter-spacing="1">NAME</text>
+  <text x="560" y="64" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" letter-spacing="1">WHAT WE EVALUATE</text>
+  <text x="820" y="64" text-anchor="middle" font-size="8" font-weight="700" fill="#94A3B8" letter-spacing="1">KEY RISKS DETECTED</text>
+  <line x1="26" y1="68" x2="894" y2="68" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── L1: Network Isolation ── -->
+  <rect x="28"  y="74" width="96" height="50" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="96"  text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L1</text>
+  <text x="76"  y="113" text-anchor="middle" font-size="9"  fill="#64748B">Isolation</text>
+  <rect x="136" y="74" width="258" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="96"  text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Network Isolation</text>
+  <text x="265" y="113" text-anchor="middle" font-size="9"  fill="#64748B">VPC / VCN segmentation · Peering · Transit Gateways</text>
+  <rect x="406" y="74" width="308" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="96"  text-anchor="middle" font-size="9" fill="#475569">Are environments properly separated?</text>
+  <text x="560" y="112" text-anchor="middle" font-size="9" fill="#475569">Shared VPCs · Production/dev boundary drift</text>
+  <rect x="726" y="74" width="178" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="90"  text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Overly broad peering</text>
+  <text x="815" y="106" text-anchor="middle" font-size="9" fill="#64748B">Transit GW exposure</text>
+  <text x="815" y="120" text-anchor="middle" font-size="9" fill="#64748B">Missing VPC endpoint</text>
+
+  <!-- arrow between rows -->
+  <line x1="76" y1="124" x2="76" y2="132" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="72,130 76,138 80,130" fill="#94A3B8"/>
+
+  <!-- ── L2: Network Reachability ── -->
+  <rect x="28"  y="140" width="96" height="50" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="162" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L2</text>
+  <text x="76"  y="179" text-anchor="middle" font-size="9"  fill="#64748B">Reachability</text>
+  <rect x="136" y="140" width="258" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="162" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Network Reachability</text>
+  <text x="265" y="179" text-anchor="middle" font-size="9"  fill="#64748B">Route tables · NAT Gateways · Public subnet marking</text>
+  <rect x="406" y="140" width="308" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="162" text-anchor="middle" font-size="9" fill="#475569">What can reach what across the network?</text>
+  <text x="560" y="178" text-anchor="middle" font-size="9" fill="#475569">Public subnets without internet-facing intent</text>
+  <rect x="726" y="140" width="178" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="156" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Unintended public routes</text>
+  <text x="815" y="172" text-anchor="middle" font-size="9" fill="#64748B">NAT bypass paths</text>
+  <text x="815" y="186" text-anchor="middle" font-size="9" fill="#64748B">Private subnet drift</text>
+
+  <line x1="76" y1="190" x2="76" y2="198" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="72,196 76,204 80,196" fill="#94A3B8"/>
+
+  <!-- ── L3: Network ACLs ── -->
+  <rect x="28"  y="206" width="96" height="50" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L3</text>
+  <text x="76"  y="245" text-anchor="middle" font-size="9"  fill="#64748B">ACLs</text>
+  <rect x="136" y="206" width="258" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="228" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Network ACLs</text>
+  <text x="265" y="245" text-anchor="middle" font-size="9"  fill="#64748B">Subnet-level stateless firewall rules</text>
+  <rect x="406" y="206" width="308" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="228" text-anchor="middle" font-size="9" fill="#475569">Subnet boundary allow/deny coverage</text>
+  <text x="560" y="244" text-anchor="middle" font-size="9" fill="#475569">Overly permissive inbound rules at subnet level</text>
+  <rect x="726" y="206" width="178" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="222" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">0.0.0.0/0 inbound ACL</text>
+  <text x="815" y="238" text-anchor="middle" font-size="9" fill="#64748B">Missing deny rules</text>
+  <text x="815" y="252" text-anchor="middle" font-size="9" fill="#64748B">Asymmetric ACL pairs</text>
+
+  <line x1="76" y1="256" x2="76" y2="264" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="72,262 76,270 80,262" fill="#94A3B8"/>
+
+  <!-- ── L4: Security Groups ── -->
+  <rect x="28"  y="272" width="96" height="50" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="294" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L4</text>
+  <text x="76"  y="311" text-anchor="middle" font-size="9"  fill="#64748B">SG Rules</text>
+  <rect x="136" y="272" width="258" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="294" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Security Groups</text>
+  <text x="265" y="311" text-anchor="middle" font-size="9"  fill="#64748B">Instance-level firewall · SSH/RDP/DB port exposure</text>
+  <rect x="406" y="272" width="308" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="294" text-anchor="middle" font-size="9" fill="#475569">Port 22, 3389, 1433, 3306, 5432 open to 0.0.0.0/0?</text>
+  <text x="560" y="310" text-anchor="middle" font-size="9" fill="#475569">Orphaned SGs attached to no resources</text>
+  <rect x="726" y="272" width="178" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="288" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">SSH/RDP to internet</text>
+  <text x="815" y="304" text-anchor="middle" font-size="9" fill="#64748B">DB port exposed publicly</text>
+  <text x="815" y="318" text-anchor="middle" font-size="9" fill="#64748B">Unused SG accumulation</text>
+
+  <line x1="76" y1="322" x2="76" y2="330" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="72,328 76,336 80,328" fill="#94A3B8"/>
+
+  <!-- ── L5: Load Balancer Security ── -->
+  <rect x="28"  y="338" width="96" height="50" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="360" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L5</text>
+  <text x="76"  y="377" text-anchor="middle" font-size="9"  fill="#64748B">LB Security</text>
+  <rect x="136" y="338" width="258" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="360" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Load Balancer Security</text>
+  <text x="265" y="377" text-anchor="middle" font-size="9"  fill="#64748B">TLS policy · Internet-facing LB · HTTPS enforcement</text>
+  <rect x="406" y="338" width="308" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="360" text-anchor="middle" font-size="9" fill="#475569">TLS 1.0/1.1 still enabled? HTTP listeners?</text>
+  <text x="560" y="376" text-anchor="middle" font-size="9" fill="#475569">Internet-facing ALB without WAF association</text>
+  <rect x="726" y="338" width="178" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="354" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Weak TLS policy</text>
+  <text x="815" y="370" text-anchor="middle" font-size="9" fill="#64748B">HTTP plaintext listener</text>
+  <text x="815" y="384" text-anchor="middle" font-size="9" fill="#64748B">Unprotected internet LB</text>
+
+  <line x1="76" y1="388" x2="76" y2="396" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="72,394 76,402 80,394" fill="#94A3B8"/>
+
+  <!-- ── L6 + L7 side by side ── -->
+  <!-- L6: WAF -->
+  <rect x="28"  y="404" width="96" height="74" fill="#FFFFFF" rx="7" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="76"  y="434" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">L6</text>
+  <text x="76"  y="451" text-anchor="middle" font-size="9"  fill="#64748B">WAF</text>
+  <text x="76"  y="467" text-anchor="middle" font-size="8"  fill="#64748B">L7</text>
+  <text x="76"  y="480" text-anchor="middle" font-size="8"  fill="#64748B">Monitoring</text>
+  <rect x="136" y="404" width="258" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="420" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">WAF Protection</text>
+  <text x="265" y="434" text-anchor="middle" font-size="9"  fill="#64748B">WAF attached · OWASP rules · Rate limiting</text>
+  <rect x="136" y="444" width="258" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="265" y="460" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Network Monitoring</text>
+  <text x="265" y="474" text-anchor="middle" font-size="9"  fill="#64748B">VPC Flow Logs · DNS logging · WAF logging</text>
+  <rect x="406" y="404" width="308" height="74" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="560" y="424" text-anchor="middle" font-size="9" fill="#475569">Internet-facing resources without WAF coverage</text>
+  <text x="560" y="440" text-anchor="middle" font-size="9" fill="#475569">AWS Shield Advanced not enabled on critical LBs</text>
+  <text x="560" y="460" text-anchor="middle" font-size="9" fill="#475569">Flow logs disabled — no network traffic visibility</text>
+  <text x="560" y="475" text-anchor="middle" font-size="9" fill="#475569">DNS query logging not enabled for Route 53</text>
+  <rect x="726" y="404" width="178" height="74" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="815" y="424" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">No WAF on ALB/CloudFront</text>
+  <text x="815" y="440" text-anchor="middle" font-size="9" fill="#64748B">Missing OWASP ruleset</text>
+  <text x="815" y="458" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Flow logs disabled</text>
+  <text x="815" y="474" text-anchor="middle" font-size="9" fill="#64748B">No DNS query logs</text>
+</svg>

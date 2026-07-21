@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SLO MEASUREMENT &amp; REPORTING — HOW UPTIME AND PERFORMANCE ARE TRACKED AND COMMUNICATED</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <text x="100" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">1. PROBE</text>
+  <text x="290" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">2. METRICS</text>
+  <text x="480" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">3. EVALUATE</text>
+  <text x="670" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">4. REPORT</text>
+  <text x="840" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">5. PIR</text>
+
+  <rect x="20" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="100" y="100" text-anchor="middle" font-size="14">🛰️</text>
+  <text x="100" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Synthetic monitors</text>
+  <text x="100" y="140" text-anchor="middle" font-size="8" fill="#64748B">Run every 60s</text>
+  <text x="100" y="154" text-anchor="middle" font-size="8" fill="#64748B">3 geographic regions</text>
+  <text x="100" y="168" text-anchor="middle" font-size="8" fill="#64748B">portal · API · scan</text>
+
+  <line x1="180" y1="124" x2="208" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="206,119 216,124 206,129" fill="#94A3B8"/>
+
+  <rect x="218" y="74" width="144" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="290" y="100" text-anchor="middle" font-size="14">📊</text>
+  <text x="290" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Metrics collected</text>
+  <text x="290" y="140" text-anchor="middle" font-size="8" fill="#64748B">latency · success rate</text>
+  <text x="290" y="154" text-anchor="middle" font-size="8" fill="#64748B">scan completion</text>
+  <text x="290" y="168" text-anchor="middle" font-size="8" fill="#64748B">stored 13 months</text>
+
+  <line x1="362" y1="124" x2="390" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="388,119 398,124 388,129" fill="#94A3B8"/>
+
+  <rect x="400" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14">🔔</text>
+  <text x="480" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">SLO breach?</text>
+  <text x="480" y="140" text-anchor="middle" font-size="8" fill="#B45309">Yes → page on-call</text>
+  <text x="480" y="154" text-anchor="middle" font-size="8" fill="#B45309">No → continue tracking</text>
+  <text x="480" y="168" text-anchor="middle" font-size="8" fill="#B45309">2-of-3 probes for 3 min</text>
+
+  <line x1="560" y1="124" x2="588" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="586,119 596,124 586,129" fill="#94A3B8"/>
+
+  <rect x="598" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="678" y="100" text-anchor="middle" font-size="14">📈</text>
+  <text x="678" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Status page + report</text>
+  <text x="678" y="140" text-anchor="middle" font-size="8" fill="#64748B">Real-time status page</text>
+  <text x="678" y="154" text-anchor="middle" font-size="8" fill="#64748B">Monthly SLO report</text>
+  <text x="678" y="168" text-anchor="middle" font-size="8" fill="#64748B">in your account dashboard</text>
+
+  <line x1="758" y1="124" x2="786" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="784,119 794,124 784,129" fill="#94A3B8"/>
+
+  <rect x="796" y="74" width="104" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="848" y="100" text-anchor="middle" font-size="14">📋</text>
+  <text x="848" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">PIR if breach</text>
+  <text x="848" y="140" text-anchor="middle" font-size="8" fill="#64748B">Published</text>
+  <text x="848" y="154" text-anchor="middle" font-size="8" fill="#64748B">within 5 days</text>
+  <text x="848" y="168" text-anchor="middle" font-size="8" fill="#64748B">root cause + fix</text>
+
+  <line x1="40" y1="200" x2="880" y2="200" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="222" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">MONTHLY SLO REPORT — DELIVERED IN YOUR ACCOUNT DASHBOARD</text>
+  <text x="460" y="240" text-anchor="middle" font-size="9" fill="#64748B">Monthly uptime % · scan success rate · P95 / P99 API latency · incident count and total downtime minutes ·</text>
+  <text x="460" y="254" text-anchor="middle" font-size="9" fill="#64748B">SLA credit eligibility · downloadable as PDF for compliance evidence</text>
+  <text x="460" y="270" text-anchor="middle" font-size="9" fill="#64748B">Status page subscriptions: email or SMS alerts for incidents and scheduled maintenance</text>
+</svg>

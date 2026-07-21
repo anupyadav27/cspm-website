@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="504" viewBox="0 36 920 504" font-family="Arial, sans-serif">
+  <!-- Canvas -->
+  <rect width="920" height="504" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+
+  <!-- Title -->
+  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">PLATFORM ARCHITECTURE — CLOUD SCAN PIPELINE</text>
+  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- Row 1: Cloud Provider Badges -->
+  <!-- Badge 1: AWS -->
+  <rect x="20" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="79" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">AWS</text>
+  <!-- Badge 2: Azure -->
+  <rect x="144" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="203" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Azure</text>
+  <!-- Badge 3: GCP -->
+  <rect x="268" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="327" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">GCP</text>
+  <!-- Badge 4: OCI -->
+  <rect x="392" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="451" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">OCI</text>
+  <!-- Badge 5: AliCloud -->
+  <rect x="516" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="575" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">AliCloud</text>
+  <!-- Badge 6: IBM Cloud -->
+  <rect x="640" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="699" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">IBM Cloud</text>
+  <!-- Badge 7: Kubernetes -->
+  <rect x="764" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="823" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Kubernetes</text>
+
+  <!-- 7 cloud providers label -->
+  <text x="460" y="90" text-anchor="middle" fill="#3B82F6" font-size="8">7 cloud providers</text>
+
+  <!-- Connector arrow row1 -> row2 -->
+  <line x1="460" y1="94" x2="460" y2="104" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="455,104 465,104 460,110" fill="#94A3B8"/>
+  <text x="460" y="102" text-anchor="middle" fill="#64748B" font-size="8">Read-only API · No agents · Continuous</text>
+
+  <!-- Row 2: Core Pipeline -->
+  <!-- Box 1: Discovery -->
+  <rect x="38" y="113" width="155" height="55" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="120" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Discovery</text>
+  <text x="120" y="152" text-anchor="middle" fill="#64748B" font-size="9">#8001</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="193" y1="140" x2="209" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="207,136 215,140 207,144" fill="#94A3B8"/>
+
+  <!-- Box 2: Inventory -->
+  <rect x="213" y="113" width="155" height="55" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="290" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Inventory</text>
+  <text x="290" y="152" text-anchor="middle" fill="#64748B" font-size="9">#8022</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="368" y1="140" x2="384" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="382,136 390,140 382,144" fill="#94A3B8"/>
+
+  <!-- Box 3: Check -->
+  <rect x="388" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="465" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Check</text>
+  <text x="465" y="152" text-anchor="middle" fill="#64748B" font-size="9">1,900+ rules</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="543" y1="140" x2="559" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="557,136 565,140 557,144" fill="#94A3B8"/>
+
+  <!-- Box 4: Threat -->
+  <rect x="563" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="640" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Threat</text>
+  <text x="640" y="152" text-anchor="middle" fill="#64748B" font-size="9">MITRE ATT&amp;CK</text>
+
+  <!-- Arrow 4->5 -->
+  <line x1="718" y1="140" x2="734" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="732,136 740,140 732,144" fill="#94A3B8"/>
+
+  <!-- Box 5: Analysis -->
+  <rect x="738" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="815" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Analysis</text>
+  <text x="815" y="152" text-anchor="middle" fill="#64748B" font-size="9">All engines</text>
+
+  <!-- Connector Row2 -> Row3 -->
+  <line x1="460" y1="168" x2="460" y2="190" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="455,188 465,188 460,194" fill="#94A3B8"/>
+
+  <!-- Row 3a: Security Engines top -->
+  <!-- IAM Security -->
+  <rect x="20" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="122" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">IAM Security</text>
+  <text x="122" y="236" text-anchor="middle" fill="#64748B" font-size="8">Identity posture · MFA · Policies</text>
+
+  <!-- Network Security -->
+  <rect x="236" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="338" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Network Security</text>
+  <text x="338" y="236" text-anchor="middle" fill="#64748B" font-size="8">7-layer topology · SG · VPC</text>
+
+  <!-- CIEM -->
+  <rect x="452" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="554" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">CIEM</text>
+  <text x="554" y="236" text-anchor="middle" fill="#64748B" font-size="8">Entitlements · CloudTrail</text>
+
+  <!-- Data Security -->
+  <rect x="668" y="196" width="232" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="784" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Data Security</text>
+  <text x="784" y="236" text-anchor="middle" fill="#64748B" font-size="8">DSPM · S3 classification</text>
+
+  <!-- Row 3b: Security Engines bottom -->
+  <!-- Compliance -->
+  <rect x="20" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="122" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Compliance</text>
+  <text x="122" y="300" text-anchor="middle" fill="#64748B" font-size="8">13 frameworks · CIS · NIST</text>
+
+  <!-- Risk Engine -->
+  <rect x="236" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="338" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Risk Engine</text>
+  <text x="338" y="300" text-anchor="middle" fill="#64748B" font-size="8">FAIR model · 0–100 score</text>
+
+  <!-- Vulnerability -->
+  <rect x="452" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="554" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Vulnerability</text>
+  <text x="554" y="300" text-anchor="middle" fill="#64748B" font-size="8">CVE · SBOM · Agent-based</text>
+
+  <!-- Container Sec -->
+  <rect x="668" y="260" width="232" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="784" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Container Security</text>
+  <text x="784" y="300" text-anchor="middle" fill="#64748B" font-size="8">EKS · K8s RBAC · Images</text>
+
+  <!-- Arrow Row3 -> Row4 -->
+  <line x1="460" y1="316" x2="460" y2="332" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="455,330 465,330 460,336" fill="#94A3B8"/>
+
+  <!-- Row 4: Data Platform -->
+  <rect x="20" y="336" width="880" height="46" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="460" y="356" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Data Platform</text>
+  <text x="460" y="372" text-anchor="middle" fill="#64748B" font-size="9">PostgreSQL (per-engine) · Neo4j (security graph) · Redis (cache) · S3 (exports)</text>
+
+  <!-- Arrow Row4 -> Row5 -->
+  <line x1="460" y1="382" x2="460" y2="396" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="455,394 465,394 460,400" fill="#94A3B8"/>
+
+  <!-- Row 5: Output -->
+  <rect x="20" y="400" width="880" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="422" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Posture Score + Compliance Reports + Threat Findings + Remediation Guidance</text>
+  <text x="460" y="440" text-anchor="middle" fill="#64748B" font-size="9">Continuous · Real-time · 13 compliance frameworks · 0–100 risk score</text>
+
+  <!-- Footer -->
+  <text x="460" y="530" text-anchor="middle" fill="#94A3B8" font-size="8">Onam CSPM Platform — Cloud Scan Pipeline Architecture</text>
+</svg>

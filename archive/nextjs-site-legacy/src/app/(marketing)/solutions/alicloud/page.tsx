@@ -1,0 +1,23 @@
+import type { Metadata } from 'next'
+import { CloudSolutionTemplate } from '@/components/solutions/CloudSolutionTemplate'
+export const metadata: Metadata = { title: 'Alibaba Cloud Security — Onam', description: '150+ AliCloud security rules. RAM, OSS, ECS, RDS, VPC — continuous security posture across all Alibaba Cloud regions.' }
+export default function AliCloudPage() {
+  return <CloudSolutionTemplate
+    breadcrumb="Solutions · Alibaba Cloud"
+    headline="Unified Security Posture for Your Alibaba Cloud Workloads, Region by Region"
+    sub="Alibaba Cloud's rapid regional expansion introduces security blind spots that Western-centric CSPM tools routinely miss. Onam brings the same continuous, rule-driven coverage to AliCloud — RAM policies, OSS buckets, RDS instances, and VPC configurations — that your AWS and Azure environments already have."
+    docsHref="/docs/onboarding/alicloud"
+    stats={[{value:'150+',label:'AliCloud security rules'},{value:'20+',label:'AliCloud services monitored'},{value:'Multi-region',label:'across all AliCloud regions'},{value:'100%',label:'agentless deployment'}]}
+    services={['RAM Users, Roles & Policies','OSS Buckets & Object ACLs','ECS Instances & Security Groups','RDS MySQL, PostgreSQL & SQL Server','VPC, VSwitches & Route Tables','SLB & ALB Load Balancers','ActionTrail Audit Logging','KMS Keys & Secrets Manager','Container Service for Kubernetes (ACK)','Function Compute','Cloud Firewall & WAF','Anti-DDoS Configuration']}
+    frameworks={[{name:'CIS Alibaba Cloud Foundations Benchmark'},{name:'ISO 27001:2022'},{name:'NIST CSF 2.0'},{name:'GDPR'},{name:'SOC 2 Type II'}]}
+    setupSteps={[{title:'Create a RAM read-only user',body:"Create a RAM user, attach the built-in 'ReadOnlyAccess' policy, and generate an AccessKey ID and AccessKey Secret."},{title:'Provide the AccessKey credentials',body:'Provide the AccessKey credentials to Onam. For enterprise accounts using Resource Directory, Onam connects once at the management account level.'},{title:'Multi-region scan in < 5 minutes',body:'Onam scans all enabled regions, discovers resources across all in-scope services, and returns your first findings in under 5 minutes.'}]}
+    uniqueFeatures={[{title:'ActionTrail Coverage Gap Detection',body:"Onam verifies that ActionTrail is enabled, delivering events to a dedicated OSS bucket, and that no critical API categories are excluded — closing a logging blind spot that frequently goes undetected."},{title:'OSS Cross-Region Replication Security Audit',body:'Onam checks OSS replication rules to ensure that data replicated across regions inherits encryption and access-control settings, rather than landing in a destination bucket with weaker protections.'},{title:'RAM Policy Wildcard Action Analysis',body:"Onam parses every RAM policy document and flags wildcard action grants ('*' or 'ecs:*') at all levels, giving security teams a prioritized remediation list without manual JSON inspection."}]}
+    faqs={[
+      { question: 'What Alibaba Cloud credentials does Onam need?', answer: "Onam requires a RAM user AccessKey with the built-in 'ReadOnlyAccess' policy. For Resource Directory-enabled accounts, Onam connects once at the management account level and automatically discovers member accounts." },
+      { question: 'Which Alibaba Cloud regions does Onam scan?', answer: 'Onam scans all enabled AliCloud regions in your account — including China mainland regions (cn-hangzhou, cn-shanghai, cn-beijing) and international regions (ap-southeast, eu-central, us-east).' },
+      { question: 'Does Onam detect publicly accessible OSS buckets?', answer: 'Yes. Onam checks OSS bucket ACLs (public-read, public-read-write), bucket policies with wildcard principals, and Block Public Access settings — and distinguishes genuinely public buckets from those with restrictive policies that appear open on the surface.' },
+      { question: 'Can Onam check if ActionTrail logging is properly configured?', answer: 'Yes. Onam verifies that ActionTrail is enabled across all regions, delivering to a dedicated OSS bucket, and that no critical API event categories are excluded — flagging any gaps that would leave an audit trail incomplete.' },
+      { question: 'Which compliance frameworks does Onam support for AliCloud?', answer: 'Onam maps AliCloud findings to CIS Alibaba Cloud Foundations Benchmark, ISO 27001:2022, NIST CSF 2.0, GDPR, and SOC 2 Type II.' },
+    ]}
+  />
+}

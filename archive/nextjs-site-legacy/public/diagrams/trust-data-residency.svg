@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DATA RESIDENCY OPTIONS — YOUR DATA STAYS IN THE REGION YOU CHOOSE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Source: customer cloud -->
+  <rect x="20" y="60" width="200" height="120" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="120" y="86" text-anchor="middle" font-size="14">☁️</text>
+  <text x="120" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Your Cloud Account</text>
+  <line x1="40" y1="116" x2="200" y2="116" stroke="#94A3B8" stroke-width="1"/>
+  <text x="120" y="134" text-anchor="middle" font-size="9" fill="#64748B">Cloud credentials</text>
+  <text x="120" y="148" text-anchor="middle" font-size="9" fill="#64748B">stay in your account</text>
+  <text x="120" y="166" text-anchor="middle" font-size="8" fill="#C7D2FE">Read-only API calls only</text>
+
+  <!-- Arrow -->
+  <line x1="220" y1="120" x2="270" y2="120" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="268,115 278,120 268,125" fill="#94A3B8"/>
+  <text x="245" y="110" text-anchor="middle" font-size="8" fill="#2563EB">TLS 1.3</text>
+
+  <!-- 3 region options on right -->
+  <rect x="290" y="60" width="200" height="120" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="390" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">DEFAULT REGION</text>
+  <line x1="304" y1="88" x2="476" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="390" y="108" text-anchor="middle" font-size="14">🇮🇳</text>
+  <text x="390" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">India / APAC</text>
+  <text x="390" y="146" text-anchor="middle" font-size="9" fill="#475569">Mumbai data center</text>
+  <text x="390" y="160" text-anchor="middle" font-size="9" fill="#475569">All plans</text>
+
+  <rect x="500" y="60" width="200" height="120" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="600" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">EU RESIDENCY</text>
+  <line x1="514" y1="88" x2="686" y2="88" stroke="#94A3B8" stroke-width="1"/>
+  <text x="600" y="108" text-anchor="middle" font-size="14">🇪🇺</text>
+  <text x="600" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">EU · UK</text>
+  <text x="600" y="146" text-anchor="middle" font-size="9" fill="#475569">Ireland data center</text>
+  <text x="600" y="160" text-anchor="middle" font-size="9" fill="#475569">Enterprise plan</text>
+
+  <rect x="710" y="60" width="190" height="120" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="805" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">US RESIDENCY</text>
+  <line x1="724" y1="88" x2="886" y2="88" stroke="#94A3B8" stroke-width="1"/>
+  <text x="805" y="108" text-anchor="middle" font-size="14">🇺🇸</text>
+  <text x="805" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">US · Americas</text>
+  <text x="805" y="146" text-anchor="middle" font-size="9" fill="#475569">Virginia data center</text>
+  <text x="805" y="160" text-anchor="middle" font-size="9" fill="#475569">Enterprise plan</text>
+
+  <line x1="40" y1="206" x2="880" y2="206" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="226" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">RESIDENCY GUARANTEES</text>
+  <text x="460" y="244" text-anchor="middle" font-size="9" fill="#64748B">Your data is processed and stored exclusively in the region you select · backups stay in the same region · no cross-region replication without your consent.</text>
+  <text x="460" y="260" text-anchor="middle" font-size="9" fill="#64748B">Data transit from your cloud account to the platform region is encrypted with TLS 1.3 · cross-region access is blocked by tenant policy.</text>
+  <text x="460" y="276" text-anchor="middle" font-size="9" fill="#64748B">Government cloud regions (FedRAMP / IL5) available on Government plans.</text>
+</svg>

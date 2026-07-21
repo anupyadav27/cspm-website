@@ -1,0 +1,23 @@
+import type { Metadata } from 'next'
+import { CloudSolutionTemplate } from '@/components/solutions/CloudSolutionTemplate'
+export const metadata: Metadata = { title: 'Oracle Cloud (OCI) Security — Onam', description: '200+ OCI security rules. Compartment hierarchy, IAM policies, Autonomous Database, and VCN continuous monitoring.' }
+export default function OCIPage() {
+  return <CloudSolutionTemplate
+    breadcrumb="Solutions · Oracle Cloud Infrastructure"
+    headline="Enterprise-Grade OCI Security Monitoring That Matches Oracle's Complexity"
+    sub="OCI's compartment model and policy language offer granular control, but auditing nested compartments and cross-tenancy access manually is operationally prohibitive. Onam traverses every compartment, audits IAM policies against least-privilege baselines, and monitors database, network, and storage continuously."
+    docsHref="/docs/onboarding/oci"
+    stats={[{value:'200+',label:'OCI security rules'},{value:'25+',label:'OCI services monitored'},{value:'Compartment-aware',label:'full hierarchy sweep'},{value:'100%',label:'agentless, no agent install'}]}
+    services={['IAM Users, Groups, Policies & Dynamic Groups','Compartments & Cross-Tenancy Access','Compute Instances & Instance Configurations','Object Storage Buckets & PAR URLs','Autonomous Database & Base Database Service','Virtual Cloud Networks, Subnets & Security Lists','Network Security Groups','OCI Vault & Key Management','Audit Service & Logging','Oracle Container Engine for Kubernetes (OKE)','Functions (Oracle Functions)','Load Balancer & Network Load Balancer']}
+    frameworks={[{name:'CIS OCI Foundations Benchmark'},{name:'NIST 800-53 Rev 5'},{name:'ISO 27001:2022'},{name:'PCI-DSS v4.0'},{name:'SOC 2 Type II'}]}
+    setupSteps={[{title:'Create a read-only IAM user',body:'Create an OCI IAM user in the root tenancy, add it to a group with read-only policy statements across all compartments, and generate an API signing key pair.'},{title:'Upload the public key',body:'Upload the public key to the IAM user and provide Onam with the tenancy OCID, user OCID, fingerprint, and private key.'},{title:'First findings in < 5 minutes',body:'Onam recursively enumerates all compartments from root, scans all in-scope resources, and surfaces findings within 5 minutes.'}]}
+    uniqueFeatures={[{title:'Compartment Hierarchy Policy Inheritance Audit',body:"Onam models OCI's policy inheritance rules across compartment boundaries — identifying where overly broad 'manage all-resources in tenancy' statements at parent compartments silently override tighter child restrictions."},{title:'Object Storage PAR Exposure Detection',body:'Onam inventories all active Pre-Authenticated Request (PAR) URLs — a frequently forgotten access mechanism — and flags those with excessive duration or scope.'},{title:'Autonomous Database Network Exposure Analysis',body:'Onam checks every Autonomous Database for public endpoint exposure, mTLS enforcement status, and network ACL configuration — critical controls for regulated Oracle workloads.'}]}
+    faqs={[
+      { question: 'What OCI permissions does Onam require?', answer: "Onam requires a read-only IAM user in the root tenancy with 'inspect' and 'read' verbs granted across all resources in the tenancy. This is typically achieved with a 'ReadOnlyAccess' policy statement scoped to the root compartment." },
+      { question: 'Does Onam support the full OCI compartment hierarchy?', answer: 'Yes. Onam recursively traverses compartments from root through all child compartments, including those created after initial onboarding. Policy inheritance across compartment boundaries is fully modeled.' },
+      { question: 'Can Onam detect cross-tenancy access risks?', answer: "Yes. Onam inventories all cross-tenancy IAM policies and flags relationships where external tenancies have been granted access to your compartments — a frequently overlooked attack surface in OCI's multi-tenancy model." },
+      { question: 'Does Onam monitor OCI Autonomous Database configurations?', answer: 'Yes. Onam checks Autonomous Database for public endpoint exposure, mTLS enforcement, network ACL configuration, and data safe integration — covering the key controls required by financial and healthcare compliance frameworks.' },
+      { question: 'Which OCI compliance frameworks does Onam support?', answer: 'Onam maps OCI findings to CIS OCI Foundations Benchmark, NIST 800-53 Rev 5, ISO 27001:2022, PCI-DSS v4.0, and SOC 2 Type II.' },
+    ]}
+  />
+}

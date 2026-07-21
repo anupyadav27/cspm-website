@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 344" width="920" height="344" font-family="Arial, sans-serif">
+  <rect width="920" height="344" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">MULTI-TENANT ISOLATION — THREE-LAYER ENFORCEMENT</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── LAYER 1: Request + Gateway ── -->
+  <rect x="16" y="44" width="888" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="24" y="61" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="1.2">LAYER 1 — API GATEWAY</text>
+
+  <rect x="28" y="67" width="200" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="128" y="87" text-anchor="middle" font-size="10" font-weight="700" fill="#374151">Incoming Request</text>
+  <text x="128" y="103" text-anchor="middle" font-size="9" fill="#64748B">access_token cookie · API key</text>
+
+  <line x1="228" y1="91" x2="260" y2="91" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="258,86 268,91 258,96" fill="#94A3B8"/>
+
+  <rect x="268" y="67" width="220" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="378" y="87" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Auth Middleware</text>
+  <text x="378" y="103" text-anchor="middle" font-size="9" fill="#64748B">Validates token · Extracts tenant_id</text>
+
+  <line x1="488" y1="91" x2="520" y2="91" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="518,86 528,91 518,96" fill="#94A3B8"/>
+
+  <rect x="528" y="67" width="248" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="652" y="87" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AuthContext Built</text>
+  <text x="652" y="103" text-anchor="middle" font-size="9" fill="#64748B">tenant_id · user_id · roles · permissions</text>
+
+  <line x1="776" y1="91" x2="808" y2="91" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="806,86 816,91 806,96" fill="#94A3B8"/>
+
+  <rect x="816" y="67" width="76" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="854" y="88" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">X-Auth-</text>
+  <text x="854" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Context →</text>
+
+  <!-- arrow down -->
+  <line x1="460" y1="124" x2="460" y2="144" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="454,142 460,152 466,142" fill="#94A3B8"/>
+
+  <!-- ── LAYER 2: Engine ── -->
+  <rect x="16" y="152" width="888" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <text x="24" y="169" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="1.2">LAYER 2 — ENGINE ENDPOINT</text>
+
+  <rect x="28" y="175" width="200" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="128" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Reads X-Auth-Context</text>
+  <text x="128" y="211" text-anchor="middle" font-size="9" fill="#64748B">Header parsed by every engine</text>
+
+  <line x1="228" y1="199" x2="260" y2="199" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="258,194 268,199 258,204" fill="#94A3B8"/>
+
+  <rect x="268" y="175" width="240" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="388" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">require_permission()</text>
+  <text x="388" y="211" text-anchor="middle" font-size="9" fill="#64748B">Role × feature:action verified · 403 on fail</text>
+
+  <line x1="508" y1="199" x2="540" y2="199" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="538,194 548,199 538,204" fill="#94A3B8"/>
+
+  <rect x="548" y="175" width="188" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="642" y="195" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">strip_sensitive_fields()</text>
+  <text x="642" y="211" text-anchor="middle" font-size="9" fill="#64748B">credential_ref hidden by role level</text>
+
+  <line x1="736" y1="199" x2="768" y2="199" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="766,194 776,199 766,204" fill="#94A3B8"/>
+
+  <rect x="776" y="175" width="116" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="834" y="195" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Pass to DB</text>
+  <text x="834" y="211" text-anchor="middle" font-size="9" fill="#64748B">with tenant_id</text>
+
+  <!-- arrow down -->
+  <line x1="460" y1="232" x2="460" y2="252" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="454,250 460,260 466,250" fill="#94A3B8"/>
+
+  <!-- ── LAYER 3: Database ── -->
+  <rect x="16" y="260" width="888" height="80" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="24" y="277" font-size="8" font-weight="700" fill="#059669" letter-spacing="1.2">LAYER 3 — DATABASE QUERY</text>
+
+  <rect x="28" y="283" width="280" height="48" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="168" y="303" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">WHERE tenant_id = $1</text>
+  <text x="168" y="319" text-anchor="middle" font-size="9" fill="#64748B">Every query scoped — no global queries ever</text>
+
+  <rect x="328" y="283" width="280" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="468" y="303" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Separate DB per engine</text>
+  <text x="468" y="319" text-anchor="middle" font-size="9" fill="#64748B">No shared tables · No cross-tenant views</text>
+
+  <rect x="628" y="283" width="264" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="760" y="303" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">No admin bypass</text>
+  <text x="760" y="319" text-anchor="middle" font-size="9" fill="#64748B">DEV_BYPASS_AUTH permanently removed</text>
+
+  <!-- enforcement note -->
+  <rect x="16" y="348" width="888" height="24" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="460" y="364" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Three independent enforcement points — compromise of one layer does not break the other two</text>
+</svg>

@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" font-family="Arial, sans-serif">
+  <rect width="920" height="400" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DATA SECURITY POSTURE MANAGEMENT — DSPM PIPELINE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── STAGE 1: Discover ── -->
+  <rect x="16" y="42" width="204" height="342" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="118" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">DISCOVER</text>
+  <line x1="26" y1="70" x2="210" y2="70" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="28"  y="80"  width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="102" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">S3 / GCS / Blob</text>
+
+  <rect x="28"  y="122" width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="144" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">RDS / Cloud SQL</text>
+
+  <rect x="28"  y="164" width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="186" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">DynamoDB / CosmosDB</text>
+
+  <rect x="28"  y="206" width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">BigQuery / Redshift</text>
+
+  <rect x="28"  y="248" width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="270" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Kafka / Kinesis</text>
+
+  <rect x="28"  y="292" width="180" height="34" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="118" y="314" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Secrets Manager</text>
+
+  <rect x="28"  y="340" width="180" height="32" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="118" y="360" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">62 rules · 7 cloud providers</text>
+
+  <!-- arrow -->
+  <line x1="220" y1="213" x2="240" y2="213" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="238,207 250,213 238,219" fill="#94A3B8"/>
+  <text x="230" y="205" text-anchor="middle" font-size="8" fill="#2563EB">classify</text>
+
+  <!-- ── STAGE 2: Classify ── -->
+  <rect x="250" y="42" width="188" height="342" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <text x="344" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">CLASSIFY</text>
+  <line x1="260" y1="70" x2="428" y2="70" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="264" y="80"  width="160" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="344" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">PII</text>
+  <text x="344" y="120" text-anchor="middle" font-size="9"  fill="#64748B">Name · Email · SSN · DOB</text>
+
+  <rect x="264" y="142" width="160" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="344" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">PCI / Payment</text>
+  <text x="344" y="182" text-anchor="middle" font-size="9"  fill="#64748B">Card numbers · CVVs · PANs</text>
+
+  <rect x="264" y="204" width="160" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="344" y="228" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">PHI / Healthcare</text>
+  <text x="344" y="244" text-anchor="middle" font-size="9"  fill="#64748B">MRN · Diagnosis · Insurance</text>
+
+  <rect x="264" y="266" width="160" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="344" y="290" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Financial Data</text>
+  <text x="344" y="306" text-anchor="middle" font-size="9"  fill="#64748B">Account · Routing · Transactions</text>
+
+  <rect x="264" y="330" width="160" height="42" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="344" y="349" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Tag · Naming · Pattern</text>
+  <text x="344" y="364" text-anchor="middle" font-size="9" fill="#64748B">Classification signals</text>
+
+  <!-- arrow -->
+  <line x1="438" y1="213" x2="458" y2="213" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="456,207 468,213 456,219" fill="#94A3B8"/>
+  <text x="448" y="205" text-anchor="middle" font-size="8" fill="#2563EB">assess</text>
+
+  <!-- ── STAGE 3: Assess Posture ── -->
+  <rect x="468" y="42" width="208" height="342" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="572" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">ASSESS POSTURE</text>
+  <line x1="478" y1="70" x2="666" y2="70" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="482" y="80"  width="180" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="572" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Encryption at Rest</text>
+  <text x="572" y="120" text-anchor="middle" font-size="9"  fill="#64748B">KMS key attached? CMK vs. AWS-managed?</text>
+
+  <rect x="482" y="144" width="180" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="572" y="168" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Encryption in Transit</text>
+  <text x="572" y="184" text-anchor="middle" font-size="9"  fill="#64748B">TLS enforced on all endpoints?</text>
+
+  <rect x="482" y="208" width="180" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="572" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Access Control</text>
+  <text x="572" y="248" text-anchor="middle" font-size="9"  fill="#64748B">Public access? Cross-account? Over-permissive?</text>
+
+  <rect x="482" y="272" width="180" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="572" y="296" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Audit Logging</text>
+  <text x="572" y="312" text-anchor="middle" font-size="9"  fill="#64748B">Data event logging enabled? Retained how long?</text>
+
+  <rect x="482" y="336" width="180" height="36" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="572" y="352" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Data Residency</text>
+  <text x="572" y="366" text-anchor="middle" font-size="9"  fill="#64748B">Cross-region replication in scope?</text>
+
+  <!-- arrow -->
+  <line x1="676" y1="213" x2="696" y2="213" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="694,207 706,213 694,219" fill="#94A3B8"/>
+  <text x="686" y="205" text-anchor="middle" font-size="8" fill="#10B981">report</text>
+
+  <!-- ── STAGE 4: Report ── -->
+  <rect x="706" y="42" width="198" height="342" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="805" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#059669" letter-spacing="1">REPORT &amp; REMEDIATE</text>
+  <line x1="716" y1="70" x2="894" y2="70" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="720" y="80"  width="170" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="805" y="104" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">HIPAA Evidence</text>
+  <text x="805" y="120" text-anchor="middle" font-size="9"  fill="#64748B">ePHI datastore posture per control</text>
+
+  <rect x="720" y="142" width="170" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="805" y="166" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">PCI-DSS Report</text>
+  <text x="805" y="182" text-anchor="middle" font-size="9"  fill="#64748B">CDE data store isolation proof</text>
+
+  <rect x="720" y="204" width="170" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="805" y="228" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">GDPR Lineage Map</text>
+  <text x="805" y="244" text-anchor="middle" font-size="9"  fill="#64748B">Data flow across regions + third parties</text>
+
+  <rect x="720" y="266" width="170" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="805" y="290" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Risk-Ranked Findings</text>
+  <text x="805" y="306" text-anchor="middle" font-size="9"  fill="#64748B">Critical / High / Medium / Low</text>
+
+  <rect x="720" y="328" width="170" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="805" y="348" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Remediation Steps</text>
+  <text x="805" y="364" text-anchor="middle" font-size="9"  fill="#64748B">Linked to AWS/Azure/GCP console</text>
+</svg>

@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 360" width="920" height="360" font-family="Arial, sans-serif">
+  <rect width="920" height="360" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">NETWORK POLICY COVERAGE — DEFAULT ALLOW-ALL VS LEAST-PRIVILEGE INTRA-CLUSTER TRAFFIC</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Without panel -->
+  <rect x="16" y="50" width="438" height="296" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="235" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">WITHOUT NETWORK POLICY (DEFAULT)</text>
+  <text x="235" y="86" text-anchor="middle" font-size="8" fill="#64748B">All pods can talk to all pods on all ports — full lateral movement</text>
+  <line x1="32" y1="96" x2="438" y2="96" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- 3 pods -->
+  <rect x="60" y="120" width="100" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="110" y="140" text-anchor="middle" font-size="14">📦</text>
+  <text x="110" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Pod A</text>
+  <text x="110" y="172" text-anchor="middle" font-size="8" fill="#64748B">web frontend</text>
+
+  <rect x="310" y="120" width="100" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="360" y="140" text-anchor="middle" font-size="14">📦</text>
+  <text x="360" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Pod B</text>
+  <text x="360" y="172" text-anchor="middle" font-size="8" fill="#64748B">app server</text>
+
+  <rect x="180" y="240" width="120" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="240" y="260" text-anchor="middle" font-size="14">🗄️</text>
+  <text x="240" y="278" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Database Pod</text>
+  <text x="240" y="292" text-anchor="middle" font-size="8" fill="#64748B">contains PII</text>
+
+  <!-- bidirectional any-traffic arrows -->
+  <line x1="160" y1="150" x2="310" y2="150" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="160,145 150,150 160,155" fill="#94A3B8"/>
+  <polygon points="310,145 320,150 310,155" fill="#94A3B8"/>
+  <text x="235" y="142" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">any traffic</text>
+
+  <line x1="120" y1="180" x2="220" y2="240" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="220,235 230,242 218,245" fill="#94A3B8"/>
+  <text x="135" y="222" font-size="8" font-weight="700" fill="#64748B">any port</text>
+
+  <line x1="350" y1="180" x2="270" y2="240" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="276,238 268,246 264,236" fill="#94A3B8"/>
+  <text x="335" y="222" font-size="8" font-weight="700" fill="#64748B">any port</text>
+
+  <text x="235" y="328" text-anchor="middle" font-size="8" fill="#64748B">Pod A compromise → can reach DB on 5432, 22, 80, 6379... anything</text>
+
+  <!-- VS divider -->
+  <text x="468" y="200" text-anchor="middle" font-size="14" font-weight="700" fill="#94A3B8">VS</text>
+
+  <!-- With panel -->
+  <rect x="482" y="50" width="422" height="296" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="693" y="72" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B" letter-spacing="1">WITH NETWORK POLICY (DESIRED STATE)</text>
+  <text x="693" y="86" text-anchor="middle" font-size="8" fill="#64748B">Only documented paths permitted — lateral movement contained</text>
+  <line x1="498" y1="96" x2="894" y2="96" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="520" y="120" width="100" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="570" y="140" text-anchor="middle" font-size="14">📦</text>
+  <text x="570" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Pod A</text>
+  <text x="570" y="172" text-anchor="middle" font-size="8" fill="#64748B">web frontend</text>
+
+  <rect x="770" y="120" width="100" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="820" y="140" text-anchor="middle" font-size="14">📦</text>
+  <text x="820" y="158" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Pod B</text>
+  <text x="820" y="172" text-anchor="middle" font-size="8" fill="#64748B">app server</text>
+
+  <rect x="630" y="240" width="120" height="60" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="690" y="260" text-anchor="middle" font-size="14">🗄️</text>
+  <text x="690" y="278" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Database Pod</text>
+  <text x="690" y="292" text-anchor="middle" font-size="8" fill="#64748B">restricted ingress</text>
+
+  <line x1="620" y1="150" x2="770" y2="150" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="768,145 778,150 768,155" fill="#94A3B8"/>
+  <text x="695" y="142" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">port 8080 only</text>
+
+  <line x1="810" y1="180" x2="730" y2="240" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="736,238 728,246 724,236" fill="#94A3B8"/>
+  <text x="800" y="222" font-size="8" font-weight="700" fill="#64748B">5432 only</text>
+
+  <line x1="600" y1="180" x2="660" y2="240" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="585" y="222" font-size="9" font-weight="700" fill="#94A3B8">BLOCKED</text>
+
+  <text x="693" y="328" text-anchor="middle" font-size="8" fill="#64748B">Pod A compromise → can only reach Pod B on 8080 — blast radius contained</text>
+</svg>

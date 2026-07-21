@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SBOM GENERATION — FROM A CLOUD WORKLOAD TO A SHAREABLE BILL OF MATERIALS</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <text x="100" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">SOURCE</text>
+  <text x="320" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">ANALYSIS</text>
+  <text x="540" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">SBOM DATA</text>
+  <text x="800" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">EXPORT FORMATS</text>
+
+  <!-- Source -->
+  <rect x="20" y="76" width="160" height="124" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="100" y="104" text-anchor="middle" font-size="18">📦</text>
+  <text x="100" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Cloud Workload</text>
+  <line x1="36" y1="138" x2="164" y2="138" stroke="#94A3B8" stroke-width="1"/>
+  <text x="100" y="158" text-anchor="middle" font-size="9" fill="#64748B">VM · Container</text>
+  <text x="100" y="172" text-anchor="middle" font-size="9" fill="#64748B">Function · Image</text>
+  <text x="100" y="190" text-anchor="middle" font-size="8" fill="#C7D2FE">read via cloud API</text>
+
+  <line x1="180" y1="138" x2="232" y2="138" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="230,133 240,138 230,143" fill="#94A3B8"/>
+
+  <!-- Analysis -->
+  <rect x="240" y="76" width="160" height="124" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="320" y="104" text-anchor="middle" font-size="18">🔍</text>
+  <text x="320" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Package Analysis</text>
+  <line x1="256" y1="138" x2="384" y2="138" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="320" y="156" text-anchor="middle" font-size="8" fill="#475569">OS pkgs · rpm · deb · apk</text>
+  <text x="320" y="170" text-anchor="middle" font-size="8" fill="#475569">Lang · pip · npm · gem</text>
+  <text x="320" y="184" text-anchor="middle" font-size="8" fill="#475569">Maven · Go · Cargo</text>
+  <text x="320" y="196" text-anchor="middle" font-size="8" fill="#475569">Container layers</text>
+
+  <line x1="400" y1="138" x2="452" y2="138" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="450,133 460,138 450,143" fill="#94A3B8"/>
+
+  <!-- SBOM data -->
+  <rect x="460" y="76" width="160" height="124" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="540" y="104" text-anchor="middle" font-size="18">📋</text>
+  <text x="540" y="128" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">SBOM Record</text>
+  <line x1="476" y1="138" x2="604" y2="138" stroke="#94A3B8" stroke-width="1"/>
+  <text x="540" y="158" text-anchor="middle" font-size="9" fill="#C7D2FE">component · version</text>
+  <text x="540" y="172" text-anchor="middle" font-size="9" fill="#C7D2FE">license · supplier</text>
+  <text x="540" y="186" text-anchor="middle" font-size="9" fill="#C7D2FE">checksum · CVEs</text>
+
+  <line x1="620" y1="138" x2="672" y2="138" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="670,133 680,138 670,143" fill="#94A3B8"/>
+
+  <!-- Export formats -->
+  <rect x="680" y="76" width="220" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="700" y="100" font-size="14">📄</text>
+  <text x="724" y="98" font-size="10" font-weight="700" fill="#64748B">CycloneDX</text>
+  <text x="724" y="114" font-size="9" fill="#475569">JSON / XML — OWASP standard</text>
+  <text x="724" y="126" font-size="8" fill="#94A3B8">Used by GitHub, FedRAMP, etc.</text>
+
+  <rect x="680" y="142" width="220" height="58" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="700" y="166" font-size="14">📄</text>
+  <text x="724" y="164" font-size="10" font-weight="700" fill="#64748B">SPDX</text>
+  <text x="724" y="180" font-size="9" fill="#475569">JSON / tag-value — Linux Foundation</text>
+  <text x="724" y="192" font-size="8" fill="#94A3B8">Required by US Executive Order 14028</text>
+
+  <line x1="40" y1="220" x2="880" y2="220" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="242" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">DOWNLOAD VIA API OR PORTAL</text>
+  <text x="460" y="260" text-anchor="middle" font-size="9" fill="#64748B">Auto-generated on every scan · vendor-required for FedRAMP, EU CRA, supply-chain audits · API + signed-URL S3 export · webhook-on-update</text>
+</svg>

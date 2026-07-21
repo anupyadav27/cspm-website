@@ -1,0 +1,102 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 500" width="920" height="500" font-family="Arial, sans-serif">
+  <rect width="920" height="500" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">IAC FRAMEWORK COVERAGE — TEMPLATES SCANNED BY THE SECOPS ENGINE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Center hub -->
+  <circle cx="460" cy="248" r="60" fill="#4F46E5"/>
+  <text x="460" y="246" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">SecOps</text>
+  <text x="460" y="262" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Engine</text>
+
+  <!-- Top-left: Terraform -->
+  <rect x="20" y="58" width="280" height="156" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="160" y="78" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">TERRAFORM / OPENTOFU</text>
+  <line x1="32" y1="86" x2="288" y2="86" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="32" y="98" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="94" y="118" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AWS Provider</text>
+  <text x="94" y="134" text-anchor="middle" font-size="8" fill="#64748B">200+ resources</text>
+
+  <rect x="164" y="98" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="226" y="118" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Azure Provider</text>
+  <text x="226" y="134" text-anchor="middle" font-size="8" fill="#64748B">150+ resources</text>
+
+  <rect x="32" y="154" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="94" y="174" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">GCP Provider</text>
+  <text x="94" y="190" text-anchor="middle" font-size="8" fill="#64748B">130+ resources</text>
+
+  <rect x="164" y="154" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="226" y="174" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">K8s Provider</text>
+  <text x="226" y="190" text-anchor="middle" font-size="8" fill="#64748B">All workload types</text>
+
+  <line x1="300" y1="180" x2="395" y2="232" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="395,225 405,232 396,239" fill="#94A3B8"/>
+
+  <!-- Top-right: AWS CFN -->
+  <rect x="620" y="58" width="280" height="156" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="760" y="78" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">AWS CLOUDFORMATION</text>
+  <line x1="632" y1="86" x2="888" y2="86" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="632" y="98" width="256" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="760" y="118" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">SAM Templates</text>
+  <text x="760" y="134" text-anchor="middle" font-size="8" fill="#64748B">Serverless Application Model</text>
+
+  <rect x="632" y="154" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="694" y="174" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CDK Synth</text>
+  <text x="694" y="190" text-anchor="middle" font-size="8" fill="#64748B">After cdk synth</text>
+
+  <rect x="764" y="154" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="826" y="174" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Native CFN</text>
+  <text x="826" y="190" text-anchor="middle" font-size="8" fill="#64748B">YAML / JSON</text>
+
+  <line x1="620" y1="180" x2="525" y2="232" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="535,225 525,232 533,238" fill="#94A3B8"/>
+
+  <!-- Bottom-left: Kubernetes -->
+  <rect x="20" y="284" width="280" height="156" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="160" y="304" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">KUBERNETES TEMPLATES</text>
+  <line x1="32" y1="312" x2="288" y2="312" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="32" y="324" width="256" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="160" y="344" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Helm Charts</text>
+  <text x="160" y="360" text-anchor="middle" font-size="8" fill="#64748B">.tgz + values.yaml + rendered manifests</text>
+
+  <rect x="32" y="380" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="94" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Kustomize</text>
+  <text x="94" y="416" text-anchor="middle" font-size="8" fill="#64748B">overlays + bases</text>
+
+  <rect x="164" y="380" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="226" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Raw YAML</text>
+  <text x="226" y="416" text-anchor="middle" font-size="8" fill="#64748B">manifests · CRDs</text>
+
+  <line x1="300" y1="320" x2="395" y2="265" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="395,272 405,265 396,259" fill="#94A3B8"/>
+
+  <!-- Bottom-right: Other -->
+  <rect x="620" y="284" width="280" height="156" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="760" y="304" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">OTHER TEMPLATE LANGUAGES</text>
+  <line x1="632" y1="312" x2="888" y2="312" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="632" y="324" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="694" y="344" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Azure ARM</text>
+  <text x="694" y="360" text-anchor="middle" font-size="8" fill="#64748B">+ Bicep</text>
+
+  <rect x="764" y="324" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="826" y="344" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Pulumi</text>
+  <text x="826" y="360" text-anchor="middle" font-size="8" fill="#64748B">Python · TS</text>
+
+  <rect x="632" y="380" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="694" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Ansible</text>
+  <text x="694" y="416" text-anchor="middle" font-size="8" fill="#64748B">Playbooks · Roles</text>
+
+  <rect x="764" y="380" width="124" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="6"/>
+  <text x="826" y="400" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Dockerfiles</text>
+  <text x="826" y="416" text-anchor="middle" font-size="8" fill="#64748B">+ Containerfiles</text>
+
+  <line x1="620" y1="320" x2="525" y2="265" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="535,272 525,265 533,259" fill="#94A3B8"/>
+
+  <!-- Footer -->
+  <text x="460" y="466" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">UNIFIED FINDING CONTRACT — SAME RULE LANGUAGE ACROSS ALL TEMPLATE TYPES</text>
+  <text x="460" y="482" text-anchor="middle" font-size="9" fill="#64748B">A single rule like "S3 bucket public access not blocked" fires identically against Terraform, CFN, Pulumi, Helm — wherever the template surfaces the misconfiguration.</text>
+</svg>

@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">AUTOMATIC DELETION FLOW — DATA RETIRES ON SCHEDULE WITH AUDITABLE PROOF</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <text x="100" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">1. CREATED</text>
+  <text x="290" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">2. RETAINED</text>
+  <text x="480" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">3. EXPIRY</text>
+  <text x="670" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">4. DELETED</text>
+  <text x="840" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">5. VERIFIED</text>
+
+  <rect x="20" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="100" y="100" text-anchor="middle" font-size="14">📥</text>
+  <text x="100" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Data record created</text>
+  <text x="100" y="140" text-anchor="middle" font-size="8" fill="#64748B">Tagged with</text>
+  <text x="100" y="154" text-anchor="middle" font-size="8" fill="#64748B">retention class</text>
+  <text x="100" y="168" text-anchor="middle" font-size="8" fill="#64748B">+ created_at</text>
+
+  <line x1="180" y1="124" x2="208" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="206,119 216,124 206,129" fill="#94A3B8"/>
+
+  <rect x="218" y="74" width="144" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="290" y="100" text-anchor="middle" font-size="14">⏳</text>
+  <text x="290" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Retained</text>
+  <text x="290" y="140" text-anchor="middle" font-size="8" fill="#64748B">For scheduled period</text>
+  <text x="290" y="154" text-anchor="middle" font-size="8" fill="#64748B">90 days · 12 mo · 7 yr</text>
+  <text x="290" y="168" text-anchor="middle" font-size="8" fill="#64748B">per data class</text>
+
+  <line x1="362" y1="124" x2="390" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="388,119 398,124 388,129" fill="#94A3B8"/>
+
+  <rect x="400" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="480" y="100" text-anchor="middle" font-size="14">⏰</text>
+  <text x="480" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Expiry reached</text>
+  <text x="480" y="140" text-anchor="middle" font-size="8" fill="#B45309">Daily expiry job</text>
+  <text x="480" y="154" text-anchor="middle" font-size="8" fill="#B45309">finds eligible records</text>
+  <text x="480" y="168" text-anchor="middle" font-size="8" fill="#B45309">queued for deletion</text>
+
+  <line x1="560" y1="124" x2="588" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="586,119 596,124 586,129" fill="#94A3B8"/>
+
+  <rect x="598" y="74" width="160" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="678" y="100" text-anchor="middle" font-size="14">🗑️</text>
+  <text x="678" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Permanently deleted</text>
+  <text x="678" y="140" text-anchor="middle" font-size="8" fill="#64748B">From production +</text>
+  <text x="678" y="154" text-anchor="middle" font-size="8" fill="#64748B">all backup snapshots</text>
+  <text x="678" y="168" text-anchor="middle" font-size="8" fill="#64748B">irreversible</text>
+
+  <line x1="758" y1="124" x2="786" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="784,119 794,124 784,129" fill="#94A3B8"/>
+
+  <rect x="796" y="74" width="104" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="848" y="100" text-anchor="middle" font-size="14">📋</text>
+  <text x="848" y="122" text-anchor="middle" font-size="10" font-weight="700" fill="#64748B">Audit log</text>
+  <text x="848" y="140" text-anchor="middle" font-size="8" fill="#64748B">Deletion event</text>
+  <text x="848" y="154" text-anchor="middle" font-size="8" fill="#64748B">timestamped</text>
+  <text x="848" y="168" text-anchor="middle" font-size="8" fill="#64748B">cert. on request</text>
+
+  <line x1="40" y1="200" x2="880" y2="200" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="220" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">BACKUP DATA FOLLOWS THE SAME SCHEDULE</text>
+  <text x="460" y="238" text-anchor="middle" font-size="9" fill="#64748B">After the 30-day backup retention window, data deleted from production is also removed from all backup snapshots.</text>
+  <text x="460" y="254" text-anchor="middle" font-size="9" fill="#64748B">A destruction certificate is available on request for any tenant termination event — useful for compliance evidence.</text>
+  <text x="460" y="270" text-anchor="middle" font-size="9" fill="#64748B">Right-to-erasure (GDPR Article 17) requests are processed within 30 days of verified identity.</text>
+</svg>

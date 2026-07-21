@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 420" width="920" height="420" font-family="Arial, sans-serif">
+  <rect width="920" height="420" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">CONTAINER &amp; KUBERNETES SECURITY — COVERAGE MODEL</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── COL 1: What We Scan ── -->
+  <rect x="16" y="42" width="220" height="362" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="126" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">WHAT WE SCAN</text>
+  <line x1="26" y1="70" x2="226" y2="70" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="30"  y="80"  width="192" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="126" y="102" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Kubernetes Clusters</text>
+  <text x="126" y="118" text-anchor="middle" font-size="9"  fill="#64748B">EKS · AKS · GKE · OKE · IKS</text>
+
+  <rect x="30"  y="140" width="192" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="126" y="162" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Pods &amp; Workloads</text>
+  <text x="126" y="178" text-anchor="middle" font-size="9"  fill="#64748B">Deployments · DaemonSets · Jobs</text>
+
+  <rect x="30"  y="200" width="192" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="126" y="222" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">RBAC Roles &amp; Bindings</text>
+  <text x="126" y="238" text-anchor="middle" font-size="9"  fill="#64748B">ClusterRole · RoleBinding · ServiceAccount</text>
+
+  <rect x="30"  y="260" width="192" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="126" y="282" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Container Images</text>
+  <text x="126" y="298" text-anchor="middle" font-size="9"  fill="#64748B">ECR · ACR · GCR · Docker Hub</text>
+
+  <rect x="30"  y="320" width="192" height="50" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="126" y="342" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Network Policies</text>
+  <text x="126" y="358" text-anchor="middle" font-size="9"  fill="#64748B">Ingress/egress rules · Namespaces</text>
+
+  <!-- arrow -->
+  <line x1="236" y1="213" x2="258" y2="213" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="256,207 268,213 256,219" fill="#94A3B8"/>
+
+  <!-- ── COL 2: Security Checks ── -->
+  <rect x="268" y="42" width="268" height="362" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <text x="402" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">SECURITY CHECKS</text>
+  <line x1="278" y1="70" x2="526" y2="70" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="282" y="80"  width="240" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="402" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">RBAC Privilege Escalation</text>
+  <text x="402" y="120" text-anchor="middle" font-size="9"  fill="#64748B">Wildcard verbs · cluster-admin overuse</text>
+  <text x="402" y="134" text-anchor="middle" font-size="9"  fill="#64748B">Privilege escalation via RoleBinding chains</text>
+
+  <rect x="282" y="146" width="240" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="402" y="170" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Pod Security Standards</text>
+  <text x="402" y="186" text-anchor="middle" font-size="9"  fill="#64748B">Privileged containers · HostPID/HostNetwork</text>
+  <text x="402" y="200" text-anchor="middle" font-size="9"  fill="#64748B">RunAsRoot · Writable root filesystems</text>
+
+  <rect x="282" y="212" width="240" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="402" y="236" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Image Vulnerability Scanning</text>
+  <text x="402" y="252" text-anchor="middle" font-size="9"  fill="#64748B">CVE matching against image layers</text>
+  <text x="402" y="266" text-anchor="middle" font-size="9"  fill="#64748B">Unpatched base images · No digest pinning</text>
+
+  <rect x="282" y="278" width="240" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="402" y="302" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Network Policy Gaps</text>
+  <text x="402" y="318" text-anchor="middle" font-size="9"  fill="#64748B">Namespaces with no ingress/egress policy</text>
+  <text x="402" y="332" text-anchor="middle" font-size="9"  fill="#64748B">Default-allow posture across namespaces</text>
+
+  <rect x="282" y="344" width="240" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="402" y="368" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">250+ rules · CIS Kubernetes Benchmark</text>
+
+  <!-- arrow -->
+  <line x1="536" y1="213" x2="558" y2="213" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="556,207 568,213 556,219" fill="#94A3B8"/>
+
+  <!-- ── COL 3: Findings & Outcomes ── -->
+  <rect x="568" y="42" width="336" height="362" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="736" y="62" text-anchor="middle" font-size="9" font-weight="700" fill="#059669" letter-spacing="1">FINDINGS &amp; OUTCOMES</text>
+  <line x1="578" y1="70" x2="894" y2="70" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- severity grid -->
+  <rect x="582" y="80"  width="148" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="656" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Critical</text>
+  <text x="656" y="120" text-anchor="middle" font-size="9"  fill="#64748B">cluster-admin wildcard bind</text>
+  <rect x="742" y="80"  width="148" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="816" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">High</text>
+  <text x="816" y="120" text-anchor="middle" font-size="9"  fill="#64748B">Privileged pod on node</text>
+
+  <rect x="582" y="146" width="148" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="656" y="170" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Medium</text>
+  <text x="656" y="186" text-anchor="middle" font-size="9"  fill="#FEF08A">No network policy set</text>
+  <rect x="742" y="146" width="148" height="56" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="816" y="170" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Low</text>
+  <text x="816" y="186" text-anchor="middle" font-size="9"  fill="#64748B">Missing resource limits</text>
+
+  <!-- outcome boxes -->
+  <rect x="582" y="216" width="308" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="736" y="240" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Attack Path Detection</text>
+  <text x="736" y="256" text-anchor="middle" font-size="9"  fill="#64748B">RBAC escalation → cloud credential access → data exfil</text>
+
+  <rect x="582" y="278" width="308" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="736" y="302" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Compliance Mapping</text>
+  <text x="736" y="318" text-anchor="middle" font-size="9"  fill="#64748B">CIS K8s Benchmark · NSA/CISA K8s Hardening Guide</text>
+
+  <rect x="582" y="340" width="308" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="736" y="364" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Remediation Guidance</text>
+  <text x="736" y="380" text-anchor="middle" font-size="9"  fill="#64748B">Kubectl commands · YAML patches · Policy templates</text>
+</svg>

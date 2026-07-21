@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 304" width="920" height="304" font-family="Arial, sans-serif">
+  <rect width="920" height="304" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">SCALING MODEL — COST-OPTIMIZED · AUTO-SCALED PER COMPONENT</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── 5 COMPONENT CARDS ── -->
+  <!-- Engine Services -->
+  <rect x="16" y="44" width="170" height="226" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="16" y="44" width="170" height="36" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16" y="68" width="170" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="101" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Engine Services</text>
+  <text x="101" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Horizontal Pod Autoscaling</text>
+  <line x1="26" y1="108" x2="176" y2="108" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="101" y="124" text-anchor="middle" font-size="9" fill="#64748B">CPU / memory triggers</text>
+  <text x="101" y="140" text-anchor="middle" font-size="9" fill="#64748B">Scale up on scan demand</text>
+  <text x="101" y="156" text-anchor="middle" font-size="9" fill="#64748B">Scale to min 1 at idle</text>
+  <text x="101" y="172" text-anchor="middle" font-size="9" fill="#64748B">15+ microservices</text>
+  <text x="101" y="188" text-anchor="middle" font-size="9" fill="#64748B">Independent per engine</text>
+  <rect x="28" y="204" width="146" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="101" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">HPA</text>
+  <text x="101" y="240" text-anchor="middle" font-size="8" fill="#64748B">minReplicas: 1</text>
+  <text x="101" y="253" text-anchor="middle" font-size="8" fill="#64748B">maxReplicas: 10</text>
+
+  <!-- Spot Scanners -->
+  <rect x="200" y="44" width="170" height="226" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <rect x="200" y="44" width="170" height="36" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="200" y="68" width="170" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="285" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Spot Scanners</text>
+  <text x="285" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Scale-to-Zero Nodes</text>
+  <line x1="210" y1="108" x2="360" y2="108" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="285" y="124" text-anchor="middle" font-size="9" fill="#64748B">Spot instance pricing</text>
+  <text x="285" y="140" text-anchor="middle" font-size="9" fill="#64748B">min=0 · max=20 nodes</text>
+  <text x="285" y="156" text-anchor="middle" font-size="9" fill="#64748B">Taint: spot-scanner</text>
+  <text x="285" y="172" text-anchor="middle" font-size="9" fill="#64748B">NoSchedule unless scans</text>
+  <text x="285" y="188" text-anchor="middle" font-size="9" fill="#64748B">Cost: ~zero at idle</text>
+  <rect x="212" y="204" width="146" height="54" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="285" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">0 → 20</text>
+  <text x="285" y="240" text-anchor="middle" font-size="8" fill="#64748B">nodes on scan trigger</text>
+  <text x="285" y="253" text-anchor="middle" font-size="8" fill="#64748B">Cluster Autoscaler</text>
+
+  <!-- Pipeline -->
+  <rect x="384" y="44" width="170" height="226" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="384" y="44" width="170" height="36" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="384" y="68" width="170" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="469" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Pipeline Orchestration</text>
+  <text x="469" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Argo Workflows DAG</text>
+  <line x1="394" y1="108" x2="544" y2="108" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="469" y="124" text-anchor="middle" font-size="9" fill="#64748B">Parallel domain engines</text>
+  <text x="469" y="140" text-anchor="middle" font-size="9" fill="#64748B">Retries on failure</text>
+  <text x="469" y="156" text-anchor="middle" font-size="9" fill="#64748B">Step-by-step DAG</text>
+  <text x="469" y="172" text-anchor="middle" font-size="9" fill="#64748B">scan_run_id correlation</text>
+  <text x="469" y="188" text-anchor="middle" font-size="9" fill="#64748B">Failure isolation</text>
+  <rect x="396" y="204" width="146" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="469" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="#5B21B6">Argo</text>
+  <text x="469" y="240" text-anchor="middle" font-size="8" fill="#5B21B6">cluster-scoped controller</text>
+  <text x="469" y="253" text-anchor="middle" font-size="8" fill="#5B21B6">argo namespace</text>
+
+  <!-- Databases -->
+  <rect x="568" y="44" width="170" height="226" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="568" y="44" width="170" height="36" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="568" y="68" width="170" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="653" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Databases</text>
+  <text x="653" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">RDS + Neo4j Aura</text>
+  <line x1="578" y1="108" x2="728" y2="108" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="653" y="124" text-anchor="middle" font-size="9" fill="#64748B">Per-engine RDS instances</text>
+  <text x="653" y="140" text-anchor="middle" font-size="9" fill="#64748B">Read replicas per DB</text>
+  <text x="653" y="156" text-anchor="middle" font-size="9" fill="#64748B">Multi-AZ standby</text>
+  <text x="653" y="172" text-anchor="middle" font-size="9" fill="#64748B">Neo4j Aura managed</text>
+  <text x="653" y="188" text-anchor="middle" font-size="9" fill="#64748B">Auto-scaled by Aura</text>
+  <rect x="580" y="204" width="146" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="653" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">RDS</text>
+  <text x="653" y="240" text-anchor="middle" font-size="8" fill="#1E40AF">Multi-AZ failover</text>
+  <text x="653" y="253" text-anchor="middle" font-size="8" fill="#1E40AF">Automated backups</text>
+
+  <!-- Security Graph -->
+  <rect x="752" y="44" width="152" height="226" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <rect x="752" y="44" width="152" height="36" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="752" y="68" width="152" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="828" y="65" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Security Graph</text>
+  <text x="828" y="100" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Neo4j Aura Managed</text>
+  <line x1="762" y1="108" x2="894" y2="108" stroke="#94A3B8" stroke-width="1"/>
+  <text x="828" y="124" text-anchor="middle" font-size="9" fill="#64748B">Auto-scaled by Neo4j</text>
+  <text x="828" y="140" text-anchor="middle" font-size="9" fill="#64748B">No Kubernetes pods</text>
+  <text x="828" y="156" text-anchor="middle" font-size="9" fill="#64748B">Always-on SaaS</text>
+  <text x="828" y="172" text-anchor="middle" font-size="9" fill="#64748B">Attack path queries</text>
+  <text x="828" y="188" text-anchor="middle" font-size="9" fill="#64748B">Graph traversal at scale</text>
+  <rect x="764" y="204" width="128" height="54" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="828" y="224" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Aura</text>
+  <text x="828" y="240" text-anchor="middle" font-size="8" fill="#64748B">fully managed</text>
+  <text x="828" y="253" text-anchor="middle" font-size="8" fill="#64748B">no ops required</text>
+
+  <!-- bottom summary -->
+  <rect x="16" y="280" width="888" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="460" y="300" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">All components scale independently — a large concurrent scan burst scales Spot Scanners while idle engines stay at min</text>
+  <text x="460" y="318" text-anchor="middle" font-size="9" fill="#64748B">Spot node group is the primary cost lever — $0 infra cost when no scans are running</text>
+</svg>

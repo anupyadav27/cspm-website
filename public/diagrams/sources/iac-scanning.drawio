@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxGraphModel dx="1422" dy="762" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+  <root>
+    <mxCell id="0" />
+    <mxCell id="1" parent="0" />
+    <!-- Background -->
+    <mxCell id="2" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F8FAFC;strokeColor=#CBD5E1;strokeWidth=2;" vertex="1" parent="1">
+      <mxGeometry x="20" y="20" width="920" height="460" as="geometry" />
+    </mxCell>
+    <!-- Title -->
+    <mxCell id="3" value="SHIFT-LEFT IaC SCANNING PIPELINE" style="text;html=1;align=center;verticalAlign=middle;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;fontColor=#4F46E5;letterSpacing=1;" vertex="1" parent="1">
+      <mxGeometry x="20" y="30" width="920" height="30" as="geometry" />
+    </mxCell>
+    <!-- Cost escalation banner -->
+    <mxCell id="cost" value="Cost to fix a vulnerability grows 10× at each stage — fix it left, not right" style="text;html=1;align=center;fontStyle=2;fontSize=10;fontColor=#DC2626;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="65" width="840" height="20" as="geometry" />
+    </mxCell>
+    <!-- Stage 1: Code -->
+    <mxCell id="10" value="&lt;b&gt;1. Code&lt;/b&gt;&lt;br&gt;IDE plugin · Pre-commit hook" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="100" width="155" height="70" as="geometry" />
+    </mxCell>
+    <mxCell id="a1" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="215" y="135" width="50" height="0" as="geometry">
+        <Array as="points">
+          <mxPoint x="215" y="135" />
+          <mxPoint x="235" y="135" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Stage 2: PR -->
+    <mxCell id="11" value="&lt;b&gt;2. Pull Request&lt;/b&gt;&lt;br&gt;GitHub / GitLab CI" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="235" y="100" width="155" height="70" as="geometry" />
+    </mxCell>
+    <mxCell id="a2" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="390" y="135" width="50" height="0" as="geometry">
+        <Array as="points">
+          <mxPoint x="390" y="135" />
+          <mxPoint x="410" y="135" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Stage 3: Build (highlight) -->
+    <mxCell id="12" value="&lt;b&gt;3. Build / CI&lt;/b&gt;&lt;br&gt;Full SAST + SCA scan" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2563EB;strokeColor=none;fontColor=#FFFFFF;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="410" y="100" width="155" height="70" as="geometry" />
+    </mxCell>
+    <mxCell id="a3" value="" style="endArrow=block;endFill=1;strokeColor=#2563EB;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="565" y="135" width="50" height="0" as="geometry">
+        <Array as="points">
+          <mxPoint x="565" y="135" />
+          <mxPoint x="585" y="135" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Stage 4: Staging -->
+    <mxCell id="13" value="&lt;b&gt;4. Staging&lt;/b&gt;&lt;br&gt;DAST + runtime" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="585" y="100" width="155" height="70" as="geometry" />
+    </mxCell>
+    <mxCell id="a4" value="" style="endArrow=block;endFill=1;strokeColor=#10B981;strokeWidth=2;" edge="1" parent="1">
+      <mxGeometry x="740" y="135" width="50" height="0" as="geometry">
+        <Array as="points">
+          <mxPoint x="740" y="135" />
+          <mxPoint x="760" y="135" />
+        </Array>
+      </mxGeometry>
+    </mxCell>
+    <!-- Stage 5: Production (green) -->
+    <mxCell id="14" value="&lt;b&gt;5. Production&lt;/b&gt;&lt;br&gt;CSPM continuous" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#10B981;strokeColor=none;fontColor=#FFFFFF;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="760" y="100" width="140" height="70" as="geometry" />
+    </mxCell>
+    <!-- Languages coverage -->
+    <mxCell id="lang" value="&lt;b&gt;Languages Supported&lt;/b&gt;" style="text;html=1;align=left;fontStyle=1;fontSize=10;fontColor=#1E40AF;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="195" width="840" height="20" as="geometry" />
+    </mxCell>
+    <mxCell id="l1" value="Terraform" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="60" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l2" value="CloudFormation" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="165" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l3" value="Pulumi" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="270" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l4" value="Bicep / ARM" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="375" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l5" value="Kubernetes YAML" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="480" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l6" value="Helm Charts" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="585" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l7" value="Docker / Compose" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="690" y="220" width="95" height="30" as="geometry" />
+    </mxCell>
+    <mxCell id="l8" value="+ 7 more" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#DBEAFE;strokeColor=#3B82F6;fontSize=10;" vertex="1" parent="1">
+      <mxGeometry x="795" y="220" width="105" height="30" as="geometry" />
+    </mxCell>
+    <!-- AI Remediation section -->
+    <mxCell id="ai" value="&lt;b&gt;AI-Powered Remediation&lt;/b&gt;&lt;br&gt;For each finding: exact corrected code snippet · Severity + compliance mapping · Estimated fix time" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F0FDF4;strokeColor=#10B981;strokeWidth=1.5;fontSize=11;align=center;" vertex="1" parent="1">
+      <mxGeometry x="60" y="270" width="840" height="65" as="geometry" />
+    </mxCell>
+    <!-- Footer -->
+    <mxCell id="footer" value="2,852 rules · 14 languages · 479 DAST payloads · SARIF export · GitHub Actions native" style="text;html=1;align=center;fontSize=10;fontColor=#64748B;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+      <mxGeometry x="60" y="350" width="840" height="20" as="geometry" />
+    </mxCell>
+  </root>
+</mxGraphModel>

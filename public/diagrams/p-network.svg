@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 490" width="380" height="490" font-family="Arial, sans-serif">
+  <rect width="380" height="490" fill="#F8FAFC" rx="10" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="190" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#4F46E5" letter-spacing="1.2">7-LAYER NETWORK TOPOLOGY ANALYSIS</text>
+  <line x1="10" y1="34" x2="370" y2="34" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L1 -->
+  <rect x="20" y="44" width="44" height="54" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="42" y="76" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L1</text>
+  <text x="74" y="62" font-size="11" font-weight="700" fill="#1E3A8A">Network Isolation</text>
+  <text x="74" y="78" font-size="9" fill="#64748B">VPC/VCN · Peering · Transit Gateways</text>
+  <text x="74" y="91" font-size="8" fill="#3B82F6">Network boundary segmentation</text>
+  <line x1="10" y1="102" x2="370" y2="102" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L2 -->
+  <rect x="20" y="108" width="44" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="42" y="140" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L2</text>
+  <text x="74" y="126" font-size="11" font-weight="700" fill="#1E3A8A">Network Reachability</text>
+  <text x="74" y="142" font-size="9" fill="#64748B">Route tables · NAT · Subnet marking</text>
+  <text x="74" y="155" font-size="8" fill="#3B82F6">Public vs. private classification</text>
+  <line x1="10" y1="166" x2="370" y2="166" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L3 -->
+  <rect x="20" y="172" width="44" height="54" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="42" y="204" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L3</text>
+  <text x="74" y="190" font-size="11" font-weight="700" fill="#1E3A8A">Network ACLs</text>
+  <text x="74" y="206" font-size="9" fill="#64748B">Subnet-level firewall · Deny/allow rules</text>
+  <text x="74" y="219" font-size="8" fill="#3B82F6">Default-allow gaps · Missing deny rules</text>
+  <line x1="10" y1="230" x2="370" y2="230" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L4 -->
+  <rect x="20" y="236" width="44" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="42" y="268" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L4</text>
+  <text x="74" y="254" font-size="11" font-weight="700" fill="#1E3A8A">Security Groups</text>
+  <text x="74" y="270" font-size="9" fill="#64748B">SSH/RDP/DB ports · 0.0.0.0/0 exposure</text>
+  <text x="74" y="283" font-size="8" fill="#3B82F6">Orphaned SGs · Overly broad CIDR</text>
+  <line x1="10" y1="294" x2="370" y2="294" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L5 -->
+  <rect x="20" y="300" width="44" height="54" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="42" y="332" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L5</text>
+  <text x="74" y="318" font-size="11" font-weight="700" fill="#1E3A8A">Load Balancer Security</text>
+  <text x="74" y="334" font-size="9" fill="#64748B">TLS policy · HTTP listeners · Internet-facing LBs</text>
+  <text x="74" y="347" font-size="8" fill="#3B82F6">TLS 1.0/1.1 · No HTTPS redirect flagged</text>
+  <line x1="10" y1="358" x2="370" y2="358" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L6 -->
+  <rect x="20" y="364" width="44" height="54" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="42" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L6</text>
+  <text x="74" y="382" font-size="11" font-weight="700" fill="#1E3A8A">WAF Protection</text>
+  <text x="74" y="398" font-size="9" fill="#64748B">OWASP rules · WAF coverage gaps</text>
+  <text x="74" y="411" font-size="8" fill="#3B82F6">Internet-facing endpoints without WAF</text>
+  <line x1="10" y1="422" x2="370" y2="422" stroke="#94A3B8" stroke-width="1"/>
+
+  <!-- L7 green -->
+  <rect x="20" y="428" width="44" height="44" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="42" y="455" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">L7</text>
+  <text x="74" y="446" font-size="11" font-weight="700" fill="#1E3A8A">Network Monitoring</text>
+  <text x="74" y="462" font-size="9" fill="#64748B">VPC Flow Logs · DNS · WAF logging</text>
+</svg>

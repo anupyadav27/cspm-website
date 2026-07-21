@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 324" width="920" height="324" font-family="Arial, sans-serif">
+  <rect width="920" height="324" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">ROLE-BASED ACCESS CONTROL — 5 ROLES · 27 PERMISSIONS</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── ROLE CARDS ── -->
+  <!-- Platform Admin -->
+  <rect x="16" y="44" width="162" height="248" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <rect x="16" y="44" width="162" height="40" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16" y="72" width="162" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="97" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">platform_admin</text>
+  <text x="97" y="78" text-anchor="middle" font-size="8" fill="#64748B">Level 1</text>
+  <text x="97" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Full platform access</text>
+  <text x="97" y="120" text-anchor="middle" font-size="8" fill="#64748B">All tenants · All engines</text>
+  <text x="97" y="136" text-anchor="middle" font-size="8" fill="#64748B">User management</text>
+  <text x="97" y="152" text-anchor="middle" font-size="8" fill="#64748B">Billing controls</text>
+  <text x="97" y="168" text-anchor="middle" font-size="8" fill="#64748B">Platform config</text>
+  <text x="97" y="184" text-anchor="middle" font-size="8" fill="#64748B">Audit log access</text>
+  <text x="97" y="200" text-anchor="middle" font-size="8" fill="#64748B">SAML / SSO config</text>
+  <rect x="28" y="218" width="138" height="64" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="97" y="240" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">27 permissions</text>
+  <text x="97" y="256" text-anchor="middle" font-size="9" fill="#64748B">All features:all actions</text>
+  <text x="97" y="272" text-anchor="middle" font-size="8" fill="#64748B">Cross-tenant visibility</text>
+
+  <!-- Org Admin -->
+  <rect x="192" y="44" width="162" height="248" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="192" y="44" width="162" height="40" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="192" y="72" width="162" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="273" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">org_admin</text>
+  <text x="273" y="78" text-anchor="middle" font-size="8" fill="#64748B">Level 2</text>
+  <text x="273" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Organization scope</text>
+  <text x="273" y="120" text-anchor="middle" font-size="8" fill="#64748B">All tenants in org</text>
+  <text x="273" y="136" text-anchor="middle" font-size="8" fill="#64748B">User provisioning</text>
+  <text x="273" y="152" text-anchor="middle" font-size="8" fill="#64748B">Scan management</text>
+  <text x="273" y="168" text-anchor="middle" font-size="8" fill="#64748B">Report export</text>
+  <text x="273" y="184" text-anchor="middle" font-size="8" fill="#64748B">Account management</text>
+  <text x="273" y="200" text-anchor="middle" font-size="8" fill="#64748B">No platform config</text>
+  <rect x="204" y="218" width="138" height="64" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="273" y="240" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">~22 permissions</text>
+  <text x="273" y="256" text-anchor="middle" font-size="9" fill="#64748B">org-scoped access</text>
+  <text x="273" y="272" text-anchor="middle" font-size="8" fill="#64748B">No platform:write</text>
+
+  <!-- Tenant Admin -->
+  <rect x="368" y="44" width="184" height="248" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <rect x="368" y="44" width="184" height="40" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="368" y="72" width="184" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">tenant_admin</text>
+  <text x="460" y="78" text-anchor="middle" font-size="8" fill="#64748B">Level 4</text>
+  <text x="460" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Tenant scope — full</text>
+  <text x="460" y="120" text-anchor="middle" font-size="8" fill="#64748B">Own tenant only</text>
+  <text x="460" y="136" text-anchor="middle" font-size="8" fill="#64748B">Cloud account management</text>
+  <text x="460" y="152" text-anchor="middle" font-size="8" fill="#64748B">Trigger scans · View all</text>
+  <text x="460" y="168" text-anchor="middle" font-size="8" fill="#64748B">Manage tenant users</text>
+  <text x="460" y="184" text-anchor="middle" font-size="8" fill="#64748B">All engine access</text>
+  <text x="460" y="200" text-anchor="middle" font-size="8" fill="#64748B">Export reports</text>
+  <rect x="380" y="218" width="160" height="64" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="240" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">~18 permissions</text>
+  <text x="460" y="256" text-anchor="middle" font-size="9" fill="#64748B">tenant-scoped</text>
+  <text x="460" y="272" text-anchor="middle" font-size="8" fill="#64748B">No cross-tenant</text>
+
+  <!-- Analyst -->
+  <rect x="566" y="44" width="162" height="248" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="566" y="44" width="162" height="40" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="566" y="72" width="162" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="647" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">analyst</text>
+  <text x="647" y="78" text-anchor="middle" font-size="8" fill="#64748B">Level 4</text>
+  <text x="647" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Read + Acknowledge</text>
+  <text x="647" y="120" text-anchor="middle" font-size="8" fill="#64748B">View all findings</text>
+  <text x="647" y="136" text-anchor="middle" font-size="8" fill="#64748B">Acknowledge / suppress</text>
+  <text x="647" y="152" text-anchor="middle" font-size="8" fill="#64748B">Trigger scans</text>
+  <text x="647" y="168" text-anchor="middle" font-size="8" fill="#64748B">Export reports</text>
+  <text x="647" y="184" text-anchor="middle" font-size="8" fill="#64748B">No user management</text>
+  <text x="647" y="200" text-anchor="middle" font-size="8" fill="#64748B">No account changes</text>
+  <rect x="578" y="218" width="138" height="64" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="647" y="240" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">~14 permissions</text>
+  <text x="647" y="256" text-anchor="middle" font-size="9" fill="#64748B">read + write findings</text>
+  <text x="647" y="272" text-anchor="middle" font-size="8" fill="#64748B">no admin:write</text>
+
+  <!-- Viewer -->
+  <rect x="742" y="44" width="162" height="248" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <rect x="742" y="44" width="162" height="40" fill="#FFFFFF" rx="10" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="742" y="72" width="162" height="12" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="823" y="62" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">viewer</text>
+  <text x="823" y="78" text-anchor="middle" font-size="8" fill="#64748B">Level 4</text>
+  <text x="823" y="102" text-anchor="middle" font-size="9" font-weight="700" fill="#64748B">Read-only</text>
+  <text x="823" y="120" text-anchor="middle" font-size="8" fill="#64748B">View findings only</text>
+  <text x="823" y="136" text-anchor="middle" font-size="8" fill="#64748B">View compliance reports</text>
+  <text x="823" y="152" text-anchor="middle" font-size="8" fill="#64748B">View dashboard</text>
+  <text x="823" y="168" text-anchor="middle" font-size="8" fill="#94A3B8">No DataSec access</text>
+  <text x="823" y="184" text-anchor="middle" font-size="8" fill="#94A3B8">No SecOps access</text>
+  <text x="823" y="200" text-anchor="middle" font-size="8" fill="#94A3B8">No Vuln / AI / Encrypt</text>
+  <rect x="754" y="218" width="138" height="64" fill="#FFFFFF" rx="6" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="823" y="240" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">9 permissions</text>
+  <text x="823" y="256" text-anchor="middle" font-size="9" fill="#64748B">read-only</text>
+  <text x="823" y="272" text-anchor="middle" font-size="8" fill="#64748B">403 on sensitive engines</text>
+
+  <!-- bottom note -->
+  <rect x="16" y="302" width="888" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
+  <text x="460" y="322" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Permissions format: feature:action  (e.g. discoveries:read, scans:create, tenants:write)</text>
+  <text x="460" y="340" text-anchor="middle" font-size="9" fill="#64748B">require_permission() enforced on every engine endpoint · 403 returned immediately on mismatch · No role escalation possible</text>
+</svg>

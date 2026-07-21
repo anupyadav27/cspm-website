@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 364" width="920" height="364" font-family="Arial, sans-serif">
+  <rect width="920" height="364" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">10 SECURITY PILLARS — INDEPENDENT ENGINES · UNIFIED POSTURE SCORE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── ROW 1: 5 pillars ── -->
+  <!-- CSPM -->
+  <rect x="16" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
+  <text x="100" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CSPM</text>
+  <text x="100" y="80" text-anchor="middle" font-size="8" fill="#64748B">Cloud Security Posture</text>
+  <line x1="26" y1="88" x2="174" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="100" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">1,918+ rules</text>
+  <text x="100" y="120" text-anchor="middle" font-size="8" fill="#64748B">PASS/FAIL per resource</text>
+  <text x="100" y="136" text-anchor="middle" font-size="8" fill="#64748B">YAML rule-as-code</text>
+  <text x="100" y="152" text-anchor="middle" font-size="8" fill="#64748B">7 cloud providers</text>
+  <text x="100" y="168" text-anchor="middle" font-size="8" fill="#64748B">Continuous evaluation</text>
+
+  <!-- CIEM -->
+  <rect x="196" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="280" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CIEM</text>
+  <text x="280" y="80" text-anchor="middle" font-size="8" fill="#64748B">Identity Entitlements</text>
+  <line x1="206" y1="88" x2="354" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="280" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">Effective permissions</text>
+  <text x="280" y="120" text-anchor="middle" font-size="8" fill="#64748B">Unused access 90-day</text>
+  <text x="280" y="136" text-anchor="middle" font-size="8" fill="#64748B">Shadow admin paths</text>
+  <text x="280" y="152" text-anchor="middle" font-size="8" fill="#64748B">Stale identities</text>
+  <text x="280" y="168" text-anchor="middle" font-size="8" fill="#64748B">Cross-account trust</text>
+
+  <!-- DSPM -->
+  <rect x="376" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="460" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">DSPM</text>
+  <text x="460" y="80" text-anchor="middle" font-size="8" fill="#64748B">Data Security Posture</text>
+  <line x1="386" y1="88" x2="534" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">62 rules · 7 domains</text>
+  <text x="460" y="120" text-anchor="middle" font-size="8" fill="#64748B">PII · PCI · PHI detection</text>
+  <text x="460" y="136" text-anchor="middle" font-size="8" fill="#64748B">Encryption compliance</text>
+  <text x="460" y="152" text-anchor="middle" font-size="8" fill="#64748B">Data exposure levels</text>
+  <text x="460" y="168" text-anchor="middle" font-size="8" fill="#64748B">GDPR/HIPAA mapping</text>
+
+  <!-- Network Security -->
+  <rect x="556" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="640" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Network Security</text>
+  <text x="640" y="80" text-anchor="middle" font-size="8" fill="#64748B">7-Layer Topology</text>
+  <line x1="566" y1="88" x2="714" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="640" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">L1–L7 analysis</text>
+  <text x="640" y="120" text-anchor="middle" font-size="8" fill="#64748B">VPC isolation</text>
+  <text x="640" y="136" text-anchor="middle" font-size="8" fill="#64748B">SG / NACL rules</text>
+  <text x="640" y="152" text-anchor="middle" font-size="8" fill="#64748B">WAF coverage</text>
+  <text x="640" y="168" text-anchor="middle" font-size="8" fill="#64748B">Flow log monitoring</text>
+
+  <!-- Vulnerability -->
+  <rect x="736" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="820" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Vulnerability</text>
+  <text x="820" y="80" text-anchor="middle" font-size="8" fill="#64748B">Agentless CVE Scanning</text>
+  <line x1="746" y1="88" x2="894" y2="88" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="820" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">EPSS · CVSS · KEV</text>
+  <text x="820" y="120" text-anchor="middle" font-size="8" fill="#64748B">SBOM generation</text>
+  <text x="820" y="136" text-anchor="middle" font-size="8" fill="#64748B">CycloneDX / SPDX</text>
+  <text x="820" y="152" text-anchor="middle" font-size="8" fill="#64748B">Effective risk score</text>
+  <text x="820" y="168" text-anchor="middle" font-size="8" fill="#64748B">Patch guidance</text>
+
+  <!-- ── ROW 2: 5 pillars ── -->
+  <!-- Container Security -->
+  <rect x="16" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="100" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Container Security</text>
+  <text x="100" y="248" text-anchor="middle" font-size="8" fill="#64748B">EKS · AKS · GKE · OKE</text>
+  <line x1="26" y1="256" x2="174" y2="256" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="100" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">250+ K8s rules</text>
+  <text x="100" y="288" text-anchor="middle" font-size="8" fill="#64748B">RBAC analysis</text>
+  <text x="100" y="304" text-anchor="middle" font-size="8" fill="#64748B">Pod security standards</text>
+  <text x="100" y="320" text-anchor="middle" font-size="8" fill="#64748B">Image CVE scanning</text>
+  <text x="100" y="336" text-anchor="middle" font-size="8" fill="#64748B">Network policy gaps</text>
+
+  <!-- AI Security -->
+  <rect x="196" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="280" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AI Security</text>
+  <text x="280" y="248" text-anchor="middle" font-size="8" fill="#64748B">SageMaker · Bedrock</text>
+  <line x1="206" y1="256" x2="354" y2="256" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="280" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">ML model posture</text>
+  <text x="280" y="288" text-anchor="middle" font-size="8" fill="#64748B">Access control checks</text>
+  <text x="280" y="304" text-anchor="middle" font-size="8" fill="#64748B">Training data security</text>
+  <text x="280" y="320" text-anchor="middle" font-size="8" fill="#64748B">Endpoint exposure</text>
+  <text x="280" y="336" text-anchor="middle" font-size="8" fill="#64748B">IAM roles on models</text>
+
+  <!-- Threat Detection -->
+  <rect x="376" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="460" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Threat Detection</text>
+  <text x="460" y="248" text-anchor="middle" font-size="8" fill="#64748B">MITRE ATT&amp;CK</text>
+  <line x1="386" y1="256" x2="534" y2="256" stroke="#94A3B8" stroke-width="1"/>
+  <text x="460" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Attack path analysis</text>
+  <text x="460" y="288" text-anchor="middle" font-size="8" fill="#64748B">Blast radius scoring</text>
+  <text x="460" y="304" text-anchor="middle" font-size="8" fill="#64748B">Security graph (Neo4j)</text>
+  <text x="460" y="320" text-anchor="middle" font-size="8" fill="#64748B">Toxic combinations</text>
+  <text x="460" y="336" text-anchor="middle" font-size="8" fill="#64748B">Attack narrative (AI)</text>
+
+  <!-- SecOps -->
+  <rect x="556" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="640" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">SecOps</text>
+  <text x="640" y="248" text-anchor="middle" font-size="8" fill="#64748B">SAST · DAST · SCA</text>
+  <line x1="566" y1="256" x2="714" y2="256" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="640" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">2,852 SAST rules</text>
+  <text x="640" y="288" text-anchor="middle" font-size="8" fill="#64748B">14 languages</text>
+  <text x="640" y="304" text-anchor="middle" font-size="8" fill="#64748B">479 DAST payloads</text>
+  <text x="640" y="320" text-anchor="middle" font-size="8" fill="#64748B">IaC scanning</text>
+  <text x="640" y="336" text-anchor="middle" font-size="8" fill="#64748B">CI/CD integration</text>
+
+  <!-- Compliance -->
+  <rect x="736" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="820" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Compliance</text>
+  <text x="820" y="248" text-anchor="middle" font-size="8" fill="#64748B">13+ Frameworks</text>
+  <line x1="746" y1="256" x2="894" y2="256" stroke="#94A3B8" stroke-width="1"/>
+  <text x="820" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">CIS · NIST · ISO 27001</text>
+  <text x="820" y="288" text-anchor="middle" font-size="8" fill="#64748B">PCI-DSS · HIPAA</text>
+  <text x="820" y="304" text-anchor="middle" font-size="8" fill="#64748B">SOC 2 · GDPR</text>
+  <text x="820" y="320" text-anchor="middle" font-size="8" fill="#64748B">FedRAMP · DORA</text>
+  <text x="820" y="336" text-anchor="middle" font-size="8" fill="#64748B">Continuous evaluation</text>
+
+  <!-- bottom arrow to unified score -->
+  <rect x="16" y="372" width="888" height="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
+  <text x="460" y="386" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">All 10 engines feed into a unified 0–100 posture score via the Risk Engine (FAIR model)</text>
+</svg>

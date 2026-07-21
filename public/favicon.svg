@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Onam compass mark: four colored quadrants inside a thin navy circle -->
+  <circle cx="16" cy="16" r="15" fill="#FFFFFF" stroke="#082869" stroke-width="1.5"/>
+  <polygon points="16,3 18.5,16 16,16 13.5,16" fill="#2563EB"/>
+  <polygon points="29,16 16,18.5 16,16 16,13.5" fill="#E32D25"/>
+  <polygon points="16,29 13.5,16 16,16 18.5,16" fill="#F2AF04"/>
+  <polygon points="3,16 16,13.5 16,16 16,18.5" fill="#05A052"/>
+  <circle cx="16" cy="16" r="1.6" fill="#082869"/>
+</svg>

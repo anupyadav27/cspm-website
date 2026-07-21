@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 280" width="920" height="280" font-family="Arial, sans-serif">
+  <rect width="920" height="280" fill="#F8FAFC" rx="10"/>
+
+  <!-- header -->
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">IDENTITY ATTACK PATH — PRIVILEGE ESCALATION FROM A LOW-PRIV LAMBDA TO FULL ADMIN</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- Step labels above each box -->
+  <text x="106" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">START</text>
+  <text x="288" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">HOP 1</text>
+  <text x="470" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">HOP 2</text>
+  <text x="652" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">HOP 3</text>
+  <text x="834" y="58" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="1">RESULT</text>
+
+  <!-- Step 1: Compromised Lambda (gray) -->
+  <rect x="22" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="106" y="98" text-anchor="middle" font-size="14">🔓</text>
+  <text x="106" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">Compromised</text>
+  <text x="106" y="136" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">Lambda function</text>
+  <text x="106" y="156" text-anchor="middle" font-size="9" fill="#64748B">low privilege</text>
+  <text x="106" y="168" text-anchor="middle" font-size="9" fill="#64748B">attacker entry point</text>
+
+  <!-- Arrow 1 -->
+  <line x1="194" y1="124" x2="276" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="274,119 284,124 274,129" fill="#94A3B8"/>
+  <text x="234" y="115" text-anchor="middle" font-size="8" font-weight="700" fill="#2563EB">sts:AssumeRole</text>
+
+  <!-- Step 2: app-processor role -->
+  <rect x="204" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="288" y="98" text-anchor="middle" font-size="14">🔑</text>
+  <text x="288" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">IAM Role</text>
+  <text x="288" y="136" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">app-processor</text>
+  <text x="288" y="156" text-anchor="middle" font-size="9" fill="#475569">has iam:PassRole</text>
+  <text x="288" y="168" text-anchor="middle" font-size="9" fill="#475569">on data-pipeline-role</text>
+
+  <!-- Arrow 2 -->
+  <line x1="376" y1="124" x2="458" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="456,119 466,124 456,129" fill="#94A3B8"/>
+  <text x="417" y="115" text-anchor="middle" font-size="8" font-weight="700" fill="#2563EB">iam:PassRole</text>
+
+  <!-- Step 3: data-pipeline-role -->
+  <rect x="386" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="470" y="98" text-anchor="middle" font-size="14">🔑</text>
+  <text x="470" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">IAM Role</text>
+  <text x="470" y="136" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">data-pipeline-role</text>
+  <text x="470" y="156" text-anchor="middle" font-size="9" fill="#475569">has S3 admin +</text>
+  <text x="470" y="168" text-anchor="middle" font-size="9" fill="#475569">iam:CreatePolicyVersion</text>
+
+  <!-- Arrow 3 -->
+  <line x1="558" y1="124" x2="640" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="638,119 648,124 638,129" fill="#94A3B8"/>
+  <text x="599" y="115" text-anchor="middle" font-size="8" font-weight="700" fill="#B45309">iam:CreatePolicyVersion</text>
+
+  <!-- Step 4: Privilege Escalation (orange) -->
+  <rect x="568" y="74" width="168" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="652" y="98" text-anchor="middle" font-size="14">⚠️</text>
+  <text x="652" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">Privilege</text>
+  <text x="652" y="136" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">Escalation</text>
+  <text x="652" y="156" text-anchor="middle" font-size="9" fill="#64748B">Attacker creates an admin</text>
+  <text x="652" y="168" text-anchor="middle" font-size="9" fill="#64748B">policy version, attaches to self</text>
+
+  <!-- Arrow 4 -->
+  <line x1="740" y1="124" x2="822" y2="124" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="820,119 830,124 820,129" fill="#94A3B8"/>
+  <text x="781" y="115" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B">iam:AttachUserPolicy</text>
+
+  <!-- Step 5: Full Admin (red) -->
+  <rect x="750" y="74" width="158" height="100" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="829" y="98" text-anchor="middle" font-size="14">🔴</text>
+  <text x="829" y="120" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">Full Admin</text>
+  <text x="829" y="136" text-anchor="middle" font-size="11" font-weight="700" fill="#64748B">Access</text>
+  <text x="829" y="156" text-anchor="middle" font-size="9" fill="#64748B">All services</text>
+  <text x="829" y="168" text-anchor="middle" font-size="9" fill="#64748B">All regions</text>
+
+  <!-- Footer explanation -->
+  <text x="460" y="208" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">HOW THE PLATFORM DETECTS THIS</text>
+  <text x="460" y="226" text-anchor="middle" font-size="9" fill="#64748B">CIEM enumerates every reachable role from each identity, follows iam:PassRole and sts:AssumeRole edges, and flags any chain that ends in a permission</text>
+  <text x="460" y="240" text-anchor="middle" font-size="9" fill="#64748B">capable of self-escalation (iam:CreatePolicyVersion, iam:AttachUserPolicy, iam:PutRolePolicy, etc.).</text>
+  <text x="460" y="258" text-anchor="middle" font-size="9" fill="#64748B">Each hop and the abused permission is shown in the Identity Attack Path view — including which control would have prevented the chain.</text>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 480" width="380" height="480" font-family="Arial, sans-serif">
+  <rect width="380" height="480" fill="#F8FAFC" rx="10" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="190" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#4F46E5" letter-spacing="1.2">DATA SECURITY POSTURE MANAGEMENT</text>
+  <line x1="10" y1="34" x2="370" y2="34" stroke="#94A3B8" stroke-width="1"/>
+
+  <rect x="20" y="44" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Data Store Discovery</text>
+  <text x="190" y="86" text-anchor="middle" font-size="9" fill="#64748B">S3 · RDS · DynamoDB · BigQuery · Blob · Cosmos</text>
+  <text x="190" y="101" text-anchor="middle" font-size="8" fill="#3B82F6">Named + untagged + shadow datastores found</text>
+  <line x1="190" y1="110" x2="190" y2="122" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,120 190,128 195,120" fill="#94A3B8"/>
+
+  <rect x="20" y="130" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="155" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Data Classification</text>
+  <text x="190" y="172" text-anchor="middle" font-size="9" fill="#64748B">PII · PCI · PHI · Financial · Credentials</text>
+  <text x="190" y="187" text-anchor="middle" font-size="8" fill="#3B82F6">Tag + naming + access pattern signals</text>
+  <line x1="190" y1="196" x2="190" y2="208" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,206 190,214 195,206" fill="#94A3B8"/>
+
+  <rect x="20" y="216" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="241" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Posture Assessment</text>
+  <text x="190" y="258" text-anchor="middle" font-size="9" fill="#64748B">Encryption · Access control · Logging · Residency</text>
+  <text x="190" y="273" text-anchor="middle" font-size="8" fill="#64748B">62 rules · 7 data security domains</text>
+  <line x1="190" y1="282" x2="190" y2="294" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,292 190,300 195,292" fill="#94A3B8"/>
+
+  <rect x="20" y="302" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="327" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Access &amp; Exposure Audit</text>
+  <text x="190" y="344" text-anchor="middle" font-size="9" fill="#64748B">Public access · Cross-account · Third-party access</text>
+  <text x="190" y="359" text-anchor="middle" font-size="8" fill="#3B82F6">Who can read, write, or delete sensitive data</text>
+  <line x1="190" y1="368" x2="190" y2="380" stroke="#94A3B8" stroke-width="1.5"/>
+  <polygon points="185,378 190,386 195,378" fill="#94A3B8"/>
+
+  <rect x="20" y="388" width="340" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
+  <text x="190" y="411" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Compliance Evidence Report</text>
+  <text x="190" y="428" text-anchor="middle" font-size="9" fill="#64748B">HIPAA · PCI-DSS · GDPR · SOC 2 audit-ready output</text>
+</svg>
