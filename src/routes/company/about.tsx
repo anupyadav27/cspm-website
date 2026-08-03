@@ -44,6 +44,13 @@ const team = [
     initials: "CT",
     color: "#05A052",
   },
+  {
+    name: "Ajay Chaudhary",
+    role: "COO",
+    bio: "Operations and go-to-market leader with experience scaling B2B SaaS companies. Runs customer success, partnerships, and the business side of Onam so the engineering team can stay heads-down on the platform.",
+    initials: "AC",
+    color: "#F2AF04",
+  },
 ];
 
 function AboutPage() {
@@ -109,7 +116,7 @@ function AboutPage() {
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Team</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">The people behind Onam</h2>
           </div>
-          <div className="mt-12 grid md:grid-cols-2 gap-6">
+          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {team.map((p) => (
               <div key={p.name} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] flex gap-5 items-start">
                 <div

@@ -19,7 +19,7 @@ function articleJsonLd(p: BlogPost) {
     publisher: {
       "@type": "Organization",
       name: "Onam Security",
-      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo.svg` },
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo-512.png` },
     },
   };
 }

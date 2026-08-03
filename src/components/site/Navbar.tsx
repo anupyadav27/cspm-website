@@ -197,7 +197,7 @@ export function Navbar() {
 
         <div className="hidden lg:flex items-center gap-3">
           <a
-            href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui"
+            href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui/dashboard"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-[#334155] hover:text-[#2563EB] transition"
@@ -260,7 +260,7 @@ export function Navbar() {
               <Link to="/pricing" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Pricing</Link>
               <Link to="/resources" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Resources</Link>
               <a
-                href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui"
+                href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui/dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-sm text-[#0B1220] py-1.5"

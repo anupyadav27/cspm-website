@@ -438,9 +438,9 @@ function ConsoleSidebar({ active }: { active: string }) {
 
       {/* User */}
       <div className="flex items-center gap-2 px-3 py-3 border-t border-[#E9EDF3]">
-        <div className="w-6 h-6 rounded-full bg-[#4F46E5] text-white grid place-items-center text-[9px] font-bold">AY</div>
+        <div className="w-6 h-6 rounded-full bg-[#4F46E5] text-white grid place-items-center text-[9px] font-bold">OS</div>
         <div className="min-w-0">
-          <div className="text-[10px] font-semibold text-[#0B1220] leading-tight truncate">Anup Yadav</div>
+          <div className="text-[10px] font-semibold text-[#0B1220] leading-tight truncate">Onam Admin</div>
           <div className="text-[8px] text-[#94A3B8] leading-tight">Security Admin</div>
         </div>
       </div>
@@ -491,7 +491,7 @@ function ConsoleStage({ clip }: { clip: Clip }) {
         muted
         loop
         playsInline
-        className="w-full aspect-[16/10] object-cover bg-white"
+        className="w-full aspect-[16/9] object-cover bg-white"
       />
     );
   }

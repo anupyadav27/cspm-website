@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="200" viewBox="0 0 1000 200">
+<rect width="1000" height="200" fill="#0B1220"/>
+<g transform="translate(60,40) scale(1.5)">
+<polygon points="40,6 48.5,40 40,74 31.5,40" fill="#E9EFFA"/>
+<polygon points="12,40 40,31.5 68,40 40,48.5" fill="#6AA2FF"/>
+<circle cx="40" cy="40" r="3" fill="#0B1220"/>
+</g>
+<text x="210" y="128" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-weight="800" font-size="72" fill="#F2F6FC">Onam <tspan font-weight="600" fill="#9FB0CB">Security</tspan></text>
+</svg>

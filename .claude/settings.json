@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(zip -rq /Users/apple/Desktop/onam-brand-kit-portal.zip portal-kit)",
+      "Bash(cat)",
+      "Edit(/.claude/skills/social-post/**)",
+      "Bash(curl -s https://www.onamsecurity.com/screenshots/screenshot-dashboard.png -o /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/6df8ec98-0637-492f-98c0-89166229d357/scratchpad/live-dashboard.png)",
+      "Bash(md5 -q /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/6df8ec98-0637-492f-98c0-89166229d357/scratchpad/live-dashboard.png public/screenshots/screenshot-dashboard.png)",
+      "Bash(curl -s https://www.onamsecurity.com/video/demo.mp4 -o /dev/null -w \"demo.mp4 live size: %{size_download}\\\\n\")",
+      "Bash(awk '{print \"demo.mp4 local size: \"$5}')"
+    ]
+  }
+}

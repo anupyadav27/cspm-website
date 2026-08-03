@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="500" viewBox="0 0 1500 500">
+<rect width="1500" height="500" fill="#FFFFFF"/>
+<g transform="translate(1100,-40) scale(7)" opacity="0.06"><polygon points="40,6 48.5,40 40,74 31.5,40" fill="#082869"/><polygon points="12,40 40,31.5 68,40 40,48.5" fill="#2563EB"/><circle cx="40" cy="40" r="3" fill="#FFFFFF"/></g>
+<g transform="translate(320,130) scale(1.5)"><polygon points="40,6 48.5,40 40,74 31.5,40" fill="#082869"/><polygon points="12,40 40,31.5 68,40 40,48.5" fill="#2563EB"/><circle cx="40" cy="40" r="3" fill="#FFFFFF"/></g>
+<text x="470" y="216" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-weight="800" font-size="76" fill="#2563EB">Onam Security</text>
+<text x="322" y="330" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-weight="700" font-size="38" fill="#082869">Unified CSPM &amp; cloud security — 7 clouds, one graph.</text>
+<text x="322" y="392" font-family="Plus Jakarta Sans, Helvetica, Arial, sans-serif" font-weight="500" font-size="30" fill="#5C6B84">www.onamsecurity.com</text>
+</svg>

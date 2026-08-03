@@ -11,10 +11,10 @@
   --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
 }
-body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
 
 /* ── SIDEBAR ── */
-.sb{position:fixed;left:0;top:0;width:240px;height:900px;background:#fafbfc;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:20}
+.sb{position:fixed;left:0;top:0;width:240px;height:1080px;background:#fafbfc;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:20}
 .sb-logo{height:56px;display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px}
 .sb-nav{flex:1;overflow-y:auto;padding:6px 0 8px;scrollbar-width:thin;scrollbar-color:#e2e8f0 transparent}
 .sb-nav::-webkit-scrollbar{width:3px}
@@ -34,7 +34,7 @@ body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow
 .sb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#6366f1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0}
 
 /* ── MAIN ── */
-.main{margin-left:240px;height:900px;display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
+.main{margin-left:240px;height:1080px;display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
 .topbar{height:56px;border-bottom:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
 .tb-title{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
 .tb-right{display:flex;align-items:center;gap:10px}
@@ -257,8 +257,8 @@ body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow
       
     </div></nav>
   <div class="sb-user">
-    <div class="sb-avatar">AY</div>
-    <div><div style="font-size:12px;font-weight:600;color:#0f172a">Anup Yadav</div><div style="font-size:10.5px;color:#94a3b8">Security Admin</div></div>
+    <div class="sb-avatar">SA</div>
+    <div><div style="font-size:12px;font-weight:600;color:#0f172a">Security Admin</div><div style="font-size:10.5px;color:#94a3b8">acme-corp</div></div>
     <div style="margin-left:auto;color:#94a3b8"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20 7H9"/><path d="M14 17H3"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
   </div>
 </div>
@@ -267,7 +267,7 @@ body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow
 <div class="topbar">
   <div style="display:flex;align-items:center;gap:10px">
     <span class="tb-title">Attack Path Analysis</span>
-    <span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">Building graph…</span>
+    <span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap" id="apBadge">Building graph…</span>
   </div>
   <div class="tb-right"><button class="btn-primary">↓ Export Report</button></div>
 </div>
@@ -305,7 +305,7 @@ const ns='http://www.w3.org/2000/svg';
 const el=(tag,a,par)=>{const e=document.createElementNS(ns,tag);Object.entries(a).forEach(([k,v])=>e.setAttribute(k,v));(par||svg).appendChild(e);return e;};
 const node=(x,y,stroke,type,name,sub,id)=>{
   const g=el('g',{transform:`translate(${x},${y})`,class:'anode',id:'n'+id,filter:'url(#ns)'});
-  el('rect',{width:140,height:76,rx:10,fill:'#fff',stroke,`stroke-width`:1.5},g);
+  el('rect',{width:140,height:76,rx:10,fill:'#fff',stroke,'stroke-width':1.5},g);
   const t=el('text',{x:70,y:19,fill:stroke,'font-size':8.5,'font-weight':800,'font-family':'Inter,sans-serif','text-anchor':'middle'},g);t.textContent=type;
   const n=el('text',{x:70,y:37,fill:'#0f172a','font-size':11,'font-weight':700,'font-family':'Inter,sans-serif','text-anchor':'middle'},g);n.textContent=name;
   const s=el('text',{x:70,y:52,fill:'#94a3b8','font-size':9,'font-family':'Inter,sans-serif','text-anchor':'middle'},g);s.textContent=sub;
@@ -338,5 +338,7 @@ setTimeout(()=>{
   [['MITRE ATT&CK','T1552.005 · Credential API'],['Hops to breach','4 (EC2 → IMDSv1 → IAM → S3)'],['Data at risk','847,234 PII records'],['Fix priority','P0 — Disable IMDSv1'],['ALE impact','$2.1M – $6.4M']].map(([k,v])=>
   `<div style="display:grid;grid-template-columns:100px 1fr;gap:8px;padding:6px 0;border-bottom:1px solid #f8fafc"><span style="font-size:11px;color:#94a3b8">${k}</span><span style="font-size:11.5px;font-weight:600;color:#334155;line-height:1.3">${v}</span></div>`).join('');
 },3600);
+// graph is drawn by 3.6s — stop claiming it is still building
+setTimeout(()=>{const b=document.getElementById('apBadge');if(b)b.textContent='3 Paths to Crown Jewels';},3700);
 </script>
 </body></html>

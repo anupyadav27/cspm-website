@@ -21,7 +21,7 @@ const STRUCTURED_DATA = [
     name: "Onam Security",
     alternateName: "Onam",
     url: SITE_URL,
-    logo: `${SITE_URL}/logo.svg`,
+    logo: `${SITE_URL}/logo-512.png`,
     description:
       "Unified cloud security platform: CSPM, CIEM, attack paths, threat detection, and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, and Kubernetes. 100% agentless.",
     slogan: "One graph. Every cloud. Complete security picture.",
@@ -121,6 +121,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
