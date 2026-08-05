@@ -96,6 +96,27 @@ function Page() {
         </div>
       </section>
 
+      <section className="max-w-7xl mx-auto px-6 pt-14">
+        <a
+          href="/decks/attack-path-story.html"
+          target="_blank"
+          rel="noopener"
+          className="group block rounded-2xl border border-[#DBE7FE] bg-gradient-to-br from-[#0A1E4D] to-[#123A8A] p-8 md:p-10 text-white shadow-[0_8px_24px_rgba(16,24,40,.08)] hover:shadow-[0_14px_40px_rgba(16,24,40,.18)] transition"
+        >
+          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#9FC0FF] mb-3">Interactive · New</div>
+          <h2 className="font-display font-black text-2xl md:text-[32px] leading-[1.1] tracking-tight">
+            Four hops. Three tools blind. One breach.
+          </h2>
+          <p className="mt-3 text-[#CFE0FF] max-w-2xl">
+            Walk one real attack path — from a forgotten instance to your crown-jewel data — and watch a single fix break the whole chain. An animated, self-guided walkthrough.
+          </p>
+          <span className="mt-5 inline-flex items-center gap-2 font-semibold text-white">
+            Open the interactive deck
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
+          </span>
+        </a>
+      </section>
+
       <section className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-6">
           {categories.map((c) => (
