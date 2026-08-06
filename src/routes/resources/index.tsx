@@ -81,6 +81,43 @@ const categories: Category[] = [
   },
 ];
 
+const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
+  {
+    title: "Technical whitepapers",
+    items: [
+      { label: "The full library (all five)", href: "/whitepapers/Onam-Whitepaper-Library.pdf" },
+      { label: "How Onam finds the attack path", href: "/whitepapers/wp1-attack-path-methodology.pdf" },
+      { label: "Cloud risk in dollars (FAIR)", href: "/whitepapers/wp2-risk-quantification.pdf" },
+      { label: "One graph, one data model", href: "/whitepapers/wp3-architecture.pdf" },
+      { label: "Security & trust", href: "/whitepapers/wp4-security-trust.pdf" },
+      { label: "Compliance, mapped once", href: "/whitepapers/wp5-compliance.pdf" },
+    ],
+  },
+  {
+    title: "Brochures & case studies",
+    items: [
+      { label: "Capabilities brochure (PDF)", href: "/brochures/Onam-Capabilities-Brochure.pdf" },
+      { label: "Capabilities flipbook (interactive)", href: "/tools/Onam-Capabilities-Flipbook.html" },
+      { label: "Case study collection (PDF)", href: "/case-studies/Onam-Case-Studies.pdf" },
+    ],
+  },
+  {
+    title: "Interactive tools",
+    items: [
+      { label: "Cloud exposure estimator (FAIR)", href: "/tools/fair-exposure-calculator.html" },
+      { label: "Consolidation ROI calculator", href: "/tools/roi-consolidation-calculator.html" },
+    ],
+  },
+  {
+    title: "Explainer videos",
+    items: [
+      { label: "How an attack path forms", href: "/videos/Onam-Attack-Path.mp4" },
+      { label: "Cloud risk in dollars (FAIR)", href: "/videos/Onam-FAIR-Dollars.mp4" },
+      { label: "One choke point, many attacks", href: "/videos/Onam-Choke-Point.mp4" },
+    ],
+  },
+];
+
 function Page() {
   const latest = BLOG_POSTS.slice(0, 3);
   return (
@@ -115,6 +152,37 @@ function Page() {
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition" />
           </span>
         </a>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 pt-14">
+        <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-2">Library</div>
+        <h2 className="font-display font-extrabold text-2xl md:text-3xl text-[#0B1220]">Whitepapers, brochures &amp; tools</h2>
+        <p className="mt-2 text-[#475569] max-w-2xl">
+          Technical whitepapers, the capabilities brochure, illustrative calculators, and short
+          explainer videos — free to download and share.
+        </p>
+        <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+          {LIBRARY.map((g) => (
+            <div key={g.title} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_3px_rgba(16,24,40,.04)]">
+              <h3 className="font-display font-bold text-[16px] text-[#0B1220]">{g.title}</h3>
+              <ul className="mt-3 space-y-1">
+                {g.items.map((it) => (
+                  <li key={it.href}>
+                    <a
+                      href={it.href}
+                      target="_blank"
+                      rel="noopener"
+                      className="group flex items-center justify-between gap-2 py-2 border-b border-[#EEF2F6] text-sm text-[#0B1220] hover:text-[#2563EB]"
+                    >
+                      <span>{it.label}</span>
+                      <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="max-w-7xl mx-auto px-6 py-16">

@@ -1,0 +1,123 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Onam · Cloud Exposure Estimator (FAIR)</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@0,400;0,500;0,600;0,700;0,800&family=JetBrains+Mono:wght@0,600;0,700&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#082869;--blue:#2563EB;--ink:#1A2233;--mute:#5C6B84;--line:#E2E8F2;--tint:#EAF1FB;--gold:#B7791F;--bg:#F4F7FC;--f:'Plus Jakarta Sans',sans-serif;--mono:'JetBrains Mono',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--f);background:var(--bg);color:var(--ink);line-height:1.5;padding:26px 16px}
+.wrap{max-width:960px;margin:0 auto}
+.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:10px}
+.brand{display:flex;align-items:center;gap:10px}.brand b{color:var(--navy);letter-spacing:2px;font-weight:800;font-size:15px}
+.pill{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);background:#fff;border:1px solid var(--line);padding:6px 12px;border-radius:20px}
+h1{font-size:30px;color:var(--navy);font-weight:800;letter-spacing:-.5px;line-height:1.08;margin-bottom:6px}
+.sub{font-size:15.5px;color:var(--mute);max-width:640px;margin-bottom:20px}
+.grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px 24px}
+.card h2{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:16px}
+.field{margin-bottom:16px}
+label{display:block;font-size:13.5px;font-weight:700;color:var(--ink);margin-bottom:6px}
+label .hint{font-weight:500;color:var(--mute);font-size:12px}
+select,input[type=number]{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;font-family:var(--f);font-size:14.5px;color:var(--ink);background:#fff}
+select:focus,input:focus{outline:none;border-color:var(--blue)}
+input[type=range]{width:100%;accent-color:var(--blue);margin-top:4px}
+.rangeval{font-family:var(--mono);font-weight:700;color:var(--blue);font-size:13px;float:right}
+.result{background:linear-gradient(160deg,#0C1B3E,#12224a);border-radius:16px;padding:24px;color:#fff;text-align:center;margin-bottom:16px}
+.result .k{font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#8FB0EC;margin-bottom:8px}
+.result .n{font-size:46px;font-weight:800;letter-spacing:-1.5px;line-height:1;font-family:var(--mono)}
+.result .r{font-size:13px;color:#AFC4EC;margin-top:8px}
+.bd{margin-top:6px}
+.bdrow{display:flex;align-items:center;gap:10px;margin:9px 0}
+.bdrow .lbl{flex:0 0 128px;font-size:12.5px;color:var(--mute);font-weight:600}
+.bar{flex:1;height:22px;background:#EEF3FA;border-radius:6px;overflow:hidden;position:relative}
+.bar span{position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:6px;transition:width .35s ease}
+.bar.gold span{background:var(--gold)}
+.bdrow .val{flex:0 0 96px;text-align:right;font-family:var(--mono);font-weight:700;font-size:12.5px;color:var(--navy)}
+.note{font-size:11.5px;color:var(--mute);font-style:italic;line-height:1.5;margin-top:14px;border-top:1px solid var(--line);padding-top:12px}
+.foot{text-align:center;font-size:12px;color:var(--mute);margin-top:22px}
+.cta{display:inline-block;margin-top:10px;background:var(--blue);color:#fff;font-weight:700;font-size:14px;padding:11px 22px;border-radius:11px;text-decoration:none}
+.tag{display:inline-block;font-size:11px;font-weight:700;color:var(--gold);background:#FBF3E3;border:1px solid #E7CE9A;padding:3px 9px;border-radius:6px;margin-bottom:12px}
+</style></head><body>
+<div class="wrap">
+<div class="top">
+<div class="brand"><svg width="28" height="28" viewBox="0 0 100 100"><polygon points="50,4 60,50 50,96 40,50" fill="#082869"/><polygon points="4,50 50,40 96,50 50,60" fill="#2563EB"/><circle cx="50" cy="50" r="6" fill="#fff"/></svg><b>ONAM SECURITY</b></div>
+<span class="pill">FAIR exposure estimator</span>
+</div>
+<span class="tag">ILLUSTRATIVE ESTIMATE — NOT A BENCHMARK</span>
+<h1>What could one breached data store cost you?</h1>
+<p class="sub">A quick FAIR-style estimate of annualized loss exposure for a single sensitive data store. Onam computes this per finding, asset and account on your real environment — this is the shape of the math, using inputs you can defend.</p>
+
+<div class="grid">
+<div class="card">
+<h2>Your inputs</h2>
+<div class="field">
+<label>Records in the store <span class="hint">— how many sensitive records could be reached</span></label>
+<input type="number" id="records" value="500000" min="0" step="1000">
+</div>
+<div class="field">
+<label>Cost per record (USD) <span class="hint">— IBM 2024: healthcare $10.93 · cross-industry avg $4.45</span></label>
+<input type="number" id="perrec" value="4.45" min="0" step="0.01">
+</div>
+<div class="field">
+<label>Data sensitivity <span class="hint">— multiplier on loss magnitude</span></label>
+<select id="sens">
+<option value="3.0">Restricted (×3.0)</option>
+<option value="2.0">Confidential (×2.0)</option>
+<option value="1.0" selected>Internal (×1.0)</option>
+<option value="0.1">Public (×0.1)</option>
+</select>
+</div>
+<div class="field">
+<label>Regulatory regime <span class="hint">— highest applicable multiplier</span></label>
+<select id="reg">
+<option value="1.0" selected>None / general (×1.0)</option>
+<option value="1.5">GDPR / high-regulation (×1.5)</option>
+</select>
+</div>
+<div class="field">
+<label>Loss event likelihood / year <span class="rangeval" id="lefv">30%</span><span class="hint">— chance a walkable path is exploited</span></label>
+<input type="range" id="lef" min="5" max="100" value="30" step="5">
+</div>
+</div>
+
+<div class="card" style="display:flex;flex-direction:column">
+<div class="result">
+<div class="k">Estimated annualized exposure</div>
+<div class="n" id="ale">$0</div>
+<div class="r" id="lmline">Loss magnitude if it happens: $0</div>
+</div>
+<div class="bd">
+<div class="bdrow"><div class="lbl">Base (records × cost)</div><div class="bar"><span id="b1"></span></div><div class="val" id="v1">$0</div></div>
+<div class="bdrow"><div class="lbl">× sensitivity</div><div class="bar"><span id="b2"></span></div><div class="val" id="v2">$0</div></div>
+<div class="bdrow"><div class="lbl">× regulatory</div><div class="bar gold"><span id="b3"></span></div><div class="val" id="v3">$0</div></div>
+</div>
+<p class="note" id="note"></p>
+</div>
+</div>
+
+<div class="foot">
+<div>Onam prices every verified attack path this way — on your own cloud, read-only, in minutes.</div>
+<a class="cta" href="https://onamsecurity.com" target="_blank" rel="noopener">See your real exposure →</a>
+<div style="margin-top:14px;font-size:11px;color:#9AA7B8">onamsecurity.com · one graph, priced risk · Figures are illustrative FAIR estimates, not predictions or benchmarks. Method: <i>Whitepaper 02 — Cloud risk in dollars.</i></div>
+</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const fmt=n=>{if(n>=1e9)return '$'+(n/1e9).toFixed(2)+'B';if(n>=1e6)return '$'+(n/1e6).toFixed(2)+'M';if(n>=1e3)return '$'+(n/1e3).toFixed(0)+'K';return '$'+Math.round(n).toLocaleString();};
+function calc(){
+ const rec=+$('records').value||0, pr=+$('perrec').value||0, sens=+$('sens').value, reg=+$('reg').value, lef=(+$('lef').value)/100;
+ $('lefv').textContent=(+$('lef').value)+'%';
+ const base=rec*pr, afterSens=base*sens, afterReg=afterSens*reg; // = loss magnitude
+ const ale=afterReg*lef;
+ $('ale').textContent=fmt(ale);
+ $('lmline').textContent='Loss magnitude if it happens: '+fmt(afterReg);
+ const mx=Math.max(afterReg,1);
+ $('b1').style.width=(base/mx*100)+'%'; $('v1').textContent=fmt(base);
+ $('b2').style.width=(afterSens/mx*100)+'%'; $('v2').textContent=fmt(afterSens);
+ $('b3').style.width=(afterReg/mx*100)+'%'; $('v3').textContent=fmt(afterReg);
+ $('note').textContent='ALE = loss magnitude × likelihood ('+(+$('lef').value)+'%). Loss magnitude = '+rec.toLocaleString()+' records × $'+pr+' × '+sens+' (sensitivity) × '+reg+' (regulatory). Per-record costs from IBM Cost of a Data Breach 2024; multipliers are illustrative bands.';
+}
+['records','perrec','sens','reg','lef'].forEach(id=>{$(id).addEventListener('input',calc);});
+calc();
+</script>
+</body></html>
