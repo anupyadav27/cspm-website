@@ -26,9 +26,19 @@ import { createServerFn } from "@tanstack/react-start";
 
 const REGION = "ap-south-1";
 const BUCKET = "onam-platform-588989875114";
-/** Must be an SES-verified identity. Domain verification covers every address. */
-const FROM = "sales@onamsecurity.com";
-const TO = "sales@onamsecurity.com";
+
+/**
+ * Both must be SES-verified identities, and while the account is in the SES
+ * sandbox the RECIPIENT must be verified too — not just the sender.
+ *
+ * Defaults target onamsecurity.com, which is the intended long-term address.
+ * Until its DKIM records finish verifying, the deployment overrides these with
+ * LEAD_FROM / LEAD_TO pointing at an already-verified identity so notifications
+ * work now. Once `aws sesv2 get-email-identity --email-identity
+ * onamsecurity.com` reports SUCCESS, drop the env vars and the defaults apply.
+ */
+const FROM = process.env.LEAD_FROM || "sales@onamsecurity.com";
+const TO = process.env.LEAD_TO || "sales@onamsecurity.com";
 
 export type LeadKind = "demo" | "contact";
 

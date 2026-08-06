@@ -14,7 +14,14 @@
       "Read(//Users/apple/Desktop/cspm-website/src/routes/**)",
       "Bash(PORT=8791 node .output/server/index.mjs)",
       "Bash(curl -s -o /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/0ef3e4f2-fc9e-4a1a-803c-f79627ae6005/scratchpad/fair.html -w \"%{http_code} %{size_download} bytes\\\\n\" http://localhost:8791/learn/cloud-risk-quantification)",
-      "Bash(grep -o '<h1[^>]*>.\\\\{0,70\\\\}' /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/0ef3e4f2-fc9e-4a1a-803c-f79627ae6005/scratchpad/page_learn_cloud-risk-quantification.html)"
+      "Bash(grep -o '<h1[^>]*>.\\\\{0,70\\\\}' /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/0ef3e4f2-fc9e-4a1a-803c-f79627ae6005/scratchpad/page_learn_cloud-risk-quantification.html)",
+      "Bash(echo \"TSC EXIT: $?\")",
+      "Bash(cd /Users/apple/Desktop/cspm-website *)",
+      "Bash(git commit -m 'fix\\(types\\): keep platform slugs as literals so <Link to> typechecks *)",
+      "Bash(git push *)"
+    ],
+    "additionalDirectories": [
+      "/Users/apple/Desktop/cspm-website/.git"
     ]
   }
 }
