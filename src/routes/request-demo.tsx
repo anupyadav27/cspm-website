@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { ProductDemo } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
+import { submitLead } from "@/lib/lead-capture";
 
 export const Route = createFileRoute("/request-demo")({
   head: () =>
@@ -39,12 +40,15 @@ function RequestDemo() {
   const [form, setForm] = useState({ email: "", name: "", company: "", reason: "", message: "" });
   const [selectedClouds, setSelectedClouds] = useState<string[]>([]);
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  /** Hidden honeypot field — see submitLead. */
+  const [website, setWebsite] = useState("");
 
   const toggleCloud = (c: string) =>
     setSelectedClouds((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs: Record<string, string> = {};
     if (!form.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) errs.email = "Please enter a valid work email.";
@@ -53,7 +57,20 @@ function RequestDemo() {
     if (selectedClouds.length === 0) errs.clouds = "Select at least one cloud.";
     if (!form.reason) errs.reason = "Please pick what brings you here.";
     setErrors(errs);
-    if (Object.keys(errs).length === 0) setSubmitted(true);
+    if (Object.keys(errs).length > 0) return;
+
+    // Only show success once the lead is actually persisted server-side.
+    setSending(true);
+    try {
+      await submitLead({ data: { kind: "demo", ...form, clouds: selectedClouds, website } });
+      setSubmitted(true);
+    } catch {
+      setErrors({
+        submit: "Something went wrong sending that. Please email sales@onamsecurity.com and we'll pick it up.",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -200,10 +217,25 @@ function RequestDemo() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full inline-flex justify-center items-center rounded-[10px] px-4 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition"
+                  disabled={sending}
+                  className="w-full inline-flex justify-center items-center rounded-[10px] px-4 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Book my demo
+                  {sending ? "Sending…" : "Book my demo"}
                 </button>
+                {errors.submit && (
+                  <p className="text-xs text-[#E32D25] text-center">{errors.submit}</p>
+                )}
+                {/* Honeypot: hidden from humans, irresistible to bots. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  aria-hidden="true"
+                  style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+                />
                 <p className="text-xs text-[#64748B] text-center">
                   By submitting, you agree to be contacted by a security engineer at Onam. No spam, ever.
                 </p>

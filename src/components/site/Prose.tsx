@@ -81,9 +81,11 @@ function parse(src: string): Block[] {
 }
 
 function renderInline(text: string): ReactNode[] {
-  // order: code, bold, links
+  // order: code, bold, italic, links
+  // italic requires non-space just inside the asterisks so `5 * 3 * 2` stays literal;
+  // code is matched first so `s3:*` inside backticks is never read as emphasis.
   const nodes: ReactNode[] = [];
-  const re = /(`[^`]+`|\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/g;
+  const re = /(`[^`]+`|\*\*[^*]+\*\*|\*[^\s*](?:[^*\n]*[^\s*])?\*|\[[^\]]+\]\([^)]+\))/g;
   let last = 0;
   let m: RegExpExecArray | null;
   let key = 0;
@@ -93,10 +95,12 @@ function renderInline(text: string): ReactNode[] {
     if (tok.startsWith("`")) {
       nodes.push(<code key={key++} className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[0.85em] text-[#0B1220]">{tok.slice(1, -1)}</code>);
     } else if (tok.startsWith("**")) {
-      nodes.push(<strong key={key++} className="font-semibold text-[#0B1220]">{tok.slice(2, -2)}</strong>);
+      nodes.push(<strong key={key++} className="font-semibold text-[#0B1220]">{renderInline(tok.slice(2, -2))}</strong>);
+    } else if (tok.startsWith("*")) {
+      nodes.push(<em key={key++} className="italic">{renderInline(tok.slice(1, -1))}</em>);
     } else {
       const mm = /^\[([^\]]+)\]\(([^)]+)\)$/.exec(tok);
-      if (mm) nodes.push(<a key={key++} href={mm[2]} className="text-[#2563EB] hover:underline">{mm[1]}</a>);
+      if (mm) nodes.push(<a key={key++} href={mm[2]} className="text-[#2563EB] hover:underline">{renderInline(mm[1])}</a>);
     }
     last = m.index + tok.length;
   }

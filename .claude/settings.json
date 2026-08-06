@@ -7,7 +7,14 @@
       "Bash(curl -s https://www.onamsecurity.com/screenshots/screenshot-dashboard.png -o /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/6df8ec98-0637-492f-98c0-89166229d357/scratchpad/live-dashboard.png)",
       "Bash(md5 -q /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/6df8ec98-0637-492f-98c0-89166229d357/scratchpad/live-dashboard.png public/screenshots/screenshot-dashboard.png)",
       "Bash(curl -s https://www.onamsecurity.com/video/demo.mp4 -o /dev/null -w \"demo.mp4 live size: %{size_download}\\\\n\")",
-      "Bash(awk '{print \"demo.mp4 local size: \"$5}')"
+      "Bash(awk '{print \"demo.mp4 local size: \"$5}')",
+      "Bash(grep -rnoP '\\(?<![\\\\*\\\\w]\\)\\\\*\\(?!\\\\*\\)[^*\\\\n]{1,80}?\\\\*\\(?!\\\\*\\)' src/data/)",
+      "Bash(grep -v ':0$')",
+      "Bash(grep -n \"Prose\\\\|body\" src/routes/learn.\\\\$slug.tsx | head -20; echo \"=== risk.tsx ===\"; wc -l src/routes/platform/risk.tsx src/routes/platform/attack-path.tsx src/routes/platform/cspm.tsx src/routes/platform/ciem.tsx)",
+      "Read(//Users/apple/Desktop/cspm-website/src/routes/**)",
+      "Bash(PORT=8791 node .output/server/index.mjs)",
+      "Bash(curl -s -o /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/0ef3e4f2-fc9e-4a1a-803c-f79627ae6005/scratchpad/fair.html -w \"%{http_code} %{size_download} bytes\\\\n\" http://localhost:8791/learn/cloud-risk-quantification)",
+      "Bash(grep -o '<h1[^>]*>.\\\\{0,70\\\\}' /private/tmp/claude-501/-Users-apple-Desktop-cspm-website/0ef3e4f2-fc9e-4a1a-803c-f79627ae6005/scratchpad/page_learn_cloud-risk-quantification.html)"
     ]
   }
 }

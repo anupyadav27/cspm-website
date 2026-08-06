@@ -202,6 +202,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Onam builds a unified graph across posture, identity, network, data, and vulnerability findings — every resource is a node, every relationship is an edge.",
       "Crown jewels are identified automatically (sensitive data, prod databases, cross-account admin) and can be tagged manually for business-specific assets.",
       "A graph traversal engine enumerates every path from an internet-reachable entry point to those crown jewels, scoring each by number of hops, blast radius, and exploit availability.",
+      "Every node is then scored by convergence — how many distinct paths run through it, weighted by the value of the targets those paths reach. The highest-convergence nodes are choke points: usually an over-privileged identity or a shared network hop where one fix severs many routes at once.",
       "Toxic combinations — pairs of individually medium findings that create a critical path together — are surfaced separately and ranked by how many paths they enable.",
       "Every step is tagged with MITRE ATT&CK for Cloud, so responders see the technique, and remediation guidance points to the single fix that collapses the most paths.",
     ],
@@ -212,8 +213,14 @@ export const platformPages: Record<string, ProductPageData> = {
       "Blast radius scoring",
       "Attack path prioritisation — rank by how many critical paths a finding appears in, not CVSS",
       "One-click remediation guidance — the single fix that collapses the most paths",
+      "Choke-point ranking — the top nodes where a single fix severs the most paths, so the queue is a short list instead of a backlog",
       "Historical path tracking",
       "Integration with Risk engine — dollar-denominated exposure per path",
+    ],
+    chips: [
+      "Choke points", "Toxic combinations", "Blast radius", "Crown jewels", "Graph traversal",
+      "MITRE ATT&CK for Cloud", "Initial Access", "Privilege Escalation", "Lateral Movement",
+      "Credential Access", "Exfiltration", "Cross-account trust",
     ],
     faqs: [
       {
@@ -232,9 +239,15 @@ export const platformPages: Record<string, ProductPageData> = {
         q: "How do you define crown jewels?",
         a: "Onam auto-identifies obvious candidates: databases containing classified PII/PHI/PCI, prod production accounts, roles with admin equivalence, and secrets stores. Teams can also tag specific resources or resource groups as crown jewels, which promotes any path reaching them to the top of the queue.",
       },
+      {
+        q: "What is a choke point, and why fix it before the critical findings?",
+        a: "A choke point is a single resource that sits on a large number of distinct attack paths. Severity describes a finding in isolation; convergence describes leverage. A medium-severity role that every path routes through removes far more real risk when fixed than a critical finding on a resource an attacker cannot reach — and because the graph is recomputed on the next scan, the fix is verifiable: the paths that depended on that node are simply gone.",
+      },
     ],
     related: [
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
+      { label: "What is a choke point?", href: "/learn/choke-point" },
+      { label: "What is cloud risk quantification?", href: "/learn/cloud-risk-quantification" },
       { label: "Threat Detection", href: "/platform/threat-detection" },
       { label: "CDR — Behavioral Detection", href: "/platform/cdr" },
       { label: "Risk Quantification", href: "/platform/risk" },
@@ -675,10 +688,13 @@ export const platformPages: Record<string, ProductPageData> = {
     painPoint:
       "Security is asking for two more headcount and a bigger tooling budget. The CFO asks: what does that spend actually prevent? Nobody has a number. A wall of 12,000 CVEs and a stack of CVSS scores is not an answer a board can approve. Without dollar-denominated risk, security lives on a hunch — and hunches lose budget fights every year.",
     mechanism: [
-      "Every finding in the Onam graph is scored using the FAIR (Factor Analysis of Information Risk) model — the ISO/IEC-approved standard for quantitative risk analysis.",
+      "Every finding in the Onam graph is scored using the FAIR (Factor Analysis of Information Risk) model — the open standard for quantitative risk analysis, published by The Open Group as O-RT and O-RA.",
+      "FAIR states exposure as Loss Event Frequency × Loss Magnitude, which produces an Annualized Loss Expectancy — a dollar figure per year of exposure, not a proprietary score between 0 and 100.",
       "Loss estimates combine primary loss (response, downtime) with secondary loss (regulatory fines, brand impact) sized to your industry and data sensitivity.",
+      "Magnitude is built from named, external inputs — a published per-record breach cost, a data-sensitivity multiplier, and the strictest applicable regime — so an auditor can follow the arithmetic instead of trusting a black box.",
       "Regulatory exposure is projected against the frameworks that apply to your data — GDPR, HIPAA, PCI-DSS, SOX — using published fine bands, not hand-waved multipliers.",
       "Crown-jewel multipliers weight findings that touch high-value assets, so a public bucket over customer PII scores very differently from a public bucket in dev.",
+      "Blast radius comes from the security graph rather than an assumption: a finding that sits on an attack path to a large sensitive store is priced above the identical finding on a resource that reaches nothing.",
       "The engine ranks remediations by dollar exposure reduced per engineering hour — so the security queue and the business case are the same list.",
     ],
     whatYouGet: [
@@ -690,11 +706,25 @@ export const platformPages: Record<string, ProductPageData> = {
       "Trend analysis over time",
       "Executive risk dashboard — board-ready top-10 by dollar value",
       "Compliance cost mapping",
+      "Inspectable inputs — every figure traces back to a published benchmark times named multipliers, so it can be challenged",
+    ],
+    chips: [
+      "Open FAIR (O-RT / O-RA)", "Loss Event Frequency", "Loss Magnitude", "Annualized Loss Expectancy",
+      "IBM Cost of a Data Breach", "Verizon DBIR", "Crown-jewel multipliers", "Blast radius",
+      "GDPR", "HIPAA", "PCI-DSS v4", "SOX",
     ],
     faqs: [
       {
         q: "What is the FAIR model and why does Onam use it?",
-        a: "FAIR (Factor Analysis of Information Risk) is the ISO/IEC 27005-aligned standard for quantitative cyber risk. It decomposes risk into loss event frequency and loss magnitude, each with defensible ranges. It is the language boards and CFOs already use for other business risk — so Onam speaks it too.",
+        a: "FAIR (Factor Analysis of Information Risk) is the open standard for quantitative cyber risk, published by The Open Group as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards. It decomposes risk into loss event frequency and loss magnitude, each with defensible ranges, and complements the largely qualitative treatment in ISO/IEC 27005. It is the language boards and CFOs already use for other business risk — so Onam speaks it too.",
+      },
+      {
+        q: "How is the dollar figure actually built?",
+        a: "From named inputs rather than a black box: a published per-record breach cost for your industry, a multiplier for how sensitive the exposed data is, the strictest regulatory regime that applies, and the blast radius the security graph computes for that specific resource. Multiply through and you get annualized exposure. Because every input is visible, it can be challenged and retuned — which is exactly how a credible risk number should behave.",
+      },
+      {
+        q: "Are the figures shown in a demo my numbers?",
+        a: "No — any figure in a demo or a sample model is illustrative. Real numbers are computed against your environment once accounts are connected, using your data footprint, jurisdictions, and crown jewels. Quantification produces a defensible estimate for prioritisation and board reporting, not a prediction of what a specific future breach will cost.",
       },
       {
         q: "How accurate are the dollar estimates?",
@@ -710,6 +740,8 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "What is cloud risk quantification?", href: "/learn/cloud-risk-quantification" },
+      { label: "What is a choke point?", href: "/learn/choke-point" },
       { label: "Attack Path Analysis", href: "/platform/attack-path" },
       { label: "Compliance", href: "/platform/compliance" },
       { label: "CSPM — Posture", href: "/platform/cspm" },

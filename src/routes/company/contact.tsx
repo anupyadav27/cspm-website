@@ -4,6 +4,7 @@ import { CheckCircle2, Mail, ShieldAlert, Lock } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
+import { submitLead } from "@/lib/lead-capture";
 
 export const Route = createFileRoute("/company/contact")({
   head: () =>
@@ -33,9 +34,10 @@ const inboxes = [
 function ContactPage() {
   const [form, setForm] = useState({ name: "", email: "", reason: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const errs: Record<string, string> = {};
     if (!form.name.trim()) errs.name = "Please enter your name.";
@@ -43,7 +45,20 @@ function ContactPage() {
     if (!form.reason) errs.reason = "Please pick a reason.";
     if (!form.message.trim()) errs.message = "Please write a short message.";
     setErrors(errs);
-    if (Object.keys(errs).length === 0) setSubmitted(true);
+    if (Object.keys(errs).length > 0) return;
+
+    // Only show success once the lead is actually persisted server-side.
+    setSending(true);
+    try {
+      await submitLead({ data: { kind: "contact", ...form } });
+      setSubmitted(true);
+    } catch {
+      setErrors({
+        submit: "Something went wrong sending that. Please email sales@onamsecurity.com directly.",
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
@@ -123,10 +138,14 @@ function ContactPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full inline-flex justify-center items-center rounded-[10px] px-4 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition"
+                  disabled={sending}
+                  className="w-full inline-flex justify-center items-center rounded-[10px] px-4 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  Send message
+                  {sending ? "Sending…" : "Send message"}
                 </button>
+                {errors.submit && (
+                  <p className="text-xs text-[#E32D25] text-center">{errors.submit}</p>
+                )}
               </form>
             )}
           </div>
