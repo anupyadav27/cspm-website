@@ -5,13 +5,15 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { platformPages } from "@/data/platform-pages";
 import { seo } from "@/lib/seo";
 
-const groups: { heading: string; slugs: string[] }[] = [
+// `as const` keeps the slugs as string literals so `/platform/${slug}` resolves to a
+// union of real route paths — a widened string[] here makes <Link to> untypeable.
+const groups = [
   { heading: "Posture & Identity", slugs: ["cnapp", "cspm", "ciem", "iam", "inventory"] },
   { heading: "Threat & Attack", slugs: ["attack-path", "cdr", "threat-detection", "risk"] },
   { heading: "Data & Network", slugs: ["data-security", "database-security", "encryption", "network-security", "api-security"] },
   { heading: "Workloads & Code", slugs: ["cwpp", "agentless", "container-security", "vulnerability", "secops"] },
   { heading: "SaaS, AI & Governance", slugs: ["saas-security", "ai-security", "ai-assistant", "remediation", "compliance", "technology"] },
-];
+] as const;
 
 export const Route = createFileRoute("/platform/")({
   head: () =>
