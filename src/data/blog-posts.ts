@@ -36,7 +36,7 @@ Every platform says "multi-cloud." The question is which clouds get the full eng
 
 Real attack paths cross boundaries: an exposed GCP service account key that can assume a role into your AWS production account is invisible to any tool that analyses each cloud separately. A dashboard that *displays* seven clouds is not the same as a graph that *correlates* them.
 
-**Onam's answer:** one graph across all clouds and all 16 engines. Attack-path analysis follows the identity chain wherever it goes — including across cloud providers.
+**Onam's answer:** one graph across all clouds and every security layer. Attack-path analysis follows the identity chain wherever it goes — including across cloud providers.
 
 ### 3. Agentless — and how long to first finding?
 
@@ -54,13 +54,13 @@ An alert firehose with 4,000 "critical" findings is operationally identical to n
 
 A public subnet is medium. An over-privileged identity is medium. A workload with a critical CVE is high. The same three on one attack path is a breach waiting to happen. This correlation is the whole point of a unified platform — ask each vendor to show it live.
 
-**Onam's answer:** automated toxic-combination detection across all 16 engines — posture, identity, vulnerabilities, network, data — because everything already lives on one graph.
+**Onam's answer:** automated toxic-combination detection across every layer — posture, identity, vulnerabilities, network, data — because everything already lives on one graph.
 
 ### 6. Is compliance evidence continuous or point-in-time?
 
 If evidence is generated when you click "export report," you are audit-ready one day per quarter. Ask whether framework mappings update as infrastructure changes.
 
-**Onam's answer:** 13 frameworks — CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more — with continuous evidence. One finding maps to every framework it affects; auditors get exports, not screenshots.
+**Onam's answer:** 78 frameworks — CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more — with continuous evidence. One finding maps to every framework it affects; auditors get exports, not screenshots.
 
 ### 7. Does coverage span code to runtime?
 
@@ -76,8 +76,8 @@ Fixing a misconfiguration in the console while the Terraform that created it sta
 | Cross-cloud analysis | One graph or per-cloud silos? | Single graph, cross-cloud attack paths |
 | Deployment | Agents? Time to first finding? | 100% agentless, < 3 min connect, < 5 min first alert |
 | Prioritisation | How is "what's first" decided? | FAIR-model dollar-risk ranking |
-| Toxic combinations | Cross-engine correlation, live demo | Automated across 16 engines |
-| Compliance | Continuous or point-in-time evidence? | 13 frameworks, continuous, one-click export |
+| Toxic combinations | Cross-engine correlation, live demo | Automated across every layer |
+| Compliance | Continuous or point-in-time evidence? | 78 frameworks, continuous, one-click export |
 | Code + runtime | IaC/code linked to runtime findings? | SAST · DAST · SCA · IaC · runtime, correlated |
 | Pricing model | Per-resource? Per-engine add-ons? | One platform, no per-engine add-ons |
 

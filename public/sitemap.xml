@@ -25,10 +25,22 @@
     <loc>https://www.onamsecurity.com/docs</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/learn</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/agentless</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/ai-assistant</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/ai-security</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/api-security</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/attack-path</loc>
@@ -40,6 +52,9 @@
     <loc>https://www.onamsecurity.com/platform/ciem</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/cnapp</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/compliance</loc>
   </url>
   <url>
@@ -49,16 +64,34 @@
     <loc>https://www.onamsecurity.com/platform/cspm</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/cwpp</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/data-security</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/database-security</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/encryption</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/iam</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/inventory</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/network-security</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/remediation</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/risk</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/saas-security</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/secops</loc>
@@ -224,6 +257,36 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/cspm</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/cnapp</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/cwpp</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/ciem</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/dspm</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/sspm</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/cloud-attack-path</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/agentless-cloud-security</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/cloud-risk-quantification</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/choke-point</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>

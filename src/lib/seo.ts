@@ -1,5 +1,18 @@
 export const SITE_URL = "https://www.onamsecurity.com";
 
+/**
+ * Google Search Console HTML-tag verification token.
+ *
+ * Paste the value from the `content="…"` attribute Google shows under
+ * Settings → Ownership verification → HTML tag, then redeploy. Leave empty to
+ * omit the tag entirely (an empty verification tag is worse than none —
+ * Google reads it as a failed check).
+ *
+ * The DNS TXT method on BigRock is an equally valid alternative and survives
+ * redeploys; use whichever is easier to keep in place.
+ */
+export const GSC_VERIFICATION = "";
+
 type SeoInput = {
   title: string;
   description: string;

@@ -21,18 +21,30 @@ import { Route as CompanySecurityRouteImport } from './routes/company/security'
 import { Route as CompanyTermsRouteImport } from './routes/company/terms'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
+import { Route as LearnIndexRouteImport } from './routes/learn.index'
+import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as PlatformIndexRouteImport } from './routes/platform/index'
+import { Route as PlatformAgentlessRouteImport } from './routes/platform/agentless'
+import { Route as PlatformAiAssistantRouteImport } from './routes/platform/ai-assistant'
 import { Route as PlatformAiSecurityRouteImport } from './routes/platform/ai-security'
+import { Route as PlatformApiSecurityRouteImport } from './routes/platform/api-security'
 import { Route as PlatformAttackPathRouteImport } from './routes/platform/attack-path'
 import { Route as PlatformCdrRouteImport } from './routes/platform/cdr'
 import { Route as PlatformCiemRouteImport } from './routes/platform/ciem'
+import { Route as PlatformCnappRouteImport } from './routes/platform/cnapp'
 import { Route as PlatformComplianceRouteImport } from './routes/platform/compliance'
 import { Route as PlatformContainerSecurityRouteImport } from './routes/platform/container-security'
 import { Route as PlatformCspmRouteImport } from './routes/platform/cspm'
+import { Route as PlatformCwppRouteImport } from './routes/platform/cwpp'
 import { Route as PlatformDataSecurityRouteImport } from './routes/platform/data-security'
+import { Route as PlatformDatabaseSecurityRouteImport } from './routes/platform/database-security'
+import { Route as PlatformEncryptionRouteImport } from './routes/platform/encryption'
 import { Route as PlatformIamRouteImport } from './routes/platform/iam'
+import { Route as PlatformInventoryRouteImport } from './routes/platform/inventory'
 import { Route as PlatformNetworkSecurityRouteImport } from './routes/platform/network-security'
+import { Route as PlatformRemediationRouteImport } from './routes/platform/remediation'
 import { Route as PlatformRiskRouteImport } from './routes/platform/risk'
+import { Route as PlatformSaasSecurityRouteImport } from './routes/platform/saas-security'
 import { Route as PlatformSecopsRouteImport } from './routes/platform/secops'
 import { Route as PlatformTechnologyRouteImport } from './routes/platform/technology'
 import { Route as PlatformThreatDetectionRouteImport } from './routes/platform/threat-detection'
@@ -112,14 +124,39 @@ const DocsSplatRoute = DocsSplatRouteImport.update({
   path: '/$',
   getParentRoute: () => DocsRoute,
 } as any)
+const LearnIndexRoute = LearnIndexRouteImport.update({
+  id: '/learn/',
+  path: '/learn/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearnSlugRoute = LearnSlugRouteImport.update({
+  id: '/learn/$slug',
+  path: '/learn/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformIndexRoute = PlatformIndexRouteImport.update({
   id: '/platform/',
   path: '/platform/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformAgentlessRoute = PlatformAgentlessRouteImport.update({
+  id: '/platform/agentless',
+  path: '/platform/agentless',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiAssistantRoute = PlatformAiAssistantRouteImport.update({
+  id: '/platform/ai-assistant',
+  path: '/platform/ai-assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformAiSecurityRoute = PlatformAiSecurityRouteImport.update({
   id: '/platform/ai-security',
   path: '/platform/ai-security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformApiSecurityRoute = PlatformApiSecurityRouteImport.update({
+  id: '/platform/api-security',
+  path: '/platform/api-security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformAttackPathRoute = PlatformAttackPathRouteImport.update({
@@ -135,6 +172,11 @@ const PlatformCdrRoute = PlatformCdrRouteImport.update({
 const PlatformCiemRoute = PlatformCiemRouteImport.update({
   id: '/platform/ciem',
   path: '/platform/ciem',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformCnappRoute = PlatformCnappRouteImport.update({
+  id: '/platform/cnapp',
+  path: '/platform/cnapp',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformComplianceRoute = PlatformComplianceRouteImport.update({
@@ -153,9 +195,25 @@ const PlatformCspmRoute = PlatformCspmRouteImport.update({
   path: '/platform/cspm',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformCwppRoute = PlatformCwppRouteImport.update({
+  id: '/platform/cwpp',
+  path: '/platform/cwpp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformDataSecurityRoute = PlatformDataSecurityRouteImport.update({
   id: '/platform/data-security',
   path: '/platform/data-security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformDatabaseSecurityRoute =
+  PlatformDatabaseSecurityRouteImport.update({
+    id: '/platform/database-security',
+    path: '/platform/database-security',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformEncryptionRoute = PlatformEncryptionRouteImport.update({
+  id: '/platform/encryption',
+  path: '/platform/encryption',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformIamRoute = PlatformIamRouteImport.update({
@@ -163,14 +221,29 @@ const PlatformIamRoute = PlatformIamRouteImport.update({
   path: '/platform/iam',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformInventoryRoute = PlatformInventoryRouteImport.update({
+  id: '/platform/inventory',
+  path: '/platform/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformNetworkSecurityRoute = PlatformNetworkSecurityRouteImport.update({
   id: '/platform/network-security',
   path: '/platform/network-security',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformRemediationRoute = PlatformRemediationRouteImport.update({
+  id: '/platform/remediation',
+  path: '/platform/remediation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformRiskRoute = PlatformRiskRouteImport.update({
   id: '/platform/risk',
   path: '/platform/risk',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformSaasSecurityRoute = PlatformSaasSecurityRouteImport.update({
+  id: '/platform/saas-security',
+  path: '/platform/saas-security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformSecopsRoute = PlatformSecopsRouteImport.update({
@@ -276,17 +349,28 @@ export interface FileRoutesByFullPath {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/docs/$': typeof DocsSplatRoute
+  '/learn/$slug': typeof LearnSlugRoute
+  '/platform/agentless': typeof PlatformAgentlessRoute
+  '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
+  '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
+  '/platform/cnapp': typeof PlatformCnappRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
+  '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
+  '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
+  '/platform/inventory': typeof PlatformInventoryRoute
   '/platform/network-security': typeof PlatformNetworkSecurityRoute
+  '/platform/remediation': typeof PlatformRemediationRoute
   '/platform/risk': typeof PlatformRiskRoute
+  '/platform/saas-security': typeof PlatformSaasSecurityRoute
   '/platform/secops': typeof PlatformSecopsRoute
   '/platform/technology': typeof PlatformTechnologyRoute
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
@@ -303,6 +387,7 @@ export interface FileRoutesByFullPath {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/docs/': typeof DocsIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -319,17 +404,28 @@ export interface FileRoutesByTo {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/docs/$': typeof DocsSplatRoute
+  '/learn/$slug': typeof LearnSlugRoute
+  '/platform/agentless': typeof PlatformAgentlessRoute
+  '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
+  '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
+  '/platform/cnapp': typeof PlatformCnappRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
+  '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
+  '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
+  '/platform/inventory': typeof PlatformInventoryRoute
   '/platform/network-security': typeof PlatformNetworkSecurityRoute
+  '/platform/remediation': typeof PlatformRemediationRoute
   '/platform/risk': typeof PlatformRiskRoute
+  '/platform/saas-security': typeof PlatformSaasSecurityRoute
   '/platform/secops': typeof PlatformSecopsRoute
   '/platform/technology': typeof PlatformTechnologyRoute
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
@@ -346,6 +442,7 @@ export interface FileRoutesByTo {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/docs': typeof DocsIndexRoute
+  '/learn': typeof LearnIndexRoute
   '/platform': typeof PlatformIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -364,17 +461,28 @@ export interface FileRoutesById {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/docs/$': typeof DocsSplatRoute
+  '/learn/$slug': typeof LearnSlugRoute
+  '/platform/agentless': typeof PlatformAgentlessRoute
+  '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
+  '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
+  '/platform/cnapp': typeof PlatformCnappRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
+  '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
+  '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
+  '/platform/inventory': typeof PlatformInventoryRoute
   '/platform/network-security': typeof PlatformNetworkSecurityRoute
+  '/platform/remediation': typeof PlatformRemediationRoute
   '/platform/risk': typeof PlatformRiskRoute
+  '/platform/saas-security': typeof PlatformSaasSecurityRoute
   '/platform/secops': typeof PlatformSecopsRoute
   '/platform/technology': typeof PlatformTechnologyRoute
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
@@ -391,6 +499,7 @@ export interface FileRoutesById {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/docs/': typeof DocsIndexRoute
+  '/learn/': typeof LearnIndexRoute
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -410,17 +519,28 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/docs/$'
+    | '/learn/$slug'
+    | '/platform/agentless'
+    | '/platform/ai-assistant'
     | '/platform/ai-security'
+    | '/platform/api-security'
     | '/platform/attack-path'
     | '/platform/cdr'
     | '/platform/ciem'
+    | '/platform/cnapp'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
+    | '/platform/cwpp'
     | '/platform/data-security'
+    | '/platform/database-security'
+    | '/platform/encryption'
     | '/platform/iam'
+    | '/platform/inventory'
     | '/platform/network-security'
+    | '/platform/remediation'
     | '/platform/risk'
+    | '/platform/saas-security'
     | '/platform/secops'
     | '/platform/technology'
     | '/platform/threat-detection'
@@ -437,6 +557,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/docs/'
+    | '/learn/'
     | '/platform/'
     | '/resources/'
     | '/solutions/'
@@ -453,17 +574,28 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/docs/$'
+    | '/learn/$slug'
+    | '/platform/agentless'
+    | '/platform/ai-assistant'
     | '/platform/ai-security'
+    | '/platform/api-security'
     | '/platform/attack-path'
     | '/platform/cdr'
     | '/platform/ciem'
+    | '/platform/cnapp'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
+    | '/platform/cwpp'
     | '/platform/data-security'
+    | '/platform/database-security'
+    | '/platform/encryption'
     | '/platform/iam'
+    | '/platform/inventory'
     | '/platform/network-security'
+    | '/platform/remediation'
     | '/platform/risk'
+    | '/platform/saas-security'
     | '/platform/secops'
     | '/platform/technology'
     | '/platform/threat-detection'
@@ -480,6 +612,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/docs'
+    | '/learn'
     | '/platform'
     | '/resources'
     | '/solutions'
@@ -497,17 +630,28 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/docs/$'
+    | '/learn/$slug'
+    | '/platform/agentless'
+    | '/platform/ai-assistant'
     | '/platform/ai-security'
+    | '/platform/api-security'
     | '/platform/attack-path'
     | '/platform/cdr'
     | '/platform/ciem'
+    | '/platform/cnapp'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
+    | '/platform/cwpp'
     | '/platform/data-security'
+    | '/platform/database-security'
+    | '/platform/encryption'
     | '/platform/iam'
+    | '/platform/inventory'
     | '/platform/network-security'
+    | '/platform/remediation'
     | '/platform/risk'
+    | '/platform/saas-security'
     | '/platform/secops'
     | '/platform/technology'
     | '/platform/threat-detection'
@@ -524,6 +668,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/docs/'
+    | '/learn/'
     | '/platform/'
     | '/resources/'
     | '/solutions/'
@@ -541,17 +686,28 @@ export interface RootRouteChildren {
   CompanyPrivacyRoute: typeof CompanyPrivacyRoute
   CompanySecurityRoute: typeof CompanySecurityRoute
   CompanyTermsRoute: typeof CompanyTermsRoute
+  LearnSlugRoute: typeof LearnSlugRoute
+  PlatformAgentlessRoute: typeof PlatformAgentlessRoute
+  PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
   PlatformAiSecurityRoute: typeof PlatformAiSecurityRoute
+  PlatformApiSecurityRoute: typeof PlatformApiSecurityRoute
   PlatformAttackPathRoute: typeof PlatformAttackPathRoute
   PlatformCdrRoute: typeof PlatformCdrRoute
   PlatformCiemRoute: typeof PlatformCiemRoute
+  PlatformCnappRoute: typeof PlatformCnappRoute
   PlatformComplianceRoute: typeof PlatformComplianceRoute
   PlatformContainerSecurityRoute: typeof PlatformContainerSecurityRoute
   PlatformCspmRoute: typeof PlatformCspmRoute
+  PlatformCwppRoute: typeof PlatformCwppRoute
   PlatformDataSecurityRoute: typeof PlatformDataSecurityRoute
+  PlatformDatabaseSecurityRoute: typeof PlatformDatabaseSecurityRoute
+  PlatformEncryptionRoute: typeof PlatformEncryptionRoute
   PlatformIamRoute: typeof PlatformIamRoute
+  PlatformInventoryRoute: typeof PlatformInventoryRoute
   PlatformNetworkSecurityRoute: typeof PlatformNetworkSecurityRoute
+  PlatformRemediationRoute: typeof PlatformRemediationRoute
   PlatformRiskRoute: typeof PlatformRiskRoute
+  PlatformSaasSecurityRoute: typeof PlatformSaasSecurityRoute
   PlatformSecopsRoute: typeof PlatformSecopsRoute
   PlatformTechnologyRoute: typeof PlatformTechnologyRoute
   PlatformThreatDetectionRoute: typeof PlatformThreatDetectionRoute
@@ -567,6 +723,7 @@ export interface RootRouteChildren {
   SolutionsIbmRoute: typeof SolutionsIbmRoute
   SolutionsKubernetesRoute: typeof SolutionsKubernetesRoute
   SolutionsOciRoute: typeof SolutionsOciRoute
+  LearnIndexRoute: typeof LearnIndexRoute
   PlatformIndexRoute: typeof PlatformIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
@@ -658,6 +815,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DocsSplatRouteImport
       parentRoute: typeof DocsRoute
     }
+    '/learn/': {
+      id: '/learn/'
+      path: '/learn'
+      fullPath: '/learn/'
+      preLoaderRoute: typeof LearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learn/$slug': {
+      id: '/learn/$slug'
+      path: '/learn/$slug'
+      fullPath: '/learn/$slug'
+      preLoaderRoute: typeof LearnSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/': {
       id: '/platform/'
       path: '/platform'
@@ -665,11 +836,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/agentless': {
+      id: '/platform/agentless'
+      path: '/platform/agentless'
+      fullPath: '/platform/agentless'
+      preLoaderRoute: typeof PlatformAgentlessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-assistant': {
+      id: '/platform/ai-assistant'
+      path: '/platform/ai-assistant'
+      fullPath: '/platform/ai-assistant'
+      preLoaderRoute: typeof PlatformAiAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/ai-security': {
       id: '/platform/ai-security'
       path: '/platform/ai-security'
       fullPath: '/platform/ai-security'
       preLoaderRoute: typeof PlatformAiSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/api-security': {
+      id: '/platform/api-security'
+      path: '/platform/api-security'
+      fullPath: '/platform/api-security'
+      preLoaderRoute: typeof PlatformApiSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/attack-path': {
@@ -693,6 +885,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformCiemRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/cnapp': {
+      id: '/platform/cnapp'
+      path: '/platform/cnapp'
+      fullPath: '/platform/cnapp'
+      preLoaderRoute: typeof PlatformCnappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/compliance': {
       id: '/platform/compliance'
       path: '/platform/compliance'
@@ -714,11 +913,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformCspmRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/cwpp': {
+      id: '/platform/cwpp'
+      path: '/platform/cwpp'
+      fullPath: '/platform/cwpp'
+      preLoaderRoute: typeof PlatformCwppRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/data-security': {
       id: '/platform/data-security'
       path: '/platform/data-security'
       fullPath: '/platform/data-security'
       preLoaderRoute: typeof PlatformDataSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/database-security': {
+      id: '/platform/database-security'
+      path: '/platform/database-security'
+      fullPath: '/platform/database-security'
+      preLoaderRoute: typeof PlatformDatabaseSecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/encryption': {
+      id: '/platform/encryption'
+      path: '/platform/encryption'
+      fullPath: '/platform/encryption'
+      preLoaderRoute: typeof PlatformEncryptionRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/iam': {
@@ -728,6 +948,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformIamRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/inventory': {
+      id: '/platform/inventory'
+      path: '/platform/inventory'
+      fullPath: '/platform/inventory'
+      preLoaderRoute: typeof PlatformInventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/network-security': {
       id: '/platform/network-security'
       path: '/platform/network-security'
@@ -735,11 +962,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformNetworkSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/remediation': {
+      id: '/platform/remediation'
+      path: '/platform/remediation'
+      fullPath: '/platform/remediation'
+      preLoaderRoute: typeof PlatformRemediationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/risk': {
       id: '/platform/risk'
       path: '/platform/risk'
       fullPath: '/platform/risk'
       preLoaderRoute: typeof PlatformRiskRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/saas-security': {
+      id: '/platform/saas-security'
+      path: '/platform/saas-security'
+      fullPath: '/platform/saas-security'
+      preLoaderRoute: typeof PlatformSaasSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/secops': {
@@ -906,17 +1147,28 @@ const rootRouteChildren: RootRouteChildren = {
   CompanyPrivacyRoute: CompanyPrivacyRoute,
   CompanySecurityRoute: CompanySecurityRoute,
   CompanyTermsRoute: CompanyTermsRoute,
+  LearnSlugRoute: LearnSlugRoute,
+  PlatformAgentlessRoute: PlatformAgentlessRoute,
+  PlatformAiAssistantRoute: PlatformAiAssistantRoute,
   PlatformAiSecurityRoute: PlatformAiSecurityRoute,
+  PlatformApiSecurityRoute: PlatformApiSecurityRoute,
   PlatformAttackPathRoute: PlatformAttackPathRoute,
   PlatformCdrRoute: PlatformCdrRoute,
   PlatformCiemRoute: PlatformCiemRoute,
+  PlatformCnappRoute: PlatformCnappRoute,
   PlatformComplianceRoute: PlatformComplianceRoute,
   PlatformContainerSecurityRoute: PlatformContainerSecurityRoute,
   PlatformCspmRoute: PlatformCspmRoute,
+  PlatformCwppRoute: PlatformCwppRoute,
   PlatformDataSecurityRoute: PlatformDataSecurityRoute,
+  PlatformDatabaseSecurityRoute: PlatformDatabaseSecurityRoute,
+  PlatformEncryptionRoute: PlatformEncryptionRoute,
   PlatformIamRoute: PlatformIamRoute,
+  PlatformInventoryRoute: PlatformInventoryRoute,
   PlatformNetworkSecurityRoute: PlatformNetworkSecurityRoute,
+  PlatformRemediationRoute: PlatformRemediationRoute,
   PlatformRiskRoute: PlatformRiskRoute,
+  PlatformSaasSecurityRoute: PlatformSaasSecurityRoute,
   PlatformSecopsRoute: PlatformSecopsRoute,
   PlatformTechnologyRoute: PlatformTechnologyRoute,
   PlatformThreatDetectionRoute: PlatformThreatDetectionRoute,
@@ -932,6 +1184,7 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsIbmRoute: SolutionsIbmRoute,
   SolutionsKubernetesRoute: SolutionsKubernetesRoute,
   SolutionsOciRoute: SolutionsOciRoute,
+  LearnIndexRoute: LearnIndexRoute,
   PlatformIndexRoute: PlatformIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,

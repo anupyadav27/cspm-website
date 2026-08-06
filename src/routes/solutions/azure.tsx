@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/azure")({
   head: () =>
     seo({
-      title: "Azure Cloud Security — Onam",
+      title: "Azure Cloud Security Posture Management (CSPM) — Onam Security",
       description: azureData.sub,
       path: "/solutions/azure",
     }),

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, ShieldCheck, type LucideIcon } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -10,6 +11,7 @@ export type CloudFeature = { icon: LucideIcon; iconColor: string; title: string;
 export type CloudStep = { title: string; body: string };
 export type CloudStat = { value: string; label: string };
 export type CloudFaq = { q: string; a: string };
+export type CloudRelated = { label: string; href: string; blurb: string };
 
 export type CloudSolutionData = {
   breadcrumb: string;
@@ -25,6 +27,13 @@ export type CloudSolutionData = {
   featuresHeading: string;
   features: CloudFeature[];
   faqs: CloudFaq[];
+  /**
+   * Internal links out to the platform and glossary clusters. These exist for
+   * topical clustering as much as for readers — GSC showed the cloud pages
+   * ranking at position 23–30 with almost no internal links pointing between
+   * them and the concept pages that share their intent.
+   */
+  related?: CloudRelated[];
   cloudName: string;
 };
 
@@ -243,6 +252,34 @@ function CTA({ data }: { data: CloudSolutionData }) {
   );
 }
 
+function RelatedReading({ items, cloudName }: { items: CloudRelated[]; cloudName: string }) {
+  if (!items.length) return null;
+  return (
+    <section className="py-20 bg-white border-t border-[#E5E9F0]">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
+          {cloudName} security — related reading
+        </h2>
+        <p className="mt-3 text-[#475569] max-w-2xl">
+          How the engines behind {cloudName} coverage work, and what the categories actually mean.
+        </p>
+        <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {items.map((r) => (
+            <Link key={r.href} to={r.href} className="group">
+              <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
+                <div className="font-display font-bold text-[#0B1220] text-[15px] group-hover:text-[#2563EB]">
+                  {r.label}
+                </div>
+                <p className="mt-1.5 text-sm text-[#475569] leading-relaxed">{r.blurb}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
   return (
     <SiteLayout>
@@ -262,6 +299,7 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
       />
       <Features data={data} />
       <Faqs faqs={data.faqs} />
+      <RelatedReading items={data.related ?? []} cloudName={data.cloudName} />
       <CTA data={data} />
     </SiteLayout>
   );

@@ -739,7 +739,7 @@ rm cspm-key-new.json
 
 - [Connect Kubernetes clusters](/docs/onboarding/kubernetes) — add in-cluster visibility for your GKE clusters.
 - [CSPM](/docs/features/cspm) — how the 2,676 GCP rules become prioritized findings.
-- [Compliance frameworks](/docs/compliance/frameworks) — map GCP findings to CIS, NIST, PCI-DSS, and 70+ other frameworks.
+- [Compliance frameworks](/docs/compliance/frameworks) — map GCP findings to CIS, NIST, PCI-DSS, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 `,
   },
@@ -965,7 +965,7 @@ openssl rsa -pubout \\
 
 - [Connect Alibaba Cloud](/docs/onboarding/alicloud) — repeat the process for your next cloud; Onam covers all 7.
 - [CSPM](/docs/features/cspm) — how the 1,451 OCI rules become prioritized findings.
-- [Compliance](/docs/features/compliance) — map OCI findings to CIS, ISO 27001, PCI-DSS, and 70+ other frameworks.
+- [Compliance](/docs/features/compliance) — map OCI findings to CIS, ISO 27001, PCI-DSS, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 `,
   },
@@ -1410,7 +1410,7 @@ ibmcloud iam service-api-key-delete OLD_KEY_UUID $SERVICE_ID
 
 - [Connect Kubernetes clusters](/docs/onboarding/kubernetes) — add in-cluster visibility for your IKS clusters.
 - [CSPM](/docs/features/cspm) — how the 613 IBM Cloud rules become prioritized findings.
-- [Compliance](/docs/features/compliance) — map IBM Cloud findings to CIS, NIST, ISO 27001, and 70+ other frameworks.
+- [Compliance](/docs/features/compliance) — map IBM Cloud findings to CIS, NIST, ISO 27001, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 `,
   },

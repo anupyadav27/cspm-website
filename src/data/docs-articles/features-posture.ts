@@ -106,7 +106,7 @@ Suppressed findings are excluded from posture scores and alert routing but remai
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it satisfies across **70+ compliance frameworks** — including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, DORA, and NIS2. The mapping is maintained in a single policy-to-framework catalog, so one scan produces evidence for every framework simultaneously:
+Every rule is mapped to the controls it satisfies across **78 compliance frameworks** — including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, DORA, and NIS2. The mapping is maintained in a single policy-to-framework catalog, so one scan produces evidence for every framework simultaneously:
 
 1. A rule evaluates PASS or FAIL per resource.
 2. Each result is attributed to every control the rule maps to.

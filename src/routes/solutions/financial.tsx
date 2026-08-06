@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/financial")({
   head: () =>
     seo({
-      title: "Cloud Security for Financial Services — Onam",
+      title: "Cloud Security for Financial Services — PCI-DSS & RBI Ready — Onam",
       description: financialData.sub,
       path: "/solutions/financial",
     }),

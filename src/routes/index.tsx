@@ -6,6 +6,7 @@ import {
   TrendingUp, Search, ShieldAlert, Users2, Fingerprint, FileCheck,
   LayoutDashboard, Plug, ListChecks, GitFork, KeyRound, Radio,
   ShieldCheck, ScanLine, HardDrive,
+  ShieldHalf, Blocks, Webhook, Package, Sparkles, Wrench,
 } from "lucide-react";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -18,9 +19,9 @@ import { cn } from "@/lib/utils";
 export const Route = createFileRoute("/")({
   head: () =>
     seo({
-      title: "Onam Security — Unified CSPM & Cloud Security Platform",
+      title: "Onam Security — Unified CNAPP: CSPM, CIEM, DSPM, CWPP & SSPM",
       description:
-        "Unified CSPM & cloud security platform: misconfigurations, identity risk, attack paths, threat detection & compliance across AWS, Azure, GCP, OCI, Alibaba, IBM & Kubernetes. 100% agentless.",
+        "Unified CNAPP platform: CSPM, CIEM, DSPM, CWPP, SSPM, agentless workload scanning, attack paths, threat detection & compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, Kubernetes and SaaS. 100% agentless.",
       path: "/",
     }),
   component: HomePage,
@@ -56,7 +57,7 @@ function HomePage() {
 const FAQ_ITEMS = [
   {
     q: "What is cloud security posture management (CSPM)?",
-    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations — public storage buckets, open security groups, unencrypted databases, over-permissive IAM — and tells you exactly how to fix them. Onam runs 1,918 CSPM posture rules continuously across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so misconfigurations surface the day they're introduced, not at the next audit.",
+    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations — public storage buckets, open security groups, unencrypted databases, over-permissive IAM — and tells you exactly how to fix them. Onam runs 9,853 CSPM posture rules continuously across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so misconfigurations surface the day they're introduced, not at the next audit.",
   },
   {
     q: "Which cloud providers does Onam Security support?",
@@ -64,7 +65,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How is Onam different from native cloud tools or single-layer CSPM products?",
-    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and 16 security engines — posture, identity (CIEM), attack paths, threat detection, data, code, and compliance — on one graph. That's what enables cross-cloud attack-path analysis, automated toxic-combination detection, and FAIR-model dollar-risk prioritisation instead of an alert firehose.",
+    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and every security layer — posture, identity (CIEM), attack paths, threat detection, data, code, and compliance — on one graph. That's what enables cross-cloud attack-path analysis, automated toxic-combination detection, and FAIR-model dollar-risk prioritisation instead of an alert firehose.",
   },
   {
     q: "Is Onam agentless, and how long does deployment take?",
@@ -72,11 +73,11 @@ const FAQ_ITEMS = [
   },
   {
     q: "Which compliance frameworks does Onam cover?",
-    a: "13 frameworks with continuous evidence, including CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, and SOC 2. One finding maps to every framework it affects, and audit evidence exports in one click.",
+    a: "78 frameworks with continuous evidence, including CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, and SOC 2. One finding maps to every framework it affects, and audit evidence exports in one click.",
   },
   {
     q: "Does Onam include CIEM, threat detection, and code security as well as CSPM?",
-    a: "Yes. CSPM is one of 16 engines on the platform: 30-day behavioral CIEM for identity risk, cloud threat detection and response, vulnerability management, data security, and code-to-runtime coverage with SAST, DAST, SCA, and IaC scanning — all correlated on the same graph.",
+    a: "Yes. CSPM is one layer of the platform: 30-day behavioral CIEM for identity risk, cloud threat detection and response, vulnerability management, data security, and code-to-runtime coverage with SAST, DAST, SCA, and IaC scanning — all correlated on the same graph.",
   },
 ];
 
@@ -92,11 +93,11 @@ const HOME_JSONLD = [
     description:
       "Unified cloud security platform: CSPM, CIEM, attack path analysis, threat detection, data security, and compliance across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes. 100% agentless.",
     featureList: [
-      "CSPM — 1,918 posture rules evaluated continuously",
+      "CSPM — 9,853 posture rules evaluated continuously",
       "CIEM — 30-day behavioral identity risk analysis",
       "Cross-cloud attack path analysis on one graph",
-      "Toxic combination detection across 16 security engines",
-      "Compliance — 13 frameworks with continuous evidence (CIS, NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2)",
+      "Toxic combination detection across every security layer",
+      "Compliance — 78 frameworks with continuous evidence (CIS, NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2)",
       "FAIR-model dollar-risk prioritisation",
       "Code + runtime coverage: SAST, DAST, SCA, IaC scanning",
       "Agentless read-only onboarding in under 3 minutes",
@@ -171,7 +172,7 @@ function Hero() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-2">
-            {["10,000+ security rules", "7 cloud providers", "16+ security engines", "100% agentless"].map((t) => (
+            {["10,000+ security rules", "7 cloud providers", "every security layer", "100% agentless"].map((t) => (
               <div key={t} className="px-3 py-1.5 rounded-full text-xs font-medium text-[#334155] bg-white border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)] flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" />
                 {t}
@@ -272,7 +273,7 @@ function OutcomeStrip() {
   const items = [
     { value: "1,240", label: "avg findings per first scan" },
     { value: "< 5 min", label: "time to first critical" },
-    { value: "16+", label: "engines running in parallel" },
+    { value: "200+", label: "cloud services covered" },
     { value: "100%", label: "agentless — no deployment" },
   ];
   return (
@@ -328,7 +329,7 @@ function HowItWorks() {
     { icon: Lock, title: "Connect your cloud — takes 3 minutes",
       body: "Give Onam read-only access via an IAM role, service principal, or service account. No agents, no code changes. Stores only a role ARN — no long-lived credentials, ever." },
     { icon: Search, title: "We scan everything — including what you forgot about",
-      body: "Enumerates every resource across 200+ cloud services, checks each against 10,000+ rules across 16+ engines. First findings in under 5 minutes; full attack graph within 60 minutes." },
+      body: "Enumerates every resource across 200+ cloud services, checks each against 10,000+ rules across every security layer. First findings in under 5 minutes; full attack graph within 60 minutes." },
     { icon: FileCheck, title: "You get a prioritised list, not a wall of alerts",
       body: "Critical findings first. Each finding says what it is, why it matters, which compliance frameworks it affects, and the exact remediation (CLI command, Terraform snippet, or console walkthrough)." },
   ];
@@ -412,7 +413,7 @@ function ProductDemo() {
     },
     {
       key: "findings", label: "Findings", icon: ListChecks,
-      caption: "847 prioritised findings from 9 engines — sorted by real risk, not noise. One click to remediation.",
+      caption: "847 prioritised findings — sorted by real risk, not noise. One click to remediation.",
       badge: { sev: "critical", text: "12 critical" },
       view: ViewFindings,
     },
@@ -656,7 +657,7 @@ function ViewOnboarding() {
     { n: 1, t: "Choose your cloud", d: "AWS · Azure · GCP · OCI · AliCloud · Kubernetes", done: true },
     { n: 2, t: "Deploy read-only role", d: "One-click CloudFormation, Terraform or CLI script", done: true },
     { n: 3, t: "Verify connection", d: "Onam checks 24 required permissions, warns on drift", done: true },
-    { n: 4, t: "First scan", d: "16 engines run in parallel — first findings in < 5 min", done: false },
+    { n: 4, t: "First scan", d: "every security layer runs in parallel — first findings in < 5 min", done: false },
   ];
   return (
     <div className="grid md:grid-cols-[1.2fr_1fr] gap-4">
@@ -727,7 +728,7 @@ function ViewFindings() {
     { s: "medium" as Sev, r: "sg-0987654", d: "Ingress 0.0.0.0/0 on tcp/22", fw: "CIS AWS 5.2", eng: "Network" },
   ];
   return (
-    <Panel title="847 findings from 9 engines"
+    <Panel title="847 findings, prioritised by real risk"
            right={<div className="flex gap-1 text-[11px]">
              <span className="px-2 py-1 rounded bg-[#FDECEA] text-[#E32D25] font-bold">12 CRIT</span>
              <span className="px-2 py-1 rounded bg-[#FEF6E0] text-[#F2AF04] font-bold">84 HIGH</span>
@@ -1168,30 +1169,39 @@ function ViewRisk() {
 /* ============================ PLATFORM PILLARS ============================ */
 function PlatformPillars() {
   const pillars = [
-    { icon: Shield, title: "CSPM", q: "What's misconfigured across every cloud?", metric: "1,918 posture rules", to: "/platform/cspm", color: "#2563EB" },
-    { icon: Network, title: "Network Security", q: "Where is my perimeter actually leaking?", metric: "7-layer topology analysis", to: "/platform/network-security", color: "#0EA5E9" },
-    { icon: Database, title: "Data Security", q: "Where does sensitive data really live?", metric: "62 rules · 7 domains", to: "/platform/data-security", color: "#7C3AED" },
+    { icon: ShieldHalf, title: "CNAPP", q: "What's our posture, in one number?", metric: "7 pillars · one score", to: "/platform/cnapp", color: "#4F46E5" },
+    { icon: Shield, title: "CSPM", q: "What's misconfigured across every cloud?", metric: "9,853 posture rules", to: "/platform/cspm", color: "#2563EB" },
     { icon: Fingerprint, title: "CIEM", q: "Which identities are quietly over-privileged?", metric: "30-day behavioral baselines", to: "/platform/ciem", color: "#F2AF04" },
+    { icon: Eye, title: "IAM Security", q: "Who has access to what?", metric: "Policies · users · roles", to: "/platform/iam", color: "#0284C7" },
+    { icon: Package, title: "Asset Inventory", q: "What do we actually run?", metric: "549 services · 7 clouds", to: "/platform/inventory", color: "#0891B2" },
     { icon: GitBranch, title: "Attack Path", q: "Which risks actually reach crown jewels?", metric: "Cross-cloud graph analysis", to: "/platform/attack-path", color: "#E32D25" },
+    { icon: Activity, title: "CDR Detection", q: "Behavioral threats across layers?", metric: "L1 · L2 · L3 detection", to: "/platform/cdr", color: "#EF4444" },
     { icon: ShieldAlert, title: "Threat Detection", q: "Are we being attacked right now?", metric: "MITRE ATT&CK-mapped", to: "/platform/threat-detection", color: "#DB2777" },
-    { icon: ScrollText, title: "Compliance", q: "Are we audit-ready — today?", metric: "13 frameworks", to: "/platform/compliance", color: "#059669" },
     { icon: DollarSign, title: "Risk Quantification", q: "What's this exposure worth in dollars?", metric: "FAIR model", to: "/platform/risk", color: "#05A052" },
+    { icon: Database, title: "DSPM — Data Security", q: "Where does sensitive data really live?", metric: "1,321 data protection rules", to: "/platform/data-security", color: "#7C3AED" },
+    { icon: HardDrive, title: "Database Security", q: "Are our databases hardened?", metric: "1,364 CIS engine benchmarks", to: "/platform/database-security", color: "#B45309" },
+    { icon: KeyRound, title: "Encryption & Keys", q: "Who can decrypt our data?", metric: "502 key management rules", to: "/platform/encryption", color: "#CA8A04" },
+    { icon: Network, title: "Network Security", q: "Where is my perimeter actually leaking?", metric: "7-layer topology analysis", to: "/platform/network-security", color: "#0EA5E9" },
+    { icon: Webhook, title: "API Security", q: "Which APIs are open to the world?", metric: "241 API posture rules", to: "/platform/api-security", color: "#DB2777" },
+    { icon: Server, title: "CWPP — Workloads", q: "Are running workloads hardened?", metric: "VMs · containers · serverless", to: "/platform/cwpp", color: "#059669" },
+    { icon: ScanLine, title: "Agentless Scanning", q: "How do we scan without agents?", metric: "Snapshot-based · zero install", to: "/platform/agentless", color: "#06B6D4" },
     { icon: Boxes, title: "Container Security", q: "Are our clusters and images safe?", metric: "EKS · ECS · image scanning", to: "/platform/container-security", color: "#3B82F6" },
     { icon: Bug, title: "Vulnerability Mgmt", q: "Which CVEs actually matter to us?", metric: "Contextual, not CVSS-only", to: "/platform/vulnerability", color: "#EA580C" },
-    { icon: Code2, title: "Code Security", q: "Are we shipping vulnerable code?", metric: "2,852 SAST/DAST/SCA/IaC rules", to: "/platform/secops", color: "#0891B2" },
-    { icon: Bot, title: "AI Security", q: "Are Bedrock and SageMaker safe?", metric: "AI/ML risk detection", to: "/platform/ai-security", color: "#8B5CF6" },
-    { icon: Activity, title: "CDR Detection", q: "Behavioral threats across layers?", metric: "L1 · L2 · L3 detection", to: "/platform/cdr", color: "#EF4444" },
-    { icon: Eye, title: "IAM Security", q: "Who has access to what?", metric: "Policies · users · roles", to: "/platform/iam", color: "#0284C7" },
+    { icon: Code2, title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/secops", color: "#0891B2" },
+    { icon: Blocks, title: "SaaS Security (SSPM)", q: "Is M365 and Workspace locked down?", metric: "433 CIS SaaS rules", to: "/platform/saas-security", color: "#8B5CF6" },
+    { icon: Bot, title: "AI Security", q: "Are Bedrock and SageMaker safe?", metric: "AI/ML risk detection", to: "/platform/ai-security", color: "#A855F7" },
+    { icon: Sparkles, title: "AI Assistant", q: "Can I just ask what's exposed?", metric: "13 domain specialists", to: "/platform/ai-assistant", color: "#7C3AED" },
+    { icon: Wrench, title: "Remediation", q: "How does this actually get fixed?", metric: "Every finding ships its fix", to: "/platform/remediation", color: "#10B981" },
+    { icon: ScrollText, title: "Compliance", q: "Are we audit-ready — today?", metric: "78 frameworks", to: "/platform/compliance", color: "#059669" },
     { icon: Layers, title: "Technology Engine", q: "What is actually running here?", metric: "34 technologies", to: "/platform/technology", color: "#65A30D" },
-    { icon: Cpu, title: "Runtime Discovery", q: "What changed in the last hour?", metric: "Continuous inventory", to: "/platform/technology", color: "#0369A1" },
   ];
   return (
     <section className="py-24 border-b border-[#E5E9F0] bg-[#F7F9FC]">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          eyebrow="One platform · 16 engines"
+          eyebrow="One platform · one graph"
           title="Everything you need in one platform"
-          subtitle="Sixteen security engines run in parallel on the same data model — so findings talk to each other."
+          subtitle="CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are engines here, not separate products — 29 of them running in parallel on the same data model, so findings talk to each other."
           gradientWords="one platform"
         />
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
@@ -1294,7 +1304,7 @@ function ComplianceSection() {
     <section className="py-24 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader eyebrow="Compliance" title="Ready for your next audit"
-                       subtitle="Continuous evidence across 13 frameworks — export in one click, no auditor screenshots."
+                       subtitle="Continuous evidence across 78 frameworks — export in one click, no auditor screenshots."
                        gradientWords="next audit" />
         <div className="mt-12 flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
           {frameworks.map((f) => (
@@ -1348,10 +1358,10 @@ function WhyNow() {
 /* ============================ DIFFERENTIATOR ============================ */
 function Differentiator() {
   const rows: { area: string; alts: [string, string, string]; onam: string }[] = [
-    { area: "Coverage", alts: ["One cloud only", "One security layer", "Point-in-time"], onam: "All 7 clouds · 16 engines · continuous" },
+    { area: "Coverage", alts: ["One cloud only", "One security layer", "Point-in-time"], onam: "All 7 clouds · every security layer · continuous" },
     { area: "Attack paths", alts: ["✗", "✗", "Manual"], onam: "Cross-cloud graph analysis" },
     { area: "Toxic combinations", alts: ["✗", "✗", "✗"], onam: "Automated across engines" },
-    { area: "Compliance", alts: ["Per-provider", "Manual mapping", "Point-in-time"], onam: "13 frameworks · continuous evidence" },
+    { area: "Compliance", alts: ["Per-provider", "Manual mapping", "Point-in-time"], onam: "78 frameworks · continuous evidence" },
     { area: "Identity", alts: ["Basic policies", "None", "Interview-based"], onam: "30-day behavioral CIEM" },
     { area: "Prioritisation", alts: ["Alert firehose", "CVSS-only", "Report handoff"], onam: "FAIR-model dollar risk" },
     { area: "Code + Runtime", alts: ["Runtime only", "One or the other", "Neither"], onam: "SAST · DAST · SCA · IaC · runtime" },
@@ -1398,7 +1408,7 @@ function TrustBar() {
   const items = [
     { icon: <CheckCircle2 className="w-4 h-4 text-[#05A052]" />, label: "SOC 2 Type II certified" },
     { icon: <CheckCircle2 className="w-4 h-4 text-[#2563EB]" />, label: "ISO 27001" },
-    { icon: <FileCheck className="w-4 h-4 text-[#05A052]" />, label: "13 frameworks covered" },
+    { icon: <FileCheck className="w-4 h-4 text-[#05A052]" />, label: "78 frameworks covered" },
     { icon: <Lock className="w-4 h-4 text-[#2563EB]" />, label: "Read-only access" },
     { icon: <ScanLine className="w-4 h-4 text-[#64748B]" />, label: "Delete access anytime" },
   ];

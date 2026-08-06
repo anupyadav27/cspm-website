@@ -6,11 +6,11 @@ import { platformPages } from "@/data/platform-pages";
 import { seo } from "@/lib/seo";
 
 const groups: { heading: string; slugs: string[] }[] = [
-  { heading: "Security Posture", slugs: ["cspm", "ciem", "iam"] },
-  { heading: "Threat & Attack", slugs: ["attack-path", "cdr", "threat-detection"] },
-  { heading: "Network & Data", slugs: ["network-security", "data-security", "ai-security"] },
-  { heading: "Workloads & Code", slugs: ["container-security", "vulnerability", "secops"] },
-  { heading: "Risk & Governance", slugs: ["risk", "compliance", "technology"] },
+  { heading: "Posture & Identity", slugs: ["cnapp", "cspm", "ciem", "iam", "inventory"] },
+  { heading: "Threat & Attack", slugs: ["attack-path", "cdr", "threat-detection", "risk"] },
+  { heading: "Data & Network", slugs: ["data-security", "database-security", "encryption", "network-security", "api-security"] },
+  { heading: "Workloads & Code", slugs: ["cwpp", "agentless", "container-security", "vulnerability", "secops"] },
+  { heading: "SaaS, AI & Governance", slugs: ["saas-security", "ai-security", "ai-assistant", "remediation", "compliance", "technology"] },
 ];
 
 export const Route = createFileRoute("/platform/")({
@@ -18,7 +18,7 @@ export const Route = createFileRoute("/platform/")({
     seo({
       title: "Platform — Onam Security",
       description:
-        "One platform, sixteen cloud security engines. CSPM, CIEM, attack path, threat detection, compliance and more — across every cloud you run.",
+        "One platform, every cloud security layer. CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM, agentless scanning, attack path, threat detection and compliance — 29 engines across every cloud and SaaS platform you run.",
       path: "/platform",
     }),
   component: PlatformIndex,
@@ -38,8 +38,9 @@ function PlatformIndex() {
             One platform. Every <span className="gradient-text">cloud security engine.</span>
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            Sixteen engines run in parallel on the same security graph — so findings talk to each other,
-            attackers stop getting a free ride between silos, and every risk lands in one prioritised queue.
+            CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are not six products here — they are engines running in
+            parallel on the same security graph. Findings talk to each other, attackers stop getting a free
+            ride between silos, and every risk lands in one prioritised queue.
           </p>
           <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Scan my cloud <ArrowRight className="w-4 h-4" /></BrandButton>

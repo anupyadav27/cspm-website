@@ -1,21 +1,30 @@
 # Onam Security
 
-> Onam Security (https://www.onamsecurity.com) is a unified cloud security platform — CSPM (cloud security posture
-> management), CIEM, attack path analysis, cloud threat detection & response (CDR), data security,
-> code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and
-> Kubernetes. 100% agentless: connect a cloud in under 3 minutes with a read-only role.
+> Onam Security (https://www.onamsecurity.com) is a unified CNAPP (cloud-native application protection platform) —
+> CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
+> (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
+> attack path analysis, cloud threat detection & response (CDR), API security, database security,
+> encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
+> Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. 100% agentless: connect a cloud in under
+> 3 minutes with a read-only role.
 
 Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-full.txt
 
 Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes
-- 10,000+ security rules across 16 security engines (1,918 CSPM posture rules)
-- 13 compliance frameworks with continuous evidence: CIS (AWS/Azure/GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more
+- 20,337 security rules across 29 security engines: 11,346 cloud posture rules plus 8,991 CIS technology and SaaS benchmark rules
+- 549 cloud services covered by continuous discovery: 123 AWS, 95 Azure, 71 GCP, 68 Alibaba Cloud, 68 Kubernetes, 63 IBM Cloud, 61 OCI
+- 78 compliance frameworks with continuous evidence: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI-DSS v4, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
+- SaaS security (SSPM) for 8 platforms: Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta — 433 CIS SaaS rules
+- 34 technologies covered by CIS benchmarks: Linux distributions, databases, web servers, virtualization, and network devices
 - 100% agentless — read-only IAM role / service principal / service account; stores only a role ARN, never long-lived credentials
-- All clouds and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
+- Agentless workload scanning uses point-in-time snapshots orchestrated inside the customer's own account (AWS Step Functions, Azure Logic Apps, GCP Workflows); raw disk data never leaves the customer environment
+- All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
+- Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or console walkthrough
+- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
 - Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
 
@@ -29,17 +38,19 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 
 | Capability | Native cloud tools | Single-layer point tools | Manual audits / pen tests | Onam |
 | --- | --- | --- | --- | --- |
-| Coverage | One cloud only | One security layer | Point-in-time | All 7 clouds, 16 engines, continuous |
+| Coverage | One cloud only | One security layer | Point-in-time | All 7 clouds + SaaS, 29 engines, continuous |
 | Attack paths | No | No | Manual | Cross-cloud graph analysis |
 | Toxic combinations | No | No | No | Automated across engines |
-| Compliance | Per-provider | Manual mapping | Point-in-time | 13 frameworks, continuous evidence |
+| SaaS security (SSPM) | No | Separate product | Manual review | 8 platforms, 433 CIS rules, same graph |
+| Workload scanning | Agent required | Agent required | Not covered | Agentless snapshots in your own account |
+| Compliance | Per-provider | Manual mapping | Point-in-time | 78 frameworks, continuous evidence |
 | Identity | Basic policies | None | Interview-based | 30-day behavioral CIEM |
 | Prioritisation | Alert firehose | CVSS-only | Report handoff | FAIR-model dollar risk |
 | Code + runtime | Runtime only | One or the other | Neither | SAST, DAST, SCA, IaC, runtime |
 
 ## Platform
 
-- [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 1,918 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
+- [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
 - [CIEM](https://www.onamsecurity.com/platform/ciem): Identity is the new perimeter. CIEM resolves the effective permissions of every human user, service account, and machine identity across all your clouds — then compares them…
 - [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security gives you a complete view of every user, role, policy, and access key across your cloud accounts — and flags everything that doesn't belong.
 - [Attack Path Analysis](https://www.onamsecurity.com/platform/attack-path): Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an…
@@ -54,6 +65,29 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 - [Risk Quantification](https://www.onamsecurity.com/platform/risk): Onam's Risk engine applies the FAIR model to every finding — converting technical misconfigurations into business-language financial exposure estimates your board can act on.
 - [Compliance](https://www.onamsecurity.com/platform/compliance): Onam maps every security finding to 13 compliance frameworks in real time. You always know your exact posture — not where you were last quarter, where you are today.
 - [Technology Engine](https://www.onamsecurity.com/platform/technology): The technology engine discovers the actual runtime stack across your fleet — databases, web servers, frameworks, runtimes, libraries — and flags configurations that don't meet…
+- [SaaS Security (SSPM)](https://www.onamsecurity.com/platform/saas-security): SaaS Security posture management extends the same rule graph to the platforms your company actually runs on — Microsoft 365, Google Workspace, GitHub, GitLab, Snowflake,…
+- [CWPP — Workload Protection](https://www.onamsecurity.com/platform/cwpp): Cloud Workload Protection covers every compute form factor you run — virtual machines, containers, serverless functions and managed hosts — scored on one workload posture model,…
+- [Agentless Scanning](https://www.onamsecurity.com/platform/agentless): Onam scans workloads using point-in-time volume snapshots orchestrated inside your own cloud account with native services — AWS Step Functions, Azure Logic Apps and GCP Workflows.…
+- [API Security](https://www.onamsecurity.com/platform/api-security): API Security discovers every API surface across your clouds — gateways, load-balanced endpoints, function URLs and ingress routes — and evaluates them against 241 application and…
+- [Database Security](https://www.onamsecurity.com/platform/database-security): Database Security evaluates every managed and self-hosted database across your estate — RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift, OCI DB Systems and more — against…
+- [Encryption & Key Management](https://www.onamsecurity.com/platform/encryption): The encryption engine evaluates 502 secrets and key-management rules across every cloud — KMS, Key Vault, Cloud KMS and OCI Vault — then answers the question that matters more…
+- [AI Assistant](https://www.onamsecurity.com/platform/ai-assistant): The AI assistant is a multi-agent system with thirteen domain specialists — IAM, compliance, encryption, containers, network, CDR, risk, vulnerability, data security and more —…
+- [Remediation & Auto-Fix](https://www.onamsecurity.com/platform/remediation): The remediation engine generates the specific fix for each finding — CLI command, Terraform snippet, or pull request against your repository — and explains why it matters in…
+- [Asset Inventory & Discovery](https://www.onamsecurity.com/platform/inventory): The discovery engine is the foundation every other engine reads from: continuous, read-only enumeration of every resource across seven clouds and 549 services, with the…
+- [CNAPP](https://www.onamsecurity.com/platform/cnapp): CNAPP is the unified view across everything Onam runs — CSPM, CIEM, CWPP, DSPM, network, threat and AppSec — each scored as a pillar, rolled into a single posture score that a…
+
+## Cloud security glossary (vendor-neutral definitions)
+
+- [What is CSPM (Cloud Security Posture Management)?](https://www.onamsecurity.com/learn/cspm): Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.
+- [What is CNAPP (Cloud-Native Application Protection Platform)?](https://www.onamsecurity.com/learn/cnapp): A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on one shared data model — so risks that span those domains are correlated rather than reported separately.
+- [What is CWPP (Cloud Workload Protection Platform)?](https://www.onamsecurity.com/learn/cwpp): A Cloud Workload Protection Platform (CWPP) secures the compute workloads running in a cloud environment — virtual machines, containers, serverless functions and managed hosts — by inspecting what is installed and running inside them, rather than how the surrounding cloud infrastructure is configured.
+- [What is CIEM (Cloud Infrastructure Entitlement Management)?](https://www.onamsecurity.com/learn/ciem): Cloud Infrastructure Entitlement Management (CIEM) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved, then compares that against permissions actually used.
+- [What is DSPM (Data Security Posture Management)?](https://www.onamsecurity.com/learn/dspm): Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.
+- [What is SSPM (SaaS Security Posture Management)?](https://www.onamsecurity.com/learn/sspm): SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications — such as Microsoft 365, Google Workspace, GitHub and Snowflake — detecting misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.
+- [What is a cloud attack path?](https://www.onamsecurity.com/learn/cloud-attack-path): A cloud attack path is a chain of individually low- or medium-severity findings that together create a route from an entry point — usually the public internet — to a high-value asset such as a database holding sensitive data. Attack path analysis computes these chains across posture, identity, network and workload data.
+- [What is agentless cloud security?](https://www.onamsecurity.com/learn/agentless-cloud-security): Agentless cloud security assesses cloud infrastructure and workloads without installing any software on them. Configuration is read through cloud provider APIs with read-only credentials, and workload contents are inspected by analysing point-in-time volume snapshots out-of-band, so nothing runs on the systems being scanned.
+- [What is cloud risk quantification?](https://www.onamsecurity.com/learn/cloud-risk-quantification): Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.
+- [What is a choke point in cloud security?](https://www.onamsecurity.com/learn/choke-point): A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.
 
 ## Solutions
 
@@ -168,7 +202,7 @@ Connecting one cloud account activates every capability — there are no per-mod
 | Attack Path | Which combinations of issues let an attacker reach my crown jewels? | [Attack Path](/docs/features/attack-path) |
 | Data Security (DSPM) | Where is my sensitive data, and what is it exposed to? | [Data Security](/docs/features/data-security) |
 | Vulnerability Management | Which CVEs matter, ranked by real exploitability? | [Vulnerability Management](/docs/features/vulnerability-management) |
-| Compliance | How do I score against CIS, NIST, PCI-DSS, and 70+ other frameworks? | [Compliance](/docs/features/compliance) |
+| Compliance | How do I score against CIS, NIST, PCI-DSS, and 78 other frameworks? | [Compliance](/docs/features/compliance) |
 | Risk Quantification | What is my exposure in dollars, using the FAIR model? | [Risk Quantification](/docs/features/risk-quantification) |
 
 Supporting these are container security, network security, encryption, database security, AI security, API security, IaC scanning, and application security (SAST, DAST, SCA) — the full engine list is in the [Architecture Overview](/docs/architecture/overview).
@@ -202,7 +236,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 
 Beyond the clouds, the **Technology Engine** scans **40 self-hosted technologies in 10 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, collaboration platforms, data platforms, and middleware — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
 
-Findings map to **70+ compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ## Agentless by design
 
@@ -213,7 +247,7 @@ Onam connects through a **read-only IAM role (AWS), service principal (Azure), o
 ## Who Onam is for
 
 - **Security engineers** — one queue of deduplicated, graph-prioritized findings with concrete remediation, instead of alert triage across per-cloud native tools.
-- **Compliance and GRC teams** — continuous scoring against 70+ frameworks with per-control evidence, replacing quarterly spreadsheet audits.
+- **Compliance and GRC teams** — continuous scoring against 78 frameworks with per-control evidence, replacing quarterly spreadsheet audits.
 - **CISOs and leadership** — a posture score, top risks, and FAIR-based dollar exposure that translate directly into board reporting.
 - **DevOps and platform teams** — findings tied to the exact resource, region, and account, with CLI, Terraform, or console remediation steps.
 
@@ -285,7 +319,7 @@ The first scan starts automatically once validation passes (you can also trigger
 3. **Rule evaluation** — the Check engine evaluates the inventory against the 10,000+ rule registry, producing PASS or FAIL per resource per rule.
 4. **Engine fan-out** — the domain engines (CIEM, data security, network, container, vulnerability, and the rest) run in parallel against the same inventory.
 5. **Attack path build** — assets, relationships, and findings are loaded into the security graph and traversed from entry points to crown jewels.
-6. **Compliance and risk** — findings map onto 70+ framework control catalogs, then FAIR risk quantification converts Critical and High findings into dollar exposure.
+6. **Compliance and risk** — findings map onto 78 framework control catalogs, then FAIR risk quantification converts Critical and High findings into dollar exposure.
 
 Watch progress on the **Scans** page. Findings appear in real time as each stage completes — you don't have to wait for the pipeline to finish.
 
@@ -372,7 +406,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Vulnerability | CVEs prioritized by EPSS, CISA KEV, and exposure — [Vulnerability Management](/docs/features/vulnerability-management) |
 | Network Security | 7-layer network posture and effective exposure — [Network Security](/docs/features/network-security) |
 | Container Security | EKS, ECS, AKS, GKE posture, images, and K8s RBAC — [Container Security](/docs/features/container-security) |
-| Compliance | Mapping findings onto 70+ framework control catalogs — [Compliance](/docs/features/compliance) |
+| Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
 | SecOps / AppSec | SAST in 7 languages, DAST, SCA and SBOM — [SecOps](/docs/features/secops) |
 | Technology Engine | 40 self-hosted technologies in 10 categories |
@@ -396,7 +430,7 @@ A **choke point** is a node that many paths pass through. The console ranks the 
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it evidences across **70+ frameworks** — CIS Benchmarks, NIST CSF 2.0 and 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, and more. One finding can violate a dozen controls across several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
+Every rule is mapped to the controls it evidences across **78 frameworks** — CIS Benchmarks, NIST CSF 2.0 and 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, and more. One finding can violate a dozen controls across several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
 
 ## Risk in dollars: FAIR
 
@@ -1167,7 +1201,7 @@ rm cspm-key-new.json
 
 - [Connect Kubernetes clusters](/docs/onboarding/kubernetes) — add in-cluster visibility for your GKE clusters.
 - [CSPM](/docs/features/cspm) — how the 2,676 GCP rules become prioritized findings.
-- [Compliance frameworks](/docs/compliance/frameworks) — map GCP findings to CIS, NIST, PCI-DSS, and 70+ other frameworks.
+- [Compliance frameworks](/docs/compliance/frameworks) — map GCP findings to CIS, NIST, PCI-DSS, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 
 ---
@@ -1392,7 +1426,7 @@ openssl rsa -pubout \
 
 - [Connect Alibaba Cloud](/docs/onboarding/alicloud) — repeat the process for your next cloud; Onam covers all 7.
 - [CSPM](/docs/features/cspm) — how the 1,451 OCI rules become prioritized findings.
-- [Compliance](/docs/features/compliance) — map OCI findings to CIS, ISO 27001, PCI-DSS, and 70+ other frameworks.
+- [Compliance](/docs/features/compliance) — map OCI findings to CIS, ISO 27001, PCI-DSS, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 
 ---
@@ -1835,7 +1869,7 @@ ibmcloud iam service-api-key-delete OLD_KEY_UUID $SERVICE_ID
 
 - [Connect Kubernetes clusters](/docs/onboarding/kubernetes) — add in-cluster visibility for your IKS clusters.
 - [CSPM](/docs/features/cspm) — how the 613 IBM Cloud rules become prioritized findings.
-- [Compliance](/docs/features/compliance) — map IBM Cloud findings to CIS, NIST, ISO 27001, and 70+ other frameworks.
+- [Compliance](/docs/features/compliance) — map IBM Cloud findings to CIS, NIST, ISO 27001, and 78 other frameworks.
 - [Book a demo](/request-demo) — walk through your first scan results with an Onam engineer.
 
 ---
@@ -2133,7 +2167,7 @@ Suppressed findings are excluded from posture scores and alert routing but remai
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it satisfies across **70+ compliance frameworks** — including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, DORA, and NIS2. The mapping is maintained in a single policy-to-framework catalog, so one scan produces evidence for every framework simultaneously:
+Every rule is mapped to the controls it satisfies across **78 compliance frameworks** — including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, DORA, and NIS2. The mapping is maintained in a single policy-to-framework catalog, so one scan produces evidence for every framework simultaneously:
 
 1. A rule evaluates PASS or FAIL per resource.
 2. Each result is attributed to every control the rule maps to.
@@ -3393,6 +3427,10 @@ Vendor advisories (Microsoft MSRC, Red Hat, GitHub Security Advisories) are also
 
 For registries, every image in ECR, ACR, GCR, OCIR, Alibaba ACR, and IBM Cloud Container Registry is scanned — both pushed images and images currently deployed.
 
+![Cloud workload protection across VMs, containers, serverless, and managed hosts (demo account)](/screenshots/screenshot-cwpp.png)
+
+Every workload type above is collected agentlessly. The agentless scanner creates a point-in-time volume snapshot inside your own cloud account, analyses it out-of-band, and deletes the snapshot when the scan completes — so package inventory and host configuration are captured with no daemon, no sidecar, and no impact on the running workload.
+
 ## Risk Prioritization Model
 
 Four input signals combine into a single **Effective Risk Score** from 0 to 100. Findings sort by this score by default.
@@ -3978,7 +4016,7 @@ Yes — on-premises deployment on Enterprise plans. The scanner runs entirely in
 ## Compliance
 URL: https://www.onamsecurity.com/docs/features/compliance
 
-Onam's Compliance engine turns raw security findings into audit-ready compliance posture: every finding is mapped to the controls it violates across **70+ regulatory frameworks**, every control gets a pass rate computed from live scan data, and every framework gets a 0–100 score you can track, export, and hand to an auditor.
+Onam's Compliance engine turns raw security findings into audit-ready compliance posture: every finding is mapped to the controls it violates across **78 regulatory frameworks**, every control gets a pass rate computed from live scan data, and every framework gets a 0–100 score you can track, export, and hand to an auditor.
 
 This page explains how the mapping works, how per-control pass rates and framework scores are computed, and how to generate reports. For the full framework catalog and per-framework coverage tables, see [Framework Coverage](/docs/compliance/frameworks).
 
@@ -4024,7 +4062,7 @@ The framework score (0–100) is a weighted rollup of its control pass rates. Sc
 
 ## Framework Catalog
 
-The catalog covers **70+ frameworks**, including CIS Benchmarks (AWS, Azure, GCP — multiple versions), NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA and HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, the EU AI Act, DORA, FedRAMP High and Moderate, CMMC 2.0 L2/L3, SWIFT CSCF, RBI ITF, APRA CPS 234, UK NCSC CAF, Cyber Essentials, LGPD, SOX, and CSA CCM v4.
+The catalog covers **78 frameworks**, including CIS Benchmarks (AWS, Azure, GCP — multiple versions), NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA and HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, the EU AI Act, DORA, FedRAMP High and Moderate, CMMC 2.0 L2/L3, SWIFT CSCF, RBI ITF, APRA CPS 234, UK NCSC CAF, Cyber Essentials, LGPD, SOX, and CSA CCM v4.
 
 Representative control counts:
 
@@ -4098,7 +4136,7 @@ No. The score means every automatically-assessed technical control passed in the
 
 ## Next steps
 
-- [Framework Coverage](/docs/compliance/frameworks) — the full 70+ framework catalog with coverage tables
+- [Framework Coverage](/docs/compliance/frameworks) — the full 78 framework catalog with coverage tables
 - [CSPM](/docs/features/cspm) — the rule registry that generates the underlying findings
 - [Data Security](/docs/features/data-security) — where GDPR / PCI / HIPAA data findings come from
 - [Book a demo](/request-demo) — see your framework scores on a live connected account
@@ -4293,7 +4331,7 @@ By the end you will be able to trace any number in the Onam console — a postur
 2. **The scan pipeline** — every connected account flows through the same ordered stages: credential validation, Discovery & Inventory (DI), rule evaluation, domain-engine fan-out, attack-path graph build, compliance mapping, and FAIR risk quantification.
 3. **Security engines** — 29 engines cover posture, identity, data, network, container, AI, vulnerability, and behavioral detection.
 4. **The data platform** — findings, inventory, relationships, and the attack-path graph are stored in tenant-isolated databases that only your authenticated users can read.
-5. **Outputs** — a posture score (0–100), compliance reports for 70+ frameworks, prioritized findings, attack paths with choke points, and step-by-step remediation guidance.
+5. **Outputs** — a posture score (0–100), compliance reports for 78 frameworks, prioritized findings, attack paths with choke points, and step-by-step remediation guidance.
 
 A typical scan of a 40-service AWS account completes in around **15 minutes**. Findings appear in real time as each stage completes — you don't wait for the full pipeline to see results.
 
@@ -4310,7 +4348,7 @@ The platform runs **29 engines**, each a dedicated microservice responsible for 
 | Check | Pipeline | CSPM core — evaluates the 10,000+ rule registry, PASS/FAIL per resource |
 | Check Engine API | Pipeline | Rule-execution service: YAML rules in, PASS/FAIL results out |
 | Attack Path v2 | Pipeline | Neo4j security graph, entry-point-to-crown-jewel traversal, choke-point ranking |
-| Compliance | Pipeline | Maps findings to 70+ framework control catalogs, per-control scoring |
+| Compliance | Pipeline | Maps findings to 78 framework control catalogs, per-control scoring |
 | Risk Quantification | Pipeline | FAIR model — runs as Layer 4 after all engines, dollar-denominated exposure |
 | IAM / CIEM | Domain | Effective permissions, unused access, privilege-escalation chains |
 | Data Security (DSPM) | Domain | Discovers data stores, classifies PII / PCI / PHI |
@@ -4406,9 +4444,9 @@ A connected cloud account flows through a value pipeline that turns raw cloud co
 | Stage | What happens | Time (40-service AWS account) |
 | --- | --- | --- |
 | **1. Discover all resources** | DI enumerates every resource across the provider's covered services and captures configuration | 3–5 min |
-| **2. Evaluate security rules** | Check runs every applicable rule from the 10,000+ registry; each is marked PASS or FAIL | 4–6 min |
+| **2. Evaluate security rules** | Check evaluates the 9,853 posture rules in the registry that apply to the discovered resources; each is marked PASS or FAIL | 4–6 min |
 | **3. Build the attack graph** | FAIL findings and asset relationships become nodes and edges in the Neo4j attack-path graph, with MITRE ATT&CK techniques per hop | 1–2 min |
-| **4. Map to frameworks** | Each finding is mapped to the controls it violates across 70+ compliance frameworks | Under 1 min |
+| **4. Map to frameworks** | Each finding is mapped to the controls it violates across 78 compliance frameworks | Under 1 min |
 | **5. Score risk** | The FAIR model computes dollar-denominated exposure and the 0–100 posture score | Under 1 min |
 
 The output serves three audiences: a **posture dashboard** for security engineers, **compliance reports** for auditors, and **actionable findings** with remediation steps for the cloud account owner.
@@ -4430,7 +4468,7 @@ You don't enable domains individually. Once a cloud account is connected, every 
 
 | Pillar | Question it answers | Scale |
 | --- | --- | --- |
-| **CSPM** | Are my cloud configurations compliant with my baselines? | 10,000+ rules across 7 providers |
+| **CSPM** | Are my cloud configurations compliant with my baselines? | 9,853 posture rules across 7 providers |
 | **CIEM** | Which identities have more access than they actually use? | Effective-permission analysis incl. SCPs and permission boundaries; per-cloud CIEM rule packs |
 | **DSPM** | Where is my sensitive data and is it exposed? | PII · PCI · PHI classification across object stores, databases, and warehouses |
 | **Network Security** | Which paths from the internet to my crown jewels are still reachable? | 7-layer network posture model |
@@ -4439,9 +4477,29 @@ You don't enable domains individually. Once a cloud account is connected, every 
 | **AI Security** | Are my AI/ML services safe? | Bedrock · SageMaker · Azure OpenAI · Vertex |
 | **Attack Path & CDR** | How would an attacker move through my environment? Are there active threats? | Neo4j graph traversal · per-hop MITRE ATT&CK · L1/L2/L3 detection |
 | **SecOps (SAST/DAST/SCA/IaC)** | Are vulnerabilities entering my code before deploy? | SAST in 7 languages · DAST · SCA/SBOM · IaC scanning |
-| **Compliance** | What's my pass rate against my framework obligations? | 70+ frameworks incl. CIS, NIST, PCI-DSS, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP |
+| **Compliance** | What's my pass rate against my framework obligations? | 78 frameworks incl. CIS, NIST, PCI-DSS, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP |
 
 **The unified posture score** is a weighted roll-up across all pillars, normalized to 0–100. Each pillar contributes proportionally to its severity-weighted findings — fixing a single Critical finding moves the score more than fixing ten Low findings.
+
+![The unified CNAPP posture score and its seven scored pillars (demo account)](/screenshots/screenshot-cnapp.png)
+
+### Engines beyond the core pillars
+
+The ten pillars above are the scoring backbone. Several further engines run on the same findings model and feed those pillars rather than scoring separately:
+
+| Engine | Question it answers | Scale |
+| --- | --- | --- |
+| **SSPM (SaaS Security)** | Is our SaaS estate configured safely? | Microsoft 365 · SharePoint · Google Workspace · GitHub · GitLab · Snowflake · Dynamics 365 · Okta — 433 CIS SaaS rules |
+| **CWPP (Workload Protection)** | Are running workloads hardened? | VMs · containers · serverless · managed hosts, plus CIS OS benchmarks for five Linux distributions |
+| **Agentless Scanner** | How do we scan workloads with no agents? | Snapshot-based scanning orchestrated in your own account via Step Functions, Logic Apps, and GCP Workflows |
+| **API Security** | Which API surfaces are exposed or unauthenticated? | Gateways · function URLs · load balancer listeners · Kubernetes ingress across 6 providers |
+| **Database Security** | Are databases encrypted, private, and audited? | Managed database services plus CIS engine benchmarks for PostgreSQL, MySQL, MariaDB, MSSQL, Oracle, Db2, MongoDB, Cassandra |
+| **Encryption & Key Management** | Who can decrypt our data? | AWS KMS · Azure Key Vault · GCP Cloud KMS · OCI Vault — key policy, rotation, and certificate expiry |
+| **Technology Engine** | What software is running on our hosts? | 34 technologies under CIS benchmarks — Linux, databases, web servers, virtualization, network devices |
+| **Remediation (Fix)** | How does a finding actually get resolved? | Per-resource CLI and Terraform remediation, dependency upgrade paths, and pull requests against your repository |
+| **AI Assistant** | Can I ask about posture in plain language? | Orchestrator plus 13 domain specialists querying live findings, read-only and tenant-scoped |
+
+![SaaS security posture across connected platforms (demo account)](/screenshots/screenshot-saas-security.png)
 
 For the stage-by-stage walkthrough of a scan — triggers, DI phases, engine fan-out, graph build, and monitoring — see [The scan pipeline](/docs/architecture/scanning).
 
@@ -4621,7 +4679,7 @@ SOC 2 Type II, ISO 27001, ISO 27701, and PCI DSS v4 — all current. Pentest rep
 
 - [The scan pipeline — end to end](/docs/architecture/scanning) — triggers, DI phases, engine fan-out, graph build, and monitoring
 - [Platform data security and tenancy](/docs/architecture/data-security) — what is stored, credential handling, and read-only enforcement
-- [Compliance framework coverage](/docs/compliance/frameworks) — 70+ frameworks, per-control scoring, audit-ready reports
+- [Compliance framework coverage](/docs/compliance/frameworks) — 78 frameworks, per-control scoring, audit-ready reports
 - [Book a demo](/request-demo) — see the full pipeline run against a live demo account
 
 ---
@@ -4655,10 +4713,10 @@ Schedules are managed in the console under **Scans → Schedules** or via `/api/
 | --- | --- | --- | --- |
 | 1 | Credential validation | Onboarding | Verified credential reference; `scan_run_id` issued |
 | 2 | Enumeration & enrichment | Discovery & Inventory (DI) | `asset_inventory` records and `asset_relationships` edges |
-| 3 | Rule evaluation | Check + Check Engine API | PASS/FAIL per rule per resource from the 10,000+ registry |
+| 3 | Rule evaluation | Check + Check Engine API | PASS/FAIL per rule per resource across the 9,853-rule posture catalog |
 | 4 | Domain fan-out (parallel) | IAM/CIEM, Data Security, Network, Container, Encryption, Database, AI Security, API Security, Vulnerability, Agentless Scanner, CDR, CWPP, CNAPP | Per-domain findings in `security_findings` |
 | 5 | Attack-path graph build | Attack Path v2 | Neo4j graph, confirmed paths, choke-point ranking |
-| 6 | Compliance mapping | Compliance | Per-control results and scores across 70+ frameworks |
+| 6 | Compliance mapping | Compliance | Per-control results and scores across 78 frameworks |
 | 7 | Risk quantification | Risk (FAIR, Layer 4) | `risk_report`, `risk_summary`, `risk_trends` |
 
 Every stage receives the same `scan_run_id`, so every finding, graph edge, compliance result, and risk figure from one run can be correlated — and diffed against the previous run. A typical 40-service AWS account with ~5,000 resources completes in about **15 minutes**, and findings stream into the console as each stage finishes.
@@ -4711,7 +4769,7 @@ The output includes the **Top 5 choke points** — single resources whose remedi
 
 ## Stages 6–7 — Compliance mapping and FAIR risk
 
-**Compliance** projects the run's findings onto **70+ frameworks** through the rule-to-control mapping catalog. Each control gets its own pass rate, rolled up to category and framework scores — no separate per-framework scans. Details in [Compliance framework coverage](/docs/compliance/frameworks).
+**Compliance** projects the run's findings onto **78 frameworks** through the rule-to-control mapping catalog. Each control gets its own pass rate, rolled up to category and framework scores — no separate per-framework scans. Details in [Compliance framework coverage](/docs/compliance/frameworks).
 
 **Risk Quantification** runs as **Layer 4**, after all engines complete, in three steps: **ETL** (pulls Critical and High findings from the engine outputs), **Evaluate** (applies the FAIR model), and **Report** (writes `risk_report`, `risk_summary`, and `risk_trends`).
 
@@ -4877,7 +4935,7 @@ As references in AWS Secrets Manager, encrypted with KMS, fetched only at scan t
 ## Compliance Framework Coverage
 URL: https://www.onamsecurity.com/docs/compliance/frameworks
 
-The Onam platform automatically maps every security finding to the compliance frameworks you care about — **70+ frameworks supported out of the box**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4, HIPAA/HITRUST, ISO 27001:2022, SOC 2, GDPR, NIS2, DORA, the EU AI Act, FedRAMP, and CMMC 2.0. One finding can satisfy controls in many frameworks at once. This page covers how the mapping works, how per-control scores are calculated, what each major framework checks, and how to export an audit-ready report.
+The Onam platform automatically maps every security finding to the compliance frameworks you care about — **78 frameworks supported out of the box**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4, HIPAA/HITRUST, ISO 27001:2022, SOC 2, GDPR, NIS2, DORA, the EU AI Act, FedRAMP, and CMMC 2.0. One finding can satisfy controls in many frameworks at once. This page covers how the mapping works, how per-control scores are calculated, what each major framework checks, and how to export an audit-ready report.
 
 ![The Compliance view in the Onam console (demo account)](/screenshots/screenshot-compliance.png)
 
@@ -4949,7 +5007,7 @@ The framework score maps to a three-tier badge: **Compliant** (80% or above), **
 
 ## Supported frameworks
 
-The platform ships **70+ frameworks**, spanning global standards, regional regulation, and sector-specific mandates. Coverage parity is high across clouds — most frameworks evaluate the same way against AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes.
+The platform ships **78 frameworks**, spanning global standards, regional regulation, and sector-specific mandates. Coverage parity is high across clouds — most frameworks evaluate the same way against AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes.
 
 ![Compliance framework coverage across categories and clouds](/diagrams/compliance-frameworks.svg)
 
@@ -5350,7 +5408,7 @@ Trust Center updates are published when certifications are renewed or materially
 
 - [Data Retention](/docs/trust/data-retention) — what we store, for how long, and how deletion works
 - [SLA & SLO](/docs/trust/sla-and-slo) — uptime commitments, scan SLOs, and support response times
-- [Framework Coverage](/docs/compliance/frameworks) — the 70+ compliance frameworks the platform evaluates for you
+- [Framework Coverage](/docs/compliance/frameworks) — the 78 compliance frameworks the platform evaluates for you
 - [Book a demo](/request-demo) — walk through the security architecture with our team
 
 ---
@@ -6061,7 +6119,7 @@ The header carries identity, rule metadata, taxonomy, and framework mappings. De
 
 ### ComplianceBlock
 
-Maps the finding's rule to compliance controls across the 70+ supported frameworks.
+Maps the finding's rule to compliance controls across the 78 supported frameworks.
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -6123,7 +6181,7 @@ Three container shapes wrap findings in list and aggregate responses.
 ## Next steps
 
 - [API Reference](/docs/reference/api) — authentication, pagination, and the endpoint map these schemas travel through
-- [CSPM](/docs/features/cspm) — how the Check engine evaluates 10,000+ rules to produce configuration findings
+- [CSPM](/docs/features/cspm) — how the Check engine evaluates 9,853 posture rules to produce configuration findings
 - [Integration Catalog](/docs/reference/integration-catalog) — push these finding payloads to Jira, Slack, Splunk, or any webhook
 - [Data Retention](/docs/trust/data-retention) — how long findings are stored and when they are deleted
 
@@ -6630,7 +6688,7 @@ Everything that shipped in the Onam platform, newest first. Each month covers ne
 
 ## July 2026
 
-Headline changes this month: Attack Path v2 on a Neo4j graph with a first-class choke-points view, CDR relaunched as Behavioral Analysis with three-tier detection across all 7 providers, the master rule registry crossing 10,000 rules with 70+ framework mappings, regulatory and breach-cost modeling in the FAIR risk engine, and a completely new website and documentation portal.
+Headline changes this month: Attack Path v2 on a Neo4j graph with a first-class choke-points view, CDR relaunched as Behavioral Analysis with three-tier detection across all 7 providers, the master rule registry crossing 10,000 rules with 78 framework mappings, regulatory and breach-cost modeling in the FAIR risk engine, and a completely new website and documentation portal.
 
 ### Attack Path v2
 
@@ -6673,7 +6731,7 @@ Log source coverage:
 
 ![The Behavioral Analysis view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
 
-### Rule catalog passes 10,000 rules; framework mappings reach 70+
+### Rule catalog passes 10,000 rules; framework mappings reach 78
 
 The master rule registry now contains **10,864 rules**:
 
@@ -6687,7 +6745,7 @@ The master rule registry now contains **10,864 rules**:
 
 Rule metadata additionally covers Alibaba Cloud (1,541 rules) and IBM Cloud (613 rules), and the CIEM engine ships its own identity-specific rule set: AWS 530, Azure 202, GCP 176, Alibaba Cloud 114, IBM Cloud 110, OCI 107, Kubernetes 103.
 
-Framework mappings expanded to **70+ compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA/HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, EU AI Act, DORA, FedRAMP High/Moderate, CMMC 2.0, SWIFT CSCF, and CSA CCM v4. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Framework mappings expanded to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA/HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, EU AI Act, DORA, FedRAMP High/Moderate, CMMC 2.0, SWIFT CSCF, and CSA CCM v4. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ### FAIR risk engine: regulatory multipliers and per-record cost benchmarks
 
@@ -7008,7 +7066,7 @@ Every platform says "multi-cloud." The question is which clouds get the full eng
 
 Real attack paths cross boundaries: an exposed GCP service account key that can assume a role into your AWS production account is invisible to any tool that analyses each cloud separately. A dashboard that *displays* seven clouds is not the same as a graph that *correlates* them.
 
-**Onam's answer:** one graph across all clouds and all 16 engines. Attack-path analysis follows the identity chain wherever it goes — including across cloud providers.
+**Onam's answer:** one graph across all clouds and every security layer. Attack-path analysis follows the identity chain wherever it goes — including across cloud providers.
 
 ### 3. Agentless — and how long to first finding?
 
@@ -7026,13 +7084,13 @@ An alert firehose with 4,000 "critical" findings is operationally identical to n
 
 A public subnet is medium. An over-privileged identity is medium. A workload with a critical CVE is high. The same three on one attack path is a breach waiting to happen. This correlation is the whole point of a unified platform — ask each vendor to show it live.
 
-**Onam's answer:** automated toxic-combination detection across all 16 engines — posture, identity, vulnerabilities, network, data — because everything already lives on one graph.
+**Onam's answer:** automated toxic-combination detection across every layer — posture, identity, vulnerabilities, network, data — because everything already lives on one graph.
 
 ### 6. Is compliance evidence continuous or point-in-time?
 
 If evidence is generated when you click "export report," you are audit-ready one day per quarter. Ask whether framework mappings update as infrastructure changes.
 
-**Onam's answer:** 13 frameworks — CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more — with continuous evidence. One finding maps to every framework it affects; auditors get exports, not screenshots.
+**Onam's answer:** 78 frameworks — CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more — with continuous evidence. One finding maps to every framework it affects; auditors get exports, not screenshots.
 
 ### 7. Does coverage span code to runtime?
 
@@ -7048,8 +7106,8 @@ Fixing a misconfiguration in the console while the Terraform that created it sta
 | Cross-cloud analysis | One graph or per-cloud silos? | Single graph, cross-cloud attack paths |
 | Deployment | Agents? Time to first finding? | 100% agentless, < 3 min connect, < 5 min first alert |
 | Prioritisation | How is "what's first" decided? | FAIR-model dollar-risk ranking |
-| Toxic combinations | Cross-engine correlation, live demo | Automated across 16 engines |
-| Compliance | Continuous or point-in-time evidence? | 13 frameworks, continuous, one-click export |
+| Toxic combinations | Cross-engine correlation, live demo | Automated across every layer |
+| Compliance | Continuous or point-in-time evidence? | 78 frameworks, continuous, one-click export |
 | Code + runtime | IaC/code linked to runtime findings? | SAST · DAST · SCA · IaC · runtime, correlated |
 | Pricing model | Per-resource? Per-engine add-ons? | One platform, no per-engine add-ons |
 

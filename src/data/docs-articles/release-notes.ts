@@ -14,7 +14,7 @@ Everything that shipped in the Onam platform, newest first. Each month covers ne
 
 ## July 2026
 
-Headline changes this month: Attack Path v2 on a Neo4j graph with a first-class choke-points view, CDR relaunched as Behavioral Analysis with three-tier detection across all 7 providers, the master rule registry crossing 10,000 rules with 70+ framework mappings, regulatory and breach-cost modeling in the FAIR risk engine, and a completely new website and documentation portal.
+Headline changes this month: Attack Path v2 on a Neo4j graph with a first-class choke-points view, CDR relaunched as Behavioral Analysis with three-tier detection across all 7 providers, the master rule registry crossing 10,000 rules with 78 framework mappings, regulatory and breach-cost modeling in the FAIR risk engine, and a completely new website and documentation portal.
 
 ### Attack Path v2
 
@@ -57,7 +57,7 @@ Log source coverage:
 
 ![The Behavioral Analysis view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
 
-### Rule catalog passes 10,000 rules; framework mappings reach 70+
+### Rule catalog passes 10,000 rules; framework mappings reach 78
 
 The master rule registry now contains **10,864 rules**:
 
@@ -71,7 +71,7 @@ The master rule registry now contains **10,864 rules**:
 
 Rule metadata additionally covers Alibaba Cloud (1,541 rules) and IBM Cloud (613 rules), and the CIEM engine ships its own identity-specific rule set: AWS 530, Azure 202, GCP 176, Alibaba Cloud 114, IBM Cloud 110, OCI 107, Kubernetes 103.
 
-Framework mappings expanded to **70+ compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA/HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, EU AI Act, DORA, FedRAMP High/Moderate, CMMC 2.0, SWIFT CSCF, and CSA CCM v4. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Framework mappings expanded to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA/HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, EU AI Act, DORA, FedRAMP High/Moderate, CMMC 2.0, SWIFT CSCF, and CSA CCM v4. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ### FAIR risk engine: regulatory multipliers and per-record cost benchmarks
 

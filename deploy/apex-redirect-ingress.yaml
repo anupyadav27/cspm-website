@@ -1,0 +1,71 @@
+# Apex → www 301 redirect — INVESTIGATED 2026-08-06, NOT APPLIED. Read before using.
+#
+# THE PROBLEM
+# https://onamsecurity.com, http://onamsecurity.com and http://www.onamsecurity.com all
+# return HTTP 200 with full page content. Apex resolves to the same shared ELB as www.
+# Only the canonical tag currently tells Google which variant is authoritative.
+#
+# WHY THIS FILE IS NOT APPLIED
+# Two ways exist to do this at the ingress. Both are blocked by cluster policy, and the
+# available workaround is worse than the problem:
+#
+#   1. permanent-redirect WITH $request_uri (path-preserving, the correct form)
+#      -> admission webhook rejects it:
+#         "annotation nginx.ingress.kubernetes.io/permanent-redirect contains invalid value"
+#
+#   2. server-snippet with `return 301 ... $request_uri` (also path-preserving)
+#      -> admission webhook rejects it:
+#         "Snippet directives are disabled by the Ingress administrator"
+#      Enabling allow-snippet-annotations is a cluster-wide security downgrade affecting
+#      all seven ingresses on this ELB. Not worth it for this.
+#
+#   3. permanent-redirect WITHOUT $request_uri  <- validates, but DO NOT USE
+#      Every apex URL would 301 to the homepage. Google treats mass redirects to an
+#      irrelevant page as soft-404s. That is a downgrade from the current state, where
+#      apex serves a 200 with a correct canonical pointing at www.
+#
+# CURRENT STATE IS ACCEPTABLE
+# Canonical tags on every page point to the www variant, which is the mechanism Google
+# documents for consolidating duplicates when a redirect is not possible. This is not
+# what is holding back the site's visibility — see SEO-KEYWORD-PLAN.md §1.
+#
+# IF YOU WANT IT DONE PROPERLY, in preference order:
+#   a. Put CloudFront or Cloudflare in front and do the apex → www 301 there. This also
+#      solves http → https, which cannot be fixed at nginx because TLS terminates at the
+#      NLB and nginx receives no X-Forwarded-Proto to distinguish the schemes.
+#   b. BigRock registrar URL forwarding on the apex record, if it preserves the path.
+#   c. Ask the cluster admin to permit permanent-redirect with $request_uri, then apply
+#      the manifest below with the $request_uri suffix restored.
+#
+# The manifest below is the CORRECT form (path-preserving). It will be rejected by the
+# admission webhook as things stand — that is expected, and is the point of item (c).
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: onam-apex-redirect
+  namespace: threat-engine-engines
+  annotations:
+    nginx.ingress.kubernetes.io/permanent-redirect: https://www.onamsecurity.com$request_uri
+    nginx.ingress.kubernetes.io/permanent-redirect-code: "301"
+    # Must stay false, matching cspm-docs-ingress: TLS terminates at the NLB and nginx
+    # sees plain HTTP, so ssl-redirect would loop.
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+    # Host-specific rules take priority over the catch-all ingresses on this ELB, so this
+    # intercepts apex only. www continues to fall through to cspm-docs-ingress.
+    # No loop: the target is an absolute URL on a different host.
+    - host: onamsecurity.com
+      http:
+        paths:
+          # Never reached — the redirect fires first — but a valid backend is required
+          # for the ingress to be admitted.
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cspm-docs-website
+                port:
+                  number: 80

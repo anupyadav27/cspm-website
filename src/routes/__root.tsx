@@ -11,7 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
-import { SITE_URL } from "../lib/seo";
+import { SITE_URL, GSC_VERIFICATION } from "../lib/seo";
 
 const STRUCTURED_DATA = [
   {
@@ -34,7 +34,13 @@ const STRUCTURED_DATA = [
       "Cloud compliance automation",
       "Kubernetes security",
     ],
-    sameAs: ["https://x.com/onamsecurity"],
+    // sameAs consolidates the brand entity across properties. It is also how
+    // Google disambiguates "Onam Security" from the Onam festival — add every
+    // official profile as it goes live (LinkedIn, GitHub, Crunchbase).
+    sameAs: [
+      "https://x.com/onamsecurity",
+      "https://www.youtube.com/@Onamsecurity",
+    ],
   },
   {
     "@context": "https://schema.org",
@@ -104,6 +110,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Onam Security" },
       { name: "theme-color", content: "#FFFFFF" },
+      // Emitted only when a token is configured — an empty content attribute
+      // reads to Google as a failed verification.
+      ...(GSC_VERIFICATION ? [{ name: "google-site-verification", content: GSC_VERIFICATION }] : []),
       { property: "og:title", content: "Onam Security — Unified CSPM & Cloud Security Platform" },
       {
         property: "og:description",

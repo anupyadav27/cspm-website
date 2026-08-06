@@ -26,7 +26,7 @@ const stats = [
   { value: "10,000+", label: "Security rules" },
   { value: "200+", label: "Cloud services covered" },
   { value: "13", label: "Compliance frameworks" },
-  { value: "16+", label: "Security engines" },
+  { value: "7", label: "Cloud providers" },
 ];
 
 const team = [

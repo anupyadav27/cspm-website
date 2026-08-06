@@ -6,8 +6,9 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/ibm")({
   head: () =>
     seo({
-      title: "IBM Cloud Cloud Security — Onam",
-      description: ibmData.sub,
+      title: "IBM Cloud Security Posture Management (CSPM) — Onam Security",
+      description:
+        "Agentless IBM Cloud security posture management — 613 rules across VSI, IKS, Cloud Object Storage, Db2 and IAM, mapped to CIS IBM Cloud and CIS IBM Db2 benchmarks. Full CSPM depth, not a checkbox integration.",
       path: "/solutions/ibm",
     }),
   component: () => <CloudSolutionTemplate data={ibmData} />,

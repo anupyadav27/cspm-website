@@ -490,6 +490,10 @@ Vendor advisories (Microsoft MSRC, Red Hat, GitHub Security Advisories) are also
 
 For registries, every image in ECR, ACR, GCR, OCIR, Alibaba ACR, and IBM Cloud Container Registry is scanned — both pushed images and images currently deployed.
 
+![Cloud workload protection across VMs, containers, serverless, and managed hosts (demo account)](/screenshots/screenshot-cwpp.png)
+
+Every workload type above is collected agentlessly. The agentless scanner creates a point-in-time volume snapshot inside your own cloud account, analyses it out-of-band, and deletes the snapshot when the scan completes — so package inventory and host configuration are captured with no daemon, no sidecar, and no impact on the running workload.
+
 ## Risk Prioritization Model
 
 Four input signals combine into a single **Effective Risk Score** from 0 to 100. Findings sort by this score by default.
@@ -1078,7 +1082,7 @@ Yes — on-premises deployment on Enterprise plans. The scanner runs entirely in
     title: "Compliance",
     breadcrumb: "Features / Compliance",
     body: `
-Onam's Compliance engine turns raw security findings into audit-ready compliance posture: every finding is mapped to the controls it violates across **70+ regulatory frameworks**, every control gets a pass rate computed from live scan data, and every framework gets a 0–100 score you can track, export, and hand to an auditor.
+Onam's Compliance engine turns raw security findings into audit-ready compliance posture: every finding is mapped to the controls it violates across **78 regulatory frameworks**, every control gets a pass rate computed from live scan data, and every framework gets a 0–100 score you can track, export, and hand to an auditor.
 
 This page explains how the mapping works, how per-control pass rates and framework scores are computed, and how to generate reports. For the full framework catalog and per-framework coverage tables, see [Framework Coverage](/docs/compliance/frameworks).
 
@@ -1124,7 +1128,7 @@ The framework score (0–100) is a weighted rollup of its control pass rates. Sc
 
 ## Framework Catalog
 
-The catalog covers **70+ frameworks**, including CIS Benchmarks (AWS, Azure, GCP — multiple versions), NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA and HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, the EU AI Act, DORA, FedRAMP High and Moderate, CMMC 2.0 L2/L3, SWIFT CSCF, RBI ITF, APRA CPS 234, UK NCSC CAF, Cyber Essentials, LGPD, SOX, and CSA CCM v4.
+The catalog covers **78 frameworks**, including CIS Benchmarks (AWS, Azure, GCP — multiple versions), NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA and HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, the EU AI Act, DORA, FedRAMP High and Moderate, CMMC 2.0 L2/L3, SWIFT CSCF, RBI ITF, APRA CPS 234, UK NCSC CAF, Cyber Essentials, LGPD, SOX, and CSA CCM v4.
 
 Representative control counts:
 
@@ -1198,7 +1202,7 @@ No. The score means every automatically-assessed technical control passed in the
 
 ## Next steps
 
-- [Framework Coverage](/docs/compliance/frameworks) — the full 70+ framework catalog with coverage tables
+- [Framework Coverage](/docs/compliance/frameworks) — the full 78 framework catalog with coverage tables
 - [CSPM](/docs/features/cspm) — the rule registry that generates the underlying findings
 - [Data Security](/docs/features/data-security) — where GDPR / PCI / HIPAA data findings come from
 - [Book a demo](/request-demo) — see your framework scores on a live connected account

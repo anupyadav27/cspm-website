@@ -24,7 +24,7 @@ Connecting one cloud account activates every capability — there are no per-mod
 | Attack Path | Which combinations of issues let an attacker reach my crown jewels? | [Attack Path](/docs/features/attack-path) |
 | Data Security (DSPM) | Where is my sensitive data, and what is it exposed to? | [Data Security](/docs/features/data-security) |
 | Vulnerability Management | Which CVEs matter, ranked by real exploitability? | [Vulnerability Management](/docs/features/vulnerability-management) |
-| Compliance | How do I score against CIS, NIST, PCI-DSS, and 70+ other frameworks? | [Compliance](/docs/features/compliance) |
+| Compliance | How do I score against CIS, NIST, PCI-DSS, and 78 other frameworks? | [Compliance](/docs/features/compliance) |
 | Risk Quantification | What is my exposure in dollars, using the FAIR model? | [Risk Quantification](/docs/features/risk-quantification) |
 
 Supporting these are container security, network security, encryption, database security, AI security, API security, IaC scanning, and application security (SAST, DAST, SCA) — the full engine list is in the [Architecture Overview](/docs/architecture/overview).
@@ -58,7 +58,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 
 Beyond the clouds, the **Technology Engine** scans **40 self-hosted technologies in 10 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, collaboration platforms, data platforms, and middleware — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
 
-Findings map to **70+ compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ## Agentless by design
 
@@ -69,7 +69,7 @@ Onam connects through a **read-only IAM role (AWS), service principal (Azure), o
 ## Who Onam is for
 
 - **Security engineers** — one queue of deduplicated, graph-prioritized findings with concrete remediation, instead of alert triage across per-cloud native tools.
-- **Compliance and GRC teams** — continuous scoring against 70+ frameworks with per-control evidence, replacing quarterly spreadsheet audits.
+- **Compliance and GRC teams** — continuous scoring against 78 frameworks with per-control evidence, replacing quarterly spreadsheet audits.
 - **CISOs and leadership** — a posture score, top risks, and FAIR-based dollar exposure that translate directly into board reporting.
 - **DevOps and platform teams** — findings tied to the exact resource, region, and account, with CLI, Terraform, or console remediation steps.
 
@@ -142,7 +142,7 @@ The first scan starts automatically once validation passes (you can also trigger
 3. **Rule evaluation** — the Check engine evaluates the inventory against the 10,000+ rule registry, producing PASS or FAIL per resource per rule.
 4. **Engine fan-out** — the domain engines (CIEM, data security, network, container, vulnerability, and the rest) run in parallel against the same inventory.
 5. **Attack path build** — assets, relationships, and findings are loaded into the security graph and traversed from entry points to crown jewels.
-6. **Compliance and risk** — findings map onto 70+ framework control catalogs, then FAIR risk quantification converts Critical and High findings into dollar exposure.
+6. **Compliance and risk** — findings map onto 78 framework control catalogs, then FAIR risk quantification converts Critical and High findings into dollar exposure.
 
 Watch progress on the **Scans** page. Findings appear in real time as each stage completes — you don't have to wait for the pipeline to finish.
 
@@ -230,7 +230,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Vulnerability | CVEs prioritized by EPSS, CISA KEV, and exposure — [Vulnerability Management](/docs/features/vulnerability-management) |
 | Network Security | 7-layer network posture and effective exposure — [Network Security](/docs/features/network-security) |
 | Container Security | EKS, ECS, AKS, GKE posture, images, and K8s RBAC — [Container Security](/docs/features/container-security) |
-| Compliance | Mapping findings onto 70+ framework control catalogs — [Compliance](/docs/features/compliance) |
+| Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
 | SecOps / AppSec | SAST in 7 languages, DAST, SCA and SBOM — [SecOps](/docs/features/secops) |
 | Technology Engine | 40 self-hosted technologies in 10 categories |
@@ -254,7 +254,7 @@ A **choke point** is a node that many paths pass through. The console ranks the 
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it evidences across **70+ frameworks** — CIS Benchmarks, NIST CSF 2.0 and 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, and more. One finding can violate a dozen controls across several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
+Every rule is mapped to the controls it evidences across **78 frameworks** — CIS Benchmarks, NIST CSF 2.0 and 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, and more. One finding can violate a dozen controls across several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
 
 ## Risk in dollars: FAIR
 

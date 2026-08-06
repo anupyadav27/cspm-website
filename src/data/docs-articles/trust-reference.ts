@@ -158,7 +158,7 @@ Trust Center updates are published when certifications are renewed or materially
 
 - [Data Retention](/docs/trust/data-retention) — what we store, for how long, and how deletion works
 - [SLA & SLO](/docs/trust/sla-and-slo) — uptime commitments, scan SLOs, and support response times
-- [Framework Coverage](/docs/compliance/frameworks) — the 70+ compliance frameworks the platform evaluates for you
+- [Framework Coverage](/docs/compliance/frameworks) — the 78 compliance frameworks the platform evaluates for you
 - [Book a demo](/request-demo) — walk through the security architecture with our team
 `,
   },
@@ -873,7 +873,7 @@ The header carries identity, rule metadata, taxonomy, and framework mappings. De
 
 ### ComplianceBlock
 
-Maps the finding's rule to compliance controls across the 70+ supported frameworks.
+Maps the finding's rule to compliance controls across the 78 supported frameworks.
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -935,7 +935,7 @@ Three container shapes wrap findings in list and aggregate responses.
 ## Next steps
 
 - [API Reference](/docs/reference/api) — authentication, pagination, and the endpoint map these schemas travel through
-- [CSPM](/docs/features/cspm) — how the Check engine evaluates 10,000+ rules to produce configuration findings
+- [CSPM](/docs/features/cspm) — how the Check engine evaluates 9,853 posture rules to produce configuration findings
 - [Integration Catalog](/docs/reference/integration-catalog) — push these finding payloads to Jira, Slack, Splunk, or any webhook
 - [Data Retention](/docs/trust/data-retention) — how long findings are stored and when they are deleted
 `,

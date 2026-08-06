@@ -1,0 +1,391 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Data Security — Onam Security</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#ffffff;--bg2:#f8fafc;--bg3:#f1f5f9;
+  --border:#e2e8f0;--border2:#f1f5f9;
+  --text:#0f172a;--text2:#1e293b;--text3:#334155;--muted:#64748b;--faint:#94a3b8;
+  --accent:#6366f1;--accent-bg:#eef2ff;--accent-text:#4338ca;
+  --r-sm:5px;--r-md:8px;--r-lg:10px;--r-xl:12px;
+  --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
+  --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
+}
+body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+
+/* ── SIDEBAR ── */
+.sb{position:fixed;left:0;top:0;width:240px;height:900px;background:#fafbfc;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:20}
+.sb-logo{height:56px;display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px}
+.sb-nav{flex:1;overflow-y:auto;padding:6px 0 8px;scrollbar-width:thin;scrollbar-color:#e2e8f0 transparent}
+.sb-nav::-webkit-scrollbar{width:3px}
+.sb-nav::-webkit-scrollbar-thumb{background:#e2e8f0;border-radius:2px}
+.sb-sec{padding:16px 16px 5px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#94a3b8;line-height:1}
+.sb-item{display:flex;align-items:center;gap:9px;padding:8px 16px;font-size:13px;font-weight:500;color:#64748b;border-left:3px solid transparent;cursor:pointer;transition:background .12s,color .12s;min-height:36px}
+.sb-item:hover:not(.active){background:#f1f5f9;color:#334155}
+.sb-item.active{color:#4338ca;background:#eef2ff;border-left-color:#4338ca;font-weight:600}
+.sb-lw{display:flex;flex-direction:column;gap:1.5px;min-width:0;flex:1}
+.sb-label{font-size:13px;font-weight:inherit;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sb-sub{font-size:10px;color:#94a3b8;font-weight:400;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.sb-children{border-left:1px solid #e8edf2;margin:1px 0 3px 28px}
+.sb-child{padding:7px 14px;font-size:12px;font-weight:500;color:#64748b;cursor:pointer;transition:background .12s,color .12s;line-height:1.3}
+.sb-child:hover:not(.active){background:#f1f5f9;color:#334155}
+.sb-child.active{color:#4338ca;font-weight:600;background:rgba(99,102,241,.06)}
+.sb-user{padding:12px 16px;border-top:1px solid var(--border);display:flex;align-items:center;gap:10px;flex-shrink:0;background:#fafbfc}
+.sb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#6366f1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0}
+
+/* ── MAIN ── */
+.main{margin-left:240px;height:900px;display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
+.topbar{height:56px;border-bottom:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
+.tb-title{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
+.tb-right{display:flex;align-items:center;gap:10px}
+.content{flex:1;overflow-y:auto;padding:20px 24px 24px;background:var(--bg2)}
+
+/* ── CARDS ── */
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow-sm)}
+.card-header{padding:16px 20px 0;font-size:12px;font-weight:700;color:#0f172a;letter-spacing:-.01em;display:flex;align-items:center;justify-content:space-between}
+.card-body{padding:16px 20px 20px}
+
+/* ── KPI ── */
+.kpi-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);padding:18px 20px;box-shadow:var(--shadow-sm);border-left:3px solid transparent}
+.kpi-v{font-size:28px;font-weight:800;color:#0f172a;letter-spacing:-.02em;line-height:1.1}
+.kpi-l{font-size:11.5px;font-weight:500;color:#64748b;margin-top:5px}
+.kpi-d{font-size:10.5px;font-weight:500;margin-top:4px}
+
+/* ── TABLE ── */
+.tbl-wrap{background:#fff;border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow-sm)}
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{background:#f8fafc;padding:9px 16px;text-align:left;font-size:11px;font-weight:600;color:#64748b;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--border);white-space:nowrap}
+.tbl td{padding:11px 16px;font-size:12.5px;font-weight:400;color:#1e293b;border-bottom:1px solid #f1f5f9;vertical-align:middle;line-height:1.4}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tbody tr:hover td{background:#fafbfc}
+.mono{font-family:'SF Mono',ui-monospace,'Cascadia Code',Consolas,monospace;font-size:11.5px;letter-spacing:.02em}
+
+/* ── FILTER BAR ── */
+.filter-bar{display:flex;align-items:center;gap:6px;margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.ftab{padding:6px 14px;border-radius:var(--r-md);font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid transparent;transition:all .15s;white-space:nowrap}
+.ftab.on{background:#0f172a;color:#fff;border-color:#0f172a}
+.ftab.off{background:#fff;color:#64748b;border:1.5px solid #e2e8f0}
+.ftab.off:hover{border-color:#cbd5e1;color:#334155}
+.search-inp{display:flex;align-items:center;gap:8px;margin-left:auto;background:#fff;border:1.5px solid var(--border);border-radius:var(--r-md);padding:6px 12px;font-size:12px;color:#94a3b8}
+
+/* ── BUTTONS ── */
+.btn-primary{background:#6366f1;color:#fff;border:none;border-radius:var(--r-md);padding:8px 16px;font-size:12.5px;font-weight:700;cursor:pointer;letter-spacing:-.01em;box-shadow:0 1px 3px rgba(99,102,241,.3)}
+.btn-secondary{background:#fff;color:#334155;border:1.5px solid var(--border);border-radius:var(--r-md);padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer}
+.btn-secondary:hover{border-color:#cbd5e1;background:#f8fafc}
+
+/* ── MISC ── */
+.score-bar-wrap{height:6px;background:#f1f5f9;border-radius:3px;overflow:hidden;margin-top:6px}
+.score-bar{height:100%;border-radius:3px}
+.status-dot-green{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:600;color:#16a34a}
+.status-dot-green::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e}
+.section-label{font-size:12px;font-weight:700;color:#0f172a;letter-spacing:-.01em;margin-bottom:12px}
+.row-meta{font-size:11px;color:#94a3b8}
+</style></head><body>
+<div class="sb">
+  <div class="sb-logo">
+    <img src="https://d1fp5dwui44wle.cloudfront.net/logo.svg" alt="Onam Security" style="height:34px;width:auto;max-width:164px"
+      onerror="this.style.display='none';document.getElementById('lf').style.display='flex'"/>
+    <div id="lf" style="display:none;align-items:center;gap:8px">
+      <svg width="24" height="24" viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><path d="M16 2L28 7L28 17C28 23 22 28 16 30C10 28 4 23 4 17L4 7Z" fill="url(#lg)"/><circle cx="16" cy="16" r="6" fill="none" stroke="white" stroke-width="2"/></svg>
+      <span style="font-size:13.5px;font-weight:700;color:#0f172a">Onam Security</span>
+    </div>
+  </div>
+  <nav class="sb-nav" id="sbNav"><div class="sb-item" style="" data-id="dashboard">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Dashboard</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="assets">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="currentColor"/><circle cx="6" cy="18" r="1" fill="currentColor"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Assets</span>
+        <span class="sb-sub">Cloud Resources</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="attack-paths">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Attack Paths</span>
+        <span class="sb-sub">Paths · Choke Points · ATT&CK</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-item" style="" data-id="vulnerabilities">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M9 2h6"/><path d="M9 7.13v-1a3 3 0 0 1 6 0v1"/><path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6z"/><path d="M12 20v-9"/><path d="M6 13H2"/><path d="M22 13h-4"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Vulnerabilities</span>
+        <span class="sb-sub">VM · CVE · SBOM</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-item" style="" data-id="risk">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Risk</span>
+        <span class="sb-sub">FAIR Model</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="compliance">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m9 14 2 2 4-4"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Compliance</span>
+        <span class="sb-sub">CIS · NIST · PCI · HIPAA</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="investigation">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Investigation</span>
+        <span class="sb-sub">Sonar Query</span>
+      </div>
+      
+    </div><div class="sb-sec">CLOUD POSTURE</div><div class="sb-item" style="" data-id="cloud-posture">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Cloud Posture</span>
+        <span class="sb-sub">CSPM</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-item" style="" data-id="saas-security">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8H6a2 2 0 0 0-2 2v3a6 6 0 0 0 12 0v-3a2 2 0 0 0-2-2z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">SaaS Security</span>
+        <span class="sb-sub">GWS · M365 · GitHub · Okta</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-sec">DETECTION & DATA</div><div class="sb-item" style="" data-id="cnapp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">CNAPP</span>
+        <span class="sb-sub">Unified Posture Score</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="ciem">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="10" cy="7" r="4"/><path d="M10.3 15H7a4 4 0 0 0-4 4v2"/><circle cx="17" cy="17" r="3"/><path d="m21 21-1.9-1.9"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">CIEM</span>
+        <span class="sb-sub">Identity & Entitlements</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="cdr">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">CDR</span>
+        <span class="sb-sub">Cloud Detection & Response</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="cwpp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">CWPP</span>
+        <span class="sb-sub">Cloud Workload Protection</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="agentless">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Agentless Scan</span>
+        <span class="sb-sub">Snapshot-based · No agents</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="data-security">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Data Security</span>
+        <span class="sb-sub">DSPM · Database</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;transform:rotate(180deg)"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-children"><div class="sb-child active" data-id="datasec">Data Posture</div></div><div class="sb-sec">CODE SECURITY</div><div class="sb-item" style="" data-id="code-security">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Code Security</span>
+        <span class="sb-sub">SAST · SCA · IaC</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-sec">PLATFORM</div><div class="sb-item" style="" data-id="reports">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Reports</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="onboarding">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Onboarding</span>
+        <span class="sb-sub">Providers · Users</span>
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-item" style="" data-id="rules">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Rules & Policy</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="settings">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20 7H9"/><path d="M14 17H3"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Settings</span>
+        
+      </div>
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
+    </div><div class="sb-sec">AI</div><div class="sb-item" style="" data-id="ai-assistant">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.84A2.5 2.5 0 0 1 9.5 2Z"/><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.84A2.5 2.5 0 0 0 14.5 2Z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">AI Assistant</span>
+        
+      </div>
+      
+    </div><div class="sb-sec">ADMINISTRATION</div><div class="sb-item" style="" data-id="admin-dashboard">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Admin Dashboard</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="admin-billing">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Admin Billing</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="admin-orgs">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/><path d="M10 18h4"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Customer Orgs</span>
+        
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="admin-customers">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Customers</span>
+        
+      </div>
+      
+    </div></nav>
+  <div class="sb-user">
+    <div class="sb-avatar">AY</div>
+    <div><div style="font-size:12px;font-weight:600;color:#0f172a">Anup Yadav</div><div style="font-size:10.5px;color:#94a3b8">Security Admin</div></div>
+    <div style="margin-left:auto;color:#94a3b8"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M20 7H9"/><path d="M14 17H3"/><circle cx="17" cy="17" r="3"/><circle cx="7" cy="7" r="3"/></svg></div>
+  </div>
+</div>
+<script>window.addEventListener('DOMContentLoaded',()=>{const el=document.querySelector('.sb-item.active,.sb-child.active');if(el)el.scrollIntoView({block:'center',behavior:'instant'});});</script>
+<div class="main">
+<div class="topbar">
+  <div style="display:flex;align-items:center;gap:10px">
+    <span class="tb-title">Data Security — DSPM</span>
+    <span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#be123c;background:#fff1f2;border:1px solid #fecdd3;white-space:nowrap">3 Public Buckets with PII</span><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#be123c;background:#fff1f2;border:1px solid #fecdd3;white-space:nowrap">847K Records Exposed</span>
+  </div>
+  <div class="tb-right"><button class="btn-secondary">Run Classification</button><button class="btn-primary">↓ Export Report</button></div>
+</div>
+<div class="content">
+  <div class="kpi-row">
+    
+    <div class="kpi" style="border-left-color:#be123c">
+      <div class="kpi-v" style="color:#be123c">847K</div>
+      <div class="kpi-l">PII Records Found</div>
+      <div class="kpi-d" style="color:#be123c">SSN · CC · PHI</div>
+    </div>
+    <div class="kpi" style="border-left-color:#be123c">
+      <div class="kpi-v" style="color:#be123c">3</div>
+      <div class="kpi-l">Public Buckets</div>
+      <div class="kpi-d" style="color:#be123c">Immediate action required</div>
+    </div>
+    <div class="kpi" style="border-left-color:#c2410c">
+      <div class="kpi-v" style="color:#c2410c">12</div>
+      <div class="kpi-l">Unencrypted Stores</div>
+      
+    </div>
+    <div class="kpi" style="border-left-color:#a16207">
+      <div class="kpi-v" style="color:#a16207">5</div>
+      <div class="kpi-l">Cross-Region Data</div>
+      <div class="kpi-d" style="color:#a16207">Residency risk</div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Resource</th><th>Type</th><th>Data Classification</th><th style="text-align:right">Records</th><th>Encryption</th><th>Access Level</th><th>Risk</th></tr></thead>
+      <tbody>
+      
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">acme-prod-data</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">S3 Bucket</span></td>
+        <td style="font-size:12px;color:#334155">SSN · Credit Card · DOB</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">847,234</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AES-256</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#be123c">PUBLIC READ</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#be123c;background:#fff1f2;border:1px solid #fecdd3;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#e11d48;flex-shrink:0"></span>CRITICAL</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">acme-user-exports</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">S3 Bucket</span></td>
+        <td style="font-size:12px;color:#334155">PII · Email · Phone</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">124,891</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#be123c;background:#fff1f2;border:1px solid #fecdd3;white-space:nowrap">None</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Authenticated</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#be123c;background:#fff1f2;border:1px solid #fecdd3;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#e11d48;flex-shrink:0"></span>CRITICAL</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">rds-main-postgres</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">RDS (PostgreSQL)</span></td>
+        <td style="font-size:12px;color:#334155">PII · Financial · PHI</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">2,341,009</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AES-256</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Private VPC</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#c2410c;background:#fff7ed;border:1px solid #fed7aa;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#ea580c;flex-shrink:0"></span>HIGH</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">acme-logs-archive</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">S3 Bucket</span></td>
+        <td style="font-size:12px;color:#334155">Log Data · IP Addresses</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">44,200,000</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AES-256</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Private</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0"></span>LOW</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">dynamodb-sessions</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">DynamoDB</span></td>
+        <td style="font-size:12px;color:#334155">Session Tokens · Auth Data</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">8,821</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AWS Managed</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Private</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#92400e;background:#fffbeb;border:1px solid #fde68a;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#d97706;flex-shrink:0"></span>MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">acme-analytics-raw</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">S3 Bucket</span></td>
+        <td style="font-size:12px;color:#334155">Behavioral · Clickstream</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">1,200,000,000</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AES-256</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Private</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0"></span>LOW</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">elasticache-cache</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">ElastiCache</span></td>
+        <td style="font-size:12px;color:#334155">Cached PII (TTL 24h)</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">~50,000</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">In-transit only</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Internal</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#92400e;background:#fffbeb;border:1px solid #fde68a;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#d97706;flex-shrink:0"></span>MEDIUM</span></td>
+      </tr>
+      <tr>
+        <td><span class="mono" style="font-weight:600;color:#0f172a">acme-backup-vault</span></td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#475569;background:#f8fafc;border:1px solid #e2e8f0;white-space:nowrap">S3 Bucket</span></td>
+        <td style="font-size:12px;color:#334155">Encrypted PII · Backup</td>
+        <td style="text-align:right;font-size:12.5px;font-weight:600;color:#0f172a;font-variant-numeric:tabular-nums">892,341</td>
+        <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#15803d;background:#f0fdf4;border:1px solid #bbf7d0;white-space:nowrap">AES-256 KMS</span></td>
+        <td><span style="font-size:12px;font-weight:500;color:#64748b">Private</span></td>
+        <td><span style="display:inline-flex;align-items:center;gap:5px;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:650;letter-spacing:.01em;color:#1e40af;background:#eff6ff;border:1px solid #bfdbfe;white-space:nowrap"><span style="width:6px;height:6px;border-radius:50%;background:#3b82f6;flex-shrink:0"></span>LOW</span></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div></div>
+
+</body></html>

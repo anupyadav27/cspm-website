@@ -1,0 +1,181 @@
+import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { ChevronRight } from "lucide-react";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { BrandButton } from "@/components/site/BrandButton";
+import { Prose } from "@/components/site/Prose";
+import { LEARN_ARTICLES, getLearnArticle, type LearnArticle } from "@/data/learn-articles";
+import { seo, SITE_URL, faqJsonLd } from "@/lib/seo";
+
+/**
+ * DefinedTerm + Article. The DefinedTerm carries the short `answer` verbatim,
+ * which is what answer engines quote; the Article carries the full body.
+ */
+function schema(a: LearnArticle) {
+  const url = `${SITE_URL}/learn/${a.slug}`;
+  return [
+    {
+      "@context": "https://schema.org",
+      "@type": "DefinedTerm",
+      name: a.term,
+      description: a.answer,
+      inDefinedTermSet: {
+        "@type": "DefinedTermSet",
+        name: "Onam Security Cloud Security Glossary",
+        url: `${SITE_URL}/learn`,
+      },
+      url,
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      headline: a.question,
+      description: a.excerpt,
+      mainEntityOfPage: url,
+      image: `${SITE_URL}/og-image.png`,
+      author: { "@type": "Organization", name: "Onam Security" },
+      publisher: {
+        "@type": "Organization",
+        name: "Onam Security",
+        logo: { "@type": "ImageObject", url: `${SITE_URL}/logo-512.png` },
+      },
+    },
+    faqJsonLd(a.faqs),
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
+        { "@type": "ListItem", position: 2, name: "Learn", item: `${SITE_URL}/learn` },
+        { "@type": "ListItem", position: 3, name: a.term },
+      ],
+    },
+  ];
+}
+
+export const Route = createFileRoute("/learn/$slug")({
+  loader: ({ params }) => {
+    const article = getLearnArticle(params.slug);
+    if (!article) throw notFound();
+    return { article };
+  },
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return { meta: [{ title: "Not found — Onam Security" }, { name: "robots", content: "noindex" }] };
+    }
+    const a = loaderData.article;
+    return seo({
+      title: `${a.title} — Onam Security`,
+      description: a.excerpt,
+      path: `/learn/${a.slug}`,
+      ogType: "article",
+    });
+  },
+  component: LearnPage,
+  notFoundComponent: NotFound,
+});
+
+function NotFound() {
+  return (
+    <SiteLayout>
+      <div className="max-w-3xl mx-auto px-6 py-24 text-center">
+        <h1 className="font-display font-black text-3xl text-[#0B1220]">Article not found</h1>
+        <p className="mt-3 text-[#475569]">This explainer may have been moved or renamed.</p>
+        <div className="mt-6">
+          <BrandButton to="/learn">Back to Learn</BrandButton>
+        </div>
+      </div>
+    </SiteLayout>
+  );
+}
+
+function LearnPage() {
+  const { article } = Route.useLoaderData();
+  const others = LEARN_ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 3);
+
+  return (
+    <SiteLayout>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema(article)) }} />
+
+      <article>
+        <section className="border-b border-[#E5E9F0] bg-white">
+          <div className="max-w-3xl mx-auto px-6 pt-14 pb-10">
+            <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
+              <Link to="/learn" className="hover:text-[#2563EB]">Learn</Link>
+              <ChevronRight className="w-3.5 h-3.5" />
+              <span className="text-[#0B1220]">{article.term}</span>
+            </nav>
+
+            <h1 className="font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.1]">
+              {article.question}
+            </h1>
+
+            {/* Snippet target: first content on the page, quotable standalone. */}
+            <div className="mt-7 rounded-2xl border border-[#DBE7FE] bg-[#F5F8FF] p-6">
+              <div className="text-[11px] font-bold uppercase tracking-widest text-[#1D4ED8] mb-2">
+                In short
+              </div>
+              <p className="text-[17px] text-[#0B1220] leading-relaxed font-medium">{article.answer}</p>
+            </div>
+
+            <div className="mt-6 text-sm text-[#64748B]">{article.readTime} read</div>
+          </div>
+        </section>
+
+        <section className="max-w-3xl mx-auto px-6 py-14">
+          <Prose source={article.body} />
+
+          <div className="mt-14 pt-10 border-t border-[#E5E9F0]">
+            <h2 className="font-display font-extrabold text-2xl text-[#0B1220]">
+              Frequently asked questions
+            </h2>
+            <div className="mt-6 space-y-5">
+              {article.faqs.map((f) => (
+                <div key={f.q} className="bg-white border border-[#E5E9F0] rounded-2xl p-6">
+                  <h3 className="font-display font-bold text-[17px] text-[#0B1220] leading-snug">{f.q}</h3>
+                  <p className="mt-2.5 text-[#475569] leading-relaxed">{f.a}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      </article>
+
+      <section className="bg-[#F7F9FC] border-y border-[#E5E9F0]">
+        <div className="max-w-7xl mx-auto px-6 py-14">
+          <h2 className="font-display font-extrabold text-2xl text-[#0B1220] mb-6">Keep reading</h2>
+          <div className="grid md:grid-cols-3 gap-5">
+            {others.map((a) => (
+              <Link
+                key={a.slug}
+                to="/learn/$slug"
+                params={{ slug: a.slug }}
+                className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 hover:shadow-[0_8px_24px_rgba(16,24,40,.08)] transition"
+              >
+                <h3 className="font-display font-bold text-[17px] text-[#0B1220] leading-snug group-hover:text-[#2563EB]">
+                  {a.question}
+                </h3>
+                <p className="mt-2 text-sm text-[#475569] line-clamp-3">{a.excerpt}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="max-w-7xl mx-auto px-6 py-16">
+        <div className="bg-white border border-[#E5E9F0] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_1px_3px_rgba(16,24,40,.04)]">
+          <div>
+            <h2 className="font-display font-extrabold text-2xl text-[#0B1220]">See it on your own cloud</h2>
+            <p className="mt-2 text-[#475569] max-w-2xl">
+              Connect a read-only role. First findings surface in under five minutes — across seven clouds
+              and your SaaS platforms.
+            </p>
+          </div>
+          <div className="flex gap-3 shrink-0">
+            <BrandButton to="/request-demo">Request demo</BrandButton>
+            <BrandButton to="/platform" variant="secondary">Explore the platform</BrandButton>
+          </div>
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}

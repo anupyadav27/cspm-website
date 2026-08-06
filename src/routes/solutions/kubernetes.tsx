@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/kubernetes")({
   head: () =>
     seo({
-      title: "Kubernetes Cloud Security — Onam",
+      title: "Kubernetes & EKS Security Posture Management — Onam Security",
       description: kubernetesData.sub,
       path: "/solutions/kubernetes",
     }),

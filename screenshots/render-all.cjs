@@ -16,6 +16,10 @@ const screens = [
   { file: 'screen-cdr.html',           out: 'screenshot-cdr.png',            wait: 800  },
   { file: 'screen-container.html',     out: 'screenshot-container.png',      wait: 800  },
   { file: 'screen-datasec.html',       out: 'screenshot-datasec.png',        wait: 800  },
+  // New modules
+  { file: 'screen-saas-security.html', out: 'screenshot-saas-security.png',  wait: 800  },
+  { file: 'screen-cwpp.html',          out: 'screenshot-cwpp.png',           wait: 800  },
+  { file: 'screen-cnapp.html',         out: 'screenshot-cnapp.png',          wait: 800  },
 ];
 
 const dir = path.join(__dirname);

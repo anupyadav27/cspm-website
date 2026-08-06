@@ -13,7 +13,7 @@
   <!-- step 1: rule pool -->
   <rect x="32" y="92" width="200" height="68" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
   <text x="132" y="114" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Applicable Rules</text>
-  <text x="132" y="132" text-anchor="middle" font-size="9" fill="#64748B">Subset of 1,918 rules that apply</text>
+  <text x="132" y="132" text-anchor="middle" font-size="9" fill="#64748B">Subset of 9,853 rules that apply</text>
   <text x="132" y="146" text-anchor="middle" font-size="9" fill="#64748B">to this framework</text>
 
   <!-- arrow down -->

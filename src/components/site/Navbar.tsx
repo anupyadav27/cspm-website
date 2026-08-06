@@ -10,11 +10,13 @@ type MenuItem = { title: string; href: string; desc: string };
 
 const platformGroups: { heading: string; items: MenuItem[] }[] = [
   {
-    heading: "Security Posture",
+    heading: "Posture & Identity",
     items: [
+      { title: "CNAPP", href: "/platform/cnapp", desc: "Seven pillars, one posture score" },
       { title: "CSPM", href: "/platform/cspm", desc: "Misconfigurations across all clouds" },
       { title: "CIEM", href: "/platform/ciem", desc: "Identity & entitlement analysis" },
       { title: "IAM Security", href: "/platform/iam", desc: "Policies, users, and privilege risk" },
+      { title: "Asset Inventory", href: "/platform/inventory", desc: "549 services, seven clouds, one list" },
     ],
   },
   {
@@ -23,29 +25,37 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "Attack Path", href: "/platform/attack-path", desc: "Crown jewels, toxic combos, attack graphs" },
       { title: "CDR — Detection", href: "/platform/cdr", desc: "L1/L2/L3 behavioral threat detection" },
       { title: "Threat Detection", href: "/platform/threat-detection", desc: "MITRE ATT&CK–mapped attack chains" },
+      { title: "Risk Quantification", href: "/platform/risk", desc: "FAIR model — dollar-value exposure" },
     ],
   },
   {
-    heading: "Network & Data",
+    heading: "Data & Network",
     items: [
+      { title: "DSPM — Data Security", href: "/platform/data-security", desc: "Where your sensitive data lives" },
+      { title: "Database Security", href: "/platform/database-security", desc: "Managed DBs + CIS engine benchmarks" },
+      { title: "Encryption & Keys", href: "/platform/encryption", desc: "KMS, rotation, and the decrypt set" },
       { title: "Network Security", href: "/platform/network-security", desc: "7-layer topology analysis" },
-      { title: "Data Security", href: "/platform/data-security", desc: "Where your sensitive data lives" },
-      { title: "AI Security", href: "/platform/ai-security", desc: "SageMaker, Bedrock, and AI/ML risk" },
+      { title: "API Security", href: "/platform/api-security", desc: "Shadow APIs, auth gaps, WAF coverage" },
     ],
   },
   {
     heading: "Workloads & Code",
     items: [
+      { title: "CWPP — Workloads", href: "/platform/cwpp", desc: "VMs, containers, serverless, hosts" },
+      { title: "Agentless Scanning", href: "/platform/agentless", desc: "Snapshot-based — nothing to install" },
       { title: "Container Security", href: "/platform/container-security", desc: "EKS, ECS, and image scanning" },
       { title: "Vulnerability Mgmt", href: "/platform/vulnerability", desc: "CVEs in context, not just CVSS" },
-      { title: "Code Security", href: "/platform/secops", desc: "SAST, DAST, SCA, IaC — 2,852 rules" },
+      { title: "Code Security", href: "/platform/secops", desc: "SAST, DAST, SCA, IaC" },
     ],
   },
   {
-    heading: "Risk & Governance",
+    heading: "SaaS, AI & Governance",
     items: [
-      { title: "Risk Quantification", href: "/platform/risk", desc: "FAIR model — dollar-value exposure" },
-      { title: "Compliance", href: "/platform/compliance", desc: "13 frameworks, always audit-ready" },
+      { title: "SaaS Security (SSPM)", href: "/platform/saas-security", desc: "M365, Workspace, GitHub, Snowflake" },
+      { title: "AI Security", href: "/platform/ai-security", desc: "SageMaker, Bedrock, and AI/ML risk" },
+      { title: "AI Assistant", href: "/platform/ai-assistant", desc: "Ask your posture in plain language" },
+      { title: "Remediation", href: "/platform/remediation", desc: "Every finding ships with its fix" },
+      { title: "Compliance", href: "/platform/compliance", desc: "78 frameworks, always audit-ready" },
       { title: "Technology Engine", href: "/platform/technology", desc: "34 technologies, runtime discovery" },
     ],
   },
@@ -139,7 +149,7 @@ export function Navbar() {
               <TriggerBtn label="Platform" open={open === "platform"} />
             </div>
             <MegaWrap open={open === "platform"}>
-              <div className="grid grid-cols-5 gap-6 w-[1040px]">
+              <div className="grid grid-cols-5 gap-5 w-[1180px] max-w-[calc(100vw-3rem)]">
                 {platformGroups.map((g) => (
                   <div key={g.heading}>
                     <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">
@@ -189,6 +199,9 @@ export function Navbar() {
           </Link>
           <Link to="/pricing" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
             Pricing
+          </Link>
+          <Link to="/learn" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
+            Learn
           </Link>
           <Link to="/resources" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
             Resources
@@ -258,6 +271,7 @@ export function Navbar() {
             </div>
             <div className="pt-4 border-t border-[#E5E9F0] space-y-2">
               <Link to="/pricing" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Pricing</Link>
+              <Link to="/learn" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Learn</Link>
               <Link to="/resources" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Resources</Link>
               <a
                 href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui/dashboard"

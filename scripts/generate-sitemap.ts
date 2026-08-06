@@ -10,6 +10,7 @@ import { fileURLToPath } from "node:url";
 import { SITE_URL } from "../src/lib/seo";
 import { allDocSlugs, DOC_SECTIONS, getDocArticle } from "../src/data/docs";
 import { BLOG_POSTS } from "../src/data/blog-posts";
+import { LEARN_ARTICLES } from "../src/data/learn-articles";
 import { platformPages } from "../src/data/platform-pages";
 import {
   awsData, azureData, gcpData, ociData, alicloudData, ibmData, kubernetesData,
@@ -45,6 +46,7 @@ const staticPaths = new Set(
 const entries: Entry[] = [
   ...[...staticPaths].sort().map((p) => ({ loc: p })),
   ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}` })),
+  ...LEARN_ARTICLES.map((a) => ({ loc: `/learn/${a.slug}` })),
   ...BLOG_POSTS.map((p) => ({
     loc: `/resources/blog/${p.slug}`,
     lastmod: new Date(p.date).toISOString().slice(0, 10),
@@ -89,22 +91,31 @@ const industries = [
 
 const llms = `# Onam Security
 
-> Onam Security (${SITE_URL}) is a unified cloud security platform — CSPM (cloud security posture
-> management), CIEM, attack path analysis, cloud threat detection & response (CDR), data security,
-> code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and
-> Kubernetes. 100% agentless: connect a cloud in under 3 minutes with a read-only role.
+> Onam Security (${SITE_URL}) is a unified CNAPP (cloud-native application protection platform) —
+> CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
+> (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
+> attack path analysis, cloud threat detection & response (CDR), API security, database security,
+> encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
+> Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. 100% agentless: connect a cloud in under
+> 3 minutes with a read-only role.
 
 Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
 Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes
-- 10,000+ security rules across 16 security engines (1,918 CSPM posture rules)
-- 13 compliance frameworks with continuous evidence: CIS (AWS/Azure/GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2, and more
+- 20,337 security rules across 29 security engines: 11,346 cloud posture rules plus 8,991 CIS technology and SaaS benchmark rules
+- 549 cloud services covered by continuous discovery: 123 AWS, 95 Azure, 71 GCP, 68 Alibaba Cloud, 68 Kubernetes, 63 IBM Cloud, 61 OCI
+- 78 compliance frameworks with continuous evidence: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI-DSS v4, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
+- SaaS security (SSPM) for 8 platforms: Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta — 433 CIS SaaS rules
+- 34 technologies covered by CIS benchmarks: Linux distributions, databases, web servers, virtualization, and network devices
 - 100% agentless — read-only IAM role / service principal / service account; stores only a role ARN, never long-lived credentials
-- All clouds and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
+- Agentless workload scanning uses point-in-time snapshots orchestrated inside the customer's own account (AWS Step Functions, Azure Logic Apps, GCP Workflows); raw disk data never leaves the customer environment
+- All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
+- Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or console walkthrough
+- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
 - Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
 
@@ -118,10 +129,12 @@ onboarding in minutes. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-c
 
 | Capability | Native cloud tools | Single-layer point tools | Manual audits / pen tests | Onam |
 | --- | --- | --- | --- | --- |
-| Coverage | One cloud only | One security layer | Point-in-time | All 7 clouds, 16 engines, continuous |
+| Coverage | One cloud only | One security layer | Point-in-time | All 7 clouds + SaaS, 29 engines, continuous |
 | Attack paths | No | No | Manual | Cross-cloud graph analysis |
 | Toxic combinations | No | No | No | Automated across engines |
-| Compliance | Per-provider | Manual mapping | Point-in-time | 13 frameworks, continuous evidence |
+| SaaS security (SSPM) | No | Separate product | Manual review | 8 platforms, 433 CIS rules, same graph |
+| Workload scanning | Agent required | Agent required | Not covered | Agentless snapshots in your own account |
+| Compliance | Per-provider | Manual mapping | Point-in-time | 78 frameworks, continuous evidence |
 | Identity | Basic policies | None | Interview-based | 30-day behavioral CIEM |
 | Prioritisation | Alert firehose | CVSS-only | Report handoff | FAIR-model dollar risk |
 | Code + runtime | Runtime only | One or the other | Neither | SAST, DAST, SCA, IaC, runtime |
@@ -131,6 +144,10 @@ onboarding in minutes. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-c
 ${Object.entries(platformPages)
   .map(([slug, p]) => `- [${p.label}](${SITE_URL}/platform/${slug}): ${oneLine(p.sub)}`)
   .join("\n")}
+
+## Cloud security glossary (vendor-neutral definitions)
+
+${LEARN_ARTICLES.map((a) => `- [${a.question}](${SITE_URL}/learn/${a.slug}): ${a.answer}`).join("\n")}
 
 ## Solutions
 

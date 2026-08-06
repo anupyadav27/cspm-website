@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/gcp")({
   head: () =>
     seo({
-      title: "Google Cloud Cloud Security — Onam",
+      title: "Google Cloud (GCP) Security Posture Management — Onam Security",
       description: gcpData.sub,
       path: "/solutions/gcp",
     }),

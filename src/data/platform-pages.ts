@@ -1,6 +1,7 @@
 import {
   ShieldCheck, Users, KeyRound, GitBranch, Activity, Crosshair, Network, Database,
   Cpu, Box, Bug, Terminal, TrendingUp, CheckSquare, Layers,
+  Radar, Blocks, Server, Webhook, HardDrive, Lock, Bot, Wrench, Boxes, ShieldHalf,
 } from "lucide-react";
 import type { ProductPageData } from "@/components/site/ProductPageTemplate";
 
@@ -28,12 +29,12 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "CSPM",
     question: "Are my cloud configs actually secure right now?",
     headline: "Misconfigurations are the #1 cause of cloud breaches. We find yours first.",
-    sub: "Every resource your team deploys is a potential gap. Onam checks 1,918 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day they're introduced, not six months later.",
+    sub: "Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day they're introduced, not six months later.",
     painPoint:
       "Your DevOps team ships 50 new resources this week. By Friday, three of them are misconfigured — a security group open to the internet, an S3 bucket with public read, an RDS instance with no encryption. None intentional; they're just defaults nobody changed. The problem isn't careless engineers — it's that manual audits can't keep pace with cloud deployment.",
     mechanism: [
       "When you connect a cloud account, Onam enumerates every resource across 40+ services using read-only IAM roles, service principals, or service accounts.",
-      "Each resource is evaluated against 1,918 posture rules, categorised by severity and mapped to compliance frameworks like CIS, NIST, and PCI-DSS.",
+      "Each resource is evaluated against 9,853 posture rules — OCI 2,059, AWS 2,018, Azure 1,926, GCP 1,322, Alibaba 1,151, Kubernetes 824, IBM 553 — categorised by severity and mapped to compliance frameworks like CIS, NIST, and PCI-DSS.",
       "The scan is read-only — we never modify your environment and store only a role ARN, no long-lived keys.",
       "Findings update continuously as infrastructure changes, not weekly. New findings surface within minutes of a misconfigured resource being deployed.",
       "Every finding ships with exact remediation — a CLI command, Terraform snippet, or console walkthrough — so engineers fix instead of triage.",
@@ -51,7 +52,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "How is Onam CSPM different from AWS Security Hub or Azure Defender for Cloud?",
-        a: "Native tools only see the cloud they run in and only correlate within that provider. Onam runs the same 1,918 rules — plus attack path, CIEM, and data context — across all seven clouds on one graph. That means a public S3 bucket, an over-privileged role, and a cross-account trust chain surface as one finding, not three disconnected alerts.",
+        a: "Native tools only see the cloud they run in and only correlate within that provider. Onam runs the same 9,853 rules — plus attack path, CIEM, and data context — across all seven clouds on one graph. That means a public S3 bucket, an over-privileged role, and a cross-account trust chain surface as one finding, not three disconnected alerts.",
       },
       {
         q: "Does connecting my cloud account require write access?",
@@ -71,6 +72,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "CIEM — Identity risk", href: "/platform/ciem" },
       { label: "Compliance frameworks", href: "/platform/compliance" },
       { label: "Network Security — topology", href: "/platform/network-security" },
@@ -127,6 +129,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "IAM Security", href: "/platform/iam" },
       { label: "Threat Detection", href: "/platform/threat-detection" },
       { label: "CSPM", href: "/platform/cspm" },
@@ -192,7 +195,7 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Attack Path Analysis",
     question: "Which combination of misconfigurations leads directly to your most critical assets?",
     headline: "Attackers chain small issues into catastrophic breaches. Most tools only show you the individual links.",
-    sub: "Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an exposed entry point to your crown jewels.",
+    sub: "Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an exposed entry point to your crown jewels. (Attack path analysis maps chains of cloud risk — it is unrelated to an \"on-path attack\", the interception technique formerly called man-in-the-middle.)",
     painPoint:
       "A medium-severity SSRF on an EC2 instance. A dormant IAM role with S3 write. A subnet with an over-permissive NACL. Three findings, three teams, three sprints. Individually they are noise; chained together they exfiltrate your customer database in under an hour. Standard tools list them separately — an attacker sees the path.",
     mechanism: [
@@ -231,6 +234,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "Threat Detection", href: "/platform/threat-detection" },
       { label: "CDR — Behavioral Detection", href: "/platform/cdr" },
       { label: "Risk Quantification", href: "/platform/risk" },
@@ -444,6 +448,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "What is DSPM?", href: "/learn/dspm" },
       { label: "CIEM — Who has access", href: "/platform/ciem" },
       { label: "CSPM — Misconfigurations", href: "/platform/cspm" },
       { label: "Compliance frameworks", href: "/platform/compliance" },
@@ -723,7 +728,7 @@ export const platformPages: Record<string, ProductPageData> = {
     painPoint:
       "The auditor arrives on Monday. Your team spent last week screenshotting console pages and stitching evidence into a spreadsheet. Meanwhile prod deployed 40 new resources — none of which are in the evidence pack. The gap between what you can prove and what is actually running is where audits fail and remediation plans balloon.",
     mechanism: [
-      "Every finding across every Onam engine is tagged with the specific controls it satisfies or violates across 13 frameworks, in real time.",
+      "Every finding across every Onam engine is tagged with the specific controls it satisfies or violates across 78 frameworks, in real time.",
       "A per-framework posture score is maintained continuously, so you always know exactly which controls you are meeting today, not last quarter.",
       "Evidence is generated automatically per control — resource state, configuration, timestamps, and the underlying finding — no manual screenshots.",
       "Auditor-ready exports produce PDF and CSV bundles with linked evidence, and can be scoped by framework, cloud, or business unit.",
@@ -818,6 +823,530 @@ export const platformPages: Record<string, ProductPageData> = {
       { label: "Vulnerability Management", href: "/platform/vulnerability" },
       { label: "Container Security", href: "/platform/container-security" },
       { label: "CSPM", href: "/platform/cspm" },
+    ],
+  },
+
+  "saas-security": {
+    demoClips: ["dashboard", "compliance"],
+    icon: Blocks,
+    iconColor: violet400,
+    label: "SaaS Security (SSPM)",
+    question: "Who can reach your data in Microsoft 365, Google Workspace, and GitHub?",
+    headline: "Your CSPM stops at the cloud account. Your attackers don't.",
+    sub: "SaaS Security posture management extends the same rule graph to the platforms your company actually runs on — Microsoft 365, Google Workspace, GitHub, GitLab, Snowflake, SharePoint, Dynamics 365 and Okta — with 433 CIS Benchmark rules across six SaaS benchmarks.",
+    painPoint:
+      "A cloud posture tool will tell you an S3 bucket is public. It will say nothing about the SharePoint site shared with 'anyone with the link', the Microsoft 365 global admin without MFA, the stale Google Workspace guest account from a contractor who left in 2023, or the Snowflake service account holding ACCOUNTADMIN. These are the accounts attackers actually compromise — and on most platforms they are simply invisible.",
+    mechanism: [
+      "Each SaaS platform is connected through a dedicated read-only connector — Microsoft Graph with OAuth 2.0, Google Admin SDK with service-account impersonation, Snowflake private-key JWT, GitHub and GitLab app tokens.",
+      "Discovery enumerates tenants, users, admin roles, sharing settings, audit-log configuration, and data-exposure surfaces without any agent or browser extension.",
+      "Findings are evaluated against 433 CIS rules — Microsoft 365 (130), GitLab (122), Google Workspace (89), Snowflake (39), SharePoint (37) and Dynamics 365 (16).",
+      "SaaS findings write into the same findings model as cloud findings, so a SaaS identity risk and a cloud identity risk appear in one queue rather than two consoles.",
+      "Because identity is shared, an Okta or Entra ID account that federates into AWS is traced through to the cloud permissions it unlocks on the attack-path graph.",
+    ],
+    whatYouGet: [
+      "SaaS tenant inventory — every user, admin, guest, and service account across connected platforms",
+      "MFA and conditional-access gaps on privileged SaaS accounts",
+      "External sharing exposure — SharePoint, OneDrive and Google Drive links open to anyone",
+      "Audit-log configuration checks — M365 Unified Audit Log, GWS retention, Snowflake QUERY_HISTORY",
+      "DevOps platform posture — GitHub and GitLab org settings, branch protection, token hygiene",
+      "Data warehouse posture — Snowflake roles, network policies, and grant sprawl",
+      "CIS Benchmark scoring per SaaS platform with per-control evidence",
+      "Stale and orphaned SaaS identity report",
+    ],
+    faqs: [
+      {
+        q: "Which SaaS platforms does Onam support today?",
+        a: "Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, and Okta. Each is a read-only connector using the platform's official API. Adding a platform is a connector plus a rule pack, so the list grows without changes to how you consume findings.",
+      },
+      {
+        q: "Is this a separate product from CSPM?",
+        a: "No. SaaS findings land in the same findings model, the same severity scale, and the same compliance mapping as cloud findings. That is the point — an M365 admin without MFA and an over-privileged AWS role are the same class of risk, and they belong in one queue.",
+      },
+      {
+        q: "What permissions does a SaaS connector need?",
+        a: "Read-only application permissions scoped to directory, audit and configuration data — for example Microsoft Graph Directory.Read.All and AuditLog.Read.All. Connectors never request write scopes and never read message or document contents.",
+      },
+      {
+        q: "How is SSPM different from CIEM?",
+        a: "CIEM resolves effective permissions inside cloud providers. SSPM evaluates the configuration and identity posture of SaaS applications. They meet on the identity graph: a federated identity provider is where a SaaS compromise turns into cloud access, and Onam models that hop explicitly.",
+      },
+    ],
+    related: [
+      { label: "What is SSPM?", href: "/learn/sspm" },
+      { label: "Technology Engine", href: "/platform/technology" },
+      { label: "CIEM — Identity risk", href: "/platform/ciem" },
+      { label: "Compliance frameworks", href: "/platform/compliance" },
+    ],
+  },
+
+  cwpp: {
+    demoClips: ["cwpp", "dashboard"],
+    icon: Server,
+    iconColor: emerald400,
+    label: "CWPP — Workload Protection",
+    question: "Are the workloads actually running in production hardened?",
+    headline: "Posture tells you how a workload was configured. CWPP tells you what it is running.",
+    sub: "Cloud Workload Protection covers every compute form factor you run — virtual machines, containers, serverless functions and managed hosts — scored on one workload posture model, and collected without installing a single agent.",
+    painPoint:
+      "Configuration scanning sees an EC2 instance with a sensible security group and calls it healthy. It cannot see the unpatched OpenSSL inside the AMI, the root-owned SSH key baked into the image, the container running as privileged, or the Lambda with an outdated runtime. The workload is where the exploit actually lands, and it is the layer most posture tools never open.",
+    mechanism: [
+      "Workload discovery inventories every VM, container, serverless function and managed host across all seven supported clouds via read-only APIs.",
+      "The agentless scanner takes point-in-time volume snapshots inside your own account and analyses them out-of-band, so no software runs on the workload itself.",
+      "Each workload is evaluated against the compute and workload rule set — 219 dedicated posture rules — plus operating-system CIS benchmarks for Ubuntu, RHEL, SUSE, Debian and CentOS.",
+      "Vulnerability, container image, and host signal data is joined onto the same workload record, so one view shows configuration, packages, and exposure together.",
+      "Workload health rolls up into a single CWPP pillar score that trends over time and feeds the unified CNAPP score.",
+    ],
+    whatYouGet: [
+      "Unified workload inventory — VMs, containers, serverless, and hosts in one list",
+      "Per-workload posture score with severity-ranked findings",
+      "OS hardening results against CIS benchmarks for five Linux distributions",
+      "Package and vulnerability inventory collected without agents",
+      "Privileged and root-running workload detection",
+      "Runtime exposure — which workloads are internet-reachable",
+      "Serverless posture — runtime versions, execution roles, and environment secrets",
+      "CWPP pillar score trending, feeding the platform-wide CNAPP score",
+    ],
+    faqs: [
+      {
+        q: "Do I need to install an agent for CWPP?",
+        a: "No. Workload data is collected agentlessly using snapshot-based scanning that runs inside your own cloud account. There is no daemon, no sidecar, and no kernel module — and therefore no performance impact on production workloads.",
+      },
+      {
+        q: "How is CWPP different from Container Security?",
+        a: "Container Security focuses on the container-specific layer: images, registries, Kubernetes clusters and admission policy. CWPP is the umbrella across every compute form factor — including the VMs and serverless functions that are not containers at all. They share the same underlying findings.",
+      },
+      {
+        q: "What counts as a workload?",
+        a: "EC2 and equivalent virtual machines, container workloads on EKS/AKS/GKE/OKE/ACK, serverless functions such as Lambda and Azure Functions, and managed hosts. Each is discovered automatically — you do not maintain a workload list by hand.",
+      },
+      {
+        q: "How current is workload data?",
+        a: "Workload inventory refreshes on every discovery cycle. Snapshot-based deep scans run on a schedule you control, because they consume snapshot capacity in your account; most teams run them daily for production and weekly elsewhere.",
+      },
+    ],
+    related: [
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "Agentless Scanning", href: "/platform/agentless" },
+      { label: "Container Security", href: "/platform/container-security" },
+      { label: "Vulnerability Management", href: "/platform/vulnerability" },
+    ],
+  },
+
+  agentless: {
+    demoClips: ["scan", "onboard"],
+    icon: Radar,
+    iconColor: cyan,
+    label: "Agentless Scanning",
+    question: "How do you scan every workload without deploying anything?",
+    headline: "Nothing to install. Nothing to maintain. Nothing running in production.",
+    sub: "Onam scans workloads using point-in-time volume snapshots orchestrated inside your own cloud account with native services — AWS Step Functions, Azure Logic Apps and GCP Workflows. Your data never leaves your environment, and no software ever runs on the workload being scanned.",
+    painPoint:
+      "Agent rollouts are where security programmes go to die. Every agent needs a package, a version, a rollout plan, an exception list for the machines that break, and a renewed argument with the platform team every quarter. Six months in, coverage sits at 60%, the uncovered 40% is the legacy estate that most needs scanning, and nobody can say which is which.",
+    mechanism: [
+      "Onam assumes a read-only role and enumerates the volumes attached to every workload across your accounts.",
+      "A snapshot is created and analysed by a short-lived scan worker that runs inside your own account — orchestrated by AWS Step Functions, Azure Logic Apps, or GCP Workflows depending on the cloud.",
+      "Results are relayed through a storage bucket in your account; raw disk contents are never transferred to Onam. Only structured findings leave your environment.",
+      "A capacity manager per cloud throttles concurrent snapshots so scanning never competes with production for quota or IOPS.",
+      "Snapshots are deleted automatically once analysis completes, and a reconciler sweeps orphaned artefacts so nothing is left behind or billed.",
+    ],
+    whatYouGet: [
+      "100% workload coverage without a deployment project",
+      "Package and OS inventory from every scanned volume",
+      "Vulnerability detection against the workload's real installed software",
+      "Host configuration signals — users, keys, services, and hardening state",
+      "Secrets and credential discovery on disk",
+      "Zero production impact — no agent, no CPU, no memory, no kernel module",
+      "Automatic snapshot cleanup with orphan reconciliation",
+      "Per-cloud capacity controls so scanning respects your quotas",
+    ],
+    faqs: [
+      {
+        q: "Does my data leave my cloud account?",
+        a: "No. Snapshot analysis runs inside your own account and results are relayed through a bucket you own. Onam receives structured findings — package lists, configuration signals, finding records — never raw disk images or file contents.",
+      },
+      {
+        q: "Which clouds support agentless scanning?",
+        a: "AWS, Azure, GCP, OCI, IBM Cloud and Alibaba Cloud, each using that provider's native orchestration and snapshot primitives with a dedicated capacity manager.",
+      },
+      {
+        q: "Will snapshots increase my cloud bill?",
+        a: "Marginally and briefly. Snapshots are point-in-time, incremental, and deleted as soon as analysis finishes. A reconciler sweeps for orphaned snapshots so a failed scan cannot leave storage accruing cost.",
+      },
+      {
+        q: "Is anything lost compared to an agent?",
+        a: "Snapshot scanning is point-in-time, so it does not provide continuous runtime process telemetry. That gap is covered by the CDR engine, which reads cloud-native audit and flow logs for behavioural detection — again with no agent.",
+      },
+    ],
+    related: [
+      { label: "What is agentless cloud security?", href: "/learn/agentless-cloud-security" },
+      { label: "CWPP — Workload Protection", href: "/platform/cwpp" },
+      { label: "Vulnerability Management", href: "/platform/vulnerability" },
+      { label: "CDR — Detection & Response", href: "/platform/cdr" },
+    ],
+  },
+
+  "api-security": {
+    demoClips: ["network", "dashboard"],
+    icon: Webhook,
+    iconColor: pink400,
+    label: "API Security",
+    question: "Which of your APIs are exposed, unauthenticated, or unmonitored?",
+    headline: "Every API gateway you forgot about is still accepting requests.",
+    sub: "API Security discovers every API surface across your clouds — gateways, load-balanced endpoints, function URLs and ingress routes — and evaluates them against 241 application and API posture rules, then correlates them with runtime detection signals.",
+    painPoint:
+      "APIs multiply faster than anything else in a cloud estate. A team ships an API Gateway for a prototype, wires it to a Lambda, disables the authoriser 'just for testing', and moves on. Two years later it is still public, still unauthenticated, still has no WAF, still has no logging — and it is the single cheapest way into your account. Nobody removed it because nobody knew it existed.",
+    mechanism: [
+      "Discovery enumerates API surfaces across AWS, Azure, GCP, OCI, Alibaba and Kubernetes — API Gateway, App Gateway, Apigee, function URLs, ALB/NLB listeners and ingress resources.",
+      "Each endpoint is evaluated against 241 application and API security rules covering authentication, authorisation, throttling, WAF association, TLS policy and logging.",
+      "Endpoints are cross-referenced with the network graph so an API that is technically protected but reachable through an open path is treated as exposed.",
+      "A CDR enricher joins runtime signals onto each endpoint — so an unauthenticated API that is also seeing anomalous request volume is escalated rather than queued.",
+      "Shadow and orphaned APIs — endpoints with no recent traffic or no owning tag — are flagged for decommissioning.",
+    ],
+    whatYouGet: [
+      "Complete API inventory across every cloud and cluster",
+      "Unauthenticated and open-endpoint detection",
+      "WAF coverage gaps on internet-facing APIs",
+      "TLS and cipher policy validation per endpoint",
+      "Rate limiting and throttling configuration checks",
+      "API access logging and monitoring coverage",
+      "Shadow API detection — endpoints nobody owns",
+      "Runtime correlation — API posture joined to live CDR detection signals",
+    ],
+    faqs: [
+      {
+        q: "Does Onam send traffic to my APIs to test them?",
+        a: "Not as part of posture scanning. API Security reads configuration through read-only cloud APIs. Active testing against running endpoints is handled separately by the DAST scanner in the Code Security engine, which you point at targets explicitly.",
+      },
+      {
+        q: "Does this cover APIs running inside Kubernetes?",
+        a: "Yes. Ingress resources, services of type LoadBalancer, and gateway API objects are discovered alongside cloud-native gateways, so a cluster-hosted API is inventoried the same way a managed one is.",
+      },
+      {
+        q: "How do you find APIs nobody documented?",
+        a: "Discovery works from cloud resource state rather than from your API catalogue or an OpenAPI spec. If the endpoint exists in the account, it is inventoried — which is precisely how shadow APIs surface.",
+      },
+      {
+        q: "What is the overlap with Network Security?",
+        a: "Network Security answers whether a path exists to a resource. API Security answers whether the endpoint at the end of that path authenticates, throttles, logs, and terminates TLS correctly. Both run on the same graph, so the combined finding is one story, not two alerts.",
+      },
+    ],
+    related: [
+      { label: "Network Security", href: "/platform/network-security" },
+      { label: "Code Security (SecOps)", href: "/platform/secops" },
+      { label: "CDR — Detection & Response", href: "/platform/cdr" },
+    ],
+  },
+
+  "database-security": {
+    demoClips: ["datasec", "dashboard"],
+    icon: HardDrive,
+    iconColor: orange400,
+    label: "Database Security",
+    question: "Are your databases encrypted, private, audited, and backed up?",
+    headline: "The database is where the breach gets expensive.",
+    sub: "Database Security evaluates every managed and self-hosted database across your estate — RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift, OCI DB Systems and more — against 310 cloud database posture rules plus 1,364 CIS engine-level benchmark rules.",
+    painPoint:
+      "Nobody intends to leave a database public. It happens because a read replica inherits a subnet group nobody reviewed, or a snapshot gets shared to make a staging refresh easier and never gets unshared, or audit logging was on in the original instance but not the one restored from backup. Each step was reasonable. The result is a production database with customer data and a path in from the internet.",
+    mechanism: [
+      "Every database resource is discovered across AWS, Azure, GCP, OCI, IBM Cloud, Alibaba and Kubernetes through read-only APIs.",
+      "Cloud-level posture is evaluated against 310 storage and database rules — encryption at rest and in transit, public accessibility, backup retention, deletion protection, and audit configuration.",
+      "Engine-level hardening is evaluated against CIS benchmarks for the database software itself: PostgreSQL, MySQL, MariaDB, MSSQL, Oracle, IBM Db2, MongoDB and Cassandra.",
+      "Database findings are joined with data classification from DSPM, so a misconfiguration on a store holding PII is ranked above the same misconfiguration on a scratch database.",
+      "Identity context from CIEM shows which principals can actually connect, read, snapshot, or delete each database.",
+    ],
+    whatYouGet: [
+      "Complete database inventory — managed services and self-hosted engines",
+      "Encryption coverage at rest and in transit, per instance",
+      "Public accessibility and network exposure detection",
+      "Snapshot and backup exposure — including snapshots shared outside your account",
+      "Audit logging configuration against CIS engine benchmarks",
+      "Backup retention and point-in-time recovery compliance",
+      "Privileged database account and grant review",
+      "Sensitivity-weighted ranking — databases holding regulated data ranked first",
+    ],
+    faqs: [
+      {
+        q: "Does Onam connect to my databases and run queries?",
+        a: "For cloud posture, no — everything comes from cloud control-plane APIs. Engine-level CIS benchmark evaluation is optional and uses a read-only database account you provision explicitly if you want that depth.",
+      },
+      {
+        q: "Which database engines are covered by CIS benchmarks?",
+        a: "PostgreSQL, MySQL, MariaDB, Microsoft SQL Server, Oracle Database, IBM Db2, MongoDB and Cassandra — 1,364 benchmark rules in total, alongside the cloud-native database posture rules.",
+      },
+      {
+        q: "How is this different from Data Security (DSPM)?",
+        a: "DSPM answers what data you hold and who can reach it, across all storage types. Database Security goes deep on database resources specifically — engine hardening, backup posture, and connection security. DSPM classification feeds Database Security ranking, so the two reinforce each other.",
+      },
+      {
+        q: "Are self-hosted databases on VMs covered?",
+        a: "Yes. Databases running on EC2 or equivalent are discovered through the technology engine and evaluated against the same CIS engine benchmarks as managed services.",
+      },
+    ],
+    related: [
+      { label: "Data Security (DSPM)", href: "/platform/data-security" },
+      { label: "Encryption & Key Management", href: "/platform/encryption" },
+      { label: "CIEM — Who has access", href: "/platform/ciem" },
+    ],
+  },
+
+  encryption: {
+    demoClips: ["datasec", "compliance"],
+    icon: Lock,
+    iconColor: yellow,
+    label: "Encryption & Key Management",
+    question: "Is everything actually encrypted — and who can decrypt it?",
+    headline: "Encryption at rest is meaningless if the wrong principal holds the key.",
+    sub: "The encryption engine evaluates 502 secrets and key-management rules across every cloud — KMS, Key Vault, Cloud KMS and OCI Vault — then answers the question that matters more than the checkbox: which identities can decrypt your data.",
+    painPoint:
+      "Your compliance report says 100% encryption at rest. It is technically true and nearly useless. The bucket is encrypted with an AWS-managed key that every principal in the account can use. The key that protects your customer database has no rotation policy and a key policy with a wildcard principal. A certificate on your main load balancer expires in nine days. 'Encrypted' passed the audit; none of this did.",
+    mechanism: [
+      "Every key, vault, secret and certificate is discovered across AWS KMS, Azure Key Vault, GCP Cloud KMS, OCI Vault and their equivalents.",
+      "A coverage analyzer walks the resource inventory and identifies which resources are unencrypted, encrypted with provider-managed keys, or encrypted with customer-managed keys.",
+      "Key policies are resolved against the identity graph to compute the effective decrypt set — every principal that can actually use each key, including through role chains.",
+      "Certificate inventory tracks issuer, algorithm, and expiry across ACM and equivalent services, with lead-time alerting before expiry.",
+      "Rotation state, deletion protection, and key-material origin are checked against 502 secrets and key-management rules mapped to CIS, NIST and PCI-DSS controls.",
+    ],
+    whatYouGet: [
+      "Encryption coverage report — unencrypted, provider-managed, and customer-managed, per resource",
+      "Effective decrypt set — every identity that can use each key",
+      "Key rotation compliance and overdue rotation alerts",
+      "Certificate inventory with expiry lead-time warnings",
+      "Key policy analysis — wildcard principals and cross-account grants",
+      "Secrets manager posture — rotation, versioning, and access scope",
+      "In-transit enforcement gaps — TLS policy on endpoints and load balancers",
+      "Framework mapping for encryption controls across CIS, NIST 800-53 and PCI-DSS v4",
+    ],
+    faqs: [
+      {
+        q: "Can Onam see my key material or decrypt my data?",
+        a: "No. The engine reads key metadata and policy through read-only APIs — algorithm, rotation state, policy document, and expiry. It never requests decrypt permission and never handles key material or plaintext.",
+      },
+      {
+        q: "Why does customer-managed vs provider-managed matter?",
+        a: "A provider-managed key is usable by a broad set of principals in the account and its policy is not yours to control. For regulated data, most frameworks expect a customer-managed key with an explicit policy and a rotation schedule. The coverage report separates the two so the distinction is visible rather than hidden behind one 'encrypted' flag.",
+      },
+      {
+        q: "How far ahead are certificate expiries flagged?",
+        a: "Certificates are tracked continuously with escalating severity as expiry approaches, so renewal work surfaces weeks ahead rather than as an outage.",
+      },
+      {
+        q: "Does this cover secrets in code or environment variables?",
+        a: "Secrets in source code and IaC are detected by the Code Security engine, and secrets on disk are found by agentless scanning. This engine covers the managed key and secret services themselves. All three write to the same findings model.",
+      },
+    ],
+    related: [
+      { label: "Data Security (DSPM)", href: "/platform/data-security" },
+      { label: "Database Security", href: "/platform/database-security" },
+      { label: "Compliance frameworks", href: "/platform/compliance" },
+    ],
+  },
+
+  "ai-assistant": {
+    demoClips: ["dashboard", "attack"],
+    icon: Bot,
+    iconColor: csmPurple,
+    label: "AI Assistant",
+    question: "Can I just ask what my security posture looks like?",
+    headline: "Ask a question. Get an answer grounded in your actual findings.",
+    sub: "The AI assistant is a multi-agent system with thirteen domain specialists — IAM, compliance, encryption, containers, network, CDR, risk, vulnerability, data security and more — each able to query your real findings rather than guess from a document.",
+    painPoint:
+      "The answer to 'which of our production databases are exposed to the internet and hold customer data' exists in your platform. Getting it out means knowing which console to open, which filters to combine, and how the data model joins databases to classification to network reachability. So the question gets asked in Slack, someone spends forty minutes on it, and the next person asks it again next month.",
+    mechanism: [
+      "An orchestrator interprets your question and routes it to the domain specialists that can answer it — often several at once for a cross-domain question.",
+      "Each specialist queries your live findings through the same APIs the console uses, scoped to your tenant and your permissions.",
+      "Answers cite the findings they were derived from, so every claim links back to the specific resource, rule, and severity behind it.",
+      "Cross-domain questions are composed from multiple specialists — an exposure question joins network, data, and identity results into one answer.",
+      "The assistant reads; it does not change your cloud. Remediation is proposed as a reviewable action, never executed silently.",
+    ],
+    whatYouGet: [
+      "Natural-language querying across every engine's findings",
+      "Thirteen domain specialists — IAM, compliance, encryption, database, container, network, CDR, risk, threat, vulnerability, data security, AI security, and findings",
+      "Cited answers — every claim links to the underlying finding",
+      "Cross-domain synthesis in a single question",
+      "Tenant-scoped and permission-scoped — the assistant sees only what you can see",
+      "Attack path explanation in plain language",
+      "Remediation guidance drawn from the finding's own remediation record",
+      "Read-only by design — no silent changes to your environment",
+    ],
+    faqs: [
+      {
+        q: "Is my security data used to train a model?",
+        a: "No. Your findings are used to answer your questions within your tenant and are not used as training data.",
+      },
+      {
+        q: "Can the assistant change my cloud configuration?",
+        a: "No. It is read-only. It can explain a finding and surface the remediation the platform already generated, but applying a fix goes through the normal remediation workflow with human approval.",
+      },
+      {
+        q: "How accurate are the answers?",
+        a: "Answers are generated from queries against your real findings rather than from a general model's recollection, and each answer cites the findings behind it — so you can verify any claim by following the link. Where the data does not support an answer, the assistant says so instead of estimating.",
+      },
+      {
+        q: "Can it see other tenants' data?",
+        a: "No. Every specialist query is scoped to your tenant and to your user's permissions, using the same authorisation path as the console.",
+      },
+    ],
+    related: [
+      { label: "Remediation & Auto-Fix", href: "/platform/remediation" },
+      { label: "Attack Path Analysis", href: "/platform/attack-path" },
+      { label: "Risk Quantification", href: "/platform/risk" },
+    ],
+  },
+
+  remediation: {
+    demoClips: ["dashboard", "scan"],
+    icon: Wrench,
+    iconColor: csmGreen,
+    label: "Remediation & Auto-Fix",
+    question: "How do findings actually get fixed instead of just counted?",
+    headline: "A finding without a fix is just a well-formatted complaint.",
+    sub: "The remediation engine generates the specific fix for each finding — CLI command, Terraform snippet, or pull request against your repository — and explains why it matters in language an engineer will act on.",
+    painPoint:
+      "Security tools are very good at producing findings and very bad at producing outcomes. The queue grows, the dashboard turns red, and the engineering team receives a ticket saying 'S3 bucket policy is overly permissive' with a link back to the tool. Nobody disagrees that it should be fixed. It does not get fixed, because turning that sentence into a correct change against a specific bucket in a specific account is the actual work, and the tool left it undone.",
+    mechanism: [
+      "Every finding carries a remediation record generated for that specific resource — not a generic knowledge-base article.",
+      "Cloud misconfigurations produce an exact CLI command, a Terraform snippet matching your resource, or console steps.",
+      "Code and IaC findings from SAST, DAST and SCA are remediated by the code-fix engine, which proposes a patch and can open a pull request against the repository the finding came from.",
+      "Vulnerability findings produce a version-targeted upgrade path, checked against the dependency graph so the suggested bump does not break a transitive constraint.",
+      "A threat narrative generator explains the finding as an attack story — what an attacker gains, and what the fix removes — so prioritisation conversations are about impact rather than severity labels.",
+    ],
+    whatYouGet: [
+      "Per-resource remediation for every finding — CLI, Terraform, or console steps",
+      "Pull-request generation for code and IaC findings",
+      "Version-targeted dependency upgrade paths for vulnerabilities",
+      "Threat narratives explaining attacker impact in plain language",
+      "Bulk remediation for findings sharing a root cause",
+      "Suppression workflow with justification and expiry for accepted risk",
+      "Remediation tracking — what was fixed, by whom, and when",
+      "Verification on the next scan that the fix actually landed",
+    ],
+    faqs: [
+      {
+        q: "Does Onam apply fixes to my cloud automatically?",
+        a: "Not without your explicit action. The platform connects with read-only credentials by default and generates remediation for you to review and apply. Automated application is opt-in, per finding type, and always leaves an audit trail.",
+      },
+      {
+        q: "How do pull requests work?",
+        a: "For code, IaC and dependency findings, the engine proposes a patch and opens a pull request against the source repository through your connected GitHub or GitLab integration. Your normal review and CI process applies — nothing merges itself.",
+      },
+      {
+        q: "What if a fix would break something?",
+        a: "Remediation is a proposal, not an action. Dependency upgrades are checked against the dependency graph before being suggested, and every remediation shows the resource and blast radius it affects so you can judge before applying.",
+      },
+      {
+        q: "How do I know a fix worked?",
+        a: "The next scan re-evaluates the resource against the same rule. Findings close on evidence rather than on someone marking a ticket done, and reopened findings are flagged as regressions.",
+      },
+    ],
+    related: [
+      { label: "AI Assistant", href: "/platform/ai-assistant" },
+      { label: "Code Security (SecOps)", href: "/platform/secops" },
+      { label: "Vulnerability Management", href: "/platform/vulnerability" },
+    ],
+  },
+
+  inventory: {
+    demoClips: ["assets", "scan"],
+    icon: Boxes,
+    iconColor: blue400,
+    label: "Asset Inventory & Discovery",
+    question: "What do you actually run — across every cloud, in one list?",
+    headline: "You cannot secure what nobody has counted.",
+    sub: "The discovery engine is the foundation every other engine reads from: continuous, read-only enumeration of every resource across seven clouds and 549 services, with the relationships between them modelled as a graph.",
+    painPoint:
+      "Ask three teams how many cloud accounts the company has and you will get three numbers. The spreadsheet is a year old, the tagging standard was adopted by two of nine teams, and the account someone opened for a proof of concept in 2022 is still running, still billed, and still has a production database in it. Every security control you own applies only to the resources you know about.",
+    mechanism: [
+      "Discovery enumerates every resource across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes — 549 services in total — using read-only credentials.",
+      "Each resource is normalised into a shared model, so an AWS security group and an Azure network security group are comparable objects rather than two vendor formats.",
+      "Relationships are modelled explicitly — which instance sits in which subnet, which role is assumed by which function, which volume is attached where — forming the graph that attack-path analysis walks.",
+      "Discovery runs continuously, so new resources appear in inventory within minutes of creation and deleted resources are retired rather than lingering.",
+      "Every other engine reads from this inventory, which is why a resource cannot be evaluated by one engine and invisible to another.",
+    ],
+    whatYouGet: [
+      "Unified inventory across seven clouds and 549 services",
+      "Normalised resource model — comparable objects across providers",
+      "Relationship graph — the dependency map attack paths are computed on",
+      "Continuous refresh with new-resource detection in minutes",
+      "Untagged, unowned and orphaned resource reports",
+      "Multi-account and multi-subscription rollup in one view",
+      "Resource history — what changed, and when",
+      "Coverage reporting — which accounts and regions are actually being scanned",
+    ],
+    faqs: [
+      {
+        q: "How many services does discovery cover?",
+        a: "549 services across seven providers — 123 on AWS, 95 on Azure, 71 on GCP, 68 on Alibaba Cloud, 68 on Kubernetes, 63 on IBM Cloud and 61 on OCI. Coverage expands with each rule-catalogue release.",
+      },
+      {
+        q: "Does discovery need write access?",
+        a: "No. Enumeration uses read-only IAM roles, service principals, or service accounts. The platform stores a role reference rather than long-lived keys.",
+      },
+      {
+        q: "How quickly does a new resource appear?",
+        a: "Typically within minutes. Discovery runs continuously rather than on a nightly batch, which is what makes same-day misconfiguration detection possible.",
+      },
+      {
+        q: "Can I query the inventory programmatically?",
+        a: "Yes. Inventory is available through the REST API with the same normalised model the console uses, so it can feed a CMDB, a data warehouse, or your own tooling.",
+      },
+    ],
+    related: [
+      { label: "CSPM — Misconfigurations", href: "/platform/cspm" },
+      { label: "Attack Path Analysis", href: "/platform/attack-path" },
+      { label: "Technology Engine", href: "/platform/technology" },
+    ],
+  },
+
+  cnapp: {
+    demoClips: ["dashboard", "compliance"],
+    icon: ShieldHalf,
+    iconColor: brand400,
+    label: "CNAPP",
+    question: "What is our overall cloud security posture, in one number?",
+    headline: "Seven pillars. One score. No spreadsheet required.",
+    sub: "CNAPP is the unified view across everything Onam runs — CSPM, CIEM, CWPP, DSPM, network, threat and AppSec — each scored as a pillar, rolled into a single posture score that a board can read and an engineer can drill into.",
+    painPoint:
+      "Every security tool reports its own number. Posture says 74. The vulnerability scanner says 12,000 open CVEs. The compliance tool says 88% CIS. The identity tool says 400 over-privileged roles. None of them are wrong and none of them combine, so the answer to 'are we getting better' becomes a quarterly slide someone assembles by hand from four exports.",
+    mechanism: [
+      "Each of the seven pillars — CSPM, CIEM, CWPP, DSPM, network, threat and AppSec — is scored from the findings its engines produced, on a common 0–100 scale.",
+      "Pillar scores are weighted by severity and by exposure, so a critical finding on an internet-reachable resource moves the score more than the same finding on an isolated one.",
+      "Scores roll into one overall posture score with a risk band, trended over time so improvement is measurable rather than asserted.",
+      "Every score decomposes — click a pillar to see the findings behind it, click a finding to see the resource and the remediation.",
+      "Because all pillars read the same findings model, the same resource is never counted twice or scored inconsistently between views.",
+    ],
+    whatYouGet: [
+      "One posture score with a risk band, trended over time",
+      "Seven pillar scores — CSPM, CIEM, CWPP, DSPM, network, threat, AppSec",
+      "Severity- and exposure-weighted scoring rather than raw finding counts",
+      "Full decomposition — score to pillar to finding to resource",
+      "Trend analysis showing whether posture is improving or degrading",
+      "Executive reporting that does not require manual assembly",
+      "Per-account and per-environment score breakdown",
+      "Consistent scoring across every engine on one findings model",
+    ],
+    faqs: [
+      {
+        q: "How is the posture score calculated?",
+        a: "Each pillar scores its own findings on a 0–100 scale weighted by severity and by exposure, and those pillar scores roll into an overall score with a risk band. The calculation is transparent — every score decomposes to the findings behind it.",
+      },
+      {
+        q: "Is CNAPP a separate product I buy?",
+        a: "No. It is the unified view over the engines you already run. There is nothing extra to deploy — connecting a cloud account populates the pillars automatically.",
+      },
+      {
+        q: "Why does my score move when I did not change anything?",
+        a: "Because your environment changes. New resources are discovered continuously, and a newly deployed misconfigured resource lowers the score the same day it appears. Score history shows exactly which findings caused a movement.",
+      },
+      {
+        q: "Can I compare scores across accounts or business units?",
+        a: "Yes. Scores break down per account, per subscription, and per environment, which is how most teams drive accountability without arguing about whose findings belong to whom.",
+      },
+    ],
+    related: [
+      { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "Risk Quantification", href: "/platform/risk" },
+      { label: "CSPM — Misconfigurations", href: "/platform/cspm" },
+      { label: "Compliance frameworks", href: "/platform/compliance" },
     ],
   },
 };

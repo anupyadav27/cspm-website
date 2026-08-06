@@ -178,11 +178,14 @@ const NAV = [
         {id:'encryption',label:'Encryption'},{id:'container-security',label:'Container Security'},
         {id:'ai-security',label:'AI Security'},{id:'api-security',label:'API Security'},{id:'database-security',label:'Database Security'}] },
   { id:'saas-security', label:'SaaS Security',  icon:'Plug',           sub:'GWS · M365 · GitHub · Okta',
-    ch:[{id:'gws',label:'Google Workspace'},{id:'m365',label:'Microsoft 365'},{id:'github-sec',label:'GitHub'},{id:'okta',label:'Okta'}] },
+    ch:[{id:'gws',label:'Google Workspace'},{id:'m365',label:'Microsoft 365'},{id:'github-sec',label:'GitHub'},{id:'okta',label:'Okta'},
+        {id:'gitlab',label:'GitLab'},{id:'sharepoint',label:'SharePoint'},{id:'snowflake',label:'Snowflake'},{id:'dynamics',label:'Dynamics 365'}] },
   { section:'DETECTION & DATA' },
+  { id:'cnapp',         label:'CNAPP',          icon:'Shield',          sub:'Unified Posture Score' },
   { id:'ciem',          label:'CIEM',           icon:'UserSearch',      sub:'Identity & Entitlements' },
   { id:'cdr',           label:'CDR',            icon:'Eye',             sub:'Cloud Detection & Response' },
   { id:'cwpp',          label:'CWPP',           icon:'Box',             sub:'Cloud Workload Protection' },
+  { id:'agentless',     label:'Agentless Scan', icon:'Radar',           sub:'Snapshot-based · No agents' },
   { id:'data-security', label:'Data Security',  icon:'Lock',            sub:'DSPM · Database',
     ch:[{id:'datasec',label:'Data Posture'}] },
   { section:'CODE SECURITY' },
@@ -1105,8 +1108,169 @@ setTimeout(()=>{
 },3600);
 </script>`);
 
+// ── SCREEN: SAAS SECURITY (SSPM) ──────────────────────────────────────────────
+const saasSecurity = page('m365', ['saas-security'], 'SaaS Security', `
+${topbar('SaaS Security — SSPM','<button class="btn-secondary">Add Platform</button><button class="btn-primary">↓ Export CIS Report</button>',[['4 Admins without MFA','red'],['433 CIS SaaS Rules','purple']])}
+<div class="content">
+  <div class="kpi-row">
+    ${[['8','SaaS Platforms Connected','#6366f1',''],['4','Admins without MFA','#be123c','Privileged — fix now'],['118','External Shares','#c2410c','Anyone-with-link'],['26','Stale Guest Accounts','#a16207','No sign-in > 90 days']].map(([v,l,c,d])=>`
+    <div class="kpi" style="border-left-color:${c}">
+      <div class="kpi-v" style="color:${c}">${v}</div>
+      <div class="kpi-l">${l}</div>
+      ${d?`<div class="kpi-d" style="color:${c}">${d}</div>`:''}
+    </div>`).join('')}
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+    ${[['Microsoft 365',74,'130 CIS rules'],['Google Workspace',81,'89 CIS rules'],['GitLab',69,'122 CIS rules'],['Snowflake',77,'39 CIS rules'],['SharePoint',72,'37 CIS rules'],['GitHub',85,'Org posture checks'],['Dynamics 365',88,'16 CIS rules'],['Okta',79,'Identity posture checks']].map(([p,pct,rules])=>{
+      const c = scoreColor(pct);
+      return `<div class="card" style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">
+          <div style="font-size:12.5px;font-weight:700;color:#0f172a;line-height:1.3">${p}</div>
+          <div style="font-size:21px;font-weight:800;color:${c};margin-left:8px;flex-shrink:0">${pct}%</div>
+        </div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%;background:${c}"></div></div>
+        <div style="margin-top:8px;font-size:11px;font-weight:600;color:#64748b">${rules}</div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Finding</th><th>Severity</th><th>Platform</th><th>Principal / Object</th><th>CIS Control</th><th>Status</th></tr></thead>
+      <tbody>
+      ${[
+        ['Global Administrator without MFA enforced','CRITICAL','Microsoft 365','admin@acme.com','CIS M365 1.1.1','OPEN'],
+        ['SharePoint site shared with "Anyone with the link"','CRITICAL','SharePoint','/sites/finance-fy26','CIS SP 2.3.4','OPEN'],
+        ['Unified Audit Log disabled at tenant level','HIGH','Microsoft 365','acme.onmicrosoft.com','CIS M365 3.1.1','OPEN'],
+        ['ACCOUNTADMIN granted to service account','HIGH','Snowflake','svc_etl_prod','CIS SNOW 1.4','OPEN'],
+        ['Guest account inactive for 214 days','MEDIUM','Google Workspace','contractor@ext.com','CIS GWS 2.1.7','OPEN'],
+        ['Branch protection disabled on default branch','HIGH','GitLab','acme/payments-api','CIS GL 4.2.1','IN PROGRESS'],
+        ['Drive files shared externally without expiry','MEDIUM','Google Workspace','142 files','CIS GWS 5.2.3','OPEN'],
+        ['Admin Reports retention set below 180 days','MEDIUM','Google Workspace','acme.com','CIS GWS 3.4.1','ACCEPTED'],
+      ].map(([f,sev,plat,obj,ctrl,status])=>`
+      <tr>
+        <td style="max-width:320px;font-size:12.5px;color:#1e293b;line-height:1.4;font-weight:500">${f}</td>
+        <td>${sevBadge(sev)}</td>
+        <td>${badge(plat,'purple')}</td>
+        <td><span class="mono" style="color:#64748b">${obj}</span></td>
+        <td><span class="mono" style="font-weight:700;color:#6366f1">${ctrl}</span></td>
+        <td>${badge(status,status==='OPEN'?'red':status==='IN PROGRESS'?'amber':'gray')}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>
+</div>`);
+
+// ── SCREEN: CWPP ──────────────────────────────────────────────────────────────
+const cwpp = page('cwpp', [], 'CWPP', `
+${topbar('CWPP — Cloud Workload Protection','<button class="btn-secondary">Schedule Scan</button><button class="btn-primary">↓ Export Inventory</button>',[['Agentless — 100% Coverage','green'],['9 Critical Workloads','red']])}
+<div class="content">
+  <div class="kpi-row">
+    ${[['1,284','Workloads Protected','#6366f1','100% agentless'],['9','Critical Findings','#be123c','Internet-reachable'],['37','Privileged Containers','#c2410c','Running as root'],['68','Workload Score','#a16207','CWPP pillar']].map(([v,l,c,d])=>`
+    <div class="kpi" style="border-left-color:${c}">
+      <div class="kpi-v" style="color:${c}">${v}</div>
+      <div class="kpi-l">${l}</div>
+      ${d?`<div class="kpi-d" style="color:${c}">${d}</div>`:''}
+    </div>`).join('')}
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+    ${[['Virtual Machines',612,71],['Containers',498,64],['Serverless',147,83],['Managed Hosts',27,76]].map(([t,count,pct])=>{
+      const c = scoreColor(pct);
+      return `<div class="card" style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:9px">
+          <div style="font-size:12.5px;font-weight:700;color:#0f172a">${t}</div>
+          <div style="font-size:21px;font-weight:800;color:${c};margin-left:8px;flex-shrink:0">${pct}</div>
+        </div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%;background:${c}"></div></div>
+        <div style="margin-top:8px;font-size:11px;font-weight:600;color:#64748b">${count} workloads</div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Workload</th><th>Type</th><th>Severity</th><th>Finding</th><th>OS / Runtime</th><th>Exposure</th><th>Cloud</th></tr></thead>
+      <tbody>
+      ${[
+        ['i-0a3f8b2c9d1e4f7a1','VM','CRITICAL','Unpatched OpenSSL 3.0.8 — CVE-2024-3094 exploitable','Ubuntu 22.04','Internet-facing','AWS'],
+        ['payments-api-7c4d9','Container','CRITICAL','Container running as privileged with hostPath mount','Alpine 3.18','Internet-facing','AWS EKS'],
+        ['vm-prod-db-westus-02','VM','HIGH','Root SSH key baked into base image','RHEL 9.2','Internal','Azure'],
+        ['invoice-processor','Serverless','HIGH','Runtime python3.8 past end-of-support','python3.8','Internet-facing','AWS Lambda'],
+        ['gke-node-pool-3-x8k2','VM','HIGH','CIS Ubuntu 3.4.2 — IP forwarding enabled','Ubuntu 20.04','Internal','GCP'],
+        ['legacy-etl-runner','VM','MEDIUM','No host-based audit logging configured','CentOS 7.9','Internal','OCI'],
+        ['frontend-cdn-9f2a1','Container','MEDIUM','Image last rebuilt 214 days ago','Debian 12','Internet-facing','AWS ECS'],
+        ['reporting-fn-eu-01','Serverless','LOW','Environment variable holds plaintext connection string','node20','Internal','Azure'],
+      ].map(([w,type,sev,finding,os,exp,cloud])=>`
+      <tr>
+        <td><span class="mono" style="font-weight:700;color:#6366f1">${w}</span></td>
+        <td>${badge(type,'gray')}</td>
+        <td>${sevBadge(sev)}</td>
+        <td style="max-width:300px;font-size:12.5px;color:#1e293b;line-height:1.4">${finding}</td>
+        <td><span class="mono" style="color:#64748b">${os}</span></td>
+        <td>${badge(exp,exp==='Internet-facing'?'red':'gray')}</td>
+        <td class="row-meta">${cloud}</td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>
+</div>`);
+
+// ── SCREEN: CNAPP ─────────────────────────────────────────────────────────────
+const cnapp = page('cnapp', [], 'CNAPP', `
+${topbar('CNAPP — Unified Posture','<button class="btn-secondary">Compare Accounts</button><button class="btn-primary">↓ Export Board Report</button>',[['Score 71 — Medium Risk','amber'],['↑ 6 pts this month','green']])}
+<div class="content">
+  <div class="kpi-row">
+    ${[['71','Overall Posture Score','#a16207','Medium risk band'],['+6','Change This Month','#16a34a','Improving'],['649','Critical Findings','#be123c','Across all pillars'],['7','Pillars Scored','#6366f1','']].map(([v,l,c,d])=>`
+    <div class="kpi" style="border-left-color:${c}">
+      <div class="kpi-v" style="color:${c}">${v}</div>
+      <div class="kpi-l">${l}</div>
+      ${d?`<div class="kpi-d" style="color:${c}">${d}</div>`:''}
+    </div>`).join('')}
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px">
+    ${[['CSPM','Cloud config compliance',68,'2,689 rules'],['CIEM','Identity & entitlements',62,'1,459 rules'],['CWPP','Workload protection',71,'1,284 workloads'],['DSPM','Data security posture',66,'1,321 rules'],['Network','7-layer network posture',77,'1,166 rules'],['Threat','Attack paths & MITRE',59,'34 live paths'],['AppSec','SAST · DAST · SCA',82,'2,340 rules'],['SSPM','SaaS security posture',75,'433 rules']].map(([p,desc,pct,meta])=>{
+      const c = scoreColor(pct);
+      return `<div class="card" style="padding:16px 18px">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px">
+          <div style="font-size:13px;font-weight:800;color:#0f172a">${p}</div>
+          <div style="font-size:22px;font-weight:800;color:${c};margin-left:8px;flex-shrink:0">${pct}</div>
+        </div>
+        <div style="font-size:10.5px;color:#94a3b8;margin-bottom:9px">${desc}</div>
+        <div class="score-bar-wrap"><div class="score-bar" style="width:${pct}%;background:${c}"></div></div>
+        <div style="margin-top:8px;font-size:11px;font-weight:600;color:#64748b">${meta}</div>
+      </div>`;
+    }).join('')}
+  </div>
+  <div class="tbl-wrap">
+    <table class="tbl">
+      <thead><tr><th>Pillar</th><th>Top Contributing Finding</th><th>Severity</th><th>Resources</th><th>Score Impact</th><th>Trend</th></tr></thead>
+      <tbody>
+      ${[
+        ['Threat','Attack path: public EC2 → IMDSv1 → admin role → S3 crown jewel','CRITICAL','4','−8.2','↓ worsening'],
+        ['CIEM','412 identities hold unused administrative permissions','CRITICAL','412','−6.7','↑ improving'],
+        ['CSPM','S3 buckets without block-public-access across 3 accounts','CRITICAL','17','−5.4','↑ improving'],
+        ['DSPM','847K PII records in publicly reachable storage','CRITICAL','3','−5.1','→ flat'],
+        ['CWPP','Privileged containers with hostPath mounts in production','HIGH','37','−3.8','↑ improving'],
+        ['Network','Security groups allowing 0.0.0.0/0 on management ports','HIGH','24','−3.2','↑ improving'],
+        ['SSPM','Microsoft 365 global admins without MFA enforcement','CRITICAL','4','−2.9','→ flat'],
+        ['AppSec','Hardcoded credentials detected in application source','HIGH','11','−1.6','↑ improving'],
+      ].map(([pillar,finding,sev,res,impact,trend])=>`
+      <tr>
+        <td>${badge(pillar,'purple')}</td>
+        <td style="max-width:340px;font-size:12.5px;color:#1e293b;line-height:1.4;font-weight:500">${finding}</td>
+        <td>${sevBadge(sev)}</td>
+        <td><span class="mono" style="color:#64748b">${res}</span></td>
+        <td><span style="font-size:12.5px;font-weight:700;color:#be123c">${impact}</span></td>
+        <td><span style="font-size:11.5px;font-weight:600;color:${trend.startsWith('↑')?'#16a34a':trend.startsWith('↓')?'#be123c':'#94a3b8'}">${trend}</span></td>
+      </tr>`).join('')}
+      </tbody>
+    </table>
+  </div>
+</div>`);
+
 // ── WRITE ALL ─────────────────────────────────────────────────────────────────
 const screens = [
+  {f:'screen-saas-security.html',      h:saasSecurity},
+  {f:'screen-cwpp.html',               h:cwpp},
+  {f:'screen-cnapp.html',              h:cnapp},
   {f:'screen-dashboard.html',          h:dashboard},
   {f:'screen-findings.html',           h:findings},
   {f:'screen-attack-path.html',        h:attackPath},

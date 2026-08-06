@@ -11,10 +11,10 @@
   --shadow-sm:0 1px 3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.04);
   --shadow-md:0 4px 12px rgba(0,0,0,.08),0 2px 4px rgba(0,0,0,.05);
 }
-body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflow:hidden;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
+body{font-family:'Inter',system-ui,sans-serif;width:1440px;height:900px;overflow:hidden;background:var(--bg);color:var(--text);-webkit-font-smoothing:antialiased}
 
 /* ── SIDEBAR ── */
-.sb{position:fixed;left:0;top:0;width:240px;height:1080px;background:#fafbfc;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:20}
+.sb{position:fixed;left:0;top:0;width:240px;height:900px;background:#fafbfc;border-right:1px solid var(--border);display:flex;flex-direction:column;z-index:20}
 .sb-logo{height:56px;display:flex;align-items:center;padding:0 18px;border-bottom:1px solid var(--border);flex-shrink:0;gap:10px}
 .sb-nav{flex:1;overflow-y:auto;padding:6px 0 8px;scrollbar-width:thin;scrollbar-color:#e2e8f0 transparent}
 .sb-nav::-webkit-scrollbar{width:3px}
@@ -34,7 +34,7 @@ body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflo
 .sb-avatar{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#818cf8,#6366f1);display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px;font-weight:700;flex-shrink:0}
 
 /* ── MAIN ── */
-.main{margin-left:240px;height:1080px;display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
+.main{margin-left:240px;height:900px;display:flex;flex-direction:column;overflow:hidden;background:var(--bg2)}
 .topbar{height:56px;border-bottom:1px solid var(--border);background:#fff;display:flex;align-items:center;justify-content:space-between;padding:0 24px;flex-shrink:0}
 .tb-title{font-size:15px;font-weight:700;color:#0f172a;letter-spacing:-.01em}
 .tb-right{display:flex;align-items:center;gap:10px}
@@ -84,11 +84,9 @@ body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflo
 </style></head><body>
 <div class="sb">
   <div class="sb-logo">
-    <img src="https://d1fp5dwui44wle.cloudfront.net/logo.svg" alt="Onam Security" style="height:34px;width:auto;max-width:164px"
-      onerror="this.style.display='none';document.getElementById('lf').style.display='flex'"/>
-    <div id="lf" style="display:none;align-items:center;gap:8px">
-      <svg width="24" height="24" viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#818CF8"/><stop offset="100%" stop-color="#6366F1"/></linearGradient></defs><path d="M16 2L28 7L28 17C28 23 22 28 16 30C10 28 4 23 4 17L4 7Z" fill="url(#lg)"/><circle cx="16" cy="16" r="6" fill="none" stroke="white" stroke-width="2"/></svg>
-      <span style="font-size:13.5px;font-weight:700;color:#0f172a">Onam Security</span>
+    <div style="display:flex;align-items:center;gap:9px">
+      <svg width="30" height="30" viewBox="0 0 80 80" style="flex-shrink:0"><polygon points="40,6 48.5,40 40,74 31.5,40" fill="#082869"/><polygon points="12,40 40,31.5 68,40 40,48.5" fill="#2563EB"/><circle cx="40" cy="40" r="3" fill="#FFFFFF"/></svg>
+      <span style="font-size:15px;font-weight:800;color:#0f172a;letter-spacing:.2px">Onam Security</span>
     </div>
   </div>
   <nav class="sb-nav" id="sbNav"><div class="sb-item" style="" data-id="dashboard">
@@ -154,7 +152,14 @@ body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflo
         <span class="sb-sub">GWS · M365 · GitHub · Okta</span>
       </div>
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" style="margin-left:auto;flex-shrink:0;color:#94a3b8;transition:transform .2s;"><polyline points="6 9 12 15 18 9"/></svg>
-    </div><div class="sb-sec">DETECTION & DATA</div><div class="sb-item" style="" data-id="ciem">
+    </div><div class="sb-sec">DETECTION & DATA</div><div class="sb-item" style="" data-id="cnapp">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">CNAPP</span>
+        <span class="sb-sub">Unified Posture Score</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="ciem">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><circle cx="10" cy="7" r="4"/><path d="M10.3 15H7a4 4 0 0 0-4 4v2"/><circle cx="17" cy="17" r="3"/><path d="m21 21-1.9-1.9"/></svg>
       <div class="sb-lw">
         <span class="sb-label">CIEM</span>
@@ -173,6 +178,13 @@ body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflo
       <div class="sb-lw">
         <span class="sb-label">CWPP</span>
         <span class="sb-sub">Cloud Workload Protection</span>
+      </div>
+      
+    </div><div class="sb-item" style="" data-id="agentless">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M19.07 4.93A10 10 0 0 0 6.99 3.34"/><path d="M2.29 9.62A10 10 0 1 0 21.31 8.35"/><path d="M16.24 7.76A6 6 0 1 0 8.23 16.67"/><circle cx="12" cy="12" r="2"/><path d="m13.41 10.59 5.66-5.66"/></svg>
+      <div class="sb-lw">
+        <span class="sb-label">Agentless Scan</span>
+        <span class="sb-sub">Snapshot-based · No agents</span>
       </div>
       
     </div><div class="sb-item" style="" data-id="data-security">
@@ -319,7 +331,7 @@ body{font-family:'Inter',system-ui,sans-serif;width:1920px;height:1080px;overflo
       <tbody>
         <tr>
           <td style="font-size:12.5px;font-weight:600;color:#0f172a">aws-prod-main</td>
-          <td><span class="mono">123456789012</span></td>
+          <td><span class="mono">588989875114</span></td>
           <td><span style="display:inline-flex;align-items:center;height:20px;padding:0 8px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.01em;color:#c2410c;background:#fff7ed;border:1px solid #fed7aa;white-space:nowrap">AWS</span></td>
           <td style="text-align:right;font-size:12.5px;font-weight:600">12,481</td>
           <td class="row-meta">2 min ago</td>
