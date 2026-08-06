@@ -9,6 +9,7 @@ export const Route = createFileRoute("/solutions/gcp")({
       title: "Google Cloud (GCP) Security Posture Management — Onam Security",
       description: gcpData.sub,
       path: "/solutions/gcp",
+      image: "/og/solutions-gcp.png",
     }),
   component: () => <CloudSolutionTemplate data={gcpData} />,
 });

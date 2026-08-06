@@ -12,6 +12,7 @@ export const Route = createFileRoute("/platform/cspm")({
       description:
         "Onam CSPM finds cloud misconfigurations across AWS, Azure, GCP, OCI, Alibaba, IBM & Kubernetes — 9,853 posture rules, 100% agentless, continuous scanning, exact remediation for every finding.",
       path: "/platform/cspm",
+      image: "/og/platform-cspm.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

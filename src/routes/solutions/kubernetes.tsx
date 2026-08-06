@@ -9,6 +9,7 @@ export const Route = createFileRoute("/solutions/kubernetes")({
       title: "Kubernetes & EKS Security Posture Management — Onam Security",
       description: kubernetesData.sub,
       path: "/solutions/kubernetes",
+      image: "/og/solutions-kubernetes.png",
     }),
   component: () => <CloudSolutionTemplate data={kubernetesData} />,
 });

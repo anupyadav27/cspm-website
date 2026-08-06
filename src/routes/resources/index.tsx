@@ -12,6 +12,7 @@ export const Route = createFileRoute("/resources/")({
       description:
         "Guides, documentation, and technical references for cloud security practitioners.",
       path: "/resources",
+      image: "/og/resources.png",
     }),
   component: Page,
 });

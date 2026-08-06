@@ -53,3 +53,6 @@ Allow: /
 Sitemap: https://www.onamsecurity.com/sitemap.xml
 
 # LLM-readable site summary: https://www.onamsecurity.com/llms.txt
+
+# Content feed
+Sitemap: https://www.onamsecurity.com/rss.xml

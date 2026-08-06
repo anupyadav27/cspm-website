@@ -10,6 +10,7 @@ export const Route = createFileRoute("/solutions/alicloud")({
       description:
         "Agentless Alibaba Cloud security posture management — 1,151 rules across ECS, ACK, OSS, RDS, RAM and VPC, mapped to CIS Alibaba Cloud and CIS ACK benchmarks. Findings on the same graph as your AWS, Azure and GCP posture.",
       path: "/solutions/alicloud",
+      image: "/og/solutions-alicloud.png",
     }),
   component: () => <CloudSolutionTemplate data={alicloudData} />,
 });

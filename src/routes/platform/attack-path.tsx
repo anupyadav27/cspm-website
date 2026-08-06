@@ -11,6 +11,7 @@ export const Route = createFileRoute("/platform/attack-path")({
       title: `${data.label} — Onam Security`,
       description: data.sub,
       path: "/platform/attack-path",
+      image: "/og/platform-attack-path.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

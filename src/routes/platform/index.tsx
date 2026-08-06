@@ -20,6 +20,7 @@ export const Route = createFileRoute("/platform/")({
       description:
         "One platform, every cloud security layer. CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM, agentless scanning, attack path, threat detection and compliance — 29 engines across every cloud and SaaS platform you run.",
       path: "/platform",
+      image: "/og/platform.png",
     }),
   component: PlatformIndex,
 });

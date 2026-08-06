@@ -12,6 +12,7 @@ export const Route = createFileRoute("/platform/cwpp")({
       description:
         "Onam CWPP protects every workload — VMs, containers, serverless and hosts — across seven clouds. 219 workload posture rules plus CIS OS benchmarks, collected agentlessly with zero production impact.",
       path: "/platform/cwpp",
+      image: "/og/platform-cwpp.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

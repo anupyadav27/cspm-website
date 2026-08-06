@@ -10,6 +10,7 @@ export const Route = createFileRoute("/solutions/oci")({
       description:
         "Onam brings 2,059 posture rules to Oracle Cloud — more than most vendors ship for AWS. Agentless OCI CSPM across Compute, OKE, Object Storage, Autonomous DB, IAM and VCN, mapped to CIS OCI, ISO 27001 and PCI-DSS.",
       path: "/solutions/oci",
+      image: "/og/solutions-oci.png",
     }),
   component: () => <CloudSolutionTemplate data={ociData} />,
 });

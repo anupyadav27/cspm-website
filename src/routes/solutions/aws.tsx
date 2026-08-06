@@ -10,6 +10,7 @@ export const Route = createFileRoute("/solutions/aws")({
       description:
         "Agentless AWS cloud security posture management — 2,018 posture rules across 123 AWS services, CIS AWS Foundations benchmark scoring, IAM entitlement analysis and attack-path detection. Read-only role, first findings in five minutes.",
       path: "/solutions/aws",
+      image: "/og/solutions-aws.png",
     }),
   component: () => <CloudSolutionTemplate data={awsData} />,
 });

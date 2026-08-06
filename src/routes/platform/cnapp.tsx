@@ -12,6 +12,7 @@ export const Route = createFileRoute("/platform/cnapp")({
       description:
         "One posture score across seven pillars — CSPM, CIEM, CWPP, DSPM, network, threat and AppSec. Severity- and exposure-weighted scoring that decomposes from board-level number to individual finding.",
       path: "/platform/cnapp",
+      image: "/og/platform-cnapp.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

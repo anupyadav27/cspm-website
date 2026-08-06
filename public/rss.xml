@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Onam Security — Blog &amp; Learn</title>
+    <link>https://www.onamsecurity.com</link>
+    <description>Cloud security posture, attack paths, identity risk and compliance — from the Onam Security team.</description>
+    <language>en</language>
+    <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Onam vs. Wiz vs. Orca vs. Prisma Cloud: how to actually evaluate a cloud security platform</title>
+      <link>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</guid>
+      <description>Wiz, Orca Security, and Prisma Cloud dominate every CSPM shortlist. Here are the seven questions that actually separate platforms — with Onam's answers on the record, and a checklist to run against every vendor on your list.</description>
+      <category>Buyer's Guide</category>
+      <pubDate>Sun, 19 Jul 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Beyond GuardDuty: how three-tier behavioral detection catches what rules miss</title>
+      <link>https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</guid>
+      <description>Rule-based detection catches known attack signatures. Statistical behavioral baselines catch incremental privilege escalation. ML anomaly detection catches the rest. Here's why you need all three.</description>
+      <category>CDR</category>
+      <pubDate>Tue, 14 Jul 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>The 5 AWS misconfigurations we find in 90% of first scans</title>
+      <link>https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan</guid>
+      <description>After thousands of first-time AWS scans, the same five misconfigurations show up in nearly every environment. Here's what they are — and how to fix them fast.</description>
+      <category>CSPM</category>
+      <pubDate>Thu, 09 Jul 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>CIEM vs IAM Security: what's actually the difference?</title>
+      <link>https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</guid>
+      <description>They sound identical. They aren't. Here's the practical split between IAM Security and Cloud Infrastructure Entitlement Management — and why you need both.</description>
+      <category>Identity</category>
+      <pubDate>Thu, 02 Jul 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AI-powered cloud remediation: from finding to fix in minutes</title>
+      <link>https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</guid>
+      <description>The average MTTR for cloud security findings is 47 days. AI-powered remediation — context-aware code fixes, Ansible playbooks for CVEs, and threat narratives — is how we close that gap.</description>
+      <category>Engineering</category>
+      <pubDate>Mon, 29 Jun 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Attack paths vs. misconfigurations: why toxic combinations are your real cloud risk</title>
+      <link>https://www.onamsecurity.com/resources/blog/attack-path-4000-to-3</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/attack-path-4000-to-3</guid>
+      <description>Most CSPM tools surface hundreds of misconfigurations. The ones that actually lead to breaches are the ones that chain together — and most tools can't show you which chains are dangerous.</description>
+      <category>Attack Path</category>
+      <pubDate>Tue, 23 Jun 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>The FAIR model for cloud security: putting a dollar value on your attack surface</title>
+      <link>https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk</guid>
+      <description>CVSS scores rank vulnerability severity. FAIR answers the question your board actually cares about: what does this attack surface cost if it's breached? Here's how we apply it at Onam.</description>
+      <category>Risk</category>
+      <pubDate>Tue, 16 Jun 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Kubernetes RBAC pitfalls that grant cluster-admin by accident</title>
+      <link>https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls</guid>
+      <description>A ClusterRoleBinding here, an aggregated role there — and suddenly your read-only role can create pods that mount the host filesystem. Six patterns to audit today.</description>
+      <category>Containers</category>
+      <pubDate>Tue, 09 Jun 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>EPSS over CVSS: prioritising the CVEs attackers actually exploit</title>
+      <link>https://www.onamsecurity.com/resources/blog/epss-over-cvss</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/epss-over-cvss</guid>
+      <description>CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.</description>
+      <category>Vulnerability</category>
+      <pubDate>Tue, 02 Jun 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Why 90% of cloud IAM permissions are never used — and why that matters</title>
+      <link>https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</guid>
+      <description>Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.</description>
+      <category>Identity</category>
+      <pubDate>Wed, 27 May 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>MITRE ATT&amp;CK for Cloud: mapping real attacks to your posture score</title>
+      <link>https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping</guid>
+      <description>How MITRE ATT&amp;CK for Cloud translates abstract threat techniques into concrete cloud misconfigurations — and how your posture score tracks each one.</description>
+      <category>Threat Detection</category>
+      <pubDate>Tue, 19 May 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>How we check thousands of rules without agents: the architecture behind Onam</title>
+      <link>https://www.onamsecurity.com/resources/blog/agentless-cloud-security-architecture</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/agentless-cloud-security-architecture</guid>
+      <description>A technical deep-dive into how Onam scans dozens of cloud services across 7 clouds using only read-only access — no agents, no network changes, no configuration drift.</description>
+      <category>Engineering</category>
+      <pubDate>Tue, 05 May 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is CSPM (Cloud Security Posture Management)?</title>
+      <link>https://www.onamsecurity.com/learn/cspm</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cspm</guid>
+      <description>Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is CNAPP (Cloud-Native Application Protection Platform)?</title>
+      <link>https://www.onamsecurity.com/learn/cnapp</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cnapp</guid>
+      <description>A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on one shared data model — so risks that span those domains are correlated rather than reported separately.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is CWPP (Cloud Workload Protection Platform)?</title>
+      <link>https://www.onamsecurity.com/learn/cwpp</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cwpp</guid>
+      <description>A Cloud Workload Protection Platform (CWPP) secures the compute workloads running in a cloud environment — virtual machines, containers, serverless functions and managed hosts — by inspecting what is installed and running inside them, rather than how the surrounding cloud infrastructure is configured.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is CIEM (Cloud Infrastructure Entitlement Management)?</title>
+      <link>https://www.onamsecurity.com/learn/ciem</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/ciem</guid>
+      <description>Cloud Infrastructure Entitlement Management (CIEM) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved, then compares that against permissions actually used.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is DSPM (Data Security Posture Management)?</title>
+      <link>https://www.onamsecurity.com/learn/dspm</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/dspm</guid>
+      <description>Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is SSPM (SaaS Security Posture Management)?</title>
+      <link>https://www.onamsecurity.com/learn/sspm</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/sspm</guid>
+      <description>SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications — such as Microsoft 365, Google Workspace, GitHub and Snowflake — detecting misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is a cloud attack path?</title>
+      <link>https://www.onamsecurity.com/learn/cloud-attack-path</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-attack-path</guid>
+      <description>A cloud attack path is a chain of individually low- or medium-severity findings that together create a route from an entry point — usually the public internet — to a high-value asset such as a database holding sensitive data. Attack path analysis computes these chains across posture, identity, network and workload data.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is agentless cloud security?</title>
+      <link>https://www.onamsecurity.com/learn/agentless-cloud-security</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/agentless-cloud-security</guid>
+      <description>Agentless cloud security assesses cloud infrastructure and workloads without installing any software on them. Configuration is read through cloud provider APIs with read-only credentials, and workload contents are inspected by analysing point-in-time volume snapshots out-of-band, so nothing runs on the systems being scanned.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is cloud risk quantification?</title>
+      <link>https://www.onamsecurity.com/learn/cloud-risk-quantification</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-risk-quantification</guid>
+      <description>Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is a choke point in cloud security?</title>
+      <link>https://www.onamsecurity.com/learn/choke-point</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/choke-point</guid>
+      <description>A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

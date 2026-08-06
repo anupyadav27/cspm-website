@@ -12,6 +12,7 @@ export const Route = createFileRoute("/platform/agentless")({
       description:
         "Onam scans every workload with zero agents — snapshot-based scanning orchestrated inside your own account via AWS Step Functions, Azure Logic Apps and GCP Workflows. Your data never leaves your environment.",
       path: "/platform/agentless",
+      image: "/og/platform-agentless.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

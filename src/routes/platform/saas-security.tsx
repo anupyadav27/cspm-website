@@ -12,6 +12,7 @@ export const Route = createFileRoute("/platform/saas-security")({
       description:
         "Onam SSPM secures Microsoft 365, Google Workspace, GitHub, GitLab, Snowflake, SharePoint, Dynamics 365 and Okta — 433 CIS Benchmark rules, agentless read-only connectors, findings on the same graph as your cloud posture.",
       path: "/platform/saas-security",
+      image: "/og/platform-saas-security.png",
     }),
   component: () => <ProductPageTemplate data={data} />,
 });

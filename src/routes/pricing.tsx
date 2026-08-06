@@ -13,6 +13,7 @@ export const Route = createFileRoute("/pricing")({
       description:
         "Straightforward pricing for cloud security. Try Onam free — no credit card required.",
       path: "/pricing",
+      image: "/og/pricing.png",
     }),
   component: PricingPage,
 });

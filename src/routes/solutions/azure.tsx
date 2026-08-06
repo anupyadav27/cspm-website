@@ -9,6 +9,7 @@ export const Route = createFileRoute("/solutions/azure")({
       title: "Azure Cloud Security Posture Management (CSPM) — Onam Security",
       description: azureData.sub,
       path: "/solutions/azure",
+      image: "/og/solutions-azure.png",
     }),
   component: () => <CloudSolutionTemplate data={azureData} />,
 });

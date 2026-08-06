@@ -209,3 +209,63 @@ ${blogFull}
 
 writeFileSync(join(here, "../public/llms-full.txt"), llmsFull);
 console.log(`llms-full.txt written: ${Math.round(llmsFull.length / 1024)} KB`);
+
+/* ------------------------------ rss.xml ------------------------------ */
+// Blog + Learn in one feed. Aggregators, Feedly, and several AI crawlers
+// discover new content far faster from a feed than from a sitemap re-crawl.
+
+/** XML text escaping — titles and excerpts contain & and quotes. */
+const xmlEscape = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+/** RFC-822 date, which is what RSS 2.0 requires (not ISO-8601). */
+const rfc822 = (d: string) => {
+  const parsed = new Date(d);
+  return Number.isNaN(parsed.getTime()) ? new Date(0).toUTCString() : parsed.toUTCString();
+};
+
+type FeedItem = { title: string; link: string; desc: string; date: string; category: string };
+
+const feedItems: FeedItem[] = [
+  ...BLOG_POSTS.map((p) => ({
+    title: p.title,
+    link: `${SITE_URL}/resources/blog/${p.slug}`,
+    desc: p.excerpt,
+    date: rfc822(p.date),
+    category: p.category,
+  })),
+  ...LEARN_ARTICLES.map((a) => ({
+    title: a.question,
+    link: `${SITE_URL}/learn/${a.slug}`,
+    desc: a.answer,
+    date: rfc822("2026-08-06"),
+    category: "Learn",
+  })),
+];
+
+const rss = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Onam Security — Blog &amp; Learn</title>
+    <link>${SITE_URL}</link>
+    <description>Cloud security posture, attack paths, identity risk and compliance — from the Onam Security team.</description>
+    <language>en</language>
+    <atom:link href="${SITE_URL}/rss.xml" rel="self" type="application/rss+xml"/>
+${feedItems
+  .map(
+    (i) => `    <item>
+      <title>${xmlEscape(i.title)}</title>
+      <link>${i.link}</link>
+      <guid isPermaLink="true">${i.link}</guid>
+      <description>${xmlEscape(i.desc)}</description>
+      <category>${xmlEscape(i.category)}</category>
+      <pubDate>${i.date}</pubDate>
+    </item>`,
+  )
+  .join("\n")}
+  </channel>
+</rss>
+`;
+
+writeFileSync(join(here, "../public/rss.xml"), rss);
+console.log(`rss.xml written: ${feedItems.length} items`);
