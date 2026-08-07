@@ -5,8 +5,8 @@ description: Run the Onam Studio quality gateway on a package or file — measur
 
 # Onam quality gateway — runner
 
-Read `/Users/apple/Desktop/onam-studio/studio/QUALITY.md` (the specs) and
-`GOVERNANCE.md` (the record) first. Run from `/Users/apple/Desktop/onam-studio`.
+Read `/Users/apple/Desktop/onam-platform/studio/studio/QUALITY.md` (the specs) and
+`GOVERNANCE.md` (the record) first. Run from `/Users/apple/Desktop/onam-platform/studio`.
 
 ```bash
 assets/qa.sh all <package-dir>              # start here — package + every video + deck

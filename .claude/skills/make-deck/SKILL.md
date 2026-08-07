@@ -5,15 +5,15 @@ description: Run the Onam Deck Studio (BMAD-style agent pipeline) to produce a c
 
 # Onam Deck Studio — orchestrator
 
-Read `/Users/apple/Desktop/onam-studio/studio/DECKS.md` and
-`/Users/apple/Desktop/onam-studio/doctrine/PRESENTING.md` first. Then run the agent
-passes IN ORDER from `/Users/apple/Desktop/onam-studio/studio/agents/` — CD → Strategist
+Read `/Users/apple/Desktop/onam-platform/studio/studio/DECKS.md` and
+`/Users/apple/Desktop/onam-platform/studio/doctrine/PRESENTING.md` first. Then run the agent
+passes IN ORDER from `/Users/apple/Desktop/onam-platform/studio/studio/agents/` — CD → Strategist
 → Copywriter → 09 Presentation Consultant → SME → Design Architect → QA. Each pass
 critiques the previous artifact (one paragraph) before producing its own. Editor and
 Sound are skipped unless the deck becomes a narrated video.
 
-Package: `/Users/apple/Desktop/onam-studio/decks/YYYY-MM-DD-<slug>/` (run all commands
-from `/Users/apple/Desktop/onam-studio`). Artifacts: brief.md → concept.md (spine + the
+Package: `/Users/apple/Desktop/onam-platform/studio/decks/YYYY-MM-DD-<slug>/` (run all commands
+from `/Users/apple/Desktop/onam-platform/studio`). Artifacts: brief.md → concept.md (spine + the
 one argument) → outline.md (every slide title, in order) → **deck.md** (the source) →
 `assets/make-deck.sh decks/<pkg>/deck.md` → audit.md → release.
 
@@ -39,5 +39,5 @@ then the full build. Interactive moments: pause for the user's pick at G1 (offer
 they are present; otherwise pick the strongest and say why in concept.md.
 
 Approved decks: copy deck.pdf + deck.pptx + deck.html + notes.md + audit.md into
-`/Users/apple/Desktop/onam-studio/releases/<slug>/`. Only then, if it is being published,
+`/Users/apple/Desktop/onam-platform/studio/releases/<slug>/`. Only then, if it is being published,
 one clean copy goes to the website repo.
