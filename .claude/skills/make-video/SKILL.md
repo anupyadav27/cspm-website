@@ -5,9 +5,14 @@ description: Run the Onam Video Studio (BMAD-style agent pipeline) to produce a 
 
 # Onam Video Studio — orchestrator
 
-Read `/Users/apple/Desktop/onam-platform/studio/studio/STUDIO.md`, then `RUNBOOK.md` (the 14
+> **`$ONAM_STUDIO_HOME`** is the studio repo — a sibling of this website repo, so
+> `../studio` from the repo root, which is `~/Desktop/onam-platform/studio` today.
+> Export `ONAM_STUDIO_HOME` to point somewhere else. Resolve it before using any
+> path below; never write the absolute path back into this file.
+
+Read `$ONAM_STUDIO_HOME/studio/STUDIO.md`, then `RUNBOOK.md` (the 14
 steps) and `AGENTIC.md` (how they execute). Run the agent passes from
-`/Users/apple/Desktop/onam-platform/studio/studio/agents/` — each pass critiques the previous
+`$ONAM_STUDIO_HOME/studio/agents/` — each pass critiques the previous
 artifact (one paragraph), produces its own, and declares what it could not verify. Do not
 skip or merge passes.
 
@@ -19,12 +24,12 @@ context audits intent instead of the artifact. Rendering and measuring are code,
 agents. Track progress in `run.md` (`studio/templates/run-state.md`) so an interrupted
 run resumes at the first step that is not done.
 
-Package folder: `/Users/apple/Desktop/onam-platform/studio/productions/YYYY-MM-DD-<slug>/` (run from /Users/apple/Desktop/onam-platform/studio; footage at footage/*.mp4); approved finals → /Users/apple/Desktop/onam-platform/studio/releases/<slug>/ → ONE copy to website social-posts/<slug>/ for publishing. Artifacts: brief.md → concept.md →
+Package folder: `$ONAM_STUDIO_HOME/productions/YYYY-MM-DD-<slug>/` (run from $ONAM_STUDIO_HOME; footage at footage/*.mp4); approved finals → $ONAM_STUDIO_HOME/releases/<slug>/ → ONE copy to website social-posts/<slug>/ for publishing. Artifacts: brief.md → concept.md →
 script.md (with SME fact table) → storyboard.txt → cuts (via
-`/Users/apple/Desktop/onam-platform/studio/assets/make-media.sh story`) → audit.md (gate) → copy.md.
+`$ONAM_STUDIO_HOME/assets/make-media.sh story`) → audit.md (gate) → copy.md.
 
 Track: default marketing (3-act challenge → turn → happy ending, AD-STUDIO.md);
-`technical:` prefix → TEACH structure (STUDIO.md). Doctrine: /Users/apple/Desktop/onam-platform/studio/doctrine/ (STORYTELLING, FILMMAKING, AD-STUDIO).
+`technical:` prefix → TEACH structure (STUDIO.md). Doctrine: $ONAM_STUDIO_HOME/doctrine/ (STORYTELLING, FILMMAKING, AD-STUDIO).
 
 Gates (hard): G1 concept approved · G2 script table-read · G3 all claims sourced ·
 **G3.5 compliance** (agent 10 — claims.md + licenses.md + capture redaction + disclosure
