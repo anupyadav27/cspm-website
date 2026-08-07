@@ -108,7 +108,7 @@
   <!-- Compliance -->
   <rect x="20" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
   <text x="122" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Compliance</text>
-  <text x="122" y="300" text-anchor="middle" fill="#64748B" font-size="8">13 frameworks · CIS · NIST</text>
+  <text x="122" y="300" text-anchor="middle" fill="#64748B" font-size="8">78 frameworks · CIS · NIST</text>
 
   <!-- Risk Engine -->
   <rect x="236" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
@@ -141,7 +141,7 @@
   <!-- Row 5: Output -->
   <rect x="20" y="400" width="880" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
   <text x="460" y="422" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Posture Score + Compliance Reports + Threat Findings + Remediation Guidance</text>
-  <text x="460" y="440" text-anchor="middle" fill="#64748B" font-size="9">Continuous · Real-time · 13 compliance frameworks · 0–100 risk score</text>
+  <text x="460" y="440" text-anchor="middle" fill="#64748B" font-size="9">Continuous · Real-time · 78 compliance frameworks · 0–100 risk score</text>
 
   <!-- Footer -->
   <text x="460" y="530" text-anchor="middle" fill="#94A3B8" font-size="8">Onam CSPM Platform — Cloud Scan Pipeline Architecture</text>

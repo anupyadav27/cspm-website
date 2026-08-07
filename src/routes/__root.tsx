@@ -137,6 +137,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         title: "Onam Security — Blog & Learn",
         href: `${SITE_URL}/rss.xml`,
       },
+      // /favicon.ico is also the only icon non-HTML routes get (a PDF under
+      // /brochures, /whitepapers, …), so it has to carry the True North mark too.
+      { rel: "icon", href: "/favicon.ico", sizes: "48x48" },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },

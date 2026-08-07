@@ -9,6 +9,7 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "facts:check": "python3 ../marketing/facts/check-facts.py src public",
     "format": "prettier --write ."
   },
   "dependencies": {

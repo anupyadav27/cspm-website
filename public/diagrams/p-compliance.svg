@@ -13,7 +13,7 @@
   <rect x="20" y="130" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
   <text x="190" y="155" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Framework Mapping</text>
   <text x="190" y="172" text-anchor="middle" font-size="9" fill="#64748B">CIS · NIST · PCI-DSS · HIPAA · ISO · GDPR</text>
-  <text x="190" y="187" text-anchor="middle" font-size="8" fill="#3B82F6">13 frameworks · Automated control-to-rule mapping</text>
+  <text x="190" y="187" text-anchor="middle" font-size="8" fill="#3B82F6">78 frameworks · Automated control-to-rule mapping</text>
   <line x1="190" y1="196" x2="190" y2="208" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="185,206 190,214 195,206" fill="#94A3B8"/>
 

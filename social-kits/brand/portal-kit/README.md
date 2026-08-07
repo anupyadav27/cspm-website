@@ -28,7 +28,12 @@ Rebrand handoff for the Onam console (`cspm-portal` / `/ui` app). The marketing 
 
 ## Implementation checklist for the portal
 
-1. **Favicon**: replace the current favicon with `favicon.svg` (add `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`); replace any `.ico`/PNG favicons with renders of it.
+1. **Favicon**: ship both `favicon.svg` and `favicon.ico` from this kit and link them:
+   `<link rel="icon" href="/favicon.ico" sizes="48x48">` then
+   `<link rel="icon" type="image/svg+xml" href="/favicon.svg">`. Don't skip the `.ico` —
+   it is the only icon a browser gets on non-HTML routes (a served PDF, a raw file),
+   so an old `.ico` keeps showing up long after the HTML is fixed. Both use slightly
+   thicker arms than `logo.svg`, which goes muddy below ~24 px.
 2. **App header / sidebar logo**: use `<OnamLogo variant="dark" />` (console is dark-themed). Icon-only collapsed sidebar: `<OnamMark variant="dark" size={22} />`.
 3. **Login page**: `lockup-dark.png` (or the component at `fontSize≈24, markSize≈30`).
 4. **Loading / splash screens**: `logo-mark-mono-white.svg` or `<OnamMark variant="mono" />`.

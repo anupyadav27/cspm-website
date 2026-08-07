@@ -109,7 +109,7 @@
   <!-- Compliance -->
   <rect x="736" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
   <text x="820" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Compliance</text>
-  <text x="820" y="248" text-anchor="middle" font-size="8" fill="#64748B">13+ Frameworks</text>
+  <text x="820" y="248" text-anchor="middle" font-size="8" fill="#64748B">78 Frameworks</text>
   <line x1="746" y1="256" x2="894" y2="256" stroke="#94A3B8" stroke-width="1"/>
   <text x="820" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">CIS · NIST · ISO 27001</text>
   <text x="820" y="288" text-anchor="middle" font-size="8" fill="#64748B">PCI-DSS · HIPAA</text>

@@ -510,7 +510,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Do AI security findings appear in compliance reports?",
-        a: "Yes. AI findings map to the same 13 compliance frameworks as the rest of the platform, plus dedicated mappings to the EU AI Act and NIST AI RMF. Auditor-ready exports include AI-specific evidence.",
+        a: "Yes. AI findings map to the same 78 compliance frameworks as the rest of the platform, plus dedicated mappings to the EU AI Act and NIST AI RMF. Auditor-ready exports include AI-specific evidence.",
       },
     ],
     related: [
@@ -756,7 +756,7 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Compliance",
     question: "Am I ready for my next audit — right now, not in 3 weeks?",
     headline: "Your auditor wants evidence. We have it ready before they ask.",
-    sub: "Onam maps every security finding to 13 compliance frameworks in real time. You always know your exact posture — not where you were last quarter, where you are today.",
+    sub: "Onam maps every security finding to 78 compliance frameworks in real time. You always know your exact posture — not where you were last quarter, where you are today.",
     painPoint:
       "The auditor arrives on Monday. Your team spent last week screenshotting console pages and stitching evidence into a spreadsheet. Meanwhile prod deployed 40 new resources — none of which are in the evidence pack. The gap between what you can prove and what is actually running is where audits fail and remediation plans balloon.",
     mechanism: [

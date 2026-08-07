@@ -1,9 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 80 80">
-  <!-- Onam "True North" mark: two-tone four-point star on a white disc -->
-  <circle cx="40" cy="40" r="38" fill="#FFFFFF"/>
-  <g transform="translate(8,8) scale(0.8)">
-    <polygon points="40,6 48.5,40 40,74 31.5,40" fill="#082869"/>
-    <polygon points="12,40 40,31.5 68,40 40,48.5" fill="#2563EB"/>
-    <circle cx="40" cy="40" r="3" fill="#FFFFFF"/>
-  </g>
+  <!-- Onam "True North" mark: two-tone four-point star on a white disc.
+       Arms are thicker and the star fills the disc — favicon sizes (16-32px)
+       lose the thinner proportions used in logo.svg / logo-512.png. -->
+  <circle cx="40" cy="40" r="40" fill="#FFFFFF"/>
+  <polygon points="40,4 51,40 40,76 29,40" fill="#082869"/>
+  <polygon points="4,40 40,29 76,40 40,51" fill="#2563EB"/>
+  <circle cx="40" cy="40" r="3.5" fill="#FFFFFF"/>
 </svg>
