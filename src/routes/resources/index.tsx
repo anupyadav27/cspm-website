@@ -4,6 +4,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { BLOG_POSTS } from "@/data/blog-posts";
 import { ArrowRight, Cloud, ShieldCheck, Layers, BadgeCheck } from "lucide-react";
 import { seo } from "@/lib/seo";
+import { ResourceSignup } from "@/components/site/ResourceSignup";
 
 export const Route = createFileRoute("/resources/")({
   head: () =>
@@ -183,6 +184,9 @@ function Page() {
               </ul>
             </div>
           ))}
+        </div>
+        <div className="mt-8 max-w-2xl">
+          <ResourceSignup />
         </div>
       </section>
 

@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SITE_URL, GSC_VERIFICATION } from "../lib/seo";
+import { analyticsScripts } from "../lib/analytics";
 
 const STRUCTURED_DATA = [
   {
@@ -144,6 +145,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
+    // Empty array while ANALYTICS.provider is "none" — no tag, no request.
+    scripts: analyticsScripts(),
   }),
   shellComponent: RootShell,
   component: RootComponent,

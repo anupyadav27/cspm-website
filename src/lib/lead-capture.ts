@@ -40,7 +40,7 @@ const BUCKET = "onam-platform-588989875114";
 const FROM = process.env.LEAD_FROM || "sales@onamsecurity.com";
 const TO = process.env.LEAD_TO || "sales@onamsecurity.com";
 
-export type LeadKind = "demo" | "contact";
+export type LeadKind = "demo" | "contact" | "subscribe";
 
 export type LeadInput = {
   kind: LeadKind;
@@ -56,6 +56,13 @@ export type LeadInput = {
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
+const LABEL: Record<LeadKind, string> = {
+  demo: "Request a demo",
+  contact: "Contact",
+  subscribe: "Resource library signup",
+};
+const SUBJECT: Record<LeadKind, string> = { demo: "Demo", contact: "Contact", subscribe: "Subscribe" };
+
 /** Trim, cap length, and strip control characters before anything is stored. */
 function clean(v: unknown, max = 2000): string {
   if (typeof v !== "string") return "";
@@ -65,12 +72,13 @@ function clean(v: unknown, max = 2000): string {
 
 function validate(raw: unknown): LeadInput {
   const d = (raw ?? {}) as Record<string, unknown>;
-  const kind: LeadKind = d.kind === "contact" ? "contact" : "demo";
+  const kind: LeadKind =
+    d.kind === "contact" ? "contact" : d.kind === "subscribe" ? "subscribe" : "demo";
   const email = clean(d.email, 254);
   const name = clean(d.name, 200);
 
   if (!EMAIL_RE.test(email)) throw new Error("A valid email address is required.");
-  if (!name) throw new Error("Name is required.");
+  if (kind !== "subscribe" && !name) throw new Error("Name is required.");
 
   return {
     kind,
@@ -130,7 +138,7 @@ export const submitLead = createServerFn({ method: "POST" })
       const ses = new SESv2Client({ region: REGION });
 
       const lines = [
-        `Form:     ${data.kind === "demo" ? "Request a demo" : "Contact"}`,
+        `Form:     ${LABEL[data.kind]}`,
         `Name:     ${data.name}`,
         `Email:    ${data.email}`,
         data.company ? `Company:  ${data.company}` : null,
@@ -150,7 +158,7 @@ export const submitLead = createServerFn({ method: "POST" })
           Content: {
             Simple: {
               Subject: {
-                Data: `[${data.kind === "demo" ? "Demo" : "Contact"}] ${data.name}${
+                Data: `[${SUBJECT[data.kind]}] ${data.name || data.email}${
                   data.company ? ` — ${data.company}` : ""
                 }`,
               },
