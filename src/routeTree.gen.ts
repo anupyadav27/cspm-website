@@ -51,6 +51,7 @@ import { Route as PlatformThreatDetectionRouteImport } from './routes/platform/t
 import { Route as PlatformVulnerabilityRouteImport } from './routes/platform/vulnerability'
 import { Route as ResourcesIndexRouteImport } from './routes/resources/index'
 import { Route as ResourcesBlogRouteImport } from './routes/resources/blog'
+import { Route as ResourcesScenariosRouteImport } from './routes/resources/scenarios'
 import { Route as SolutionsIndexRouteImport } from './routes/solutions/index'
 import { Route as SolutionsAlicloudRouteImport } from './routes/solutions/alicloud'
 import { Route as SolutionsAwsRouteImport } from './routes/solutions/aws'
@@ -276,6 +277,11 @@ const ResourcesBlogRoute = ResourcesBlogRouteImport.update({
   path: '/resources/blog',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResourcesScenariosRoute = ResourcesScenariosRouteImport.update({
+  id: '/resources/scenarios',
+  path: '/resources/scenarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SolutionsIndexRoute = SolutionsIndexRouteImport.update({
   id: '/solutions/',
   path: '/solutions/',
@@ -376,6 +382,7 @@ export interface FileRoutesByFullPath {
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
   '/platform/vulnerability': typeof PlatformVulnerabilityRoute
   '/resources/blog': typeof ResourcesBlogRouteWithChildren
+  '/resources/scenarios': typeof ResourcesScenariosRoute
   '/solutions/alicloud': typeof SolutionsAlicloudRoute
   '/solutions/aws': typeof SolutionsAwsRoute
   '/solutions/azure': typeof SolutionsAzureRoute
@@ -431,6 +438,7 @@ export interface FileRoutesByTo {
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
   '/platform/vulnerability': typeof PlatformVulnerabilityRoute
   '/resources/blog': typeof ResourcesBlogRouteWithChildren
+  '/resources/scenarios': typeof ResourcesScenariosRoute
   '/solutions/alicloud': typeof SolutionsAlicloudRoute
   '/solutions/aws': typeof SolutionsAwsRoute
   '/solutions/azure': typeof SolutionsAzureRoute
@@ -488,6 +496,7 @@ export interface FileRoutesById {
   '/platform/threat-detection': typeof PlatformThreatDetectionRoute
   '/platform/vulnerability': typeof PlatformVulnerabilityRoute
   '/resources/blog': typeof ResourcesBlogRouteWithChildren
+  '/resources/scenarios': typeof ResourcesScenariosRoute
   '/solutions/alicloud': typeof SolutionsAlicloudRoute
   '/solutions/aws': typeof SolutionsAwsRoute
   '/solutions/azure': typeof SolutionsAzureRoute
@@ -546,6 +555,7 @@ export interface FileRouteTypes {
     | '/platform/threat-detection'
     | '/platform/vulnerability'
     | '/resources/blog'
+    | '/resources/scenarios'
     | '/solutions/alicloud'
     | '/solutions/aws'
     | '/solutions/azure'
@@ -601,6 +611,7 @@ export interface FileRouteTypes {
     | '/platform/threat-detection'
     | '/platform/vulnerability'
     | '/resources/blog'
+    | '/resources/scenarios'
     | '/solutions/alicloud'
     | '/solutions/aws'
     | '/solutions/azure'
@@ -657,6 +668,7 @@ export interface FileRouteTypes {
     | '/platform/threat-detection'
     | '/platform/vulnerability'
     | '/resources/blog'
+    | '/resources/scenarios'
     | '/solutions/alicloud'
     | '/solutions/aws'
     | '/solutions/azure'
@@ -713,6 +725,7 @@ export interface RootRouteChildren {
   PlatformThreatDetectionRoute: typeof PlatformThreatDetectionRoute
   PlatformVulnerabilityRoute: typeof PlatformVulnerabilityRoute
   ResourcesBlogRoute: typeof ResourcesBlogRouteWithChildren
+  ResourcesScenariosRoute: typeof ResourcesScenariosRoute
   SolutionsAlicloudRoute: typeof SolutionsAlicloudRoute
   SolutionsAwsRoute: typeof SolutionsAwsRoute
   SolutionsAzureRoute: typeof SolutionsAzureRoute
@@ -1025,6 +1038,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResourcesBlogRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/resources/scenarios': {
+      id: '/resources/scenarios'
+      path: '/resources/scenarios'
+      fullPath: '/resources/scenarios'
+      preLoaderRoute: typeof ResourcesScenariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/solutions/': {
       id: '/solutions/'
       path: '/solutions'
@@ -1174,6 +1194,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformThreatDetectionRoute: PlatformThreatDetectionRoute,
   PlatformVulnerabilityRoute: PlatformVulnerabilityRoute,
   ResourcesBlogRoute: ResourcesBlogRouteWithChildren,
+  ResourcesScenariosRoute: ResourcesScenariosRoute,
   SolutionsAlicloudRoute: SolutionsAlicloudRoute,
   SolutionsAwsRoute: SolutionsAwsRoute,
   SolutionsAzureRoute: SolutionsAzureRoute,
