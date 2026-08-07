@@ -1,6 +1,25 @@
 # Onam Workspace Consolidation — Plan
 
-Drafted 2026-08-06. Nothing has been moved. This document is the proposal; execution is §6.
+Drafted 2026-08-06. **Stages 0–2 executed 2026-08-07** — see §0 below. The rest of this
+document is the original proposal and remains the reference for what has not been done yet.
+
+## 0. Executed 2026-08-07
+
+| Step | Result |
+|---|---|
+| Backup | `s3://onam-platform-588989875114/backup/2026-08-07/` — **1,240 MB**, 795 + 159 objects. Matches 1,188 MB on disk (S3 counts every object; nothing missing). |
+| Workspace | `~/Desktop/onam-platform/` created |
+| Moves | `onam-studio` → `onam-platform/studio`; `cspm-marketing` → `onam-platform/marketing` (**out of Google Drive's sync scope**) |
+| studio repo | `git init`, 91 files, **624 KB** — from a 1.2 GB directory. Renders excluded. |
+| marketing repo | `git init`, 69 files, 5.1 MB. PDFs, docx, images and the 5 MB HTML flipbook excluded. |
+| Skill paths | 25 hardcoded `onam-studio` references updated across 4 skills; targets verified to resolve |
+| Stale facts | `publish-post` and `social-post` skills still quoted 1,918 CSPM rules / 13 frameworks / 16 engines — corrected to 9,853 / 78 / 29 |
+
+**Drive caveat:** only `cspm-marketing` was Drive-synced, not all of Desktop (`cspm-website` has always been a working git repo there). Moving a Drive-mirrored folder can make Drive treat the original as deleted in the cloud — the S3 backup covers that, but the stale sync entry should be removed in Google Drive preferences.
+
+**`.cache/` was nearly lost.** It is 659 MB named like a disposable build cache but actually holds generated voiceovers and music beds. It was excluded from the first backup pass and then explicitly re-synced. Do not treat it as regenerable without checking.
+
+**Not yet done:** `git remote add` (Anup creates the GitHub repos), the `media/` split of renders out of `studio/`, `brands/onam/` extraction, `$ONAM_STUDIO_HOME`, and the `facts/product.yaml` alignment layer (§5).
 
 ## 1. What exists today
 

@@ -1,6 +1,6 @@
 ---
 name: social-post
-description: Generate a complete, upload-ready social media post package (per-platform copy + branded card images) into social-posts/. Use when the user asks for a social post, LinkedIn/X/Instagram content, or to promote something on social media. Args: topic (required), optionally prefixed with type (e.g. "stat: 1918 CSPM rules" or "announcement: AWS Marketplace listing").
+description: Generate a complete, upload-ready social media post package (per-platform copy + branded card images) into social-posts/. Use when the user asks for a social post, LinkedIn/X/Instagram content, or to promote something on social media. Args: topic (required), optionally prefixed with type (e.g. "stat: 9853 CSPM rules" or "announcement: AWS Marketplace listing").
 ---
 
 # Generate a social post package

@@ -16,7 +16,7 @@ what the site doesn't cover yet and ask the user to pick.
   Google AI Overviews and chat-engine answers.
 - Collect grounding facts ONLY from repo sources: `src/data/platform-pages.ts`,
   `src/data/docs-articles/*`, `src/routes/index.tsx` stats, existing posts. Canonical numbers:
-  7 clouds, 16 engines, 10,000+ rules (1,918 CSPM), 13 frameworks, 100% agentless, <3 min
+  7 clouds, 29 engines, 11,346 rules (9,853 CSPM), 78 frameworks, 549 services, 8 SaaS platforms, 100% agentless, <3 min
   connect, <5 min first alert, FAIR-model prioritisation. NEVER invent product numbers,
   customer names, benchmarks, or claims about named competitors.
 
