@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { cn } from "@/lib/utils";
 import { seo, faqJsonLd } from "@/lib/seo";
+import { ENGINES, FRAMEWORKS } from "@/lib/product-facts";
 
 export const Route = createFileRoute("/pricing")({
   head: () =>
@@ -54,8 +55,8 @@ const tiers: Tier[] = [
     features: [
       "Unlimited cloud accounts",
       "$22 / resource / month, pay-as-you-go",
-      "All 29 engines — CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM",
-      "All 78 compliance frameworks",
+      `All ${ENGINES} engines — CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM`,
+      `All ${FRAMEWORKS} compliance frameworks`,
       "CIEM & identity attack paths",
       "Agentless workload scanning — no agents to deploy",
       "SaaS security — M365, Workspace, GitHub, Snowflake",
@@ -97,10 +98,10 @@ const tiers: Tier[] = [
 const comparison: { label: string; free: string; pro: string; ent: string }[] = [
   { label: "Cloud accounts", free: "1", pro: "Unlimited", ent: "Unlimited + multi-tenant" },
   { label: "Resources scanned", free: "Up to 500", pro: "Pay-as-you-go", ent: "Custom" },
-  { label: "Security engines", free: "Core CSPM", pro: "All 29 engines", ent: "All 29 engines · custom rules" },
+  { label: "Security engines", free: "Core CSPM", pro: `All ${ENGINES} engines`, ent: `All ${ENGINES} engines · custom rules` },
   { label: "SaaS security (SSPM)", free: "—", pro: "All 8 platforms", ent: "All 8 + custom connectors" },
   { label: "Agentless workload scanning", free: "—", pro: "Included", ent: "Included · custom schedules" },
-  { label: "Compliance frameworks", free: "CIS", pro: "All 78 frameworks", ent: "All 78 + custom builder" },
+  { label: "Compliance frameworks", free: "CIS", pro: `All ${FRAMEWORKS} frameworks`, ent: `All ${FRAMEWORKS} + custom builder` },
   { label: "Finding history", free: "30 days", pro: "1 year", ent: "Custom retention" },
   { label: "Notifications", free: "—", pro: "Email + Slack", ent: "Email, Slack, webhooks, SIEM" },
   { label: "API access", free: "—", pro: "REST", ent: "REST + Terraform provider" },

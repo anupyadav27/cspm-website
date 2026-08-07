@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
+import { SERVICES, FRAMEWORKS } from "@/lib/product-facts";
 
 export { Logo } from "./Logo";
 
@@ -16,7 +17,7 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "CSPM", href: "/platform/cspm", desc: "Misconfigurations across all clouds" },
       { title: "CIEM", href: "/platform/ciem", desc: "Identity & entitlement analysis" },
       { title: "IAM Security", href: "/platform/iam", desc: "Policies, users, and privilege risk" },
-      { title: "Asset Inventory", href: "/platform/inventory", desc: "549 services, seven clouds, one list" },
+      { title: "Asset Inventory", href: "/platform/inventory", desc: `${SERVICES} services, seven clouds, one list` },
     ],
   },
   {
@@ -55,7 +56,7 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "AI Security", href: "/platform/ai-security", desc: "SageMaker, Bedrock, and AI/ML risk" },
       { title: "AI Assistant", href: "/platform/ai-assistant", desc: "Ask your posture in plain language" },
       { title: "Remediation", href: "/platform/remediation", desc: "Every finding ships with its fix" },
-      { title: "Compliance", href: "/platform/compliance", desc: "78 frameworks, always audit-ready" },
+      { title: "Compliance", href: "/platform/compliance", desc: `${FRAMEWORKS} frameworks, always audit-ready` },
       { title: "Technology Engine", href: "/platform/technology", desc: "34 technologies, runtime discovery" },
     ],
   },

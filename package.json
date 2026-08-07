@@ -5,12 +5,13 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
-    "build": "tsx scripts/generate-sitemap.ts && vite build",
+    "build": "node scripts/facts-gate.mjs && node scripts/generate-facts.mjs && tsx scripts/generate-sitemap.ts && vite build",
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
-    "facts:check": "python3 ../marketing/facts/check-facts.py src public",
-    "format": "prettier --write ."
+    "facts:check": "node scripts/facts-gate.mjs",
+    "format": "prettier --write .",
+    "facts:generate": "node scripts/generate-facts.mjs"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1104.0",
