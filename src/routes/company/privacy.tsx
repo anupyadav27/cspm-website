@@ -35,6 +35,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
           <li><strong className="text-[#0B1220]">Account data.</strong> Name, work email, company, and role you provide when creating an account or requesting a demo.</li>
           <li><strong className="text-[#0B1220]">Cloud configuration metadata.</strong> Onam reads configuration metadata from the cloud accounts you connect — for example, IAM policy documents, resource tags, security-group rules, and encryption settings. Onam does not read data-plane content (the objects inside your S3 buckets, the rows in your databases, or the payloads in your queues).</li>
           <li><strong className="text-[#0B1220]">Product usage data.</strong> Basic telemetry about how the Onam UI is used — page views, feature interactions, error events — used to improve the product.</li>
+          <li><strong className="text-[#0B1220]">Website analytics data.</strong> If you consent, Google Analytics records how this marketing website is used — pages viewed, referring source, approximate location, and device type. This is separate from the product telemetry above and is covered in <a href="#cookies" className="text-[#2563EB] font-semibold hover:underline">Cookies and website analytics</a>.</li>
         </ul>
       </>
     ),
@@ -46,6 +47,23 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
       <p>
         We use the data above to operate the Onam platform, deliver findings and reports to you, provide support, improve product quality, and communicate about your account. We do not sell your data. We do not use your cloud configuration data to train shared machine-learning models across customers.
       </p>
+    ),
+  },
+  {
+    id: "cookies",
+    title: "Cookies and website analytics",
+    body: (
+      <>
+        <p>
+          This website uses Google Analytics 4 to understand which pages are useful — which content holds attention, which paths lead to a demo request, and which channels bring people here. Google Analytics sets cookies in your browser.
+        </p>
+        <p className="mt-2">
+          <strong className="text-[#0B1220]">It does not load unless you accept it.</strong> On your first visit you are asked to accept or decline, and nothing analytics-related is requested or stored before you answer. Declining is a single click, the same as accepting. If you decline, no Google Analytics script is loaded, no cookies are set, and the site works exactly as it otherwise would. Your choice is remembered in your browser's local storage, so you are not asked again.
+        </p>
+        <p className="mt-2">
+          To change your mind, clear this site's local storage and cookies in your browser settings — the choice will be offered again on your next visit. This website sets no advertising, remarketing, or cross-site tracking cookies.
+        </p>
+      </>
     ),
   },
   {
@@ -67,7 +85,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     title: "Sub-processors",
     body: (
       <>
-        <p>Onam uses a small number of sub-processors to operate the service. Current sub-processors include cloud infrastructure providers, email delivery, and identity providers used to sign in to Onam. A current list is available on request from <a href="mailto:privacy@onam.security" className="text-[#2563EB] font-semibold hover:underline">privacy@onam.security</a>.</p>
+        <p>Onam uses a small number of sub-processors to operate the service. Current sub-processors include cloud infrastructure providers, email delivery, identity providers used to sign in to Onam, and — for visitors to this website who consent to analytics — Google (Google Analytics 4). A current list is available on request from <a href="mailto:privacy@onam.security" className="text-[#2563EB] font-semibold hover:underline">privacy@onam.security</a>.</p>
       </>
     ),
   },
@@ -124,7 +142,7 @@ function PrivacyPage() {
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-sm text-[#64748B]">Last updated: July 2026</p>
+          <p className="mt-4 text-sm text-[#64748B]">Last updated: August 2026</p>
         </div>
       </section>
 
