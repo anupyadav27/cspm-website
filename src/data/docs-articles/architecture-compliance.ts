@@ -116,7 +116,7 @@ Every security domain produces findings using the same standard fields — \`fin
 
 ### 5. Rule-as-code in YAML
 
-All **10,000+ security rules** are defined in human-readable YAML and versioned in a catalog. The master rule registry holds 10,864 rules: AWS 2,278 (157 services), Azure 3,741 (112 services), GCP 2,676 (47 services), OCI 1,451 (42 services), and Kubernetes 718 (51 resource kinds), with rule-metadata coverage extending to Alibaba Cloud (1,541) and IBM Cloud (613). Dedicated CIEM rule packs, Technology Engine rules, and SecOps rules add further coverage. Each rule declares its cloud, service, severity, MITRE ATT&CK mapping, framework controls, and remediation guidance. The platform only loads and evaluates rules — it never hardcodes them in software.
+All **10,000+ security rules** are defined in human-readable YAML and versioned in a catalog. The master rule registry holds 10,442 distinct rules: AWS 2,278 (157 services), Azure 3,319 (112 services), GCP 2,676 (47 services), OCI 1,451 (42 services), and Kubernetes 718 (51 resource kinds), with rule-metadata coverage extending to Alibaba Cloud (1,541) and IBM Cloud (613). Dedicated CIEM rule packs, Technology Engine rules, and SecOps rules add further coverage. Each rule declares its cloud, service, severity, MITRE ATT&CK mapping, framework controls, and remediation guidance. The platform only loads and evaluates rules — it never hardcodes them in software.
 
 **Why this matters for you:** auditors can read the YAML to verify exactly what the platform checks. You can request new rules, propose changes, and see the diff between rule versions over time.
 
@@ -213,7 +213,7 @@ The platform supports seven cloud providers using a read-only IAM role (AWS, OCI
 | Provider | Rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | GCP | 2,676 | 47 services |
 | OCI | 1,451 | 42 services |
 | Kubernetes | 718 | 51 resource kinds |
