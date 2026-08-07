@@ -33,7 +33,7 @@ export const platformPages: Record<string, ProductPageData> = {
     painPoint:
       "Your DevOps team ships 50 new resources this week. By Friday, three of them are misconfigured — a security group open to the internet, an S3 bucket with public read, an RDS instance with no encryption. None intentional; they're just defaults nobody changed. The problem isn't careless engineers — it's that manual audits can't keep pace with cloud deployment.",
     mechanism: [
-      "When you connect a cloud account, Onam enumerates every resource across 40+ services using read-only IAM roles, service principals, or service accounts.",
+      "When you connect a cloud account, Onam enumerates every resource across 549 services using read-only IAM roles, service principals, or service accounts.",
       "Each resource is evaluated against 9,853 posture rules — OCI 2,059, AWS 2,018, Azure 1,926, GCP 1,322, Alibaba 1,151, Kubernetes 824, IBM 553 — categorised by severity and mapped to compliance frameworks like CIS, NIST, and PCI-DSS.",
       "The scan is read-only — we never modify your environment and store only a role ARN, no long-lived keys.",
       "Findings update continuously as infrastructure changes, not weekly. New findings surface within minutes of a misconfigured resource being deployed.",

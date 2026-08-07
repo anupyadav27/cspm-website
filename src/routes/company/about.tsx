@@ -17,7 +17,7 @@ export const Route = createFileRoute("/company/about")({
 
 const values = [
   { icon: ShieldCheck, iconColor: "#2563EB", title: "Security engineers first", body: "Built by people who've run incident response, threat hunts, and cloud architecture reviews — not by a marketing team that later hired security." },
-  { icon: Layers, iconColor: "#F2AF04", title: "Depth over surface area", body: "10,000+ rules go deep into each service. We would rather cover 40 services perfectly than 400 superficially." },
+  { icon: Layers, iconColor: "#F2AF04", title: "Depth over surface area", body: "10,000+ rules go deep into each service. We would rather cover a service completely than list it." },
   { icon: MessageSquareHeart, iconColor: "#05A052", title: "Honest with customers", body: "If Onam isn't right for your environment, we'll tell you on the first call. Trust compounds; a bad-fit customer never does." },
   { icon: Zap, iconColor: "#E32D25", title: "Speed without shortcuts", body: "Fast scans and accuracy are not a trade-off. We invested years in the graph and the rule engine so you don't have to choose." },
 ];

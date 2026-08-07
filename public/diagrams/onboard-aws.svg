@@ -58,7 +58,7 @@
   <text x="782" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Scan Running</text>
   <text x="782" y="106" text-anchor="middle" fill="#64748B" font-size="9">Discovery starts immediately</text>
   <text x="782" y="122" text-anchor="middle" fill="#64748B" font-size="9">~15 min for full account</text>
-  <text x="782" y="138" text-anchor="middle" fill="#64748B" font-size="9">40+ services scanned</text>
+  <text x="782" y="138" text-anchor="middle" fill="#64748B" font-size="9">123 services scanned</text>
   <text x="782" y="154" text-anchor="middle" fill="#64748B" font-size="9">Results in dashboard</text>
 
   <!-- Step labels -->

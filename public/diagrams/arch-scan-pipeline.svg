@@ -28,7 +28,7 @@
   <rect x="156" y="102" width="118" height="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1"/>
   <text x="215" y="106" text-anchor="middle" font-size="8" font-weight="700" fill="#1E3A8A">STEP 2</text>
   <text x="215" y="126" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Discovery</text>
-  <text x="215" y="142" text-anchor="middle" font-size="8" fill="#64748B">40+ services scanned</text>
+  <text x="215" y="142" text-anchor="middle" font-size="8" fill="#64748B">549 services across 7 clouds</text>
   <text x="215" y="155" text-anchor="middle" font-size="8" fill="#64748B">Raw config captured</text>
 
   <line x1="274" y1="126" x2="288" y2="126" stroke="#94A3B8" stroke-width="2"/>
@@ -139,5 +139,5 @@
 
   <!-- timing bar -->
   <rect x="16" y="370" width="888" height="36" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="460" y="393" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Typical scan time: ~15 min (AWS account, 40+ services) · Results visible in real time as each engine completes</text>
+  <text x="460" y="393" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Typical scan time: ~15 min (AWS account, 123 services) · Results visible in real time as each engine completes</text>
 </svg>

@@ -12,7 +12,7 @@
   <!-- Step 2 -->
   <rect x="20" y="96" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
   <text x="190" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Discover All Resources</text>
-  <text x="190" y="138" text-anchor="middle" font-size="9" fill="#64748B">40+ services enumerated per cloud account</text>
+  <text x="190" y="138" text-anchor="middle" font-size="9" fill="#64748B">up to 123 services per cloud account</text>
   <text x="190" y="153" text-anchor="middle" font-size="8" fill="#3B82F6">Compute · Storage · Networking · Identity · Data</text>
   <line x1="190" y1="162" x2="190" y2="174" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="185,172 190,180 195,172" fill="#94A3B8"/>
