@@ -28,7 +28,10 @@ export type AnalyticsConfig =
   | { provider: "plausible"; domain?: string }
   | { provider: "ga4"; measurementId: string };
 
-export const ANALYTICS: AnalyticsConfig = { provider: "none" };
+export const ANALYTICS: AnalyticsConfig = {
+  provider: "ga4",
+  measurementId: "G-9PBXSJ69NH",
+};
 
 /** Script tags for the configured provider, in TanStack `head.scripts` shape. */
 export function analyticsScripts(): Array<Record<string, unknown>> {
