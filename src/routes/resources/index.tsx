@@ -102,6 +102,11 @@ const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
       { label: "Capabilities flipbook (interactive)", href: "/tools/Onam-Capabilities-Flipbook.html" },
       { label: "Industry scenarios (5 sectors)", href: "/resources/scenarios" },
       { label: "Case study collection (PDF)", href: "/case-studies/Onam-Case-Studies.pdf" },
+      { label: "Financial services", href: "/case-studies/cs-financial.png" },
+      { label: "E-commerce", href: "/case-studies/cs-ecommerce.png" },
+      { label: "Gaming", href: "/case-studies/cs-gaming.png" },
+      { label: "SAP / managed service provider", href: "/case-studies/cs-sap-msp.png" },
+      { label: "Beauty & CPG", href: "/case-studies/cs-beauty-cpg.png" },
     ],
   },
   {
@@ -117,11 +122,26 @@ const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
       { label: "Container & Kubernetes", href: "/brochures/capabilities/br-container.png" },
       { label: "Vulnerability management", href: "/brochures/capabilities/br-vulnerability.png" },
       { label: "Code security", href: "/brochures/capabilities/br-code.png" },
+      { label: "Cloud posture (CSPM)", href: "/brochures/capabilities/br-cspm.png" },
+      { label: "Compliance", href: "/brochures/capabilities/br-compliance.png" },
+    ],
+  },
+  {
+    title: "By cloud",
+    items: [
+      { label: "AWS", href: "/brochures/capabilities/br-cloud-aws.png" },
+      { label: "Microsoft Azure", href: "/brochures/capabilities/br-cloud-azure.png" },
+      { label: "Google Cloud", href: "/brochures/capabilities/br-cloud-gcp.png" },
+      { label: "Oracle Cloud (OCI)", href: "/brochures/capabilities/br-cloud-oci.png" },
+      { label: "Alibaba Cloud", href: "/brochures/capabilities/br-cloud-alibaba.png" },
+      { label: "IBM Cloud", href: "/brochures/capabilities/br-cloud-ibm.png" },
+      { label: "Kubernetes", href: "/brochures/capabilities/br-cloud-kubernetes.png" },
     ],
   },
   {
     title: "By industry",
     items: [
+      { label: "Financial services", href: "/brochures/capabilities/br-industry-financial.png" },
       { label: "Healthcare", href: "/brochures/capabilities/br-industry-healthcare.png" },
       { label: "Government & public sector", href: "/brochures/capabilities/br-industry-government.png" },
       { label: "All five sectors (scenarios)", href: "/resources/scenarios" },
