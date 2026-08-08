@@ -49,7 +49,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 | Cloud | Posture rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | Google Cloud | 2,676 | 47 services |
 | Oracle Cloud (OCI) | 1,451 | 42 services |
 | Alibaba Cloud | 1,541 | Core services |

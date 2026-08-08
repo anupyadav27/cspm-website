@@ -105,6 +105,29 @@ const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
     ],
   },
   {
+    title: "Capability one-pagers",
+    items: [
+      { label: "Platform overview", href: "/brochures/capabilities/br-platform-overview.png" },
+      { label: "Attack paths", href: "/brochures/capabilities/br-attack-paths.png" },
+      { label: "Identity & entitlements (CIEM)", href: "/brochures/capabilities/br-ciem.png" },
+      { label: "Data security posture (DSPM)", href: "/brochures/capabilities/br-dspm.png" },
+      { label: "SaaS security posture (SSPM)", href: "/brochures/capabilities/br-sspm.png" },
+      { label: "Cloud detection & response (CDR)", href: "/brochures/capabilities/br-cdr.png" },
+      { label: "Workload protection (CWPP)", href: "/brochures/capabilities/br-cwpp.png" },
+      { label: "Container & Kubernetes", href: "/brochures/capabilities/br-container.png" },
+      { label: "Vulnerability management", href: "/brochures/capabilities/br-vulnerability.png" },
+      { label: "Code security", href: "/brochures/capabilities/br-code.png" },
+    ],
+  },
+  {
+    title: "By industry",
+    items: [
+      { label: "Healthcare", href: "/brochures/capabilities/br-industry-healthcare.png" },
+      { label: "Government & public sector", href: "/brochures/capabilities/br-industry-government.png" },
+      { label: "All five sectors (scenarios)", href: "/resources/scenarios" },
+    ],
+  },
+  {
     title: "Interactive tools",
     items: [
       { label: "Cloud exposure estimator (FAIR)", href: "/tools/fair-exposure-calculator.html" },

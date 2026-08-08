@@ -29,7 +29,7 @@ The master rule registry contains **10,864 rules** across the five primary scan 
 | Cloud | Rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | GCP | 2,676 | 47 services |
 | OCI | 1,451 | 42 services |
 | Kubernetes | 718 | 51 resource kinds |

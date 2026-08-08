@@ -430,7 +430,7 @@ az role assignment create \\
 
 ## What gets scanned
 
-Onam evaluates **112 Azure services** against **3,741 posture rules**, plus 202 identity-focused CIEM rules — the largest per-cloud rule set in Onam's 10,000+ rule registry. New services are added on a quarterly cadence.
+Onam evaluates **112 Azure services** against **3,319 posture rules**, plus 202 identity-focused CIEM rules — the largest per-cloud rule set in Onam's 10,000+ rule registry. New services are added on a quarterly cadence.
 
 | Category | Services scanned |
 | --- | --- |

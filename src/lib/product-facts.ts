@@ -17,7 +17,7 @@
 /** detection/analysis engines in the platform */
 export const ENGINES = 29;
 
-/** cloud services covered */
+/** cloud services covered — the full definition catalog, all 7 clouds */
 export const SERVICES = 549;
 
 /** AWS · Azure · GCP · OCI · Alibaba Cloud · IBM Cloud · Kubernetes */

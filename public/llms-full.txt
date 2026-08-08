@@ -227,7 +227,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 | Cloud | Posture rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | Google Cloud | 2,676 | 47 services |
 | Oracle Cloud (OCI) | 1,451 | 42 services |
 | Alibaba Cloud | 1,541 | Core services |
@@ -893,7 +893,7 @@ az role assignment create \
 
 ## What gets scanned
 
-Onam evaluates **112 Azure services** against **3,741 posture rules**, plus 202 identity-focused CIEM rules — the largest per-cloud rule set in Onam's 10,000+ rule registry. New services are added on a quarterly cadence.
+Onam evaluates **112 Azure services** against **3,319 posture rules**, plus 202 identity-focused CIEM rules — the largest per-cloud rule set in Onam's 10,000+ rule registry. New services are added on a quarterly cadence.
 
 | Category | Services scanned |
 | --- | --- |
@@ -2090,7 +2090,7 @@ The master rule registry contains **10,864 rules** across the five primary scan 
 | Cloud | Rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | GCP | 2,676 | 47 services |
 | OCI | 1,451 | 42 services |
 | Kubernetes | 718 | 51 resource kinds |
@@ -6738,7 +6738,7 @@ The master rule registry now contains **10,864 rules**:
 | Target | Rules | Coverage |
 | --- | --- | --- |
 | AWS | 2,278 | 157 services |
-| Azure | 3,741 | 112 services |
+| Azure | 3,319 | 112 services |
 | GCP | 2,676 | 47 services |
 | OCI | 1,451 | 42 services |
 | Kubernetes | 718 | 51 resource kinds |
