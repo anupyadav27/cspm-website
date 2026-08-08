@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Onam vs Orca Security — how each ranks cloud risk | Onam Security</title>
+<meta name="description" content="How Onam and Orca Security each rank cloud risk, quoted from Orca Security&#x27;s own public documentation with access dates. Onam prices the attack path in FAIR/ALE dollars; Orca Security ranks by dynamic scoring and attack-path analysis. Includes one honest limit and a seven-question checklist to run against both.">
+<link rel="canonical" href="https://www.onamsecurity.com/compare/onam-vs-orca.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Onam vs Orca Security — how each ranks cloud risk">
+<meta property="og:description" content="How Onam and Orca Security each rank cloud risk, quoted from Orca Security&#x27;s own public documentation with access dates. Onam prices the attack path in FAIR/ALE dollars; Orca Security ranks by dynamic scoring and attack-path analysis. Includes one honest limit and a seven-question checklist to run against both.">
+<meta property="og:url" content="https://www.onamsecurity.com/compare/onam-vs-orca.html">
+<meta name="robots" content="index,follow">
+<style>
+:root{--navy:#082869;--navy2:#0B2545;--blue:#2563EB;--blue2:#1E6FD9;
+--ink:#1A2233;--muted:#5C6B84;--line:#E3E8F0;--red:#DC2626;--bg:#fff}
+*{box-sizing:border-box}
+body{margin:0;width:1400px;font-family:"Plus Jakarta Sans","Segoe UI",-apple-system,
+BlinkMacSystemFont,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);
+padding:54px 60px 44px}
+.top{display:flex;justify-content:space-between;align-items:baseline;
+border-bottom:2px solid var(--navy);padding-bottom:14px}
+.brand{font-weight:800;letter-spacing:.14em;font-size:15px;color:var(--navy)}
+.brand span{color:var(--blue)}
+.kicker{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+h1{font-size:39px;line-height:1.14;margin:26px 0 8px;color:var(--navy2);
+letter-spacing:-.018em;max-width:1130px}
+.sub{font-size:16.5px;color:var(--muted);margin:0 0 26px;max-width:1000px}
+h2{font-size:19.5px;line-height:1.3;margin:0 0 9px;color:var(--navy2);letter-spacing:-.008em}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.block{border:1px solid var(--line);border-radius:9px;padding:20px 22px;background:#fff}
+.block.wide{grid-column:1/-1}
+p{margin:0;font-size:14.6px;line-height:1.55;color:var(--ink)}
+p+p{margin-top:8px}
+.q{font-size:16px;line-height:1.5;color:var(--navy2);font-style:italic;
+border-left:3px solid var(--blue);padding-left:15px;margin:2px 0 11px}
+.src{font-size:11.5px;color:var(--muted);word-break:break-all}
+.src b{color:var(--ink);font-weight:600;font-style:normal}
+.cols{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);
+border-radius:8px;overflow:hidden;margin-top:4px}
+.col{padding:15px 17px}
+.col+.col{border-left:1px solid var(--line);background:#F7F9FC}
+.col .lab{font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+color:var(--muted);margin-bottom:6px}
+.col .val{font-size:15px;line-height:1.45;font-weight:600;color:var(--navy2)}
+/* The unit, not a value. fact-base §7 records a capture gap: no cleared dollar
+   figure exists, and a demo-tenant number is an illustration, never a result.
+   "One stat, huge" is the wrong form with nothing to put in it — a blank stat
+   reads as a broken render. So we show the DENOMINATION, which is the argument. */
+.unit{display:flex;align-items:baseline;gap:14px;margin:6px 0 4px}
+.unit .was{font-size:27px;font-weight:700;color:var(--muted);text-decoration:line-through;
+text-decoration-thickness:2px}
+.unit .arrow{font-size:20px;color:var(--muted)}
+.unit .now{font-size:40px;font-weight:800;color:var(--blue);letter-spacing:-.02em}
+.unit .now .cur{color:var(--navy)}
+.limit{border:1px solid var(--line);border-left:4px solid var(--navy);
+border-radius:8px;padding:18px 22px;background:#F7F9FC}
+.limit .no{font-weight:800;color:var(--navy2)}
+ol{margin:6px 0 0;padding-left:20px}
+li{font-size:14.2px;line-height:1.5;margin-bottom:5px}
+li::marker{color:var(--blue);font-weight:700}
+.foot{margin-top:26px;padding-top:14px;border-top:1px solid var(--line);
+display:flex;justify-content:space-between;align-items:center}
+.tn{font-size:17px;font-weight:700;color:var(--navy)}
+.foot .m{font-size:11.5px;color:var(--muted);text-align:right;line-height:1.5}
+.path{margin-top:6px}
+</style></head><body>
+
+<div class="top">
+  <div class="brand">ONAM <span>SECURITY</span></div>
+  <div class="kicker">Choosing a CNAPP · August 2026</div>
+</div>
+
+<h1>You already have a ranked list.<br>Can you put a number on the top item?</h1>
+<p class="sub">Every serious cloud security platform will rank your findings. The
+question that decides a budget is what the ranking is denominated in.</p>
+
+<div class="grid">
+
+  <div class="block">
+    <h2>Orca Security ranks by dynamic scoring and attack-path analysis — in their own words</h2>
+    <p class="q">“Dynamic scoring &amp; attack path analysis”</p>
+    <p class="src"><b>Source:</b> https://orca.security/platform/ · accessed 2026-08-07</p>
+  </div>
+
+  <div class="block">
+    <h2>A score ranks findings against each other. A dollar figure ranks them
+        against everything else you fund.</h2>
+    <div class="cols">
+      <div class="col"><div class="lab">A score answers</div>
+        <div class="val">Which finding is worse than the others?</div></div>
+      <div class="col"><div class="lab">A dollar figure answers</div>
+        <div class="val">Is this worth more than the control we were going to renew?</div></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Onam prices the whole attack path in FAIR/ALE dollars</h2>
+    <div class="unit">
+      <span class="was">0–100</span><span class="arrow">→</span>
+      <span class="now"><span class="cur">$</span> per path / year</span>
+    </div>
+    <p style="margin-top:9px">Not a severity label. A defensible figure per path, built
+    on <b>FAIR</b> — the open standard for putting a dollar value on cyber risk,
+    published by The Open Group — expressed as <b>ALE</b>, annualised loss expectancy.
+    The number your board already knows how to weigh.</p>
+  </div>
+
+  <div class="block">
+    <h2>Fix the choke point, not the row — one change breaks many paths</h2>
+    <p>A chain breaks at any link. A <b>choke point</b> is the one node that sits on the
+    most paths, so a single change ends attacks that three separate tickets never
+    would. Ranked by dollar exposure, across 7 clouds on one graph and one data
+    model.</p>
+    
+<svg class="path" width="640" height="86" viewBox="0 0 640 86" role="img"
+     aria-label="A four-hop attack path from an instance to data. Breaking the second
+     hop severs the path.">
+  <defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+    <path d="M0,0 L8,4 L0,8 z" fill="#5C6B84"/></marker></defs>
+  <line x1="96"  y1="34" x2="176" y2="34" stroke="#5C6B84" stroke-width="1.6" marker-end="url(#a)"/>
+  <line x1="272" y1="34" x2="352" y2="34" stroke="#DC2626" stroke-width="2.4"
+        stroke-dasharray="5 4"/>
+  <line x1="448" y1="34" x2="528" y2="34" stroke="#5C6B84" stroke-width="1.6" marker-end="url(#a)"/>
+  <g font-family="inherit" font-size="11.5" text-anchor="middle">
+    <rect x="8"   y="18" width="88" height="33" rx="6" fill="#F7F9FC" stroke="#E3E8F0"/>
+    <text x="52"  y="39" fill="#1A2233">instance</text>
+    <rect x="176" y="18" width="96" height="33" rx="6" fill="#F7F9FC" stroke="#E3E8F0"/>
+    <text x="224" y="39" fill="#1A2233">metadata</text>
+    <rect x="352" y="18" width="96" height="33" rx="6" fill="#F7F9FC" stroke="#E3E8F0"/>
+    <text x="400" y="39" fill="#1A2233">role</text>
+    <rect x="528" y="18" width="88" height="33" rx="6" fill="#F7F9FC" stroke="#E3E8F0"/>
+    <text x="572" y="39" fill="#1A2233">data</text>
+    <text x="312" y="14" fill="#DC2626" font-weight="700" font-size="11">one fix here</text>
+    <text x="312" y="72" fill="#5C6B84" font-size="11">…and every path through it is gone</text>
+  </g>
+</svg>
+
+  </div>
+
+  <div class="block wide limit">
+    <h2>What we don't do</h2>
+    <p><span class="no">Onam has no live runtime enforcement.</span> Posture and
+    audit-log detection, read-only, with nothing deployed on the workload.
+    Orca Security runs the Orca Sensor — “Runtime observability &amp; protection” — and does more at
+    runtime than we do. That is a real gap, not a positioning choice. If inline
+    blocking is what you are buying, buy that.</p>
+  </div>
+
+  <div class="block wide">
+    <h2>Run the same seven questions against both of us</h2>
+    <p>We publish the checklist that includes our competitors, because a decision you
+    can defend is worth more to us than a deal you regret. Ask Orca Security these.
+    Then ask us.</p>
+    <ol><li>Can it price a finding in dollars your board already understands?</li><li>Does it rank across clouds on one scale, or one list per cloud?</li><li>Does it show the whole attack path, or the individual finding?</li><li>Can it name the one fix that breaks the most paths?</li><li>What must you deploy on the workload — and who owns that rollout?</li><li>How long from connecting an account to the first real finding?</li><li>What does it honestly not do?</li></ol>
+  </div>
+
+</div>
+
+<div class="foot">
+  <div class="tn">Find your true north.</div>
+  <div class="m">9,853 CSPM posture rules · 7 clouds · 78 compliance
+    frameworks · read-only, agentless<br>
+    onamsecurity.com — every Orca Security statement above is quoted from their own
+    public page, dated. Verify it.</div>
+</div>
+
+</body></html>

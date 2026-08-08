@@ -78,6 +78,31 @@ function CareersPage() {
         </div>
       </section>
 
+      <section className="bg-[#F7F9FC] py-16 border-y border-[#E3E8F0]">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Before you apply</div>
+            <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Read the engineering briefing first</h2>
+            <p className="mt-4 text-[#5C6B84] text-lg leading-relaxed">
+              The same deck we use internally — what the system actually is, what you would
+              work on, and the problem we have not solved yet. It names an unsolved data-quality
+              problem and the fact that we ship no runtime agent, because you would find both in
+              week one anyway.
+            </p>
+            <div className="mt-7 flex flex-wrap gap-3">
+              <a href="/careers/Onam-Engineering-Briefing.pdf"
+                 className="inline-flex items-center gap-2 rounded-[10px] px-5 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition">
+                Engineering briefing (PDF)
+              </a>
+              <a href="/careers/Onam-Engineering-Briefing.html"
+                 className="inline-flex items-center gap-2 rounded-[10px] px-5 py-3 text-sm font-semibold bg-white text-[#0B2545] border border-[#D6DEEA] hover:border-[#2563EB] transition">
+                Read in the browser
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-white py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">

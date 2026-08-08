@@ -148,6 +148,15 @@ const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
     ],
   },
   {
+    title: "How we compare",
+    items: [
+      { label: "Onam vs Wiz", href: "/compare/onam-vs-wiz.html" },
+      { label: "Onam vs Orca Security", href: "/compare/onam-vs-orca.html" },
+      { label: "Onam vs Cortex Cloud (Prisma)", href: "/compare/onam-vs-cortex-cloud.html" },
+      { label: "Onam vs Microsoft Defender for Cloud", href: "/compare/onam-vs-defender-for-cloud.html" },
+    ],
+  },
+  {
     title: "Interactive tools",
     items: [
       { label: "Cloud exposure estimator (FAIR)", href: "/tools/fair-exposure-calculator.html" },
