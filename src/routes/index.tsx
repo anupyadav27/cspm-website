@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { RULE_CATALOG_TOTAL, CLOUDS, SERVICES, fmt } from "@/lib/product-facts";
+import { RULE_CATALOG_TOTAL, CLOUDS, SERVICES, FRAMEWORKS, ENGINES, SAAS_PLATFORMS, fmt } from "@/lib/product-facts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -358,7 +358,7 @@ function HowItWorks() {
     { icon: Lock, title: "Connect your cloud — takes 3 minutes",
       body: "Give Onam read-only access via an IAM role, service principal, or service account. No agents, no code changes. Stores only a role ARN — no long-lived credentials, ever." },
     { icon: Search, title: "We scan everything — including what you forgot about",
-      body: "Enumerates every resource across 200+ cloud services, checks each against 10,000+ rules across every security layer. First findings in under 5 minutes; full attack graph within 60 minutes." },
+      body: `Enumerates every resource across ${fmt(SERVICES)} cloud services, checks each against ${fmt(RULE_CATALOG_TOTAL)} rules across every security layer.` },
     { icon: FileCheck, title: "You get a prioritised list, not a wall of alerts",
       body: "Critical findings first. Each finding says what it is, why it matters, which compliance frameworks it affects, and the exact remediation (CLI command, Terraform snippet, or console walkthrough)." },
   ];
@@ -1323,19 +1323,34 @@ function Testimonials() {
 
 /* ============================ STATS ============================ */
 function StatsSection() {
+  // "13 compliance frameworks" was live here. 13 is a RETIRED number —
+  // product.yaml lists "13 frameworks / 70+ frameworks" as replaced by 78, and
+  // it was corrected sitewide in v38. It survived because the fact gate greps
+  // for a number next to its label, and in a stats array the two sit in
+  // separate fields: { v: "13", label: "compliance frameworks" }. The gate is
+  // blind to exactly the structure where marketing numbers actually live.
+  // Sourcing from product-facts closes it here; the gate still needs widening.
+  //
+  // "10,000+ security rules" and the coverage figures were understatements of
+  // the same kind fixed in the strip above.
   const stats = [
-    { v: "1,240", label: "avg findings on first scan", sub: "Typical 40-account AWS org — 2025 Onam benchmark", accent: "#E32D25" },
-    { v: "< 5 min", label: "to first critical alert", sub: "Time from connection to first surfaced risk", accent: "#F2AF04" },
-    { v: "10,000+", label: "security rules", sub: "Across posture, network, data, code, identity", accent: "#2563EB" },
-    { v: "13", label: "compliance frameworks", sub: "CIS · NIST · ISO 27001 · PCI-DSS · HIPAA · SOC 2 · more", accent: "#05A052" },
-    { v: "7", label: "cloud providers", sub: "AWS · Azure · GCP · OCI · AliCloud · IBM · Kubernetes", accent: "#7C3AED" },
-    { v: "6×", label: "faster SOC 2 prep", sub: "From average customer engagement", accent: "#0EA5E9" },
+    { v: fmt(RULE_CATALOG_TOTAL), label: "security rules", sub: "Across posture, network, data, code, identity", accent: "#2563EB" },
+    { v: fmt(SERVICES), label: "cloud services covered", sub: "Enumerated continuously across every connected account", accent: "#E32D25" },
+    { v: String(FRAMEWORKS), label: "compliance frameworks", sub: "CIS · NIST · ISO 27001 · PCI-DSS · HIPAA · SOC 2 · more", accent: "#05A052" },
+    { v: String(ENGINES), label: "detection & analysis engines", sub: "One graph, one data model", accent: "#F2AF04" },
+    { v: String(CLOUDS), label: "cloud providers", sub: "AWS · Azure · GCP · OCI · AliCloud · IBM · Kubernetes", accent: "#7C3AED" },
+    { v: String(SAAS_PLATFORMS), label: "SaaS platforms", sub: "M365 · Workspace · GitHub · GitLab · Snowflake · Okta · more", accent: "#0EA5E9" },
   ];
   return (
     <section className="relative py-24 border-b border-[#E5E9F0] bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-6">
+        {/* Was "These are aggregate outcomes across the Onam customer base."
+            Nothing here is a customer outcome, and nothing in the claims library
+            supports an aggregate across a customer base. These are platform
+            coverage figures, so the subtitle now says that — and says where they
+            come from, which is the more useful claim to a buyer anyway. */}
         <SectionHeader eyebrow="By the numbers" title="Depth you can measure"
-                       subtitle="These are aggregate outcomes across the Onam customer base." />
+                       subtitle="Platform coverage, counted — every figure below is a cleared number from our product fact sheet, not an estimate." />
         <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-6">
           {stats.map((s) => (
             <div key={s.label} className="bg-white rounded-2xl p-6 border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
