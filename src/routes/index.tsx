@@ -189,7 +189,17 @@ function Hero() {
 
 function HeroMock() {
   return (
-    <div className="relative animate-fade-in">
+    // min-w-0 is load-bearing. A grid item defaults to min-width:auto, so this
+    // mock refused to shrink below its 386px min-content. On mobile the hero is a
+    // ONE-column grid, so that widened the column past the 342px content box —
+    // and the headline and paragraph, which merely fill the column, then
+    // overhung the viewport and were cut off by the section's overflow-hidden.
+    // Readers lost the end of every line ("or a compliance audi…").
+    //
+    // It presented as a text bug and was a layout bug in the sibling. Note that
+    // scrollWidth === clientWidth throughout — overflow-hidden absorbs it, so
+    // nothing scrolls and nothing reports wrong.
+    <div className="relative animate-fade-in min-w-0">
       <div className="absolute -inset-6 bg-gradient-to-br from-[#2563EB]/10 via-transparent to-[#05A052]/10 blur-2xl -z-10 rounded-3xl" />
       <div className="bg-white rounded-2xl border border-[#E5E9F0] p-5 shadow-[0_18px_48px_rgba(16,24,40,.12)] animate-float-slow">
         <div className="flex items-center justify-between pb-4 border-b border-[#E5E9F0]">
@@ -368,12 +378,26 @@ function HowItWorks() {
 /* ============================ PRODUCT DEMO (11 tabs) ============================ */
 
 type Sev = "critical" | "high" | "medium" | "info" | "success";
-const sevStyle: Record<Sev, { color: string; tint: string; label: string }> = {
-  critical: { color: "#E32D25", tint: "#FDECEA", label: "CRITICAL" },
-  high:     { color: "#F2AF04", tint: "#FEF6E0", label: "HIGH" },
-  medium:   { color: "#2563EB", tint: "#EFF4FF", label: "MEDIUM" },
-  info:     { color: "#334155", tint: "#F1F5F9", label: "INFO" },
-  success:  { color: "#05A052", tint: "#E7F6EF", label: "OK" },
+
+/**
+ * `color` is the SIGNAL — dots, bars, icons, anything read as shape rather than
+ * language. `text` is the same severity darkened until it is legible as 10px
+ * type on `tint`.
+ *
+ * They are separate because they are solving different problems, and using one
+ * for both failed WCAG AA on three of the five: critical 3.93:1, high 1.78:1,
+ * success 3.06:1, against the 4.5:1 small-text minimum. Amber on amber was the
+ * worst and the most used. Severity chips appear in tables, panels and finding
+ * lists across the site, so this was not a homepage detail.
+ *
+ * If you add a severity, check the pair — `text` must clear 4.5:1 on `tint`.
+ */
+const sevStyle: Record<Sev, { color: string; text: string; tint: string; label: string }> = {
+  critical: { color: "#E32D25", text: "#A81E18", tint: "#FDECEA", label: "CRITICAL" },  // 6.41:1
+  high:     { color: "#F2AF04", text: "#8A5A00", tint: "#FEF6E0", label: "HIGH" },      // 5.50:1
+  medium:   { color: "#2563EB", text: "#1D4ED8", tint: "#EFF4FF", label: "MEDIUM" },    // 6.08:1
+  info:     { color: "#334155", text: "#334155", tint: "#F1F5F9", label: "INFO" },      // 9.45:1
+  success:  { color: "#05A052", text: "#046C37", tint: "#E7F6EF", label: "OK" },        // 5.87:1
 };
 
 function SevChip({ sev, children }: { sev: Sev; children?: ReactNode }) {
@@ -381,7 +405,7 @@ function SevChip({ sev, children }: { sev: Sev; children?: ReactNode }) {
   return (
     <span
       className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
-      style={{ color: s.color, backgroundColor: s.tint }}
+      style={{ color: s.text, backgroundColor: s.tint }}
     >
       {children ?? s.label}
     </span>

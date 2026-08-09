@@ -35,6 +35,39 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   });
 }
 
+// HSTS. Every variant of this site — http://onamsecurity.com, https://onamsecurity.com,
+// http://www — returns 200 with a full page, and the ONLY thing sending a visitor to
+// https://www is a client-side location.replace in __root.tsx. That means a first visit
+// renders completely over plain HTTP before any redirect fires.
+//
+// A server-side 301 is not available here: TLS terminates at the NLB, nginx receives no
+// X-Forwarded-Proto and so cannot tell the schemes apart, and both ingress mechanisms for
+// a path-preserving redirect are blocked by cluster policy (see
+// deploy/apex-redirect-ingress.yaml for that investigation). HSTS is the part that IS
+// fixable here: after one HTTPS visit the browser refuses plain HTTP for this origin
+// outright, without asking the network.
+//
+// includeSubDomains is safe: the ACM cert is SAN onamsecurity.com + *.onamsecurity.com,
+// so every present and future subdomain is covered. `preload` is deliberately NOT set —
+// preload list removal takes months, and it should only be added once this has run
+// unremarkably for a while.
+//
+// Sent unconditionally. RFC 6797 requires a browser to ignore HSTS delivered over plain
+// HTTP, so the header is inert on the HTTP variant rather than wrong.
+const HSTS = "max-age=31536000; includeSubDomains";
+
+function withSecurityHeaders(response: Response): Response {
+  // Response headers can be immutable depending on how the body was constructed, so
+  // rebuild rather than mutating in place.
+  const headers = new Headers(response.headers);
+  headers.set("Strict-Transport-Security", HSTS);
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 function isH3SwallowedErrorBody(body: string): boolean {
   try {
     const payload = JSON.parse(body) as { unhandled?: unknown; message?: unknown };
@@ -49,13 +82,15 @@ export default {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      return withSecurityHeaders(await normalizeCatastrophicSsrResponse(response));
     } catch (error) {
       console.error(error);
-      return new Response(renderErrorPage(), {
-        status: 500,
-        headers: { "content-type": "text/html; charset=utf-8" },
-      });
+      return withSecurityHeaders(
+        new Response(renderErrorPage(), {
+          status: 500,
+          headers: { "content-type": "text/html; charset=utf-8" },
+        }),
+      );
     }
   },
 };
