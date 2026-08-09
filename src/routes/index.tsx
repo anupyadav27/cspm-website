@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { RULE_CATALOG_TOTAL, CLOUDS, fmt } from "@/lib/product-facts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -153,8 +154,12 @@ function Hero() {
             <span className="text-[#334155] uppercase">Cloud Security Platform</span>
           </div>
 
-          <h1 className="mt-6 font-display font-black text-[#0B1220] text-5xl md:text-6xl lg:text-[64px] tracking-tight leading-[1.02]">
-            Is your cloud secure,<br />or does it just{" "}
+          {/* text-balance so the browser evens the line lengths. Without it the
+              hard break left "secure," alone on its own line — a two-word orphan
+              under the biggest type on the site, which reads as a layout accident
+              rather than a deliberate break. */}
+          <h1 className="mt-6 font-display font-black text-[#0B1220] text-5xl md:text-6xl lg:text-[64px] tracking-tight leading-[1.02] text-balance">
+            Is your cloud secure, or does it just{" "}
             <span className="gradient-text">feel that way?</span>
           </h1>
 
@@ -172,7 +177,11 @@ function Hero() {
           </div>
 
           <div className="mt-10 flex flex-wrap gap-2">
-            {["10,000+ security rules", "7 cloud providers", "every security layer", "100% agentless"].map((t) => (
+            {/* The exact cleared figure, imported, rather than "10,000+". The round
+                number was true against the 11,346 catalog and understated it —
+                a hedge that made the product look smaller than it is while being
+                unverifiable either way. These now move when product.yaml moves. */}
+            {[`${fmt(RULE_CATALOG_TOTAL)} security rules`, `${CLOUDS} cloud providers`, "every security layer", "100% agentless"].map((t) => (
               <div key={t} className="px-3 py-1.5 rounded-full text-xs font-medium text-[#334155] bg-white border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)] flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" />
                 {t}
@@ -505,9 +514,14 @@ function ProductDemo() {
           gradientWords="Every risk."
         />
 
+        {/* min-w-0 on the panel, for the same reason as HeroMock: a grid item will
+            not shrink below its min-content, and the console mock inside is far
+            wider than a phone. Without it this whole section rendered ~984px past
+            the viewport with no way to scroll to it — the product tour was, in
+            effect, desktop-only. */}
         <div className="mt-10 grid lg:grid-cols-[240px_1fr] gap-6">
           {/* Tab rail */}
-          <div className="rounded-2xl border border-[#E5E9F0] bg-white p-2 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
+          <div className="min-w-0 rounded-2xl border border-[#E5E9F0] bg-white p-2 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
             <div className="text-[10px] uppercase tracking-widest text-[#64748B] font-bold px-3 pt-2 pb-1">
               Product tour
             </div>
@@ -535,7 +549,7 @@ function ProductDemo() {
           </div>
 
           {/* Frame */}
-          <div className="rounded-2xl border border-[#E5E9F0] bg-white shadow-[0_18px_48px_rgba(16,24,40,.10)] overflow-hidden">
+          <div className="min-w-0 rounded-2xl border border-[#E5E9F0] bg-white shadow-[0_18px_48px_rgba(16,24,40,.10)] overflow-hidden">
             {/* Fake browser bar */}
             <div className="flex items-center gap-2 px-4 py-2.5 bg-[#F8FAFC] border-b border-[#E5E9F0]">
               <span className="w-2.5 h-2.5 rounded-full bg-[#E32D25]/70" />
@@ -548,17 +562,22 @@ function ProductDemo() {
             </div>
 
             {/* App top bar */}
+            {/* The header shrinks rather than scrolling. min-w-0 at every level is
+                what lets `truncate` actually engage — a flex item defaults to
+                min-width:auto and will push its container wider instead of
+                letting the text ellipsis. shrink-0 keeps the icon and the
+                severity chip at their natural size while the caption gives way. */}
             <div className="flex items-center justify-between gap-3 px-5 py-3 border-b border-[#E5E9F0] bg-white">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-[#EFF4FF] grid place-items-center">
+              <div className="flex items-center gap-2 min-w-0">
+                <div className="w-8 h-8 shrink-0 rounded-lg bg-[#EFF4FF] grid place-items-center">
                   <Icon className="w-4 h-4 text-[#2563EB]" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm font-semibold text-[#0B1220]">{t.label}</div>
                   <div className="text-[11px] text-[#64748B] max-w-md truncate">{t.caption}</div>
                 </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 shrink-0">
                 <div className="hidden md:flex items-center gap-1.5 text-xs text-[#64748B] px-2.5 py-1 rounded-md border border-[#E5E9F0] bg-white">
                   <Search className="w-3 h-3" /> Search resources
                 </div>
@@ -566,9 +585,15 @@ function ProductDemo() {
               </div>
             </div>
 
-            {/* View */}
-            <div className="p-6 bg-[#FAFBFD] min-h-[520px]">
-              {t.view()}
+            {/* View
+                overflow-x-auto so the console mock stays REACHABLE on a phone.
+                min-w-0 above lets the panel shrink to the column; without a
+                scroller here that would merely swap unreachable-overflow for
+                unreachable-clipping, since the panel clips to its radius. The
+                inner min-w is what gives the mock room to keep its desktop
+                layout instead of collapsing into an unreadable stack. */}
+            <div className="p-6 bg-[#FAFBFD] min-h-[520px] overflow-x-auto">
+              <div className="min-w-[680px] lg:min-w-0">{t.view()}</div>
             </div>
           </div>
         </div>

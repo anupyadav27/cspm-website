@@ -139,7 +139,9 @@ function TierCard({ t }: { t: Tier }) {
         </div>
       )}
       <div className="font-display font-bold text-[#0B1220] text-lg">{t.name}</div>
-      <div className="mt-3 flex items-baseline gap-2">
+      {/* flex-wrap: at tablet the three cards get narrow enough that
+          "Custom" + "annual contract" overflowed the card and was cut off. */}
+      <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
         <div className="font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight">{t.price}</div>
         {t.priceSub && <div className="text-sm text-[#64748B]">{t.priceSub}</div>}
       </div>

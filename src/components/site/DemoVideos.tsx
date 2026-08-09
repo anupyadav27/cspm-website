@@ -407,7 +407,7 @@ function ConsoleSidebar({ active }: { active: string }) {
         {NAV_GROUPS.map((g, gi) => (
           <div key={gi} className="mb-1">
             {g.group && (
-              <div className="px-2 pt-2 pb-1 text-[8px] font-bold uppercase tracking-[0.14em] text-[#94A3B8]">
+              <div className="px-2 pt-2 pb-1 text-[8px] font-bold uppercase tracking-[0.14em] text-[#5C6B84]">
                 {g.group}
               </div>
             )}
@@ -427,7 +427,7 @@ function ConsoleSidebar({ active }: { active: string }) {
                     <div className={cn("text-[11px] font-semibold leading-tight truncate", isActive ? "text-[#4F46E5]" : "text-[#334155]")}>
                       {it.label}
                     </div>
-                    {it.sub && <div className="text-[8px] text-[#94A3B8] leading-tight truncate">{it.sub}</div>}
+                    {it.sub && <div className="text-[8px] text-[#5C6B84] leading-tight truncate">{it.sub}</div>}
                   </div>
                 </div>
               );
@@ -441,7 +441,7 @@ function ConsoleSidebar({ active }: { active: string }) {
         <div className="w-6 h-6 rounded-full bg-[#4F46E5] text-white grid place-items-center text-[9px] font-bold">OS</div>
         <div className="min-w-0">
           <div className="text-[10px] font-semibold text-[#0B1220] leading-tight truncate">Onam Admin</div>
-          <div className="text-[8px] text-[#94A3B8] leading-tight">Security Admin</div>
+          <div className="text-[8px] text-[#5C6B84] leading-tight">Security Admin</div>
         </div>
       </div>
     </div>
@@ -470,7 +470,7 @@ function ConsoleTopbar({ page }: { page: Clip["page"] }) {
         ))}
       </div>
       <div className="flex-1" />
-      <span className="hidden lg:inline text-[10px] text-[#94A3B8]">Last scan: 2 min ago</span>
+      <span className="hidden lg:inline text-[10px] text-[#5C6B84]">Last scan: 2 min ago</span>
       {page.action && (
         <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#4F46E5] text-white text-[11px] font-semibold shadow-sm">
           {page.action}
@@ -601,7 +601,7 @@ function DashboardAnimation({ duration }: { duration: number }) {
                 <div key={e} className={cn("rounded-lg border px-1.5 py-1.5 text-center transition-colors", on ? "border-[#E9EDF3] bg-[#F8FAFC]" : "border-[#EEF2F6] bg-white opacity-60")}>
                   <span className={cn("inline-block w-1.5 h-1.5 rounded-full mb-0.5", on ? "bg-[#05A052]" : "bg-[#CBD5E1]")} />
                   <div className="text-[8.5px] font-semibold text-[#334155] leading-tight">{e}</div>
-                  <div className="text-[7px] text-[#94A3B8]">{on ? "2m ago" : "…"}</div>
+                  <div className="text-[7px] text-[#5C6B84]">{on ? "2m ago" : "…"}</div>
                 </div>
               );
             })}
@@ -635,12 +635,12 @@ function DashboardAnimation({ duration }: { duration: number }) {
                 <span className="w-1.5 h-1.5 rounded-full bg-[#E32D25] shrink-0" />
                 <div className="min-w-0 flex-1">
                   <div className="text-[10px] font-medium text-[#0B1220] truncate leading-tight">{f.title}</div>
-                  <div className="text-[8px] text-[#94A3B8]">{f.engine}</div>
+                  <div className="text-[8px] text-[#5C6B84]">{f.engine}</div>
                 </div>
               </div>
             ))}
             {findingsVisible === 0 && (
-              <div className="py-4 text-center text-[9px] text-[#94A3B8]">
+              <div className="py-4 text-center text-[9px] text-[#5C6B84]">
                 <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-1.5 animate-pulse" />
                 Correlating findings…
               </div>
@@ -660,7 +660,7 @@ function DashboardAnimation({ duration }: { duration: number }) {
               </div>
               <div className="min-w-0 flex-1 hidden sm:block">
                 <div className="text-[10px] font-bold text-[#0B1220] leading-tight">{c.name}</div>
-                <div className="text-[8px] text-[#94A3B8]">{c.assets}</div>
+                <div className="text-[8px] text-[#5C6B84]">{c.assets}</div>
               </div>
               {on && (
                 <span className="text-[8px] font-bold text-[#05A052] bg-[#E7F6EF] border border-[#BFE8D2] rounded-full px-1.5 py-0.5 animate-[fade-in_.3s_ease-out_both]">
@@ -733,7 +733,7 @@ function ScanAnimation({ duration }: { duration: number }) {
 
       {/* Alerts table */}
       <div className="flex-1 min-h-0 rounded-xl border border-[#E9EDF3] bg-white overflow-hidden flex flex-col">
-        <div className="grid grid-cols-[74px_1fr_auto] md:grid-cols-[80px_1.6fr_1fr_110px_44px_72px] items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#94A3B8]">
+        <div className="grid grid-cols-[74px_1fr_auto] md:grid-cols-[80px_1.6fr_1fr_110px_44px_72px] items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#5C6B84]">
           <span>Severity</span><span>Finding</span><span className="hidden md:block">Resource</span><span className="hidden md:block">Engine</span><span className="hidden md:block">Age</span><span className="text-right md:text-left">Status</span>
         </div>
         <div className="flex-1 overflow-hidden">
@@ -749,7 +749,7 @@ function ScanAnimation({ duration }: { duration: number }) {
                 <span className="hidden md:inline-flex w-fit items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold bg-[#F3E8FF] text-[#7C3AED] border border-[#E4D0FB] truncate">
                   {r.engine}
                 </span>
-                <span className="hidden md:block text-[9px] text-[#94A3B8] tabular-nums">{r.age}</span>
+                <span className="hidden md:block text-[9px] text-[#5C6B84] tabular-nums">{r.age}</span>
                 <span className={cn(
                   "inline-flex w-fit justify-self-end md:justify-self-start items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold border",
                   r.status === "Open" ? "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]" : "bg-[#F1F5F9] text-[#64748B] border-[#E2E8F0]",
@@ -760,14 +760,14 @@ function ScanAnimation({ duration }: { duration: number }) {
             );
           })}
           {rowsVisible === 0 && (
-            <div className="px-4 py-8 text-center text-[10px] text-[#94A3B8]">
+            <div className="px-4 py-8 text-center text-[10px] text-[#5C6B84]">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-2 animate-pulse" />
               Analyzing resources across us-east-1, us-west-2, eu-west-1, ap-south-1…
             </div>
           )}
         </div>
         {rowsVisible >= ALERT_ROWS.length && (
-          <div className="px-3 py-1.5 border-t border-[#E9EDF3] bg-[#F8FAFC] text-[8px] text-[#94A3B8] flex justify-between animate-[fade-in_.3s_ease-out_both]">
+          <div className="px-3 py-1.5 border-t border-[#E9EDF3] bg-[#F8FAFC] text-[8px] text-[#5C6B84] flex justify-between animate-[fade-in_.3s_ease-out_both]">
             <span>Showing 1–7 of 1,051 findings</span>
             <span className="font-semibold text-[#4F46E5]">1 · 2 · 3 · … · 105</span>
           </div>
@@ -910,7 +910,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
     <div className="absolute inset-0 flex">
       {/* Paths list */}
       <div className="hidden lg:flex flex-col w-[218px] shrink-0 border-r border-[#E9EDF3] bg-white">
-        <div className="px-3 py-2 text-[8px] font-bold uppercase tracking-wider text-[#94A3B8] border-b border-[#F1F5F9]">
+        <div className="px-3 py-2 text-[8px] font-bold uppercase tracking-wider text-[#5C6B84] border-b border-[#F1F5F9]">
           3 Attack Paths
         </div>
         {PATHS.slice(0, pathsVisible).map((p, idx) => (
@@ -1032,7 +1032,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
             ["Fix Priority", "P0 — Disable IMDSv1"],
           ].map(([k, v]) => (
             <div key={k} className="flex justify-between gap-2 py-[3px] text-[8.5px] border-b border-[#F8FAFC] last:border-b-0">
-              <span className="text-[#94A3B8] shrink-0">{k}</span>
+              <span className="text-[#5C6B84] shrink-0">{k}</span>
               <span className={cn("font-semibold text-right", k === "Fix Priority" ? "text-[#B41F1A]" : "text-[#0B1220]")}>{v}</span>
             </div>
           ))}
@@ -1085,7 +1085,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
               <div className="mt-1.5 h-[5px] rounded-full bg-[#EEF2F6] overflow-hidden">
                 <div className="h-full rounded-full" style={{ width: `${pct}%`, background: f.color, transition: "width .1s linear" }} />
               </div>
-              <div className="mt-1 text-[8px] text-[#94A3B8]">{f.sub}</div>
+              <div className="mt-1 text-[8px] text-[#5C6B84]">{f.sub}</div>
             </div>
           );
         })}
@@ -1093,7 +1093,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
 
       {/* Controls table */}
       <div className="flex-1 min-h-0 rounded-xl border border-[#E9EDF3] bg-white overflow-hidden flex flex-col">
-        <div className="grid grid-cols-[86px_1fr_54px] md:grid-cols-[96px_1.7fr_86px_110px_54px] items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#94A3B8]">
+        <div className="grid grid-cols-[86px_1fr_54px] md:grid-cols-[96px_1.7fr_86px_110px_54px] items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#5C6B84]">
           <span>Control</span><span>Description</span><span className="hidden md:block">Framework</span><span className="hidden md:block">Resource</span><span className="text-right">Status</span>
         </div>
         <div className="flex-1 overflow-hidden">
@@ -1112,7 +1112,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
             </div>
           ))}
           {rowsVisible === 0 && (
-            <div className="px-4 py-6 text-center text-[9px] text-[#94A3B8]">
+            <div className="px-4 py-6 text-center text-[9px] text-[#5C6B84]">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-1.5 animate-pulse" />
               Evaluating 1,483 controls across 6 frameworks…
             </div>
@@ -1191,7 +1191,7 @@ function KpiScreen({ config, duration }: { config: KpiScreenConfig; duration: nu
       {/* Table */}
       <div className="flex-1 min-h-0 rounded-xl border border-[#E9EDF3] bg-white overflow-hidden flex flex-col">
         <div
-          className="hidden md:grid items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#94A3B8]"
+          className="hidden md:grid items-center gap-2 px-3 py-1.5 bg-[#F8FAFC] border-b border-[#E9EDF3] text-[8px] font-bold uppercase tracking-wider text-[#5C6B84]"
           style={{ gridTemplateColumns: config.grid }}
         >
           {config.columns.map((c) => <span key={c}>{c}</span>)}
@@ -1214,14 +1214,14 @@ function KpiScreen({ config, duration }: { config: KpiScreenConfig; duration: nu
             </div>
           ))}
           {rowsVisible === 0 && (
-            <div className="px-4 py-8 text-center text-[9px] text-[#94A3B8]">
+            <div className="px-4 py-8 text-center text-[9px] text-[#5C6B84]">
               <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#2563EB] mr-1.5 animate-pulse" />
               Loading live data…
             </div>
           )}
         </div>
         {config.footer && rowsVisible >= config.rows.length && (
-          <div className="px-3 py-1.5 border-t border-[#E9EDF3] bg-[#F8FAFC] text-[8px] text-[#94A3B8] animate-[fade-in_.3s_ease-out_both]">
+          <div className="px-3 py-1.5 border-t border-[#E9EDF3] bg-[#F8FAFC] text-[8px] text-[#5C6B84] animate-[fade-in_.3s_ease-out_both]">
             {config.footer}
           </div>
         )}

@@ -313,7 +313,9 @@ function Page() {
             <h3 className="font-display font-extrabold text-2xl text-[#0B1220]">Read the docs</h3>
             <p className="mt-2 text-[#475569] max-w-2xl">Everything from onboarding your first account to tuning findings and hitting the API.</p>
           </div>
-          <div className="flex gap-3">
+          {/* flex-wrap: the pair is 5px too wide for a 360px phone and the second
+              button was cut off with no way to scroll to it. */}
+          <div className="flex flex-wrap gap-3">
             <BrandButton to="/docs">Open documentation</BrandButton>
             <BrandButton to="/request-demo" variant="secondary">Book a demo</BrandButton>
           </div>
