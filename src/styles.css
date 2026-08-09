@@ -115,8 +115,14 @@
   }
 }
 
+/* One hue, with depth — not a sweep across three.
+   This ran #2563EB -> #05A052, so the emphasised phrase in the hero passed
+   through blue, teal and green in four words. Three hues in one breath reads
+   consumer; the category leaders hold a single accent and let type and density
+   do the work. Green is still the product's OK/success signal, which is exactly
+   why it should not also be decoration in a headline. */
 @utility gradient-text {
-  background-image: linear-gradient(90deg, #2563EB 0%, #05A052 100%);
+  background-image: linear-gradient(90deg, #2563EB 0%, #1E40AF 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;

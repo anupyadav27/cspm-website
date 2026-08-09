@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { RULE_CATALOG_TOTAL, CLOUDS, fmt } from "@/lib/product-facts";
+import { RULE_CATALOG_TOTAL, CLOUDS, SERVICES, fmt } from "@/lib/product-facts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -147,7 +147,12 @@ function Hero() {
       <div className="pointer-events-none absolute -top-40 -right-32 w-[720px] h-[560px] rounded-full bg-[#2563EB]/12 blur-[140px]" />
       <div className="pointer-events-none absolute top-40 -right-20 w-[420px] h-[420px] rounded-full bg-[#05A052]/8 blur-[120px]" />
 
-      <div className="relative max-w-7xl mx-auto px-6 pt-20 md:pt-24 pb-20 grid lg:grid-cols-[1.05fr_1fr] gap-14 items-center">
+      {/* Tighter than it was (pt-20/24, pb-20, gap-14). The hero used most of a
+          1440x900 viewport to say one sentence, which pushes every piece of
+          proof below the fold — the opposite of what an enterprise evaluator
+          scanning three vendors wants. Density is the cheapest signal of
+          seriousness there is. */}
+      <div className="relative max-w-7xl mx-auto px-6 pt-14 md:pt-16 pb-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-12 items-center">
         <div className="animate-slide-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-white border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" />
@@ -176,18 +181,11 @@ function Hero() {
             </BrandButton>
           </div>
 
-          <div className="mt-10 flex flex-wrap gap-2">
-            {/* The exact cleared figure, imported, rather than "10,000+". The round
-                number was true against the 11,346 catalog and understated it —
-                a hedge that made the product look smaller than it is while being
-                unverifiable either way. These now move when product.yaml moves. */}
-            {[`${fmt(RULE_CATALOG_TOTAL)} security rules`, `${CLOUDS} cloud providers`, "every security layer", "100% agentless"].map((t) => (
-              <div key={t} className="px-3 py-1.5 rounded-full text-xs font-medium text-[#334155] bg-white border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)] flex items-center gap-1.5">
-                <span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" />
-                {t}
-              </div>
-            ))}
-          </div>
+          {/* No stat row here on purpose. There was a row of four pills, and the
+              OutcomeStrip directly below is a full-width row of four figures —
+              two stat rows stacked, which halves the weight of both. Worse, they
+              disagreed: the pills said one thing about service coverage and the
+              strip below said "200+". The numbers now live in one place. */}
         </div>
 
         <HeroMock />
@@ -289,10 +287,22 @@ function HeroMock() {
 
 /* ============================ OUTCOME STRIP ============================ */
 function OutcomeStrip() {
+  // Every figure here now traces to marketing/facts/product.yaml.
+  //
+  // Two were removed rather than restyled: "1,240 avg findings per first scan"
+  // and "< 5 min time to first critical". Neither appears in product.yaml or
+  // the claims library, and both are customer-facing performance numbers — the
+  // exact shape of claim the marketing guardrails say does not ship unsourced.
+  // If they can be derived and cleared, add them there and they belong back
+  // here; inventing a source for them here would defeat the gate.
+  //
+  // "200+ cloud services covered" was also wrong in the unhelpful direction:
+  // the cleared figure is 549, so the site was understating its own coverage
+  // by more than half on the most prominent number strip it has.
   const items = [
-    { value: "1,240", label: "avg findings per first scan" },
-    { value: "< 5 min", label: "time to first critical" },
-    { value: "200+", label: "cloud services covered" },
+    { value: fmt(RULE_CATALOG_TOTAL), label: "security rules" },
+    { value: fmt(SERVICES), label: "cloud services covered" },
+    { value: String(CLOUDS), label: "clouds, one graph" },
     { value: "100%", label: "agentless — no deployment" },
   ];
   return (
