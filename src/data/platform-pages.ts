@@ -130,6 +130,7 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     related: [
       { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "CIEM vs IAM security — the practical difference", href: "/resources/blog/ciem-vs-iam-security" },
       { label: "IAM Security", href: "/platform/iam" },
       { label: "Threat Detection", href: "/platform/threat-detection" },
       { label: "CSPM", href: "/platform/cspm" },
@@ -243,9 +244,27 @@ export const platformPages: Record<string, ProductPageData> = {
         q: "What is a choke point, and why fix it before the critical findings?",
         a: "A choke point is a single resource that sits on a large number of distinct attack paths. Severity describes a finding in isolation; convergence describes leverage. A medium-severity role that every path routes through removes far more real risk when fixed than a critical finding on a resource an attacker cannot reach — and because the graph is recomputed on the next scan, the fix is verifiable: the paths that depended on that node are simply gone.",
       },
+      {
+        q: "What is attack path analysis?",
+        a: "Attack path analysis is reachability reasoning over a graph of your cloud, rather than a list of findings. It starts from what an attacker can touch — an internet-facing service, a compromised identity — and walks the relationships that actually exist between resources until it reaches something worth protecting. The output is a route with an entry point, a set of hops and a destination, which is a thing you can fix. A severity list cannot express that, because severity describes one finding in isolation and a route is a property of the connections between them.",
+      },
+      {
+        q: "Is attack path mapping the same as attack path analysis?",
+        a: "In practice yes — the two terms are used interchangeably across the industry, and no standards body distinguishes them. Where people do draw a line, mapping tends to mean building the graph of what connects to what, and analysis means searching that graph for routes to crown jewels. Onam does both in one pass: the graph is built from read-only telemetry across 7 clouds, then traversed breadth-first from reachable entry points. If a vendor tells you these are different products, ask which one you are being sold.",
+      },
+      {
+        q: "What is attack path management, and how is it different from finding paths?",
+        a: "Finding a path is a point-in-time result. Managing them is the operational loop around it: ranking the paths that matter, choosing the change that removes the most of them at once, verifying the route is actually gone on the next scan, and watching for the new ones that appear as the estate changes. The verification step is the one most often missing — a path you cannot confirm is closed is a path you have to keep worrying about. Onam recomputes the graph every scan, so a fixed route disappears rather than being marked resolved by hand.",
+      },
+      {
+        q: "How do I know a path is real and not a theoretical graph traversal?",
+        a: "This is the right question to ask any vendor, including us. A graph will happily produce routes that cannot be walked in practice. Onam verifies every edge across five independent security domains before a path is called confirmed, and an unverified path is never priced — because a dollar figure attached to a route that does not exist is worse than no figure at all. The full method is documented in our attack-path methodology whitepaper.",
+      },
     ],
     related: [
+      { label: "Attack-path methodology (whitepaper)", href: "/whitepapers/wp1-attack-path-methodology.pdf" },
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
+      { label: "CIEM vs IAM security — the practical difference", href: "/resources/blog/ciem-vs-iam-security" },
       { label: "What is a choke point?", href: "/learn/choke-point" },
       { label: "What is cloud risk quantification?", href: "/learn/cloud-risk-quantification" },
       { label: "Threat Detection", href: "/platform/threat-detection" },
