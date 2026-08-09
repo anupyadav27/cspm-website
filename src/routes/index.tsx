@@ -139,13 +139,36 @@ function FAQSection() {
   );
 }
 
-/* ============================ HERO ============================ */
+/* ============================ HERO ============================
+ * Dark, and the visual is a priced attack path.
+ *
+ * The previous hero was the default SaaS template — white page, copy left,
+ * generic findings card right — which is the same hero Wiz, Orca and Prisma
+ * all run. Looking like the category is the opposite of looking like the
+ * leader of it.
+ *
+ * Two deliberate choices:
+ *
+ * 1. DARK. It separates the page from the field on sight, and it is what a
+ *    security buyer's own tools look like. Every colour below was checked
+ *    against #0B1220 for WCAG AA — the palette here is the brand's dark theme
+ *    (blue_lt #4D8DFF at 5.86:1, sub_dk #9FB0CC at 8.52:1), not new invention.
+ *
+ * 2. THE PATH, PRICED. The old card showed 12 critical / 84 high / 319 medium —
+ *    a severity count every competitor also shows. The differentiator is
+ *    "one graph": the route to a crown jewel, the single choke point that cuts
+ *    it, and the dollar figure. That is what the product actually does that the
+ *    others do not, so that is what the hero shows.
+ *
+ * The figures are from the demo tenant and are LABELLED as illustrative, per
+ * the marketing guardrail that demo numbers are never presented as outcomes.
+ */
 function Hero() {
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="absolute inset-0 dot-grid opacity-50" />
-      <div className="pointer-events-none absolute -top-40 -right-32 w-[720px] h-[560px] rounded-full bg-[#2563EB]/12 blur-[140px]" />
-      <div className="pointer-events-none absolute top-40 -right-20 w-[420px] h-[420px] rounded-full bg-[#05A052]/8 blur-[120px]" />
+    <section className="relative overflow-hidden bg-[#0B1220]">
+      {/* Depth without noise: two wide, low-opacity washes rather than a pattern. */}
+      <div className="pointer-events-none absolute -top-52 -right-40 w-[820px] h-[620px] rounded-full bg-[#2563EB]/20 blur-[160px]" />
+      <div className="pointer-events-none absolute -bottom-40 -left-32 w-[560px] h-[460px] rounded-full bg-[#4D8DFF]/10 blur-[150px]" />
 
       {/* Tighter than it was (pt-20/24, pb-20, gap-14). The hero used most of a
           1440x900 viewport to say one sentence, which pushes every piece of
@@ -154,31 +177,33 @@ function Hero() {
           seriousness there is. */}
       <div className="relative max-w-7xl mx-auto px-6 pt-14 md:pt-16 pb-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-12 items-center">
         <div className="animate-slide-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-white border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" />
-            <span className="text-[#334155] uppercase">Cloud Security Platform</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-white/[0.06] border border-white/10 backdrop-blur-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
+            <span className="text-[#9FB0CC] uppercase">Cloud Security Platform</span>
           </div>
 
           {/* text-balance so the browser evens the line lengths. Without it the
               hard break left "secure," alone on its own line — a two-word orphan
-              under the biggest type on the site, which reads as a layout accident
-              rather than a deliberate break. */}
-          <h1 className="mt-6 font-display font-black text-[#0B1220] text-5xl md:text-6xl lg:text-[64px] tracking-tight leading-[1.02] text-balance">
+              under the biggest type on the site. */}
+          <h1 className="mt-6 font-display font-black text-white text-5xl md:text-6xl lg:text-[64px] tracking-tight leading-[1.02] text-balance">
             Is your cloud secure, or does it just{" "}
-            <span className="gradient-text">feel that way?</span>
+            <span className="text-[#4D8DFF]">feel that way?</span>
           </h1>
 
-          <p className="mt-6 text-lg text-[#475569] leading-relaxed max-w-xl">
+          <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-xl">
             Most teams discover cloud attacks from a breach notification — or a compliance audit.
-            Onam maps every misconfiguration, identity risk, and attack path across all 7 clouds
-            into one complete security picture — with AI-powered remediation built in.
+            Onam maps every misconfiguration, identity risk, and attack path across all {CLOUDS} clouds
+            into one graph — then prices the route an attacker would actually take.
           </p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <BrandButton to="/request-demo" size="lg">Scan my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
-            <BrandButton to="/request-demo" size="lg" variant="secondary">
+            <a
+              href="/resources/scenarios"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-base font-semibold text-white border border-white/20 hover:bg-white/[0.06] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4D8DFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1220]"
+            >
               <Play className="w-4 h-4" /> See how it works
-            </BrandButton>
+            </a>
           </div>
 
           {/* No stat row here on purpose. There was a row of four pills, and the
@@ -195,92 +220,93 @@ function Hero() {
 }
 
 function HeroMock() {
+  // The attack path, priced — not a severity count.
+  //
+  // This used to be a dashboard card: 12 critical / 84 high / 319 medium, a
+  // posture score and three findings. Every competitor's hero shows that, and
+  // it says nothing a buyer cannot get from any scanner.
+  //
+  // What Onam does that they do not is join the hops into one graph, find the
+  // single choke point that breaks the chain, and put a number on the exposure.
+  // So the hero shows a real path: public compute -> stealable credential ->
+  // over-permissioned role -> the data. One node marked as the cut.
+  //
+  // min-w-0: a grid item will not shrink below its min-content, and without it
+  // this widens the single mobile column and the headline beside it gets
+  // clipped by the section's overflow-hidden.
+  const hops = [
+    { k: "EC2 instance", v: "i-0abc1234def", note: "IMDSv1 enabled", tag: "T1552.005", tone: "risk" },
+    { k: "IAM role", v: "OpsAdminRole", note: "iam:PassRole:*", tag: "T1078.004", tone: "risk" },
+    { k: "S3 bucket", v: "acme-prod-data", note: "847K PII records", tag: "T1530", tone: "crown" },
+  ];
   return (
-    // min-w-0 is load-bearing. A grid item defaults to min-width:auto, so this
-    // mock refused to shrink below its 386px min-content. On mobile the hero is a
-    // ONE-column grid, so that widened the column past the 342px content box —
-    // and the headline and paragraph, which merely fill the column, then
-    // overhung the viewport and were cut off by the section's overflow-hidden.
-    // Readers lost the end of every line ("or a compliance audi…").
-    //
-    // It presented as a text bug and was a layout bug in the sibling. Note that
-    // scrollWidth === clientWidth throughout — overflow-hidden absorbs it, so
-    // nothing scrolls and nothing reports wrong.
     <div className="relative animate-fade-in min-w-0">
-      <div className="absolute -inset-6 bg-gradient-to-br from-[#2563EB]/10 via-transparent to-[#05A052]/10 blur-2xl -z-10 rounded-3xl" />
-      <div className="bg-white rounded-2xl border border-[#E5E9F0] p-5 shadow-[0_18px_48px_rgba(16,24,40,.12)] animate-float-slow">
-        <div className="flex items-center justify-between pb-4 border-b border-[#E5E9F0]">
-          <div className="flex items-center gap-2">
-            <Shield className="w-4 h-4 text-[#2563EB]" />
-            <span className="text-sm font-semibold text-[#0B1220]">Onam / Overview</span>
+      <div className="absolute -inset-6 bg-gradient-to-br from-[#4D8DFF]/15 via-transparent to-transparent blur-2xl -z-10 rounded-3xl" />
+
+      <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-5 shadow-[0_24px_64px_rgba(0,0,0,.45)]">
+        <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/10">
+          <div className="flex items-center gap-2 min-w-0">
+            <Shield className="w-4 h-4 shrink-0 text-[#4D8DFF]" />
+            <span className="text-sm font-semibold text-white truncate">Attack path to crown jewel</span>
           </div>
-          <div className="flex gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#E32D25]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#F2AF04]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#05A052]" />
-          </div>
+          <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FF6B63]/15 text-[#FF6B63]">
+            Critical
+          </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-3 mt-5">
-          {[
-            { label: "Critical", value: "12", color: "#E32D25", tint: "#FDECEA" },
-            { label: "High", value: "84", color: "#F2AF04", tint: "#FEF6E0" },
-            { label: "Medium", value: "319", color: "#2563EB", tint: "#EFF4FF" },
-          ].map((s) => (
-            <div key={s.label} className="rounded-lg p-3 border border-[#E5E9F0]" style={{ backgroundColor: s.tint + "80" }}>
-              <div className="text-[10px] uppercase tracking-widest text-[#64748B]">{s.label}</div>
-              <div className="text-2xl font-display font-extrabold mt-1" style={{ color: s.color }}>{s.value}</div>
-              <div className="h-1 mt-2 bg-white rounded-full overflow-hidden">
-                <div className="h-full rounded-full" style={{ width: "70%", backgroundColor: s.color }} />
+        {/* The chain. Each hop is a step an attacker takes; the arrow between
+            them is the edge the graph resolved. */}
+        <div className="mt-5 space-y-2">
+          {hops.map((h, i) => (
+            <div key={h.k}>
+              <div
+                className={cn(
+                  "rounded-xl border px-3.5 py-3 flex items-center justify-between gap-3",
+                  h.tone === "crown"
+                    ? "border-[#FF6B63]/40 bg-[#FF6B63]/[0.08]"
+                    : "border-white/10 bg-white/[0.03]"
+                )}
+              >
+                <div className="min-w-0">
+                  <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">{h.k}</div>
+                  <div className="text-sm font-semibold text-white truncate">{h.v}</div>
+                  <div className="text-[11px] text-[#9FB0CC] truncate">{h.note}</div>
+                </div>
+                <span className="shrink-0 text-[10px] font-mono text-[#9FB0CC] border border-white/10 rounded px-1.5 py-0.5">
+                  {h.tag}
+                </span>
               </div>
+              {i < hops.length - 1 && (
+                <div className="flex items-center gap-2 pl-4 py-1.5">
+                  <span className="w-px h-4 bg-white/15" />
+                  <span className="text-[11px] text-[#7C8CA8]">reachable</span>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        <div className="mt-5 rounded-xl p-4 bg-[#F8FAFC] border border-[#E5E9F0]">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="text-[10px] uppercase tracking-widest text-[#64748B]">Posture Score</div>
-              <div className="mt-1 flex items-baseline gap-1">
-                <span className="font-display font-black text-4xl text-[#0B1220]">72</span>
-                <span className="text-[#64748B] text-lg font-semibold">/100</span>
-              </div>
-            </div>
-            <div className="text-right">
-              <div className="text-[10px] uppercase tracking-widest text-[#64748B]">Trend 7d</div>
-              <div className="mt-1 text-sm font-semibold text-[#05A052] flex items-center gap-1">
-                <TrendingUp className="w-3.5 h-3.5" /> +6.2
-              </div>
-            </div>
+        {/* The payoff: the cut, and the number. */}
+        <div className="mt-5 pt-4 border-t border-white/10 flex items-end justify-between gap-4">
+          <div className="min-w-0">
+            <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">Estimated exposure</div>
+            <div className="font-display font-black text-3xl text-white tracking-tight">$2.1M–$6.4M</div>
           </div>
-          <div className="mt-3 flex items-end gap-1 h-14">
-            {[40, 55, 48, 62, 58, 65, 72].map((h, i) => (
-              <div key={i} className="flex-1 rounded-t" style={{ height: `${h}%`, background: "linear-gradient(to top, #2563EB, #60A5FA)" }} />
-            ))}
+          <div className="text-right min-w-0">
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#34D399]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
+              1 choke point cuts all 3 paths
+            </div>
+            <div className="text-[11px] text-[#7C8CA8] mt-1">Disable IMDSv1</div>
           </div>
-        </div>
-
-        <div className="mt-4 space-y-2">
-          {[
-            { icon: ShieldAlert, sev: "Critical", label: "Public S3 bucket with sensitive data", color: "#E32D25", tint: "#FDECEA" },
-            { icon: Fingerprint, sev: "High", label: "IAM role with * privileges over prod", color: "#F2AF04", tint: "#FEF6E0" },
-            { icon: Network, sev: "Med", label: "Security group open on 0.0.0.0/0:22", color: "#2563EB", tint: "#EFF4FF" },
-          ].map((f) => {
-            const Icon = f.icon;
-            return (
-              <div key={f.label} className="flex items-center gap-3 rounded-lg px-3 py-2.5 border border-[#E5E9F0] bg-white">
-                <div className="w-7 h-7 rounded-md grid place-items-center" style={{ backgroundColor: f.tint }}>
-                  <Icon className="w-3.5 h-3.5" style={{ color: f.color }} />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <div className="text-xs text-[#334155] truncate">{f.label}</div>
-                </div>
-                <span className="text-[10px] font-bold uppercase px-2 py-0.5 rounded" style={{ color: f.color, backgroundColor: f.tint }}>{f.sev}</span>
-              </div>
-            );
-          })}
         </div>
       </div>
+
+      {/* Required by the marketing guardrails: demo-tenant numbers are
+          illustrations and are never presented as customer outcomes. */}
+      <p className="mt-3 text-[11px] text-[#7C8CA8] text-center">
+        Illustrative — demo tenant. FAIR-based range, not a customer result.
+      </p>
     </div>
   );
 }
