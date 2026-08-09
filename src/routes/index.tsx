@@ -220,30 +220,40 @@ function Hero() {
 }
 
 function HeroMock() {
-  // The attack path, priced — not a severity count.
+  // The attack path, priced — and drawn as a path.
   //
-  // This used to be a dashboard card: 12 critical / 84 high / 319 medium, a
-  // posture score and three findings. Every competitor's hero shows that, and
-  // it says nothing a buyer cannot get from any scanner.
+  // First version of this was three stacked boxes in near-identical slate. It
+  // read as a LIST, and the one thing that matters here is that these hops are
+  // CONNECTED and ESCALATING. Two changes fix that:
   //
-  // What Onam does that they do not is join the hops into one graph, find the
-  // single choke point that breaks the chain, and put a number on the exposure.
-  // So the hero shows a real path: public compute -> stealable credential ->
-  // over-permissioned role -> the data. One node marked as the cut.
+  //   * a rail with numbered nodes, so the eye follows one thread top to bottom
+  //   * colour that means something — blue at the entry point, amber at the
+  //     pivot where privilege is gained, red at the crown jewel. The ramp is the
+  //     story: a benign-looking instance becomes a data breach in two hops.
   //
-  // min-w-0: a grid item will not shrink below its min-content, and without it
-  // this widens the single mobile column and the headline beside it gets
-  // clipped by the section's overflow-hidden.
+  // Colour is doing semantic work here, never decoration, and it is never the
+  // only signal: each node is also numbered, and the crown jewel carries a
+  // border and a label. That matters for the ~8% of men with a colour-vision
+  // deficiency, who are heavily represented in this audience.
+  //
+  // Every value checked against the surfaces it sits on: node markers 5.31 /
+  // 10.18 / 6.10:1, hop text 15.46:1, notes 7.03:1, labels 4.54:1.
+  //
+  // min-w-0: a grid item will not shrink below min-content, and without it this
+  // widens the single mobile column and clips the headline beside it.
   const hops = [
-    { k: "EC2 instance", v: "i-0abc1234def", note: "IMDSv1 enabled", tag: "T1552.005", tone: "risk" },
-    { k: "IAM role", v: "OpsAdminRole", note: "iam:PassRole:*", tag: "T1078.004", tone: "risk" },
-    { k: "S3 bucket", v: "acme-prod-data", note: "847K PII records", tag: "T1530", tone: "crown" },
+    { n: 1, kind: "EC2 instance", id: "i-0abc1234def", note: "IMDSv1 enabled — credentials readable from the instance",
+      tag: "T1552.005", dot: "#4D8DFF", role: "Entry point" },
+    { n: 2, kind: "IAM role", id: "OpsAdminRole", note: "iam:PassRole:* — escalates to any role in the account",
+      tag: "T1078.004", dot: "#FBBF24", role: "Privilege gained" },
+    { n: 3, kind: "S3 bucket", id: "acme-prod-data", note: "847,000 PII records, readable once the role is assumed",
+      tag: "T1530", dot: "#FF6B63", role: "Crown jewel", crown: true },
   ];
   return (
     <div className="relative animate-fade-in min-w-0">
       <div className="absolute -inset-6 bg-gradient-to-br from-[#4D8DFF]/15 via-transparent to-transparent blur-2xl -z-10 rounded-3xl" />
 
-      <div className="rounded-2xl border border-white/10 bg-white/[0.04] backdrop-blur-sm p-5 shadow-[0_24px_64px_rgba(0,0,0,.45)]">
+      <div className="rounded-2xl border border-white/10 bg-[#121C31] p-5 shadow-[0_24px_64px_rgba(0,0,0,.5)]">
         <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/10">
           <div className="flex items-center gap-2 min-w-0">
             <Shield className="w-4 h-4 shrink-0 text-[#4D8DFF]" />
@@ -254,50 +264,73 @@ function HeroMock() {
           </span>
         </div>
 
-        {/* The chain. Each hop is a step an attacker takes; the arrow between
-            them is the edge the graph resolved. */}
-        <div className="mt-5 space-y-2">
-          {hops.map((h, i) => (
-            <div key={h.k}>
-              <div
-                className={cn(
-                  "rounded-xl border px-3.5 py-3 flex items-center justify-between gap-3",
-                  h.tone === "crown"
-                    ? "border-[#FF6B63]/40 bg-[#FF6B63]/[0.08]"
-                    : "border-white/10 bg-white/[0.03]"
+        {/* The rail. The absolutely-positioned line sits behind the numbered
+            markers so the hops read as one continuous route rather than three
+            cards that happen to be adjacent. */}
+        <div className="relative mt-5 pl-9">
+          <div className="space-y-3">
+            {hops.map((h, i) => (
+              <div key={h.n} className="relative">
+                {/* Connector drawn PER GAP, not as one rail down the whole
+                    column. A single absolute rail has no way to know where the
+                    last marker is, so it ran past node 3 and left a dangling
+                    tail below the crown jewel — a line implying a fourth hop
+                    that does not exist. Each segment instead starts under its
+                    own marker and ends exactly at the next one: 39px is the
+                    marker's bottom edge (top-3 + 27px), -24px is the 12px gap
+                    plus the 12px inset of the following marker. */}
+                {i < hops.length - 1 && (
+                  <span
+                    aria-hidden
+                    className="absolute w-px"
+                    style={{
+                      left: "-23px",
+                      top: "39px",
+                      bottom: "-24px",
+                      background: `linear-gradient(180deg, ${h.dot} 0%, ${hops[i + 1].dot} 100%)`,
+                    }}
+                  />
                 )}
-              >
-                <div className="min-w-0">
-                  <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">{h.k}</div>
-                  <div className="text-sm font-semibold text-white truncate">{h.v}</div>
-                  <div className="text-[11px] text-[#9FB0CC] truncate">{h.note}</div>
-                </div>
-                <span className="shrink-0 text-[10px] font-mono text-[#9FB0CC] border border-white/10 rounded px-1.5 py-0.5">
-                  {h.tag}
+                <span
+                  className="absolute -left-9 top-3 grid place-items-center w-[27px] h-[27px] rounded-full text-[11px] font-bold text-[#0B1220] ring-4 ring-[#121C31]"
+                  style={{ background: h.dot }}
+                >
+                  {h.n}
                 </span>
-              </div>
-              {i < hops.length - 1 && (
-                <div className="flex items-center gap-2 pl-4 py-1.5">
-                  <span className="w-px h-4 bg-white/15" />
-                  <span className="text-[11px] text-[#7C8CA8]">reachable</span>
+                <div
+                  className={cn(
+                    "rounded-xl border px-3.5 py-3",
+                    h.crown ? "border-[#FF6B63]/45 bg-[#FF6B63]/[0.07]" : "border-white/10 bg-[#18243D]"
+                  )}
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">{h.kind}</span>
+                        <span className="text-[10px] font-semibold" style={{ color: h.dot }}>{h.role}</span>
+                      </div>
+                      <div className="text-sm font-semibold text-white truncate">{h.id}</div>
+                    </div>
+                    <span className="shrink-0 text-[10px] font-mono text-[#8FA0BC]">{h.tag}</span>
+                  </div>
+                  <div className="mt-1 text-[11px] text-[#9FB0CC]">{h.note}</div>
                 </div>
-              )}
-            </div>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
 
         {/* The payoff: the cut, and the number. */}
-        <div className="mt-5 pt-4 border-t border-white/10 flex items-end justify-between gap-4">
+        <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
           <div className="min-w-0">
             <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">Estimated exposure</div>
             <div className="font-display font-black text-3xl text-white tracking-tight">$2.1M–$6.4M</div>
           </div>
-          <div className="text-right min-w-0">
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold text-[#34D399]">
+          <div className="min-w-0">
+            <div className="inline-flex items-center gap-2 rounded-lg border border-[#34D399]/30 bg-[#34D399]/10 px-2.5 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-              1 choke point cuts all 3 paths
+              <span className="text-[11px] font-semibold text-[#34D399]">Disable IMDSv1 — cuts all 3 paths</span>
             </div>
-            <div className="text-[11px] text-[#7C8CA8] mt-1">Disable IMDSv1</div>
           </div>
         </div>
       </div>
