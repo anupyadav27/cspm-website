@@ -56,11 +56,33 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
 // HTTP, so the header is inert on the HTTP variant rather than wrong.
 const HSTS = "max-age=31536000; includeSubDomains";
 
+// HTML documents went out with NO Cache-Control at all, while hashed assets under
+// /assets/ correctly carry `public, max-age=31536000, immutable`. With no directive
+// a browser falls back to heuristic caching and may reuse the page shell for a
+// while — which is why a deploy could go live, be verifiable with curl, and still
+// show the previous page to someone who had visited before. It looks like a broken
+// deploy and is not one.
+//
+// `no-cache` does NOT mean "do not store". It means store it and revalidate before
+// reuse, so an unchanged page still costs a 304 and a changed one is picked up on
+// the next navigation. That is the correct setting for a server-rendered shell whose
+// content changes on every deploy while its URL does not.
+//
+// Deliberately scoped to HTML: the immutable asset headers are right and must not be
+// touched, and an existing Cache-Control is left alone so a route can opt out.
+const HTML_CACHE_CONTROL = "no-cache";
+
 function withSecurityHeaders(response: Response): Response {
   // Response headers can be immutable depending on how the body was constructed, so
   // rebuild rather than mutating in place.
   const headers = new Headers(response.headers);
   headers.set("Strict-Transport-Security", HSTS);
+  if (
+    !headers.has("Cache-Control") &&
+    (headers.get("Content-Type") ?? "").includes("text/html")
+  ) {
+    headers.set("Cache-Control", HTML_CACHE_CONTROL);
+  }
   return new Response(response.body, {
     status: response.status,
     statusText: response.statusText,
