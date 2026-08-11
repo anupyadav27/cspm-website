@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
+import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as CompanyAboutRouteImport } from './routes/company/about'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
@@ -83,6 +84,11 @@ const PricingRoute = PricingRouteImport.update({
 const RequestDemoRoute = RequestDemoRouteImport.update({
   id: '/request-demo',
   path: '/request-demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ToolsRoute = ToolsRouteImport.update({
+  id: '/tools',
+  path: '/tools',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyAboutRoute = CompanyAboutRouteImport.update({
@@ -348,6 +354,7 @@ export interface FileRoutesByFullPath {
   '/docs': typeof DocsRouteWithChildren
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/tools': typeof ToolsRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -404,6 +411,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/tools': typeof ToolsRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -462,6 +470,7 @@ export interface FileRoutesById {
   '/docs': typeof DocsRouteWithChildren
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/tools': typeof ToolsRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -521,6 +530,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/pricing'
     | '/request-demo'
+    | '/tools'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -577,6 +587,7 @@ export interface FileRouteTypes {
     | '/'
     | '/pricing'
     | '/request-demo'
+    | '/tools'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -634,6 +645,7 @@ export interface FileRouteTypes {
     | '/docs'
     | '/pricing'
     | '/request-demo'
+    | '/tools'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -692,6 +704,7 @@ export interface RootRouteChildren {
   DocsRoute: typeof DocsRouteWithChildren
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
+  ToolsRoute: typeof ToolsRoute
   CompanyAboutRoute: typeof CompanyAboutRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
@@ -770,6 +783,13 @@ declare module '@tanstack/react-router' {
       path: '/request-demo'
       fullPath: '/request-demo'
       preLoaderRoute: typeof RequestDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tools': {
+      id: '/tools'
+      path: '/tools'
+      fullPath: '/tools'
+      preLoaderRoute: typeof ToolsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company/about': {
@@ -1161,6 +1181,7 @@ const rootRouteChildren: RootRouteChildren = {
   DocsRoute: DocsRouteWithChildren,
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
+  ToolsRoute: ToolsRoute,
   CompanyAboutRoute: CompanyAboutRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,

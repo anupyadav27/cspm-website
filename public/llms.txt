@@ -89,6 +89,13 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 - [What is cloud risk quantification?](https://www.onamsecurity.com/learn/cloud-risk-quantification): Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.
 - [What is a choke point in cloud security?](https://www.onamsecurity.com/learn/choke-point): A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.
 
+## Free tools (no signup, no email gate)
+
+- [Cloud Exposure Estimator](https://www.onamsecurity.com/tools/fair-exposure-calculator.html): FAIR-style estimate of annualized loss exposure for a single breached data store; per-record costs from IBM Cost of a Data Breach 2024. Illustrative estimate, not a benchmark.
+- [Consolidation ROI Estimator](https://www.onamsecurity.com/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
+- [Capabilities Flipbook](https://www.onamsecurity.com/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
+- All tools: https://www.onamsecurity.com/tools
+
 ## Solutions
 
 - [AWS](https://www.onamsecurity.com/solutions/aws): AWS's breadth — 200+ services across global regions — creates a sprawling attack surface that traditional tools cannot keep pace with. Onam continuously monitors every IAM policy,…

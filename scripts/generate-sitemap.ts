@@ -13,7 +13,13 @@ import { BLOG_POSTS } from "../src/data/blog-posts";
 import { LEARN_ARTICLES } from "../src/data/learn-articles";
 import { platformPages } from "../src/data/platform-pages";
 import {
-  awsData, azureData, gcpData, ociData, alicloudData, ibmData, kubernetesData,
+  awsData,
+  azureData,
+  gcpData,
+  ociData,
+  alicloudData,
+  ibmData,
+  kubernetesData,
 } from "../src/data/solutions-clouds";
 import { financialData, healthcareData, governmentData } from "../src/data/solutions-industries";
 
@@ -43,8 +49,24 @@ const staticPaths = new Set(
     .filter((p): p is string => p !== null),
 );
 
+/**
+ * Free tools. These are self-contained static pages under public/tools/, not route
+ * files, so collectRouteFiles() cannot see them — list them here or they never reach
+ * the sitemap. The /tools index itself IS a route (src/routes/tools.tsx) and is picked
+ * up automatically.
+ *
+ * Keep the .html extension. Directory-style paths (/tools/foo/) do NOT work: the router
+ * 307s the trailing slash away and then 404s, because nothing serves index.html for the
+ * bare path.
+ */
+const TOOL_PATHS = [
+  "/tools/fair-exposure-calculator.html",
+  "/tools/roi-consolidation-calculator.html",
+];
+
 const entries: Entry[] = [
   ...[...staticPaths].sort().map((p) => ({ loc: p })),
+  ...TOOL_PATHS.map((loc) => ({ loc })),
   ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}` })),
   ...LEARN_ARTICLES.map((a) => ({ loc: `/learn/${a.slug}` })),
   ...BLOG_POSTS.map((p) => ({
@@ -82,11 +104,18 @@ function oneLine(s: string, max = 180): string {
 }
 
 const clouds = [
-  ["aws", awsData], ["azure", azureData], ["gcp", gcpData], ["oci", ociData],
-  ["alicloud", alicloudData], ["ibm", ibmData], ["kubernetes", kubernetesData],
+  ["aws", awsData],
+  ["azure", azureData],
+  ["gcp", gcpData],
+  ["oci", ociData],
+  ["alicloud", alicloudData],
+  ["ibm", ibmData],
+  ["kubernetes", kubernetesData],
 ] as const;
 const industries = [
-  ["financial", financialData], ["healthcare", healthcareData], ["government", governmentData],
+  ["financial", financialData],
+  ["healthcare", healthcareData],
+  ["government", governmentData],
 ] as const;
 
 const llms = `# Onam Security
@@ -148,6 +177,13 @@ ${Object.entries(platformPages)
 ## Cloud security glossary (vendor-neutral definitions)
 
 ${LEARN_ARTICLES.map((a) => `- [${a.question}](${SITE_URL}/learn/${a.slug}): ${a.answer}`).join("\n")}
+
+## Free tools (no signup, no email gate)
+
+- [Cloud Exposure Estimator](${SITE_URL}/tools/fair-exposure-calculator.html): FAIR-style estimate of annualized loss exposure for a single breached data store; per-record costs from IBM Cost of a Data Breach 2024. Illustrative estimate, not a benchmark.
+- [Consolidation ROI Estimator](${SITE_URL}/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
+- [Capabilities Flipbook](${SITE_URL}/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
+- All tools: ${SITE_URL}/tools
 
 ## Solutions
 
