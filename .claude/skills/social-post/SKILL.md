@@ -85,9 +85,9 @@ $ONAM_STUDIO_HOME/assets/qa.sh all <pkg> | tee <pkg>/qa.txt
 ```
 
 It measures resolution, fps, loudness (−16 ±1 LUFS), true peak (≤ −1.5 dBFS), clipping,
-black frames, freezes and dead air against `studio/QUALITY.md`. A FAIL blocks the post;
+black frames, freezes and dead air against `studio/studio/QUALITY.md`. A FAIL blocks the post;
 quote its numbers rather than restating them from memory. Cards get
-`qa.sh image <file.png>`. Governance record per `studio/GOVERNANCE.md` §2 —
+`qa.sh image <file.png>`. Governance record per `studio/studio/GOVERNANCE.md` §2 —
 claims.md and licenses.md before anything is published, and note that a free-tier voice
 render is evaluation-only, not licensed to publish.
 

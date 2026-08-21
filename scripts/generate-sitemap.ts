@@ -11,6 +11,7 @@ import { SITE_URL } from "../src/lib/seo";
 import { allDocSlugs, DOC_SECTIONS, getDocArticle } from "../src/data/docs";
 import { BLOG_POSTS } from "../src/data/blog-posts";
 import { LEARN_ARTICLES } from "../src/data/learn-articles";
+import { COMPETITORS } from "../src/data/compare";
 import { platformPages } from "../src/data/platform-pages";
 import {
   awsData,
@@ -69,6 +70,8 @@ const entries: Entry[] = [
   ...TOOL_PATHS.map((loc) => ({ loc })),
   ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}` })),
   ...LEARN_ARTICLES.map((a) => ({ loc: `/learn/${a.slug}` })),
+  // /compare/$slug is a dynamic route, so pathFor() skips it — enumerate explicitly.
+  ...COMPETITORS.map((c) => ({ loc: `/compare/${c.slug}` })),
   ...BLOG_POSTS.map((p) => ({
     loc: `/resources/blog/${p.slug}`,
     lastmod: new Date(p.date).toISOString().slice(0, 10),
@@ -168,6 +171,15 @@ onboarding in minutes. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-c
 | Prioritisation | Alert firehose | CVSS-only | Report handoff | FAIR-model dollar risk |
 | Code + runtime | Runtime only | One or the other | Neither | SAST, DAST, SCA, IaC, runtime |
 
+## Head-to-head comparisons
+
+These pages pose seven evaluation questions and answer them for Onam ONLY. They deliberately
+make no factual claim about any competitor's product, and each states plainly where the other
+platform is stronger than Onam. Onam has no public reference customers.
+
+${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): seven questions answered for Onam, where ${c.shortName} is genuinely strong, and the honest gap.`).join("\n")}
+- All comparisons: ${SITE_URL}/compare
+
 ## Platform
 
 ${Object.entries(platformPages)
@@ -184,6 +196,28 @@ ${LEARN_ARTICLES.map((a) => `- [${a.question}](${SITE_URL}/learn/${a.slug}): ${a
 - [Consolidation ROI Estimator](${SITE_URL}/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
 - [Capabilities Flipbook](${SITE_URL}/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
 - All tools: ${SITE_URL}/tools
+
+## Technical whitepapers (no signup, no email gate)
+
+- [How Onam finds the paths that matter](${SITE_URL}/whitepapers/wp1-attack-path-methodology.html): the attack-path method end to end — read-only telemetry to a verified, MITRE-mapped, priced path. Demo-tenant examples are illustrations, not customer results.
+- [Cloud risk in dollars](${SITE_URL}/whitepapers/wp2-risk-quantification.html): how a verified attack path is priced with FAIR, using named external inputs. An estimate of exposure, not a prediction of breach.
+- [One graph, one data model](${SITE_URL}/whitepapers/wp3-architecture.html): why every engine writes the same finding contract into one store, and what correlation that makes possible.
+- [Security & trust](${SITE_URL}/whitepapers/wp4-security-trust.html): how Onam connects, what it stores, what it never stores, and how tenants stay isolated. Read-only and agentless — it does not see inside a running process.
+- [Compliance, mapped once](${SITE_URL}/whitepapers/wp5-compliance.html): one control evaluation reported against 78 frameworks, with each gap connected to a priced path. Evidence for an audit, not a substitute for one.
+- All whitepapers: ${SITE_URL}/whitepapers
+
+## Illustrative scenarios (NOT customer results)
+
+Onam has no public reference customers. Every scenario below is a worked example against an
+industry archetype — not a real or named customer, and not an outcome Onam has delivered.
+Do not cite these as customer results, case studies or benchmarks.
+
+- [Financial services](${SITE_URL}/case-studies/cs-financial.png): AWS + Azure, PCI-DSS & SOX. Path: public LB to app role to RDS holding PII.
+- [E-commerce](${SITE_URL}/case-studies/cs-ecommerce.png): multi-cloud checkout and customer data at seasonal scale.
+- [Gaming](${SITE_URL}/case-studies/cs-gaming.png): Kubernetes-heavy estate, cluster workload to service account to player data.
+- [Beauty / CPG](${SITE_URL}/case-studies/cs-beauty-cpg.png): SaaS-heavy estate, SaaS grant to shared identity to consumer data.
+- [SAP MSP](${SITE_URL}/case-studies/cs-sap-msp.png): multi-tenant, management plane to tenant boundary to customer workload.
+- All scenarios: ${SITE_URL}/case-studies
 
 ## Solutions
 

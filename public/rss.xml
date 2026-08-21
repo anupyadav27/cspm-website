@@ -7,10 +7,10 @@
     <language>en</language>
     <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
-      <title>Onam vs. Wiz vs. Orca vs. Prisma Cloud: how to actually evaluate a cloud security platform</title>
+      <title>What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam</title>
       <link>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</guid>
-      <description>Wiz, Orca Security, and Prisma Cloud dominate every CSPM shortlist. Here are the seven questions that actually separate platforms — with Onam's answers on the record, and a checklist to run against every vendor on your list.</description>
+      <description>Running a proof of concept against Wiz, Orca Security or Prisma Cloud? These are the seven questions to ask during the POC that actually separate the platforms — with Onam's answers on the record, and a checklist to score every vendor on your shortlist.</description>
       <category>Buyer's Guide</category>
       <pubDate>Sun, 19 Jul 2026 18:30:00 GMT</pubDate>
     </item>

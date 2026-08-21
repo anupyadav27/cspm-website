@@ -10,16 +10,20 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as WhitepapersRouteImport } from './routes/whitepapers'
 import { Route as CompanyAboutRouteImport } from './routes/company/about'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
 import { Route as CompanyPrivacyRouteImport } from './routes/company/privacy'
 import { Route as CompanySecurityRouteImport } from './routes/company/security'
 import { Route as CompanyTermsRouteImport } from './routes/company/terms'
+import { Route as CompareIndexRouteImport } from './routes/compare/index'
+import { Route as CompareSlugRouteImport } from './routes/compare/$slug'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
@@ -71,6 +75,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CaseStudiesRoute = CaseStudiesRouteImport.update({
+  id: '/case-studies',
+  path: '/case-studies',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
@@ -89,6 +98,11 @@ const RequestDemoRoute = RequestDemoRouteImport.update({
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WhitepapersRoute = WhitepapersRouteImport.update({
+  id: '/whitepapers',
+  path: '/whitepapers',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyAboutRoute = CompanyAboutRouteImport.update({
@@ -119,6 +133,16 @@ const CompanySecurityRoute = CompanySecurityRouteImport.update({
 const CompanyTermsRoute = CompanyTermsRouteImport.update({
   id: '/company/terms',
   path: '/company/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareIndexRoute = CompareIndexRouteImport.update({
+  id: '/compare/',
+  path: '/compare/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareSlugRoute = CompareSlugRouteImport.update({
+  id: '/compare/$slug',
+  path: '/compare/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsIndexRoute = DocsIndexRouteImport.update({
@@ -351,16 +375,19 @@ const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/docs': typeof DocsRouteWithChildren
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/company/privacy': typeof CompanyPrivacyRoute
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
+  '/compare/$slug': typeof CompareSlugRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -400,6 +427,7 @@ export interface FileRoutesByFullPath {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
   '/platform/': typeof PlatformIndexRoute
@@ -409,15 +437,18 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/company/privacy': typeof CompanyPrivacyRoute
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
+  '/compare/$slug': typeof CompareSlugRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -457,6 +488,7 @@ export interface FileRoutesByTo {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/compare': typeof CompareIndexRoute
   '/docs': typeof DocsIndexRoute
   '/learn': typeof LearnIndexRoute
   '/platform': typeof PlatformIndexRoute
@@ -467,16 +499,19 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/case-studies': typeof CaseStudiesRoute
   '/docs': typeof DocsRouteWithChildren
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
   '/company/privacy': typeof CompanyPrivacyRoute
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
+  '/compare/$slug': typeof CompareSlugRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -516,6 +551,7 @@ export interface FileRoutesById {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
   '/platform/': typeof PlatformIndexRoute
@@ -527,16 +563,19 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/case-studies'
     | '/docs'
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/whitepapers'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
     | '/company/privacy'
     | '/company/security'
     | '/company/terms'
+    | '/compare/$slug'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -576,6 +615,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/compare/'
     | '/docs/'
     | '/learn/'
     | '/platform/'
@@ -585,15 +625,18 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/case-studies'
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/whitepapers'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
     | '/company/privacy'
     | '/company/security'
     | '/company/terms'
+    | '/compare/$slug'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -633,6 +676,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/compare'
     | '/docs'
     | '/learn'
     | '/platform'
@@ -642,16 +686,19 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/case-studies'
     | '/docs'
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/whitepapers'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
     | '/company/privacy'
     | '/company/security'
     | '/company/terms'
+    | '/compare/$slug'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -691,6 +738,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/compare/'
     | '/docs/'
     | '/learn/'
     | '/platform/'
@@ -701,16 +749,19 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  CaseStudiesRoute: typeof CaseStudiesRoute
   DocsRoute: typeof DocsRouteWithChildren
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
   ToolsRoute: typeof ToolsRoute
+  WhitepapersRoute: typeof WhitepapersRoute
   CompanyAboutRoute: typeof CompanyAboutRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
   CompanyPrivacyRoute: typeof CompanyPrivacyRoute
   CompanySecurityRoute: typeof CompanySecurityRoute
   CompanyTermsRoute: typeof CompanyTermsRoute
+  CompareSlugRoute: typeof CompareSlugRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PlatformAgentlessRoute: typeof PlatformAgentlessRoute
   PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
@@ -749,6 +800,7 @@ export interface RootRouteChildren {
   SolutionsIbmRoute: typeof SolutionsIbmRoute
   SolutionsKubernetesRoute: typeof SolutionsKubernetesRoute
   SolutionsOciRoute: typeof SolutionsOciRoute
+  CompareIndexRoute: typeof CompareIndexRoute
   LearnIndexRoute: typeof LearnIndexRoute
   PlatformIndexRoute: typeof PlatformIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
@@ -762,6 +814,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/case-studies': {
+      id: '/case-studies'
+      path: '/case-studies'
+      fullPath: '/case-studies'
+      preLoaderRoute: typeof CaseStudiesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs': {
@@ -790,6 +849,13 @@ declare module '@tanstack/react-router' {
       path: '/tools'
       fullPath: '/tools'
       preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/whitepapers': {
+      id: '/whitepapers'
+      path: '/whitepapers'
+      fullPath: '/whitepapers'
+      preLoaderRoute: typeof WhitepapersRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company/about': {
@@ -832,6 +898,20 @@ declare module '@tanstack/react-router' {
       path: '/company/terms'
       fullPath: '/company/terms'
       preLoaderRoute: typeof CompanyTermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/': {
+      id: '/compare/'
+      path: '/compare'
+      fullPath: '/compare/'
+      preLoaderRoute: typeof CompareIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/$slug': {
+      id: '/compare/$slug'
+      path: '/compare/$slug'
+      fullPath: '/compare/$slug'
+      preLoaderRoute: typeof CompareSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/': {
@@ -1178,16 +1258,19 @@ const ResourcesBlogRouteWithChildren = ResourcesBlogRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  CaseStudiesRoute: CaseStudiesRoute,
   DocsRoute: DocsRouteWithChildren,
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
   ToolsRoute: ToolsRoute,
+  WhitepapersRoute: WhitepapersRoute,
   CompanyAboutRoute: CompanyAboutRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,
   CompanyPrivacyRoute: CompanyPrivacyRoute,
   CompanySecurityRoute: CompanySecurityRoute,
   CompanyTermsRoute: CompanyTermsRoute,
+  CompareSlugRoute: CompareSlugRoute,
   LearnSlugRoute: LearnSlugRoute,
   PlatformAgentlessRoute: PlatformAgentlessRoute,
   PlatformAiAssistantRoute: PlatformAiAssistantRoute,
@@ -1226,6 +1309,7 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsIbmRoute: SolutionsIbmRoute,
   SolutionsKubernetesRoute: SolutionsKubernetesRoute,
   SolutionsOciRoute: SolutionsOciRoute,
+  CompareIndexRoute: CompareIndexRoute,
   LearnIndexRoute: LearnIndexRoute,
   PlatformIndexRoute: PlatformIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,

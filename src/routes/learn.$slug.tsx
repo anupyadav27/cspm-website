@@ -93,7 +93,31 @@ function NotFound() {
 
 function LearnPage() {
   const { article } = Route.useLoaderData();
-  const others = LEARN_ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 3);
+
+  // The curated `related` list, split by destination.
+  //
+  // Until 2026-08-19 this section rendered `LEARN_ARTICLES.slice(0, 3)` — the first three
+  // articles in array order, identical on every page — and `article.related` was never
+  // read at all. Thirty hand-picked links, including every link from a concept page to
+  // its `/platform/` counterpart, existed in the data and reached no reader and no
+  // crawler. GSC on 2026-08-19: 39 of 96 pages ranking past position 20, the `/learn/`
+  // cluster among them, with `/platform` and `/solutions` never indexed at all.
+  //
+  // Same reasoning as CLOUD_RELATED_BASE in src/data/solutions-clouds.ts, which fixed the
+  // mirror image of this in August and moved Alibaba 29.6 -> 26.3 and IBM 28.9 -> 28.6:
+  // pages competing for one intent with no links between them split the signal instead of
+  // concentrating it.
+  const relatedLearn = article.related
+    .filter((r) => r.href.startsWith("/learn/"))
+    .map((r) => LEARN_ARTICLES.find((a) => `/learn/${a.slug}` === r.href))
+    .filter((a): a is LearnArticle => Boolean(a));
+  const relatedDeeper = article.related.filter((r) => !r.href.startsWith("/learn/"));
+
+  // A curated list that has gone stale must not empty the section — falling back keeps
+  // the page whole while `ops/catalog.py`-style checks catch the broken href.
+  const others = relatedLearn.length
+    ? relatedLearn
+    : LEARN_ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 3);
 
   return (
     <SiteLayout>
@@ -161,6 +185,25 @@ function LearnPage() {
               </Link>
             ))}
           </div>
+
+          {relatedDeeper.length > 0 && (
+            <div className="mt-8 pt-6 border-t border-[#E5E9F0]">
+              <h3 className="font-display font-bold text-[15px] text-[#0B1220] mb-3">
+                See how Onam does it
+              </h3>
+              <div className="flex flex-wrap gap-x-6 gap-y-2">
+                {relatedDeeper.map((r) => (
+                  <a
+                    key={r.href}
+                    href={r.href}
+                    className="text-sm text-[#2563EB] hover:text-[#0B1220] underline underline-offset-4"
+                  >
+                    {r.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

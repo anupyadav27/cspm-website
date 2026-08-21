@@ -4,6 +4,9 @@
     <loc>https://www.onamsecurity.com/</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/case-studies</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/company/about</loc>
   </url>
   <url>
@@ -20,6 +23,9 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/terms</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/compare</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs</loc>
@@ -155,6 +161,9 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/tools</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/whitepapers</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/tools/fair-exposure-calculator.html</loc>
@@ -299,6 +308,18 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/choke-point</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/compare/onam-vs-wiz</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/compare/onam-vs-orca</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/compare/onam-vs-prisma-cloud</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/compare/onam-vs-defender</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>

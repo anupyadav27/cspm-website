@@ -1,0 +1,109 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Onam Security">
+<meta property="og:title" content="One graph, one data model">
+<meta property="og:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta property="og:url" content="https://www.onamsecurity.com/whitepapers/wp3-architecture.html">
+<meta property="og:image" content="https://www.onamsecurity.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="One graph, one data model">
+<meta name="twitter:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta name="twitter:image" content="https://www.onamsecurity.com/og-image.png">
+<link rel="canonical" href="https://www.onamsecurity.com/whitepapers/wp3-architecture.html">
+
+<title>One graph, one data model</title><style>
+@page{size:A4;margin:0}
+:root{--navy:#082869;--navy2:#0B2545;--blue:#2563EB;--ink:#1A2233;--muted:#5C6B84;
+--line:#E3E8F0;--soft:#F7F9FC}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Plus Jakarta Sans","Segoe UI",-apple-system,Helvetica,Arial,
+sans-serif;color:var(--ink);font-size:10.6pt;line-height:1.62}
+.page{width:210mm;min-height:297mm;padding:20mm 22mm 16mm;position:relative;
+page-break-after:always;background:#fff}
+.page:last-child{page-break-after:auto}
+.cover{background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 62%,#0d3a8f 100%);
+color:#fff;padding:34mm 22mm}
+.cover .mark{font-weight:800;letter-spacing:.16em;font-size:11pt}
+.cover .kicker{margin-top:26mm;font-size:8.4pt;letter-spacing:.30em;color:#9DB6E8}
+.cover h1{font-size:31pt;line-height:1.1;margin:5mm 0 0;letter-spacing:-.02em;font-weight:800}
+.cover .sub{margin-top:6mm;font-size:12.4pt;line-height:1.5;color:#D6E2F7;max-width:150mm}
+.chips{margin-top:20mm;display:flex;flex-wrap:wrap;gap:3mm}
+.chip{border:1px solid rgba(255,255,255,.34);border-radius:40px;padding:2mm 5mm;
+font-size:8.6pt;color:#EAF1FD}
+.cover .foot{position:absolute;left:22mm;right:22mm;bottom:16mm;display:flex;
+justify-content:space-between;font-size:8.6pt;color:#9DB6E8;
+border-top:1px solid rgba(255,255,255,.2);padding-top:4mm}
+.run{display:flex;justify-content:space-between;font-size:7.8pt;letter-spacing:.13em;
+color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2.5mm;margin-bottom:8mm}
+h2{font-size:15.5pt;color:var(--navy2);margin:9mm 0 3mm;letter-spacing:-.01em;line-height:1.25}
+h2 .n{color:var(--blue);font-weight:800;margin-right:2.5mm}
+h2:first-of-type{margin-top:0}
+.lead{font-size:13pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
+p{margin:0 0 3.4mm}
+ul,ol{margin:0 0 4mm;padding-left:6mm}
+li{margin-bottom:1.8mm}
+li::marker{color:var(--blue)}
+.note{background:var(--soft);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;
+padding:4mm 5mm;margin:4mm 0;font-size:10pt;color:var(--navy2)}
+table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.6pt}
+th{background:var(--navy);color:#fff;text-align:left;padding:2.6mm 3.4mm;font-weight:600}
+td{border-bottom:1px solid var(--line);padding:2.6mm 3.4mm;vertical-align:top}
+tr:nth-child(even) td{background:var(--soft)}
+.fig{border:1px solid var(--line);border-radius:7px;padding:5mm;margin:4mm 0;background:var(--soft)}
+.fig .cap{font-size:8.2pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.fig .body{font-size:9.8pt;color:var(--navy2)}
+.pfoot{position:absolute;left:22mm;right:22mm;bottom:12mm;display:flex;
+justify-content:space-between;font-size:8pt;color:var(--muted);
+border-top:1px solid var(--line);padding-top:3mm}
+strong{color:var(--navy2)}
+</style></head><body>
+<div class="page cover"><div class="mark">ONAM SECURITY</div>
+<div class="kicker">TECHNICAL WHITEPAPER &middot; 03</div>
+<h1>One graph, one data model</h1>
+<div class="sub">Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of tools cannot.</div>
+<div class="chips"><span class="chip">One canonical store</span><span class="chip">Deterministic finding IDs</span><span class="chip">Per-tenant property graph</span><span class="chip">Typed abuse edges</span><span class="chip">{{facts.engines}} engines</span></div>
+<div class="foot"><span>onamsecurity.com</span><span>One graph &middot; priced risk &middot; continuous evaluation</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
+<h2><span class="n">00</span>Executive summary</h2>
+<p class="lead">Consolidation stops being a slide when it becomes a data model.</p>
+<p>Most security platforms are a drawer of tools that each keep their own findings and their own view of the world. Onam is built the opposite way: every engine, for every cloud, writes the same finding contract into one shared store, and everything reasons over one property graph. This paper explains that design and why it is the thing that makes cross-cloud attack paths, priced risk and painless extensibility possible.</p>
+<p>The architectural claim is specific and testable: <strong>there are no per-engine report tables to reconcile.</strong> A gateway reads only from one canonical findings store; a per-tenant graph turns those findings and the assets they touch into nodes and typed edges. Adding a capability does not add a silo — it adds another writer to the same store.</p>
+<div class="note"><strong>Why it matters to a buyer.</strong> Posture, identity, data, workloads, SaaS and runtime detection share one schema, so a finding in one domain can form part of an attack path that ends in another — which is impossible when each tool hoards its own results.</div>
+<div class="pfoot"><span>onamsecurity.com</span><span>2</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
+<h2><span class="n">01</span>Ingestion into a normalised inventory</h2>
+<p>Each cloud connects read-only and agentless (Whitepaper 01, §02). The pipeline runs four stages — enumeration → enrichment → normalisation → drift — and writes two things every capability depends on: an asset inventory and an asset-relationship table.</p>
+<div class="fig"><div class="cap">FIGURE 1 — MANY CLOUDS, ONE NORMALISED STORE</div><div class="body">AWS, Azure, GCP, OCI, Alibaba, IBM, Kubernetes and SaaS (SSPM) all normalise into one identity space (resource_uid, account_id), then into one canonical security_findings store and one asset_relationships table of typed edges. Everything downstream reads from here.</div></div>
+<p>7 clouds plus SaaS collapse into one normalised identity space, covering 549 cloud services and 11,346 rule definitions.</p>
+<div class="pfoot"><span>onamsecurity.com</span><span>3</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
+<h2><span class="n">02</span>The canonical finding contract</h2>
+<p>Consolidation lives or dies on the schema. Onam requires every engine to emit the same standardised finding, keyed consistently, so one table can hold results from posture, identity, data, workload, code and SaaS engines without translation.</p>
+<table><tr><th>Field</th><th>Canonicalises</th><th>Why it matters</th></tr><tr><td>resource_uid</td><td>ARN vs OCID vs self-link</td><td>One identity for an asset across clouds</td></tr><tr><td>account_id</td><td>account vs subscription vs project</td><td>Ownership normalised across providers</td></tr><tr><td>finding_id</td><td>deterministic hash</td><td>Same issue → same ID on every rescan; stable history</td></tr><tr><td>tenant_id</td><td>not-null isolation key</td><td>Every row is tenant-scoped by construction</td></tr><tr><td>provider_metadata</td><td>provider-specific detail</td><td>Nothing is lost; specifics travel with the finding</td></tr></table>
+<p>Because <code>finding_id</code> is deterministic, remediation tracking is reliable: a fixed issue auto-resolves on the next PASS and auto-closes after 30 days unseen, without a human reconciling IDs by hand.</p>
+<div class="pfoot"><span>onamsecurity.com</span><span>4</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
+<h2><span class="n">03</span>The property graph</h2>
+<p>On top of the findings and relationships, Onam builds a per-tenant property graph. Assets are nodes; edges are typed — containment, attachment, IAM trust and network reachability — and catalog-driven derivers add the abuse edges an attacker would use.</p>
+<p>The derivers are the important part. A cloud provider documents the relationships it intends; an attacker uses the ones that exist. The graph has to hold both.</p>
+<h2><span class="n">04</span>Engines as writers, not silos</h2>
+<p>29 engines write into the same store. That is the extensibility claim: a new capability is a new writer, not a new database, a new schema and a new reconciliation job. It is also why a posture finding and a runtime detection can appear on the same path — they were never in separate systems to begin with.</p>
+<div class="note"><strong>The honest limit.</strong> One shared schema is a constraint as well as a gift. An engine whose output does not fit the contract has to be modelled to fit it, and that is real work. We take that cost deliberately, because the alternative — per-engine tables — is the thing that makes cross-domain reasoning impossible later.</div>
+<h2><span class="n">05</span>What this architecture buys</h2>
+<ul>
+<li><strong>Cross-cloud attack paths.</strong> A route from one provider to another is only visible when both are described in one vocabulary.</li>
+<li><strong>Priced risk.</strong> FAIR needs consistent asset identity and data classification to compute magnitude; the shared schema supplies both.</li>
+<li><strong>Stable history.</strong> Deterministic IDs mean trend lines and remediation tracking are real, not approximate.</li>
+<li><strong>Extensibility.</strong> Adding an engine adds coverage, not another silo to reconcile.</li>
+</ul>
+<h2><span class="n">06</span>Summary</h2>
+<ul>
+<li>One canonical findings store. No per-engine report tables.</li>
+<li>A standardised finding contract with deterministic IDs and mandatory tenant scoping.</li>
+<li>A per-tenant property graph with typed edges, plus derived abuse edges.</li>
+<li>29 engines as writers into the same model — extensibility without silos.</li>
+<li>The constraint is real and accepted: fitting the contract is work, and worth it.</li>
+</ul>
+<div class="pfoot"><span>onamsecurity.com</span><span>5</span></div></div>
+</body></html>

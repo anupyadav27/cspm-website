@@ -24,7 +24,7 @@ one argument) → outline.md (every slide title, in order) → **deck.md** (the 
 
 Archetype: default pitch; `technical:` → technical-briefing, `exec:` → exec-update,
 `talk:` → conference-talk. Each has a shape in `studio/content-types/deck-*.md`.
-Syntax reference: `studio/templates/deck-source.md`. Templates: `deck-brief.md`,
+Syntax reference: `studio/studio/templates/deck-source.md`. Templates: `deck-brief.md`,
 `deck-audit.md`.
 
 Gates (hard): G1 concept — spine named, argument in one sentence · G2 **headline read**

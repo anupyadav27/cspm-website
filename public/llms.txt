@@ -48,6 +48,18 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 | Prioritisation | Alert firehose | CVSS-only | Report handoff | FAIR-model dollar risk |
 | Code + runtime | Runtime only | One or the other | Neither | SAST, DAST, SCA, IaC, runtime |
 
+## Head-to-head comparisons
+
+These pages pose seven evaluation questions and answer them for Onam ONLY. They deliberately
+make no factual claim about any competitor's product, and each states plainly where the other
+platform is stronger than Onam. Onam has no public reference customers.
+
+- [Onam vs Wiz](https://www.onamsecurity.com/compare/onam-vs-wiz): seven questions answered for Onam, where Wiz is genuinely strong, and the honest gap.
+- [Onam vs Orca](https://www.onamsecurity.com/compare/onam-vs-orca): seven questions answered for Onam, where Orca is genuinely strong, and the honest gap.
+- [Onam vs Prisma Cloud](https://www.onamsecurity.com/compare/onam-vs-prisma-cloud): seven questions answered for Onam, where Prisma Cloud is genuinely strong, and the honest gap.
+- [Onam vs Defender for Cloud](https://www.onamsecurity.com/compare/onam-vs-defender): seven questions answered for Onam, where Defender for Cloud is genuinely strong, and the honest gap.
+- All comparisons: https://www.onamsecurity.com/compare
+
 ## Platform
 
 - [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
@@ -95,6 +107,28 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 - [Consolidation ROI Estimator](https://www.onamsecurity.com/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
 - [Capabilities Flipbook](https://www.onamsecurity.com/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
 - All tools: https://www.onamsecurity.com/tools
+
+## Technical whitepapers (no signup, no email gate)
+
+- [How Onam finds the paths that matter](https://www.onamsecurity.com/whitepapers/wp1-attack-path-methodology.html): the attack-path method end to end — read-only telemetry to a verified, MITRE-mapped, priced path. Demo-tenant examples are illustrations, not customer results.
+- [Cloud risk in dollars](https://www.onamsecurity.com/whitepapers/wp2-risk-quantification.html): how a verified attack path is priced with FAIR, using named external inputs. An estimate of exposure, not a prediction of breach.
+- [One graph, one data model](https://www.onamsecurity.com/whitepapers/wp3-architecture.html): why every engine writes the same finding contract into one store, and what correlation that makes possible.
+- [Security & trust](https://www.onamsecurity.com/whitepapers/wp4-security-trust.html): how Onam connects, what it stores, what it never stores, and how tenants stay isolated. Read-only and agentless — it does not see inside a running process.
+- [Compliance, mapped once](https://www.onamsecurity.com/whitepapers/wp5-compliance.html): one control evaluation reported against 78 frameworks, with each gap connected to a priced path. Evidence for an audit, not a substitute for one.
+- All whitepapers: https://www.onamsecurity.com/whitepapers
+
+## Illustrative scenarios (NOT customer results)
+
+Onam has no public reference customers. Every scenario below is a worked example against an
+industry archetype — not a real or named customer, and not an outcome Onam has delivered.
+Do not cite these as customer results, case studies or benchmarks.
+
+- [Financial services](https://www.onamsecurity.com/case-studies/cs-financial.png): AWS + Azure, PCI-DSS & SOX. Path: public LB to app role to RDS holding PII.
+- [E-commerce](https://www.onamsecurity.com/case-studies/cs-ecommerce.png): multi-cloud checkout and customer data at seasonal scale.
+- [Gaming](https://www.onamsecurity.com/case-studies/cs-gaming.png): Kubernetes-heavy estate, cluster workload to service account to player data.
+- [Beauty / CPG](https://www.onamsecurity.com/case-studies/cs-beauty-cpg.png): SaaS-heavy estate, SaaS grant to shared identity to consumer data.
+- [SAP MSP](https://www.onamsecurity.com/case-studies/cs-sap-msp.png): multi-tenant, management plane to tenant boundary to customer workload.
+- All scenarios: https://www.onamsecurity.com/case-studies
 
 ## Solutions
 
@@ -165,7 +199,7 @@ onboarding in minutes. See: https://www.onamsecurity.com/resources/blog/onam-vs-
 
 ## Blog
 
-- [Onam vs. Wiz vs. Orca vs. Prisma Cloud: how to actually evaluate a cloud security platform](https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud): Wiz, Orca Security, and Prisma Cloud dominate every CSPM shortlist. Here are the seven questions that actually separate platforms — with Onam's answers on the…
+- [What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam](https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud): Running a proof of concept against Wiz, Orca Security or Prisma Cloud? These are the seven questions to ask during the POC that actually separate the platforms…
 - [Beyond GuardDuty: how three-tier behavioral detection catches what rules miss](https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection): Rule-based detection catches known attack signatures. Statistical behavioral baselines catch incremental privilege escalation. ML anomaly detection catches the…
 - [The 5 AWS misconfigurations we find in 90% of first scans](https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan): After thousands of first-time AWS scans, the same five misconfigurations show up in nearly every environment. Here's what they are — and how to fix them fast.
 - [CIEM vs IAM Security: what's actually the difference?](https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security): They sound identical. They aren't. Here's the practical split between IAM Security and Cloud Infrastructure Entitlement Management — and why you need both.

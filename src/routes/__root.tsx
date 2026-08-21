@@ -40,8 +40,11 @@ const STRUCTURED_DATA = [
     // Google disambiguates "Onam Security" from the Onam festival — add every
     // official profile as it goes live (LinkedIn, GitHub, Crunchbase).
     sameAs: [
+      "https://www.linkedin.com/company/onamsecurity/",
+      "https://github.com/onamsecurity",
       "https://x.com/onamsecurity",
       "https://www.youtube.com/@Onamsecurity",
+      "https://www.crunchbase.com/organization/onamsecurity",
     ],
   },
   {

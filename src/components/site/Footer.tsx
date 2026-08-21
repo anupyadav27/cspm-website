@@ -1,9 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
-import { ShieldCheck, Award, Youtube, Twitter, type LucideIcon } from "lucide-react";
+import { ShieldCheck, Award, Youtube, Twitter, Linkedin, Github, type LucideIcon } from "lucide-react";
 
 /** Official brand profiles. Mirrored in the Organization `sameAs` array. */
 const SOCIALS: { label: string; href: string; icon: LucideIcon }[] = [
+  { label: "Onam Security on LinkedIn", href: "https://www.linkedin.com/company/onamsecurity/", icon: Linkedin },
+  { label: "Onam Security on GitHub", href: "https://github.com/onamsecurity", icon: Github },
   { label: "Onam Security on YouTube", href: "https://www.youtube.com/@Onamsecurity", icon: Youtube },
   { label: "Onam Security on X", href: "https://x.com/onamsecurity", icon: Twitter },
 ];

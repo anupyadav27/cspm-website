@@ -137,6 +137,8 @@ Buying these as four products from four vendors reproduces the problem they were
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "Onam CSPM", href: "/platform/cspm" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -223,6 +225,8 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CWPP?", href: "/learn/cwpp" },
       { label: "Onam CNAPP", href: "/platform/cnapp" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -309,6 +313,8 @@ Most mature programmes use agentless as the coverage baseline and add runtime de
       { label: "What is agentless cloud security?", href: "/learn/agentless-cloud-security" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "Onam CWPP", href: "/platform/cwpp" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -391,6 +397,8 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "Onam CIEM", href: "/platform/ciem" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -471,6 +479,8 @@ DSPM is the context layer that makes the other two useful. A public bucket is a 
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "Onam DSPM", href: "/platform/data-security" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -559,6 +569,8 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
       { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "Onam SSPM", href: "/platform/saas-security" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -662,6 +674,8 @@ The practical shift is from "4,000 findings" to "3 paths that reach crown jewels
       { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "Onam Attack Path", href: "/platform/attack-path" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 
@@ -755,6 +769,8 @@ Most mature programmes use agentless as the universal baseline, add log-based de
       { label: "What is CWPP?", href: "/learn/cwpp" },
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "Onam Agentless Scanning", href: "/platform/agentless" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
   {
@@ -825,6 +841,8 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "What is a choke point?", href: "/learn/choke-point" },
       { label: "Onam Risk Quantification", href: "/platform/risk" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
   {
@@ -889,6 +907,8 @@ Choke-point remediation follows the same discipline as any high-severity work, t
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "What is cloud risk quantification?", href: "/learn/cloud-risk-quantification" },
       { label: "Onam Attack Path Analysis", href: "/platform/attack-path" },
+      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
+      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
 ];

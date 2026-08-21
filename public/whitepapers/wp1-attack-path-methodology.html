@@ -1,0 +1,108 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="description" content="From read-only telemetry to a verified, MITRE-mapped, priced attack path — the method, step by step. Onam Security technical whitepaper 01.">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Onam Security">
+<meta property="og:title" content="How Onam finds the paths that matter">
+<meta property="og:description" content="From read-only telemetry to a verified, MITRE-mapped, priced attack path — the method, step by step. Onam Security technical whitepaper 01.">
+<meta property="og:url" content="https://www.onamsecurity.com/whitepapers/wp1-attack-path-methodology.html">
+<meta property="og:image" content="https://www.onamsecurity.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="How Onam finds the paths that matter">
+<meta name="twitter:description" content="From read-only telemetry to a verified, MITRE-mapped, priced attack path — the method, step by step. Onam Security technical whitepaper 01.">
+<meta name="twitter:image" content="https://www.onamsecurity.com/og-image.png">
+<link rel="canonical" href="https://www.onamsecurity.com/whitepapers/wp1-attack-path-methodology.html">
+
+<title>How Onam finds the paths that matter</title><style>
+@page{size:A4;margin:0}
+:root{--navy:#082869;--navy2:#0B2545;--blue:#2563EB;--ink:#1A2233;--muted:#5C6B84;
+--line:#E3E8F0;--soft:#F7F9FC}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Plus Jakarta Sans","Segoe UI",-apple-system,Helvetica,Arial,
+sans-serif;color:var(--ink);font-size:10.6pt;line-height:1.62}
+.page{width:210mm;min-height:297mm;padding:20mm 22mm 16mm;position:relative;
+page-break-after:always;background:#fff}
+.page:last-child{page-break-after:auto}
+.cover{background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 62%,#0d3a8f 100%);
+color:#fff;padding:34mm 22mm}
+.cover .mark{font-weight:800;letter-spacing:.16em;font-size:11pt}
+.cover .kicker{margin-top:26mm;font-size:8.4pt;letter-spacing:.30em;color:#9DB6E8}
+.cover h1{font-size:31pt;line-height:1.1;margin:5mm 0 0;letter-spacing:-.02em;font-weight:800}
+.cover .sub{margin-top:6mm;font-size:12.4pt;line-height:1.5;color:#D6E2F7;max-width:150mm}
+.chips{margin-top:20mm;display:flex;flex-wrap:wrap;gap:3mm}
+.chip{border:1px solid rgba(255,255,255,.34);border-radius:40px;padding:2mm 5mm;
+font-size:8.6pt;color:#EAF1FD}
+.cover .foot{position:absolute;left:22mm;right:22mm;bottom:16mm;display:flex;
+justify-content:space-between;font-size:8.6pt;color:#9DB6E8;
+border-top:1px solid rgba(255,255,255,.2);padding-top:4mm}
+.run{display:flex;justify-content:space-between;font-size:7.8pt;letter-spacing:.13em;
+color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2.5mm;margin-bottom:8mm}
+h2{font-size:15.5pt;color:var(--navy2);margin:9mm 0 3mm;letter-spacing:-.01em;line-height:1.25}
+h2 .n{color:var(--blue);font-weight:800;margin-right:2.5mm}
+h2:first-of-type{margin-top:0}
+.lead{font-size:13pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
+p{margin:0 0 3.4mm}
+ul,ol{margin:0 0 4mm;padding-left:6mm}
+li{margin-bottom:1.8mm}
+li::marker{color:var(--blue)}
+.note{background:var(--soft);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;
+padding:4mm 5mm;margin:4mm 0;font-size:10pt;color:var(--navy2)}
+table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.6pt}
+th{background:var(--navy);color:#fff;text-align:left;padding:2.6mm 3.4mm;font-weight:600}
+td{border-bottom:1px solid var(--line);padding:2.6mm 3.4mm;vertical-align:top}
+tr:nth-child(even) td{background:var(--soft)}
+.fig{border:1px solid var(--line);border-radius:7px;padding:5mm;margin:4mm 0;background:var(--soft)}
+.fig .cap{font-size:8.2pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.fig .body{font-size:9.8pt;color:var(--navy2)}
+.pfoot{position:absolute;left:22mm;right:22mm;bottom:12mm;display:flex;
+justify-content:space-between;font-size:8pt;color:var(--muted);
+border-top:1px solid var(--line);padding-top:3mm}
+strong{color:var(--navy2)}
+</style></head><body>
+<div class="page cover"><div class="mark">ONAM SECURITY</div>
+<div class="kicker">TECHNICAL WHITEPAPER &middot; 01</div>
+<h1>How Onam finds the paths that matter</h1>
+<div class="sub">From read-only telemetry to a verified, MITRE-mapped, priced attack path — the method, end to end.</div>
+<div class="chips"><span class="chip">{{facts.clouds}} clouds, read-only</span><span class="chip">One property graph</span><span class="chip">5-domain verification</span><span class="chip">MITRE ATT&amp;CK</span><span class="chip">Choke points</span><span class="chip">FAIR pricing</span></div>
+<div class="foot"><span>onamsecurity.com</span><span>One graph &middot; priced risk &middot; continuous evaluation</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ATTACK-PATH METHODOLOGY</span><span>onamsecurity.com</span></div>
+<h2><span class="n">00</span>Executive summary</h2>
+<p class="lead">A finding is a fact. A verified path is a decision.</p>
+<p>Every cloud scanner produces thousands of findings. The hard problem is not detection — it is knowing which handful of them combine into a route an attacker could actually walk to something that matters, and what that route is worth in dollars. Onam treats that as a graph-reasoning problem, solved the same way every time.</p>
+<p>This paper describes the method end to end: how Onam ingests 7 clouds read-only, normalises everything into one property graph, derives the relationships an attacker would exploit, searches for routes from internet-reachable entry points to crown jewels, and — critically — verifies every edge across five independent security domains before it is ever called a confirmed path. Each hop is mapped to a MITRE ATT&amp;CK technique; the full set of paths is reduced to its top five choke points; and the resulting exposure is priced with the FAIR model, so the output is a board-ready number rather than a severity label.</p>
+<div class="note"><strong>The claim, precisely.</strong> Onam does not promise to block attacks at runtime. It promises something more useful for prioritisation: a reproducible, verified and priced map of the routes that exist in your cloud right now — computed from read-only telemetry, with a deterministic identity for every finding so results are stable across rescans.</div>
+<div class="pfoot"><span>onamsecurity.com</span><span>2</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ATTACK-PATH METHODOLOGY</span><span>onamsecurity.com</span></div>
+<h2><span class="n">01</span>The problem with a list</h2>
+<p>A modern multi-cloud estate generates findings faster than any team can trace them. The industry&#x27;s default answer is severity: sort by Critical, work down the list. But severity is a property of a finding <strong>in isolation</strong>. It cannot tell you that a &quot;medium&quot; public endpoint, a &quot;low&quot; over-permissive role and an unencrypted data store are — together — a single four-hop route to your customer records.</p>
+<p>Attackers do not read your list. They chain. A route is only as strong as its weakest link, and the link that matters is rarely the one with the scariest CVSS score. To prioritise like a defender who thinks like an attacker, you have to reason over the relationships between findings, not the findings themselves.</p>
+<div class="fig"><div class="cap">FIGURE 1 — THE SHIFT</div><div class="body">Left, a severity list: two unrelated Critical and High findings at the top, while a &quot;medium&quot; public endpoint and a &quot;low&quot; over-privileged role sit near the bottom. Right, the same four findings as a graph — Public API → Role → Lateral movement → Records — where the two buried findings form the route, and one of them is the choke point. The same facts, re-framed: severity scatters them, the graph connects them into one prioritisable route with a single highest-leverage fix. Illustrative.</div></div>
+<div class="pfoot"><span>onamsecurity.com</span><span>3</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ATTACK-PATH METHODOLOGY</span><span>onamsecurity.com</span></div>
+<h2><span class="n">02</span>Ingestion — read-only, agentless, 7 clouds</h2>
+<p>The method starts with telemetry that is safe to collect. Onam connects to each cloud with the lowest standing privilege that permits a security read, and stores no long-lived credentials — only a reference to the role or principal, exchanged for short-lived tokens at scan time.</p>
+<table><tr><th>Cloud</th><th>Connection</th><th>Privilege posture</th></tr><tr><td>AWS</td><td>Cross-account IAM role via sts:AssumeRole, unique External ID per tenant</td><td>SecurityAudit + ReadOnlyAccess; STS credentials ≤ 60 min</td></tr><tr><td>Azure</td><td>Entra service principal</td><td>Reader + read-only Graph</td></tr><tr><td>GCP</td><td>Service account or keyless Workload Identity Federation</td><td>6 read-only roles</td></tr><tr><td>OCI</td><td>IAM user + signing key</td><td>inspect + read only</td></tr><tr><td>Alibaba / IBM</td><td>RAM read-only · Service ID</td><td>Read-only, exchanged for a short-lived Bearer token</td></tr><tr><td>Kubernetes</td><td>Read-only ServiceAccount</td><td>get / list / watch</td></tr></table>
+<p>Full detail of the trust model is in Whitepaper 04.</p>
+<h2><span class="n">03</span>One data model — the property graph</h2>
+<p>Everything normalises into a single per-tenant property graph. Assets are nodes; edges are typed — containment, attachment, IAM trust and network reachability. Catalog-driven derivers then add the *abuse* edges: the relationships an attacker would actually use, as distinct from the ones the cloud provider documents.</p>
+<p>This is the step that makes cross-cloud reasoning possible at all. A path that starts in one provider and ends in another is only visible when both are described in the same vocabulary. Architecture detail is in Whitepaper 03.</p>
+<div class="pfoot"><span>onamsecurity.com</span><span>4</span></div></div>
+<div class="page"><div class="run"><span>ONAM &middot; ATTACK-PATH METHODOLOGY</span><span>onamsecurity.com</span></div>
+<h2><span class="n">04</span>Search — BFS from entry to crown jewel</h2>
+<p>Search is breadth-first from internet-reachable entry points toward crown jewels — the assets a customer has designated as mattering. Breadth-first matters: it finds the *shortest* route first, and the shortest route is usually the one an attacker takes.</p>
+<h2><span class="n">05</span>Verification — five domains before &quot;confirmed&quot;</h2>
+<p>A path that exists in the graph is a hypothesis, not a finding. Before Onam calls a path confirmed, every edge is verified across five independent security domains — identity, network, data, workload and configuration state. An edge that only one domain supports does not survive.</p>
+<div class="note"><strong>Why this gate exists.</strong> An unverified path is worse than no path: it spends a security team&#x27;s credibility on a route that may not exist. Verification is the difference between a graph that suggests and a graph that asserts.</div>
+<h2><span class="n">06</span>MITRE mapping, choke points, and price</h2>
+<p>Each verified hop maps to a MITRE ATT&amp;CK technique, so the route reads as an attack narrative rather than a list of resource IDs. The full set of paths then reduces to its <strong>top five choke points</strong> — the nodes appearing on the most confirmed routes, where one change removes the most attack surface.</p>
+<p>Finally the exposure is priced with FAIR, producing an Annualised Loss Expectancy per path and a roll-up across the estate. Method detail is in Whitepaper 02.</p>
+<h2><span class="n">07</span>Summary</h2>
+<ul>
+<li>Severity ranks findings against each other; a graph ranks routes against reality.</li>
+<li>7 clouds, read-only and agentless, into one property graph with typed abuse edges.</li>
+<li>Breadth-first search from reachable entry points to designated crown jewels.</li>
+<li>Five-domain verification before any path is called confirmed.</li>
+<li>MITRE mapping for narrative, choke points for leverage, FAIR for the number.</li>
+<li>Onam does not block at runtime. It tells you, reproducibly, which few fixes matter most.</li>
+</ul>
+<div class="pfoot"><span>onamsecurity.com</span><span>5</span></div></div>
+</body></html>

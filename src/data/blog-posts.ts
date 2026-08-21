@@ -12,14 +12,18 @@ export type BlogPost = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     slug: "onam-vs-wiz-orca-prisma-cloud",
-    title: "Onam vs. Wiz vs. Orca vs. Prisma Cloud: how to actually evaluate a cloud security platform",
+    title: "What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam",
     category: "Buyer's Guide",
     excerpt:
-      "Wiz, Orca Security, and Prisma Cloud dominate every CSPM shortlist. Here are the seven questions that actually separate platforms — with Onam's answers on the record, and a checklist to run against every vendor on your list.",
+      "Running a proof of concept against Wiz, Orca Security or Prisma Cloud? These are the seven questions to ask during the POC that actually separate the platforms — with Onam's answers on the record, and a checklist to score every vendor on your shortlist.",
     author: "Onam Security Team",
     date: "July 20, 2026",
     readTime: "9 min",
     body: `
+Most cloud security proofs of concept are run badly — not because the buyer is careless, but because every platform demos well. Point any of them at a messy AWS account and findings appear within the hour. That is table stakes, and a POC that only proves it tells you nothing about which tool to buy.
+
+The seven questions below are the ones worth asking *during* the trial, while you still have hands on the product and a vendor engineer on the call. Each one is answerable inside a two-week POC, and each separates platforms that look identical in a demo.
+
 If you're evaluating cloud security platforms in 2026, your shortlist probably reads: Wiz, Orca Security, Palo Alto Prisma Cloud — and maybe us. All three are mature, well-funded products with broad ecosystems, and if a vendor tells you their competitors are bad products, stop trusting that vendor.
 
 So this is not that post. Instead, here are the seven questions we believe actually separate cloud security platforms — the ones that predict whether the tool still works for you two years in. We'll give you Onam's answer to each, on the record. Then run the same checklist against every vendor on your shortlist and compare answers side by side.

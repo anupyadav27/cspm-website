@@ -21,7 +21,7 @@ written in parallel by agents that cannot see each other's work; claims are chec
 agent per claim; verification (sync, muted, compliance, audit) runs in **fresh agents
 that never see the deliberation that produced the cut** — a verifier sharing the writer's
 context audits intent instead of the artifact. Rendering and measuring are code, never
-agents. Track progress in `run.md` (`studio/templates/run-state.md`) so an interrupted
+agents. Track progress in `run.md` (`studio/studio/templates/run-state.md`) so an interrupted
 run resumes at the first step that is not done.
 
 Package folder: `$ONAM_STUDIO_HOME/productions/YYYY-MM-DD-<slug>/` (run from $ONAM_STUDIO_HOME; footage at footage/*.mp4); approved finals → $ONAM_STUDIO_HOME/releases/<slug>/ → ONE copy to website social-posts/<slug>/ for publishing. Artifacts: brief.md → concept.md →
