@@ -911,6 +911,278 @@ Choke-point remediation follows the same discipline as any high-severity work, t
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
     ],
   },
+  {
+    slug: "kspm",
+    question: "What is KSPM (Kubernetes Security Posture Management)?",
+    title: "What is KSPM? Kubernetes Security Posture Management Explained",
+    excerpt:
+      "KSPM continuously checks Kubernetes clusters for misconfiguration, unsafe RBAC and workload risk. How it works, what it catches that CSPM misses, and how it differs from container scanning and CWPP.",
+    term: "Kubernetes Security Posture Management",
+    answer:
+      "Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.",
+    readTime: "8 min",
+    body: `
+## Why Kubernetes needs its own posture management
+
+A cloud posture tool reads the cloud provider's API. It can tell you an EKS cluster exists, which VPC it sits in, and whether its endpoint is public. It cannot tell you that a ServiceAccount inside that cluster is bound to cluster-admin, that a pod runs as UID 0 with the host filesystem mounted, or that no NetworkPolicy exists so every pod can reach every other pod.
+
+Those objects live **inside** the cluster, behind the Kubernetes API — a different control plane with its own authentication, its own object model and its own failure modes. The cloud provider does not see them, so cloud posture management does not either.
+
+That gap is where KSPM sits. It is not CSPM applied to Kubernetes; it is a separate evaluation against a separate API.
+
+## What KSPM actually checks
+
+| Area | Typical findings |
+| --- | --- |
+| RBAC | ClusterRoleBindings granting cluster-admin, wildcard verbs, service accounts with escalate or bind |
+| Workload context | Privileged containers, hostPID and hostNetwork, root UID, writable root filesystem, missing seccomp |
+| Network | No default-deny NetworkPolicy, services exposed via LoadBalancer without restriction |
+| Secrets | Secrets mounted as environment variables, unencrypted etcd, tokens auto-mounted where unused |
+| Admission and supply chain | No admission control, unsigned images, images from untrusted registries, \`:latest\` tags |
+| Control plane | Anonymous auth enabled, insecure kubelet ports, audit logging off |
+
+The CIS Kubernetes Benchmark is the usual baseline, and most of these map to it directly.
+
+## KSPM vs container scanning vs CWPP
+
+These three get used interchangeably and are not the same thing.
+
+- **Container image scanning** looks at the image: which packages it contains and which have known CVEs. It answers *is this artefact vulnerable?*
+- **KSPM** looks at the cluster: how workloads are configured, who can do what, what can talk to what. It answers *is this cluster configured safely?*
+- **CWPP** looks at the running workload: process behaviour, file integrity, runtime detection. It answers *is something happening right now?*
+
+A vulnerable image (scanning) running as root (KSPM) that starts a reverse shell (CWPP) is one incident described by three tools. Treating any one of them as the whole picture is the common mistake.
+
+## Why RBAC is the part that matters most
+
+Image CVEs get the attention because there is a number attached to them. But the finding that most often converts a container compromise into a cluster compromise is an over-permissive ServiceAccount.
+
+The chain is short and well-worn: a pod is compromised through the application, its ServiceAccount token is auto-mounted at a known path, that token is bound to a role with broad verbs, and the attacker now speaks to the API server with those permissions. Nothing in that sequence requires a CVE.
+
+This is why KSPM findings should be read as a graph rather than a list. *Which subjects can reach which resources, and what does that let them do next?* is a more useful question than *how many High findings do we have?*
+
+## Where KSPM fits with cloud posture
+
+A Kubernetes cluster is not an island. It runs on cloud infrastructure, its nodes have instance roles, and its workloads assume cloud identities through mechanisms like IRSA or Workload Identity.
+
+The interesting failures cross that boundary in both directions: a pod that assumes a node role which can read a production bucket; a cloud IAM policy that grants access to the cluster's control plane. Evaluating cluster posture and cloud posture separately produces two correct reports that both miss the path between them.
+
+## Getting started
+
+1. Connect the cluster read-only — a kubeconfig or service account with \`get\`, \`list\` and \`watch\`. No agent is required for posture evaluation.
+2. Baseline against CIS Kubernetes first. It is well understood, it is what auditors ask about, and it produces a finite list.
+3. Fix RBAC before image CVEs. It is less satisfying and it removes more real risk.
+4. Add a default-deny NetworkPolicy. Most clusters have none, and it is the single change that most reduces lateral movement.
+5. Re-evaluate continuously. Clusters change hourly; a quarterly audit describes a cluster that no longer exists.
+`,
+    faqs: [
+      {
+        q: "Is KSPM different from CSPM?",
+        a: "Yes. CSPM reads the cloud provider's API and sees the cluster as one resource. KSPM reads the Kubernetes API and sees the objects inside it — RBAC bindings, pod security context, network policy, admission control. A cluster can be perfectly configured at the cloud layer and unsafe inside.",
+      },
+      {
+        q: "Does KSPM require an agent in the cluster?",
+        a: "Posture evaluation does not. Cluster state is readable through the Kubernetes API with a read-only credential. Runtime detection — process behaviour, file integrity, syscall monitoring — is a different capability and does typically need something running in the cluster.",
+      },
+      {
+        q: "What baseline should KSPM measure against?",
+        a: "The CIS Kubernetes Benchmark is the standard starting point and the one auditors recognise. Pod Security Standards, NSA/CISA Kubernetes hardening guidance and NIST SP 800-190 are common additions once the CIS baseline is clean.",
+      },
+      {
+        q: "Which KSPM finding should be fixed first?",
+        a: "Usually an RBAC one. Over-permissive ServiceAccounts and ClusterRoleBindings are what turn a single compromised pod into cluster-wide access, and unlike image CVEs they cannot be resolved by a rebuild.",
+      },
+    ],
+    related: [
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
+      { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
+      { label: "Onam on Kubernetes", href: "/solutions/kubernetes" },
+    ],
+  },
+  {
+    slug: "code-security",
+    question: "What is code security in the cloud?",
+    title: "What is Code Security? SAST, SCA, IaC Scanning and Runtime Explained",
+    excerpt:
+      "Code security covers SAST, DAST, SCA, IaC and secret scanning. What each one catches, why fixing findings in the console alone makes them return, and how code and runtime connect.",
+    term: "Code Security",
+    answer:
+      "Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.",
+    readTime: "8 min",
+    body: `
+## The four techniques, and what each one can see
+
+They are usually sold together and they look for different things.
+
+**SAST — static application security testing.** Reads source code without running it, tracing how untrusted input flows to a dangerous operation. Catches injection, unsafe deserialisation, path traversal, weak cryptography. It sees code paths that tests never execute, and it produces false positives where it cannot prove a path is unreachable.
+
+**SCA — software composition analysis.** Inventories dependencies, including transitive ones, and matches them against known vulnerabilities. Most of the code shipped is not written in-house, so this is usually where the volume is. Its weakness is the inverse of SAST's: it reports a vulnerable package whether or not the vulnerable function is ever called.
+
+**DAST — dynamic application security testing.** Exercises the running application from the outside. It finds what is genuinely reachable, including configuration and deployment problems no static tool sees, but only on paths it manages to reach.
+
+**IaC scanning.** Evaluates Terraform, CloudFormation, Helm charts and Kubernetes manifests against policy before anything is created. This is the earliest possible point to catch a misconfiguration — the template that will create a public bucket, rather than the public bucket.
+
+**Secret detection** cuts across all of them: credentials in source, in image layers, in pipeline configuration, in committed state files.
+
+## Why fixing it in the console makes it come back
+
+This is the failure that makes code security a cloud security concern rather than an application security one.
+
+A posture tool reports a storage bucket with public access. An engineer opens the cloud console, unchecks the box, marks the finding resolved. The next \`terraform apply\` recreates the bucket exactly as the template describes it — public — because the template was never changed.
+
+The finding returns, gets re-triaged, gets fixed in the console again. Everyone is working, nothing is improving.
+
+**The fix has to land where the resource is defined.** That requires knowing which template, repository and line produced a given running resource — which means connecting the code side to the runtime side rather than running two programmes that never meet.
+
+## Reachability is what makes the numbers usable
+
+A dependency scan on a mature service commonly returns hundreds of findings. Fixing them in CVSS order is a reasonable-sounding strategy that wastes most of the effort, because severity describes the vulnerability, not your exposure to it.
+
+Three questions change the order:
+
+1. **Is the vulnerable function actually called?** A critical CVE in a code path the application never executes is not a critical risk to that application.
+2. **Is the workload reachable?** The same container behind an internal service and behind an internet-facing load balancer carries very different risk.
+3. **What can it reach next?** A vulnerable workload with a read-only role is contained. The same workload with a role that can assume other roles is an entry point.
+
+None of those questions can be answered from the code alone, which is why code findings become useful when they are joined to runtime context.
+
+## Where it belongs in the pipeline
+
+| Stage | What runs | What it should block |
+| --- | --- | --- |
+| Pre-commit | Secret detection | Any credential, always |
+| Pull request | SAST diff, SCA on changed dependencies, IaC policy | New Critical or High on changed code |
+| Build | Image scan, SBOM generation | Base images with known critical CVEs |
+| Pre-deploy | IaC policy against the plan | Templates that would violate posture policy |
+| Runtime | Posture, reachability, drift | Nothing — it reports; blocking here breaks production |
+
+The rule that keeps this survivable: **gate on the delta, not the backlog.** A pipeline that fails on every pre-existing finding gets switched off within a fortnight. One that fails only on newly introduced findings holds the line while the backlog is worked separately.
+
+## What good looks like
+
+- Secret detection running before code leaves a laptop, not after it reaches the default branch.
+- SCA prioritised by reachability, not by CVSS.
+- IaC policy evaluated against the plan, so the misconfiguration is prevented rather than reported.
+- Every runtime finding traceable back to the template and repository that produced it.
+- One inventory across code and cloud, so "which running workloads contain this dependency?" is a query rather than a project.
+`,
+    faqs: [
+      {
+        q: "What is the difference between SAST, DAST and SCA?",
+        a: "SAST reads your source code without running it. DAST exercises the running application from outside. SCA inventories third-party dependencies and matches them against known vulnerabilities. They find different classes of defect and none of them substitutes for another.",
+      },
+      {
+        q: "Why do cloud misconfigurations come back after being fixed?",
+        a: "Because they were fixed in the console while the infrastructure-as-code template that created them was left unchanged. The next apply recreates the original configuration. A fix only holds when it lands where the resource is defined.",
+      },
+      {
+        q: "Should a build fail on every security finding?",
+        a: "No. Gate on newly introduced findings and work the existing backlog separately. A pipeline that fails on every pre-existing issue is switched off or bypassed within weeks, which is worse than no gate at all.",
+      },
+      {
+        q: "What is reachability analysis in dependency scanning?",
+        a: "Determining whether the vulnerable function in a dependency is actually invoked by your application. It typically removes the large majority of raw findings and is the difference between a dependency report you can act on and one you cannot.",
+      },
+    ],
+    related: [
+      { label: "What is cloud secrets management?", href: "/learn/secrets-management" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
+      { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "Onam Code Security", href: "/platform/code-security" },
+      { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
+    ],
+  },
+  {
+    slug: "secrets-management",
+    question: "What is cloud secrets management?",
+    title: "What is Cloud Secrets Management? Keys, Rotation and Sprawl Explained",
+    excerpt:
+      "Cloud secrets management covers how credentials, keys and tokens are stored, accessed, rotated and audited. What goes wrong, why hardcoded secrets persist, and how key management differs from secrets management.",
+    term: "Cloud Secrets Management",
+    answer:
+      "Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.",
+    readTime: "7 min",
+    body: `
+## The problem is distribution, not storage
+
+Nearly every team has a secrets store. Very few have a secrets *problem* that the store alone solves, because the hard part was never where to keep a secret — it was how an application gets one at the moment it needs it, without a human pasting it somewhere first.
+
+That gap is where secrets end up in places they should not be: an environment variable in a task definition, a Kubernetes Secret mounted as plaintext, a CI variable, a Terraform state file, a Slack message from 2023, a commit from a Friday afternoon.
+
+Each of those is a copy. A secret with copies cannot be rotated, because nobody knows how many there are.
+
+## What actually goes wrong
+
+| Failure | Why it happens | What it enables |
+| --- | --- | --- |
+| Hardcoded credentials | Fastest path to a working build | Anyone with repository read access has production access |
+| Long-lived static keys | Rotation breaks things, so nobody rotates | A key leaked in 2022 still works today |
+| Secrets in environment variables | Every runtime supports it | Readable by any process, and printed by most crash handlers |
+| Over-broad key policies | Least privilege is fiddly to get right | One compromised service decrypts everything |
+| No audit trail | Access logging is off by default in places | A leak is undetectable and its blast radius unknowable |
+| Secrets in state and logs | A side effect, never a decision | Copies accumulate where nobody looks |
+
+## Secrets management and key management are not the same thing
+
+They get conflated because the same vendors sell both.
+
+**Key management (KMS)** deals with cryptographic keys: generating them, controlling who may encrypt or decrypt with them, and ideally never letting the key material leave the boundary. The question is *who may perform this cryptographic operation?*
+
+**Secrets management** deals with credential values: storing them, handing them to workloads, rotating them and recording who fetched what. The question is *which identity may read this value right now?*
+
+They meet at encryption at rest — a secrets store encrypts its contents with a key from KMS — but a well-run KMS does not stop a database password appearing in a container image.
+
+## The rotation problem, honestly
+
+Rotation is where most programmes stall, and the reason is mechanical rather than cultural: rotating a secret means every consumer must pick up the new value without an outage, and most consumers read their secret exactly once at startup.
+
+The approaches that work in practice all remove the long-lived secret rather than rotating it faster:
+
+- **Workload identity.** The workload authenticates as itself — an instance role, IRSA, Workload Identity, a federated OIDC token — and receives short-lived credentials. There is no static secret to leak.
+- **Dynamic secrets.** The store creates a credential on request with a short lease and revokes it after.
+- **Dual-secret rotation.** Two valid credentials at a time, so the new one is deployed before the old one is revoked.
+
+Everything else is scheduling pain around a design that assumed secrets are permanent.
+
+## What good looks like
+
+1. **No secret in source, ever** — enforced by a pre-commit hook and a repository scan, not by review.
+2. **One store per environment**, with access granted to identities rather than people.
+3. **Short-lived by default.** Workload identity where the platform supports it; leases where it does not.
+4. **Every access audited**, with alerts on access from an unexpected identity or region.
+5. **Scoped keys.** One key per data domain, so one compromise does not decrypt the estate.
+6. **Detection in the pipeline and at rest** — scanning repositories, images, IaC, CI configuration and cloud resource metadata, because that is where copies actually accumulate.
+
+The last point is the one most often missed: a secrets programme that only inspects the secrets store is auditing the one place secrets are handled correctly.
+`,
+    faqs: [
+      {
+        q: "What is the difference between secrets management and key management?",
+        a: "Key management (KMS) controls cryptographic keys and who may encrypt or decrypt with them. Secrets management stores and distributes credential values — passwords, API keys, tokens — to the workloads that need them. A secrets store usually uses KMS to encrypt itself, but they answer different questions.",
+      },
+      {
+        q: "Why are hardcoded secrets still so common?",
+        a: "Because they work immediately and the alternative requires the workload to have an identity before it has a credential. The fix is rarely a policy; it is making the correct path as fast as the wrong one, then scanning to catch what slips through.",
+      },
+      {
+        q: "How often should cloud secrets be rotated?",
+        a: "Frequency matters less than lifetime. A secret rotated every 90 days is still valid for 90 days if it leaks on day one. Short-lived credentials issued to a workload identity remove the question rather than answering it.",
+      },
+      {
+        q: "Where do leaked cloud secrets usually come from?",
+        a: "Copies rather than the store itself — source control, container image layers, CI variables, Terraform state, environment variables and log output. Any secrets programme that only inspects the vault is inspecting the one place things are done correctly.",
+      },
+    ],
+    related: [
+      { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is CSPM?", href: "/learn/cspm" },
+      { label: "Onam Encryption & Key Security", href: "/platform/encryption" },
+      { label: "Onam CIEM", href: "/platform/ciem" },
+      { label: "Onam Code Security", href: "/platform/code-security" },
+    ],
+  },
 ];
 
 export function getLearnArticle(slug: string): LearnArticle | undefined {
