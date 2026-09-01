@@ -46,9 +46,10 @@ Enterprise but human — the voice that survives Google's quality systems:
 
 Check the deployment memory for the current image number; use the next vN.
 
-> **Current image: `v51`** — deployed 2026-08-19 (learn-cluster internal links now render;
-> buyer's guide repackaged for POC intent). v50 shipped `/compare` + 4 head-to-head pages;
-> v49 shipped `/whitepapers`, `/case-studies` and LinkedIn + GitHub in `sameAs`. Next is v52. Cluster:
+> **Current image: `v52`** — deployed 2026-09-01 (three products: /estate and /finops added,
+> Products nav, add-ons on /pricing, rule total re-cleared to 11,433). v51 shipped learn-cluster
+> internal links and the repackaged buyer's guide; v50 shipped `/compare` + 4 head-to-head
+> pages. Next is v53. Cluster:
 > `deployment/cspm-docs-website` in `threat-engine-engines`, EKS
 > `onam-eks-cluster` (ap-south-1). **Build with `NITRO_PRESET=node-server`** — the
 > default preset emits a Cloudflare worker bundle, not the node server the image runs.
