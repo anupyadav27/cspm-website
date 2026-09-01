@@ -182,5 +182,29 @@
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>What is KSPM (Kubernetes Security Posture Management)?</title>
+      <link>https://www.onamsecurity.com/learn/kspm</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/kspm</guid>
+      <description>Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is code security in the cloud?</title>
+      <link>https://www.onamsecurity.com/learn/code-security</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/code-security</guid>
+      <description>Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is cloud secrets management?</title>
+      <link>https://www.onamsecurity.com/learn/secrets-management</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/secrets-management</guid>
+      <description>Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>

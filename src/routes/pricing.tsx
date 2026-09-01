@@ -6,6 +6,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { cn } from "@/lib/utils";
 import { seo, faqJsonLd } from "@/lib/seo";
 import { ENGINES, FRAMEWORKS } from "@/lib/product-facts";
+import { PRODUCTS } from "@/data/products";
 
 export const Route = createFileRoute("/pricing")({
   head: () =>
@@ -110,6 +111,7 @@ const comparison: { label: string; free: string; pro: string; ent: string }[] = 
   { label: "Support", free: "Community", pro: "Email (< 24h)", ent: "Priority (< 4h) + CSM" },
   { label: "Uptime SLA", free: "—", pro: "—", ent: "99.9% contractual" },
   { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS or on-prem" },
+  { label: "Onam Estate / Onam FinOps", free: "—", pro: "Add-on", ent: "Add-on" },
 ];
 
 const faqs = [
@@ -121,6 +123,14 @@ const faqs = [
   { q: "Can we switch between Pro and Enterprise mid-contract?", a: "Yes. Pro is month-to-month; upgrading to Enterprise moves you onto an annual contract with SLAs and support commitments." },
   { q: "Do you offer a nonprofit or academic discount?", a: "Yes — contact sales. Verified nonprofits and academic institutions receive a discount on Pro and Enterprise." },
   { q: "How is usage measured for billing?", a: "Onam samples resource counts daily and averages them across the billing period. You are never charged for a resource that no longer exists." },
+  {
+    q: "Are Onam Estate and Onam FinOps included in Pro or Enterprise?",
+    a: "No. Both are separate products enabled per organisation, not features of a security tier — so upgrading your security plan does not turn them on, and buying one of them does not require a security plan. Talk to sales about either.",
+  },
+  {
+    q: "Can we buy Onam FinOps without Onam Security?",
+    a: "Yes. Each product stands alone. If you do run more than one they share the same login, the same console and the same discovery, so you are not connecting your cloud accounts twice.",
+  },
 ];
 
 function TierCard({ t }: { t: Tier }) {
@@ -204,6 +214,65 @@ function PricingPage() {
       <section className="bg-white py-16">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
           {tiers.map((t) => <TierCard key={t.name} t={t} />)}
+        </div>
+      </section>
+
+      <section className="bg-white pb-16">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="rounded-2xl border border-[#E5E9F0] bg-[#FBFCFE] p-8 md:p-10">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl tracking-tight">
+                Product add-ons
+              </h2>
+              <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">
+                Granted per organisation
+              </div>
+            </div>
+            <p className="mt-3 text-sm text-[#475569] max-w-2xl leading-relaxed">
+              Onam Estate and Onam FinOps are separate products, not tiers of Onam Security. They are
+              enabled per organisation rather than bundled into a plan, so a team that wants the cost
+              picture does not have to buy a security plan to get it — and neither one changes what
+              your security plan includes.
+            </p>
+
+            <div className="mt-8 grid md:grid-cols-2 gap-4">
+              {PRODUCTS.filter((p) => p.key !== "security").map((p) => {
+                const Icon = p.icon;
+                return (
+                  <div key={p.key} className="rounded-xl border border-[#E5E9F0] bg-white p-6 flex flex-col">
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-lg grid place-items-center"
+                        style={{
+                          backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
+                          boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
+                        }}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: p.color }} />
+                      </div>
+                      <div>
+                        <div className="font-display font-bold text-[#0B1220]">{p.name}</div>
+                        <div className="text-xs text-[#64748B]">{p.question}</div>
+                      </div>
+                    </div>
+                    <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">{p.blurb}</p>
+                    <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-4">
+                      <div className="font-display font-black text-[#0B1220] text-xl">Contact sales</div>
+                      <Link
+                        to="/request-demo"
+                        className="text-sm font-semibold px-4 py-2 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
+                      >
+                        Talk to us
+                      </Link>
+                    </div>
+                    <Link to={p.href} className="mt-3 text-xs font-medium text-[#2563EB] hover:underline">
+                      What {p.name} does →
+                    </Link>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </section>
 

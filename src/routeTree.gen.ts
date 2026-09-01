@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as DocsRouteImport } from './routes/docs'
+import { Route as EstateRouteImport } from './routes/estate'
+import { Route as FinopsRouteImport } from './routes/finops'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as ToolsRouteImport } from './routes/tools'
@@ -37,6 +39,7 @@ import { Route as PlatformAttackPathRouteImport } from './routes/platform/attack
 import { Route as PlatformCdrRouteImport } from './routes/platform/cdr'
 import { Route as PlatformCiemRouteImport } from './routes/platform/ciem'
 import { Route as PlatformCnappRouteImport } from './routes/platform/cnapp'
+import { Route as PlatformCodeSecurityRouteImport } from './routes/platform/code-security'
 import { Route as PlatformComplianceRouteImport } from './routes/platform/compliance'
 import { Route as PlatformContainerSecurityRouteImport } from './routes/platform/container-security'
 import { Route as PlatformCspmRouteImport } from './routes/platform/cspm'
@@ -83,6 +86,16 @@ const CaseStudiesRoute = CaseStudiesRouteImport.update({
 const DocsRoute = DocsRouteImport.update({
   id: '/docs',
   path: '/docs',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EstateRoute = EstateRouteImport.update({
+  id: '/estate',
+  path: '/estate',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinopsRoute = FinopsRouteImport.update({
+  id: '/finops',
+  path: '/finops',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -208,6 +221,11 @@ const PlatformCiemRoute = PlatformCiemRouteImport.update({
 const PlatformCnappRoute = PlatformCnappRouteImport.update({
   id: '/platform/cnapp',
   path: '/platform/cnapp',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformCodeSecurityRoute = PlatformCodeSecurityRouteImport.update({
+  id: '/platform/code-security',
+  path: '/platform/code-security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformComplianceRoute = PlatformComplianceRouteImport.update({
@@ -377,6 +395,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/docs': typeof DocsRouteWithChildren
+  '/estate': typeof EstateRoute
+  '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
@@ -398,6 +418,7 @@ export interface FileRoutesByFullPath {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
+  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -438,6 +459,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
+  '/estate': typeof EstateRoute
+  '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
@@ -459,6 +482,7 @@ export interface FileRoutesByTo {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
+  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -501,6 +525,8 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
   '/docs': typeof DocsRouteWithChildren
+  '/estate': typeof EstateRoute
+  '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
@@ -522,6 +548,7 @@ export interface FileRoutesById {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
+  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -565,6 +592,8 @@ export interface FileRouteTypes {
     | '/'
     | '/case-studies'
     | '/docs'
+    | '/estate'
+    | '/finops'
     | '/pricing'
     | '/request-demo'
     | '/tools'
@@ -586,6 +615,7 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
+    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -626,6 +656,8 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/case-studies'
+    | '/estate'
+    | '/finops'
     | '/pricing'
     | '/request-demo'
     | '/tools'
@@ -647,6 +679,7 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
+    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -688,6 +721,8 @@ export interface FileRouteTypes {
     | '/'
     | '/case-studies'
     | '/docs'
+    | '/estate'
+    | '/finops'
     | '/pricing'
     | '/request-demo'
     | '/tools'
@@ -709,6 +744,7 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
+    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -751,6 +787,8 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
   DocsRoute: typeof DocsRouteWithChildren
+  EstateRoute: typeof EstateRoute
+  FinopsRoute: typeof FinopsRoute
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
   ToolsRoute: typeof ToolsRoute
@@ -771,6 +809,7 @@ export interface RootRouteChildren {
   PlatformCdrRoute: typeof PlatformCdrRoute
   PlatformCiemRoute: typeof PlatformCiemRoute
   PlatformCnappRoute: typeof PlatformCnappRoute
+  PlatformCodeSecurityRoute: typeof PlatformCodeSecurityRoute
   PlatformComplianceRoute: typeof PlatformComplianceRoute
   PlatformContainerSecurityRoute: typeof PlatformContainerSecurityRoute
   PlatformCspmRoute: typeof PlatformCspmRoute
@@ -828,6 +867,20 @@ declare module '@tanstack/react-router' {
       path: '/docs'
       fullPath: '/docs'
       preLoaderRoute: typeof DocsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/estate': {
+      id: '/estate'
+      path: '/estate'
+      fullPath: '/estate'
+      preLoaderRoute: typeof EstateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finops': {
+      id: '/finops'
+      path: '/finops'
+      fullPath: '/finops'
+      preLoaderRoute: typeof FinopsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -1003,6 +1056,13 @@ declare module '@tanstack/react-router' {
       path: '/platform/cnapp'
       fullPath: '/platform/cnapp'
       preLoaderRoute: typeof PlatformCnappRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/code-security': {
+      id: '/platform/code-security'
+      path: '/platform/code-security'
+      fullPath: '/platform/code-security'
+      preLoaderRoute: typeof PlatformCodeSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/compliance': {
@@ -1260,6 +1320,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   DocsRoute: DocsRouteWithChildren,
+  EstateRoute: EstateRoute,
+  FinopsRoute: FinopsRoute,
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
   ToolsRoute: ToolsRoute,
@@ -1280,6 +1342,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformCdrRoute: PlatformCdrRoute,
   PlatformCiemRoute: PlatformCiemRoute,
   PlatformCnappRoute: PlatformCnappRoute,
+  PlatformCodeSecurityRoute: PlatformCodeSecurityRoute,
   PlatformComplianceRoute: PlatformComplianceRoute,
   PlatformContainerSecurityRoute: PlatformContainerSecurityRoute,
   PlatformCspmRoute: PlatformCspmRoute,

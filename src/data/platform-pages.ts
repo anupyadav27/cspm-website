@@ -22,6 +22,59 @@ const pink400 = "#F472B6";
 const emerald400 = "#34D399";
 
 export const platformPages: Record<string, ProductPageData> = {
+  "code-security": {
+    demoClips: ["scan"],
+    icon: GitBranch,
+    iconColor: violet400,
+    label: "Code Security",
+    question: "Will the misconfiguration I just fixed come back on the next deploy?",
+    headline: "Fix it where the resource is defined, not where it happens to be running.",
+    sub: "SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.",
+    painPoint:
+      "An engineer unchecks 'public access' on a bucket in the console and closes the finding. The next terraform apply recreates the bucket exactly as the template describes it, because the template was never changed. The finding returns, gets re-triaged, gets fixed in the console again. Everyone is busy and nothing improves — and meanwhile a dependency scan returns 400 findings sorted by CVSS, most of them in code paths the application never executes.",
+    mechanism: [
+      "Static analysis traces untrusted input to dangerous operations in application source, and dependency analysis inventories what you actually ship — including transitive packages — against known vulnerabilities.",
+      "IaC scanning evaluates Terraform, CloudFormation, Helm and Kubernetes manifests against the same policy set the runtime posture engine uses, so a template is judged before it creates anything.",
+      "Secret detection runs across source, image layers, pipeline configuration and committed state — the places copies accumulate, rather than only the secrets store where things are done correctly.",
+      "Findings are joined to the running estate on the same security graph, so a dependency finding carries whether the workload is internet-reachable and what identity it holds — the two facts that decide whether a CVSS score matters here.",
+      "Every runtime finding keeps its provenance: which repository, template and resource block produced it, so remediation lands in code and does not reappear on the next apply.",
+    ],
+    whatYouGet: [
+      "SAST across application source, with the code path that produced each finding",
+      "SCA with reachability — is the vulnerable function actually called, not just present",
+      "IaC policy evaluated against the plan, so misconfiguration is prevented rather than reported",
+      "Secret detection across source, images, pipelines and state files",
+      "Provenance on runtime findings — the repository, template and line that created the resource",
+      "Reachability and identity context joined to every dependency finding",
+      "Delta gating — fail the build on newly introduced findings, work the backlog separately",
+      "One inventory across code and cloud, so 'which running workloads ship this package' is a query",
+    ],
+    faqs: [
+      {
+        q: "How is this different from a standalone SAST or SCA tool?",
+        a: "A standalone scanner reports findings about code. Onam joins those findings to the running estate on the same graph the posture, identity and network engines use — so a dependency finding carries whether that workload is reachable and what it can access next. That context is what turns several hundred CVSS-ranked findings into a short list.",
+      },
+      {
+        q: "Does fixing a finding in the cloud console actually resolve it?",
+        a: "Usually not, if infrastructure-as-code created the resource. The next apply recreates the original configuration. Onam keeps the provenance of each runtime finding — the repository, template and resource block — so the fix can land where the resource is defined.",
+      },
+      {
+        q: "Will this break our builds?",
+        a: "Only if you configure it to. The default posture is to gate on newly introduced findings and report the existing backlog separately. A pipeline that fails on every pre-existing issue gets bypassed within weeks, which is a worse outcome than no gate.",
+      },
+      {
+        q: "Which languages and IaC formats are supported?",
+        a: "Application scanning covers the mainstream server-side languages, and IaC scanning covers Terraform, CloudFormation, Helm charts and raw Kubernetes manifests. Ask for the current list against your stack — it moves, and we would rather tell you what it does today than what it will do.",
+      },
+    ],
+    related: [
+      { label: "What is code security?", href: "/learn/code-security" },
+      { label: "What is cloud secrets management?", href: "/learn/secrets-management" },
+      { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
+      { label: "Onam CSPM", href: "/platform/cspm" },
+      { label: "Onam Vulnerability Management", href: "/platform/vulnerability" },
+    ],
+  },
   cspm: {
     demoClips: ["scan", "dashboard"],
     icon: ShieldCheck,
@@ -94,7 +147,9 @@ export const platformPages: Record<string, ProductPageData> = {
       "The engine resolves effective permissions per identity, walking every policy, group membership, and cross-account trust to compute what an identity can actually do.",
       "Recent activity from CloudTrail, Azure Activity Log, and GCP Cloud Audit Logs is joined against granted permissions to expose the unused surface.",
       "The result is a per-identity least-privilege gap score, plus prioritised recommendations that generate a right-sized policy from real 90-day usage.",
+      "Privilege-escalation paths are searched on the identity graph and cross-checked against Cloud Detection & Response, so a path that has actually been walked is separated from one that is merely reachable.",
       "Findings refresh continuously so new identities, new grants, and new activity are reflected within minutes — no manual re-scan.",
+      "Access reviews turn the output into an attestation workflow: each identity is put in front of an owner with a state — pending, needs remediation, reviewed, or deferred — so the review is a tracked decision rather than a spreadsheet emailed once a quarter.",
     ],
     whatYouGet: [
       "Effective permissions resolved for every identity — not just what's attached",
@@ -105,6 +160,11 @@ export const platformPages: Record<string, ProductPageData> = {
       "Suggested least-privilege policies based on 90-day actual usage",
       "MFA coverage report for privileged identities",
       "Attack path visualisation — how a low-privilege identity reaches admin",
+      "Escalation paths cross-confirmed against CDR — which of them have actually been walked",
+      "Zombie identities — accounts with no activity for over 90 days, listed as their own class",
+      "Access reviews — an attestation and remediation workflow with a state on every identity",
+      "Database CIEM — grants inside managed databases, not only the cloud IAM layer around them",
+      "Per-identity-type breakdown, so users, roles and service accounts are not averaged together",
     ],
     faqs: [
       {
@@ -122,6 +182,18 @@ export const platformPages: Record<string, ProductPageData> = {
       {
         q: "Can CIEM detect if an external party has access to our accounts?",
         a: "Yes. Onam walks every trust policy and cross-account role chain, flags external principals, and highlights any external identity that can assume a privileged role in your production accounts. Third-party SaaS integrations are surfaced separately with an inventory view.",
+      },
+      {
+        q: "Can CIEM run an access review or attestation campaign?",
+        a: "Yes, and it is the part most teams actually need. Every identity carries a review state — pending, needs remediation, reviewed, or deferred — so an access review is a tracked workflow with an owner and an outcome rather than a spreadsheet that gets emailed once a quarter and answered by nobody. The finding that triggered the review stays attached to it, so the reviewer sees why the identity was flagged.",
+      },
+      {
+        q: "Does CIEM cover permissions inside databases, or only cloud IAM?",
+        a: "Both. Cloud IAM tells you who can reach a database; database CIEM looks at the grants inside it. An identity with no IAM path to production data and a standing grant on the database itself is invisible to a tool that only reads the cloud provider's IAM layer.",
+      },
+      {
+        q: "What is the difference between an escalation path and one that has been walked?",
+        a: "Reachability says a chain of assumes exists. CDR confirmation says the chain was actually used. Onam reports both and distinguishes them, because a queue that treats every theoretical path as urgent is a queue that gets ignored — and the confirmed ones are the incident.",
       },
       {
         q: "How does multi-hop privilege escalation detection work?",
@@ -438,7 +510,7 @@ export const platformPages: Record<string, ProductPageData> = {
     demoClips: ["datasec", "attack"],
     icon: Database,
     iconColor: csmAmber,
-    label: "Data Security (DSPM)",
+    label: "DSPM — Data Security Posture Management",
     question: "Where is your sensitive data — and who can reach it?",
     headline: "Your data is in dozens of services. Do you know which ones are exposed?",
     sub: "Data Security maps every storage resource across your cloud accounts, classifies what's inside, and shows exactly which identities and network paths can reach it.",
@@ -449,6 +521,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Metadata-based classification labels each store by likely sensitivity (PII, PHI, PCI, secrets) using naming, tags, schema, and configuration signals — without reading contents.",
       "The engine joins classification with the identity graph to compute exactly which principals can read or write each store, and via which paths.",
       "Network reachability is layered on top so a bucket that is technically encrypted at rest but publicly reachable is treated as exposed.",
+      "Data lineage traces where data moves after it lands — each pipeline chain is reconstructed end to end and scored, so an encrypted source feeding an unencrypted downstream store is caught as one finding about the flow rather than two unrelated findings about two buckets.",
       "Findings refresh continuously so new datasets, permission changes, and public exposures surface within minutes.",
     ],
     whatYouGet: [
@@ -460,6 +533,9 @@ export const platformPages: Record<string, ProductPageData> = {
       "Data residency report",
       "Retention/lifecycle policy compliance",
       "Logging and monitoring coverage",
+      "Data lineage — every pipeline chain reconstructed, with a risk grade per chain",
+      "Unencrypted-hop detection along a flow, not just encryption status per bucket",
+      "Critical and high-risk chain counts, so exposure is ranked by flow rather than by store",
     ],
     faqs: [
       {
@@ -475,12 +551,18 @@ export const platformPages: Record<string, ProductPageData> = {
         a: "Data Security posture management (DSPM) is the industry term for exactly this capability. Onam's Data Security engine is our DSPM implementation, joined to the same graph as CSPM, CIEM, and Attack Path — so a data risk is never isolated from the identity and network context that makes it real.",
       },
       {
+        q: "Does it show where data goes after it lands, or only where it sits?",
+        a: "Both. Lineage reconstructs the pipeline chains — source, hops, destination — and grades each chain. That matters because encryption is a property of a flow, not of a bucket: a properly encrypted source that feeds an unencrypted analytics table has an exposure that no per-resource check will ever report, because every individual resource in it passes.",
+      },
+      {
         q: "How does Onam identify sensitive data without reading file contents?",
         a: "Resource names, tags, table and column names, database identifiers, storage class, and configuration patterns are strong signals — a bucket called 'customer-pii-exports' or a table with columns 'ssn' and 'dob' is a high-confidence classification. When metadata is ambiguous, findings are labelled as low-confidence and can be confirmed manually.",
       },
     ],
     related: [
       { label: "What is DSPM?", href: "/learn/dspm" },
+      { label: "Database Security", href: "/platform/database-security" },
+      { label: "Encryption & Keys", href: "/platform/encryption" },
       { label: "CIEM — Who has access", href: "/platform/ciem" },
       { label: "CSPM — Misconfigurations", href: "/platform/cspm" },
       { label: "Compliance frameworks", href: "/platform/compliance" },
@@ -543,10 +625,12 @@ export const platformPages: Record<string, ProductPageData> = {
     demoClips: ["cwpp", "scan"],
     icon: Box,
     iconColor: blue400,
-    label: "Container Security",
+    label: "Container & Kubernetes Security (KSPM)",
+    chips: ["KSPM", "CIS Kubernetes Benchmark", "RBAC", "Pod Security", "Image scanning", "Admission control"],
     question: "Are my Kubernetes clusters and containers configured safely?",
     headline: "Containers move fast. Misconfigurations move faster.",
-    sub: "Container security covers your full container estate — image vulnerabilities, Kubernetes RBAC, network policies, pod security standards, and cluster CIS benchmarks — across EKS, ECS, and self-managed clusters.",
+    sub:
+      "Kubernetes Security Posture Management (KSPM) and container security in one place — covers your full container estate — image vulnerabilities, Kubernetes RBAC, network policies, pod security standards, and cluster CIS benchmarks — across EKS, ECS, and self-managed clusters.",
     painPoint:
       "A pod runs as root. Its service account can list secrets across the namespace. The base image was pulled from an unofficial registry three releases ago and hasn't been scanned since. Meanwhile the cluster is CIS-non-compliant in seven places nobody has flagged. Every one of those is fine on its own — until an attacker gets shell access on that pod.",
     mechanism: [
@@ -832,12 +916,12 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Technology Engine",
     question: "What technology is actually running in my cloud?",
     headline: "Shadow IT and forgotten services are everywhere. Let's find yours.",
-    sub: "The technology engine discovers the actual runtime stack across your fleet — databases, web servers, frameworks, runtimes, libraries — and flags configurations that don't meet security standards for each technology.",
+    sub: "The technology engine discovers the actual runtime stack across your fleet — databases, operating systems, web servers, container runtimes, network appliances and SaaS platforms — and holds each one to the CIS benchmark written for that specific product, not to a generic cloud rule.",
     painPoint:
       "The CMDB says you run PostgreSQL and Nginx. Reality: three teams run Redis 4 that hit EOL in 2020, one team pinned Node 12 in a legacy Lambda, and a forgotten instance is running an outdated Elasticsearch open on port 9200. Every one of those has known exploits, and none of them are in your asset inventory.",
     mechanism: [
       "Onam probes running workloads through cloud metadata, container image inspection, and process metadata — read-only, no agents.",
-      "The engine identifies 34 technology categories and thousands of individual products, versions, and configurations across your fleet.",
+      "The engine identifies the technology running on each workload and evaluates it against the CIS benchmark for that specific product — 34 of them, from PostgreSQL and Nginx to RHEL, Docker, Cisco IOS XE and VMware ESXi.",
       "Each detected technology is checked against version-specific security rules covering defaults, hardening, and end-of-life status.",
       "Findings are joined to the identity, network, and vulnerability graph so an EOL database that is internet-reachable ranks appropriately.",
       "New technologies and versions are added continuously as they appear in customer environments — so shadow IT is discovered without a rule-writing sprint.",
@@ -847,8 +931,8 @@ export const platformPages: Record<string, ProductPageData> = {
       "Version currency analysis",
       "End-of-life detection",
       "Default configuration checks (databases, web servers, frameworks)",
-      "34 technology categories",
-      "5,000+ technology-specific rules",
+      "34 CIS technology benchmarks — named products, not vague categories",
+      "8,991 technology control rows across those benchmarks",
       "Shadow IT surface area",
       "Technology risk scoring",
     ],
@@ -858,12 +942,16 @@ export const platformPages: Record<string, ProductPageData> = {
         a: "CSPM checks cloud-provider configuration — is a bucket public, is an RDS encrypted. Technology Engine goes one layer deeper: given that you run PostgreSQL 12 on that instance, is the version supported, are the defaults hardened, and does it end-of-life next quarter. Together they cover both the cloud and what runs on top of it.",
       },
       {
-        q: "Which technology categories are covered?",
-        a: "34 categories including databases, message queues, web servers, application runtimes, container runtimes, CI/CD tooling, caches, search engines, and observability stacks. Coverage expands as new technologies show up in customer fleets.",
+        q: "Which technologies are covered?",
+        a: "34 CIS benchmarks, grouped into nine families. Databases: PostgreSQL, MySQL, MariaDB, MongoDB, Cassandra, Oracle DB, SQL Server, IBM Db2. Operating systems: RHEL, Ubuntu, Debian, CentOS, SUSE. Web and application servers: Nginx, Apache HTTP, IIS, Tomcat, WebSphere. Containers and virtualisation: Docker, VMware ESXi. Network appliances: Cisco ASA, Cisco IOS XE, Cisco IOS XR, Cisco NX-OS, Palo Alto, FortiGate, Check Point. SaaS and DevOps: Microsoft 365, SharePoint, Google Workspace, Dynamics 365, Snowflake, GitLab.",
       },
       {
         q: "Does the Technology Engine need agents?",
         a: "No. Detection uses cloud metadata, image inspection, and read-only process metadata — the same integrations that power the rest of Onam.",
+      },
+      {
+        q: "Is this the same as running the CIS benchmark for PostgreSQL by hand?",
+        a: "It is that benchmark, evaluated continuously and joined to the rest of the graph. Running it by hand gives you a point-in-time report for one host. Here the same controls run across every instance of that technology in the fleet, and each finding carries whether the workload is internet-reachable and what identity it holds — so an unhardened database on an isolated subnet and one behind a public load balancer do not rank the same.",
       },
       {
         q: "How does shadow IT detection work?",
@@ -873,7 +961,10 @@ export const platformPages: Record<string, ProductPageData> = {
     related: [
       { label: "Vulnerability Management", href: "/platform/vulnerability" },
       { label: "Container Security", href: "/platform/container-security" },
+      { label: "Database Security", href: "/platform/database-security" },
+      { label: "SaaS Security (SSPM)", href: "/platform/saas-security" },
       { label: "CSPM", href: "/platform/cspm" },
+      { label: "Onam Estate — the assets underneath", href: "/estate" },
     ],
   },
 
@@ -1392,11 +1483,18 @@ export const platformPages: Record<string, ProductPageData> = {
         q: "Can I compare scores across accounts or business units?",
         a: "Yes. Scores break down per account, per subscription, and per environment, which is how most teams drive accountability without arguing about whose findings belong to whom.",
       },
+      {
+        q: "Do Onam Estate and Onam FinOps appear in the CNAPP score?",
+        a: "No, deliberately. CNAPP scores security posture. Estate is the inventory of record and FinOps is cost and commitment management — both are separately entitled products, and folding a cost figure into a security score would make the number mean nothing. They share the same discovery and the same console; they do not share a score.",
+      },
     ],
     related: [
       { label: "What is CNAPP?", href: "/learn/cnapp" },
-      { label: "Risk Quantification", href: "/platform/risk" },
       { label: "CSPM — Misconfigurations", href: "/platform/cspm" },
+      { label: "CIEM — Identity & entitlements", href: "/platform/ciem" },
+      { label: "DSPM — Data security posture", href: "/platform/data-security" },
+      { label: "CWPP — Workload protection", href: "/platform/cwpp" },
+      { label: "Risk Quantification", href: "/platform/risk" },
       { label: "Compliance frameworks", href: "/platform/compliance" },
     ],
   },

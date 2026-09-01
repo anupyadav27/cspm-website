@@ -1,17 +1,17 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of tools cannot. Onam Security technical whitepaper 03.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Onam Security">
 <meta property="og:title" content="One graph, one data model">
-<meta property="og:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta property="og:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of tools cannot. Onam Security technical whitepaper 03.">
 <meta property="og:url" content="https://www.onamsecurity.com/whitepapers/wp3-architecture.html">
 <meta property="og:image" content="https://www.onamsecurity.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="One graph, one data model">
-<meta name="twitter:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of separate tools cannot. Onam Security technical whitepaper 03.">
+<meta name="twitter:description" content="Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of tools cannot. Onam Security technical whitepaper 03.">
 <meta name="twitter:image" content="https://www.onamsecurity.com/og-image.png">
 <link rel="canonical" href="https://www.onamsecurity.com/whitepapers/wp3-architecture.html">
-
 <title>One graph, one data model</title><style>
 @page{size:A4;margin:0}
 :root{--navy:#082869;--navy2:#0B2545;--blue:#2563EB;--ink:#1A2233;--muted:#5C6B84;
@@ -19,42 +19,66 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:"Plus Jakarta Sans","Segoe UI",-apple-system,Helvetica,Arial,
 sans-serif;color:var(--ink);font-size:10.6pt;line-height:1.62}
-.page{width:210mm;min-height:297mm;padding:20mm 22mm 16mm;position:relative;
+.page{width:210mm;height:297mm;padding:20mm 22mm 16mm;position:relative;overflow:hidden;
 page-break-after:always;background:#fff}
 .page:last-child{page-break-after:auto}
 .cover{background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 62%,#0d3a8f 100%);
 color:#fff;padding:34mm 22mm}
-.cover .mark{font-weight:800;letter-spacing:.16em;font-size:11pt}
+.cover .mark{font-weight:800;letter-spacing:.16em;font-size:10.6pt}
 .cover .kicker{margin-top:26mm;font-size:8.4pt;letter-spacing:.30em;color:#9DB6E8}
 .cover h1{font-size:31pt;line-height:1.1;margin:5mm 0 0;letter-spacing:-.02em;font-weight:800}
 .cover .sub{margin-top:6mm;font-size:12.4pt;line-height:1.5;color:#D6E2F7;max-width:150mm}
 .chips{margin-top:20mm;display:flex;flex-wrap:wrap;gap:3mm}
 .chip{border:1px solid rgba(255,255,255,.34);border-radius:40px;padding:2mm 5mm;
-font-size:8.6pt;color:#EAF1FD}
+font-size:8.4pt;color:#EAF1FD}
 .cover .foot{position:absolute;left:22mm;right:22mm;bottom:16mm;display:flex;
-justify-content:space-between;font-size:8.6pt;color:#9DB6E8;
+justify-content:space-between;font-size:8.4pt;color:#9DB6E8;
 border-top:1px solid rgba(255,255,255,.2);padding-top:4mm}
-.run{display:flex;justify-content:space-between;font-size:7.8pt;letter-spacing:.13em;
+.run{display:flex;justify-content:space-between;font-size:7.6pt;letter-spacing:.13em;
 color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2.5mm;margin-bottom:8mm}
 h2{font-size:15.5pt;color:var(--navy2);margin:9mm 0 3mm;letter-spacing:-.01em;line-height:1.25}
 h2 .n{color:var(--blue);font-weight:800;margin-right:2.5mm}
 h2:first-of-type{margin-top:0}
-.lead{font-size:13pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
+.lead{font-size:12.4pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
 p{margin:0 0 3.4mm}
 ul,ol{margin:0 0 4mm;padding-left:6mm}
 li{margin-bottom:1.8mm}
 li::marker{color:var(--blue)}
 .note{background:var(--soft);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;
-padding:4mm 5mm;margin:4mm 0;font-size:10pt;color:var(--navy2)}
-table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.6pt}
+padding:4mm 5mm;margin:4mm 0;font-size:10.6pt;color:var(--navy2)}
+table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.4pt}
 th{background:var(--navy);color:#fff;text-align:left;padding:2.6mm 3.4mm;font-weight:600}
 td{border-bottom:1px solid var(--line);padding:2.6mm 3.4mm;vertical-align:top}
 tr:nth-child(even) td{background:var(--soft)}
 .fig{border:1px solid var(--line);border-radius:7px;padding:5mm;margin:4mm 0;background:var(--soft)}
-.fig .cap{font-size:8.2pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
-.fig .body{font-size:9.8pt;color:var(--navy2)}
+.fig .art{background:#fff;border:1px solid var(--line);border-radius:5px;
+padding:5mm 5mm 4mm;margin:0 0 4mm}
+.fig .art svg{width:100%;height:auto;display:block}
+.content{display:block}
+.content > *:first-child{margin-top:0}
+#flow[hidden]{display:none}
+h2{break-after:avoid}
+.fig,table,ul,ol{break-inside:avoid}
+.fig .cap{font-size:8.4pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.fig .body{font-size:9.4pt;color:var(--navy2)}
+.nav{border:1px solid var(--line);border-radius:7px;padding:6mm 6mm 5mm;
+margin:0 0 5mm;background:var(--soft)}
+.nav .cap{font-size:8.4pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.nav .cap2{margin-top:6mm}
+.map{display:block;border-top:1px solid var(--line)}
+.maprow{display:grid;grid-template-columns:9mm 46mm 1fr;gap:0 4mm;align-items:baseline;
+padding:2.4mm 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.maprow .mn{font-size:10.6pt;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums}
+.maprow .mt{font-size:10.6pt;font-weight:700;color:var(--navy2);line-height:1.3}
+.maprow .ml{font-size:9.4pt;color:var(--muted);line-height:1.35}
+.reads{margin-top:5mm;padding-top:3mm;border-top:1px solid var(--line);
+font-size:9.4pt;color:var(--muted)}
+.reads a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--line)}
+.reads span{font-size:8.4pt;letter-spacing:.16em;text-transform:uppercase;
+color:var(--navy2);font-weight:700;margin-right:3mm}
+.run .where{color:var(--navy2);font-weight:700;letter-spacing:.04em}
 .pfoot{position:absolute;left:22mm;right:22mm;bottom:12mm;display:flex;
-justify-content:space-between;font-size:8pt;color:var(--muted);
+justify-content:space-between;font-size:7.6pt;color:var(--muted);
 border-top:1px solid var(--line);padding-top:3mm}
 strong{color:var(--navy2)}
 </style></head><body>
@@ -62,42 +86,42 @@ strong{color:var(--navy2)}
 <div class="kicker">TECHNICAL WHITEPAPER &middot; 03</div>
 <h1>One graph, one data model</h1>
 <div class="sub">Why every engine writes the same finding contract into one store — and what that makes possible that a drawer of tools cannot.</div>
-<div class="chips"><span class="chip">One canonical store</span><span class="chip">Deterministic finding IDs</span><span class="chip">Per-tenant property graph</span><span class="chip">Typed abuse edges</span><span class="chip">{{facts.engines}} engines</span></div>
+<div class="chips"><span class="chip">One canonical store</span><span class="chip">Deterministic finding IDs</span><span class="chip">Per-tenant property graph</span><span class="chip">Typed abuse edges</span><span class="chip">29 engines</span></div>
 <div class="foot"><span>onamsecurity.com</span><span>One graph &middot; priced risk &middot; continuous evaluation</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
-<h2><span class="n">00</span>Executive summary</h2>
+<div id="pages" data-run="ONAM &middot; ONE GRAPH, ONE DATA MODEL"></div>
+<div id="flow" hidden>
+<section class="nav" data-break="after"><div class="cap">THE ARGUMENT, IN ORDER</div><div class="map"><a class="maprow" href="#s00"><span class="mn">00</span><span class="mt">Executive summary</span><span class="ml">Consolidation stops being a slide when it becomes a data model.</span></a><a class="maprow" href="#s01"><span class="mn">01</span><span class="mt">Ingestion into a normalised inventory</span><span class="ml">Two tables come out of ingestion, and every capability in the platform depends on them.</span></a><a class="maprow" href="#s02"><span class="mn">02</span><span class="mt">The canonical finding contract</span><span class="ml">Consolidation lives or dies on the schema.</span></a><a class="maprow" href="#s03"><span class="mn">03</span><span class="mt">The property graph</span><span class="ml">The cloud documents its relationships.</span></a><a class="maprow" href="#s04"><span class="mn">04</span><span class="mt">Engines as writers, not silos</span><span class="ml">29 engines write into the same store.</span></a><a class="maprow" href="#s05"><span class="mn">05</span><span class="mt">What this architecture buys</span><span class="ml">Cross-cloud attack paths.</span></a><a class="maprow" href="#s06"><span class="mn">06</span><span class="mt">Summary</span><span class="ml">Adding a capability adds a writer to the same store — never another silo.</span></a></div><div class="reads"><span>Reads with</span> <a href="https://www.onamsecurity.com/whitepapers/wp1-attack-path-methodology.html">01 Attack-path methodology</a></div></section>
+<h2 id="s00" data-sec="00" data-title="Executive summary"><span class="n">00</span>Executive summary</h2>
 <p class="lead">Consolidation stops being a slide when it becomes a data model.</p>
 <p>Most security platforms are a drawer of tools that each keep their own findings and their own view of the world. Onam is built the opposite way: every engine, for every cloud, writes the same finding contract into one shared store, and everything reasons over one property graph. This paper explains that design and why it is the thing that makes cross-cloud attack paths, priced risk and painless extensibility possible.</p>
 <p>The architectural claim is specific and testable: <strong>there are no per-engine report tables to reconcile.</strong> A gateway reads only from one canonical findings store; a per-tenant graph turns those findings and the assets they touch into nodes and typed edges. Adding a capability does not add a silo — it adds another writer to the same store.</p>
 <div class="note"><strong>Why it matters to a buyer.</strong> Posture, identity, data, workloads, SaaS and runtime detection share one schema, so a finding in one domain can form part of an attack path that ends in another — which is impossible when each tool hoards its own results.</div>
-<div class="pfoot"><span>onamsecurity.com</span><span>2</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
-<h2><span class="n">01</span>Ingestion into a normalised inventory</h2>
+<h2 id="s01" data-sec="01" data-title="Ingestion into a normalised inventory"><span class="n">01</span>Ingestion into a normalised inventory</h2>
+<p class="lead">Two tables come out of ingestion, and every capability in the platform depends on them.</p>
 <p>Each cloud connects read-only and agentless (Whitepaper 01, §02). The pipeline runs four stages — enumeration → enrichment → normalisation → drift — and writes two things every capability depends on: an asset inventory and an asset-relationship table.</p>
-<div class="fig"><div class="cap">FIGURE 1 — MANY CLOUDS, ONE NORMALISED STORE</div><div class="body">AWS, Azure, GCP, OCI, Alibaba, IBM, Kubernetes and SaaS (SSPM) all normalise into one identity space (resource_uid, account_id), then into one canonical security_findings store and one asset_relationships table of typed edges. Everything downstream reads from here.</div></div>
-<p>7 clouds plus SaaS collapse into one normalised identity space, covering 549 cloud services and 11,346 rule definitions.</p>
-<div class="pfoot"><span>onamsecurity.com</span><span>3</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
-<h2><span class="n">02</span>The canonical finding contract</h2>
-<p>Consolidation lives or dies on the schema. Onam requires every engine to emit the same standardised finding, keyed consistently, so one table can hold results from posture, identity, data, workload, code and SaaS engines without translation.</p>
+<figure class="fig"><div class="art"><svg viewBox="0 0 620 266" width="100%" height="auto" role="img" xmlns="http://www.w3.org/2000/svg" style="display:block"><path transform="translate(0.0,6.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="23.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">AWS</text><path d="M 64.0 18.0 C 106.0 18.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,36.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="53.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">Azure</text><path d="M 64.0 48.0 C 106.0 48.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,66.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="83.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">GCP</text><path d="M 64.0 78.0 C 106.0 78.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,96.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="113.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">OCI</text><path d="M 64.0 108.0 C 106.0 108.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,126.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="143.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">Alibaba</text><path d="M 64.0 138.0 C 106.0 138.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,156.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="173.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">IBM</text><path d="M 64.0 168.0 C 106.0 168.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,186.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="203.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">Kubernetes</text><path d="M 64.0 198.0 C 106.0 198.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path transform="translate(0.0,216.0) scale(1.100,1.000)" d="M9 20 A7 7 0 0 1 9 6.4 A9.5 9.5 0 0 1 27.5 4.6 A6.6 6.6 0 0 1 33 20 Z" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1.18" stroke-linejoin="round"/><text x="56.0" y="233.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#1A2233" font-weight="500" text-anchor="end" letter-spacing="0" opacity="1.0">SaaS (SSPM)</text><path d="M 64.0 228.0 C 106.0 228.0, 192.0 126.0, 228.0 126.0" stroke="#D8E0EC" stroke-width="1.1" fill="none"/><path d="M 232 91.0 A 75.0 9.0 0 0 1 382 91.0 L 382 161.0 A 75.0 9.0 0 0 1 232 161.0 Z" fill="#082869" stroke="#082869" stroke-width="1.2"/><ellipse cx="307.0" cy="91.0" rx="75.0" ry="9.0" fill="#1B4C97" stroke="#082869" stroke-width="1.2"/><text x="232.0" y="73.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="9.5" fill="#5C6B84" font-weight="600" text-anchor="start" letter-spacing="1.5" opacity="1.0">ONE IDENTITY SPACE</text><text x="307.0" y="126.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="12.5" fill="#FFFFFF" font-weight="700" text-anchor="middle" letter-spacing="0" opacity="1.0">resource_uid ·</text><text x="307.0" y="141.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="12.5" fill="#FFFFFF" font-weight="700" text-anchor="middle" letter-spacing="0" opacity="1.0">account_id</text><text x="307.0" y="156.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="9.5" fill="#93B4F5" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">deterministic, stable</text><text x="307.0" y="167.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="9.5" fill="#93B4F5" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">across rescans</text><path d="M 388.0 126.0 L 420.0 78.0" stroke="#2563EB" stroke-width="1.4" fill="none"/><path d="M 419.2 82.9 L 420.0 78.0 L 415.8 80.7" fill="none" stroke="#2563EB" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="426.0" y="60.0" width="194.0" height="36.0" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.4"/><text x="523.0" y="76.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">security_findings — one</text><text x="523.0" y="89.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">canonical store</text><path d="M 388.0 126.0 L 420.0 126.0" stroke="#2563EB" stroke-width="1.4" fill="none"/><path d="M 415.4 128.0 L 420.0 126.0 L 415.4 124.0" fill="none" stroke="#2563EB" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="426.0" y="108.0" width="194.0" height="36.0" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.4"/><text x="523.0" y="124.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">asset_relationships —</text><text x="523.0" y="137.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">typed edges</text><path d="M 388.0 126.0 L 420.0 174.0" stroke="#2563EB" stroke-width="1.4" fill="none"/><path d="M 415.8 171.3 L 420.0 174.0 L 419.2 169.1" fill="none" stroke="#2563EB" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/><rect x="426.0" y="156.0" width="194.0" height="36.0" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.4"/><text x="523.0" y="179.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">the property graph</text><text x="0.0" y="261.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="start" letter-spacing="0" opacity="1.0">No per-engine report tables. Consolidation is a data model, not a dashboard.</text></svg></div><figcaption><div class="cap">FIGURE 1 — MANY CLOUDS, ONE NORMALISED STORE</div><div class="body">The narrowing is the architecture. Cross-cloud attack paths are only visible because both ends of the route live in the same store.</div></figcaption></figure>
+<p>7 clouds plus SaaS collapse into one normalised identity space, covering 549 cloud services and 11,433 rule definitions.</p>
+<h2 id="s02" data-sec="02" data-title="The canonical finding contract"><span class="n">02</span>The canonical finding contract</h2>
+<p class="lead">Consolidation lives or dies on the schema.</p>
+<p>Onam requires every engine to emit the same standardised finding, keyed consistently, so one table can hold results from posture, identity, data, workload, code and SaaS engines without translation.</p>
 <table><tr><th>Field</th><th>Canonicalises</th><th>Why it matters</th></tr><tr><td>resource_uid</td><td>ARN vs OCID vs self-link</td><td>One identity for an asset across clouds</td></tr><tr><td>account_id</td><td>account vs subscription vs project</td><td>Ownership normalised across providers</td></tr><tr><td>finding_id</td><td>deterministic hash</td><td>Same issue → same ID on every rescan; stable history</td></tr><tr><td>tenant_id</td><td>not-null isolation key</td><td>Every row is tenant-scoped by construction</td></tr><tr><td>provider_metadata</td><td>provider-specific detail</td><td>Nothing is lost; specifics travel with the finding</td></tr></table>
 <p>Because <code>finding_id</code> is deterministic, remediation tracking is reliable: a fixed issue auto-resolves on the next PASS and auto-closes after 30 days unseen, without a human reconciling IDs by hand.</p>
-<div class="pfoot"><span>onamsecurity.com</span><span>4</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; ONE GRAPH, ONE DATA MODEL</span><span>onamsecurity.com</span></div>
-<h2><span class="n">03</span>The property graph</h2>
+<h2 id="s03" data-sec="03" data-title="The property graph"><span class="n">03</span>The property graph</h2>
+<p class="lead">The cloud documents its relationships. The graph adds the ones an attacker would use.</p>
 <p>On top of the findings and relationships, Onam builds a per-tenant property graph. Assets are nodes; edges are typed — containment, attachment, IAM trust and network reachability — and catalog-driven derivers add the abuse edges an attacker would use.</p>
 <p>The derivers are the important part. A cloud provider documents the relationships it intends; an attacker uses the ones that exist. The graph has to hold both.</p>
-<h2><span class="n">04</span>Engines as writers, not silos</h2>
+<h2 id="s04" data-sec="04" data-title="Engines as writers, not silos"><span class="n">04</span>Engines as writers, not silos</h2>
 <p>29 engines write into the same store. That is the extensibility claim: a new capability is a new writer, not a new database, a new schema and a new reconciliation job. It is also why a posture finding and a runtime detection can appear on the same path — they were never in separate systems to begin with.</p>
 <div class="note"><strong>The honest limit.</strong> One shared schema is a constraint as well as a gift. An engine whose output does not fit the contract has to be modelled to fit it, and that is real work. We take that cost deliberately, because the alternative — per-engine tables — is the thing that makes cross-domain reasoning impossible later.</div>
-<h2><span class="n">05</span>What this architecture buys</h2>
+<h2 id="s05" data-sec="05" data-title="What this architecture buys"><span class="n">05</span>What this architecture buys</h2>
 <ul>
 <li><strong>Cross-cloud attack paths.</strong> A route from one provider to another is only visible when both are described in one vocabulary.</li>
 <li><strong>Priced risk.</strong> FAIR needs consistent asset identity and data classification to compute magnitude; the shared schema supplies both.</li>
 <li><strong>Stable history.</strong> Deterministic IDs mean trend lines and remediation tracking are real, not approximate.</li>
 <li><strong>Extensibility.</strong> Adding an engine adds coverage, not another silo to reconcile.</li>
 </ul>
-<h2><span class="n">06</span>Summary</h2>
+<h2 id="s06" data-sec="06" data-title="Summary"><span class="n">06</span>Summary</h2>
+<p class="lead">Adding a capability adds a writer to the same store — never another silo.</p>
 <ul>
 <li>One canonical findings store. No per-engine report tables.</li>
 <li>A standardised finding contract with deterministic IDs and mandatory tenant scoping.</li>
@@ -105,5 +129,138 @@ strong{color:var(--navy2)}
 <li>29 engines as writers into the same model — extensibility without silos.</li>
 <li>The constraint is real and accepted: fitting the contract is work, and worth it.</li>
 </ul>
-<div class="pfoot"><span>onamsecurity.com</span><span>5</span></div></div>
+</div>
+<script>/* paginate.js — THE OUTLINE STAGE, executed in the browser so it also runs when
+   Chromium prints the PDF.
+
+   Sections used to be split onto pages on a line of "---": one section, one sheet,
+   whatever that section weighed. That is why 15 of 20 body pages filled under 60%
+   and wp5 page 3 filled 14% — the sheet was sized by the section instead of the
+   section being fitted to the sheet. The source keeps "---" as a section break;
+   pagination is measured here, not authored there. */
+(function () {
+  var flow = document.getElementById('flow');
+  var host = document.getElementById('pages');
+  if (!flow || !host) return;
+  var RUN = host.getAttribute('data-run') || '';
+  var nodes = [].slice.call(flow.children);
+  var n = 1, box = null;
+
+  function newPage() {
+    n += 1;
+    var p = document.createElement('div');
+    p.className = 'page';
+    p.innerHTML = '<div class="run"><span>' + RUN + '</span>' +
+                  '<span>onamsecurity.com</span></div>' +
+                  '<div class="content"></div>' +
+                  '<div class="pfoot"><span>onamsecurity.com</span>' +
+                  '<span>' + n + '</span></div>';
+    host.appendChild(p);
+    return p.querySelector('.content');
+  }
+
+  function overflows(el) {
+    var foot = el.parentNode.querySelector('.pfoot');
+    return el.getBoundingClientRect().bottom > foot.getBoundingClientRect().top - 6;
+  }
+
+  /* A figure is one indivisible block roughly half a page tall. When it will not
+     fit, moving it to the next page leaves the hole it just vacated — which is how
+     wp3 page 2 ended 40% empty with a full figure waiting behind it. So a figure
+     FLOATS: it defers, the prose behind it flows into the space, and the figure
+     lands at the top of the next page. Prose never reorders; only figures float,
+     which is what every journal does and for this reason. */
+  var pending = null, floated = 0;
+
+  function place(el) {
+    box.appendChild(el);
+    if (overflows(box) && box.children.length > 1) {
+      box.removeChild(el);
+      return false;
+    }
+    return true;
+  }
+
+  function breakPage() {
+    box = newPage();
+    if (pending) { box.appendChild(pending); pending = null; }
+  }
+
+  box = newPage();
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    /* A float has a leash. Three blocks is the most prose that may overtake a
+       figure before the page is cut and the figure placed — beyond that the reader
+       has left the paragraph the figure illustrates. */
+    /* The leash expires only once the page has earned its keep. Cutting at a
+       fixed block count broke pages half-full and traded one defect for another:
+       the figure landed early and the sheet it left behind was the thin one. */
+    if (pending && (floated += 1) > 2) {
+      var pgBox = box.parentNode.getBoundingClientRect();
+      var footTop = box.parentNode.querySelector('.pfoot').getBoundingClientRect().top;
+      var kids = box.children;
+      var used = kids.length
+        ? kids[kids.length - 1].getBoundingClientRect().bottom - pgBox.top
+        : 0;
+      if (used / (footTop - pgBox.top) > 0.62) { breakPage(); }
+    }
+    if (!place(el)) {
+      if (el.tagName === 'FIGURE' && !pending) {
+        pending = el;            /* defer it; keep filling this page with prose */
+        floated = 0;
+        continue;
+      }
+      breakPage();
+      box.appendChild(el);
+    }
+    /* A block that OPENS something owns its page. The map and the executive
+       summary each open the document, and sharing one sheet made them compete —
+       the reader meets two front doors at once. data-break="after" cuts the page
+       once the block is placed. */
+    if (el.getAttribute && el.getAttribute('data-break') === 'after' &&
+        i + 1 < nodes.length) {
+      breakPage();
+      continue;
+    }
+
+    /* A heading alone at the foot of a page is a widow. Carry it forward with the
+       block it introduces — the same rule the deck's build order follows: the thing
+       that announces content never arrives without it. */
+    if (/^H[1-6]$/.test(el.tagName) && i + 1 < nodes.length) {
+      var next = nodes[i + 1];
+      box.appendChild(next);
+      if (overflows(box) && box.children.length > 2) {
+        box.removeChild(el);
+        box.removeChild(next);
+        /* breakPage, not newPage: a deferred figure is waiting, and calling
+           newPage directly walked straight past it. That is how wp1's Figure 1
+           floated out of section 01 entirely and landed three pages later, next
+           to text that does not mention it. A float that outruns its reference
+           is worse than a half-empty page. */
+        breakPage();
+        box.appendChild(el);
+        box.appendChild(next);
+      }
+      i += 1;
+    }
+  }
+  if (pending) { breakPage(); }
+  flow.parentNode.removeChild(flow);
+
+  /* THE LOCATOR. A running head that says only the paper's name tells a reader
+     nothing they did not already know. Each page now names the section it is in,
+     carried forward across page breaks, so someone who put the paper down on
+     Tuesday can pick it up on Thursday and know where they are. Nobody has a
+     photographic memory; the document has to do the remembering. */
+  var here = '';
+  [].forEach.call(host.querySelectorAll('.page'), function (pg) {
+    var h = pg.querySelector('[data-sec]');
+    if (h) { here = h.getAttribute('data-sec') + ' \u00b7 ' +
+                    h.getAttribute('data-title'); }
+    var run = pg.querySelector('.run span');
+    if (run && here) { run.innerHTML = RUN + ' &nbsp;\u2014&nbsp; ' +
+                       '<span class="where">' + here + '</span>'; }
+  });
+}());
+</script>
 </body></html>

@@ -33,7 +33,7 @@ export const SAAS_PLATFORMS = 8;
 export const CSPM_POSTURE_RULES = 9853;
 
 /** all posture rule definitions across 7 clouds */
-export const RULE_CATALOG_TOTAL = 11346;
+export const RULE_CATALOG_TOTAL = 11433;
 
 /** Thousands-separated, for display. */
 export const fmt = (n: number): string => n.toLocaleString("en-US");

@@ -25,6 +25,10 @@ const PUBLIC = new URL("../public", import.meta.url).pathname;
 /** Standalone HTML that is meant to be shared. Rendered artifacts are exempt. */
 const EXEMPT = [
   /Flipbook\.html$/i, // 5.9MB base64 export, not a shareable landing page
+  // Files parked for deletion. Not linked, not in the sitemap, not shareable — and
+  // blocking every build on a page someone has already decided to remove is how a
+  // gate gets switched off wholesale. Delete the directory and this stops matching.
+  /(^|\/)_to_delete\//,
 ];
 
 const REQUIRED = [

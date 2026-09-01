@@ -16,6 +16,7 @@ import { SectionHeader } from "@/components/site/SectionHeader";
 import { BrandButton } from "@/components/site/BrandButton";
 import { DemoVideos } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
+import { PRODUCTS } from "@/data/products";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -34,6 +35,7 @@ function HomePage() {
       <Hero />
       <OutcomeStrip />
       <CloudBar />
+      <ProductBand />
       <HowItWorks />
       <ProductDemo />
       <DemoVideos />
@@ -412,6 +414,72 @@ function CloudBar() {
 }
 
 /* ============================ HOW IT WORKS ============================ */
+/**
+ * Three products, said once, high on the page.
+ *
+ * Until 2026-09-01 the homepage described one product. Onam Estate and Onam FinOps
+ * had been live behind the same login for a week and appeared nowhere on the site —
+ * a visitor could read every page and not learn they existed. Blurbs and packaging
+ * lines come from src/data/products.ts so this band and the navbar cannot drift.
+ */
+function ProductBand() {
+  return (
+    <section className="py-24 border-b border-[#E5E9F0] bg-white">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="text-center max-w-2xl mx-auto">
+          <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">Three products</div>
+          <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
+            One console. One login. <span className="gradient-text">One discovery.</span>
+          </h2>
+          <p className="mt-4 text-[#475569] leading-relaxed">
+            The same read-only connection that finds your security risk also produces the inventory
+            of record and the cost picture. Buy the one you need — each is granted per organisation
+            and each stands on its own.
+          </p>
+        </div>
+
+        <div className="mt-12 grid md:grid-cols-3 gap-5">
+          {PRODUCTS.map((p) => {
+            const Icon = p.icon;
+            return (
+              <Link key={p.key} to={p.href} className="group">
+                <div className="h-full flex flex-col bg-white border border-[#E5E9F0] rounded-2xl p-7 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_16px_36px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
+                  <div
+                    className="w-12 h-12 rounded-xl grid place-items-center"
+                    style={{
+                      backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
+                      boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
+                    }}
+                  >
+                    <Icon className="w-6 h-6" style={{ color: p.color }} />
+                  </div>
+                  <div className="mt-5 font-display font-black text-[#0B1220] text-xl tracking-tight">{p.name}</div>
+                  <div className="mt-1.5 text-sm font-semibold text-[#2563EB]">{p.question}</div>
+                  <p className="mt-3 text-sm text-[#475569] leading-relaxed flex-1">{p.blurb}</p>
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {p.surfaces.map((sf) => (
+                      <span
+                        key={sf}
+                        className="text-[11px] font-medium px-2 py-1 rounded-md bg-[#F1F5F9] text-[#475569] border border-[#E5E9F0]"
+                      >
+                        {sf}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-3">
+                    <span className="text-xs text-[#64748B]">{p.packaging}</span>
+                    <ArrowRight className="w-4 h-4 shrink-0 text-[#94A3B8] group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition" />
+                  </div>
+                </div>
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function HowItWorks() {
   const steps = [
     { icon: Lock, title: "Connect your cloud — takes 3 minutes",

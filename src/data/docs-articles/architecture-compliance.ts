@@ -51,7 +51,7 @@ The platform runs **29 engines**, each a dedicated microservice responsible for 
 | CWPP | Domain | Cloud workload protection posture |
 | CNAPP | Domain | Unified CNAPP posture aggregation |
 | SecOps / AppSec | Code | SAST across 7 languages, DAST, SCA / SBOM, semgrep-based scanning |
-| Technology Engine | Technology | 40 self-hosted technologies in 10 categories (databases, OS, network devices, web servers, and more) |
+| Technology Engine | Technology | 34 self-hosted technologies in 9 categories (databases, OS, network devices, web servers, and more) |
 | Remediation / Fix | Intelligence | AI-generated source-code fixes, SAST fixes, threat narratives |
 | Chat | Intelligence | The AI assistant built into the Onam console |
 | Rule Builder | Platform | Author, version, and test custom rules |
@@ -220,7 +220,7 @@ The platform supports seven cloud providers using a read-only IAM role (AWS, OCI
 | Alibaba Cloud | 1,541 | Rule-metadata catalog |
 | IBM Cloud | 613 | Rule-metadata catalog |
 
-Dedicated CIEM rule files add identity-specific coverage on top: AWS 530, Azure 202, GCP 176, Alibaba 114, IBM 110, OCI 107, and Kubernetes 103. Beyond the clouds, the **Technology Engine** extends the same model to **40 self-hosted technologies in 10 categories** — databases, Linux/OS, network devices, web servers, virtualization, containers, DevOps, collaboration, data platforms, and middleware.
+Dedicated CIEM rule files add identity-specific coverage on top: AWS 530, Azure 202, GCP 176, Alibaba 114, IBM 110, OCI 107, and Kubernetes 103. Beyond the clouds, the **Technology Engine** extends the same model to **34 self-hosted technologies in 9 categories** — databases, Linux/OS, network devices, web servers, virtualization, containers, DevOps, SaaS platforms, and data platforms.
 
 **Coverage parity:** the same finding contract, the same severity grading (Critical, High, Medium, Low, Info), and the same MITRE mapping apply across all seven providers. A "publicly exposed object storage" finding on AWS S3 and on Azure Blob shows up identically in your dashboard — same severity, same control mapping, same remediation pattern.
 
@@ -439,7 +439,7 @@ Then the **domain engines fan out in parallel**, each reading the same inventory
 - **CDR** — audit-log detection in three tiers: L1 single-event rules, L2 multi-event correlation scenarios, L3 statistical behavior baselines
 - **CWPP / CNAPP** — workload protection and unified posture aggregation
 
-Because every engine emits the same finding contract, the fan-out is invisible in the console — you see one prioritized queue, filterable by engine, severity, account, or resource type. (SecOps code scanning and the Technology Engine's 40 self-hosted technologies run on their own triggers, outside the cloud-account pipeline.)
+Because every engine emits the same finding contract, the fan-out is invisible in the console — you see one prioritized queue, filterable by engine, severity, account, or resource type. (SecOps code scanning and the Technology Engine's 34 self-hosted technologies run on their own triggers, outside the cloud-account pipeline.)
 
 ## Stage 5 — Attack-path graph construction
 

@@ -48,7 +48,7 @@ export const QUESTIONS: { q: string; onam: string }[] = [
   {
     q: "How many clouds get first-class treatment?",
     onam:
-      "Seven, on the same footing: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 11,346 posture rule definitions across 549 cloud services — the all-cloud totals, not a per-cloud figure. Ask any vendor for the per-cloud breakdown rather than the headline number; that is where first-class and box-ticked diverge.",
+      "Seven, on the same footing: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 11,433 posture rule definitions across 549 cloud services — the all-cloud totals, not a per-cloud figure. Ask any vendor for the per-cloud breakdown rather than the headline number; that is where first-class and box-ticked diverge.",
   },
   {
     q: "Is the analysis cross-cloud, or per-cloud silos side by side?",

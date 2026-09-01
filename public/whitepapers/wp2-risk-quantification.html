@@ -1,17 +1,17 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
-<meta name="description" content="How Onam prices a verified attack path with FAIR, using named external inputs a board can defend. Onam Security technical whitepaper 02.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="How Onam prices a verified attack path with FAIR — using named, external inputs a board can defend. Onam Security technical whitepaper 02.">
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="Onam Security">
 <meta property="og:title" content="Cloud risk in dollars">
-<meta property="og:description" content="How Onam prices a verified attack path with FAIR, using named external inputs a board can defend. Onam Security technical whitepaper 02.">
+<meta property="og:description" content="How Onam prices a verified attack path with FAIR — using named, external inputs a board can defend. Onam Security technical whitepaper 02.">
 <meta property="og:url" content="https://www.onamsecurity.com/whitepapers/wp2-risk-quantification.html">
 <meta property="og:image" content="https://www.onamsecurity.com/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Cloud risk in dollars">
-<meta name="twitter:description" content="How Onam prices a verified attack path with FAIR, using named external inputs a board can defend. Onam Security technical whitepaper 02.">
+<meta name="twitter:description" content="How Onam prices a verified attack path with FAIR — using named, external inputs a board can defend. Onam Security technical whitepaper 02.">
 <meta name="twitter:image" content="https://www.onamsecurity.com/og-image.png">
 <link rel="canonical" href="https://www.onamsecurity.com/whitepapers/wp2-risk-quantification.html">
-
 <title>Cloud risk in dollars</title><style>
 @page{size:A4;margin:0}
 :root{--navy:#082869;--navy2:#0B2545;--blue:#2563EB;--ink:#1A2233;--muted:#5C6B84;
@@ -19,42 +19,66 @@
 *{box-sizing:border-box}
 body{margin:0;font-family:"Plus Jakarta Sans","Segoe UI",-apple-system,Helvetica,Arial,
 sans-serif;color:var(--ink);font-size:10.6pt;line-height:1.62}
-.page{width:210mm;min-height:297mm;padding:20mm 22mm 16mm;position:relative;
+.page{width:210mm;height:297mm;padding:20mm 22mm 16mm;position:relative;overflow:hidden;
 page-break-after:always;background:#fff}
 .page:last-child{page-break-after:auto}
 .cover{background:linear-gradient(160deg,var(--navy2) 0%,var(--navy) 62%,#0d3a8f 100%);
 color:#fff;padding:34mm 22mm}
-.cover .mark{font-weight:800;letter-spacing:.16em;font-size:11pt}
+.cover .mark{font-weight:800;letter-spacing:.16em;font-size:10.6pt}
 .cover .kicker{margin-top:26mm;font-size:8.4pt;letter-spacing:.30em;color:#9DB6E8}
 .cover h1{font-size:31pt;line-height:1.1;margin:5mm 0 0;letter-spacing:-.02em;font-weight:800}
 .cover .sub{margin-top:6mm;font-size:12.4pt;line-height:1.5;color:#D6E2F7;max-width:150mm}
 .chips{margin-top:20mm;display:flex;flex-wrap:wrap;gap:3mm}
 .chip{border:1px solid rgba(255,255,255,.34);border-radius:40px;padding:2mm 5mm;
-font-size:8.6pt;color:#EAF1FD}
+font-size:8.4pt;color:#EAF1FD}
 .cover .foot{position:absolute;left:22mm;right:22mm;bottom:16mm;display:flex;
-justify-content:space-between;font-size:8.6pt;color:#9DB6E8;
+justify-content:space-between;font-size:8.4pt;color:#9DB6E8;
 border-top:1px solid rgba(255,255,255,.2);padding-top:4mm}
-.run{display:flex;justify-content:space-between;font-size:7.8pt;letter-spacing:.13em;
+.run{display:flex;justify-content:space-between;font-size:7.6pt;letter-spacing:.13em;
 color:var(--muted);border-bottom:1px solid var(--line);padding-bottom:2.5mm;margin-bottom:8mm}
 h2{font-size:15.5pt;color:var(--navy2);margin:9mm 0 3mm;letter-spacing:-.01em;line-height:1.25}
 h2 .n{color:var(--blue);font-weight:800;margin-right:2.5mm}
 h2:first-of-type{margin-top:0}
-.lead{font-size:13pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
+.lead{font-size:12.4pt;line-height:1.5;color:var(--navy2);font-weight:600;margin:0 0 5mm}
 p{margin:0 0 3.4mm}
 ul,ol{margin:0 0 4mm;padding-left:6mm}
 li{margin-bottom:1.8mm}
 li::marker{color:var(--blue)}
 .note{background:var(--soft);border-left:3px solid var(--blue);border-radius:0 6px 6px 0;
-padding:4mm 5mm;margin:4mm 0;font-size:10pt;color:var(--navy2)}
-table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.6pt}
+padding:4mm 5mm;margin:4mm 0;font-size:10.6pt;color:var(--navy2)}
+table{width:100%;border-collapse:collapse;margin:3mm 0 5mm;font-size:9.4pt}
 th{background:var(--navy);color:#fff;text-align:left;padding:2.6mm 3.4mm;font-weight:600}
 td{border-bottom:1px solid var(--line);padding:2.6mm 3.4mm;vertical-align:top}
 tr:nth-child(even) td{background:var(--soft)}
 .fig{border:1px solid var(--line);border-radius:7px;padding:5mm;margin:4mm 0;background:var(--soft)}
-.fig .cap{font-size:8.2pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
-.fig .body{font-size:9.8pt;color:var(--navy2)}
+.fig .art{background:#fff;border:1px solid var(--line);border-radius:5px;
+padding:5mm 5mm 4mm;margin:0 0 4mm}
+.fig .art svg{width:100%;height:auto;display:block}
+.content{display:block}
+.content > *:first-child{margin-top:0}
+#flow[hidden]{display:none}
+h2{break-after:avoid}
+.fig,table,ul,ol{break-inside:avoid}
+.fig .cap{font-size:8.4pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.fig .body{font-size:9.4pt;color:var(--navy2)}
+.nav{border:1px solid var(--line);border-radius:7px;padding:6mm 6mm 5mm;
+margin:0 0 5mm;background:var(--soft)}
+.nav .cap{font-size:8.4pt;letter-spacing:.16em;color:var(--muted);margin-bottom:3mm}
+.nav .cap2{margin-top:6mm}
+.map{display:block;border-top:1px solid var(--line)}
+.maprow{display:grid;grid-template-columns:9mm 46mm 1fr;gap:0 4mm;align-items:baseline;
+padding:2.4mm 0;border-bottom:1px solid var(--line);text-decoration:none;color:inherit}
+.maprow .mn{font-size:10.6pt;font-weight:800;color:var(--blue);font-variant-numeric:tabular-nums}
+.maprow .mt{font-size:10.6pt;font-weight:700;color:var(--navy2);line-height:1.3}
+.maprow .ml{font-size:9.4pt;color:var(--muted);line-height:1.35}
+.reads{margin-top:5mm;padding-top:3mm;border-top:1px solid var(--line);
+font-size:9.4pt;color:var(--muted)}
+.reads a{color:var(--blue);text-decoration:none;border-bottom:1px solid var(--line)}
+.reads span{font-size:8.4pt;letter-spacing:.16em;text-transform:uppercase;
+color:var(--navy2);font-weight:700;margin-right:3mm}
+.run .where{color:var(--navy2);font-weight:700;letter-spacing:.04em}
 .pfoot{position:absolute;left:22mm;right:22mm;bottom:12mm;display:flex;
-justify-content:space-between;font-size:8pt;color:var(--muted);
+justify-content:space-between;font-size:7.6pt;color:var(--muted);
 border-top:1px solid var(--line);padding-top:3mm}
 strong{color:var(--navy2)}
 </style></head><body>
@@ -64,28 +88,26 @@ strong{color:var(--navy2)}
 <div class="sub">How Onam prices a verified attack path with FAIR — using named, external inputs a board can defend.</div>
 <div class="chips"><span class="chip">FAIR / ALE</span><span class="chip">IBM 2024 costs</span><span class="chip">Sensitivity ×</span><span class="chip">Regulatory ×</span><span class="chip">Exposure roll-up</span></div>
 <div class="foot"><span>onamsecurity.com</span><span>One graph &middot; priced risk &middot; continuous evaluation</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; CLOUD RISK IN DOLLARS</span><span>onamsecurity.com</span></div>
-<h2><span class="n">00</span>Executive summary</h2>
+<div id="pages" data-run="ONAM &middot; CLOUD RISK IN DOLLARS"></div>
+<div id="flow" hidden>
+<section class="nav" data-break="after"><div class="cap">THE ARGUMENT, IN ORDER</div><div class="map"><a class="maprow" href="#s00"><span class="mn">00</span><span class="mt">Executive summary</span><span class="ml">Severity tells you what is broken.</span></a><a class="maprow" href="#s01"><span class="mn">01</span><span class="mt">The FAIR model, briefly</span><span class="ml">The model is not ours.</span></a><a class="maprow" href="#s02"><span class="mn">02</span><span class="mt">The inputs — named, external, defensible</span><span class="ml">The magnitude inputs come from a published benchmark, not from us.</span></a><a class="maprow" href="#s03"><span class="mn">03</span><span class="mt">From path to price</span><span class="ml">Pricing happens after verification, never before.</span></a><a class="maprow" href="#s04"><span class="mn">04</span><span class="mt">Rolling up — from one path to a portfolio</span><span class="ml">A remediation queue you can argue with is worth more than one you have to trust.</span></a><a class="maprow" href="#s05"><span class="mn">05</span><span class="mt">Summary</span><span class="ml">Every number in this paper can be taken apart — that is the point of it.</span></a></div></section>
+<h2 id="s00" data-sec="00" data-title="Executive summary"><span class="n">00</span>Executive summary</h2>
 <p class="lead">Severity tells you what is broken. Dollars tell you what to fix first.</p>
 <p>Security teams are drowning in &quot;criticals&quot;. Boards are not asking how many — they are asking how much. This paper explains how Onam turns a verified attack path into a defensible financial figure using FAIR, the open standard for risk quantification, so the conversation moves from a spreadsheet of severities to a single number a board can act on.</p>
 <p>FAIR — Factor Analysis of Information Risk — is a published, peer-reviewed methodology maintained as an open standard by The Open Group. It decomposes risk into estimable factors and produces an Annualised Loss Expectancy (ALE) in currency. Onam implements FAIR as the fourth layer of its pipeline: after a path is found, verified and mapped to MITRE ATT&amp;CK, it is priced. The pricing is not a marketing gauge invented in-house; it is a recognised model fed with named, external inputs.</p>
 <div class="note"><strong>Why this is the wedge.</strong> A security graph and attack paths are now common across the CNAPP market. A defensible dollar figure — derived from a published model and named external cost data, attached to a specific verified path — is not. It is the difference between &quot;we have 200 criticals&quot; and &quot;this one over-privileged role carries the largest single slice of our quantified exposure.&quot;</div>
-<div class="pfoot"><span>onamsecurity.com</span><span>2</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; CLOUD RISK IN DOLLARS</span><span>onamsecurity.com</span></div>
-<h2><span class="n">01</span>The FAIR model, briefly</h2>
+<h2 id="s01" data-sec="01" data-title="The FAIR model, briefly"><span class="n">01</span>The FAIR model, briefly</h2>
+<p class="lead">The model is not ours. FAIR is an open, published standard, which is exactly why the number survives scrutiny.</p>
 <p>FAIR expresses risk as the product of how often a loss happens and how large it is when it does.</p>
-<div class="fig"><div class="cap">FIGURE 1 — FAIR DECOMPOSITION</div><div class="body">RISK (Annualised Loss Expectancy) = Loss Event Frequency × Loss Magnitude. Loss Event Frequency decomposes into Threat Event Frequency and Vulnerability; Loss Magnitude into Primary and Secondary loss. Onam computes each leaf factor from graph-derived evidence rather than a workshop guess: frequency and vulnerability from reachability and control state, magnitude from data sensitivity and record counts.</div></div>
+<figure class="fig"><div class="art"><svg viewBox="0 0 620 260" width="100%" height="auto" role="img" xmlns="http://www.w3.org/2000/svg" style="display:block"><rect x="145.0" y="0.0" width="330.0" height="48.0" rx="5" fill="#082869" stroke="#082869" stroke-width="1"/><text x="310.0" y="21.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="14" fill="#FFFFFF" font-weight="700" text-anchor="middle" letter-spacing="0" opacity="1.0">RISK — annualised loss expectancy</text><text x="310.0" y="37.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="10.5" fill="#93B4F5" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">the number a board can act on</text><path d="M 310.0 48 V 60.0 H 148.5 V 74.0" stroke="#D8E0EC" stroke-width="1.3" fill="none"/><rect x="0.0" y="74.0" width="297.0" height="34.0" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.6"/><text x="148.5" y="96.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="12.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">Loss Event Frequency</text><path d="M 148.5 120.0 V 132.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="8.0" y="132.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="8.0" y="132.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="150.5" y="149.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">Threat Event Frequency</text><path d="M 148.5 154.0 V 166.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="8.0" y="166.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="8.0" y="166.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="150.5" y="183.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">Vulnerability</text><path d="M 148.5 188.0 V 200.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="8.0" y="200.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="8.0" y="200.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="150.5" y="217.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">from graph reachability</text><path d="M 310.0 48 V 60.0 H 471.5 V 74.0" stroke="#D8E0EC" stroke-width="1.3" fill="none"/><circle cx="310.0" cy="90.0" r="11" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.4"/><text x="310.0" y="95.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="14" fill="#2563EB" font-weight="700" text-anchor="middle" letter-spacing="0" opacity="1.0">×</text><rect x="323.0" y="74.0" width="297.0" height="34.0" rx="4" fill="#FFFFFF" stroke="#2563EB" stroke-width="1.6"/><text x="471.5" y="96.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="12.5" fill="#082869" font-weight="600" text-anchor="middle" letter-spacing="0" opacity="1.0">Loss Magnitude</text><path d="M 471.5 120.0 V 132.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="331.0" y="132.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="331.0" y="132.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="473.5" y="149.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">Primary loss</text><path d="M 471.5 154.0 V 166.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="331.0" y="166.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="331.0" y="166.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="473.5" y="183.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">Secondary loss</text><path d="M 471.5 188.0 V 200.0" stroke="#D8E0EC" stroke-width="1.2"/><rect x="331.0" y="200.0" width="281.0" height="26.0" rx="4" fill="#FFFFFF" stroke="#D8E0EC" stroke-width="1"/><rect x="331.0" y="200.0" width="3.4" height="26.0" rx="1.6" fill="#2563EB"/><text x="473.5" y="217.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="middle" letter-spacing="0" opacity="1.0">from data classification</text><text x="0.0" y="255.0" font-family="Plus Jakarta Sans, Segoe UI, -apple-system, Helvetica, Arial, sans-serif" font-size="11" fill="#5C6B84" font-weight="400" text-anchor="start" letter-spacing="0" opacity="1.0">Marked leaves are computed from evidence in the graph, not estimated in a workshop.</text></svg></div><figcaption><div class="cap">FIGURE 1 — FAIR DECOMPOSITION</div><div class="body">Every leaf is computed, not estimated. That is the whole difference between a priced exposure and a workshop number.</div></figcaption></figure>
 <p>The strength of FAIR is that each factor is estimable and inspectable. When Onam prices a path, a reviewer can open the calculation and see which input drove the number — not a black-box score between 0 and 100.</p>
-<div class="pfoot"><span>onamsecurity.com</span><span>3</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; CLOUD RISK IN DOLLARS</span><span>onamsecurity.com</span></div>
-<h2><span class="n">02</span>The inputs — named, external, defensible</h2>
+<h2 id="s02" data-sec="02" data-title="The inputs — named, external, defensible"><span class="n">02</span>The inputs — named, external, defensible</h2>
+<p class="lead">The magnitude inputs come from a published benchmark, not from us.</p>
 <p>A dollar figure is only as credible as the numbers behind it. Onam deliberately sources its magnitude inputs from a recognised external benchmark and applies transparent multipliers.</p>
 <table><tr><th>Input</th><th>Source / basis</th><th>Effect</th></tr><tr><td>Per-record breach cost</td><td>IBM Cost of a Data Breach 2024, by industry</td><td>Healthcare ≈ $10.93/record; default ≈ $4.45/record</td></tr><tr><td>Data-sensitivity multiplier</td><td>Onam data classification (DSPM)</td><td>Restricted ×3.0 → Confidential → Internal → Public</td></tr><tr><td>Regulatory multiplier</td><td>Applicable regime (GDPR, HIPAA, PCI)</td><td>Raises magnitude where statutory penalty applies</td></tr><tr><td>Frequency &amp; vulnerability</td><td>Graph-derived reachability and control state</td><td>Replaces a workshop estimate with evidence</td></tr></table>
 <p>Every multiplier is visible and adjustable. A customer who disagrees with an input can change it and see the figure move — which is the point of an inspectable model.</p>
 <div class="note"><strong>The honest limit.</strong> A quantified figure is an estimate, not an invoice. FAIR produces a defensible range built on stated assumptions; it does not predict what a specific breach will cost. Anyone presenting it as a guarantee is misusing the model, including us.</div>
-<div class="pfoot"><span>onamsecurity.com</span><span>4</span></div></div>
-<div class="page"><div class="run"><span>ONAM &middot; CLOUD RISK IN DOLLARS</span><span>onamsecurity.com</span></div>
-<h2><span class="n">03</span>From path to price</h2>
+<h2 id="s03" data-sec="03" data-title="From path to price"><span class="n">03</span>From path to price</h2>
 <p>Pricing happens after verification, never before. An unverified path is not priced, because a number attached to a route that does not exist is worse than no number.</p>
 <ol>
 <li><strong>Find.</strong> Graph traversal from an entry point to a crown jewel across 7 clouds.</li>
@@ -93,10 +115,12 @@ strong{color:var(--navy2)}
 <li><strong>Map.</strong> MITRE ATT&amp;CK technique mapping for the steps on the path.</li>
 <li><strong>Price.</strong> FAIR applied to the verified path, using the inputs above.</li>
 </ol>
-<h2><span class="n">04</span>Rolling up — from one path to a portfolio</h2>
+<h2 id="s04" data-sec="04" data-title="Rolling up — from one path to a portfolio"><span class="n">04</span>Rolling up — from one path to a portfolio</h2>
+<p class="lead">A remediation queue you can argue with is worth more than one you have to trust.</p>
 <p>Individual path prices aggregate into an exposure roll-up: total quantified exposure, the largest contributors, and the choke points where a single fix removes the most dollars. That is the view a board can act on, and the view that makes a remediation queue arguable rather than arbitrary.</p>
 <p>Because the same graph and the same 9,853 CSPM posture rules feed both the compliance and the risk lenses, a control gap and a priced path are two readings of one underlying fact — not two systems to reconcile.</p>
-<h2><span class="n">05</span>Summary</h2>
+<h2 id="s05" data-sec="05" data-title="Summary"><span class="n">05</span>Summary</h2>
+<p class="lead">Every number in this paper can be taken apart — that is the point of it.</p>
 <ul>
 <li>FAIR is an open, published standard — the model is not ours, only the implementation is.</li>
 <li>Magnitude inputs are named and external (IBM Cost of a Data Breach 2024), not invented.</li>
@@ -104,5 +128,138 @@ strong{color:var(--navy2)}
 <li>Pricing follows verification. An unverified path is never priced.</li>
 <li>The output is an estimate with stated assumptions, not a prediction of a specific loss.</li>
 </ul>
-<div class="pfoot"><span>onamsecurity.com</span><span>5</span></div></div>
+</div>
+<script>/* paginate.js — THE OUTLINE STAGE, executed in the browser so it also runs when
+   Chromium prints the PDF.
+
+   Sections used to be split onto pages on a line of "---": one section, one sheet,
+   whatever that section weighed. That is why 15 of 20 body pages filled under 60%
+   and wp5 page 3 filled 14% — the sheet was sized by the section instead of the
+   section being fitted to the sheet. The source keeps "---" as a section break;
+   pagination is measured here, not authored there. */
+(function () {
+  var flow = document.getElementById('flow');
+  var host = document.getElementById('pages');
+  if (!flow || !host) return;
+  var RUN = host.getAttribute('data-run') || '';
+  var nodes = [].slice.call(flow.children);
+  var n = 1, box = null;
+
+  function newPage() {
+    n += 1;
+    var p = document.createElement('div');
+    p.className = 'page';
+    p.innerHTML = '<div class="run"><span>' + RUN + '</span>' +
+                  '<span>onamsecurity.com</span></div>' +
+                  '<div class="content"></div>' +
+                  '<div class="pfoot"><span>onamsecurity.com</span>' +
+                  '<span>' + n + '</span></div>';
+    host.appendChild(p);
+    return p.querySelector('.content');
+  }
+
+  function overflows(el) {
+    var foot = el.parentNode.querySelector('.pfoot');
+    return el.getBoundingClientRect().bottom > foot.getBoundingClientRect().top - 6;
+  }
+
+  /* A figure is one indivisible block roughly half a page tall. When it will not
+     fit, moving it to the next page leaves the hole it just vacated — which is how
+     wp3 page 2 ended 40% empty with a full figure waiting behind it. So a figure
+     FLOATS: it defers, the prose behind it flows into the space, and the figure
+     lands at the top of the next page. Prose never reorders; only figures float,
+     which is what every journal does and for this reason. */
+  var pending = null, floated = 0;
+
+  function place(el) {
+    box.appendChild(el);
+    if (overflows(box) && box.children.length > 1) {
+      box.removeChild(el);
+      return false;
+    }
+    return true;
+  }
+
+  function breakPage() {
+    box = newPage();
+    if (pending) { box.appendChild(pending); pending = null; }
+  }
+
+  box = newPage();
+  for (var i = 0; i < nodes.length; i++) {
+    var el = nodes[i];
+    /* A float has a leash. Three blocks is the most prose that may overtake a
+       figure before the page is cut and the figure placed — beyond that the reader
+       has left the paragraph the figure illustrates. */
+    /* The leash expires only once the page has earned its keep. Cutting at a
+       fixed block count broke pages half-full and traded one defect for another:
+       the figure landed early and the sheet it left behind was the thin one. */
+    if (pending && (floated += 1) > 2) {
+      var pgBox = box.parentNode.getBoundingClientRect();
+      var footTop = box.parentNode.querySelector('.pfoot').getBoundingClientRect().top;
+      var kids = box.children;
+      var used = kids.length
+        ? kids[kids.length - 1].getBoundingClientRect().bottom - pgBox.top
+        : 0;
+      if (used / (footTop - pgBox.top) > 0.62) { breakPage(); }
+    }
+    if (!place(el)) {
+      if (el.tagName === 'FIGURE' && !pending) {
+        pending = el;            /* defer it; keep filling this page with prose */
+        floated = 0;
+        continue;
+      }
+      breakPage();
+      box.appendChild(el);
+    }
+    /* A block that OPENS something owns its page. The map and the executive
+       summary each open the document, and sharing one sheet made them compete —
+       the reader meets two front doors at once. data-break="after" cuts the page
+       once the block is placed. */
+    if (el.getAttribute && el.getAttribute('data-break') === 'after' &&
+        i + 1 < nodes.length) {
+      breakPage();
+      continue;
+    }
+
+    /* A heading alone at the foot of a page is a widow. Carry it forward with the
+       block it introduces — the same rule the deck's build order follows: the thing
+       that announces content never arrives without it. */
+    if (/^H[1-6]$/.test(el.tagName) && i + 1 < nodes.length) {
+      var next = nodes[i + 1];
+      box.appendChild(next);
+      if (overflows(box) && box.children.length > 2) {
+        box.removeChild(el);
+        box.removeChild(next);
+        /* breakPage, not newPage: a deferred figure is waiting, and calling
+           newPage directly walked straight past it. That is how wp1's Figure 1
+           floated out of section 01 entirely and landed three pages later, next
+           to text that does not mention it. A float that outruns its reference
+           is worse than a half-empty page. */
+        breakPage();
+        box.appendChild(el);
+        box.appendChild(next);
+      }
+      i += 1;
+    }
+  }
+  if (pending) { breakPage(); }
+  flow.parentNode.removeChild(flow);
+
+  /* THE LOCATOR. A running head that says only the paper's name tells a reader
+     nothing they did not already know. Each page now names the section it is in,
+     carried forward across page breaks, so someone who put the paper down on
+     Tuesday can pick it up on Thursday and know where they are. Nobody has a
+     photographic memory; the document has to do the remembering. */
+  var here = '';
+  [].forEach.call(host.querySelectorAll('.page'), function (pg) {
+    var h = pg.querySelector('[data-sec]');
+    if (h) { here = h.getAttribute('data-sec') + ' \u00b7 ' +
+                    h.getAttribute('data-title'); }
+    var run = pg.querySelector('.run span');
+    if (run && here) { run.innerHTML = RUN + ' &nbsp;\u2014&nbsp; ' +
+                       '<span class="where">' + here + '</span>'; }
+  });
+}());
+</script>
 </body></html>

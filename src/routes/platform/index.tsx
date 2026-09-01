@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { platformPages } from "@/data/platform-pages";
+import { PRODUCTS } from "@/data/products";
 import { seo } from "@/lib/seo";
 
 // `as const` keeps the slugs as string literals so `/platform/${slug}` resolves to a
@@ -18,7 +19,7 @@ const groups = [
 export const Route = createFileRoute("/platform/")({
   head: () =>
     seo({
-      title: "Platform — Onam Security",
+      title: "Onam Security — every cloud security engine on one graph",
       description:
         "One platform, every cloud security layer. CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM, agentless scanning, attack path, threat detection and compliance — 29 engines across every cloud and SaaS platform you run.",
       path: "/platform",
@@ -35,7 +36,7 @@ function PlatformIndex() {
         <div className="absolute -top-40 right-0 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
         <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-16 text-center">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
-            Platform
+            Onam Security
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-5xl md:text-6xl tracking-tight leading-[1.05]">
             One platform. Every <span className="gradient-text">cloud security engine.</span>
@@ -96,7 +97,59 @@ function PlatformIndex() {
         </div>
       </section>
 
-      <section className="py-24 bg-[#F7F9FC]">
+      <section className="py-20 bg-[#F7F9FC] border-t border-[#E5E9F0]">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center max-w-2xl mx-auto">
+            <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">The rest of the platform</div>
+            <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-3xl tracking-tight">
+              Onam Security is one of three products.
+            </h2>
+            <p className="mt-3 text-[#475569]">
+              Estate and FinOps run in the same console, behind the same login, on the same discovery.
+              Each is granted per organisation and each stands on its own.
+            </p>
+          </div>
+          <div className="mt-10 grid md:grid-cols-3 gap-4">
+            {PRODUCTS.map((p) => {
+              const Icon = p.icon;
+              const isCurrent = p.key === "security";
+              return (
+                <Link key={p.key} to={p.href} className="group">
+                  <div
+                    className={`h-full bg-white border rounded-2xl p-6 transition-all ${
+                      isCurrent
+                        ? "border-[#C7D7FE] shadow-[0_0_0_3px_rgba(37,99,235,.06)]"
+                        : "border-[#E5E9F0] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5"
+                    }`}
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className="w-10 h-10 rounded-xl grid place-items-center"
+                        style={{
+                          backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
+                          boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
+                        }}
+                      >
+                        <Icon className="w-5 h-5" style={{ color: p.color }} />
+                      </div>
+                      <div className="font-display font-bold text-[#0B1220]">{p.name}</div>
+                      {isCurrent && (
+                        <span className="ml-auto text-[10px] uppercase tracking-widest font-bold text-[#1D4ED8]">
+                          You are here
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-4 text-sm text-[#475569] leading-relaxed">{p.blurb}</p>
+                    <div className="mt-4 pt-4 border-t border-[#E5E9F0] text-xs text-[#64748B]">{p.packaging}</div>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-24 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="gradient-border rounded-3xl p-10 md:p-14 text-center">
             <h2 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">

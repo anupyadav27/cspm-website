@@ -31,6 +31,12 @@
     <loc>https://www.onamsecurity.com/docs</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/estate</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/finops</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/learn</loc>
   </url>
   <url>
@@ -59,6 +65,9 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/cnapp</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/code-security</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/compliance</loc>
@@ -202,16 +211,25 @@
     <loc>https://www.onamsecurity.com/docs/onboarding/kubernetes</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/docs/features/cnapp</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs/features/cspm</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/ciem</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/docs/features/access-reviews</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs/features/iam-security</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/attack-path</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/features/choke-points</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/threat-detection</loc>
@@ -239,6 +257,12 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/compliance</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/features/compliance-coverage</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/features/technology-engine</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/risk-quantification</loc>
@@ -277,6 +301,45 @@
     <loc>https://www.onamsecurity.com/docs/reference/rbac-and-sso</loc>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/docs/estate/overview</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/estate/inventory</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/estate/architecture</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/estate/pipeline</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/estate/access</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/overview</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/cost-model</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/explore</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/ownership</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/plan</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/savings</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/runs</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/finops/access</loc>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>
   </url>
   <url>
@@ -308,6 +371,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/choke-point</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/kspm</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/code-security</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/learn/secrets-management</loc>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-wiz</loc>

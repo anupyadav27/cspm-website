@@ -14,7 +14,16 @@ type Col = { title: string; links: { label: string; to?: string; href?: string }
 
 const cols: Col[] = [
   {
-    title: "Platform",
+    title: "Products",
+    links: [
+      { label: "Onam Security", to: "/platform" },
+      { label: "Onam Estate", to: "/estate" },
+      { label: "Onam FinOps", to: "/finops" },
+      { label: "Pricing & packaging", to: "/pricing" },
+    ],
+  },
+  {
+    title: "Onam Security",
     links: [
       { label: "CNAPP", to: "/platform/cnapp" },
       { label: "CSPM", to: "/platform/cspm" },
@@ -99,7 +108,7 @@ export function Footer() {
   return (
     <footer className="border-t border-[#E5E9F0] bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-10 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-10 lg:gap-6">
           {cols.map((c) => (
             <div key={c.title}>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#0B1220] mb-4">

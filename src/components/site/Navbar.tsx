@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { SERVICES, FRAMEWORKS } from "@/lib/product-facts";
+import { PRODUCTS } from "@/data/products";
 
 export { Logo } from "./Logo";
 
@@ -78,11 +79,19 @@ const solutionsIndustries: MenuItem[] = [
   { title: "Government", href: "/solutions/government", desc: "FedRAMP alignment" },
 ];
 
-function MegaWrap({ open, children }: { open: boolean; children: React.ReactNode }) {
+/**
+ * `wide` centres the panel on the VIEWPORT rather than on its trigger.
+ * The products panel is 1180px and its trigger sits left of centre, so
+ * trigger-centring pushed roughly a hundred pixels of it off the left edge at
+ * 1440 — the first column was unreadable and the first product card was clipped.
+ * The header is fixed and h-16, so `fixed top-16` lands the panel directly under it.
+ */
+function MegaWrap({ open, wide, children }: { open: boolean; wide?: boolean; children: React.ReactNode }) {
   return (
     <div
       className={cn(
-        "absolute left-1/2 -translate-x-1/2 top-full pt-3 z-50 transition-all duration-200",
+        "left-1/2 -translate-x-1/2 pt-3 z-50 transition-all duration-200",
+        wide ? "fixed top-16" : "absolute top-full",
         open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none",
       )}
     >
@@ -107,6 +116,36 @@ function TriggerBtn({ label, open }: { label: string; open: boolean }) {
   );
 }
 
+/**
+ * The three products sit ABOVE the engine groups, not among them. Onam Estate and
+ * Onam FinOps are separately entitled products, not security engines — filing them
+ * in "SaaS, AI & Governance" would tell a buyer the opposite of what is true.
+ */
+function ProductCard({ p, onClick }: { p: (typeof PRODUCTS)[number]; onClick?: () => void }) {
+  const Icon = p.icon;
+  return (
+    <Link
+      to={p.href}
+      onClick={onClick}
+      className="group flex items-start gap-3 p-3 rounded-xl border border-[#E5E9F0] hover:border-[#C7D7FE] hover:bg-[#F5F8FF] transition"
+    >
+      <div
+        className="w-9 h-9 shrink-0 rounded-lg grid place-items-center"
+        style={{
+          backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
+          boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
+        }}
+      >
+        <Icon className="w-[18px] h-[18px]" style={{ color: p.color }} />
+      </div>
+      <div className="min-w-0">
+        <div className="text-sm font-bold text-[#0B1220] group-hover:text-[#2563EB] transition">{p.name}</div>
+        <div className="text-xs text-[#64748B] mt-0.5 leading-snug">{p.question}</div>
+      </div>
+    </Link>
+  );
+}
+
 function MenuLink({ item }: { item: MenuItem }) {
   return (
     <Link to={item.href} className="block p-2 -mx-2 rounded-lg hover:bg-[#F5F8FF] transition group">
@@ -119,7 +158,7 @@ function MenuLink({ item }: { item: MenuItem }) {
 }
 
 export function Navbar() {
-  const [open, setOpen] = useState<"platform" | "solutions" | null>(null);
+  const [open, setOpen] = useState<"products" | "solutions" | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -143,24 +182,35 @@ export function Navbar() {
         <nav className="hidden lg:flex items-center gap-1">
           <div
             className="relative"
-            onMouseEnter={() => setOpen("platform")}
+            onMouseEnter={() => setOpen("products")}
             onMouseLeave={() => setOpen(null)}
           >
             <div className="px-3">
-              <TriggerBtn label="Platform" open={open === "platform"} />
+              <TriggerBtn label="Products" open={open === "products"} />
             </div>
-            <MegaWrap open={open === "platform"}>
-              <div className="grid grid-cols-5 gap-5 w-[1180px] max-w-[calc(100vw-3rem)]">
-                {platformGroups.map((g) => (
-                  <div key={g.heading}>
-                    <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">
-                      {g.heading}
-                    </div>
-                    <div className="space-y-1">
-                      {g.items.map((i) => <MenuLink key={i.href} item={i} />)}
-                    </div>
+            <MegaWrap open={open === "products"} wide>
+              <div className="w-[1180px] max-w-[calc(100vw-3rem)]">
+                <div className="grid grid-cols-3 gap-3">
+                  {PRODUCTS.map((p) => <ProductCard key={p.key} p={p} />)}
+                </div>
+
+                <div className="mt-5 pt-5 border-t border-[#E5E9F0]">
+                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-4">
+                    Inside Onam Security
                   </div>
-                ))}
+                  <div className="grid grid-cols-5 gap-5">
+                    {platformGroups.map((g) => (
+                      <div key={g.heading}>
+                        <div className="text-[11px] uppercase tracking-widest font-semibold text-[#94A3B8] mb-3">
+                          {g.heading}
+                        </div>
+                        <div className="space-y-1">
+                          {g.items.map((i) => <MenuLink key={i.href} item={i} />)}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </MegaWrap>
           </div>
@@ -238,6 +288,12 @@ export function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-[#E5E9F0] max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="p-6 space-y-6">
+            <div className="space-y-2">
+              {PRODUCTS.map((p) => <ProductCard key={p.key} p={p} onClick={() => setMobileOpen(false)} />)}
+            </div>
+            <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] pt-2">
+              Inside Onam Security
+            </div>
             {platformGroups.map((g) => (
               <div key={g.heading}>
                 <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">

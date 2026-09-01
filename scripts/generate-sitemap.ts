@@ -130,12 +130,26 @@ const llms = `# Onam Security
 > encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. 100% agentless: connect a cloud in under
 > 3 minutes with a read-only role.
+>
+> Onam ships THREE separately-sold products on one console and one login: Onam Security (the CNAPP
+> described above), Onam Estate (cloud asset discovery and the estate of record), and Onam FinOps
+> (cloud cost and commitment management). Estate and FinOps are per-organisation add-ons, never
+> bundled into a security plan tier, and each stands alone.
 
 Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
+## Products
+
+- [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
+- [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
+- [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+
+All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
+organisation entitled to more than one does not connect its cloud accounts twice.
+
 Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes
-- 20,337 security rules across 29 security engines: 11,346 cloud posture rules plus 8,991 CIS technology and SaaS benchmark rules
+- 20,424 security rules across 29 security engines: 11,433 cloud posture rules plus 8,991 CIS technology and SaaS benchmark rules
 - 549 cloud services covered by continuous discovery: 123 AWS, 95 Azure, 71 GCP, 68 Alibaba Cloud, 68 Kubernetes, 63 IBM Cloud, 61 OCI
 - 78 compliance frameworks with continuous evidence: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI-DSS v4, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
 - SaaS security (SSPM) for 8 platforms: Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta — 433 CIS SaaS rules
@@ -180,7 +194,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 ${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): seven questions answered for Onam, where ${c.shortName} is genuinely strong, and the honest gap.`).join("\n")}
 - All comparisons: ${SITE_URL}/compare
 
-## Platform
+## Onam Security engines
 
 ${Object.entries(platformPages)
   .map(([slug, p]) => `- [${p.label}](${SITE_URL}/platform/${slug}): ${oneLine(p.sub)}`)

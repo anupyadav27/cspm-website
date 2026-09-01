@@ -175,7 +175,7 @@ The Technology Engine was significantly expanded.
 
 **What's new:**
 
-- **5,025 detection rules** (up from ~2,000) across 40 self-hosted technologies in 10 categories — databases, Linux/OS, network devices, web servers, virtualization, containers, DevOps, collaboration, data platforms, and middleware
+- **5,025 detection rules** (up from ~2,000) across 34 self-hosted technologies in 9 categories — databases, Linux/OS, network devices, web servers, virtualization, containers, DevOps, SaaS platforms, and data platforms
 - 4 sub-engines now running independently: tech-discovery, tech-inventory, tech-check, tech-ciem
 - CIEM behavioral analysis integrated via the tech-ciem sub-engine
 - Runtime technology inventory correlated with CVE data for version-aware vulnerability detection

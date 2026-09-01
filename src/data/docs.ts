@@ -6,6 +6,8 @@ import { articles as featuresWorkload } from "./docs-articles/features-workload"
 import { articles as architectureCompliance } from "./docs-articles/architecture-compliance";
 import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
+import { articles as products } from "./docs-articles/products";
+import { articles as featuresExtra } from "./docs-articles/features-extra";
 
 export type { DocArticle };
 
@@ -38,10 +40,13 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     heading: "Features",
     items: [
+      { title: "CNAPP — posture score", slug: "features/cnapp" },
       { title: "CSPM", slug: "features/cspm" },
       { title: "CIEM", slug: "features/ciem" },
+      { title: "Access Reviews", slug: "features/access-reviews" },
       { title: "IAM Security", slug: "features/iam-security" },
       { title: "Attack Path", slug: "features/attack-path" },
+      { title: "Choke Points", slug: "features/choke-points" },
       { title: "Threat Detection", slug: "features/threat-detection" },
       { title: "CDR", slug: "features/cdr" },
       { title: "SecOps", slug: "features/secops" },
@@ -51,6 +56,8 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Container Security", slug: "features/container-security" },
       { title: "IaC Scanning", slug: "features/iac-scanning" },
       { title: "Compliance", slug: "features/compliance" },
+      { title: "Compliance Coverage", slug: "features/compliance-coverage" },
+      { title: "Technology Engine", slug: "features/technology-engine" },
       { title: "Risk Quantification", slug: "features/risk-quantification" },
     ],
   },
@@ -84,6 +91,29 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
+    heading: "Onam Estate",
+    items: [
+      { title: "Overview", slug: "estate/overview" },
+      { title: "Asset Inventory", slug: "estate/inventory" },
+      { title: "Architecture", slug: "estate/architecture" },
+      { title: "Discovery Pipeline", slug: "estate/pipeline" },
+      { title: "Access & Entitlement", slug: "estate/access" },
+    ],
+  },
+  {
+    heading: "Onam FinOps",
+    items: [
+      { title: "Overview", slug: "finops/overview" },
+      { title: "The Cost Model", slug: "finops/cost-model" },
+      { title: "Explore", slug: "finops/explore" },
+      { title: "Ownership & Attribution", slug: "finops/ownership" },
+      { title: "Forecast, Budgets & Anomalies", slug: "finops/plan" },
+      { title: "Savings", slug: "finops/savings" },
+      { title: "Runs & Reconciliation", slug: "finops/runs" },
+      { title: "Access & Entitlement", slug: "finops/access" },
+    ],
+  },
+  {
     heading: "Release Notes",
     items: [{ title: "Release Notes", slug: "release-notes" }],
   },
@@ -97,6 +127,8 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...architectureCompliance,
   ...trustReference,
   ...releaseNotes,
+  ...products,
+  ...featuresExtra,
 ];
 
 function titleFromSlug(slug: string) {

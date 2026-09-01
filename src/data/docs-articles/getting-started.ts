@@ -42,7 +42,7 @@ Most security stacks bolt together a posture scanner, an identity tool, a data c
 
 Because everything lands on one graph, a public S3 bucket, an over-privileged role that can read it, and the PII inside it surface as **one attack path** — not three unrelated alerts in three tools.
 
-## Coverage: 7 clouds and 40 technologies
+## Coverage: 7 clouds and 34 technologies
 
 Onam scans seven cloud targets with provider-specific rule sets:
 
@@ -56,7 +56,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 | IBM Cloud | 613 | Core services |
 | Kubernetes | 718 | 51 resource kinds |
 
-Beyond the clouds, the **Technology Engine** scans **40 self-hosted technologies in 10 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, collaboration platforms, data platforms, and middleware — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
+Beyond the clouds, the **Technology Engine** scans **34 self-hosted technologies in 9 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, SaaS platforms, and data platforms — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
 
 Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
@@ -233,7 +233,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
 | SecOps / AppSec | SAST in 7 languages, DAST, SCA and SBOM — [SecOps](/docs/features/secops) |
-| Technology Engine | 40 self-hosted technologies in 10 categories |
+| Technology Engine | 34 self-hosted technologies in 9 categories |
 
 Encryption, database security, AI security, API security, agentless workload scanning, and the platform services (rule builder, remediation, the AI assistant) round out the full list in the [Architecture Overview](/docs/architecture/overview).
 
