@@ -20,7 +20,7 @@ type SeoInput = {
   path: string;
   /** Site-relative image path; defaults to the shared OG card */
   image?: string;
-  ogType?: "website" | "article";
+  ogType?: "website" | "article" | "profile";
 };
 
 /**

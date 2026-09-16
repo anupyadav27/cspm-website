@@ -2,7 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ShieldCheck, Layers, MessageSquareHeart, Zap, User } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { seo } from "@/lib/seo";
+import { seo, SITE_URL } from "@/lib/seo";
+import { AUTHORS, personJsonLd } from "@/data/authors";
+import { FRAMEWORKS, RULE_CATALOG_TOTAL, SERVICES, fmt } from "@/lib/product-facts";
 
 export const Route = createFileRoute("/company/about")({
   head: () =>
@@ -17,45 +19,36 @@ export const Route = createFileRoute("/company/about")({
 
 const values = [
   { icon: ShieldCheck, iconColor: "#2563EB", title: "Security engineers first", body: "Built by people who've run incident response, threat hunts, and cloud architecture reviews — not by a marketing team that later hired security." },
-  { icon: Layers, iconColor: "#F2AF04", title: "Depth over surface area", body: "10,000+ rules go deep into each service. We would rather cover a service completely than list it." },
+  { icon: Layers, iconColor: "#F2AF04", title: "Depth over surface area", body: `${fmt(RULE_CATALOG_TOTAL)} rules go deep into each service. We would rather cover a service completely than list it.` },
   { icon: MessageSquareHeart, iconColor: "#05A052", title: "Honest with customers", body: "If Onam isn't right for your environment, we'll tell you on the first call. Trust compounds; a bad-fit customer never does." },
   { icon: Zap, iconColor: "#E32D25", title: "Speed without shortcuts", body: "Fast scans and accuracy are not a trade-off. We invested years in the graph and the rule engine so you don't have to choose." },
 ];
 
 const stats = [
-  { value: "10,000+", label: "Security rules" },
-  { value: "200+", label: "Cloud services covered" },
-  { value: "13", label: "Compliance frameworks" },
+  // From the cleared fact set. Until 2026-09-15 the framework count here was a retired figure
+  // and the other two were stale understatements. Constants, so it cannot recur.
+  { value: fmt(RULE_CATALOG_TOTAL), label: "Security rules" },
+  { value: fmt(SERVICES), label: "Cloud services covered" },
+  { value: fmt(FRAMEWORKS), label: "Compliance frameworks" },
   { value: "7", label: "Cloud providers" },
-];
-
-const team = [
-  {
-    name: "Anup Yadav",
-    role: "CEO & Co-founder",
-    bio: "15+ years in cloud security and infrastructure. Former security architect at a scale-up fintech and enterprise SaaS. Led incident response across AWS and Azure multi-cloud.",
-    initials: "AY",
-    color: "#2563EB",
-  },
-  {
-    name: "Co-founder — Head of Engineering",
-    role: "CTO & Co-founder",
-    bio: "Previously engineering director at a cloud-native infrastructure company. Built distributed scanning systems processing billions of API calls per month. Deep in graph databases and security-graph traversal.",
-    initials: "CT",
-    color: "#05A052",
-  },
-  {
-    name: "Ajay Chaudhary",
-    role: "COO",
-    bio: "Operations and go-to-market leader with experience scaling B2B SaaS companies. Runs customer success, partnerships, and the business side of Onam so the engineering team can stay heads-down on the platform.",
-    initials: "AC",
-    color: "#F2AF04",
-  },
 ];
 
 function AboutPage() {
   return (
     <SiteLayout>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            url: `${SITE_URL}/company/about`,
+            mainEntity: { "@id": `${SITE_URL}/#organization` },
+            // The leadership team as Person nodes — the same @ids the article schema uses.
+            about: AUTHORS.map(personJsonLd),
+          }),
+        }}
+      />
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <div className="absolute inset-0 dot-grid opacity-60" />
         <div className="absolute -top-40 right-1/4 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
@@ -116,9 +109,14 @@ function AboutPage() {
             <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Team</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">The people behind Onam</h2>
           </div>
-          <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {team.map((p) => (
-              <div key={p.name} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] flex gap-5 items-start">
+          <div className="mt-12 grid md:grid-cols-2 gap-6">
+            {AUTHORS.map((p) => (
+              <Link
+                key={p.slug}
+                to="/company/team/$slug"
+                params={{ slug: p.slug }}
+                className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] flex gap-5 items-start hover:shadow-[0_8px_24px_rgba(16,24,40,.08)] transition"
+              >
                 <div
                   className="w-16 h-16 rounded-2xl grid place-items-center font-display font-black text-white text-lg shrink-0"
                   style={{ backgroundColor: p.color }}
@@ -126,11 +124,12 @@ function AboutPage() {
                   {p.initials}
                 </div>
                 <div>
-                  <div className="font-display font-bold text-[#0B1220] text-lg">{p.name}</div>
+                  <div className="font-display font-bold text-[#0B1220] text-lg group-hover:text-[#2563EB]">{p.name}</div>
                   <div className="text-sm font-semibold text-[#2563EB]">{p.role}</div>
-                  <p className="mt-3 text-sm text-[#475569] leading-relaxed">{p.bio}</p>
+                  {p.bio && <p className="mt-3 text-sm text-[#475569] leading-relaxed">{p.bio}</p>}
+                  <div className="mt-3 text-xs text-[#64748B]">{p.topics.join(" · ")}</div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

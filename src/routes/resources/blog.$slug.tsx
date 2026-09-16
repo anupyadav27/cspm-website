@@ -4,15 +4,21 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { Prose } from "@/components/site/Prose";
 import { BLOG_POSTS, getPost, type BlogPost } from "@/data/blog-posts";
 import { seo, SITE_URL } from "@/lib/seo";
+import { getAuthor, personJsonLd } from "@/data/authors";
 import { ChevronRight } from "lucide-react";
 
 function articleJsonLd(p: BlogPost) {
+  const author = getAuthor(p.author);
+  const reviewer = p.reviewedBy ? getAuthor(p.reviewedBy) : undefined;
   return {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: p.title,
     description: p.excerpt,
-    author: { "@type": "Organization", name: p.author },
+    // A named Person with an @id that resolves to /company/team/<slug>, not an
+    // anonymous Organization — the entity Google can corroborate.
+    author: author ? personJsonLd(author) : { "@type": "Organization", name: "Onam Security" },
+    ...(reviewer ? { reviewedBy: personJsonLd(reviewer) } : {}),
     datePublished: new Date(p.date).toISOString().slice(0, 10),
     mainEntityOfPage: `${SITE_URL}/resources/blog/${p.slug}`,
     image: `${SITE_URL}/og-image.png`,
@@ -92,6 +98,8 @@ function Article() {
   const { post } = Route.useLoaderData();
   const body = post.body ?? fallbackBody(post);
   const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const author = getAuthor(post.author);
+  const reviewer = post.reviewedBy ? getAuthor(post.reviewedBy) : undefined;
 
   return (
     <SiteLayout>
@@ -128,8 +136,22 @@ function Article() {
             <h1 className="mt-4 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.1]">
               {post.title}
             </h1>
-            <div className="mt-6 flex items-center gap-3 text-sm text-[#64748B]">
-              <span className="font-medium text-[#0B1220]">{post.author}</span>
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#64748B]">
+              {author ? (
+                <Link to="/company/team/$slug" params={{ slug: author.slug }} className="font-medium text-[#0B1220] hover:text-[#2563EB]">
+                  By {author.name}, {author.role}
+                </Link>
+              ) : (
+                <span className="font-medium text-[#0B1220]">Onam Security</span>
+              )}
+              {reviewer && (
+                <>
+                  <span>•</span>
+                  <Link to="/company/team/$slug" params={{ slug: reviewer.slug }} className="hover:text-[#2563EB]">
+                    Reviewed by {reviewer.name}
+                  </Link>
+                </>
+              )}
               <span>•</span>
               <span>{post.date}</span>
               <span>•</span>

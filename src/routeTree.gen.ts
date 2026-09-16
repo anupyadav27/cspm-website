@@ -26,6 +26,10 @@ import { Route as CompanySecurityRouteImport } from './routes/company/security'
 import { Route as CompanyTermsRouteImport } from './routes/company/terms'
 import { Route as CompareIndexRouteImport } from './routes/compare/index'
 import { Route as CompareSlugRouteImport } from './routes/compare/$slug'
+import { Route as CompareOnamVsCortexCloudDothtmlRouteImport } from './routes/compare/onam-vs-cortex-cloud[.]html'
+import { Route as CompareOnamVsDefenderForCloudDothtmlRouteImport } from './routes/compare/onam-vs-defender-for-cloud[.]html'
+import { Route as CompareOnamVsOrcaDothtmlRouteImport } from './routes/compare/onam-vs-orca[.]html'
+import { Route as CompareOnamVsWizDothtmlRouteImport } from './routes/compare/onam-vs-wiz[.]html'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
@@ -71,6 +75,7 @@ import { Route as SolutionsHealthcareRouteImport } from './routes/solutions/heal
 import { Route as SolutionsIbmRouteImport } from './routes/solutions/ibm'
 import { Route as SolutionsKubernetesRouteImport } from './routes/solutions/kubernetes'
 import { Route as SolutionsOciRouteImport } from './routes/solutions/oci'
+import { Route as CompanyTeamSlugRouteImport } from './routes/company/team.$slug'
 import { Route as ResourcesBlogSlugRouteImport } from './routes/resources/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -156,6 +161,29 @@ const CompareIndexRoute = CompareIndexRouteImport.update({
 const CompareSlugRoute = CompareSlugRouteImport.update({
   id: '/compare/$slug',
   path: '/compare/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompareOnamVsCortexCloudDothtmlRoute =
+  CompareOnamVsCortexCloudDothtmlRouteImport.update({
+    id: '/compare/onam-vs-cortex-cloud.html',
+    path: '/compare/onam-vs-cortex-cloud.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CompareOnamVsDefenderForCloudDothtmlRoute =
+  CompareOnamVsDefenderForCloudDothtmlRouteImport.update({
+    id: '/compare/onam-vs-defender-for-cloud.html',
+    path: '/compare/onam-vs-defender-for-cloud.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CompareOnamVsOrcaDothtmlRoute =
+  CompareOnamVsOrcaDothtmlRouteImport.update({
+    id: '/compare/onam-vs-orca.html',
+    path: '/compare/onam-vs-orca.html',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const CompareOnamVsWizDothtmlRoute = CompareOnamVsWizDothtmlRouteImport.update({
+  id: '/compare/onam-vs-wiz.html',
+  path: '/compare/onam-vs-wiz.html',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsIndexRoute = DocsIndexRouteImport.update({
@@ -385,6 +413,11 @@ const SolutionsOciRoute = SolutionsOciRouteImport.update({
   path: '/solutions/oci',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CompanyTeamSlugRoute = CompanyTeamSlugRouteImport.update({
+  id: '/company/team/$slug',
+  path: '/company/team/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -408,6 +441,10 @@ export interface FileRoutesByFullPath {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/compare/$slug': typeof CompareSlugRoute
+  '/compare/onam-vs-cortex-cloud.html': typeof CompareOnamVsCortexCloudDothtmlRoute
+  '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
+  '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
+  '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -454,6 +491,7 @@ export interface FileRoutesByFullPath {
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
 }
 export interface FileRoutesByTo {
@@ -472,6 +510,10 @@ export interface FileRoutesByTo {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/compare/$slug': typeof CompareSlugRoute
+  '/compare/onam-vs-cortex-cloud.html': typeof CompareOnamVsCortexCloudDothtmlRoute
+  '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
+  '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
+  '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -518,6 +560,7 @@ export interface FileRoutesByTo {
   '/platform': typeof PlatformIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/solutions': typeof SolutionsIndexRoute
+  '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
 }
 export interface FileRoutesById {
@@ -538,6 +581,10 @@ export interface FileRoutesById {
   '/company/security': typeof CompanySecurityRoute
   '/company/terms': typeof CompanyTermsRoute
   '/compare/$slug': typeof CompareSlugRoute
+  '/compare/onam-vs-cortex-cloud.html': typeof CompareOnamVsCortexCloudDothtmlRoute
+  '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
+  '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
+  '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
   '/docs/$': typeof DocsSplatRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
@@ -584,6 +631,7 @@ export interface FileRoutesById {
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
+  '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
 }
 export interface FileRouteTypes {
@@ -605,6 +653,10 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/compare/$slug'
+    | '/compare/onam-vs-cortex-cloud.html'
+    | '/compare/onam-vs-defender-for-cloud.html'
+    | '/compare/onam-vs-orca.html'
+    | '/compare/onam-vs-wiz.html'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -651,6 +703,7 @@ export interface FileRouteTypes {
     | '/platform/'
     | '/resources/'
     | '/solutions/'
+    | '/company/team/$slug'
     | '/resources/blog/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -669,6 +722,10 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/compare/$slug'
+    | '/compare/onam-vs-cortex-cloud.html'
+    | '/compare/onam-vs-defender-for-cloud.html'
+    | '/compare/onam-vs-orca.html'
+    | '/compare/onam-vs-wiz.html'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -715,6 +772,7 @@ export interface FileRouteTypes {
     | '/platform'
     | '/resources'
     | '/solutions'
+    | '/company/team/$slug'
     | '/resources/blog/$slug'
   id:
     | '__root__'
@@ -734,6 +792,10 @@ export interface FileRouteTypes {
     | '/company/security'
     | '/company/terms'
     | '/compare/$slug'
+    | '/compare/onam-vs-cortex-cloud.html'
+    | '/compare/onam-vs-defender-for-cloud.html'
+    | '/compare/onam-vs-orca.html'
+    | '/compare/onam-vs-wiz.html'
     | '/docs/$'
     | '/learn/$slug'
     | '/platform/agentless'
@@ -780,6 +842,7 @@ export interface FileRouteTypes {
     | '/platform/'
     | '/resources/'
     | '/solutions/'
+    | '/company/team/$slug'
     | '/resources/blog/$slug'
   fileRoutesById: FileRoutesById
 }
@@ -800,6 +863,10 @@ export interface RootRouteChildren {
   CompanySecurityRoute: typeof CompanySecurityRoute
   CompanyTermsRoute: typeof CompanyTermsRoute
   CompareSlugRoute: typeof CompareSlugRoute
+  CompareOnamVsCortexCloudDothtmlRoute: typeof CompareOnamVsCortexCloudDothtmlRoute
+  CompareOnamVsDefenderForCloudDothtmlRoute: typeof CompareOnamVsDefenderForCloudDothtmlRoute
+  CompareOnamVsOrcaDothtmlRoute: typeof CompareOnamVsOrcaDothtmlRoute
+  CompareOnamVsWizDothtmlRoute: typeof CompareOnamVsWizDothtmlRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PlatformAgentlessRoute: typeof PlatformAgentlessRoute
   PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
@@ -844,6 +911,7 @@ export interface RootRouteChildren {
   PlatformIndexRoute: typeof PlatformIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
+  CompanyTeamSlugRoute: typeof CompanyTeamSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -965,6 +1033,34 @@ declare module '@tanstack/react-router' {
       path: '/compare/$slug'
       fullPath: '/compare/$slug'
       preLoaderRoute: typeof CompareSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/onam-vs-cortex-cloud.html': {
+      id: '/compare/onam-vs-cortex-cloud.html'
+      path: '/compare/onam-vs-cortex-cloud.html'
+      fullPath: '/compare/onam-vs-cortex-cloud.html'
+      preLoaderRoute: typeof CompareOnamVsCortexCloudDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/onam-vs-defender-for-cloud.html': {
+      id: '/compare/onam-vs-defender-for-cloud.html'
+      path: '/compare/onam-vs-defender-for-cloud.html'
+      fullPath: '/compare/onam-vs-defender-for-cloud.html'
+      preLoaderRoute: typeof CompareOnamVsDefenderForCloudDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/onam-vs-orca.html': {
+      id: '/compare/onam-vs-orca.html'
+      path: '/compare/onam-vs-orca.html'
+      fullPath: '/compare/onam-vs-orca.html'
+      preLoaderRoute: typeof CompareOnamVsOrcaDothtmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/compare/onam-vs-wiz.html': {
+      id: '/compare/onam-vs-wiz.html'
+      path: '/compare/onam-vs-wiz.html'
+      fullPath: '/compare/onam-vs-wiz.html'
+      preLoaderRoute: typeof CompareOnamVsWizDothtmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs/': {
@@ -1282,6 +1378,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsOciRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/company/team/$slug': {
+      id: '/company/team/$slug'
+      path: '/company/team/$slug'
+      fullPath: '/company/team/$slug'
+      preLoaderRoute: typeof CompanyTeamSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/blog/$slug': {
       id: '/resources/blog/$slug'
       path: '/$slug'
@@ -1333,6 +1436,11 @@ const rootRouteChildren: RootRouteChildren = {
   CompanySecurityRoute: CompanySecurityRoute,
   CompanyTermsRoute: CompanyTermsRoute,
   CompareSlugRoute: CompareSlugRoute,
+  CompareOnamVsCortexCloudDothtmlRoute: CompareOnamVsCortexCloudDothtmlRoute,
+  CompareOnamVsDefenderForCloudDothtmlRoute:
+    CompareOnamVsDefenderForCloudDothtmlRoute,
+  CompareOnamVsOrcaDothtmlRoute: CompareOnamVsOrcaDothtmlRoute,
+  CompareOnamVsWizDothtmlRoute: CompareOnamVsWizDothtmlRoute,
   LearnSlugRoute: LearnSlugRoute,
   PlatformAgentlessRoute: PlatformAgentlessRoute,
   PlatformAiAssistantRoute: PlatformAiAssistantRoute,
@@ -1377,6 +1485,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformIndexRoute: PlatformIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
+  CompanyTeamSlugRoute: CompanyTeamSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
