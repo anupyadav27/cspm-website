@@ -1,4 +1,5 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+import { getAuthor } from "@/data/authors";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/data/blog-posts";
 import { useState } from "react";
@@ -91,7 +92,7 @@ function BlogIndex() {
                 </h2>
                 <p className="mt-4 text-[#475569] leading-relaxed">{featured.excerpt}</p>
                 <div className="mt-6 text-sm text-[#64748B]">
-                  {featured.author} • {featured.date} • {featured.readTime} read
+                  {getAuthor(featured.author)?.name ?? "Onam Security"} • {featured.date} • {featured.readTime} read
                 </div>
               </div>
               <div className="relative aspect-[4/3] rounded-2xl bg-gradient-to-br from-[#EFF4FF] via-white to-[#E7F6EF] border border-[#E5E9F0] overflow-hidden">
@@ -124,7 +125,7 @@ function BlogIndex() {
               </h3>
               <p className="mt-2 text-sm text-[#475569] line-clamp-3 flex-1">{p.excerpt}</p>
               <div className="mt-5 pt-4 border-t border-[#EEF2F6] text-xs text-[#64748B] flex items-center justify-between">
-                <span>{p.author}</span>
+                <span>{getAuthor(p.author)?.name ?? "Onam Security"}</span>
                 <span>{p.date} • {p.readTime}</span>
               </div>
             </Link>

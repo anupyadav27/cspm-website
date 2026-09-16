@@ -210,6 +210,10 @@ export const governmentData: IndustrySolutionData = {
       a: "Yes. Monthly ConMon evidence — control status, deviations, POA&M inputs — is generated automatically and formatted for 3PAO ingestion.",
     },
     {
+      q: "Is Onam a FedRAMP ConMon tool, or a general CSPM with a FedRAMP mapping?",
+      a: "Both, and the distinction matters. The posture engine is a general multi-cloud CSPM. The ConMon layer on top of it is specific: it produces the monthly deliverables a FedRAMP program actually has to hand over — control-status evidence per 800-53 control, deviation requests, POA&M inputs and vulnerability-scan summaries — on a schedule, in the formats a 3PAO and an Authorizing Official expect, without a person assembling them from screenshots each month.",
+    },
+    {
       q: "How does Onam handle authorization boundary?",
       a: "You define boundary by account, tag, or resource query. Every finding is attributed to boundary-in-scope, boundary-adjacent, or out-of-boundary — so 3PAOs know exactly what to review.",
     },

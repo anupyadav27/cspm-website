@@ -13,8 +13,12 @@
 
 export type LearnFaq = { q: string; a: string };
 
+import type { AuthorSlug } from "./authors";
+
 export type LearnArticle = {
   slug: string;
+  /** Named author — see src/data/authors.ts. */
+  author: AuthorSlug;
   /** H1 — phrased exactly as the target query. */
   question: string;
   /** <title> — may differ from the H1 to fit modifiers. */
@@ -34,10 +38,11 @@ export type LearnArticle = {
 export const LEARN_ARTICLES: LearnArticle[] = [
   {
     slug: "cspm",
+    author: "nishchal-gupta",
     question: "What is CSPM (Cloud Security Posture Management)?",
     title: "What is CSPM? Cloud Security Posture Management Explained",
     excerpt:
-      "CSPM continuously checks cloud infrastructure for misconfigurations and compliance drift. A plain-English explanation of how it works, what it catches, what it misses, and how it differs from CNAPP, CWPP and CIEM.",
+      "CSPM (cloud security posture management) continuously checks cloud infrastructure for misconfigurations and compliance drift. A plain-English explanation of how it works, what it catches, what it misses, and how it differs from CNAPP, CWPP and CIEM.",
     term: "Cloud Security Posture Management",
     answer:
       "Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.",
@@ -139,11 +144,14 @@ Buying these as four products from four vendors reproduces the problem they were
       { label: "Onam CSPM", href: "/platform/cspm" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "The best CSPM tools in 2026, an honest shortlist", href: "/resources/blog/best-cspm-tools" },
+      { label: "The 5 AWS misconfigurations we find in 90% of first scans", href: "/resources/blog/aws-misconfigurations-first-scan" },
     ],
   },
 
   {
     slug: "cnapp",
+    author: "nishchal-gupta",
     question: "What is CNAPP (Cloud-Native Application Protection Platform)?",
     title: "What is CNAPP? Cloud-Native Application Protection Explained",
     excerpt:
@@ -227,11 +235,13 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
       { label: "Onam CNAPP", href: "/platform/cnapp" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "Wiz alternatives in 2026", href: "/resources/blog/wiz-alternatives" },
     ],
   },
 
   {
     slug: "cwpp",
+    author: "nishchal-gupta",
     question: "What is CWPP (Cloud Workload Protection Platform)?",
     title: "What is CWPP? Cloud Workload Protection Explained",
     excerpt:
@@ -315,11 +325,14 @@ Most mature programmes use agentless as the coverage baseline and add runtime de
       { label: "Onam CWPP", href: "/platform/cwpp" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "Beyond GuardDuty: three-tier behavioral detection", href: "/resources/blog/cdr-behavioral-threat-detection" },
+      { label: "EPSS over CVSS: prioritising the CVEs attackers exploit", href: "/resources/blog/epss-over-cvss" },
     ],
   },
 
   {
     slug: "ciem",
+    author: "poonam-yadav",
     question: "What is CIEM (Cloud Infrastructure Entitlement Management)?",
     title: "What is CIEM? Cloud Entitlement Management Explained",
     excerpt:
@@ -399,15 +412,18 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
       { label: "Onam CIEM", href: "/platform/ciem" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "CIEM vs IAM Security: what's actually the difference?", href: "/resources/blog/ciem-vs-iam-security" },
+      { label: "Why 90% of cloud IAM permissions are never used", href: "/resources/blog/why-cloud-iam-permissions-are-never-used" },
     ],
   },
 
   {
     slug: "dspm",
+    author: "poonam-yadav",
     question: "What is DSPM (Data Security Posture Management)?",
     title: "What is DSPM? Data Security Posture Management Explained",
     excerpt:
-      "DSPM finds where sensitive data lives across cloud storage, classifies it, and works out who can reach it. How classification works, why encryption-at-rest is not the answer, and how DSPM differs from CSPM and DLP.",
+      "DSPM (data security posture management) finds where sensitive data lives across cloud storage, classifies it, and works out who can reach it. How classification works, why encryption-at-rest is not the answer, and how DSPM differs from CSPM and DLP.",
     term: "Data Security Posture Management",
     answer:
       "Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.",
@@ -486,6 +502,7 @@ DSPM is the context layer that makes the other two useful. A public bucket is a 
 
   {
     slug: "sspm",
+    author: "poonam-yadav",
     question: "What is SSPM (SaaS Security Posture Management)?",
     title: "What is SSPM? SaaS Security Posture Management Explained",
     excerpt:
@@ -576,6 +593,7 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
 
   {
     slug: "cloud-attack-path",
+    author: "nishchal-gupta",
     question: "What is a cloud attack path?",
     title: "What is a Cloud Attack Path? Attack Path Analysis Explained",
     excerpt:
@@ -676,11 +694,14 @@ The practical shift is from "4,000 findings" to "3 paths that reach crown jewels
       { label: "Onam Attack Path", href: "/platform/attack-path" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "Attack paths vs. misconfigurations: toxic combinations", href: "/resources/blog/attack-path-4000-to-3" },
+      { label: "MITRE ATT&CK for Cloud, mapped to your posture score", href: "/resources/blog/mitre-attack-cloud-mapping" },
     ],
   },
 
   {
     slug: "agentless-cloud-security",
+    author: "nishchal-gupta",
     question: "What is agentless cloud security?",
     title: "What is Agentless Cloud Security? Agentless vs Agent-Based",
     excerpt:
@@ -771,12 +792,15 @@ Most mature programmes use agentless as the universal baseline, add log-based de
       { label: "Onam Agentless Scanning", href: "/platform/agentless" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "How we check thousands of rules without agents", href: "/resources/blog/agentless-cloud-security-architecture" },
+      { label: "Wiz alternatives in 2026", href: "/resources/blog/wiz-alternatives" },
     ],
   },
   {
     slug: "cloud-risk-quantification",
+    author: "anup-yadav",
     question: "What is cloud risk quantification?",
-    title: "What is Cloud Risk Quantification? FAIR and Dollar-Value Risk Explained",
+    title: "What is Cloud Risk Quantification? FAIR Explained",
     excerpt:
       "Cloud risk quantification expresses security exposure as a probable dollar loss instead of a severity score. How the FAIR model works, what inputs it needs, and why a priced risk is what a board can actually act on.",
     term: "Cloud risk quantification",
@@ -843,10 +867,12 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
       { label: "Onam Risk Quantification", href: "/platform/risk" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "The FAIR model for cloud security", href: "/resources/blog/fair-model-cloud-risk" },
     ],
   },
   {
     slug: "choke-point",
+    author: "nishchal-gupta",
     question: "What is a choke point in cloud security?",
     title: "What is a Choke Point? Attack Path Choke Points Explained",
     excerpt:
@@ -909,12 +935,14 @@ Choke-point remediation follows the same discipline as any high-severity work, t
       { label: "Onam Attack Path Analysis", href: "/platform/attack-path" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "AI-powered cloud remediation: from finding to fix", href: "/resources/blog/ai-powered-cloud-remediation" },
     ],
   },
   {
     slug: "kspm",
+    author: "poonam-yadav",
     question: "What is KSPM (Kubernetes Security Posture Management)?",
-    title: "What is KSPM? Kubernetes Security Posture Management Explained",
+    title: "What is KSPM? Kubernetes Security Posture Explained",
     excerpt:
       "KSPM continuously checks Kubernetes clusters for misconfiguration, unsafe RBAC and workload risk. How it works, what it catches that CSPM misses, and how it differs from container scanning and CWPP.",
     term: "Kubernetes Security Posture Management",
@@ -999,12 +1027,14 @@ The interesting failures cross that boundary in both directions: a pod that assu
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
       { label: "Onam on Kubernetes", href: "/solutions/kubernetes" },
+      { label: "Kubernetes RBAC pitfalls that grant cluster-admin by accident", href: "/resources/blog/kubernetes-rbac-pitfalls" },
     ],
   },
   {
     slug: "code-security",
+    author: "poonam-yadav",
     question: "What is code security in the cloud?",
-    title: "What is Code Security? SAST, SCA, IaC Scanning and Runtime Explained",
+    title: "What is Code Security? SAST, SCA and IaC Explained",
     excerpt:
       "Code security covers SAST, DAST, SCA, IaC and secret scanning. What each one catches, why fixing findings in the console alone makes them return, and how code and runtime connect.",
     term: "Code Security",
@@ -1096,8 +1126,9 @@ The rule that keeps this survivable: **gate on the delta, not the backlog.** A p
   },
   {
     slug: "secrets-management",
+    author: "poonam-yadav",
     question: "What is cloud secrets management?",
-    title: "What is Cloud Secrets Management? Keys, Rotation and Sprawl Explained",
+    title: "What is Secrets Management? Keys and Rotation Explained",
     excerpt:
       "Cloud secrets management covers how credentials, keys and tokens are stored, accessed, rotated and audited. What goes wrong, why hardcoded secrets persist, and how key management differs from secrets management.",
     term: "Cloud Secrets Management",

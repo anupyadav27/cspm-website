@@ -12,6 +12,9 @@ import { allDocSlugs, DOC_SECTIONS, getDocArticle } from "../src/data/docs";
 import { BLOG_POSTS } from "../src/data/blog-posts";
 import { LEARN_ARTICLES } from "../src/data/learn-articles";
 import { COMPETITORS } from "../src/data/compare";
+import { AUTHORS } from "../src/data/authors";
+import { execFileSync } from "node:child_process";
+import { readFileSync, existsSync, readdirSync as readDir } from "node:fs";
 import { platformPages } from "../src/data/platform-pages";
 import {
   awsData,
@@ -26,6 +29,116 @@ import { financialData, healthcareData, governmentData } from "../src/data/solut
 
 const here = dirname(fileURLToPath(import.meta.url));
 const routesDir = join(here, "../src/routes");
+const repoRoot = join(here, "..");
+const TODAY = new Date().toISOString().slice(0, 10);
+
+/**
+ * <lastmod> from git history, not from a constant.
+ *
+ * WHY. Until 2026-09-15 only blog posts carried a lastmod (their publish date) and every
+ * other URL carried none, so Google fell back to its own guess — and the 2026-09-14
+ * Search Console sweep found nine indexed pages not recrawled since early August although
+ * they had changed on 08-19 and 09-01. A sitemap that cannot say "this page changed" is
+ * a sitemap that cannot ask for a recrawl.
+ *
+ * The date is the newest commit touching the lines that make up the page: the route file,
+ * plus the block of the data module that page reads (a slug block in learn-articles.ts,
+ * the export the route imports from solutions-*.ts). Uncommitted lines blame as "now", so
+ * a page edited in the working tree is dated today; an untracked file is today too.
+ * Whole-file dates are deliberately NOT used for shared data modules — editing one learn
+ * article must not re-date all thirteen, because a lastmod that lies is ignored.
+ */
+function blameDate(file: string, start?: number, end?: number): string | undefined {
+  const abs = join(repoRoot, file);
+  if (!existsSync(abs)) return undefined;
+  const args = ["blame", "--line-porcelain"];
+  if (start !== undefined && end !== undefined) args.push("-L", `${start},${end}`);
+  args.push("--", file);
+  let out: string;
+  try {
+    out = execFileSync("git", args, {
+      cwd: repoRoot,
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+      maxBuffer: 64 * 1024 * 1024,
+    });
+  } catch {
+    return TODAY; // untracked (new) file
+  }
+  let max = 0;
+  for (const m of out.matchAll(/^author-time (\d+)$/gm)) max = Math.max(max, Number(m[1]));
+  return max ? new Date(max * 1000).toISOString().slice(0, 10) : undefined;
+}
+
+/** 1-based [start, end] from the first line matching `marker` to the line before the next `sibling`. */
+function blockRange(file: string, marker: RegExp, sibling: RegExp): [number, number] | undefined {
+  const abs = join(repoRoot, file);
+  if (!existsSync(abs)) return undefined;
+  const lines = readFileSync(abs, "utf8").split("\n");
+  const start = lines.findIndex((l) => marker.test(l));
+  if (start < 0) return undefined;
+  let end = lines.length - 1;
+  for (let i = start + 1; i < lines.length; i++) {
+    if (sibling.test(lines[i])) {
+      end = i - 1;
+      break;
+    }
+  }
+  return [start + 1, end + 1];
+}
+
+const escapeRe = (v: string) => v.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/** Date of one slug's block inside a data file (learn, docs, compare, blog). */
+function slugBlockDate(file: string, slug: string): string | undefined {
+  const r = blockRange(file, new RegExp(`^\\s*slug: "${escapeRe(slug)}",?$`), /^\s*slug: "/);
+  return r ? blameDate(file, r[0], r[1]) : undefined;
+}
+
+const newest = (...dates: (string | undefined)[]) =>
+  dates.filter((d): d is string => !!d).sort().at(-1);
+
+/**
+ * A static route's date: the route file, plus whatever it imports from src/data — but only
+ * the block it actually uses. A named export smaller than 60% of its file is taken as that
+ * page's own data; otherwise the page's slug block is tried; otherwise the module is ignored.
+ */
+function staticRouteDate(routeRel: string, path: string): string | undefined {
+  const routeFile = `src/routes/${routeRel}`;
+  const dates = [blameDate(routeFile)];
+  const src = readFileSync(join(repoRoot, routeFile), "utf8");
+  const seg = path.split("/").filter(Boolean).at(-1) ?? "";
+  for (const m of src.matchAll(/import \{([^}]+)\} from "@\/data\/([^"]+)"/g)) {
+    const mod = `src/data/${m[2]}.ts`;
+    if (!existsSync(join(repoRoot, mod))) continue;
+    const total = readFileSync(join(repoRoot, mod), "utf8").split("\n").length;
+    for (const rawName of m[1].split(",")) {
+      const name = rawName.trim().split(/\s+as\s+/)[0];
+      if (!name) continue;
+      const r = blockRange(mod, new RegExp(`^export const ${escapeRe(name)}\\b`), /^export /);
+      if (r && r[1] - r[0] + 1 < total * 0.6) {
+        dates.push(blameDate(mod, r[0], r[1]));
+      } else if (seg) {
+        dates.push(slugBlockDate(mod, seg));
+      }
+    }
+  }
+  return newest(...dates);
+}
+
+/** Which docs-articles file holds a doc slug, so its block can be dated. */
+function docSlugDate(slug: string): string | undefined {
+  const dir = join(repoRoot, "src/data/docs-articles");
+  const candidates = existsSync(dir)
+    ? readDir(dir).filter((f) => f.endsWith(".ts")).map((f) => `src/data/docs-articles/${f}`)
+    : [];
+  candidates.push("src/data/docs.ts");
+  for (const f of candidates) {
+    const d = slugBlockDate(f, slug);
+    if (d) return d;
+  }
+  return undefined;
+}
 
 function collectRouteFiles(dir: string): string[] {
   return readdirSync(dir, { withFileTypes: true, recursive: true })
@@ -33,9 +146,16 @@ function collectRouteFiles(dir: string): string[] {
     .map((e) => relative(routesDir, join(e.parentPath, e.name)));
 }
 
-/** "docs.index.tsx" -> "/docs", "platform/cspm.tsx" -> "/platform/cspm", dynamic ($) routes -> null */
+/**
+ * "docs.index.tsx" -> "/docs", "platform/cspm.tsx" -> "/platform/cspm", dynamic ($) routes -> null.
+ *
+ * Files with an escaped dot ("[.]", e.g. compare/onam-vs-wiz[.]html.tsx) are also skipped:
+ * they exist only to 301 a retired address to its replacement, and a redirect belongs in
+ * the sitemap no more than a 404 does — the target is already listed. Left in, the
+ * ".".replaceAll below also mangles them into "onam-vs-wiz[/]html".
+ */
 function fileToPath(rel: string): string | null {
-  if (rel === "__root.tsx" || rel.includes("$")) return null;
+  if (rel === "__root.tsx" || rel.includes("$") || rel.includes("[.]")) return null;
   let p = rel.slice(0, -".tsx".length).replaceAll("\\", "/").replaceAll(".", "/");
   if (p === "index") return "/";
   if (p.endsWith("/index")) p = p.slice(0, -"/index".length);
@@ -44,11 +164,12 @@ function fileToPath(rel: string): string | null {
 
 type Entry = { loc: string; lastmod?: string };
 
-const staticPaths = new Set(
-  collectRouteFiles(routesDir)
-    .map(fileToPath)
-    .filter((p): p is string => p !== null),
-);
+const routeFileFor = new Map<string, string>();
+for (const rel of collectRouteFiles(routesDir)) {
+  const p = fileToPath(rel);
+  if (p !== null) routeFileFor.set(p, rel);
+}
+const staticPaths = new Set(routeFileFor.keys());
 
 /**
  * Free tools. These are self-contained static pages under public/tools/, not route
@@ -66,15 +187,27 @@ const TOOL_PATHS = [
 ];
 
 const entries: Entry[] = [
-  ...[...staticPaths].sort().map((p) => ({ loc: p })),
-  ...TOOL_PATHS.map((loc) => ({ loc })),
-  ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}` })),
-  ...LEARN_ARTICLES.map((a) => ({ loc: `/learn/${a.slug}` })),
+  ...[...staticPaths].sort().map((p) => ({ loc: p, lastmod: staticRouteDate(routeFileFor.get(p)!, p) })),
+  ...TOOL_PATHS.map((loc) => ({ loc, lastmod: blameDate(`public${loc}`) })),
+  ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}`, lastmod: docSlugDate(slug) })),
+  ...LEARN_ARTICLES.map((a) => ({
+    loc: `/learn/${a.slug}`,
+    lastmod: newest(slugBlockDate("src/data/learn-articles.ts", a.slug), blameDate("src/routes/learn.$slug.tsx")),
+  })),
   // /compare/$slug is a dynamic route, so pathFor() skips it — enumerate explicitly.
-  ...COMPETITORS.map((c) => ({ loc: `/compare/${c.slug}` })),
+  ...COMPETITORS.map((c) => ({
+    loc: `/compare/${c.slug}`,
+    lastmod: newest(slugBlockDate("src/data/compare.ts", c.slug), blameDate("src/routes/compare/$slug.tsx")),
+  })),
+  // /company/team/$slug — one entity page per named author (untracked until committed → today).
+  ...AUTHORS.map((a) => ({ loc: `/company/team/${a.slug}`, lastmod: blameDate("src/data/authors.ts") })),
   ...BLOG_POSTS.map((p) => ({
     loc: `/resources/blog/${p.slug}`,
-    lastmod: new Date(p.date).toISOString().slice(0, 10),
+    // Publish date, or the last edit if the post was revised after publishing.
+    lastmod: newest(
+      new Date(p.date).toISOString().slice(0, 10),
+      slugBlockDate("src/data/blog-posts.ts", p.slug),
+    ),
   })),
 ];
 
@@ -256,6 +389,7 @@ ${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/resources/blog/${p.slug}): $
 - [Pricing](${SITE_URL}/pricing)
 - [Request a demo](${SITE_URL}/request-demo)
 - [About](${SITE_URL}/company/about)
+${AUTHORS.map((a) => `- [${a.name}, ${a.role}](${SITE_URL}/company/team/${a.slug})`).join("\n")}
 - [Contact](${SITE_URL}/company/contact)
 - [Security](${SITE_URL}/company/security)
 `;

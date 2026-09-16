@@ -7,6 +7,22 @@
     <language>en</language>
     <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Wiz alternatives in 2026: an honest shortlist, including us</title>
+      <link>https://www.onamsecurity.com/resources/blog/wiz-alternatives</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/wiz-alternatives</guid>
+      <description>Six alternatives to Wiz for cloud security in 2026, each described in the vendor's own published words with a link and a date, plus Onam, which wrote this list. No scores, no claims about what anyone cannot do, and the seven questions to put to every one of them.</description>
+      <category>Buyer's Guide</category>
+      <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>The best CSPM tools in 2026: an honest shortlist, and we are on it</title>
+      <link>https://www.onamsecurity.com/resources/blog/best-cspm-tools</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/best-cspm-tools</guid>
+      <description>Seven CSPM tools worth shortlisting in 2026, each described in its vendor's own published words with a link and a date: Cortex Cloud, Falcon Cloud Security, Defender for Cloud, Orca, Tenable, Wiz and Onam, which wrote this list. Plus the five things that separate CSPM tools now.</description>
+      <category>Buyer's Guide</category>
+      <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
       <title>What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam</title>
       <link>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</guid>

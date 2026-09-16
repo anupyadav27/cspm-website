@@ -239,6 +239,8 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ## Blog
 
+- [Wiz alternatives in 2026: an honest shortlist, including us](https://www.onamsecurity.com/resources/blog/wiz-alternatives): Six alternatives to Wiz for cloud security in 2026, each described in the vendor's own published words with a link and a date, plus Onam, which wrote this…
+- [The best CSPM tools in 2026: an honest shortlist, and we are on it](https://www.onamsecurity.com/resources/blog/best-cspm-tools): Seven CSPM tools worth shortlisting in 2026, each described in its vendor's own published words with a link and a date: Cortex Cloud, Falcon Cloud Security,…
 - [What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam](https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud): Running a proof of concept against Wiz, Orca Security or Prisma Cloud? These are the seven questions to ask during the POC that actually separate the platforms…
 - [Beyond GuardDuty: how three-tier behavioral detection catches what rules miss](https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection): Rule-based detection catches known attack signatures. Statistical behavioral baselines catch incremental privilege escalation. ML anomaly detection catches the…
 - [The 5 AWS misconfigurations we find in 90% of first scans](https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan): After thousands of first-time AWS scans, the same five misconfigurations show up in nearly every environment. Here's what they are — and how to fix them fast.
@@ -257,5 +259,9 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Pricing](https://www.onamsecurity.com/pricing)
 - [Request a demo](https://www.onamsecurity.com/request-demo)
 - [About](https://www.onamsecurity.com/company/about)
+- [Anup Yadav, CEO & Co-founder](https://www.onamsecurity.com/company/team/anup-yadav)
+- [Poonam Yadav, Co-founder & Head of Engineering](https://www.onamsecurity.com/company/team/poonam-yadav)
+- [Nishchal Gupta, Head of Sales](https://www.onamsecurity.com/company/team/nishchal-gupta)
+- [Ajay Chaudhary, COO](https://www.onamsecurity.com/company/team/ajay-chaudhary)
 - [Contact](https://www.onamsecurity.com/company/contact)
 - [Security](https://www.onamsecurity.com/company/security)
