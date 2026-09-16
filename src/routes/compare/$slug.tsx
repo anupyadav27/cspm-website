@@ -152,6 +152,18 @@ function Page() {
           ))}
         </div>
 
+        <p className="mt-6 text-[14px] text-[#5C6B84]">
+          Building a shortlist instead?{" "}
+          <Link to="/resources/blog/$slug" params={{ slug: "wiz-alternatives" }} className="text-[#2563EB] underline">
+            Wiz alternatives in 2026
+          </Link>{" "}
+          and{" "}
+          <Link to="/resources/blog/$slug" params={{ slug: "best-cspm-tools" }} className="text-[#2563EB] underline">
+            the best CSPM tools in 2026
+          </Link>
+          , every vendor in its own published words.
+        </p>
+
         <p className="mt-10 border-t border-[#E2E8F2] pt-5 text-[12.5px] italic leading-relaxed text-[#5C6B84]">
           Last reviewed {VERIFIED_ON}. Onam&rsquo;s figures come from our published fact set; the
           strengths above are general market observations, not claims about {c.shortName}&rsquo;s

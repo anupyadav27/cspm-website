@@ -83,7 +83,7 @@ const categories: Category[] = [
   },
 ];
 
-const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
+const LIBRARY: { title: string; items: { label: string; href: string; internal?: boolean }[] }[] = [
   {
     title: "Technical whitepapers",
     items: [
@@ -148,12 +148,20 @@ const LIBRARY: { title: string; items: { label: string; href: string }[] }[] = [
     ],
   },
   {
+    // Site pages, not downloads — `internal` renders them as same-tab links. Until
+    // 2026-09-14 this block pointed at print one-pagers copied into public/compare/*.html:
+    // 1400px fixed-width cards with no navigation, which read as a broken page on every
+    // screen. The real comparison pages are the /compare routes; the old .html addresses
+    // now 301 to them (src/routes/compare/*[.]html.tsx).
     title: "How we compare",
     items: [
-      { label: "Onam vs Wiz", href: "/compare/onam-vs-wiz.html" },
-      { label: "Onam vs Orca Security", href: "/compare/onam-vs-orca.html" },
-      { label: "Onam vs Cortex Cloud (Prisma)", href: "/compare/onam-vs-cortex-cloud.html" },
-      { label: "Onam vs Microsoft Defender for Cloud", href: "/compare/onam-vs-defender-for-cloud.html" },
+      { label: "All comparisons — the seven questions", href: "/compare", internal: true },
+      { label: "Onam vs Wiz", href: "/compare/onam-vs-wiz", internal: true },
+      { label: "Onam vs Orca Security", href: "/compare/onam-vs-orca", internal: true },
+      { label: "Onam vs Prisma Cloud (Palo Alto)", href: "/compare/onam-vs-prisma-cloud", internal: true },
+      { label: "Onam vs Microsoft Defender for Cloud", href: "/compare/onam-vs-defender", internal: true },
+      { label: "Wiz alternatives in 2026 (shortlist)", href: "/resources/blog/wiz-alternatives", internal: true },
+      { label: "The best CSPM tools in 2026 (shortlist)", href: "/resources/blog/best-cspm-tools", internal: true },
     ],
   },
   {
@@ -223,15 +231,25 @@ function Page() {
               <ul className="mt-3 space-y-1">
                 {g.items.map((it) => (
                   <li key={it.href}>
-                    <a
-                      href={it.href}
-                      target="_blank"
-                      rel="noopener"
-                      className="group flex items-center justify-between gap-2 py-2 border-b border-[#EEF2F6] text-sm text-[#0B1220] hover:text-[#2563EB]"
-                    >
-                      <span>{it.label}</span>
-                      <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition" />
-                    </a>
+                    {it.internal ? (
+                      <Link
+                        to={it.href}
+                        className="group flex items-center justify-between gap-2 py-2 border-b border-[#EEF2F6] text-sm text-[#0B1220] hover:text-[#2563EB]"
+                      >
+                        <span>{it.label}</span>
+                        <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition" />
+                      </Link>
+                    ) : (
+                      <a
+                        href={it.href}
+                        target="_blank"
+                        rel="noopener"
+                        className="group flex items-center justify-between gap-2 py-2 border-b border-[#EEF2F6] text-sm text-[#0B1220] hover:text-[#2563EB]"
+                      >
+                        <span>{it.label}</span>
+                        <ArrowRight className="w-3.5 h-3.5 shrink-0 opacity-0 group-hover:opacity-100 transition" />
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

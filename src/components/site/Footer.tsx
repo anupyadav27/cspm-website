@@ -82,6 +82,7 @@ const cols: Col[] = [
       { label: "Documentation", to: "/docs" },
       { label: "Blog", to: "/resources/blog" },
       { label: "All Resources", to: "/resources" },
+      { label: "Compare platforms", to: "/compare" },
       { label: "What is CSPM?", to: "/learn/cspm" },
       { label: "What is CNAPP?", to: "/learn/cnapp" },
       { label: "What is CWPP?", to: "/learn/cwpp" },

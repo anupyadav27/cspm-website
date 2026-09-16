@@ -76,6 +76,17 @@ function Page() {
         <p className="mt-2 text-[15px] text-[#5C6B84]">
           Each page answers the seven for Onam, then says where they are stronger than us.
         </p>
+        <p className="mt-2 text-[15px] text-[#5C6B84]">
+          Shortlisting rather than comparing two? Read{" "}
+          <Link to="/resources/blog/$slug" params={{ slug: "wiz-alternatives" }} className="text-[#2563EB] underline">
+            Wiz alternatives in 2026
+          </Link>{" "}
+          and{" "}
+          <Link to="/resources/blog/$slug" params={{ slug: "best-cspm-tools" }} className="text-[#2563EB] underline">
+            the best CSPM tools in 2026
+          </Link>
+          , each vendor in its own words.
+        </p>
 
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           {COMPETITORS.map((c) => (
