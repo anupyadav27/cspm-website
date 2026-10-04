@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.onamsecurity.com/</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-04</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/case-studies</loc>
@@ -54,7 +54,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-04</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/agentless</loc>
@@ -63,6 +63,10 @@
   <url>
     <loc>https://www.onamsecurity.com/platform/ai-assistant</loc>
     <lastmod>2026-08-06</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/ai-code-fix</loc>
+    <lastmod>2026-10-04</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/ai-security</loc>
@@ -143,10 +147,6 @@
   <url>
     <loc>https://www.onamsecurity.com/platform/saas-security</loc>
     <lastmod>2026-08-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/platform/secops</loc>
-    <lastmod>2026-07-21</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/technology</loc>

@@ -47,7 +47,8 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "Agentless Scanning", href: "/platform/agentless", desc: "Snapshot-based — nothing to install" },
       { title: "Container Security", href: "/platform/container-security", desc: "EKS, ECS, and image scanning" },
       { title: "Vulnerability Mgmt", href: "/platform/vulnerability", desc: "CVEs in context, not just CVSS" },
-      { title: "Code Security", href: "/platform/secops", desc: "SAST, DAST, SCA, IaC" },
+      { title: "Code Security", href: "/platform/code-security", desc: "SAST, DAST, SCA, IaC" },
+      { title: "AI Code Fix", href: "/platform/ai-code-fix", desc: "Fixes pushed to a branch" },
     ],
   },
   {

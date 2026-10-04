@@ -12,7 +12,7 @@ const groups = [
   { heading: "Posture & Identity", slugs: ["cnapp", "cspm", "ciem", "iam", "inventory"] },
   { heading: "Threat & Attack", slugs: ["attack-path", "cdr", "threat-detection", "risk"] },
   { heading: "Data & Network", slugs: ["data-security", "database-security", "encryption", "network-security", "api-security"] },
-  { heading: "Workloads & Code", slugs: ["cwpp", "agentless", "container-security", "vulnerability", "secops"] },
+  { heading: "Workloads & Code", slugs: ["cwpp", "agentless", "container-security", "vulnerability", "code-security", "ai-code-fix"] },
   { heading: "SaaS, AI & Governance", slugs: ["saas-security", "ai-security", "ai-assistant", "remediation", "compliance", "technology"] },
 ] as const;
 

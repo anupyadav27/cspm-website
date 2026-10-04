@@ -1,7 +1,7 @@
 import {
   ShieldCheck, Users, KeyRound, GitBranch, Activity, Crosshair, Network, Database,
   Cpu, Box, Bug, Terminal, TrendingUp, CheckSquare, Layers,
-  Radar, Blocks, Server, Webhook, HardDrive, Lock, Bot, Wrench, Boxes, ShieldHalf,
+  Radar, Blocks, Server, Webhook, HardDrive, Lock, Bot, Wrench, Boxes, ShieldHalf, Wand2,
 } from "lucide-react";
 import type { ProductPageData } from "@/components/site/ProductPageTemplate";
 
@@ -73,6 +73,7 @@ export const platformPages: Record<string, ProductPageData> = {
       { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
       { label: "Onam CSPM", href: "/platform/cspm" },
       { label: "Onam Vulnerability Management", href: "/platform/vulnerability" },
+      { label: "Onam AI Code Fix", href: "/platform/ai-code-fix" },
     ],
   },
   cspm: {
@@ -727,56 +728,64 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
   },
 
-  secops: {
-    demoClips: ["cdr", "dashboard"],
-    icon: Terminal,
-    iconColor: slate300,
-    label: "Code Security (SecOps)",
-    question: "Is the code your team ships today introducing vulnerabilities your cloud posture cannot catch?",
-    headline: "Cloud posture covers what's deployed. Code security covers what's about to be deployed.",
-    sub: "Onam SecOps brings SAST, DAST, SCA, and IaC scanning into the same platform as your cloud posture — so you see exactly where code vulnerabilities will land in your cloud and their blast radius before code ships.",
+  "ai-code-fix": {
+    demoClips: ["scan", "dashboard"],
+    icon: Wand2,
+    iconColor: emerald400,
+    label: "AI Code Fix",
+    question: "Who actually rewrites the code once the scanner has flagged it?",
+    headline: "The scanner says what is wrong. AI Code Fix writes the corrected file and hands it to you on a branch.",
+    sub: "AI Code Fix takes the findings from a completed code scan, rewrites each affected file with a language model, and commits the result to a separate branch for your team to review, test and merge.",
     painPoint:
-      "A pull request adds a new endpoint. It looks fine — until you notice the SQL query is string-concatenated, the dependency it pulls in has a critical CVE, and the Terraform module it introduces creates a security group open on 0.0.0.0/0. Three findings in three different tools that each catch one layer. By the time production shows the risk, the PR was merged an hour ago.",
+      "A code scan reports a hardcoded password on line 47 of a configuration file. The finding is correct, the rule explains the safe pattern, and the ticket still sits for weeks — because someone has to open the file, work out how this codebase reads its configuration, make the change without breaking the import next to it, and push it. Multiply that by every finding in the scan and the backlog is not a knowledge problem. It is a typing problem nobody has time for.",
     mechanism: [
-      "Onam integrates directly with GitHub, GitLab, Bitbucket, and Azure DevOps via read-only OAuth apps and scans code on every commit and pull request.",
-      "SAST runs 2,852 rules across 14 languages; DAST runs 479 active payloads; SCA analyses the full dependency graph; IaC scans Terraform, CloudFormation, Helm, and Kubernetes manifests.",
-      "Findings are joined to the cloud graph, so a SAST finding is boosted if the endpoint it affects is internet-exposed in production — and demoted if the code path is unreachable.",
-      "Fix suggestions are generated as ready-to-review code diffs; teams accept, tweak, or ignore with a comment.",
-      "CI/CD gates block deploys on critical findings by default, with per-repo policy overrides for teams that ship faster than remediation can keep up.",
+      "Fixing runs on demand against a completed code scan. You choose which severities to include, and findings your team has already marked as false positives are left out.",
+      "The engine makes a shallow clone of the scanned repository using a Git token passed with that request only. The token is never written to the database or the logs, and is removed from the clone's configuration after the push.",
+      "Findings are grouped by file. For each file, the language model receives the whole file, every finding in it, and the rule's guidance — what the issue is, how to fix it, and a safe example in the same language where the rule library has one. If a rule has no guidance on record, the scanner's own message is used instead.",
+      "The model is instructed to fix only the listed issues and to keep the rest of the file — indentation, names, imports and style — exactly as it was. It returns the complete corrected file, so several findings in one file are fixed in one coherent pass rather than as separate line edits.",
+      "Corrected files are written back only if they already exist inside the repository, then committed to a new fix branch and pushed. Nothing is merged and nothing is deployed: your normal pull-request review and CI run before any of it reaches your main branch.",
     ],
     whatYouGet: [
-      "SAST — 2,852 rules across 14 languages",
-      "DAST — 479 active test payloads (SQLi, XSS, SSRF, IDOR, auth bypass)",
-      "SCA — dependency graph with CVE + EPSS + KEV",
-      "IaC scanning — Terraform, CloudFormation, Helm, K8s manifests pre-deploy",
-      "SBOM generation — CycloneDX",
-      "Cloud context enrichment boosts internet-exposed findings",
-      "AI-powered fix suggestions — corrected code diff per SAST finding",
-      "CI/CD integration with blocking gates",
+      "Corrected files, not advice — the full rewritten file for each affected path",
+      "One pass per file — every finding in a file fixed together, with the surrounding code in view",
+      "Rule-guided fixes — the rule's recommendation and a language-matched safe example go to the model with each finding",
+      "A separate fix branch — your main branch is never written to",
+      "Per-finding status — fixed and committed, fix generated, failed or skipped, with the reason",
+      "Severity filter — fix the critical and high findings first and leave the rest for later",
+      "False positives respected — findings your team dismissed are not touched",
+      "Token handling — the Git token is used for one request and never stored or logged",
     ],
     faqs: [
       {
-        q: "How does Onam SecOps connect to my code repositories?",
-        a: "Read-only OAuth apps for GitHub, GitLab, Bitbucket, and Azure DevOps. No source code leaves your environment — analysis runs in a per-tenant sandbox and only findings and metadata are stored.",
+        q: "Does AI Code Fix merge or deploy anything?",
+        a: "No. It pushes a new branch and stops. It does not open or merge a pull request and does not trigger a deploy — a developer reviews the diff, runs the test suite and merges through your normal process.",
       },
       {
-        q: "What makes the AI fix suggestions different from Copilot or Snyk Code?",
-        a: "Onam's suggestions are grounded in the finding itself and in the runtime context — so a fix for an over-permissive IAM policy references the specific identity, the actual usage patterns, and the least-privilege alternative. Fixes ship as reviewable diffs, not black-box completions.",
+        q: "Which findings can it fix?",
+        a: "Findings from the code scan that point at a file and line in the repository, such as static-analysis findings. A finding without a file in the repository — for example a result from testing a running application — has nothing to rewrite, so it is skipped and shown as skipped.",
       },
       {
-        q: "What is a CycloneDX SBOM and why does it matter?",
-        a: "CycloneDX is the OWASP standard software bill of materials. It is what supply-chain regulations (EO 14028, EU CRA) increasingly require. Onam produces CycloneDX SBOMs per artifact so you can hand one to a customer, auditor, or regulator without ceremony.",
+        q: "Is my source code sent anywhere?",
+        a: "Yes, and it is worth knowing before you turn it on. To produce a fix, the full content of each affected file is sent to the hosted language model the engine uses. Only files that have findings are sent, and the repository clone is deleted when the run finishes.",
       },
       {
-        q: "Can Onam SecOps block a deployment if it finds a critical vulnerability?",
-        a: "Yes. CI/CD integrations expose a status check that fails on critical findings by default, with per-repo and per-branch overrides. Blocking can be limited to specific severities or specific rule categories so security gates coexist with velocity policy.",
+        q: "What access does it need to my repository?",
+        a: "A Git token that can read the repository and push a branch to it. The token travels in a request header for that run only; it is never part of the request body, never written to the database and never logged. Repository addresses must use HTTPS, and private network and cloud metadata addresses are refused.",
+      },
+      {
+        q: "Who can start a fix run?",
+        a: "Only users whose role allows them to start scans. Read-only roles cannot trigger it, and every request is written to an audit log with who asked, for which scan and which repository.",
+      },
+      {
+        q: "What if the generated fix is wrong?",
+        a: "Treat it as a proposed change from a fast colleague, not a verdict. The fix sits on its own branch, so a wrong fix costs a review comment and a deleted branch. The scan that runs after you merge confirms whether the finding actually closed.",
       },
     ],
     related: [
-      { label: "Vulnerability Management", href: "/platform/vulnerability" },
-      { label: "Container Security", href: "/platform/container-security" },
-      { label: "Attack Path Analysis", href: "/platform/attack-path" },
-      { label: "CSPM — Posture", href: "/platform/cspm" },
+      { label: "Onam Code Security", href: "/platform/code-security" },
+      { label: "Remediation & Auto-Fix", href: "/platform/remediation" },
+      { label: "AI Assistant", href: "/platform/ai-assistant" },
+      { label: "What is code security?", href: "/learn/code-security" },
     ],
   },
 
@@ -1174,7 +1183,7 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     related: [
       { label: "Network Security", href: "/platform/network-security" },
-      { label: "Code Security (SecOps)", href: "/platform/secops" },
+      { label: "Code Security", href: "/platform/code-security" },
       { label: "CDR — Detection & Response", href: "/platform/cdr" },
     ],
   },
@@ -1348,7 +1357,7 @@ export const platformPages: Record<string, ProductPageData> = {
     mechanism: [
       "Every finding carries a remediation record generated for that specific resource — not a generic knowledge-base article.",
       "Cloud misconfigurations produce an exact CLI command, a Terraform snippet matching your resource, or console steps.",
-      "Code and IaC findings from SAST, DAST and SCA are remediated by the code-fix engine, which proposes a patch and can open a pull request against the repository the finding came from.",
+      "Code findings with a file and line are handled by AI Code Fix, which rewrites the affected file and pushes the change to a separate fix branch in the repository the finding came from, for your team to review and merge.",
       "Vulnerability findings produce a version-targeted upgrade path, checked against the dependency graph so the suggested bump does not break a transitive constraint.",
       "A threat narrative generator explains the finding as an attack story — what an attacker gains, and what the fix removes — so prioritisation conversations are about impact rather than severity labels.",
     ],
@@ -1368,8 +1377,8 @@ export const platformPages: Record<string, ProductPageData> = {
         a: "Not without your explicit action. The platform connects with read-only credentials by default and generates remediation for you to review and apply. Automated application is opt-in, per finding type, and always leaves an audit trail.",
       },
       {
-        q: "How do pull requests work?",
-        a: "For code, IaC and dependency findings, the engine proposes a patch and opens a pull request against the source repository through your connected GitHub or GitLab integration. Your normal review and CI process applies — nothing merges itself.",
+        q: "How do code fixes reach my repository?",
+        a: "For code findings, AI Code Fix commits the corrected files to a separate fix branch and pushes it to the source repository; you open the pull request and your normal review and CI process applies. Nothing merges itself.",
       },
       {
         q: "What if a fix would break something?",
@@ -1382,7 +1391,7 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     related: [
       { label: "AI Assistant", href: "/platform/ai-assistant" },
-      { label: "Code Security (SecOps)", href: "/platform/secops" },
+      { label: "AI Code Fix", href: "/platform/ai-code-fix" },
       { label: "Vulnerability Management", href: "/platform/vulnerability" },
     ],
   },

@@ -1,16 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
-import { platformPages } from "@/data/platform-pages";
-import { seo } from "@/lib/seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const data = platformPages["secops"];
-
+/**
+ * 301 for the retired /platform/secops page.
+ *
+ * Until 2026-10 two pages described the same code-scanning capability:
+ * /platform/secops and /platform/code-security. They competed with each other in search
+ * and disagreed on detail. Finding issues in code now lives only at /platform/code-security;
+ * fixing them lives at /platform/ai-code-fix. The address is kept as a permanent redirect
+ * because nav, footer and external links pointed here.
+ */
 export const Route = createFileRoute("/platform/secops")({
-  head: () =>
-    seo({
-      title: `${data.label} — Onam Security`,
-      description: data.sub,
-      path: "/platform/secops",
-    }),
-  component: () => <ProductPageTemplate data={data} />,
+  beforeLoad: () => {
+    throw redirect({ to: "/platform/code-security", statusCode: 301 });
+  },
 });

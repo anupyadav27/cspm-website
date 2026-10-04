@@ -37,6 +37,7 @@ import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as PlatformIndexRouteImport } from './routes/platform/index'
 import { Route as PlatformAgentlessRouteImport } from './routes/platform/agentless'
 import { Route as PlatformAiAssistantRouteImport } from './routes/platform/ai-assistant'
+import { Route as PlatformAiCodeFixRouteImport } from './routes/platform/ai-code-fix'
 import { Route as PlatformAiSecurityRouteImport } from './routes/platform/ai-security'
 import { Route as PlatformApiSecurityRouteImport } from './routes/platform/api-security'
 import { Route as PlatformAttackPathRouteImport } from './routes/platform/attack-path'
@@ -219,6 +220,11 @@ const PlatformAgentlessRoute = PlatformAgentlessRouteImport.update({
 const PlatformAiAssistantRoute = PlatformAiAssistantRouteImport.update({
   id: '/platform/ai-assistant',
   path: '/platform/ai-assistant',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiCodeFixRoute = PlatformAiCodeFixRouteImport.update({
+  id: '/platform/ai-code-fix',
+  path: '/platform/ai-code-fix',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformAiSecurityRoute = PlatformAiSecurityRouteImport.update({
@@ -449,6 +455,7 @@ export interface FileRoutesByFullPath {
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
+  '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
   '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
@@ -518,6 +525,7 @@ export interface FileRoutesByTo {
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
+  '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
   '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
@@ -589,6 +597,7 @@ export interface FileRoutesById {
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
+  '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
   '/platform/ai-security': typeof PlatformAiSecurityRoute
   '/platform/api-security': typeof PlatformApiSecurityRoute
   '/platform/attack-path': typeof PlatformAttackPathRoute
@@ -661,6 +670,7 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
+    | '/platform/ai-code-fix'
     | '/platform/ai-security'
     | '/platform/api-security'
     | '/platform/attack-path'
@@ -730,6 +740,7 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
+    | '/platform/ai-code-fix'
     | '/platform/ai-security'
     | '/platform/api-security'
     | '/platform/attack-path'
@@ -800,6 +811,7 @@ export interface FileRouteTypes {
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
+    | '/platform/ai-code-fix'
     | '/platform/ai-security'
     | '/platform/api-security'
     | '/platform/attack-path'
@@ -870,6 +882,7 @@ export interface RootRouteChildren {
   LearnSlugRoute: typeof LearnSlugRoute
   PlatformAgentlessRoute: typeof PlatformAgentlessRoute
   PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
+  PlatformAiCodeFixRoute: typeof PlatformAiCodeFixRoute
   PlatformAiSecurityRoute: typeof PlatformAiSecurityRoute
   PlatformApiSecurityRoute: typeof PlatformApiSecurityRoute
   PlatformAttackPathRoute: typeof PlatformAttackPathRoute
@@ -1110,6 +1123,13 @@ declare module '@tanstack/react-router' {
       path: '/platform/ai-assistant'
       fullPath: '/platform/ai-assistant'
       preLoaderRoute: typeof PlatformAiAssistantRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-code-fix': {
+      id: '/platform/ai-code-fix'
+      path: '/platform/ai-code-fix'
+      fullPath: '/platform/ai-code-fix'
+      preLoaderRoute: typeof PlatformAiCodeFixRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/ai-security': {
@@ -1444,6 +1464,7 @@ const rootRouteChildren: RootRouteChildren = {
   LearnSlugRoute: LearnSlugRoute,
   PlatformAgentlessRoute: PlatformAgentlessRoute,
   PlatformAiAssistantRoute: PlatformAiAssistantRoute,
+  PlatformAiCodeFixRoute: PlatformAiCodeFixRoute,
   PlatformAiSecurityRoute: PlatformAiSecurityRoute,
   PlatformApiSecurityRoute: PlatformApiSecurityRoute,
   PlatformAttackPathRoute: PlatformAttackPathRoute,

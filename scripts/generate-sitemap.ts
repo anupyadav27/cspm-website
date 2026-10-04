@@ -154,8 +154,15 @@ function collectRouteFiles(dir: string): string[] {
  * the sitemap no more than a 404 does — the target is already listed. Left in, the
  * ".".replaceAll below also mangles them into "onam-vs-wiz[/]html".
  */
+/**
+ * Route files that only 301 to another page. Same reasoning as the "[.]" files above:
+ * a redirect does not belong in the sitemap, and its target is already listed.
+ */
+const REDIRECT_ONLY_ROUTES = new Set(["platform/secops.tsx"]);
+
 function fileToPath(rel: string): string | null {
   if (rel === "__root.tsx" || rel.includes("$") || rel.includes("[.]")) return null;
+  if (REDIRECT_ONLY_ROUTES.has(rel.replaceAll("\\", "/"))) return null;
   let p = rel.slice(0, -".tsx".length).replaceAll("\\", "/").replaceAll(".", "/");
   if (p === "index") return "/";
   if (p.endsWith("/index")) p = p.slice(0, -"/index".length);

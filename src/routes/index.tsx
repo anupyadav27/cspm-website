@@ -1373,7 +1373,7 @@ function PlatformPillars() {
     { icon: ScanLine, title: "Agentless Scanning", q: "How do we scan without agents?", metric: "Snapshot-based · zero install", to: "/platform/agentless", color: "#06B6D4" },
     { icon: Boxes, title: "Container Security", q: "Are our clusters and images safe?", metric: "EKS · ECS · image scanning", to: "/platform/container-security", color: "#3B82F6" },
     { icon: Bug, title: "Vulnerability Mgmt", q: "Which CVEs actually matter to us?", metric: "Contextual, not CVSS-only", to: "/platform/vulnerability", color: "#EA580C" },
-    { icon: Code2, title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/secops", color: "#0891B2" },
+    { icon: Code2, title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/code-security", color: "#0891B2" },
     { icon: Blocks, title: "SaaS Security (SSPM)", q: "Is M365 and Workspace locked down?", metric: "433 CIS SaaS rules", to: "/platform/saas-security", color: "#8B5CF6" },
     { icon: Bot, title: "AI Security", q: "Are Bedrock and SageMaker safe?", metric: "AI/ML risk detection", to: "/platform/ai-security", color: "#A855F7" },
     { icon: Sparkles, title: "AI Assistant", q: "Can I just ask what's exposed?", metric: "13 domain specialists", to: "/platform/ai-assistant", color: "#7C3AED" },
