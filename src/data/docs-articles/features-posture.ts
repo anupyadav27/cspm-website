@@ -843,12 +843,14 @@ The SBOM engine generates a complete Software Bill of Materials from a Git repos
 
 ## AI-powered fixes
 
-For SAST findings, the platform's Remediation engine generates a source-code fix — not just a description of the problem:
+For SAST findings, [AI Code Fix](/platform/ai-code-fix) rewrites the flagged source files — not just a description of the problem:
 
-1. **Context injection** — the engine receives the vulnerable snippet, the surrounding file context, the finding description, and the cloud context: is this code running in an internet-exposed function, and what IAM permissions does it hold?
-2. **Fix generation** — a corrected code diff is produced that addresses both the code vulnerability and any amplifying cloud context.
-3. **Confidence scoring** — each fix is rated High, Medium, or Low confidence based on similarity to known-good fix patterns.
-4. **PR integration** — fixes can be applied directly as pull request suggestions in GitHub, GitLab, and Bitbucket.
+1. **Grouping** — findings from a completed scan are grouped by file; you choose which severities to include, and findings marked as false positives are skipped.
+2. **Context** — a large language model receives the whole file, every finding in it, and the rule's recommendation and language-matched safe example.
+3. **Fix generation** — the model returns the full corrected file, fixing only the listed issues and keeping the rest of the code unchanged.
+4. **Fix branch** — corrected files are committed to a new fix branch and pushed for review. No pull request is merged and nothing is deployed automatically.
+
+AI Code Fix covers SAST findings in source files only; it does not write tests, produce IaC patches or fix DAST results.
 
 ## CI/CD integration
 

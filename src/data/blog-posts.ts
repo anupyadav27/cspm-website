@@ -533,20 +533,19 @@ A context-aware fix engine knows the answers because it has already discovered t
 
 ![AI-assisted remediation in the Onam platform](/diagrams/p-ai-security.svg)
 
-## SecOps Fix: cloud-aware code fixes for misconfigurations
+## AI Code Fix: corrected source files on a fix branch
 
-SecOps Fix generates remediation for cloud misconfigurations — the findings that come from CSPM posture evaluation. Each generated fix is context-aware in four dimensions.
+AI Code Fix works on the findings from a completed SAST scan of a repository — source files flagged by static analysis. It does not write tests, generate infrastructure-as-code patches or fix DAST results; those have no source file to rewrite.
 
-| Context | What the fix engine knows |
+| Step | What happens |
 | --- | --- |
-| IAM | The full effective permission set, what is actually used per CloudTrail, and the least-privilege replacement policy |
-| Network | Internet exposure, governing security groups, WAF presence, and the exact rule change to make |
-| IaC | Whether the resource is managed by Terraform, CloudFormation, CDK, or Pulumi — and the fix in that format |
-| Blast radius | Whether the resource is shared with other workloads and whether the change would break a dependency |
+| Select | You choose the scan and which severities to fix. Findings your team marked as false positives are left out. |
+| Group | Findings are grouped by file, so every issue in one file is fixed in a single pass. |
+| Ground | A large language model receives the whole file, every finding in it, and the rule's guidance — the recommendation and a safe example in the same language where one exists. |
+| Constrain | The model is told to fix only the listed issues and keep indentation, names and style unchanged. |
+| Hand over | Corrected files are committed to a new fix branch and pushed for review. Nothing merges and nothing deploys on its own. |
 
-For a "port 22 open to 0.0.0.0/0" finding, the fix generates the specific security group rule to remove and, if a VPN CIDR is detected in other rules, suggests the replacement rule scoped to that CIDR. For a CloudFormation-managed S3 bucket without versioning, it generates the CloudFormation properties diff; for a Terraform-managed bucket, the HCL stanza change. The fix can go directly into a pull request.
-
-If a proposed change would affect other workloads sharing the resource, the fix notes this and offers an alternative approach rather than shipping a change that breaks a dependency.
+For a hardcoded database password, the fix branch carries the same file with the literal replaced by an environment-variable lookup, and nothing else in the file changed. A developer reviews the diff, runs the tests and opens the pull request through the team's normal process.
 
 ## Vulnerability Fix: Ansible playbooks for CVE remediation
 
@@ -562,7 +561,7 @@ Onam's Vulnerability Fix engine generates Ansible playbooks that remediate CVEs 
 
 The generated playbook is idempotent — running it multiple times produces the same result. It is also scoped to minimum required privilege: it does not request root unless the package manager requires it, and it does not restart services unless the patch requires it.
 
-For container image vulnerabilities, the output is different: instead of an Ansible playbook, it generates a Dockerfile patch that updates the base image or specific package layer, and can open a pull request to the image repository with the change.
+For container workloads, the playbook also carries the equivalent Dockerfile line as a comment, so the fix can be built into the image. The playbooks are pushed to a fix branch for review.
 
 ## Threat Narratives: attack chain stories for CISOs and boards
 

@@ -735,13 +735,13 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "AI Code Fix",
     question: "Who actually rewrites the code once the scanner has flagged it?",
     headline: "The scanner says what is wrong. AI Code Fix writes the corrected file and hands it to you on a branch.",
-    sub: "AI Code Fix takes the findings from a completed code scan, rewrites each affected file with a language model, and commits the result to a separate branch for your team to review, test and merge.",
+    sub: "AI Code Fix takes the findings from a completed code scan, rewrites each affected source file with a large language model, and commits the result to a separate branch for your team to review, test and merge.",
     painPoint:
       "A code scan reports a hardcoded password on line 47 of a configuration file. The finding is correct, the rule explains the safe pattern, and the ticket still sits for weeks — because someone has to open the file, work out how this codebase reads its configuration, make the change without breaking the import next to it, and push it. Multiply that by every finding in the scan and the backlog is not a knowledge problem. It is a typing problem nobody has time for.",
     mechanism: [
       "Fixing runs on demand against a completed code scan. You choose which severities to include, and findings your team has already marked as false positives are left out.",
       "The engine makes a shallow clone of the scanned repository using a Git token passed with that request only. The token is never written to the database or the logs, and is removed from the clone's configuration after the push.",
-      "Findings are grouped by file. For each file, the language model receives the whole file, every finding in it, and the rule's guidance — what the issue is, how to fix it, and a safe example in the same language where the rule library has one. If a rule has no guidance on record, the scanner's own message is used instead.",
+      "Findings are grouped by file. For each file, a large language model receives the whole file, every finding in it, and the rule's guidance — what the issue is, how to fix it, and a safe example in the same language where the rule library has one. If a rule has no guidance on record, the scanner's own message is used instead.",
       "The model is instructed to fix only the listed issues and to keep the rest of the file — indentation, names, imports and style — exactly as it was. It returns the complete corrected file, so several findings in one file are fixed in one coherent pass rather than as separate line edits.",
       "Corrected files are written back only if they already exist inside the repository, then committed to a new fix branch and pushed. Nothing is merged and nothing is deployed: your normal pull-request review and CI run before any of it reaches your main branch.",
     ],
@@ -762,11 +762,11 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Which findings can it fix?",
-        a: "Findings from the code scan that point at a file and line in the repository, such as static-analysis findings. A finding without a file in the repository — for example a result from testing a running application — has nothing to rewrite, so it is skipped and shown as skipped.",
+        a: "Source files flagged by static analysis (SAST). It does not write tests, does not generate infrastructure-as-code patches and does not fix findings from testing a running application (DAST) — those have no source file to rewrite.",
       },
       {
         q: "Is my source code sent anywhere?",
-        a: "Yes, and it is worth knowing before you turn it on. To produce a fix, the full content of each affected file is sent to the hosted language model the engine uses. Only files that have findings are sent, and the repository clone is deleted when the run finishes.",
+        a: "Yes, and it is worth knowing before you turn it on. To produce a fix, the full content of each affected file is sent to a large language model. Only files that have findings are sent, and the repository clone is deleted when the run finishes.",
       },
       {
         q: "What access does it need to my repository?",
@@ -1357,7 +1357,7 @@ export const platformPages: Record<string, ProductPageData> = {
     mechanism: [
       "Every finding carries a remediation record generated for that specific resource — not a generic knowledge-base article.",
       "Cloud misconfigurations produce an exact CLI command, a Terraform snippet matching your resource, or console steps.",
-      "Code findings with a file and line are handled by AI Code Fix, which rewrites the affected file and pushes the change to a separate fix branch in the repository the finding came from, for your team to review and merge.",
+      "SAST findings in source code are handled by AI Code Fix, which rewrites the affected file and pushes the change to a separate fix branch in the repository the finding came from, for your team to review and merge.",
       "Vulnerability findings produce a version-targeted upgrade path, checked against the dependency graph so the suggested bump does not break a transitive constraint.",
       "A threat narrative generator explains the finding as an attack story — what an attacker gains, and what the fix removes — so prioritisation conversations are about impact rather than severity labels.",
     ],
@@ -1378,7 +1378,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "How do code fixes reach my repository?",
-        a: "For code findings, AI Code Fix commits the corrected files to a separate fix branch and pushes it to the source repository; you open the pull request and your normal review and CI process applies. Nothing merges itself.",
+        a: "For SAST findings in source code, AI Code Fix commits the corrected files to a separate fix branch and pushes it to the source repository; you open the pull request and your normal review and CI process applies. Nothing merges itself.",
       },
       {
         q: "What if a fix would break something?",
