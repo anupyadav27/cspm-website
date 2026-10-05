@@ -52,7 +52,8 @@ Check the deployment memory for the current image number; use the next vN.
 > addresses, "100% agentless" and unverified testimonials removed). Next is v60.
 > Cluster:
 > `deployment/cspm-docs-website` in `threat-engine-engines`, EKS
-> `onam-eks-cluster` (ap-south-1). **Build with `NITRO_PRESET=node-server`** — the
+> `onam-eks-cluster` (ap-south-1). **Build with `NITRO_PRESET=node-server`**. The deployment has a 10 s preStop
+> pause (added 2026-10-05) so rollouts serve no 502s — keep it if the deployment is recreated. The
 > default preset emits a Cloudflare worker bundle, not the node server the image runs.
 
 ```bash
