@@ -8,7 +8,7 @@ export const articles: DocArticle[] = [
     body: `
 Everything that shipped in the Onam platform, newest first. Each month covers new engines and features, changed behavior, fixes, deprecations, and anything that requires action on your side (almost nothing does — Onam is SaaS-deployed and upgrades are transparent).
 
-> **Release cadence:** monthly, published on the first business day of each month. **Changelog format:** New · Changed · Fixed · Deprecated · Breaking. For real-time deployment progress, see [status.onam.io](https://status.onam.io).
+> **Release cadence:** monthly, published on the first business day of each month. **Changelog format:** New · Changed · Fixed · Deprecated · Breaking.
 
 ![The Onam console dashboard after the July 2026 release (demo account)](/screenshots/screenshot-dashboard.png)
 
@@ -316,8 +316,8 @@ This month's release focused on three themes: **discovery catalog completeness**
 **New**
 
 - **Commercial subscription management** — full subscription lifecycle (create, upgrade, downgrade, cancel, refund) with audit trail
-- **Payment integration** — secure tokenized payment processing with PCI DSS-compliant handling
-- **Audit trail** — every billing action is recorded in the audit log per SOC 2 requirements and is available for export
+- **Payment integration** — tokenized payment processing through the payment provider
+- **Audit trail** — every billing action is recorded in the audit log and is available for export
 
 ### API, integrations, and platform fixes
 
@@ -359,7 +359,7 @@ As published in May; most of these shipped in the June and July releases above.
 | Onam CLI scanner | SecOps | Planned |
 | Trust Center automation | Platform | In development |
 
-> Published 2026-05-09. For questions about a specific change, contact support@onam.io; to report a regression, open a support ticket from your account dashboard.
+> Published 2026-05-09. For questions about a specific change, contact hello@onamsecurity.com; to report a regression, open a support ticket from your account dashboard.
 
 ---
 

@@ -214,7 +214,7 @@ Onam evaluates **157 AWS services** against **2,278 posture rules**, plus 530 id
 | **Security & Identity** | IAM Users / Roles / Policies · KMS Keys · Secrets Manager · Certificate Manager · GuardDuty · Security Hub · CloudTrail · Config · Inspector |
 | **AI / ML** | SageMaker · Bedrock · Comprehend · Rekognition · Textract |
 
-Don't see a service you need? Email support@onam.io — most additions ship within 4 weeks.
+Don't see a service you need? Email hello@onamsecurity.com — most additions ship within 4 weeks.
 
 The same role also powers behavioral threat detection: Onam's [CDR engine](/docs/features/cdr) ingests CloudTrail activity (via CloudWatch Logs and S3) and runs single-event rules, multi-event correlation scenarios, and statistical behavior baselines over it.
 
@@ -686,7 +686,7 @@ gcloud iam service-accounts add-iam-policy-binding $SA_EMAIL \\
   --member="principalSet://iam.googleapis.com/projects/PROJECT_NUMBER/locations/global/workloadIdentityPools/cspm-pool/*"
 \`\`\`
 
-Contact support@onam.io to enable Workload Identity Federation for your Onam tenant.
+Contact hello@onamsecurity.com to enable Workload Identity Federation for your Onam tenant.
 
 ## What gets scanned
 
@@ -1144,7 +1144,7 @@ aliyun ram CreateRole \\
   }'
 \`\`\`
 
-Contact support@onam.io to configure multi-account Resource Directory scanning for your tenant.
+Contact hello@onamsecurity.com to configure multi-account Resource Directory scanning for your tenant.
 
 ## What gets scanned
 

@@ -865,7 +865,7 @@ Real attack paths cross boundaries: an exposed GCP service account key that can 
 
 Deployment friction predicts coverage: if connecting an account takes a change-management ticket, half your estate never gets connected. Ask for the exact onboarding steps and the time from connection to first critical finding.
 
-**Onam's answer:** 100% agentless. A read-only IAM role, service principal, or service account connects a cloud in under 3 minutes; we store only a role ARN, never long-lived credentials. First critical alert typically surfaces in under 5 minutes.
+**Onam's answer:** no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template run in your own account, so every permission is readable first. For AWS we store no secret — Onam assumes your role; where a cloud needs a stored credential, it is kept in AWS Secrets Manager, encrypted with AWS KMS. First critical alert typically surfaces in under 5 minutes.
 
 ### 4. How does it prioritise — severity labels or business impact?
 
@@ -897,7 +897,7 @@ Fixing a misconfiguration in the console while the Terraform that created it sta
 | --- | --- | --- |
 | Cloud coverage | Which clouds are first-class? Demo OCI/Alibaba/IBM. | All 7 clouds, same engine depth everywhere |
 | Cross-cloud analysis | One graph or per-cloud silos? | Single graph, cross-cloud attack paths |
-| Deployment | Agents? Time to first finding? | 100% agentless, < 3 min connect, < 5 min first alert |
+| Deployment | Agents? Time to first finding? | No host agents; read-only posture roles, workload scanning in your account; < 5 min first alert |
 | Prioritisation | How is "what's first" decided? | FAIR-model dollar-risk ranking |
 | Toxic combinations | Cross-engine correlation, live demo | Automated across every layer |
 | Compliance | Continuous or point-in-time evidence? | 78 frameworks, continuous, one-click export |

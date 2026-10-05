@@ -1,7 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Download, FileText, GitBranch, Coins, Layers, ShieldCheck, ClipboardCheck } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  FileText,
+  GitBranch,
+  Coins,
+  Layers,
+  ClipboardCheck,
+} from "lucide-react";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/whitepapers")({
@@ -9,7 +17,7 @@ export const Route = createFileRoute("/whitepapers")({
     seo({
       title: "Technical Whitepapers — Onam Security",
       description:
-        "Cloud security whitepapers on attack-path analysis, FAIR risk quantification, single-graph architecture, the trust model and 78-framework compliance.",
+        "Cloud security whitepapers on attack-path analysis, FAIR risk quantification, single-graph architecture and 78-framework compliance.",
       path: "/whitepapers",
     }),
   component: Page,
@@ -82,23 +90,6 @@ const papers: Paper[] = [
   },
   {
     n: "04",
-    title: "Security & trust",
-    pill: "Trust model",
-    desc: "How Onam connects, what it stores, what it never stores, and how tenants stay isolated — the trust case for a read-only platform.",
-    points: [
-      "Read-only, agentless connection model and the permissions it asks for",
-      "What is stored, what is never stored, and where",
-      "Tenant isolation and the boundaries between them",
-    ],
-    limit:
-      "Read-only scanning cannot see what happens inside a running process. It is a posture and path view, not a runtime agent.",
-    slug: "wp4-security-trust",
-    Icon: ShieldCheck,
-    color: "#059669",
-    bg: "#ECFDF5",
-  },
-  {
-    n: "05",
     title: "Compliance, mapped once",
     pill: "78 frameworks",
     desc: "How Onam evaluates a control once and reports it against 78 frameworks — and connects every gap to a priced attack path.",
@@ -128,15 +119,19 @@ function Page() {
           Technical whitepapers
         </h1>
         <p className="mt-4 max-w-[720px] text-[17px] leading-relaxed text-[#475569]">
-          Five papers on how the platform actually works — the attack-path method, how a path gets
-          priced, why everything writes into one graph, what we store and never store, and how one
-          control evaluation reports against 78 frameworks. Written for engineers and architects who
-          want the mechanism, not the pitch.
+          Four papers on how the platform actually works — the attack-path method, how a path gets
+          priced, why everything writes into one graph, and how one control evaluation reports
+          against 78 frameworks. Written for engineers and architects who want the mechanism, not
+          the pitch.
         </p>
         <div className="mt-7">
-          <BrandButton href="/whitepapers/Onam-Whitepaper-Library.pdf" variant="secondary" size="lg">
+          <BrandButton
+            href="/whitepapers/Onam-Whitepaper-Library.pdf"
+            variant="secondary"
+            size="lg"
+          >
             <Download className="h-4 w-4" />
-            All five as one PDF
+            All four as one PDF
           </BrandButton>
         </div>
       </section>

@@ -87,11 +87,10 @@ const LIBRARY: { title: string; items: { label: string; href: string; internal?:
   {
     title: "Technical whitepapers",
     items: [
-      { label: "The full library (all five)", href: "/whitepapers/Onam-Whitepaper-Library.pdf" },
+      { label: "The full library (all four)", href: "/whitepapers/Onam-Whitepaper-Library.pdf" },
       { label: "How Onam finds the attack path", href: "/whitepapers/wp1-attack-path-methodology.pdf" },
       { label: "Cloud risk in dollars (FAIR)", href: "/whitepapers/wp2-risk-quantification.pdf" },
       { label: "One graph, one data model", href: "/whitepapers/wp3-architecture.pdf" },
-      { label: "Security & trust", href: "/whitepapers/wp4-security-trust.pdf" },
       { label: "Compliance, mapped once", href: "/whitepapers/wp5-compliance.pdf" },
     ],
   },

@@ -72,7 +72,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "Is Onam agentless, and how long does deployment take?",
-    a: "Yes — 100% agentless. You connect a cloud in under 3 minutes with a read-only IAM role, service principal, or service account. No agents, no code changes, and Onam stores only a role ARN — never long-lived credentials.",
+    a: "Yes — no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template you run in your own account, so you can read every permission first. For AWS, Onam assumes your role and stores no secret; where a cloud needs a stored credential (for example OCI or Alibaba Cloud), it is kept in AWS Secrets Manager, encrypted with AWS KMS.",
   },
   {
     q: "Which compliance frameworks does Onam cover?",
@@ -94,7 +94,7 @@ const HOME_JSONLD = [
     operatingSystem: "Cloud (SaaS)",
     url: SITE_URL,
     description:
-      "Unified cloud security platform: CSPM, CIEM, attack path analysis, threat detection, data security, and compliance across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes. 100% agentless.",
+      "Unified cloud security platform: CSPM, CIEM, attack path analysis, threat detection, data security, and compliance across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
     featureList: [
       "CSPM — 9,853 posture rules evaluated continuously",
       "CIEM — 30-day behavioral identity risk analysis",
@@ -364,7 +364,7 @@ function OutcomeStrip() {
     { value: fmt(RULE_CATALOG_TOTAL), label: "security rules" },
     { value: fmt(SERVICES), label: "cloud services covered" },
     { value: String(CLOUDS), label: "clouds, one graph" },
-    { value: "100%", label: "agentless — no deployment" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ];
   return (
     <section className="bg-[#F8FAFC] border-y border-[#E5E9F0]">
@@ -483,7 +483,7 @@ function ProductBand() {
 function HowItWorks() {
   const steps = [
     { icon: Lock, title: "Connect your cloud — takes 3 minutes",
-      body: "Give Onam read-only access via an IAM role, service principal, or service account. No agents, no code changes. Stores only a role ARN — no long-lived credentials, ever." },
+      body: "Connect with a template you run in your own account. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. No agents, no code changes." },
     { icon: Search, title: "We scan everything — including what you forgot about",
       body: `Enumerates every resource across ${fmt(SERVICES)} cloud services, checks each against ${fmt(RULE_CATALOG_TOTAL)} rules across every security layer.` },
     { icon: FileCheck, title: "You get a prioritised list, not a wall of alerts",
@@ -1607,10 +1607,19 @@ function Differentiator() {
 /* ============================ TRUST BAR ============================ */
 function TrustBar() {
   const items = [
-    { icon: <CheckCircle2 className="w-4 h-4 text-[#05A052]" />, label: "SOC 2 Type II certified" },
-    { icon: <CheckCircle2 className="w-4 h-4 text-[#2563EB]" />, label: "ISO 27001" },
-    { icon: <FileCheck className="w-4 h-4 text-[#05A052]" />, label: "78 frameworks covered" },
-    { icon: <Lock className="w-4 h-4 text-[#2563EB]" />, label: "Read-only access" },
+    {
+      icon: <CheckCircle2 className="w-4 h-4 text-[#05A052]" />,
+      label: `${CLOUDS} clouds supported`,
+    },
+    {
+      icon: <FileCheck className="w-4 h-4 text-[#05A052]" />,
+      label: `${FRAMEWORKS} frameworks covered`,
+    },
+    { icon: <Lock className="w-4 h-4 text-[#2563EB]" />, label: "Read-only posture scanning" },
+    {
+      icon: <CheckCircle2 className="w-4 h-4 text-[#2563EB]" />,
+      label: "Agentless workload scanning in your account",
+    },
     { icon: <ScanLine className="w-4 h-4 text-[#64748B]" />, label: "Delete access anytime" },
   ];
   return (
@@ -1650,9 +1659,7 @@ function FinalCTA() {
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#64748B]">
             <span>No credit card required</span>
             <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-            <span>Read-only IAM role</span>
-            <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
-            <span>SOC 2 Type II certified</span>
+            <span>Read-only posture scanning</span>
             <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
             <span>Delete access anytime</span>
           </div>

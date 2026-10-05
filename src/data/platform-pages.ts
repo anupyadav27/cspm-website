@@ -112,7 +112,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Does connecting my cloud account require write access?",
-        a: "No. Onam uses read-only IAM roles, service principals, or service accounts. We never modify your environment; the platform stores only a role ARN — no long-lived keys.",
+        a: "Not for posture scanning, which connects through read-only cloud roles. Agentless workload scanning, if you enable it, runs inside your account through resources the onboarding template creates. For AWS, Onam assumes your role and stores no secret; where a cloud needs a stored credential, it is kept in AWS Secrets Manager, encrypted with AWS KMS.",
       },
       {
         q: "How quickly do findings appear after I connect an account?",

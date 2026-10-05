@@ -25,7 +25,7 @@ const STRUCTURED_DATA = [
     url: SITE_URL,
     logo: `${SITE_URL}/logo-512.png`,
     description:
-      "Unified cloud security platform: CSPM, CIEM, attack paths, threat detection, and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, and Kubernetes. 100% agentless.",
+      "Unified cloud security platform: CSPM, CIEM, attack paths, threat detection, and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, and Kubernetes. Read-only posture scanning; agentless workload scanning in your account.",
     slogan: "One graph. Every cloud. Complete security picture.",
     knowsAbout: [
       "Cloud Security Posture Management (CSPM)",

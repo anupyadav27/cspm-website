@@ -163,7 +163,7 @@ Estate is a **per-organisation add-on**, granted individually. It is not part of
 
 ## Permissions
 
-Discovery uses the same **read-only** cloud credentials as the rest of the platform — a read-only IAM role, service principal, or service account. Estate installs nothing on a workload, holds no long-lived keys, and never writes to your environment.
+Discovery uses the same read-only posture-scanning access as the rest of the platform — a read-only IAM role, service principal, or service account. Discovery installs nothing on a workload and never writes to your environment.
 `,
   },
 
