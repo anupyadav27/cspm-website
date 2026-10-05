@@ -589,319 +589,121 @@ Where a stored credential is needed, in AWS Secrets Manager, encrypted with AWS 
     title: "Compliance Framework Coverage",
     breadcrumb: "Compliance / Frameworks",
     body: `
-The Onam platform automatically maps every security finding to the compliance frameworks you care about — **78 frameworks supported out of the box**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4, HIPAA/HITRUST, ISO 27001:2022, SOC 2, GDPR, NIS2, DORA, the EU AI Act, FedRAMP, and CMMC 2.0. One finding can satisfy controls in many frameworks at once. This page covers how the mapping works, how per-control scores are calculated, what each major framework checks, and how to export an audit-ready report.
+The Onam platform maps security findings to the compliance frameworks you care about — **78 frameworks**, including CIS benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP and RBI. One finding can count against controls in many frameworks at once. This page covers how the mapping works, how controls and frameworks are scored, which frameworks are included, and how to export a report.
 
 ![The Compliance view in the Onam console (demo account)](/screenshots/screenshot-compliance.png)
 
-Instead of running a separate compliance scan for each framework, the platform evaluates **every applicable rule once** and projects the results into the framework views you need. A single failing finding on "S3 public access blocked" is reflected against PCI, HIPAA, ISO, NIST, SOC 2, and CIS simultaneously — **one fix, multiple compliance gains**.
+Instead of running a separate compliance scan for each framework, the platform evaluates **every applicable rule once** and projects the results into the framework views you need. A failing check on "S3 public access blocked" is reflected in every framework that maps a control to it — **one fix, several compliance gains**.
 
 ---
 
 ## How compliance mapping works
 
-A single platform rule can satisfy controls in many frameworks at the same time. When a resource passes or fails a rule, that result updates every framework mapped to it — automatically, on every scan. There is no separate "PCI scan" or "HIPAA scan" to schedule.
+A single platform rule can evidence controls in many frameworks at the same time. When a resource passes or fails a rule, that result updates every framework mapped to it, on every compliance run. There is no separate "PCI scan" or "HIPAA scan" to schedule.
 
 ![How compliance scoring works — rules map to controls, controls roll up to frameworks](/diagrams/compliance-framework.svg)
 
 **The three-layer model:**
 
-1. **Rules** — each of the **10,000+ rules** is a YAML file with a clear assertion (e.g. "S3 buckets must block public access"), versioned in the catalog.
-2. **Controls** — every framework has its own control catalog (CIS controls, NIST control families, PCI requirements). The platform maintains a many-to-many rule-to-control mapping in \`policy_to_frameworks\`.
-3. **Frameworks** — a framework is a curated bundle of controls. Selecting "PCI-DSS v4.0" filters results to the rules mapped to PCI-DSS controls.
+1. **Rules** — each rule is a YAML definition with a clear assertion (e.g. "S3 buckets must block public access"), versioned in the catalog.
+2. **Controls** — every framework has its own control catalog (CIS sections, NIST control families, PCI requirements). The platform maintains a many-to-many rule-to-control mapping.
+3. **Frameworks** — a framework is a set of controls. Selecting a framework filters results to the rules mapped to its controls.
 
-Every new rule added to the catalog automatically extends coverage for every framework that includes the underlying control — frameworks are never updated one at a time.
-
-**The multiplier effect, worked example** — the rule "S3 bucket public access not blocked":
-
-| Framework | Control | What the control says |
-| --- | --- | --- |
-| CIS AWS v3.0 | 2.1.5 | Ensure S3 buckets are configured with Block Public Access |
-| NIST CSF 2.0 | PR.DS-1 · PR.AA-5 | Data-at-rest is protected; access permissions are defined |
-| NIST 800-53 Rev 5 | AC-3 · SC-7 | Access Enforcement; Boundary Protection |
-| PCI-DSS v4.0 | Req 1.3 · Req 3.4 | Restrict traffic; render account data unreadable in storage |
-| HIPAA | §164.312(a) · §164.312(e) | Access Control; Transmission Security |
-| ISO 27001:2022 | A.8.3 · A.8.20 | Information access restriction; network controls |
-| SOC 2 | CC6.1 · CC6.6 | Logical access security architecture |
-| GDPR | Art. 25 · Art. 32 | Data protection by design; security of processing |
-
-**One finding, eight framework citations.** Fixing the bucket once closes the audit gap across every framework above.
+Findings come from four sources: posture checks, threat detection, vulnerabilities, and technology checks.
 
 ---
 
 ## Scoring methodology
 
-Framework scores are deterministic — no machine learning, no fuzzy logic. You can audit the math, and so can your auditor.
+Framework scores are deterministic — no machine learning, no fuzzy logic. You can follow the math, and so can your auditor.
 
 ![Framework scoring — evaluate rules per resource, roll up per control, produce score and threshold status](/diagrams/compl-scoring-flow.svg)
 
-**Scoring is per-control first.** Each control's score is computed from the rule × resource evaluations mapped to it; controls roll up to categories, and categories to the framework score:
-
 | Step | What is computed |
 | --- | --- |
-| 1. Evaluate | Every rule mapped to the framework runs against every in-scope resource. A typical PCI-DSS run produces hundreds of thousands of pass/fail decisions. |
-| 2. Per-control score | For each control: \`PASS ÷ (PASS + FAIL) × 100\` across its mapped evaluations |
-| 3. Category roll-up | Controls aggregate to their framework category (CIS section, NIST family, PCI requirement) |
-| 4. Framework score | The overall score, 0–100, with a status badge |
+| 1. Evaluate | Every rule mapped to the framework runs against every in-scope resource |
+| 2. Assess each control | Pass and fail counts across the rules mapped to the control give its status |
+| 3. Framework score | Control results roll up into a 0–100% score for the framework |
+| 4. Trend | Each score is kept, so you can show the trend for any framework |
 
-Each evaluation lands in one of three outcomes:
+Each control lands in one of five statuses:
 
-| Outcome | Meaning | Effect on score |
-| --- | --- | --- |
-| **PASS** | The resource satisfies the rule | Counts toward the numerator |
-| **FAIL** | The resource violates the rule; a severity-graded finding is generated | Counts toward the denominator |
-| **NOT APPLICABLE** | The rule does not apply to this resource type or context (e.g. physical-access requirements in cloud) | Excluded from scoring |
-
-The framework score maps to a three-tier badge: **Compliant** (80% or above), **Partially Compliant** (60–79%), **Non-Compliant** (below 60%). Scores are recalculated after every scan, and historical scores are retained — you can show your auditor a 12-month trend line for any framework.
+| Status | Meaning |
+| --- | --- |
+| **Pass** | Every evaluated resource passed the mapped rules |
+| **Fail** | Every evaluated resource failed |
+| **Partial** | Some resources passed and some failed |
+| **Manual review** | The control is a process or documentation control that needs a person to review it |
+| **Not applicable** | No resources were evaluated against the control |
 
 ![Compliance platform view — framework scores, control coverage, and posture trend](/diagrams/p-compliance.svg)
 
-> Two nuances auditors ask about. **Suppressions are auditable:** a suppressed finding (with documented justification) is excluded from the score but tracked in a suppression log that exports with every report. **Severity does not weight the score:** a failing Critical and a failing Low each count as one failed evaluation — severity drives prioritization in the findings queue, not the compliance math.
+> **Exceptions are auditable.** An exception or compensating control is recorded with a justification, an approver and a target date, stays visible in compliance views, and is flagged as its expiry nears.
 
 ---
 
 ## Supported frameworks
 
-The platform ships **78 frameworks**, spanning global standards, regional regulation, and sector-specific mandates. Coverage parity is high across clouds — most frameworks evaluate the same way against AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes.
-
-![Compliance framework coverage across categories and clouds](/diagrams/compliance-frameworks.svg)
-
-A representative selection, grouped by region and type:
+The platform ships **78 frameworks**:
 
 | Group | Frameworks |
 | --- | --- |
-| **Global standards** | CIS Benchmarks (AWS, Azure, GCP — multiple versions) · ISO 27001:2022 · ISO 27002 · ISO 27017 · SOC 2 Type II · CSA CCM v4 |
-| **US federal & defense** | NIST CSF 2.0 · NIST 800-53 Rev 4 & Rev 5 · NIST 800-171 · FedRAMP Moderate & High · CMMC 2.0 Level 2 & Level 3 |
-| **US sector** | HIPAA · HITRUST CSF v11.3 · SOX IT controls · NYDFS |
-| **EU & UK** | GDPR · NIS2 · DORA · EU AI Act · UK NCSC CAF · Cyber Essentials |
-| **Financial services** | PCI-DSS v4.0 & v4.0.1 · SWIFT CSCF · DORA · SOX |
-| **APAC & Americas** | RBI ITF (India) · APRA CPS 234 (Australia) · MAS TRM (Singapore) · LGPD (Brazil) · CCPA (California) |
+| **CIS — clouds** | CIS AWS (including versions 4.0.1, 5.0.0 and 6.0.0, plus compute, database, storage, EKS and end-user compute benchmarks) · CIS Azure (including compute, database, storage and AKS) · CIS GCP (including GKE, GKE Autopilot and Container-Optimized OS) · CIS OCI (including OKE) · CIS Alibaba Cloud (including ACK) · CIS IBM Cloud · CIS Kubernetes |
+| **CIS — technologies** | Operating systems (Ubuntu, Debian, RHEL, CentOS, SUSE, VMware ESXi) · databases (PostgreSQL, MySQL, MariaDB, Microsoft SQL Server, Oracle Database, IBM Db2, MongoDB, Cassandra, Snowflake) · web and app servers (NGINX, Apache HTTP Server, Apache Tomcat, IIS, WebSphere) · network devices (Cisco ASA, Cisco Firewall, Cisco IOS XE, IOS XR, NX-OS, Palo Alto, FortiGate, Check Point) · containers and platforms (Docker, OpenShift) · SaaS (Microsoft 365, SharePoint, Dynamics 365, Google Workspace, GitLab) |
+| **US federal** | NIST 800-53 · NIST 800-171 · FedRAMP Moderate · FedRAMP High · CISA CE |
+| **Standards and regulations** | ISO 27001:2022 · SOC 2 · PCI DSS · HIPAA · GDPR |
+| **Regional** | RBI (banks) · RBI (NBFCs) · Canada PBMM |
 
-**New framework requests** are welcomed — most additions complete within 8 weeks. Email hello@onamsecurity.com with the framework name, version, and business justification.
-
-### Coverage by cloud provider
-
-| Framework | AWS | Azure | GCP | OCI | AliCloud | IBM | K8s |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| CIS Foundations | Full | Full | Full | Full | Full | Full | — |
-| CIS Kubernetes | — | — | — | — | — | — | Full |
-| NIST CSF 2.0 | Full | Full | Full | Full | Full | Full | Full |
-| NIST 800-53 Rev 5 | Full | Full | Full | Partial | Partial | Partial | Partial |
-| PCI-DSS v4 | Full | Full | Full | Full | Full | Full | Full |
-| HIPAA / HITRUST | Full | Full | Full | Partial | Partial | Partial | — |
-| ISO 27001:2022 | Full | Full | Full | Full | Full | Full | Full |
-| GDPR | Full | Full | Full | Full | Full | Full | — |
-| SOC 2 Type II | Full | Full | Full | Partial | Partial | Partial | Partial |
-| FedRAMP | Full | Full | Full | — | — | — | — |
-| DORA | Full | Full | Full | Full | Full | Full | Full |
-| CSA CCM v4 | Full | Full | Full | Full | Full | Full | Full |
-
-**Partial doesn't mean weak.** It means the framework's full breadth includes controls not yet automated on that cloud — typically because the provider's own service catalog is narrower. The covered controls are the ones that move audit outcomes.
-
----
-
-## Framework details
-
-### CIS Benchmarks
-
-The Center for Internet Security publishes the most widely adopted configuration benchmarks for cloud platforms. The platform evaluates every applicable control automatically — no manual configuration required.
-
-| Benchmark | Version | Target | Controls |
-| --- | --- | --- | --- |
-| CIS AWS Foundations | v3.0 | AWS | 58 controls |
-| CIS Azure Foundations | v2.0 | Azure | 85 controls |
-| CIS GCP Foundations | v2.0 | GCP | 73 controls |
-| CIS OCI Foundations | v1.2 | OCI | 47 controls |
-| CIS Kubernetes | v1.8 | Any K8s cluster | 112 controls |
-| CIS Docker | v1.6 | Container hosts | 28 controls |
-
-CIS publishes new versions roughly every 12–18 months. When a new version ships, the platform adds it as a new framework option without removing the old one, so you migrate when ready — multiple versions can be active simultaneously.
-
-### NIST CSF 2.0
-
-The NIST Cybersecurity Framework 2.0 (February 2024) organizes controls into six functions, adding GOVERN alongside the original five. Platform rules are tagged to one or more functions; a failing rule pulls down the corresponding function score.
-
-| Function | Code | What it covers |
-| --- | --- | --- |
-| GOVERN | GV | Security policy, roles, risk strategy, supply-chain risk |
-| IDENTIFY | ID | Asset inventory, risk assessment, vulnerability identification |
-| PROTECT | PR | IAM, data security, configuration hardening, secure SDLC |
-| DETECT | DE | Logging, monitoring, anomaly detection, audit trails |
-| RESPOND | RS | Incident-response readiness, communication plans |
-| RECOVER | RC | Backup, resilience, continuity, disaster recovery |
-
-Coverage is deepest in PROTECT — most cloud configuration findings (encryption, IAM, network) live there, which is normal for a posture platform. For RESPOND and RECOVER, the platform validates the technical preconditions: backups exist, logs are enabled, alerts route somewhere.
-
-### NIST SP 800-53 (Rev 4 and Rev 5)
-
-The federal control catalog — 20 families, roughly 1,000 controls — and the foundation FedRAMP builds on. Both Rev 4 and Rev 5 are supported. The platform maps to the 12 most cloud-relevant families:
-
-| Control family | Code | Example checks |
-| --- | --- | --- |
-| Access Control | AC | Least privilege, separation of duties, account inactivity |
-| Audit and Accountability | AU | Audit-log content, retention, log review |
-| Configuration Management | CM | Baseline configurations, drift detection |
-| Contingency Planning | CP | Backup integrity, alternate-site readiness |
-| Identification and Authentication | IA | MFA, password policies, key rotation |
-| Incident Response | IR | IR-plan validation, log forwarding to SIEM |
-| Maintenance | MA | Maintenance access controls |
-| Media Protection | MP | Storage encryption (cloud-applicable subset) |
-| Personnel Security | PS | Account termination on offboarding |
-| Risk Assessment | RA | Vulnerability scanning, risk-based scoring |
-| System & Comm Protection | SC | Encryption in transit, segmentation, key management |
-| System & Info Integrity | SI | Patch currency, malware protection |
-
-The eight remaining families (PE, AT, CA, PL, PM, PT, SA, SR) include controls that cannot be evaluated from cloud configuration alone — they need process, documentation, or external evidence. The platform marks these "not in scope for automated evaluation" rather than failing them silently. **NIST 800-171** and **CMMC 2.0 (Level 2 and Level 3)** are supported as their own frameworks for CUI-handling and defense-industrial-base customers.
-
-### PCI-DSS v4.0 / v4.0.1
-
-Required for any organization that stores, processes, or transmits cardholder data. The platform automates everything except Requirement 9 (physical access), which is inherited from your cloud provider.
-
-| Pillar | Requirements | What the platform checks | Status |
-| --- | --- | --- | --- |
-| Build & maintain a secure network | Req 1–2 | VPC isolation, security-group rules, NACLs, secure baselines | Automated |
-| Protect account data | Req 3–4 | Encryption at rest (KMS), TLS 1.2+ in transit, key rotation | Automated |
-| Vulnerability management program | Req 5–6 | Anti-malware, secure SDLC, IaC scanning, dependency CVEs | Automated |
-| Strong access control | Req 7–8 | IAM least privilege, MFA, session policies, federation | Automated |
-| Restrict physical access | Req 9 | Data-center physical security | Inherited from your cloud provider's AOC |
-| Monitor and test networks | Req 10–11 | CloudTrail / Activity Logs / Audit Logs, WAF, IDS readiness | Automated |
-| Information security policy | Req 12 | Config drift, baseline deviation, suppression governance | Automated |
-
-The Req-9 gap is healthy: AWS, Azure, and GCP are independently audited for physical security and publish their own PCI Attestation of Compliance, which you inherit.
-
-### HIPAA and HITRUST CSF v11.3
-
-The platform automates the HIPAA Security Rule technical safeguards (§164.312) and evidences the administrative safeguards (§164.308) that have a technical footprint:
-
-| Safeguard | Key areas |
-| --- | --- |
-| Technical — Access Control (§164.312a) | IAM, MFA enforcement, least privilege |
-| Technical — Audit Controls (§164.312b) | CloudTrail, database audit logs, log retention |
-| Technical — Integrity (§164.312c) | Encryption integrity, tamper detection, immutable logs |
-| Technical — Transmission Security (§164.312e) | TLS 1.2+ enforcement, in-transit encryption |
-| Administrative — Risk Analysis (§164.308a1) | Vulnerability scanning cadence, risk scoring |
-| Administrative — Access Management (§164.308a4) | Access reviews, provisioning workflows, dormancy |
-
-Physical safeguards (§164.310) are inherited from your cloud provider's HIPAA-eligible BAA. **HITRUST CSF v11.3** is supported as a separate framework for organizations certifying against HITRUST.
-
-### ISO 27001:2022 family
-
-ISO 27001:2022 reorganized the control set into 93 controls across four Annex A domains. The platform also maps **ISO 27002** (implementation guidance) and **ISO 27017** (cloud-specific controls).
-
-| Annex A domain | Controls | Coverage character |
-| --- | --- | --- |
-| A.5 — Organizational | 37 | Partially evidenced via configuration (policies, supplier governance) |
-| A.6 — People | 8 | Limited platform evidence (account dormancy, offboarding) |
-| A.7 — Physical | 14 | Mostly inherited from your cloud provider |
-| A.8 — Technological | 34 | Primary coverage — encryption, network, IAM, vulnerability, secure SDLC |
-
-All 11 controls new in the 2022 revision are mapped, including A.5.7 (Threat Intelligence), A.5.23 (Cloud services security), A.8.9 (Configuration management), A.8.16 (Monitoring activities), and A.8.28 (Secure coding).
-
-### GDPR and privacy regulation
-
-GDPR is a regulatory framework, not a technical checklist. The platform maps technical controls to the articles with a direct technical implementation requirement:
-
-| Article | Description | Technical controls mapped |
-| --- | --- | --- |
-| Art. 5 | Processing principles, data minimisation | Data classification, access controls, retention enforcement |
-| Art. 25 | Data protection by design and by default | Encryption defaults, private-by-default storage, IAM defaults |
-| Art. 32 | Security of processing | Encryption at rest and in transit, MFA, logging, vulnerability mgmt |
-| Art. 33/34 | Breach notification | Logging completeness, alert routing, IR evidence |
-| Art. 35 | DPIA | Risk-scoring inputs, DSPM sensitive-data discovery, exposure analysis |
-
-Articles 12–23 (data-subject rights) and 44–50 (transfers) require process outside the platform. **LGPD** (Brazil) and **CCPA** (California) follow the same technical-mapping model.
-
-### SOC 2 Type II
-
-SOC 2 maps to the five Trust Services Criteria. Most cloud customers select Security, Availability, and Confidentiality.
-
-| Criteria | Code | What the platform evidences |
-| --- | --- | --- |
-| Security (Common Criteria) | CC6–CC9 | Access control, encryption, change management, vulnerability management |
-| Availability | A1 | Backup configuration, multi-AZ readiness, autoscaling, alarms |
-| Processing Integrity | PI1 | Data-validation configuration, error-handling instrumentation |
-| Confidentiality | C1 | Encryption coverage, data classification, access restriction |
-| Privacy | P1–P8 | Classification, retention enforcement, consent-record integrity |
-
-Coverage of CC6 (logical access controls) is particularly deep — it maps directly to the day-to-day cloud findings auditors expect to sample.
-
-### FedRAMP and CMMC
-
-FedRAMP builds on NIST 800-53. The platform evaluates the **~325 controls in the FedRAMP Moderate baseline** and the **FedRAMP High** baseline, producing an SSP appendix that maps your environment to each control's status. Key automated controls include AC-2 (account management), AC-6 (least privilege), AU-2/AU-9 (audit events and protection), CM-6 (configuration settings), IA-2/IA-5 (MFA and authenticator management), RA-5 (vulnerability scanning), SC-8/SC-13 (transmission and cryptographic protection), and SI-2/SI-4 (flaw remediation and monitoring). **CMMC 2.0 Levels 2 and 3** reuse the same 800-171-derived control set for defense contractors.
-
-### EU operational resilience — DORA, NIS2, EU AI Act
-
-**DORA** (EU 2022/2554, enforced since January 2025) is mapped across ICT risk management, incident reporting, resilience testing, and third-party risk. **NIS2** (EU 2022/2555) covers critical-infrastructure cybersecurity obligations. The **EU AI Act** mapping draws on the AI Security engine's posture findings for Bedrock, SageMaker, Azure OpenAI, and Vertex — governance, logging, and exposure controls for AI systems.
+To request a framework, email hello@onamsecurity.com with the framework name and version.
 
 ---
 
 ## Reports and evidence
 
-The platform produces audit-ready output in four formats, all from the same underlying data:
+Evidence is collected per control from the scan that produced the result — the resources evaluated, their results, and when the evidence was collected.
 
-| Format | Best for | What it includes |
-| --- | --- | --- |
-| **PDF** | Hand-off to external auditor | Executive summary · per-control breakdown · evidence appendix · per-resource detail · signed timestamp |
-| **CSV** | Spreadsheet review, GRC import | One row per finding × applicable framework control |
-| **JSON** | SIEM / GRC tooling | Same data as CSV, structured for programmatic use |
-| **Live API** | Continuous monitoring | Real-time score, trend, and drill-down |
+| Format | Best for |
+| --- | --- |
+| **PDF** | Hand-off to an auditor — executive summary and per-framework reports |
+| **CSV** | Spreadsheet review and GRC import |
+| **Excel** | Per-framework workbooks |
+| **JSON** | Programmatic use |
 
-Programmatic access uses the compliance API:
+Every framework drills down from framework to control to resource, and compliance can be viewed per cloud account.
 
 \`\`\`
 GET /api/v1/compliance/framework/{framework_id}/report
+GET /api/v1/compliance/report/{report_id}/export?format=pdf
 \`\`\`
-
-**Every report contains the same five sections:** the overall score with pass/fail breakdown; per-control results grouped by category so gaps are obvious; top failing rules with remediation steps; the trend over the last six scans; and resource-level detail per failing control with cloud-console links. The suppression log — every suppressed finding with its documented justification — exports alongside.
-
-### Report schedules
-
-| Schedule | Trigger | Use case |
-| --- | --- | --- |
-| On-demand | Generate immediately from the console or API | Pre-audit dry runs |
-| Post-scan | Auto-generate after every scan | Daily continuous evidence — recommended |
-| Weekly | Every Monday | Compliance review meetings |
-| Monthly | 1st of each month | Board and executive reporting |
-
-Reports deliver to email, Slack, S3, or any webhook endpoint you configure.
 
 ---
 
-## Custom frameworks
+## Custom rules
 
-Beyond the built-in catalog, you can define custom frameworks by mapping your own internal controls to platform rules — useful for proprietary standards or customer-contractual requirements.
-
-1. Navigate to **Compliance → Frameworks → Create Custom**.
-2. Define control groups (e.g. "Internal Security Standard — Section 3 — Encryption").
-3. Map each control to one or more platform rules by rule ID — a rule can serve many controls.
-4. Save and run a scan — the custom framework scores alongside the built-ins.
-
-Custom frameworks get the same per-control scoring, reporting, and export capabilities as built-in frameworks.
+Rules you build in the Rule Builder can carry their own framework mappings, so organisation-specific checks feed the same framework scores as built-in rules.
 
 ---
 
 ## Frequently asked questions
 
 **Can I export a framework report for my auditor?**
-Yes — PDF and CSV from the Compliance Reports page, JSON and live scores from the API. PDF reports include the executive summary, control-by-control breakdown, and per-resource detail.
+Yes — PDF and CSV, plus Excel and JSON. Reports include an executive summary, control-by-control results and per-resource detail.
 
 **What happens to my compliance score between scans?**
-Scores reflect the most recent completed scan (daily by default). Run an ad-hoc scan any time to refresh — see [The scan pipeline](/docs/architecture/scanning).
+Scores reflect the most recent compliance run. Start a scan on demand any time to refresh — see [The scan pipeline](/docs/architecture/scanning).
 
 **What if a control doesn't apply to my environment?**
-Suppress the specific findings with a documented justification. Suppressed findings are excluded from the score and tracked in the exported suppression log — auditors see exactly what was suppressed and why.
+If no resources are evaluated against it, the control is marked not applicable. If it applies but you accept the risk, record an exception with a justification, an approver and a target date.
 
-**Can I track an older framework version?**
-Yes. Multiple versions run simultaneously (e.g. NIST 800-53 Rev 4 and Rev 5, PCI-DSS v4.0 and v4.0.1). When a new version ships, the previous one stays available so you migrate without losing history.
-
-**Are framework mappings audited?**
-Every mapping is reviewed annually by an external compliance consultant, and the mapping rationale is stored alongside each rule's YAML — your auditor can read exactly why a rule maps to a control.
+**Can I track more than one version of a framework?**
+Where the catalog includes several versions — CIS AWS, for example — each version is its own framework, so you can track them side by side.
 
 ---
 
 ## Next steps
 
 - [The scan pipeline](/docs/architecture/scanning) — how findings are produced before they become compliance evidence
-- [Architecture overview](/docs/architecture/overview) — the Compliance engine in the context of all 29 engines
+- [Architecture overview](/docs/architecture/overview) — the Compliance engine in the context of the platform
 - [Platform data security and tenancy](/docs/architecture/data-security) — residency and isolation guarantees auditors ask about
 - [Book a demo](/request-demo) — generate a framework report against a live demo account
 `,

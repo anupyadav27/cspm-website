@@ -636,96 +636,80 @@ Yes — namespaces, workloads, services, the RBAC graph, and network policies ex
     title: "Compliance",
     breadcrumb: "Features / Compliance",
     body: `
-Onam's Compliance engine turns raw security findings into audit-ready compliance posture: every finding is mapped to the controls it violates across **78 regulatory frameworks**, every control gets a pass rate computed from live scan data, and every framework gets a 0–100 score you can track, export, and hand to an auditor.
+Onam's Compliance engine turns security findings into compliance posture: findings are mapped to the controls they affect across **78 frameworks**, each control is assessed, and each framework gets a 0–100% score you can track, drill into and export.
 
-This page explains how the mapping works, how per-control pass rates and framework scores are computed, and how to generate reports. For the full framework catalog and per-framework coverage tables, see [Framework Coverage](/docs/compliance/frameworks).
+This page explains where the findings come from, how controls are assessed and scored, and how to export reports. For the framework list, see [Framework Coverage](/docs/compliance/frameworks).
 
 ![The compliance view in the Onam console (demo account)](/screenshots/screenshot-compliance.png)
 
 ## From Findings to Scores
 
-Compliance runs as a pipeline stage after every scan: the Check engine and the domain engines (network, data, container, IAM) produce findings, and the Compliance engine aggregates them into control-level evidence. No separate "compliance scan" is needed — the same scan that finds a public bucket also updates your PCI-DSS score.
+Compliance runs after a scan. No separate "compliance scan" is needed — the same scan that finds a public bucket also updates your PCI DSS score.
 
 ![Compliance scoring flow — findings mapped to controls, aggregated into pass rates and framework scores](/diagrams/compl-scoring-flow.svg)
 
-1. **Load.** The engine reads every finding from the completed scan run — misconfigurations, plus domain findings from data security, network, container, and IAM.
-2. **Map.** Each rule ID is resolved against the rule-to-control mapping catalog. One rule typically cites controls in several frameworks at once, so a single check produces evidence for many frameworks simultaneously.
-3. **Aggregate.** Findings are grouped by framework, control, and resource, and pass/fail counts are computed per control.
-4. **Score.** Per-control pass rates roll up into a weighted 0–100 compliance score per framework.
-5. **Report.** The reporter assembles deduplicated findings, evidence, and asset snapshots into a stored report; exporters produce JSON, CSV, Excel, and PDF.
+1. **Load.** The engine reads the latest findings from four sources: posture checks, threat detection, vulnerabilities, and technology checks.
+2. **Map.** Each rule is resolved against the rule-to-control mapping catalog. One rule can cite controls in several frameworks, so a single check produces evidence for many frameworks at once.
+3. **Assess.** Each control is assessed from the resources evaluated against it.
+4. **Score.** Control results roll up into a 0–100% score per framework, and each result is kept for the trend.
+5. **Report.** Reports are assembled with evidence per control; exporters produce PDF, CSV, Excel and JSON.
 
 ## Control Mapping
 
-The mapping catalog links each of Onam's 10,000+ rules to the specific controls it evidences. Because the mapping is many-to-many, one failed check propagates to every framework that cares about it:
+Because the mapping is many-to-many, one failed check counts against every framework that cites it. Every control page lists the resources that passed and failed, and every resource can be looked up to see the controls it affects across frameworks.
 
-| Example finding | Frameworks cited |
-| --- | --- |
-| S3 bucket public access not blocked | CIS AWS 2.1.4 · PCI-DSS Req 1.3 · GDPR Art. 32 · ISO 27001 A.8.20 |
-| CloudTrail not enabled in all regions | CIS AWS 3.1 · NIST CSF DE.AE · SOC 2 CC7.2 |
-| RDS storage unencrypted | PCI-DSS Req 3.4 · HIPAA §164.312(a) · ISO 27001 A.8.24 |
+## Control Status and Scores
 
-Every finding detail page in the console shows its full list of framework citations, and every control page lists the exact resources that passed and failed.
-
-## Pass Rates and Scores
-
-Each control's pass rate is computed from the resources evaluated against it in the latest scan:
+Each control is assessed as one of five statuses:
 
 | Control status | Meaning |
 | --- | --- |
-| Pass | Every evaluated resource passed every check mapped to the control |
-| Fail | At least one resource failed a mapped check — the failing resources are listed on the control |
-| Not applicable | No resources of the relevant type exist in the scanned scope |
+| Pass | Every evaluated resource passed the checks mapped to the control |
+| Fail | Every evaluated resource failed — the failing resources are listed on the control |
+| Partial | Some evaluated resources passed and some failed |
+| Manual review | The control cannot be assessed automatically and needs a person to review it |
+| Not applicable | No resources were evaluated against the control in the scanned scope |
 
-The framework score (0–100) is a weighted rollup of its control pass rates. Scores are recomputed on every scan and recorded historically, so the trends view shows whether posture is improving release over release — per framework, per account, and per cloud.
+The framework score (0–100%) rolls up the control results. Scores are recomputed from the latest findings and kept over time, so the trends view shows whether posture is improving.
 
-> Automated scanning evaluates technical controls — encryption, logging, access policies, network exposure. Frameworks also contain administrative and process controls (security training, vendor management) that no scanner can assess. Framework reports mark which controls are auto-assessed so auditors see exactly what the score covers.
+> Automated scanning evaluates technical controls — encryption, logging, access policies, network exposure. Frameworks also contain administrative and process controls (security training, vendor management) that no scanner can assess. Those controls are marked for manual review rather than scored as passing, so the score shows exactly what was checked.
 
 ## Framework Catalog
 
-The catalog covers **78 frameworks**, including CIS Benchmarks (AWS, Azure, GCP — multiple versions), NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA and HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, the EU AI Act, DORA, FedRAMP High and Moderate, CMMC 2.0 L2/L3, SWIFT CSCF, RBI ITF, APRA CPS 234, UK NCSC CAF, Cyber Essentials, LGPD, SOX, and CSA CCM v4.
+The catalog covers **78 frameworks**: CIS benchmarks for AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes (including managed Kubernetes services), CIS benchmarks for operating systems, databases, web servers, network devices and SaaS platforms, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI DSS, HIPAA, GDPR, SOC 2, FedRAMP Moderate and High, RBI frameworks for banks and NBFCs, and Canada PBMM.
 
-Representative control counts:
+The full list is on [Framework Coverage](/docs/compliance/frameworks). Custom rules built in the Rule Builder can carry their own framework mappings.
 
-| Framework | Controls evaluated |
-| --- | --- |
-| CIS AWS Foundations Benchmark | 58 controls |
-| ISO/IEC 27001:2022 | 93 controls |
-| NIST CSF | 108 subcategories |
-| NIST 800-53 R5 | 20 control families |
-| PCI-DSS v4.0 | 12 requirements |
-| HIPAA Security Rule | 18 standards |
-| GDPR | 24 articles |
-| SOC 2 | 5 trust service criteria |
-| FedRAMP | 325 controls |
+## Evidence
 
-The full list with per-framework coverage tables is on [Framework Coverage](/docs/compliance/frameworks). Custom rules built in the Rule Builder carry their own framework mappings, so organization-specific policies feed the same scores.
+Evidence is collected per control from the scan that produced the result — the resources evaluated, their results, and when the evidence was collected. You do not take screenshots or assemble evidence by hand.
+
+## Exceptions
+
+An exception or compensating control is recorded against a control with a justification, an approver and a target date. Exceptions stay visible in compliance views and are flagged as their expiry nears, so an accepted risk never disappears silently. Rule-level suppressions in [CSPM](/docs/features/cspm) are separate and carry their own reason and expiry.
 
 ## Reports and Exports
 
-Four report shapes cover the audiences that consume compliance data:
-
 | Report | What it contains | Audience |
 | --- | --- | --- |
-| Executive dashboard | Cross-framework summary — score per framework, deltas since last scan, worst controls | Leadership, board reporting |
-| Framework report | Control-by-control breakdown for one framework, with pass rates and failing resources | Compliance team, auditors |
-| Resource drilldown | Every control citation for a single resource | Engineers fixing findings |
-| Enterprise report | Full audit package — deduplicated findings, evidence, asset snapshots | External audit submission |
+| Executive summary | Score per framework and the overall picture | Leadership, board reporting |
+| Framework report | Control-by-control breakdown for one framework, with failing resources | Compliance team, auditors |
+| Resource drilldown | Framework → control → resource, and every control citation for a resource | Engineers fixing findings |
+| Account view | Compliance for one cloud account | Account owners |
 
-All reports export as **PDF, Excel, CSV, and JSON**. You can scope any report to specific frameworks, cloud accounts, or providers, and optionally include passing controls for full-evidence audits.
+Reports export as **PDF and CSV**, and also as **Excel and JSON**.
 
 ## Running Compliance Reports
 
-Reports generate automatically after every scheduled scan. You can also generate ad-hoc reports at any time — pick a scan run, select frameworks, and export:
-
 1. Open **Compliance** in the Onam console and select a framework.
-2. Review the per-control breakdown — each failed control lists its failing resources and the finding that caused the failure.
-3. Fix findings (or suppress with justification) and re-scan; the score updates on the next run.
+2. Review the per-control breakdown — each failed control lists its failing resources.
+3. Fix findings (or record an exception with a justification) and re-scan; the score updates on the next run.
 4. Export the framework report as PDF or Excel for evidence.
 
 ## API
 
 \`\`\`http
-# List all supported frameworks with metadata
+# List supported frameworks
 GET /api/v1/compliance/frameworks
 
 # Full report for one framework
@@ -738,27 +722,27 @@ GET /api/v1/compliance/dashboard
 GET /api/v1/compliance/trends
 \`\`\`
 
-Report exports accept a format parameter (\`pdf\`, \`csv\`, \`excel\`, or \`json\`). Full schemas are in the [API reference](/docs/reference/api).
+Report exports accept a format parameter (\`json\`, \`pdf\` or \`csv\`), and each framework has PDF and Excel downloads. Full schemas are in the [API reference](/docs/reference/api).
 
 ## FAQ
 
 **How often do scores update?**
-After every scan (typically daily), plus whenever you trigger an ad-hoc scan. Every score snapshot is retained for trend reporting.
+Each time compliance runs after a scan, including scans you start on demand. Every result is kept for trend reporting.
 
-**Can I score a single account or business unit?**
-Yes. Reports scope by cloud account, provider, or account group — useful when different business units are audited against different frameworks.
+**Can I score a single account?**
+Yes. Compliance can be viewed per cloud account as well as across all accounts.
 
 **Do custom rules affect compliance scores?**
 Yes, when you assign framework mappings to them in the Rule Builder. Unmapped custom rules produce findings but do not change framework scores.
 
-**Is a 100 score the same as being certified?**
-No. The score means every automatically-assessed technical control passed in the latest scan. Certification also requires process controls and an accredited auditor — Onam's exports are designed to be the technical-evidence package for that audit.
+**What does a score of 100% mean?**
+Every automatically assessed control passed in the latest results. Controls marked for manual review still need a person to review them.
 
 ## Next steps
 
-- [Framework Coverage](/docs/compliance/frameworks) — the full 78 framework catalog with coverage tables
-- [CSPM](/docs/features/cspm) — the rule registry that generates the underlying findings
-- [Data Security](/docs/features/data-security) — where GDPR / PCI / HIPAA data findings come from
+- [Framework Coverage](/docs/compliance/frameworks) — the 78 frameworks
+- [CSPM](/docs/features/cspm) — the posture rules that generate most of the underlying findings
+- [Data Security](/docs/features/data-security) — data findings and sensitive stores
 - [Book a demo](/request-demo) — see your framework scores on a live connected account
 `,
   },
@@ -767,152 +751,87 @@ No. The score means every automatically-assessed technical control passed in the
     title: "Risk Quantification (FAIR)",
     breadcrumb: "Features / Risk Quantification",
     body: `
-Onam's Risk engine converts security findings into dollar-denominated financial risk using **FAIR (Factor Analysis of Information Risk)** — the only internationally standardized quantitative model for information risk. The output is a business-language view: total financial exposure, the top risks ranked by dollar impact, and the remediation actions that reduce the most exposure per engineering hour.
+Onam's Risk engine gives critical and high findings a **FAIR-style loss estimate** in dollars. FAIR (Factor Analysis of Information Risk) breaks risk into how likely a loss event is and how large the loss would be; Onam follows that structure per finding. The output is a business-language view: total exposure, the top scenarios ranked by likely loss, and how exposure is trending.
 
-This page explains the FAIR formula chain, how Onam calibrates each factor from live scan data, the multiplier and cost tables the model uses, and where the engine runs in the platform pipeline.
+This page explains the formula, the inputs it uses, how attack-path context raises an estimate, and where the engine runs in the platform pipeline.
 
 ![The risk view in the Onam console (demo account)](/screenshots/screenshot-risk.png)
 
-## The FAIR Model
-
-FAIR decomposes risk into frequency and magnitude:
+## The Model
 
 \`\`\`
-Risk = LEF × LM
-LEF  = TEF × Vulnerability      (Loss Event Frequency)
-LM   = Primary + Secondary Loss (Loss Magnitude)
+Risk = Loss Event Frequency × Loss Magnitude
+Loss Event Frequency = exploit probability (EPSS) × exposure factor
+Loss Magnitude       = records × per-record cost × sensitivity × asset value × regulation
 \`\`\`
 
-| Factor | Question it answers | How Onam calibrates it |
+| Factor | Question it answers | Where Onam gets it |
 | --- | --- | --- |
-| Threat Event Frequency (TEF) | How often does a threat actor attempt the action? | CISA KEV flags and EPSS exploitation probabilities |
-| Vulnerability | Given an attempt, how likely does it succeed? | Finding type, effective exposure from the Network engine, attack-path reachability |
-| Primary Loss | Direct cost of a successful event | IBM/Ponemon per-record breach costs, IR hours, notification counts |
-| Secondary Loss | Indirect cost — fines, churn, reputation | The fine schedules of the frameworks in your compliance configuration |
+| Exploit probability | How likely is this weakness to be exploited? | EPSS scores for the finding |
+| Exposure factor | How reachable is the resource? | Public or internal exposure, raised by attack-path signals (below) |
+| Records and per-record cost | How much data is at risk, and what does each record cost in a breach? | Record estimates and industry per-record breach-cost benchmarks, overridable per tenant |
+| Sensitivity | How sensitive is the data? | The [DSPM classification](/docs/features/data-security) of the affected store — restricted, confidential, internal or public |
+| Asset value | How valuable is the resource? | An asset catalog, with crown jewels from the [Attack Path](/docs/features/attack-path) engine weighted highest |
+| Regulation | Which regulations apply? | The data and the region — GDPR is applied automatically to resources in EU regions |
 
 ## Where the Engine Runs
 
-Risk Quantification runs as **Layer 4** of the platform — after discovery, checks, and the domain engines have all completed, so it prices the finished picture rather than raw signals:
+Risk Quantification runs after discovery, checks and the domain engines have completed, so it prices the finished picture rather than raw signals:
 
 | Stage | What happens | Output |
 | --- | --- | --- |
-| 1. ETL | Pulls Critical and High findings from every engine database once the scan completes | Normalized risk input set |
-| 2. Evaluate | Applies the FAIR computation per finding — exposure, threat probability, loss, multipliers | P50 / P90 exposure per finding |
-| 3. Report | Writes portfolio rollups to \`risk_report\`, \`risk_summary\`, and \`risk_trends\` | Dashboard, trends, and API views |
+| 1. ETL | Pulls critical and high findings once the scan completes | Normalized risk input set |
+| 2. Evaluate | Applies the computation per finding — likelihood, loss, multipliers, attack-path signals | Low, likely and high exposure per finding |
+| 3. Report | Writes portfolio rollups and trends | Dashboard, trends and API views |
 
-Scores recalculate after every scan (typically daily) and whenever the KEV or EPSS feeds update.
+Estimates are recomputed after every scan.
 
-## Per-Finding Computation
+## Regulatory Exposure
 
-### 1. Exposure surface
+When a finding touches regulated data, the engine applies the **single strictest** regulatory multiplier — they never stack — and adds an estimated regulatory fine. Regimes include GDPR, HIPAA, PCI DSS, SOX, CCPA, LGPD, APPI, PDPA, PIPEDA and POPIA.
 
-- Is the affected resource internet-exposed? (from the [Network Security](/docs/features/network-security) engine)
-- What is the blast radius if compromised? (from the [Attack Path](/docs/features/attack-path) engine)
-- Is this a crown-jewel asset? (user-designated or inferred from data classification)
+## Attack-Path Signals
 
-### 2. Threat probability
+The [Attack Path](/docs/features/attack-path) engine writes signals onto each resource, and the Risk engine uses them to raise the likelihood side of the estimate:
 
-- Is this finding type actively exploited in the wild? (CISA KEV flag)
-- What is the exploitation probability in the next 30 days? (EPSS score)
-- Is there a known PoC exploit? (NVD / exploit-db correlation)
+- the finding is **on an attack path**
+- the resource is on **many attack paths**
+- the resource is a **choke point**
+- an **active threat actor** is touching the resource — highest of all when it is an admin role
+- a certificate on the resource is close to expiry
 
-### 3. Loss estimation
-
-Primary loss builds from four components:
-
-| Component | Basis |
-| --- | --- |
-| Incident response | $150/hour × estimated IR hours by breach type |
-| Data recovery | Per-record cost × affected record estimate |
-| Breach notification | $5/notification × estimated notification count |
-| Business interruption | Daily revenue × estimated downtime |
-
-Per-record costs come from the IBM Cost of a Data Breach 2024 benchmarks, selected by your industry:
-
-| Industry | Cost per record |
-| --- | --- |
-| Healthcare | $10.93 |
-| Financial services | $6.08 |
-| Technology | $4.88 |
-| Retail | $3.28 |
-| All other industries (default) | $4.45 |
-
-Secondary loss uses the fine schedules of the frameworks in your compliance configuration:
-
-| Framework | Maximum exposure |
-| --- | --- |
-| GDPR | €20M or 4% of global annual turnover |
-| HIPAA | $1.9M per violation category per year |
-| PCI-DSS | $5,000–$500,000 per month until compliant |
-| SOX | $5M plus criminal liability for willful violations |
-
-## Multipliers
-
-Three multiplier systems adjust Loss Magnitude to your environment.
-
-**Regulatory multipliers** — when a finding touches regulated data, the highest single applicable multiplier applies (they do not stack):
-
-| Regulation | Multiplier |
-| --- | --- |
-| GDPR | ×1.5 |
-| SOX | ×1.4 |
-| HIPAA | ×1.3 |
-| PCI-DSS | ×1.2 |
-| CCPA, APPI, PDPA, PIPEDA | ×1.1 |
-
-**Data-sensitivity multipliers** — driven by the [DSPM classification](/docs/features/data-security) of the affected store, and overridable per tenant:
-
-| Data classification | Multiplier |
-| --- | --- |
-| Restricted | ×3.0 |
-| Confidential | ×2.0 |
-| Internal | ×1.0 |
-| Public | ×0.1 |
-
-**Crown-jewel multipliers** — assets designated as crown jewels reflect that the same breach costs far more on a production system than on a dev resource:
-
-| Crown jewel type | Multiplier |
-| --- | --- |
-| Payment processing service | 5× |
-| Secrets / credentials store | 4× |
-| Production database | 3× |
-| PII-containing data store | 3× |
-| Business-critical API | 2× |
-
-> Multipliers apply to the Loss Magnitude side of the equation only — they never inflate the probability side. A public dev bucket with test data and a public prod bucket with PHI have similar LEF but very different LM, which is exactly what the dollar figures should show.
+A **large blast radius** raises the estimate further. The estimate stays per finding — attack paths raise it; they are not priced on their own.
 
 ## Output Metrics
 
 Per finding:
 
-- **P50 financial exposure** — median loss estimate
-- **P90 financial exposure** — 90th-percentile loss estimate, the worst plausible outcome
-- **Risk Reduction Value** — exposure eliminated by fixing this finding
-- **Blast radius** — assets, users, and data records at risk
+- **Low, likely and high exposure** — a dollar range rather than a single point
+- **Primary loss and regulatory fine** — shown separately
+- **Risk tier** — critical, high, medium or low, from the likely exposure
+- **Blast radius** — a sample of the resources reachable from it
 
 Per portfolio:
 
-- **Total exposure** — aggregate risk across all open findings
-- **Top-10 risks** — ranked by P50 exposure
-- **Risk trend** — total exposure over the last 90 days
-- **Exposure by domain** — posture, identity, code, and vulnerability risk
-
-## Remediation Prioritization
-
-The engine outputs a remediation queue ranked by **Risk Reduction Value per fix**:
-
-1. The ten fixes with the highest risk-reduction value, each with estimated engineering effort (T-shirt sized S/M/L) and the dollar exposure eliminated.
-2. The minimum-cut fix — the single change that collapses the most attack paths and removes the most exposure, cross-referenced with the Attack Path engine's choke-point ranking.
-3. A business-case summary for engineering: "these 5 fixes eliminate $12M in potential exposure and take 3 engineering days."
+- **Total exposure** — across all open critical and high findings
+- **Top scenarios** — ranked by likely exposure
+- **Exposure by engine** and by scenario type — data exfiltration, privilege escalation, credential theft, ransomware and others
+- **Risk trend** — exposure over time
 
 ## API
 
 \`\`\`http
-# Blast radius for the current environment
-GET /api/v1/risk/blast-radius
+# Risk dashboard
+GET /api/v1/risk/dashboard
 
-# Crown-jewel assets and their exposure
-GET /api/v1/risk/crown-jewels
+# Scenarios, ranked by exposure
+GET /api/v1/risk/scenarios
+
+# Exposure over time
+GET /api/v1/risk/trends
+
+# Highest-risk assets
+GET /api/v1/risk/assets/top
 \`\`\`
 
 Full schemas are in the [API reference](/docs/reference/api).
@@ -920,19 +839,19 @@ Full schemas are in the [API reference](/docs/reference/api).
 ## FAQ
 
 **Can I calibrate the model with our own financial data?**
-Yes. Provide annual revenue, total data records processed, and breach-cost assumptions from your cyber-insurance policy — these override the industry-average defaults and sharpen the estimates for your organization.
+Yes. Per-record cost, annual revenue and the data-sensitivity multipliers can be set per tenant, overriding the industry defaults.
 
 **Does this replace a formal risk assessment?**
-No. Onam Risk Quantification is continuous automated estimation, designed to drive prioritization and board reporting. For SOC 2, ISO 27001, or regulatory audits, a formal FAIR assessment by a practitioner is still required.
+No. Onam Risk Quantification is automated estimation, designed to drive prioritization and board reporting. It does not replace a formal risk assessment carried out by a practitioner.
 
-**How often are risk scores updated?**
-After every scan (typically daily) and whenever the KEV or EPSS databases update — both are daily feeds from CISA and FIRST.org.
+**How often are estimates updated?**
+After every scan.
 
 ## Next steps
 
-- [Attack Path](/docs/features/attack-path) — the reachability and choke-point data behind blast radius
-- [Vulnerability Management](/docs/features/vulnerability-management) — the KEV and EPSS signals that calibrate TEF
-- [Compliance](/docs/features/compliance) — the framework configuration that selects fine schedules
+- [Attack Path](/docs/features/attack-path) — the reachability and choke-point signals behind the boosts
+- [Vulnerability Management](/docs/features/vulnerability-management) — the EPSS signal behind likelihood
+- [Data Security](/docs/features/data-security) — the classification behind sensitivity
 - [Book a demo](/request-demo) — see your estate's exposure in dollars
 `,
   },

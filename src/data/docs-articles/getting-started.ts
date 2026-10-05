@@ -6,7 +6,7 @@ export const articles: DocArticle[] = [
     title: "Introduction to Onam",
     breadcrumb: "Getting Started / Introduction",
     body: `
-Onam is an **agentless cloud-native application protection platform (CNAPP)**. It connects to your cloud accounts with read-only credentials, builds a live inventory of every resource, evaluates that inventory against **10,000+ security rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and dollar-denominated risk — instead of eight disconnected consoles.
+Onam is a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
 
 This page explains what the platform does, which environments it covers, who it is built for, and how the rest of the documentation is organized.
 
@@ -36,7 +36,7 @@ Most security stacks bolt together a posture scanner, an identity tool, a data c
 1. Discovery and Inventory (DI) enumerates every resource and writes \`asset_inventory\` and \`asset_relationships\`.
 2. Every engine — posture, identity, data, network, runtime — evaluates the same inventory and attaches findings to the same resource identifiers.
 3. Attack Path v2 loads assets, relationships, and findings into a Neo4j property graph and traverses it from internet-facing entry points to crown-jewel assets.
-4. Risk Quantification runs last, converting Critical and High findings into annualized loss expectancy in dollars.
+4. Risk Quantification runs last, giving Critical and High findings a FAIR-style loss estimate in dollars — low, likely and high — raised for findings on attack paths.
 
 ![The Onam platform — 7 clouds in, one security graph, prioritized findings out](/diagrams/platform-overview.svg)
 
@@ -58,7 +58,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 
 Beyond the clouds, the **Technology Engine** scans **34 self-hosted technologies in 9 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, SaaS platforms, and data platforms — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
 
-Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, NIS2, DORA, FedRAMP, and CMMC 2.0. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP Moderate and High, RBI and Canada PBMM. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ## Agentless by design
 
@@ -77,7 +77,7 @@ Onam connects through a **read-only IAM role (AWS), service principal (Azure), o
 
 | Section | What you'll find | Start with |
 | --- | --- | --- |
-| Getting Started | Orientation, a 15-minute setup walkthrough, and the platform's mental model | [Quickstart](/docs/getting-started/quickstart) |
+| Getting Started | Orientation, a setup walkthrough, and the platform's mental model | [Quickstart](/docs/getting-started/quickstart) |
 | Onboarding | Step-by-step connection guides for each of the 7 clouds | [Connect AWS](/docs/onboarding/aws) |
 | Features | Deep dives on every capability, engine by engine | [CSPM](/docs/features/cspm) |
 | Architecture | How the 29 engines, scan pipeline, and data model fit together | [Architecture Overview](/docs/architecture/overview) |
@@ -88,7 +88,7 @@ Onam connects through a **read-only IAM role (AWS), service principal (Azure), o
 
 ## Next steps
 
-- [Quickstart](/docs/getting-started/quickstart) — go from zero to first findings in about 15 minutes.
+- [Quickstart](/docs/getting-started/quickstart) — go from zero to your first findings.
 - [Core Concepts](/docs/getting-started/core-concepts) — assets, findings, engines, attack paths, and the glossary.
 - [Architecture Overview](/docs/architecture/overview) — how a scan actually flows through the platform.
 - [Book a demo](/request-demo) — see the platform on your own cloud with an engineer.
@@ -99,15 +99,15 @@ Onam connects through a **read-only IAM role (AWS), service principal (Azure), o
     title: "Quickstart",
     breadcrumb: "Getting Started / Quickstart",
     body: `
-This guide takes you from nothing to your first triaged Critical finding in about 15 minutes: create an account, connect a cloud with a read-only role, run the first scan, read the dashboard, triage what it finds, and wire findings into the tool your team already watches.
+This guide takes you from nothing to your first triaged Critical finding: create an account, connect a cloud with a read-only role, run the first scan, read the dashboard, triage what it finds, and wire findings into the tool your team already watches.
 
-Most of the steps are clicks. The longest wait is the first scan itself — and it streams findings as it runs, so you will usually be reading results before it finishes. A typical 40-service AWS account completes in around 15 minutes; very large accounts take longer.
+Most of the steps are clicks. The longest wait is the first scan itself — and it streams findings as it runs, so you will usually be reading results before it finishes. How long it takes depends on how many accounts, regions and resources you connect.
 
 ## Before you begin
 
 - An Onam account invitation or sign-up link (your admin, or [Book a demo](/request-demo) to get one).
 - Credentials for the cloud you're connecting — for AWS, permission to create a CloudFormation stack and an IAM role in the target account.
-- 15 minutes. No agents to install, no network changes, no maintenance window.
+- No agents to install for posture scanning, no network changes, no maintenance window.
 
 ## Step 1: Create your account
 
@@ -139,18 +139,18 @@ The first scan starts automatically once validation passes (you can also trigger
 
 1. **Credential validation** — the role is assumed and its permissions confirmed.
 2. **Discovery and Inventory (DI)** — multi-phase enumeration of every resource in the account, written to \`asset_inventory\` with cross-resource links in \`asset_relationships\`.
-3. **Rule evaluation** — the Check engine evaluates the inventory against the 10,000+ rule registry, producing PASS or FAIL per resource per rule.
+3. **Rule evaluation** — the posture engine evaluates the inventory against 9,853 posture rules, producing PASS, FAIL or ERROR per resource per rule.
 4. **Engine fan-out** — the domain engines (CIEM, data security, network, container, vulnerability, and the rest) run in parallel against the same inventory.
 5. **Attack path build** — assets, relationships, and findings are loaded into the security graph and traversed from entry points to crown jewels.
-6. **Compliance and risk** — findings map onto 78 framework control catalogs, then FAIR risk quantification converts Critical and High findings into dollar exposure.
+6. **Compliance and risk** — findings map onto 78 framework control catalogs, then risk quantification gives Critical and High findings a FAIR-style loss estimate in dollars.
 
-Watch progress on the **Scans** page. Findings appear in real time as each stage completes — you don't have to wait for the pipeline to finish.
+Watch progress on the **Scans** page. Findings appear as each stage completes — you don't have to wait for the pipeline to finish.
 
 ## Step 4: Read the dashboard
 
 When findings start landing, open **Dashboard**. Four things are worth reading in order:
 
-1. **Posture score** — a 0–100 rollup of your pass rate, weighted by severity. Expect it to look worse than you'd like on day one; everyone's does.
+1. **Posture score** — a 0–100 rollup of your posture. Expect it to look worse than you'd like on day one; everyone's does.
 2. **Findings by severity** — counts of Critical, High, Medium, Low, and Info. Only the first two columns should drive today's work.
 3. **Top risks and attack paths** — the graph-ranked issues, which are usually a much shorter list than the raw finding count.
 4. **Compliance summary** — your starting score per enabled framework.
@@ -159,9 +159,9 @@ When findings start landing, open **Dashboard**. Four things are worth reading i
 
 1. Open **Findings** and filter to severity **Critical**.
 2. Sort or group by rule — ten findings from one rule (say, unencrypted EBS volumes) are one decision, not ten.
-3. Open a finding. The detail view shows the affected resource, the failed rule, the frameworks it violates, and step-by-step remediation — a CLI command, Terraform snippet, or console walkthrough.
-4. Check **Attack Paths** before fixing in ID order: a Medium finding that sits on a path to a crown jewel usually outranks an isolated Critical. Choke points tell you which single fix severs the most paths.
-5. Fix what's real, and use **Suppressions** (with a justification and optional expiry) for accepted risks — suppressed findings stay visible to the security team but leave the active queue.
+3. Open a finding. The detail view shows the affected resource, the failed rule, the frameworks it violates, the rule's remediation guidance, and an AI fix prompt you can paste into an assistant to draft the CLI command, Terraform change or console steps.
+4. Check **Attack Paths** before fixing in ID order: a Medium finding that sits on a path to a crown jewel usually outranks an isolated Critical. Choke points tell you which single fix blocks the most paths.
+5. Fix what's real, and use **Suppressions** (with a reason and optional expiry) for accepted risks.
 
 ## Step 6: Set up an integration
 
@@ -222,7 +222,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 
 | Engine | What it evaluates |
 | --- | --- |
-| Check (CSPM core) | The 10,000+ rule registry against every discovered resource — [CSPM](/docs/features/cspm) |
+| Check (CSPM core) | The 9,853 posture rules against every discovered resource — [CSPM](/docs/features/cspm) |
 | IAM / CIEM | Effective permissions, unused access, privilege-escalation chains — [CIEM](/docs/features/ciem) |
 | Attack Path v2 | Graph traversal from entry points to crown jewels — [Attack Path](/docs/features/attack-path) |
 | CDR / Behavioral Analysis | Audit-log threat detection across all 7 providers — [CDR](/docs/features/cdr) |
@@ -254,7 +254,7 @@ A **choke point** is a node that many paths pass through. The console ranks the 
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it evidences across **78 frameworks** — CIS Benchmarks, NIST CSF 2.0 and 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, and more. One finding can violate a dozen controls across several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
+Rules are mapped to the controls they evidence across **78 frameworks** — CIS Benchmarks, NIST 800-53, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP, and more. One finding can count against controls in several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
 
 ## Risk in dollars: FAIR
 
@@ -270,7 +270,7 @@ The numbers are grounded, not invented: per-record cost benchmarks from the IBM 
 | Asset relationship | A typed edge between assets: assumes, contains, can-read, exposes |
 | Security graph | Assets plus relationships plus findings, stored as a traversable graph |
 | Finding | One rule failing on one resource, with evidence and remediation |
-| Rule | A single check (10,000+ in the registry), mapped to framework controls |
+| Rule | A single check (9,853 posture rules), mapped to framework controls |
 | Engine | A service that evaluates one security domain and emits findings |
 | Scan run | One execution of the pipeline; every finding references its run |
 | Severity | Rule-assigned impact level: Critical, High, Medium, Low, Info |
@@ -280,7 +280,7 @@ The numbers are grounded, not invented: per-record cost benchmarks from the IBM 
 | Choke point | A node many attack paths share; one fix severs all of them |
 | Blast radius | Everything reachable from a given asset if it is compromised |
 | Suppression | A justified, optionally expiring acceptance of a finding |
-| FAIR | The risk model converting findings into annualized dollar exposure |
+| FAIR | The risk model behind Onam's dollar loss estimate per finding — low, likely and high |
 
 ## Next steps
 

@@ -630,7 +630,7 @@ The catalog is grouped into six categories. Teams typically connect 3–5 on fir
 | Category | Why connect | Typical integrations |
 | --- | --- | --- |
 | Ticketing and project management | Get findings into the queue your team already works from | Jira · ServiceNow · Azure DevOps · Linear · GitHub Issues |
-| Messaging and alerting | Get critical findings to humans within minutes | Slack · Microsoft Teams · PagerDuty · OpsGenie · Email |
+| Messaging and alerting | Get critical findings to the people who act on them | Slack · Microsoft Teams · PagerDuty · OpsGenie · Email |
 | SIEM and observability | Correlate findings with your security telemetry | Splunk · Azure Sentinel · AWS Security Hub · Datadog · Sumo Logic · IBM QRadar |
 | SOAR and automation | Trigger your playbook automatically on critical findings | Cortex XSOAR · Torq · Tines · Generic Webhook |
 | Compliance and GRC | Push compliance evidence to your audit-tracking platform | Drata · Vanta · Hyperproof |

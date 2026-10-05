@@ -6,7 +6,7 @@ export const articles: DocArticle[] = [
     title: "CSPM — Cloud Security Posture Management",
     breadcrumb: "Features / CSPM",
     body: `
-CSPM is the core posture engine of the Onam platform. It evaluates every resource in your connected clouds against a registry of **10,000+ configuration rules**, produces a PASS or FAIL result for each rule-resource pair, and turns every FAIL into a severity-ranked finding with remediation steps, MITRE ATT&CK mapping, and compliance citations.
+CSPM is the core posture engine of the Onam platform. It evaluates every resource in your connected clouds against **9,853 posture rules**, records a PASS, FAIL or ERROR result for each rule-resource pair, and turns every FAIL into a severity-ranked finding with remediation guidance, MITRE ATT&CK mapping, and compliance citations.
 
 This page explains what the rule registry covers per cloud, how a single rule is evaluated, how the severity model works, how to suppress findings you have accepted, and how PASS/FAIL results roll up into compliance scores.
 
@@ -14,27 +14,29 @@ This page explains what the rule registry covers per cloud, how a single rule is
 
 ## What CSPM checks
 
-CSPM answers one question continuously: **is every resource configured the way it should be?** Public buckets, unencrypted databases, permissive security groups, disabled audit logging, missing MFA, stale credentials — each is a rule, and each rule is evaluated on every scan.
+CSPM answers one question on every scan: **is every resource configured the way it should be?** Public buckets, unencrypted databases, permissive security groups, disabled audit logging, missing MFA, stale credentials — each is a rule, and each rule is evaluated on every scan.
 
-- **Agentless and read-only.** Scans run through the same read-only credential you created at onboarding (IAM role, service principal, or service account). Nothing is installed and nothing in your cloud is modified.
+- **Read-only.** Posture scanning connects through read-only cloud roles — the IAM role, service principal, or service account you created at onboarding. Posture scanning installs nothing and modifies nothing in your cloud.
 - **All 7 clouds.** AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes are covered by the same rule format and the same finding schema.
-- **Every finding is actionable.** A finding carries the failing resource, the rule rationale, step-by-step remediation, the MITRE ATT&CK technique it maps to, and the compliance controls it affects.
+- **Every finding is actionable.** A finding carries the failing resource, the rule rationale, the rule's remediation guidance, the MITRE ATT&CK technique it maps to, the compliance controls it affects, and an AI fix prompt that drafts the CLI command, Terraform change or console steps for your cloud.
 
-> CSPM checks deployed resources through cloud APIs. To catch the same misconfigurations before deployment, pair it with [IaC Scanning](/docs/features/iac-scanning) — the two engines share rule intent, so a policy blocked in CI is the same policy flagged in production.
+> CSPM checks deployed resources through cloud APIs. Templates — Terraform, CloudFormation, Kubernetes manifests and Dockerfiles — are scanned before deployment by [IaC Scanning](/docs/features/iac-scanning) in Code Security, which has its own rules, separate from the posture rules.
 
 ## Rule coverage by cloud
 
-The master rule registry contains **10,864 rules** across the five primary scan targets:
+The posture engine runs **9,853 rules** across seven clouds:
 
-| Cloud | Rules | Coverage |
-| --- | --- | --- |
-| AWS | 2,278 | 157 services |
-| Azure | 3,319 | 112 services |
-| GCP | 2,676 | 47 services |
-| OCI | 1,451 | 42 services |
-| Kubernetes | 718 | 51 resource kinds |
+| Cloud | Posture rules |
+| --- | --- |
+| OCI | 2,059 |
+| AWS | 2,018 |
+| Azure | 1,926 |
+| GCP | 1,322 |
+| Alibaba Cloud | 1,151 |
+| Kubernetes | 824 |
+| IBM Cloud | 553 |
 
-The rule-metadata corpus is larger still — **11,372 rule definition files** — and additionally covers Alibaba Cloud (1,541 rules) and IBM Cloud (613 rules). Every rule ships with metadata: severity, domain, rationale, remediation steps, references, and MITRE mapping.
+Every rule ships with metadata: severity, domain, rationale, remediation guidance, references, compliance mappings, and MITRE ATT&CK tactics and techniques.
 
 ![How the CSPM engine fits into the platform](/diagrams/p-cspm.svg)
 
@@ -79,7 +81,7 @@ The Rule Builder lets you author tenant-specific rules in the same YAML format �
 
 ## Severity model
 
-Every rule carries one of five severities. Severity is set per rule and can be re-graded per tenant if your risk tolerance differs.
+Every rule carries one of five severities, set per rule. A finding's severity is then raised when context makes it worse — the resource is on an attack path and exposed, it is a crown jewel, or an active threat touches it — and each finding gets a fix-by date.
 
 | Severity | Meaning | Example |
 | --- | --- | --- |
@@ -93,20 +95,20 @@ Severity feeds everything downstream: finding sort order, alerting thresholds, t
 
 ## Suppressions and exceptions
 
-Not every FAIL is a problem you intend to fix. A sandbox account, a compensating control, or a vendor requirement can make a finding acceptable. Suppressions record that decision without deleting the evidence:
+Not every FAIL is a problem you intend to fix. A sandbox account, a compensating control, or a vendor requirement can make a finding acceptable. Suppressions record that decision:
 
-- **Scope it precisely** — suppress a single resource-rule pair, a rule for one account, or a rule tenant-wide.
-- **Justify it** — every suppression requires a reason, which is stored in the audit trail.
-- **Expire it** — set an expiry date so exceptions are re-reviewed instead of becoming permanent.
-- **Review it** — the Suppressions view in the console lists every active suppression, who created it, and when it lapses.
+- **Scope it** — suppress by rule, service, technology or provider, for the whole tenant or for one account.
+- **Explain it** — record the reason with the suppression; Onam stores who created it and when.
+- **Expire it** — set an expiry date so the suppression lapses on its own instead of becoming permanent.
+- **Review it** — list active suppressions, or include expired ones, at any time.
 
-Suppressed findings are excluded from posture scores and alert routing but remain queryable, so auditors can see both the finding and the documented exception.
+Creating a suppression requires admin rights. At the compliance level, exceptions and compensating controls are tracked separately with a justification, an approver and a target date — see [Compliance](/docs/features/compliance).
 
-> Prefer expiring suppressions over permanent ones. A suppression with no expiry is how "temporary" exceptions become invisible permanent risk. The console flags suppressions older than 12 months.
+> Prefer expiring suppressions over permanent ones. A suppression with no expiry is how "temporary" exceptions become invisible permanent risk.
 
 ## Compliance mapping
 
-Every rule is mapped to the controls it satisfies across **78 compliance frameworks** — including CIS Benchmarks, NIST CSF 2.0, NIST 800-53, PCI-DSS v4.0, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP, DORA, and NIS2. The mapping is maintained in a single policy-to-framework catalog, so one scan produces evidence for every framework simultaneously:
+Rules are mapped to the controls they evidence across **78 compliance frameworks** — including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR and FedRAMP. The mapping is maintained in one catalog, so one scan produces evidence for every mapped framework at once:
 
 1. A rule evaluates PASS or FAIL per resource.
 2. Each result is attributed to every control the rule maps to.
@@ -116,7 +118,7 @@ There is no separate "compliance scan" — posture and compliance are the same e
 
 ## Next steps
 
-- [Onboard your first AWS account](/docs/onboarding/aws) — connect a cloud in about 10 minutes
+- [Onboard your first AWS account](/docs/onboarding/aws) — connect your first cloud
 - [Compliance](/docs/features/compliance) — how PASS/FAIL results become framework scores
 - [Attack Path Analysis](/docs/features/attack-path) — how individual findings chain into attack paths
 - [Book a demo](/request-demo) — see the rule registry against your own environment
@@ -236,7 +238,7 @@ Start with IAM Security to fix hygiene, then use [CIEM](/docs/ciem/overview) to 
     title: "Attack Path Analysis",
     breadcrumb: "Features / Attack Path",
     body: `
-Attack Path Analysis connects individual security findings — misconfigurations, identity risks, network exposures, and vulnerabilities — into chains that reveal exactly how an attacker would move from an exposed entry point to your most critical assets. Rather than presenting 847 disconnected findings, Onam builds a property graph of your estate and runs automated traversal to surface the paths that actually represent existential risk.
+Attack Path Analysis connects individual security findings — misconfigurations, identity risks, network exposures, and vulnerabilities — into chains that reveal exactly how an attacker would move from an exposed entry point to your most critical assets. Rather than presenting a long list of disconnected findings, Onam builds a graph of your estate and searches it for the routes that actually reach something worth protecting.
 
 This page explains how the graph is built and verified, how paths are found and ranked, how MITRE techniques are attached per hop, and how **choke points** tell you the one fix that severs the most paths.
 
@@ -244,11 +246,11 @@ This page explains how the graph is built and verified, how paths are found and 
 
 ## How the graph is built
 
-After every scan, the Attack Path engine ingests results from the platform's 29 engines into a **Neo4j property graph**:
+After every scan, the Attack Path engine rebuilds a **graph database** of your estate from the scan's results:
 
 **Nodes** are every resource in the asset inventory — EC2 instances, S3 buckets, IAM roles, Lambda functions, RDS databases, Kubernetes pods, secrets, and the rest — carrying their properties, findings, and classification.
 
-**Edges** are relationships that represent possible attacker movement. They are produced by **~25 catalog-driven edge derivers**, each specialized in one kind of evidence:
+**Edges** are relationships that represent possible attacker movement. They are produced by catalog-driven **edge derivers**, each specialized in one kind of evidence:
 
 - IAM policy derivation — role assumption, PassRole, resource-policy access
 - Network exposure — internet-facing endpoints, load balancer chains
@@ -257,35 +259,26 @@ After every scan, the Attack Path engine ingests results from the platform's 29 
 - CDR behavioral edges — movement actually observed in audit logs
 - Public-exposure classification — \`is-public\` on buckets, snapshots, images
 
-The resulting edge types read like attacker verbs: \`can-assume\`, \`can-read\`, \`can-write\`, \`can-reach\`, \`can-escalate\`, \`is-exposed\`.
+The resulting edge types read like attacker verbs: \`CAN_ASSUME\`, \`CAN_REACH\`, \`CAN_READ_SECRET\`, \`CAN_READ_OBJECT\`, \`CAN_DECRYPT\`, \`CAN_INVOKE\`.
 
-### Edge verification across five domains
+### Edge verification
 
-A candidate edge is not enough — a security group may permit traffic that IAM forbids, or a policy may grant access a network path never reaches. Before an edge is marked **CONFIRMED**, it is cross-checked against evidence from five security domains: identity, network, configuration, data, and behavioral signals. Only confirmed edges participate in path traversal, which is why the engine produces short lists of real paths instead of thousands of theoretical ones.
+A candidate edge is not enough — a security group may permit traffic that IAM forbids, or a policy may grant access a network path never reaches. Every edge is marked **CONFIRMED**, **BLOCKED** or **GAP** from the evidence behind it. Only confirmed edges are walked, which is why the engine produces paths that can actually be taken instead of every theoretical route.
 
 ## Path traversal
 
 The engine runs **BFS traversal from entry points toward crown jewels**:
 
-- **Entry points** — internet-exposed endpoints, publicly readable storage, externally assumable roles. Classification is catalog-driven, so new exposure patterns are added without code changes.
-- **Crown jewels** — production databases, secrets managers, classified data stores. Also catalog-driven, plus your own tags (see below).
+- **Entry points** — the internet, admin and other identities, CI/CD, third parties, and other clouds, each with its own starting likelihood. Classification is catalog-driven, so new exposure patterns are added without code changes.
+- **Crown jewels** — data stores such as S3 buckets, RDS and DynamoDB, encryption keys, and other targets the catalog marks as high value. Stores that [Data Security](/docs/features/data-security) finds sensitive are flagged as crown jewels too.
 
-Every discovered path is ranked by:
+Likelihood decays with every hop. Each path is then scored:
 
-- **Step count** — shorter paths rank higher
-- **Node severity** — paths traversing Critical findings rank higher
-- **Blast radius** — paths reaching high-value assets rank higher
-- **Exploitability** — EPSS probability and CISA KEV data are incorporated for CVE-adjacent hops
+- **Likelihood × impact** — the path's likelihood times the value of the crown jewel it reaches gives a 0–100 score and a severity
+- **Controls** — a WAF or MFA on the route lowers the score
+- **Exploitability** — a hop with a high-EPSS vulnerability raises it
 
-### Crown jewel configuration
-
-Define crown jewels in three ways:
-
-1. Tag resources directly in the console
-2. Import existing cloud provider tags (\`env=production\`, \`classification=critical\`)
-3. Let [Data Security](/docs/features/data-security) classification auto-tag stores containing PII, PCI, or PHI
-
-Crown jewel assets receive a risk multiplier in the FAIR risk engine — every attack path terminating at a crown jewel carries a boosted exposure score. Without any tags, the engine falls back to heuristics: managed databases, secrets managers, and resources tagged \`env=prod\` are treated as implicit crown jewels.
+Crown jewels also feed the [Risk Quantification](/docs/features/risk-quantification) engine: a finding on a crown jewel gets a higher asset multiplier in its loss estimate.
 
 ## Per-hop MITRE ATT&CK chains
 
@@ -300,25 +293,11 @@ Every hop in a path is tagged with the MITRE ATT&CK technique an attacker would 
 
 ![An identity escalation chain — one class of edges the graph traverses](/diagrams/feat-ciem-privesc-chain.svg)
 
-## Toxic combinations
-
-Toxic combinations are pairs (or triples) of findings that individually score as Medium but together enable a Critical attack chain.
-
-- Finding A: EC2 instance has IMDSv1 enabled (Medium — SSRF vector)
-- Finding B: Instance profile has \`s3:*\` permissions (Medium — overprivileged)
-- Together: SSRF, then IMDSv1 credential theft, then full S3 access — a Critical breach path
-
-Onam detects these combinations automatically and surfaces them as unified findings with an aggregate severity of Critical.
-
 ## Choke points
 
-Choke points are first-class objects in the graph: nodes or edges that many attack paths share. Fixing one choke point severs every path that runs through it. The console ranks them as the **Top 5 choke points** for your estate, and for each one shows:
+Choke points are the resources that many attack paths share. Fixing one choke point blocks every path that runs through it. For each choke point, the engine records how many paths would be blocked if it were fixed, and every hop on a path carries its own remediation step. Findings on choke points also get a higher loss estimate in [Risk Quantification](/docs/features/risk-quantification). See [Choke Points](/docs/features/choke-points) for the console view.
 
-1. The fix — for example, remove a public entry point, restrict an overprivileged role, or patch a Critical CVE on a pivot node
-2. The number of attack paths it severs
-3. The estimated risk reduction in dollars, from the [FAIR risk engine](/docs/features/risk-quantification)
-
-> Remediate choke points before individual paths. One choke-point fix routinely closes 10+ paths at once — it is the highest-leverage action the platform can recommend, and the Top 5 list is the best default agenda for your weekly security review.
+> Remediate choke points before individual paths. One choke-point fix can close many paths at once — it is the highest-leverage action the platform can recommend.
 
 ## Integration with other engines
 
@@ -330,22 +309,20 @@ Choke points are first-class objects in the graph: nodes or edges that many atta
 | [Vulnerability](/docs/features/vulnerability-management) | CVE nodes enriched with EPSS and KEV |
 | [CDR](/docs/features/cdr) | Behavioral edges — movement actually observed in logs |
 | [Data Security](/docs/features/data-security) | Crown-jewel classification from data discovery |
-| [Risk Quantification](/docs/features/risk-quantification) | Dollar exposure at each path terminus |
+| [Risk Quantification](/docs/features/risk-quantification) | Reads attack-path signals to raise the loss estimate of findings on paths |
 
 ## FAQ
 
-**How long does graph construction take?** Graph construction runs automatically after every scan — typically 3–8 minutes for estates up to 10,000 resources. For very large environments (100,000+ resources), incremental updates apply only to changed nodes.
+**When is the graph built?** Automatically after every scan. The graph is rebuilt in full each time, so a route you have fixed is simply absent from the next result.
 
-**Can I export attack paths for reporting?** Yes. Paths export as PDF reports (executive summary plus technical detail) or as JSON for SIEM/SOAR ingestion via \`GET /api/v1/attack-paths\`.
-
-**What if I have no crown jewels tagged?** The engine still runs using its catalog heuristics — managed databases, secrets stores, and production-tagged resources are implicit crown jewels until you refine the list.
+**Do I need to tag crown jewels?** No. Crown jewels come from the catalog of high-value targets and from data-security classification, so paths are found without any tagging.
 
 ## Next steps
 
 - [Threat Detection](/docs/features/threat-detection) — how posture, behavior, and correlation fit together
-- [Risk Quantification](/docs/features/risk-quantification) — the dollar figures behind path ranking
+- [Risk Quantification](/docs/features/risk-quantification) — how attack-path signals raise loss estimates
 - [CIEM](/docs/features/ciem) — the identity chains that become graph edges
-- [Book a demo](/request-demo) — see your own Top 5 choke points
+- [Book a demo](/request-demo) — see the choke points in your own estate
 `,
   },
   {
@@ -363,7 +340,7 @@ Onam detects threats on three planes at once: **posture rules** that find exploi
 | --- | --- | --- | --- |
 | Posture | [CSPM](/docs/features/cspm) and the domain engines | Resource configuration snapshots | PASS/FAIL findings — what could be exploited |
 | Behavioral | [CDR](/docs/features/cdr) | Audit and activity logs from all 7 clouds | Detections and incidents — what is being exploited |
-| Correlation | [Attack Path](/docs/features/attack-path) and Investigation | Findings plus detections | Attack paths, toxic combinations, choke points |
+| Correlation | [Attack Path](/docs/features/attack-path) and Investigation | Findings plus detections | Attack paths, choke points |
 
 The planes are complementary by design. Posture without behavior tells you where you are weak but not whether anyone is acting on it. Behavior without posture buries you in alerts with no context. Correlation is what turns both into a decision: this detection, on this misconfigured resource, on a confirmed path to a crown jewel — act now.
 
@@ -390,7 +367,6 @@ See [CDR](/docs/features/cdr) for the full detection model, log source configura
 The correlation plane merges both worlds:
 
 - **Behavioral edges on the graph.** When CDR observes real movement — an assumption, a data access — it becomes an edge in the attack path graph, upgrading a theoretical path to an active one.
-- **Toxic combinations.** Two Medium findings that together enable a Critical chain are detected and re-scored automatically.
 - **Choke points.** The graph identifies single fixes that sever many paths at once — the highest-leverage remediation available.
 - **Incidents.** Related detections are grouped by shared entities and temporal proximity, so three alerts become one investigation.
 

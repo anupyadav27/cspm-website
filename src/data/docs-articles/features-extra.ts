@@ -11,32 +11,34 @@ export const articles: DocArticle[] = [
     title: "CNAPP — the unified posture score",
     breadcrumb: "Features / CNAPP",
     body: `
-**CNAPP** is not a separate engine. It is the unified view across everything Onam Security runs: seven pillars, each scored from the findings its engines produced, rolled into one posture score.
+**CNAPP** is the unified view across what Onam Security runs: seven pillars, each scored by its own engine, rolled into one posture score.
 
 ## The seven pillars
 
 | Pillar | What it scores |
 | --- | --- |
-| CSPM | Cloud configuration posture |
-| CIEM | Identity and entitlement risk |
-| CWPP | Workload protection |
-| DSPM | Data security posture |
-| Network | Network posture across the seven layers |
-| Threat | Attack paths and MITRE-mapped activity |
-| AppSec | SAST, DAST and SCA findings |
+| Posture (CSPM) | Cloud configuration posture — the share of checks that pass |
+| Threat detection and IAM (CDR) | Detections from audit logs, plus IAM posture findings |
+| Workloads (CWPP) | Workload protection |
+| Data (DSPM) | Data security posture |
+| Network | Network posture |
+| Threat | Threat signals |
+| Code (AppSec) | Code security findings |
+
+Identity analysis from [CIEM](/docs/ciem/overview) feeds the attack path graph and its own views; it is not a separate pillar.
 
 ## How scoring works
 
-1. Each pillar scores its own findings on a common 0–100 scale.
-2. Scores are weighted by **severity** and by **exposure** — a critical finding on an internet-reachable resource moves the score more than the same finding on an isolated one.
-3. Pillar scores roll into one overall score with a risk band, trended over time.
-4. Every score decomposes: score → pillar → finding → resource → remediation.
+1. Each pillar reports a score on a common 0–100 scale, computed by its own engine.
+2. The pillar scores are combined with fixed weights into one overall score — posture, threat detection and workloads weigh the most, threat and code the least. A pillar with no data is left out and the remaining weights are rebalanced, so the score stays on the 0–100 scale.
+3. The overall score maps to a risk band: **low**, **medium**, **high** or **critical**.
+4. Each overall score is stored, so the trend shows whether posture is improving.
 
-Because all pillars read the same findings model, the same resource is never counted twice or scored inconsistently between views.
+Behind the pillars sits one findings model. Severity on a finding is raised when context makes it worse — it is on an attack path and internet-exposed, it is a crown jewel, it has a likely-exploited CVE, or an active threat actor is touching it — and each finding gets a fix-by date.
 
 ## Why the score moves when nothing changed
 
-Because the estate changed. New resources are discovered continuously, and a newly deployed misconfigured resource lowers the score the same day it appears. Score history shows which findings caused any movement.
+Because the estate changed. Each scan discovers resources again, and a newly deployed misconfigured resource lowers the score at the next scan. The pillar scores and their findings show what caused a movement.
 
 ## What is not in the score
 

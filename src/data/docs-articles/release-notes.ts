@@ -71,7 +71,7 @@ The master rule registry now contains **10,864 rules**:
 
 Rule metadata additionally covers Alibaba Cloud (1,541 rules) and IBM Cloud (613 rules), and the CIEM engine ships its own identity-specific rule set: AWS 530, Azure 202, GCP 176, Alibaba Cloud 114, IBM Cloud 110, OCI 107, Kubernetes 103.
 
-Framework mappings expanded to **78 compliance frameworks**, including CIS Benchmarks, NIST CSF 2.0, NIST 800-53 R4/R5, NIST 800-171, PCI-DSS v4.0/4.0.1, HIPAA/HITRUST CSF v11.3, ISO 27001/27002/27017 (2022), SOC 2, GDPR, NIS2, EU AI Act, DORA, FedRAMP High/Moderate, CMMC 2.0, SWIFT CSCF, and CSA CCM v4. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Framework mappings expanded to **78 compliance frameworks**, including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP Moderate and High, RBI and Canada PBMM. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ### FAIR risk engine: regulatory multipliers and per-record cost benchmarks
 
@@ -119,10 +119,9 @@ The Attack Path engine replaced the retired threat-v1 engine with a ground-up re
 
 - Security graph built from all posture, identity, network, and vulnerability findings
 - Crown jewel path analysis — every route from exposed entry points to tagged critical assets
-- Toxic combination detection — automatically surfaces pairs and triples of Medium findings that together create Critical blast radius
 - MITRE ATT&CK technique tagging on every graph node and edge
 - Interactive attack path visualizer in the Onam console
-- Integration with the Risk engine — every attack path terminus carries a FAIR dollar exposure estimate
+- Integration with the Risk engine — attack-path signals raise the FAIR-style loss estimate of findings on paths
 
 > **Migration note:** the retired \`engine-threat\` and \`engine-threat-v1\` deployments were removed. Attack path findings moved to the \`attack_paths\` table in the \`threat_engine_attack_path\` database. This engine was itself superseded by Attack Path v2 in July 2026 — see the July entry above.
 
@@ -142,17 +141,16 @@ Three-tier behavioral threat detection running as an independent continuous pipe
 
 ### New engine: Risk Quantification (FAIR model)
 
-The Risk engine runs the full FAIR pipeline on every finding, outputting dollar-denominated financial exposure estimates.
+The Risk engine gives every critical and high finding a FAIR-style loss estimate in dollars.
 
 **What's new:**
 
-- FAIR model scoring: P50 and P90 loss estimates for every open finding
-- Regulatory fine projection: GDPR, HIPAA, PCI-DSS, and SOX exposure per finding
-- Data-sensitivity loss multipliers: restricted ×3.0, confidential ×2.0, internal ×1.0, public ×0.1 (tenant-overridable)
-- Blast radius quantification: assets, users, and data records at risk
-- Risk reduction ranking: remediation queue ordered by dollar exposure eliminated
-- Executive dashboard: total exposure, top-10 risks, 90-day trend
-- Full integration with the Attack Path engine
+- FAIR-style scoring: low, likely and high loss estimates for every critical and high finding
+- Regulatory exposure: GDPR, HIPAA, PCI DSS, SOX and other regimes per finding
+- Data-sensitivity loss multipliers (tenant-overridable)
+- Blast radius: a sample of the resources reachable from each finding
+- Executive dashboard: total exposure, top scenarios, trend
+- Attack-path signals raise the estimate for findings on paths and choke points
 
 ### New engine: Code Security (SecOps)
 
@@ -368,7 +366,7 @@ As published in May; most of these shipped in the June and July releases above.
 - [Attack Path](/docs/features/attack-path) — how the v2 graph, choke points, and MITRE chains work
 - [CDR / Behavioral Analysis](/docs/features/cdr) — the three-tier detection model in depth
 - [Risk Quantification](/docs/features/risk-quantification) — the full FAIR model, multipliers, and benchmarks
-- [Quickstart](/docs/getting-started/quickstart) — connect your first cloud account in about 15 minutes
+- [Quickstart](/docs/getting-started/quickstart) — connect your first cloud account
 `,
   },
 ];
