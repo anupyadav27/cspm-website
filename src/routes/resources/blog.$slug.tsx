@@ -68,29 +68,13 @@ function NotFound() {
 
 function fallbackBody(p: BlogPost) {
   return `
-This post explores **${p.title.toLowerCase()}** — a topic that comes up in almost every conversation we have with cloud security teams.
+${p.excerpt}
 
-## The short version
+The full article is not published yet. In the meantime:
 
-Most teams inherit an environment that has been growing for years. The result is a mix of legacy defaults, ad-hoc exceptions, and controls that were right at the time and haven't been reviewed since. The category this post covers — **${p.category}** — sits at exactly that intersection: high leverage if you get it right, high blast radius if you don't.
-
-## What we see in the wild
-
-- Findings that look identical on paper but have wildly different real-world impact.
-- Controls that pass every audit but leave the door open to a chained attack.
-- Prioritization based on severity alone, which quietly buries the findings that matter.
-
-## A better approach
-
-Think of security posture as a graph, not a list. A misconfiguration in isolation is a data point; a misconfiguration that sits on a path from the public internet to your most sensitive data is an incident waiting to happen. That's the shift Onam is built around.
-
-> "The right question isn't 'how many findings do I have?' It's 'which two findings turn into a breach if I don't fix them this week?'"
-
-## Where to go next
-
+- Read the [platform overview](/docs/architecture/overview) for how Onam works.
+- Browse the [documentation](/docs).
 - Book time with the team via [Request a demo](/request-demo).
-- Read the [platform overview](/docs/architecture/overview) for how Onam models this internally.
-- Explore related capabilities in the [documentation](/docs).
 `;
 }
 

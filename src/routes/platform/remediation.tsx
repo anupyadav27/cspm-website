@@ -8,7 +8,7 @@ const data = platformPages["remediation"];
 export const Route = createFileRoute("/platform/remediation")({
   head: () =>
     seo({
-      title: "Remediation & Auto-Fix — Onam Security",
+      title: "Remediation & AI Fix — Onam Security",
       description:
         "Cloud security remediation: fix guidance per rule, an AI fix prompt on every finding, fix branches for source code, and verification on the next scan.",
       path: "/platform/remediation",

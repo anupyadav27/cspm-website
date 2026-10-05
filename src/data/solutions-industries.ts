@@ -77,7 +77,7 @@ export const healthcareData: IndustrySolutionData = {
   headline: "HIPAA Cloud Compliance Evidence, Ready Before the Audit",
   metaDescription:
     "Healthcare cloud security and HIPAA compliance: continuous visibility into every PHI-adjacent cloud control for health systems, payers and digital health.",
-  sub: "Healthcare organizations are the most targeted sector in cloud-based breaches — and HHS Office for Civil Rights now pursues cloud misconfigurations as HIPAA violations without requiring a breach. Onam gives health systems, payers, and digital health companies continuous visibility into every PHI-adjacent cloud control, 24/7.",
+  sub: "HIPAA asks you to safeguard electronic PHI wherever it lives, and in the cloud that means configuration: encryption, access and exposure on every store that may hold it. Onam gives health systems, payers and digital health companies visibility into those controls, re-checked on every scan.",
   stats: [
     { value: String(FRAMEWORKS), label: "frameworks mapped" },
     { value: "Every scan", label: "PHI posture re-checked" },
@@ -89,19 +89,19 @@ export const healthcareData: IndustrySolutionData = {
       icon: FileSearch,
       iconColor: "#2563EB",
       title: "PHI discovery across every data store",
-      body: "Onam identifies S3 buckets, Azure Storage accounts, RDS databases, and BigQuery datasets that likely contain PHI — and continuously validates encryption, access, and public exposure on each.",
+      body: "Onam labels data stores — S3 buckets, Azure Storage accounts, RDS databases, BigQuery datasets and more — as likely PHI from their metadata: names, descriptions, tags and schema. Each labelled store is checked for encryption, access and public exposure on every scan.",
     },
     {
       icon: Lock,
       iconColor: "#F2AF04",
       title: "Encryption-at-rest & in-transit assurance",
-      body: "Every managed data service is audited for KMS-backed encryption, TLS enforcement, and key-rotation posture. Non-conforming resources are surfaced at the next scan.",
+      body: "Managed data services are checked for encryption at rest, TLS enforcement and key-rotation settings. Non-conforming resources are surfaced at the next scan.",
     },
     {
       icon: ShieldAlert,
       iconColor: "#E32D25",
       title: "Access to PHI stores — who and why",
-      body: "IAM effective-permissions on PHI-hosting resources are graphed against your workforce roles. Access anomalies (a marketing account with read on the EHR bucket) are surfaced immediately.",
+      body: "Observed access from cloud audit events over the last 30 days shows which principals touched each PHI-labelled store, and with which operations. Identity permissions sit alongside in CIEM, and attack paths that end at a PHI store are scored as reaching a crown jewel.",
     },
     {
       icon: ScrollText,
@@ -118,19 +118,19 @@ export const healthcareData: IndustrySolutionData = {
     { name: "GDPR", note: "For US health orgs with EU cohorts — data-residency, DPIA-relevant controls, and access logging." },
   ],
   whyChoose: [
-    { title: "Purpose-built for PHI-adjacent controls", body: "Not a generic checklist. Rules that understand how PHI actually lives in AWS, Azure, and GCP." },
+    { title: "PHI labels that drive priority", body: "Stores labelled as likely PHI raise the findings and attack paths that reach them, so the riskiest gaps come first." },
     { title: "Evidence per control", body: "Timestamped evidence for each HIPAA control, exported as PDF or CSV." },
-    { title: "Zero PHI ever leaves your cloud", body: "Onam reads configuration, never data. No PHI ingested, ever." },
-    { title: "Works for health systems, payers, and digital health", body: "One control set covers hospitals, insurers, digital health apps, and their BAAs." },
+    { title: "Classification without opening your data", body: "PHI labels come from metadata. Onam does not open objects, query rows or sample files." },
+    { title: "Works for health systems, payers, and digital health", body: "One control set covers hospitals, insurers and digital health apps." },
   ],
   faqs: [
     {
       q: "Does Onam ever ingest PHI?",
-      a: "No. Onam reads configuration metadata — bucket policies, encryption settings, IAM bindings, database properties — never data-plane content. PHI never leaves your cloud.",
+      a: "Data classification uses metadata — store names, descriptions, tags, database and schema names, and configuration such as bucket policies, encryption settings and IAM bindings. It does not open objects, query rows or sample files.",
     },
     {
       q: "How does Onam identify which resources hold PHI?",
-      a: "A combination of resource tags, service metadata, and configurable classification rules. Customers commonly seed the classifier with their internal PHI-tagging convention; Onam then propagates it as new resources appear.",
+      a: "Tokens in a store's name, description and tags (for example patient or clinical), database and schema names for self-hosted databases, and the metadata on rules that matched it. A store whose name and tags say nothing about its contents gets no label until someone tags it, so tagging PHI stores by your own convention makes the labels complete.",
     },
     {
       q: "Can Onam produce evidence for an OCR audit?",
@@ -143,25 +143,25 @@ export const governmentData: IndustrySolutionData = {
   breadcrumb: "Solutions · Government",
   industryName: "Government",
   headline: "Continuous FedRAMP Control Evidence for Your Government Cloud Workloads",
-  sub: "Federal agencies and their contractors cannot afford a security posture that is visible only at authorization time — adversaries don't wait for your next ATO renewal. Onam maps findings to NIST 800-53, NIST 800-171 and FedRAMP Moderate and High controls, re-checked on every scan, across every cloud environment your agency or contractor operates.",
+  sub: "Federal agencies and their contractors need a security posture that is visible between authorizations, not only at ATO time. Onam maps findings to NIST 800-53, NIST 800-171 and FedRAMP Moderate and High controls, re-checked on every scan, across every cloud account your agency or contractor connects.",
   stats: [
     { value: "FedRAMP", label: "Moderate and High mapped" },
-    { value: "ConMon", label: "monthly evidence, automated" },
-    { value: "GovCloud", label: "AWS & Azure Government" },
+    { value: "Every scan", label: "control status re-checked" },
+    { value: "Per control", label: "timestamped evidence" },
     { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
     {
       icon: FileCheck2,
       iconColor: "#2563EB",
-      title: "Continuous ATO evidence",
-      body: "Automate the monthly Continuous Monitoring evidence expected under FedRAMP. Every 800-53 control status is timestamped and exportable as PDF or CSV for your 3PAO and Authorizing Official.",
+      title: "Evidence for continuous monitoring",
+      body: "Every 800-53 control mapped to cloud checks keeps its status, the resources evaluated and timestamps, re-checked on every scan and exportable as PDF, CSV or Excel when your 3PAO or Authorizing Official asks.",
     },
     {
       icon: Radar,
       iconColor: "#F2AF04",
-      title: "Boundary drift detection",
-      body: "When a resource is created outside your authorization boundary, Onam flags it — with the account, principal, and time of change. Boundary drift is caught at the next scan, not at the annual assessment.",
+      title: "Exceptions with an owner and an end date",
+      body: "Record an exception or compensating control with its justification, approver and target date. Exceptions are flagged as the date nears, so an accepted risk does not quietly become permanent.",
     },
     {
       icon: Building2,
@@ -172,8 +172,8 @@ export const governmentData: IndustrySolutionData = {
     {
       icon: ShieldAlert,
       iconColor: "#E32D25",
-      title: "Cross-agency shared-service posture",
-      body: "Agencies operating shared services see per-tenant posture and aggregated agency-wide risk in one workspace — with role-scoped access enforced end to end.",
+      title: "From framework to the failing resource",
+      body: "Drill down from a framework to a control to the resources that fail it, with each finding's remediation guidance, so the people who own the fix see exactly what to change.",
     },
   ],
   regulations: [
@@ -183,27 +183,27 @@ export const governmentData: IndustrySolutionData = {
     { name: "NIST 800-171", note: "800-171 requirements mapped for CUI handlers." },
   ],
   whyChoose: [
-    { title: "Built for continuous monitoring, not annual assessments", body: "Evidence collected every day, exportable on demand — designed for the ConMon reality of federal cloud." },
-    { title: "GovCloud and sovereign region ready", body: "Deployable in AWS GovCloud, Azure Government, and equivalent sovereign environments." },
-    { title: "Boundary-aware findings", body: "Onam knows which resources are in scope for your authorization boundary — and which are not. Findings are attributed accordingly." },
-    { title: "Deployed by agencies and their contractors alike", body: "One control set covers federal owner, contractor, and shared-service scenarios." },
+    { title: "Built for continuous monitoring, not annual assessments", body: "Control status re-checked on every scan, with a score and trend per framework and evidence exportable on demand." },
+    { title: "Hosted in the region you choose", body: "Onam is hosted in a customer-chosen region — US, Europe, India or others — to meet your compliance requirements." },
+    { title: "Findings per account", body: "Compliance status is available per connected cloud account, so you can report on the accounts that make up a system." },
+    { title: "One control set for owners and contractors", body: "The same mapping covers federal system owners, contractors and shared-service providers." },
   ],
   faqs: [
     {
-      q: "Can Onam be deployed in AWS GovCloud or Azure Government?",
-      a: "Yes. Onam operates in AWS GovCloud (US) and Azure Government with the same depth as commercial regions. Data residency is enforced end to end.",
+      q: "Where is Onam hosted?",
+      a: "In a region you choose — US, Europe, India or other regions — to meet your compliance requirements. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
     },
     {
       q: "Do you support Continuous Monitoring (ConMon) obligations?",
-      a: "Yes. Monthly ConMon evidence — control status, deviations, POA&M inputs — is generated automatically and formatted for 3PAO ingestion.",
+      a: "Onam supplies the evidence a ConMon programme draws on: control status per 800-53 control, re-checked on every scan, with the resources evaluated and timestamps, plus vulnerability findings with EPSS and KEV context. Reports export as PDF, CSV, Excel or JSON for your monthly package.",
     },
     {
       q: "Is Onam a FedRAMP ConMon tool, or a general CSPM with a FedRAMP mapping?",
-      a: "Both, and the distinction matters. The posture engine is a general multi-cloud CSPM. The ConMon layer on top of it is specific: it produces the monthly deliverables a FedRAMP program actually has to hand over — control-status evidence per 800-53 control, deviation requests, POA&M inputs and vulnerability-scan summaries — on a schedule, in the formats a 3PAO and an Authorizing Official expect, without a person assembling them from screenshots each month.",
+      a: "It is a multi-cloud posture platform with FedRAMP Moderate and High, NIST 800-53 and NIST 800-171 mapped to its checks. For ConMon it gives you per-control evidence, a score and trend per framework, exceptions with justification and target dates, and exports your team assembles into the POA&M and other monthly deliverables.",
     },
     {
-      q: "How does Onam handle authorization boundary?",
-      a: "You define boundary by account, tag, or resource query. Every finding is attributed to boundary-in-scope, boundary-adjacent, or out-of-boundary — so 3PAOs know exactly what to review.",
+      q: "How do I scope reporting to my authorization boundary?",
+      a: "Connect the cloud accounts that make up the system. Compliance status is available per account, and you can drill from a framework down to the controls and resources inside those accounts.",
     },
   ],
 };
