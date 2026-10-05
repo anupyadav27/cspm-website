@@ -121,7 +121,7 @@ function calc(){
  const licenseSave=licenseToday-onam;
  const timeSave=team*hrs*48*rate; // 48 working weeks
  const total=licenseSave+timeSave;
- $('total').textContent=fmt(total);
+ $('total').textContent = $('onamcost').value==='' ? '—' : fmt(total);
  $('payoff').textContent = $('onamcost').value==='' ? 'Enter the platform quote to net it off the licence total' : (total>0 ? 'License + '+fmt(timeSave)+' of reclaimed team time' : 'Net cost at these inputs — adjust tools or price');
  const mx=Math.max(licenseToday,total,1);
  $('b1').style.width=(licenseToday/mx*100)+'%';$('v1').textContent=fmt(licenseToday);

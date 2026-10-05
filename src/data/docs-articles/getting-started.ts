@@ -260,7 +260,7 @@ Rules are mapped to the controls they evidence across **78 frameworks** — CIS 
 
 The Risk Quantification engine implements the **FAIR** (Factor Analysis of Information Risk) model, running as the final layer after all other engines. It takes Critical and High findings and computes: Risk = Loss Event Frequency × Loss Magnitude, where frequency comes from threat event frequency and vulnerability, and magnitude combines primary and secondary loss.
 
-The numbers are grounded, not invented: per-record cost benchmarks from the IBM Cost of a Data Breach report (healthcare $10.93, finance $6.08, technology $4.88, retail $3.28, default $4.45), regulatory multipliers where the highest applicable one applies (GDPR ×1.5, SOX ×1.4, HIPAA ×1.3, PCI-DSS ×1.2), and data-sensitivity multipliers (restricted ×3.0 down to public ×0.1) that your tenant can override. The output — risk reports, summaries, and trends — is what turns "1,400 findings" into "an estimated $2.3M of exposure, concentrated in these five issues."
+Every input is visible: default per-record costs by industry (healthcare $10.93, finance $6.08, technology $4.88, retail $3.28, default $4.45) that you can replace with your own figures, regulatory multipliers where the highest applicable one applies (GDPR ×1.5, SOX ×1.4, HIPAA ×1.3, PCI-DSS ×1.2), and data-sensitivity multipliers (restricted ×3.0 down to public ×0.1) that your tenant can override. The output — risk reports, summaries, and trends — is what turns "1,400 findings" into "an estimated $2.3M of exposure, concentrated in these five issues."
 
 ## Glossary
 

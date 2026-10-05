@@ -138,9 +138,9 @@ function Page() {
             A calculator behind an email form is worth less to you and less to us. These are useful
             on their own, they are free to share, and you can send the link to a colleague without
             signing them up for anything. If the numbers make you curious about your real
-            environment, posture scanning connects through read-only cloud roles and agentless workload
-            scanning runs inside your account — but that is your call to make,
-            not a toll on the way in.
+            environment, posture scanning connects through read-only cloud roles and agentless
+            workload scanning runs inside your account — but that is your call to make, not a toll
+            on the way in.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <BrandButton to="/request-demo" size="lg">

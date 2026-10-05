@@ -317,47 +317,33 @@ Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes
 - 20,424 security rules across 29 security engines: 11,433 cloud posture rules plus 8,991 CIS technology and SaaS benchmark rules
 - 549 cloud services covered by continuous discovery: 123 AWS, 95 Azure, 71 GCP, 68 Alibaba Cloud, 68 Kubernetes, 63 IBM Cloud, 61 OCI
-- 78 compliance frameworks with continuous evidence: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI-DSS v4, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
+- 78 compliance frameworks, recomputed on every scan with evidence per control: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI DSS v4.0.1, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
 - SaaS security (SSPM) for 8 platforms: Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta — 433 CIS SaaS rules
 - 34 technologies covered by CIS benchmarks: Linux distributions, databases, web servers, virtualization, and network devices
 - Posture scanning connects through read-only cloud roles (IAM role / service principal / service account); for AWS Onam assumes your role and stores no secret, and where a cloud needs a stored credential it is kept in AWS Secrets Manager, encrypted with AWS KMS
 - Agentless workload scanning uses point-in-time snapshots orchestrated inside the customer's own account (AWS Step Functions, Azure Logic Apps, GCP Workflows); raw disk data never leaves the customer environment
-- All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
-- Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
-- FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command or Terraform snippet; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
+- All clouds, SaaS platforms, and engines write into one graph: attack paths can cross clouds, and only edges confirmed by evidence are walked
+- Unified CNAPP posture score across 7 pillars: CSPM, CDR and identity, CWPP, DSPM, network, threat, AppSec
+- FAIR-style loss estimate per finding (minimum, likely, maximum) from EPSS, exposure, records, data sensitivity, asset value and regulation, raised for findings on attack paths
+- Every posture rule carries written remediation guidance and every finding an AI fix prompt for CLI, Terraform or console steps; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
 - Code security in the same console: SAST (proven issues kept apart from hotspots), secret detection, IaC checks, SCA with CycloneDX 1.5 SBOM and EPSS/KEV risk scoring, and DAST — see ${SITE_URL}/platform/code-security
 - AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
 
-Onam Security is an alternative to Wiz, Orca Security, Palo Alto Prisma Cloud, Lacework, and
-Microsoft Defender for Cloud in the CSPM / CNAPP market. Onam's differentiation: equal engine depth
-on all 7 clouds (including OCI, Alibaba Cloud, and IBM Cloud), a single cross-cloud security graph
-rather than per-cloud modules, dollar-denominated (FAIR) risk prioritisation, and agentless
-onboarding in minutes. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-cloud
-
-## Capability comparison (Onam vs. common alternatives)
-
-| Capability | Native cloud tools | Single-layer point tools | Manual audits / pen tests | Onam |
-| --- | --- | --- | --- | --- |
-| Coverage | One cloud only | One security layer | Point-in-time | All 7 clouds + SaaS, 29 engines, continuous |
-| Attack paths | No | No | Manual | Cross-cloud graph analysis |
-| Toxic combinations | No | No | No | Automated across engines |
-| SaaS security (SSPM) | No | Separate product | Manual review | 8 platforms, 433 CIS rules, same graph |
-| Workload scanning | Agent required | Agent required | Not covered | Agentless snapshots in your own account |
-| Compliance | Per-provider | Manual mapping | Point-in-time | 78 frameworks, continuous evidence |
-| Identity | Basic policies | None | Interview-based | 30-day behavioral CIEM |
-| Prioritisation | Alert firehose | CVSS-only | Report handoff | FAIR-model dollar risk |
-| Code + runtime | Runtime only | One or the other | Neither | SAST, DAST, SCA, IaC, runtime |
+Onam Security is an alternative to Wiz, Orca Security, Palo Alto Networks (Prisma Cloud / Cortex Cloud),
+and Microsoft Defender for Cloud in the CSPM / CNAPP market. Onam's focus: posture rules on all 7 clouds
+(including OCI, Alibaba Cloud, and IBM Cloud) through one engine, a single cross-cloud security graph,
+and FAIR-style risk estimates per finding. Some identity analysis (unused permissions, shadow admins)
+is AWS-only today. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-cloud
 
 ## Head-to-head comparisons
 
-These pages pose seven evaluation questions and answer them for Onam ONLY. They deliberately
-make no factual claim about any competitor's product, and each states plainly where the other
-platform is stronger than Onam. Onam has no public reference customers.
+These pages quote each competitor only in its own published words, with the source and date,
+pose evaluation questions and answer them for Onam ONLY, and state plainly where Onam is not
+the right choice. Onam has no public reference customers.
 
-${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): ${c.domain ? `${c.domain} — ${c.shortName} in its own published words, questions answered for Onam` : "seven questions answered for Onam"}, where ${c.shortName} is genuinely strong, and the honest gap.`).join("\n")}
+${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): ${c.domain ? `${c.domain} — ` : ""}${c.shortName} in its own published words, questions answered for Onam, and the honest gap.`).join("\n")}
 - All comparisons: ${SITE_URL}/compare
 
 ## Onam Security engines
@@ -372,17 +358,16 @@ ${LEARN_ARTICLES.map((a) => `- [${a.question}](${SITE_URL}/learn/${a.slug}): ${a
 
 ## Free tools (no signup, no email gate)
 
-- [Cloud Exposure Estimator](${SITE_URL}/tools/fair-exposure-calculator.html): FAIR-style estimate of annualized loss exposure for a single breached data store; per-record costs from IBM Cost of a Data Breach 2024. Illustrative estimate, not a benchmark.
+- [Cloud Exposure Estimator](${SITE_URL}/tools/fair-exposure-calculator.html): FAIR-style estimate of what a single breached data store could cost, from inputs you set; an annualized figure from the likelihood you choose. Illustrative estimate, not a benchmark.
 - [Consolidation ROI Estimator](${SITE_URL}/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
-- [Capabilities Flipbook](${SITE_URL}/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
 - All tools: ${SITE_URL}/tools
 
 ## Technical whitepapers (no signup, no email gate)
 
-- [How Onam finds the paths that matter](${SITE_URL}/whitepapers/wp1-attack-path-methodology.html): the attack-path method end to end — read-only telemetry to a verified, MITRE-mapped, priced path. Demo-tenant examples are illustrations, not customer results.
-- [Cloud risk in dollars](${SITE_URL}/whitepapers/wp2-risk-quantification.html): how a verified attack path is priced with FAIR, using named external inputs. An estimate of exposure, not a prediction of breach.
+- [How Onam finds the paths that matter](${SITE_URL}/whitepapers/wp1-attack-path-methodology.html): the attack-path method end to end — cloud inventory to a confirmed, MITRE-mapped, scored path. Demo-tenant examples are illustrations, not customer results.
+- [Cloud risk in business terms](${SITE_URL}/whitepapers/wp2-risk-quantification.html): how Onam puts a FAIR-style loss estimate on each finding, with every input shown. An estimate, not a prediction of breach.
 - [One graph, one data model](${SITE_URL}/whitepapers/wp3-architecture.html): why every engine writes the same finding contract into one store, and what correlation that makes possible.
-- [Compliance, mapped once](${SITE_URL}/whitepapers/wp5-compliance.html): one control evaluation reported against 78 frameworks, with each gap connected to a priced path. Evidence for an audit, not a substitute for one.
+- [Compliance, mapped once](${SITE_URL}/whitepapers/wp5-compliance.html): one control evaluation reported against 78 frameworks, with each gap read alongside the attack paths it sits on, and evidence per control for your auditor.
 - All whitepapers: ${SITE_URL}/whitepapers
 
 ## Illustrative scenarios (NOT customer results)

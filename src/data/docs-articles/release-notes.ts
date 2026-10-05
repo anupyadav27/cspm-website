@@ -87,7 +87,7 @@ Regulatory multipliers — the highest single applicable multiplier is applied:
 | PCI-DSS | ×1.2 |
 | CCPA / APPI / PDPA / PIPEDA | ×1.1 |
 
-Per-record cost benchmarks, sourced from the IBM Cost of a Data Breach Report 2024:
+Default per-record costs by industry (tenant-overridable — replace them with your own figures):
 
 | Industry | Cost per record |
 | --- | --- |

@@ -460,7 +460,7 @@ LEF  = TEF x Vulnerability          (Loss Event Frequency)
 LM   = Primary + Secondary loss     (Loss Magnitude)
 \`\`\`
 
-Loss magnitude uses per-record cost benchmarks from the IBM Cost of a Data Breach 2024 study (healthcare $10.93, finance $6.08, technology $4.88, retail $3.28, default $4.45 per record), data-sensitivity multipliers (restricted ×3.0, confidential ×2.0, internal ×1.0, public ×0.1 — tenant-overridable), and a regulatory multiplier where the highest single applicable regulation applies:
+Loss magnitude uses default per-record costs by industry (healthcare $10.93, finance $6.08, technology $4.88, retail $3.28, default $4.45 per record — replace them with your own figures in the tenant risk settings), data-sensitivity multipliers (restricted ×3.0, confidential ×2.0, internal ×1.0, public ×0.1 — tenant-overridable), and a regulatory multiplier where the highest single applicable regulation applies:
 
 | Regulation | Multiplier |
 | --- | --- |

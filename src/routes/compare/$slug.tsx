@@ -173,10 +173,10 @@ function Page() {
             Do not take our word for any of it
           </h2>
           <p className="mt-3 text-[15.5px] leading-relaxed text-[#475569]">
-            Run a scan against one account and tell us whether the attack paths we surface
-            are real. If they are noise, we want to hear that — it is more useful to us than a
-            signature. That is the same offer we make to everyone, and it is the only claim on this
-            page you can check yourself today.
+            Run a scan against one account and tell us whether the attack paths we surface are real.
+            If they are noise, we want to hear that — it is more useful to us than a signature. That
+            is the same offer we make to everyone, and it is the only claim on this page you can
+            check yourself today.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <BrandButton to="/request-demo" size="lg">

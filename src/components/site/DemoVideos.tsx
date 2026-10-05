@@ -1412,7 +1412,9 @@ function RiskAnimation({ duration }: { duration: number }) {
       <div className="flex-1 min-h-0 grid lg:grid-cols-[1.5fr_1fr] gap-2.5">
         {/* Scenarios */}
         <div className="rounded-xl bg-white border border-[#E9EDF3] p-3 overflow-hidden">
-          <div className="text-[10px] font-bold text-[#0B1220] mb-2">Top Risk Scenarios (FAIR-style)</div>
+          <div className="text-[10px] font-bold text-[#0B1220] mb-2">
+            Top Risk Scenarios (FAIR-style)
+          </div>
           <div className="flex flex-col gap-[7px]">
             {RISK_SCENARIOS.slice(0, scenariosVisible).map((s) => (
               <div key={s.name} className="animate-[fade-in_.3s_ease-out_both]">

@@ -120,9 +120,9 @@ function Page() {
         </h1>
         <p className="mt-4 max-w-[720px] text-[17px] leading-relaxed text-[#475569]">
           Four papers on how the platform actually works — the attack-path method, how a finding
-          gets a loss estimate, why everything writes into one graph, and how one control evaluation reports
-          against 78 frameworks. Written for engineers and architects who want the mechanism, not
-          the pitch.
+          gets a loss estimate, why everything writes into one graph, and how one control evaluation
+          reports against 78 frameworks. Written for engineers and architects who want the
+          mechanism, not the pitch.
         </p>
         <div className="mt-7">
           <BrandButton

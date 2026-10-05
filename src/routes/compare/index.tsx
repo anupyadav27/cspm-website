@@ -44,8 +44,8 @@ function Page() {
             Claims about what anyone else&rsquo;s product can or cannot do. Cloud security platforms
             ship weekly, and a page asserting a competitor&rsquo;s gap is out of date within a
             quarter — at which point it is simply wrong, and everyone who checks will know. So we
-            quote each vendor in its own published words, ask the questions and answer only for Onam. Take the same seven to every vendor on your
-            list, including us.
+            quote each vendor in its own published words, ask the questions and answer only for
+            Onam. Take the same seven to every vendor on your list, including us.
           </p>
         </div>
       </section>
@@ -63,26 +63,35 @@ function Page() {
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#EFF4FF] text-[13px] font-bold text-[#2563EB]">
                 {i + 1}
               </span>
-              <span className="text-[15px] font-semibold leading-snug text-[#0B1220]">{item.q}</span>
+              <span className="text-[15px] font-semibold leading-snug text-[#0B1220]">
+                {item.q}
+              </span>
             </li>
           ))}
         </ol>
       </section>
 
       <section className="mx-auto max-w-[1000px] px-5 pb-16">
-        <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">
-          Head to head
-        </h2>
+        <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">Head to head</h2>
         <p className="mt-2 text-[15px] text-[#5C6B84]">
-          Each page quotes the other vendor in its own words, answers the seven for Onam, then says where we are not the right choice.
+          Each page quotes the other vendor in its own words, answers the seven for Onam, then says
+          where we are not the right choice.
         </p>
         <p className="mt-2 text-[15px] text-[#5C6B84]">
           Shortlisting rather than comparing two? Read{" "}
-          <Link to="/resources/blog/$slug" params={{ slug: "wiz-alternatives" }} className="text-[#2563EB] underline">
+          <Link
+            to="/resources/blog/$slug"
+            params={{ slug: "wiz-alternatives" }}
+            className="text-[#2563EB] underline"
+          >
             Wiz alternatives in 2026
           </Link>{" "}
           and{" "}
-          <Link to="/resources/blog/$slug" params={{ slug: "best-cspm-tools" }} className="text-[#2563EB] underline">
+          <Link
+            to="/resources/blog/$slug"
+            params={{ slug: "best-cspm-tools" }}
+            className="text-[#2563EB] underline"
+          >
             the best CSPM tools in 2026
           </Link>
           , each vendor in its own words.
@@ -148,8 +157,8 @@ function Page() {
           </h2>
           <p className="mt-3 max-w-[740px] text-[15.5px] leading-relaxed text-[#475569]">
             We have no public reference customers. Rather than ask you to believe a comparison
-            table, run a scan against a single account and tell us whether the attack
-            paths are real. If they are noise, say so — that is worth more to us than a signature.
+            table, run a scan against a single account and tell us whether the attack paths are
+            real. If they are noise, say so — that is worth more to us than a signature.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <BrandButton to="/request-demo" size="lg">
