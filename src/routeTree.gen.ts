@@ -16,6 +16,7 @@ import { Route as EstateRouteImport } from './routes/estate'
 import { Route as FinopsRouteImport } from './routes/finops'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
+import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
@@ -118,6 +119,11 @@ const PricingRoute = PricingRouteImport.update({
 const RequestDemoRoute = RequestDemoRouteImport.update({
   id: '/request-demo',
   path: '/request-demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SecurityRoute = SecurityRouteImport.update({
+  id: '/security',
+  path: '/security',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsRoute = ToolsRouteImport.update({
@@ -480,6 +486,7 @@ export interface FileRoutesByFullPath {
   '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/security': typeof SecurityRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -556,6 +563,7 @@ export interface FileRoutesByTo {
   '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/security': typeof SecurityRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -634,6 +642,7 @@ export interface FileRoutesById {
   '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
+  '/security': typeof SecurityRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -713,6 +722,7 @@ export interface FileRouteTypes {
     | '/finops'
     | '/pricing'
     | '/request-demo'
+    | '/security'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -789,6 +799,7 @@ export interface FileRouteTypes {
     | '/finops'
     | '/pricing'
     | '/request-demo'
+    | '/security'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -866,6 +877,7 @@ export interface FileRouteTypes {
     | '/finops'
     | '/pricing'
     | '/request-demo'
+    | '/security'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -944,6 +956,7 @@ export interface RootRouteChildren {
   FinopsRoute: typeof FinopsRoute
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
+  SecurityRoute: typeof SecurityRoute
   ToolsRoute: typeof ToolsRoute
   TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
@@ -1060,6 +1073,13 @@ declare module '@tanstack/react-router' {
       path: '/request-demo'
       fullPath: '/request-demo'
       preLoaderRoute: typeof RequestDemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/security': {
+      id: '/security'
+      path: '/security'
+      fullPath: '/security'
+      preLoaderRoute: typeof SecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tools': {
@@ -1573,6 +1593,7 @@ const rootRouteChildren: RootRouteChildren = {
   FinopsRoute: FinopsRoute,
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
+  SecurityRoute: SecurityRoute,
   ToolsRoute: ToolsRoute,
   TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,
