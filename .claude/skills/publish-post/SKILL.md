@@ -46,10 +46,10 @@ Enterprise but human — the voice that survives Google's quality systems:
 
 Check the deployment memory for the current image number; use the next vN.
 
-> **Current image: `v61`** — deployed 2026-10-05 (CSPM, attack path, risk, compliance, CNAPP pages + docs reconciled with code; v60: homepage = end-to-end platform story with overview diagram; /disaster-recovery DRM page + docs; CDR claims trimmed; v59: /security → /trust 301; v58: owner-cleared code-security + CIEM figures; v57: reviewed ChatGPT header images on Code Security, CIEM, DSPM, AI Operations; v56: AI Code Fix page; code security, CIEM, DSPM and
+> **Current image: `v62`** — deployed 2026-10-05 (final accuracy sweep: government, blogs, learn, compare, tools, whitepapers, demo captions; stale brochure/case-study files retired; v61: CSPM, attack path, risk, compliance, CNAPP pages + docs reconciled with code; v60: homepage = end-to-end platform story with overview diagram; /disaster-recovery DRM page + docs; CDR claims trimmed; v59: /security → /trust 301; v58: owner-cleared code-security + CIEM figures; v57: reviewed ChatGPT header images on Code Security, CIEM, DSPM, AI Operations; v56: AI Code Fix page; code security, CIEM, DSPM and
 > Onam Operations sections with docs and diagrams; Trust Center; comparison pages vs Snyk, Cyera and
 > CIEM tools; six blog posts; meta descriptions ≤155; all Onam-own certification/SLA claims, onam.io
-> addresses, "100% agentless" and unverified testimonials removed). Next is v62.
+> addresses, "100% agentless" and unverified testimonials removed). Next is v63.
 > Cluster:
 > `deployment/cspm-docs-website` in `threat-engine-engines`, EKS
 > `onam-eks-cluster` (ap-south-1). **Build with `NITRO_PRESET=node-server`**. The deployment has a 10 s preStop
