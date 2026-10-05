@@ -6,160 +6,88 @@ export const articles: DocArticle[] = [
     title: "Trust Center",
     breadcrumb: "Trust / Trust Center",
     body: `
-Security, privacy, and compliance are foundational to the platform. This page is the authoritative source for Onam's certifications, security posture, policies, and compliance artifacts. Every claim below is independently audited or backed by a downloadable artifact.
+Onam Security reads your cloud configuration so it can show you which risks an attacker can reach. That makes our own security part of the product. This page summarises how Onam connects to your clouds, what it stores, how it is encrypted, who processes data on our behalf, and how to report a vulnerability. The full, current version is the [Trust Center](/trust) page.
 
-![Trust center overview — SOC 2 Type II, ISO 27001, data encryption, penetration testing, GDPR compliance, and uptime SLA](/diagrams/trust-center.svg)
+## Compliance mapping
 
-## Certifications and compliance status
+Onam maps **your** findings to 78 compliance frameworks. That is a product feature — see [Framework Coverage](/docs/compliance/frameworks) — not a statement about Onam's own certification.
 
-The platform holds the major enterprise security certifications. Six are achieved, two are in progress, and three are on the roadmap. All achieved certifications are backed by current audit reports available on request.
+## How Onam connects to your clouds
 
-| Certification | Status | Scope | Audit period |
-| --- | --- | --- | --- |
-| SOC 2 Type II | Achieved | Security, Availability, Confidentiality | Annual — report on request |
-| ISO 27001:2022 | Achieved | ISMS for cloud platform operations | Annual — certificate on request |
-| ISO 27017 | Achieved | Cloud-specific security controls | Co-certified with ISO 27001 |
-| PCI DSS v4.0 | Achieved | Card data handling in billing pipeline | Annual — attestation on request |
-| GDPR | Compliant | EU personal data processing | DPA available — contact \`legal@onam.io\` |
-| CSA STAR Level 1 | Achieved | CAIQ self-assessment published | See Downloads below |
-| HIPAA BAA | Available | Business Associate Agreement | Contact \`sales@onam.io\` |
-| ISO 27018 | In progress | Cloud privacy for PII | Target: Q3 2026 |
-| FedRAMP Moderate | In progress | US federal agency use | Target: Q4 2026 |
-| ISO 27701 | Planned | Privacy management | Target: 2027 H1 |
-| SOC 3 | Planned | Public-facing assurance report | Target: 2027 H1 |
-| IRAP (Australia) | Planned | Australian Government use | Target: 2027 H2 |
+You grant access with a template we provide, run in your own account, so you can read every permission before you deploy it.
 
-### Downloads
-
-| Document | Access | Last updated |
+| Cloud | What you create | Access level |
 | --- | --- | --- |
-| SOC 2 Type II Report | On request — NDA required | 2025-12 |
-| ISO 27001 Certificate | Public | 2025-09 |
-| ISO 27017 Certificate | Public | 2025-09 |
-| PCI DSS v4.0 AOC | On request — NDA required | 2025-11 |
-| Penetration Test Report (summary) | On request | 2026-03 |
-| Penetration Test Report (full) | On request — NDA required | 2026-03 |
-| CAIQ Self-Assessment | Public | 2026-04 |
-| SIG Lite | On request | 2026-04 |
-| Data Flow Diagram | Public | 2026-05 |
-| Disaster Recovery Test Report | On request | 2026-01 |
-| Subprocessor List | Public | Updated on change |
-| Data Processing Agreement (DPA) | Public | 2026-01 |
+| AWS | An IAM role that Onam assumes with an External ID | AWS-managed SecurityAudit and ReadOnlyAccess policies, read of AWS Organizations account lists, and permission to start Onam's scan workflow in your account |
+| Azure | Role assignments for Onam's service principal | Built-in Reader and Storage Blob Data Reader |
+| Google Cloud | A service account | Viewer, Cloud Asset Viewer and Security Reviewer; billing read only if you opt in |
+| Oracle Cloud (OCI) | A dedicated user and group | Read policies across the tenancy, including users, groups, policies, vaults, keys and secret metadata |
+| Alibaba Cloud | A dedicated RAM user | A dedicated read-only RAM policy |
+| IBM Cloud | A service ID | Viewer-level (read-only) access, scoped to a resource group |
 
-> To request gated documents, email **trust@onam.io**. NDA-gated documents (SOC 2 report, full pentest report, PCI AOC) are typically turned around within two business days.
+- **Posture scanning is read-only.** It uses read permissions only.
+- **Agentless workload scanning runs inside your account.** If you enable it (AWS, Azure, Google Cloud), the template also creates resources in your account: a scan workflow, short-lived scan machines built from disk snapshots, and a storage bucket for results. Those resources hold the permissions needed to create and delete snapshots and scan machines; Onam's own role can only start that workflow, not create or delete resources itself. Leftover scan resources are removed automatically after a set number of hours.
+- **What Onam reads.** AWS's ReadOnlyAccess policy and Azure's Storage Blob Data Reader role are broad enough to read stored objects, not only configuration. Onam requests them so data security posture management can locate where sensitive data lives. Posture scanning and data classification read configuration and metadata; they do not read the contents of your files, objects or database rows.
 
-## Security program
+## What we store, and where
 
-The security program is organized into five domains. Each domain has named owners, written policies (reviewable under NDA), and quarterly audit cycles. The summary below is the public-facing version; the full policy set is part of the SOC 2 audit report.
+- **Hosting:** Onam runs on AWS, in the region agreed with you — US, Europe, India or other regions — so you can meet your own compliance requirements.
+- **What we store:** configuration and metadata from your clouds, findings, the asset and attack-path graph, and your users' account details, in PostgreSQL and a graph database (Neo4j).
+- **Your cloud credentials:** where a cloud needs a stored credential (for example an OCI API key or an Alibaba Cloud access key), it is kept in AWS Secrets Manager, which encrypts it with AWS KMS. For AWS we store no secret — Onam assumes your role.
+- **Your source code (AI Code Fix only):** when you run a fix, the repository is cloned for that run and the clone is deleted when it finishes. The Git token is used for that request only and is never stored or logged.
+- **Retention and deletion:** customer data is kept for 30 days after a customer deactivates, then deleted. See [Data Retention](/docs/trust/data-retention).
 
-| Domain | What it covers |
-| --- | --- |
-| Infrastructure | SOC 2-certified cloud infrastructure · AES-256 encryption at rest · all traffic over TLS 1.3 · environment isolation per tier · no public database endpoints |
-| Application | OWASP Top 10 controls · RBAC at every layer · input validation on every endpoint · dependency scanning in CI/CD · SAST on every pull request |
-| Identity | MFA enforced for all staff · privileged access management · quarterly access reviews · SSO for all internal tooling |
-| Operational | Annual third-party penetration test · quarterly vulnerability scans · 24/7 security monitoring · SOC 2 annual audit · public bug bounty program |
-| Data | Tenant isolation with no shared tables · AES-256 at rest · TLS 1.3 in transit · 30-day backup retention · regional data residency options |
+## Encryption
 
-### Penetration testing
+- **At rest:** customer data is encrypted at rest. Stored credentials are encrypted by AWS KMS through Secrets Manager.
+- **In transit:** data is encrypted in transit for all customer-facing and service-to-service traffic, with one internal job being moved to TLS. Browser-to-Onam traffic uses HTTPS.
 
-Independent third-party security firms conduct annual penetration tests covering:
+## Signing in and access control
 
-- External network penetration testing
-- Web application security testing (OWASP Top 10)
-- API security testing
-- Privilege escalation and lateral movement
-- Multi-tenant isolation validation
-- Subprocessor boundary testing
+- **Single sign-on:** SAML 2.0 (set up per organisation), OpenID Connect, Google and Microsoft sign-in.
+- **Multi-factor authentication:** use your identity provider's MFA through single sign-on. Built-in MFA for password sign-in is not available yet.
+- **Session cookies** are HttpOnly, Secure in production, and SameSite=Lax.
+- **Roles:** users are invited into an organisation and can be limited to specific cloud accounts. Read-only roles cannot start scans or fixes.
 
-A summary report is available on request; full reports are available under NDA for enterprise customers. Identified findings are remediated on the same SLA we promise customers — Critical within 7 days, High within 30, Medium within 90.
+## Keeping customers apart
 
-## Data handling
+Every customer's data carries a tenant identifier. In our main databases, PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows.
 
-The platform stores three classes of data: scan and finding data (your security posture), credential references (pointers to your IAM roles, never plaintext keys), and account metadata. Encryption, retention, and isolation rules are explicit per class.
+## Logging and backups
 
-| Data type | Where stored | Encryption | Retention |
-| --- | --- | --- | --- |
-| Cloud resource configurations | Tenant-scoped database | AES-256 at rest | 12 months |
-| Security findings | Tenant-scoped database | AES-256 at rest | 12 months |
-| Scan metadata | Tenant-scoped database | AES-256 at rest | 12 months |
-| Audit logs | Tenant-scoped database | AES-256 at rest | 7 years |
-| Cloud credentials (references only) | Managed secret store | Cloud-provider KMS | Duration of subscription |
-| User account data | Identity backend | AES-256 at rest | 90 days post-termination |
-| Attack graph data | Managed graph database | AES-256 at rest | 12 months |
+- Reads of the product's data views are written to an audit log: who, what, when, from where, and the result.
+- Databases are backed up with AWS Backup.
 
-We never store:
+## Sub-processors
 
-- **Plaintext cloud credentials.** Only credential references (ARNs, service principal IDs) are stored. The secret material lives in a managed secret store (AWS Secrets Manager, encrypted with KMS) and is fetched at scan time.
-- **Customer workload data or file contents.** Data Security (DSPM) samples to classify data types — sample data is discarded immediately after classification metadata is extracted.
-- **Personal data from scanned cloud resources.** The platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
+The third parties that process customer data on our behalf today:
 
-## Subprocessors
-
-| Subprocessor | Purpose | Location |
+| Sub-processor | Purpose | Location |
 | --- | --- | --- |
-| Cloud infrastructure provider | Compute, storage, secrets management | \`ap-south-1\` (primary), region-configurable |
-| Managed graph database service | Security graph (attack paths) | Region-configurable |
-| Payment processor | Subscription billing | Global |
-| Transactional email provider | System notifications | Global |
-| Incident alerting service | Internal on-call rotation | Global |
+| Amazon Web Services | Hosting, databases, key management, and the model behind the AI assistant (Amazon Bedrock) | The region agreed with each customer — US, Europe, India or other regions |
+| Mistral AI | AI Code Fix only, and only when you run it: the content of each source file that has findings is sent to the model to generate the fix | Mistral AI's hosted API |
+| Google Workspace | Email and collaboration | Google's standard hosting regions |
 
-Customers are notified of material subprocessor changes 30 days in advance. The current list is published and updated whenever a change occurs; subscribe to change notifications at \`trust@onam.io\`.
+We will update this list before adding a new sub-processor.
 
-## Incident response
+## Vulnerability disclosure
 
-Security events are handled through a five-stage response process. Severity is classified within 1 hour of detection; customer notifications go out within 72 hours of confirming impact.
+Found a security issue in Onam? Email \`security@onamsecurity.com\`. Please give us enough detail to reproduce it, and a reasonable time to fix it before telling others.
 
-![Incident response flow — Detect, Triage, Respond, Notify, Post-Incident Review](/diagrams/trust-incident-response.svg)
+**Safe harbor.** We will not take legal action against research done in good faith that avoids privacy violations, data destruction and service disruption, and that tests only accounts you own.
 
-| Stage | Target SLA | What happens |
-| --- | --- | --- |
-| 1. Detect | Continuous (24/7) | Security event detected via 24/7 monitoring, SIEM correlation, or customer report |
-| 2. Triage | Under 1 hour | Severity classified; response team paged |
-| 3. Respond | Critical: immediate · High: 4 hours · Medium: 24 hours | Incident response team mobilizes; containment begins |
-| 4. Notify | Within 72 hours of confirmed customer impact | GDPR Article 33-compliant notification to affected customers |
-| 5. Post-incident review | Within 14 days of resolution | PIR shared with affected customers, including root cause and prevention measures |
-
-To report a security issue: \`security@onam.io\`. A GPG public key, a responsible disclosure policy, and a bug bounty program are all published on the website.
-
-## Business continuity
-
-| Metric | Target |
-| --- | --- |
-| RTO (Recovery Time Objective) | 4 hours for full platform recovery |
-| RPO (Recovery Point Objective) | 1 hour (continuous database backups) |
-| Backup frequency | Continuous backups; daily snapshots retained 30 days |
-| DR test frequency | Semi-annual — last test 2026-01 (report on request) |
-| Multi-AZ deployment | All production databases run multi-AZ within your selected region |
-| Cross-region failover | Available on Enterprise plans with documented RTO/RPO |
-
-### Security ratings
-
-| Service | Rating | Last updated |
-| --- | --- | --- |
-| SecurityScorecard | A (94 / 100) | 2026-05 |
-| BitSight | 790 (Advanced) | 2026-05 |
-| UpGuard | 900+ | 2026-05 |
-
-Live ratings auto-refresh on the trust center web page; score histories are available on request.
+Our machine-readable contact file is at [/.well-known/security.txt](/.well-known/security.txt).
 
 ## Contact
 
-| Purpose | Contact |
-| --- | --- |
-| Security issues and vulnerabilities | \`security@onam.io\` |
-| Trust document requests (SOC 2, pentest) | \`trust@onam.io\` |
-| Data protection, GDPR, DPA | \`legal@onam.io\` |
-| HIPAA BAA or FedRAMP questions | \`sales@onam.io\` |
-| General compliance questions | \`compliance@onam.io\` |
-
-Trust Center updates are published when certifications are renewed or materially changed. Last updated: 2026-05-09.
+Security questionnaire, DPA request, or a question this page does not answer? Write to \`security@onamsecurity.com\`. For commercial terms, write to \`sales@onamsecurity.com\`.
 
 ## Next steps
 
-- [Data Retention](/docs/trust/data-retention) — what we store, for how long, and how deletion works
-- [SLA & SLO](/docs/trust/sla-and-slo) — uptime commitments, scan SLOs, and support response times
+- [Trust Center](/trust) — the full, current version of this page
+- [Data Retention](/docs/trust/data-retention) — what is kept, and how deletion works
+- [Service Levels](/docs/trust/sla-and-slo) — where service levels are agreed
 - [Framework Coverage](/docs/compliance/frameworks) — the 78 compliance frameworks the platform evaluates for you
-- [Book a demo](/request-demo) — walk through the security architecture with our team
 `,
   },
   {
@@ -167,319 +95,64 @@ Trust Center updates are published when certifications are renewed or materially
     title: "Data Retention",
     breadcrumb: "Trust / Data Retention",
     body: `
-This document describes what data the platform collects, how long it is retained, how it is deleted, and your rights as a data subject under GDPR and similar regulations. Every retention period below is enforced by automated daily expiry jobs — you don't have to ask us to delete data; the platform deletes on schedule.
+This page describes what the platform keeps, for how long, and how it is deleted. Where a retention period is not set by the product itself, it is set in your customer agreement.
 
-Effective date: 2026-01-01. Last reviewed: 2026-05-09.
+## What the platform stores
 
-![Data retention timeline — ingestion, active storage, rollup archive, long-term archive, permanent deletion](/diagrams/data-retention.svg)
+- Configuration and metadata from your connected clouds
+- Findings, and the asset and attack-path graph built from them
+- Your users' account details
+- An audit log of reads of the product's data views: who, what, when, from where, and the result
+- Where a cloud needs a stored credential (for example an OCI API key or an Alibaba Cloud access key), that credential, kept in AWS Secrets Manager and encrypted with AWS KMS. For AWS no secret is stored — Onam assumes your role.
 
-## What data we collect
+Posture scanning and data classification read configuration and metadata. They do not read or keep the contents of your files, objects or database rows.
 
-The platform collects two classes of data — scan data (your cloud security posture) and platform data (your account and operations) — and maintains an explicit boundary of never-collected data. Knowing what we don't collect is as important as what we do.
+## What is kept only for the length of a task
 
-| Class | Examples | Why we keep it |
-| --- | --- | --- |
-| Scan data — collected by engines | Cloud resource metadata · resource configurations · security findings · compliance scores · attack graph nodes · vulnerability records | Powers the dashboards, reports, and posture trends you pay for |
-| Platform data — account and operations | User account data · tenant configuration · credential references (pointers, never secrets) · audit logs · scan history · billing records | Required to operate your account and meet SOC 2 and legal obligations |
+- **AI Code Fix:** when you run a fix, the repository is cloned for that run and the clone is deleted when it finishes. The Git token is used for that request only and is never stored or logged.
+- **Agentless workload scanning:** scan machines and disk snapshots run inside your own account. Leftover scan resources are removed automatically after a set number of hours.
 
-We never collect:
+## While you are a customer
 
-- **Plaintext cloud credentials** — only credential references (ARNs, service principal IDs). The secret material lives in a managed secret store and is fetched at scan time.
-- **Customer workload data or file contents** — Data Security (DSPM) samples to classify data types, but sample data is discarded immediately after classification metadata is extracted.
-- **Personal data from scanned cloud resources** — the platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
-- **Source code content** — SecOps reads code to scan for issues but stores only finding metadata, never the source itself.
+Your data is kept while your organisation is active, so history and trends stay available. Specific retention periods for individual data types, and any export you need, are set in your customer agreement.
 
-## Retention schedule
+## When you leave
 
-Each data class has its own retention window. Audit logs and billing records are retained longest (7 years) due to SOC 2 and legal requirements; raw scan configurations are retained shortest (90 days) because they are recomputable from a fresh scan.
+Customer data is kept for **30 days** after a customer deactivates, then deleted. If you need an export before then, ask us before you deactivate.
 
-| Data category | Retention period | Reason |
-| --- | --- | --- |
-| Security findings (full detail) | 12 months | Historical trend analysis, compliance evidence |
-| Security findings (aggregated scores) | 36 months | Long-term posture trend reporting |
-| Raw resource configurations (scan raw data) | 90 days | Debugging, re-evaluation |
-| Compliance scores and reports | 12 months | Audit evidence, trend analysis |
-| Attack graph nodes and edges | 12 months | Investigation history |
-| Vulnerability records | 12 months | Remediation tracking |
-| Audit logs | 7 years | SOC 2 requirement, legal hold |
-| Billing records | 7 years | Legal and tax requirement |
-| User account data (active subscription) | Duration of subscription | Operational |
-| User account data (post-termination) | 90 days | Grace period, account recovery |
-| Credential references | Duration of subscription | Deleted immediately on credential revocation |
-| Application and scan logs | 90 days | Operational debugging |
-| Database backup snapshots | 30 days | Disaster recovery |
+## Backups
 
-Custom retention is available on Enterprise plans for compliance regimes that require longer windows (FedRAMP requires 3 years for security findings) or shorter ones (some EU privacy programs cap retention at 6 months).
+Databases are backed up with AWS Backup, in the region agreed with you.
 
-## Data deletion
+## Where your data is stored
 
-### Automatic deletion
+Onam runs on AWS, in the region agreed with you — US, Europe, India or other regions — so you can meet your own compliance requirements.
 
-Data is automatically deleted when its retention period expires.
+## Questions
 
-![Automatic deletion flow — created, retained, expiry, deleted, audit-log verified](/diagrams/trust-retention-deletion.svg)
-
-Reading the flow:
-
-1. **Created** — every data record is tagged with a retention class and creation timestamp at write time.
-2. **Retained** — for the scheduled period (90 days, 12 months, or 7 years depending on class).
-3. **Expiry** — a daily expiry job finds eligible records and queues them for deletion.
-4. **Permanently deleted** — from production and all backup snapshots.
-5. **Audit log** — the deletion event is timestamped in the audit log; a destruction certificate is available on request.
-
-> **Deletion is permanent and irreversible.** Once a record is past its retention window, no support escalation can recover it. Backups follow the same schedule — after the 30-day backup window, data deleted from production is removed from all snapshots too.
-
-### Account termination
-
-When a subscription is terminated:
-
-| Day | What happens |
-| --- | --- |
-| 0 | Scanning stops immediately. No new data is collected. |
-| 0–90 | Data is preserved in read-only state. Export available via API or support request. |
-| 30 | A deletion confirmation email is sent with export instructions. |
-| 90 | All scan data, findings, configuration data, and user data are permanently deleted. |
-| 90+ | Audit logs and billing records are retained per the 7-year legal requirement. |
-
-Customers can request early deletion at any point during the 0–90 day grace window — useful when a regulator requires immediate erasure.
-
-### Right to erasure (GDPR Article 17)
-
-If you are an EU data subject and request erasure of personal data:
-
-1. Submit the request to \`legal@onam.io\`.
-2. Identity verification is required.
-3. Erasure completes within 30 days of the verified request.
-4. Personal data (name, email, login history) is deleted.
-5. Anonymized scan data (no personal identifier) is not subject to erasure — it is not personal data under GDPR.
-6. Data required for legal or audit purposes (audit logs, billing records) is retained with a note of the erasure request.
-
-## Data residency
-
-Your data is processed and stored exclusively in the region you select during tenant creation. Backups stay in the same region. The platform never replicates findings or inventory across regions without your explicit consent.
-
-![Data residency options — your cloud account to default, EU, or US regions with TLS 1.3 transit](/diagrams/trust-data-residency.svg)
-
-| Region | Coverage | Plans |
-| --- | --- | --- |
-| India / APAC (default) | Mumbai data center · India and APAC customers | All plans |
-| EU residency | Ireland data center · EU and UK customers · GDPR residency requirement | Enterprise |
-| US residency | Virginia data center · US and Americas customers | Enterprise |
-| Government cloud (FedRAMP / IL5) | US Federal · ITAR · IL5 customers | Government plans |
-
-The four residency guarantees:
-
-- Your data is processed and stored exclusively in the region you select.
-- Backups stay in the same region.
-- No cross-region replication without your explicit consent.
-- Data transit from your cloud account to the platform region is encrypted with TLS 1.3. No data transits unencrypted.
-
-## Data classification
-
-The platform classifies all data it holds into four sensitivity tiers. Each tier has different access controls, encryption posture, and audit requirements.
-
-| Tier | Examples | Controls |
-| --- | --- | --- |
-| Confidential | Cloud credential references · user passwords (hashed) · SOC 2 reports | Managed secret store · encryption · access logging · NDA required for access |
-| Restricted | Security findings · vulnerability details · audit logs | Encrypted · RBAC-gated · tenant-isolated |
-| Internal | Scan metadata · compliance scores · application logs | Encrypted · authenticated access required |
-| Public | Documentation · architecture diagrams · release notes | Publicly accessible |
-
-## GDPR compliance summary
-
-Every applicable GDPR article is mapped to a specific platform control or process.
-
-| GDPR requirement | How we meet it |
-| --- | --- |
-| Art. 5 — Lawful processing | Legitimate interest (security service) plus contractual necessity |
-| Art. 6 — Legal basis | Contract performance plus legitimate interest |
-| Art. 13 / 14 — Transparency | This policy plus the Privacy Policy on the marketing site |
-| Art. 17 — Right to erasure | Honored within 30 days — \`legal@onam.io\` |
-| Art. 20 — Data portability | Export available via API and support request |
-| Art. 25 — Privacy by design | Tenant isolation · minimal data collection · encryption defaults |
-| Art. 28 — Processor agreement | DPA available — contact \`legal@onam.io\` |
-| Art. 32 — Security measures | SOC 2 Type II · ISO 27001 · encryption · RBAC · annual penetration testing |
-| Art. 33 — Breach notification | Within 72 hours of confirmed breach |
-| Art. 35 — DPIA | Available on request for Enterprise customers |
-
-## Frequently asked questions
-
-**Can I export my data before cancelling?**
-Yes. All findings, compliance reports, and scan history are exportable via the [REST API](/docs/reference/api) (JSON / CSV) or by contacting support. You have 90 days after termination to request an export.
-
-**Do you share my cloud configuration data with third parties?**
-No. Your cloud resource configurations and security findings are never shared with third parties. See the subprocessor list in the [Trust Center](/docs/trust/security) for infrastructure providers.
-
-**What happens to my data if you shut down?**
-In the event of a platform shutdown, customers receive a minimum of 90 days notice, during which export tools remain available. After that period, all data is permanently deleted, with a destruction certificate available on request.
-
-**Are backups encrypted?**
-Yes. All database snapshots are encrypted at rest. Backup data is subject to the same retention and deletion schedules as production data.
-
-**Where is my data physically stored?**
-In the region you select at tenant creation — see Data residency above. No data is stored outside the contracted region.
-
-**Can I get a destruction certificate?**
-Yes — available on request after account termination or after a verified GDPR Article 17 erasure request. Useful for compliance evidence.
-
-Changes to this policy are communicated via email 30 days before taking effect. Questions: \`legal@onam.io\`.
+Write to \`security@onamsecurity.com\` for retention or deletion questions, or \`sales@onamsecurity.com\` to discuss terms for your agreement.
 
 ## Next steps
 
-- [Trust Center](/docs/trust/security) — certifications, incident response, and the full security program
-- [SLA & SLO](/docs/trust/sla-and-slo) — uptime commitments and support response times
-- [API Reference](/docs/reference/api) — export findings and reports programmatically before any retention window closes
-- [Data Security architecture](/docs/architecture/data-security) — how tenant isolation and encryption are implemented
+- [Trust Center](/trust) — how Onam connects, what it stores, encryption, and sub-processors
+- [Service Levels](/docs/trust/sla-and-slo) — where service levels are agreed
+- [API Reference](/docs/reference/api) — pull findings programmatically
 `,
   },
   {
     slug: "trust/sla-and-slo",
-    title: "SLA & SLO",
-    breadcrumb: "Trust / SLA & SLO",
+    title: "Service Levels",
+    breadcrumb: "Trust / Service Levels",
     body: `
-This document defines the Service Level Agreement (SLA) and Service Level Objectives (SLOs) for the platform. SLAs are contractually committed in your subscription. SLOs are internal performance targets we publish for transparency — they tell you what to expect day to day, even where we are not contractually committing.
+Service levels — availability, support response times and any related remedies — are agreed with each customer in the order form or customer agreement. This documentation does not set them.
 
-![SLA and SLO reference — contractual commitments for availability, API response, scan completion, and incident notification alongside internal SLO targets](/diagrams/sla-slo.svg)
-
-> **The key distinction:** an SLA is a contractual commitment with credit consequences if breached (99.9% uptime, 1-hour critical-incident response). An SLO is a published target without contractual penalty (typical scan completion time, P95 API latency).
-
-## Platform uptime SLA
-
-The uptime SLA depends on your subscription plan. Higher-tier plans get tighter commitments and bigger credits if breached.
-
-| Plan | Monthly uptime SLA | Max downtime per month | Credit if breached |
-| --- | --- | --- | --- |
-| Starter | 99.5% | 3h 36m | 10% of monthly fee |
-| Growth | 99.9% | 43 min | 25% of monthly fee |
-| Enterprise | 99.95% | 21 min | 50% of monthly fee |
-| Enterprise+ (negotiated) | Up to 99.99% | Down to 4 min | Up to 100% of monthly fee |
-
-**How uptime is measured:** synthetic monitors run every 60 seconds from three geographic regions, probing the portal, the API, and the scan trigger endpoint. An outage is declared when 2 of 3 probes fail for 3 consecutive minutes. The 2-of-3 rule prevents a single regional network blip from triggering a false outage.
-
-**Excluded from the SLA:**
-
-- Scheduled maintenance within the published window (4 hours or less per month, with 48-hour notice)
-- Force majeure events (natural disaster, war, government action)
-- Customer-caused issues (your IAM role broken on the cloud side, your network blocking us)
-- Third-party provider outages beyond our control (cloud provider regional outages, your IdP unreachable)
-
-**Credit claims** must be submitted within 30 days of the incident to \`support@onam.io\` with the incident date and impact description. Credits apply to the next billing cycle.
-
-## Scan performance SLOs
-
-Scan duration depends primarily on the number of resources in your cloud account, and secondarily on the number of regions you have enabled. The targets below are published SLOs, not contractual SLAs, unless specified in your enterprise agreement.
-
-| Account size (resources) | Target scan duration | P99 | Notes |
-| --- | --- | --- | --- |
-| Under 1,000 | 15 minutes | 20 min | Single-region accounts |
-| 1,000–10,000 | 60 minutes | 90 min | Standard multi-region |
-| 10,000–50,000 | 2 hours | 3 hours | Large accounts with many regions |
-| 50,000–100,000 | 3 hours | 4 hours | Enterprise-scale |
-| Over 100,000 | 4 hours | 6 hours | Requires Enterprise plan |
-
-**What counts as "scan complete":** all engines (Discovery & Inventory, Check, the domain engines, Attack Path, and Risk) have finished processing and findings are visible in the console.
-
-**Findings-to-console latency:** under 5 minutes from each engine's completion to findings visible in the UI (P99 under 10 minutes). You don't wait for the full scan — findings stream in as each engine completes.
-
-## API performance SLOs
-
-The API is sized to support continuous integration into your existing tooling (SIEM, GRC, dashboards). Latency targets vary by endpoint complexity.
-
-| Endpoint type | P50 | P95 | P99 | Notes |
-| --- | --- | --- | --- | --- |
-| Gateway health (\`/gateway/health\`) | Under 50 ms | Under 100 ms | Under 200 ms | No database query |
-| Single resource lookup | Under 200 ms | Under 500 ms | Under 1 s | Indexed query |
-| Findings list (paginated, 50 rows) | Under 500 ms | Under 1 s | Under 2 s | Tenant-scoped |
-| Compliance posture score | Under 800 ms | Under 2 s | Under 3 s | Aggregate query |
-| Dashboard views (BFF aggregation) | Under 1 s | Under 2 s | Under 3 s | Multi-domain aggregation |
-| Attack graph traversal | Under 1.5 s | Under 3 s | Under 5 s | Graph database query |
-| Compliance report (full export) | Under 5 s | Under 10 s | Under 30 s | Large data export |
-
-Rate limits apply per plan (see the [API Reference](/docs/reference/api)). Rate-limit headers (\`X-RateLimit-Remaining\`, \`X-RateLimit-Reset\`) are returned on every response so your client can self-throttle.
-
-## Support response SLAs
-
-Support response is governed by severity classification. Severity is set when you submit a ticket; we may upgrade or downgrade it based on observed impact, with notification to you.
-
-![Support response SLA — ticket flow and severity targets for Critical, High, Medium, and Low](/diagrams/trust-sla-support.svg)
-
-| Severity | Definition | First response | Target resolution | Coverage |
-| --- | --- | --- | --- | --- |
-| Critical | Platform inaccessible · data loss risk · security breach | Under 1 hour | Under 4 hours | 24/7/365 |
-| High | Core feature broken with no workaround · scan failures | Under 4 hours | Under 24 hours | Business hours |
-| Medium | Feature degraded · workaround available | Under 24 hours | Under 5 business days | Business hours |
-| Low | Questions · documentation requests · feature suggestions | Under 72 hours | Under 14 business days | Business hours |
-
-**Business hours:** Monday–Friday, 09:00–18:00 in your account's primary support region (default IST, configurable for Enterprise).
-
-**Critical and High coverage** is 24/7/365 for Growth and Enterprise plans.
-
-**Support channels:** email at \`support@onam.io\` · in-app chat (Growth and Enterprise) · dedicated Slack Connect channel (Enterprise).
-
-## Scheduled maintenance
-
-The platform schedules maintenance windows during low-traffic hours. Maintenance does not count against the uptime SLA provided proper notice is given.
-
-| Window | Schedule | Max duration | Notice |
-| --- | --- | --- | --- |
-| Weekly | Sunday 02:00–04:00 UTC | 2 hours | 24 hours via status page |
-| Monthly | Last Sunday of month, 02:00–06:00 UTC | 4 hours | 72 hours via email and status page |
-| Emergency | As required (security-critical patches) | Varies | As soon as possible — email and status page |
-
-The weekly window is applied if needed and skipped if not — most weeks pass without maintenance. The monthly window is reserved for larger updates (schema migrations, dependency upgrades).
-
-Subscribe to maintenance and incident notifications at [status.onam.io](https://status.onam.io) — the status page also carries real-time platform status and incident history, with email or SMS alerts available.
-
-## SLO measurement and reporting
-
-We measure uptime and latency continuously via synthetic monitoring and report results to you monthly. The same metrics drive on-call paging, incident declaration, and post-incident reviews.
-
-![SLO measurement and reporting flow — synthetic probes, metrics, alerting, status page, post-incident review](/diagrams/trust-sla-measurement.svg)
-
-The five-stage measurement pipeline:
-
-1. **Probe** — synthetic monitors run every 60 seconds from 3 geographic regions, hitting the portal, the API, and the scan trigger endpoint.
-2. **Collect** — latency, success rate, and scan completion times are stored for 13 months as SLA evidence.
-3. **Evaluate** — SLO breach detection (2-of-3 probes failing for 3 minutes) pages on-call automatically.
-4. **Publish** — a real-time status page for transparency, plus a monthly SLO report delivered in your account dashboard.
-5. **Review** — a post-incident review is published within 5 days of any major incident, including root cause and prevention measures.
-
-### Monthly SLO report
-
-Available in your account under **Settings → SLO Report**. It includes:
-
-- Uptime percentage for the month
-- Scan success rate (scans that completed without error)
-- P95 / P99 API response times
-- Incident count and total downtime minutes
-- SLA credit eligibility
-- A downloadable PDF for compliance evidence
-
-## Enterprise SLA addendum
-
-Enterprise plans can negotiate custom SLA terms. Common customizations:
-
-| Customizable term | Default | Enterprise range |
-| --- | --- | --- |
-| Uptime SLA | 99.95% | Up to 99.99% |
-| Credit percentage | 50% | Up to 100% |
-| Support response (Critical) | Under 1 hour | Under 15 minutes |
-| Dedicated support engineer | No | Yes |
-| Custom maintenance window | No | Yes |
-| Data residency | Account default | EU-only · US-only · Government cloud |
-| Scan frequency | Daily | Up to hourly |
-| SLA reporting | Monthly in-app | Monthly plus quarterly review call |
-
-Contact \`sales@onam.io\` to discuss Enterprise SLA terms.
-
-> SLAs are subject to the Master Service Agreement (MSA). In case of conflict, the MSA governs. For SLA credit claims: \`support@onam.io\`. Effective 2026-01-01, last reviewed 2026-05-09.
+To discuss service levels for your organisation, write to \`sales@onamsecurity.com\`.
 
 ## Next steps
 
-- [Trust Center](/docs/trust/security) — certifications, incident response, and business continuity targets
-- [Data Retention](/docs/trust/data-retention) — retention windows and deletion guarantees
-- [API Reference](/docs/reference/api) — rate limits and the endpoints these SLOs cover
-- [Book a demo](/request-demo) — discuss Enterprise SLA terms with our team
+- [Trust Center](/trust) — how Onam connects, what it stores, encryption, and sub-processors
+- [Data Retention](/docs/trust/data-retention) — what is kept, and how deletion works
+- [Book a demo](/request-demo) — talk to our team
 `,
   },
   {
@@ -534,8 +207,7 @@ All requests route through the BFF gateway under the \`/api/v1\` prefix. Direct 
 
 | Environment | Base URL |
 | --- | --- |
-| Production | \`https://api.onam.io/api/v1\` |
-| Staging | \`https://api.staging.onam.io/api/v1\` |
+| Production | \`https://app.onamsecurity.com/gateway/api/v1\` |
 | Local dev | \`http://localhost:8000/api/v1\` |
 
 The gateway also exposes three operational endpoints outside the versioned prefix:
@@ -1171,7 +843,7 @@ Findings are forwarded in ASFF (AWS Security Finding Format) and appear in Secur
 Don't see an integration you need?
 
 - In-app: **Settings → Integrations → Request Integration**
-- Email: \`integrations@onam.io\`
+- Email: \`hello@onamsecurity.com\`
 
 Integration status changes are announced in the [release notes](/docs/release-notes).
 
@@ -1315,8 +987,8 @@ Start at **Settings → Authentication → SSO → Configure SAML** and download
 
 | SP setting | Value |
 | --- | --- |
-| Entity ID | \`https://api.onam.io/auth/saml/metadata\` |
-| ACS URL | \`https://api.onam.io/auth/saml/callback\` |
+| Entity ID | \`https://app.onamsecurity.com/api/auth/saml/<tenant-id>/metadata/\` |
+| ACS URL | \`https://app.onamsecurity.com/api/auth/saml/<tenant-id>/acs/\` |
 | Binding | HTTP POST |
 | NameID format | \`emailAddress\` |
 | Signature algorithm | RSA-SHA256 |
@@ -1355,7 +1027,7 @@ Users get the highest-priority mapped role. Unmapped users can be assigned a def
 ### Google OAuth
 
 1. Navigate to **Settings → Authentication → SSO → Configure Google OAuth**.
-2. In Google Cloud Console, create an OAuth 2.0 Client ID with the authorized redirect URI \`https://api.onam.io/auth/google/callback\`.
+2. In Google Cloud Console, create an OAuth 2.0 Client ID with the authorized redirect URI \`https://app.onamsecurity.com/api/auth/google/callback/\`.
 3. Enter the Client ID and Client Secret in the platform.
 4. Optionally restrict to your Google Workspace domain by entering it (for example, \`yourcompany.com\`) in the Allowed Domain field.
 5. Click **Save**.
@@ -1417,12 +1089,12 @@ Audit events include: login, logout, role change, user invite, user remove, SSO 
 | HTTP 403 on specific pages | Role lacks the required permission | Check the permission matrix above — upgrade the role or use the right account |
 | SAML \`InResponseTo mismatch\` | Clock skew between IdP and SP | Synchronize NTP on the IdP server |
 | SAML \`Invalid signature\` | Wrong certificate in SP config | Re-download IdP metadata and update the certificate |
-| Google SSO \`redirect_uri_mismatch\` | Wrong redirect URI in Google Console | Set it exactly to \`https://api.onam.io/auth/google/callback\` |
+| Google SSO \`redirect_uri_mismatch\` | Wrong redirect URI in Google Console | Set it exactly to \`https://app.onamsecurity.com/api/auth/google/callback/\` |
 | User not auto-assigned a role via SAML | Group attribute not mapped or not sent | Configure Group Mapping; verify the IdP sends the \`groups\` attribute |
 | MFA setup loop | Browser cookies cleared mid-flow | Clear the browser cache fully and retry MFA setup |
 | Invite link expired | 72-hour single-use limit hit | Re-issue from **Settings → Users** — links cannot be extended |
 
-For SSO configuration assistance: \`support@onam.io\`.
+For SSO configuration assistance: \`hello@onamsecurity.com\`.
 
 ## Next steps
 
