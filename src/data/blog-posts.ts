@@ -1088,13 +1088,13 @@ It's essentially a posture check against identity best practices. Every CSPM doe
 
 CIEM starts where IAM Security stops. It reconciles **who has which entitlements**, **what those entitlements evaluate to** given every trust policy, permission boundary, and SCP in the chain, and — most importantly — **what was actually used** in the last 90 days.
 
-The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output is:
+The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output looks more like this (illustrative examples):
 
 - \`user@example.com\` has effective \`s3:PutObject\` on 412 buckets across 3 accounts, but has only ever written to 4 of them.
 - \`OnamReadOnly\` in account \`****4821\` is assumable by 17 principals in 6 other accounts through a chain of two roles.
-- The service account \`acme-corp-ci\` has never used 91% of its granted permissions since it was created.
+- The CI service account \`build-runner\` has never called most of the actions it was granted when it was created.
 
-That third bullet is where CIEM stops being interesting and starts being urgent. **Unused entitlements are the single largest source of over-privilege in most environments.**
+That third bullet is where CIEM stops being interesting and starts being urgent. **Unused entitlements are usually where over-privilege hides.**
 
 ## Where the two overlap
 
@@ -1448,7 +1448,7 @@ The goal of FAIR is not to produce a precise dollar figure — the uncertainty r
   },
   {
     slug: "why-cloud-iam-permissions-are-never-used",
-    title: "Why 90% of cloud IAM permissions are never used — and why that matters",
+    title: "Why cloud IAM permissions go unused — and why that matters",
     category: "Identity",
     excerpt:
       "Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.",
@@ -1458,9 +1458,9 @@ The goal of FAIR is not to produce a precise dollar figure — the uncertainty r
     body: `
 Every cloud security team has the same conversation at some point: "We have too many IAM policies to audit manually." What they rarely say out loud is that the vast majority of the permissions in those policies have never been used once.
 
-Across the cloud accounts we analyse, **more than 90% of granted IAM permissions are never exercised in a 90-day window.** For AWS, that figure is consistent across account sizes, industries, and engineering team maturity. It is not a failure of individual teams — it is the natural consequence of how cloud IAM actually works in practice.
+We are not going to put a percentage on it: a figure without a published sample behind it is marketing, not data. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. It is not a failure of individual teams — it is the natural consequence of how cloud IAM actually works in practice.
 
-![The IAM security view in the Onam console (demo account)](/screenshots/screenshot-iam.png)
+![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
 
 ## How permissions accumulate
 
@@ -1482,28 +1482,24 @@ The SolarWinds attack demonstrated this at scale: compromised service accounts w
 
 ## How CIEM measures the gap
 
-CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap — the difference between what an identity is permitted to do and what it actually does. The process has three steps.
+CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap — the difference between what an identity is permitted to do and what it actually does. Here is how Onam does it today.
 
-**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can actually do. Service Control Policies (SCPs) at the organization level can restrict what managed policies allow. Permission boundaries limit IAM users and roles. Resource-based policies on S3 buckets or KMS keys can grant access that is not reflected in identity-based policies. CIEM resolves all of these layers into a single effective permission set.
+**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can actually do. Group membership adds permissions; explicit denies elsewhere remove them; conditions decide whether a grant applies at all; Service Control Policies (SCPs) at the organization level can block what an identity policy allows. Onam copies group policies onto members, classifies every condition by whether an attacker could satisfy it, nets out explicit denies and checks SCP deny statements. Permission boundaries and resource-based policies add further layers that Onam does not yet fold into the result — [the docs](/docs/ciem/effective-permissions) list exactly what is and is not modelled.
 
-![How effective permissions are resolved from identity policies, boundaries, SCPs, and resource policies](/diagrams/feat-ciem-effective-perms.svg)
+![How Onam resolves effective permissions on AWS — statements, groups, conditions, denies and SCPs](/diagrams/ciem-effective-access.svg)
 
-**2. Usage analysis from activity logs.** CloudTrail records every API call made in your AWS account. CIEM reads these logs — or their equivalents on Azure, GCP, and the other supported clouds — and builds a map of which permissions were exercised, by which identity, and when. A permission that appears in the effective permission set but has not appeared in any CloudTrail event in 90 days is flagged as unused.
+**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones — \`iam:PassRole\`, \`iam:CreatePolicyVersion\`, \`s3:PutBucketPolicy\`, \`kms:ScheduleKeyDeletion\` and similar — are listed separately. Onam does this for AWS today.
 
-**3. Least-privilege policy generation.** For each identity with unused permissions, CIEM can generate a suggested replacement policy that contains only the permissions that were actually used. This gives engineers a concrete, actionable change rather than an abstract "reduce permissions" recommendation.
+**3. A concrete change, not an abstract one.** The unused list — especially the high-risk unused actions — tells engineers exactly what to remove, and the used list is the starting point for a replacement policy. That is a change someone can review, rather than a vague "reduce permissions" ticket.
 
-## The numbers in practice
+## Where the gap is usually widest
 
-Across accounts we have analysed, the average gap between granted and used permissions breaks down as follows:
+Some identity types accumulate unused permissions faster than others:
 
-| Identity type | Granted permissions unused |
-| --- | --- |
-| Service accounts (Lambda, ECS, EC2 instance profiles) | 94% |
-| Cross-account roles | 91% |
-| Human IAM users | 87% |
-| Federated identities (SAML, OIDC) | 83% |
-
-The highest gap is consistently in service accounts — the identities most often forgotten after the feature they were created for is deployed and the team moves on to the next thing.
+- **Service accounts and workload roles** (Lambda, ECS, EC2 instance profiles). Created for one feature, forgotten when the team moves on, and rarely reviewed because no human logs in as them.
+- **Cross-account roles.** Set up for a partner, a migration or a tool, then left in place long after the reason has gone.
+- **Human users.** Permissions follow people through team changes; few are removed when they move.
+- **Federated identities.** Broad SSO roles are convenient and hard to scope per person.
 
 ## What to do about it
 
@@ -1511,13 +1507,13 @@ The goal is not to achieve zero unused permissions immediately. That would requi
 
 **Start with the highest-risk identities.** Shadow admins — identities that can reach admin-level access without holding an admin role — are the highest priority. A service account that can assume a role that can assume another role with \`iam:*\` permissions is a three-hop privilege escalation path. CIEM surfaces these chains; fix them first.
 
-**Enforce for new identities.** The easiest permission to remediate is one that was never granted. Add a review gate to your IAM policy creation process that requires justification for any permission that has not been used in the last 90 days in a similar role. This does not fix existing debt, but it stops new debt from accumulating.
+**Enforce for new identities.** The easiest permission to remediate is one that was never granted. Add a review gate to your IAM policy creation process that requires justification for any permission a similar role has not needed. This does not fix existing debt, but it stops new debt from accumulating.
 
-**Automate the generation, not the application.** CIEM can generate least-privilege replacement policies automatically. Do not apply them automatically — have a human review the suggestion for operational correctness before switching. What looks unused over 90 days may be used on a quarterly or annual cycle.
+**Automate the analysis, not the removal.** Let tooling compute the gap continuously, but do not remove permissions automatically — have a human review each change for operational correctness first. What looks unused over a few weeks may be used on a quarterly or annual cycle.
 
-> The cost of a false-positive access removal is a production incident. Generate automatically, apply carefully.
+> The cost of a false-positive access removal is a production incident. Measure automatically, remove carefully.
 
-The 90% figure is not a problem you can fix in a sprint. It is a long-running hygiene practice, and the right tool makes continuous progress measurable instead of invisible.
+Over-provisioning is not a problem you fix in a sprint. It is a long-running hygiene practice, and the right tool makes continuous progress measurable instead of invisible.
 `,
   },
   {

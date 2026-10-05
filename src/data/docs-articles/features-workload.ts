@@ -693,10 +693,9 @@ The five high-risk patterns flagged:
 | \`cluster-admin\` bound to a service account | Critical | Pod compromise = cluster takeover; only fix is rebinding |
 | Wildcard verbs (\`*\`) on sensitive resources | High | \`verbs: ["*"]\` on secrets, pods, or clusterroles enables secret read plus arbitrary exec |
 | \`exec\` / \`attach\` in production | High | \`pods/exec\` and \`pods/attach\` allow shells into running pods, bypassing image immutability |
-| Unused service accounts with broad permissions | Medium | Cluster-wide grants unused for 90 days — shrink the entitlement footprint |
 | Default service account with non-default bindings | Medium | Every pod in the namespace silently inherits the extra access |
 
-> Worked example: ClusterRoleBinding \`dev-admin\` grants \`cluster-admin\` to service account \`default/app-runner\` in namespace \`production\` — a Critical finding. Suggested fix: create a least-privilege ClusterRole limited to the permissions the app actually used in the last 90 days, bind that, then remove the cluster-admin binding.
+> Worked example: ClusterRoleBinding \`dev-admin\` grants \`cluster-admin\` to service account \`default/app-runner\` in namespace \`production\` — a Critical finding. Suggested fix: create a least-privilege ClusterRole limited to the resources and verbs the app needs, bind that, then remove the cluster-admin binding.
 
 ## Pod Security Standards
 

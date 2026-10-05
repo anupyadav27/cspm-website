@@ -127,223 +127,30 @@ There is no separate "compliance scan" — posture and compliance are the same e
     title: "CIEM — Cloud Identity & Entitlement Management",
     breadcrumb: "Features / CIEM",
     body: `
-CIEM analyzes every identity in your cloud — human users, service accounts, IAM roles, federated logins, machine identities — and answers two hard questions: **what can each identity actually do?** and **what does each identity actually need?** The gap between those two answers is your excess permission risk. The platform measures it, prioritizes it, and gives you a least-privilege policy you can apply with confidence.
+CIEM works out what each cloud identity can do, how it could escalate, who outside your account can get in and, on AWS, what it never uses.
 
-![CIEM entitlement analysis](/diagrams/ciem.svg)
+![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
 
-**Why CIEM matters:** the average cloud identity has been granted **80% more permissions than it ever uses**. Most cloud breaches now start with a compromised low-privilege identity that is then escalated through unused permissions to admin. CIEM is the discipline of closing that gap — and it is the only practical way to enforce least privilege at cloud scale, because no human team can review a million entitlements by hand.
+CIEM has its own documentation section. Start here:
 
-## The identity risk problem
-
-Modern cloud environments accumulate identities and permissions faster than security teams can review them. Every new microservice creates a new IAM role; every new SaaS integration creates a new federation; every new developer creates a new user. Permissions get added when needed but rarely removed when no longer used.
-
-| Risk | What it looks like | Why it is dangerous |
-| --- | --- | --- |
-| Overprivileged identities | A role with \`s3:*\` that only ever called \`s3:GetObject\` | If compromised, the attacker inherits the entire blast radius — not just the actually-used permission |
-| Shadow admins | A role that can \`iam:PassRole\` to a role that can \`iam:CreatePolicyVersion\` | Indirect path to admin that no one wrote down — invisible to manual review |
-| Stale identities | An ex-employee's IAM user with valid access keys 18 months later | A high-trust credential nobody is monitoring |
-| Cross-account trust risks | A role that trusts an unknown external account | Lateral movement boundary is wider than you think |
-
-**The industry baseline figure:** 80% of granted permissions are never used. This is not a flaw in your design — it is a structural property of cloud IAM. Permissions are granted defensively, workloads change, and nobody goes back to clean up. CIEM is what brings that 80% back down.
-
-## Coverage: rules and identity types
-
-### CIEM rule packs
-
-On top of the shared posture rule registry, CIEM ships its own dedicated entitlement rule packs per cloud — **1,342 CIEM-specific rules** in total:
-
-| Cloud | CIEM rules |
+| Page | What it covers |
 | --- | --- |
-| AWS | 530 |
-| Azure | 202 |
-| GCP | 176 |
-| Alibaba Cloud | 114 |
-| IBM Cloud | 110 |
-| OCI | 107 |
-| Kubernetes | 103 |
+| [CIEM overview](/docs/ciem/overview) | What CIEM answers, the CIEM screen, how it relates to IAM Security |
+| [How effective permissions are computed](/docs/ciem/effective-permissions) | Group expansion, condition classes, deny netting, SCP checks — and what is not modelled yet |
+| [Finding types](/docs/ciem/finding-types) | Escalation, shadow admins, trust, usage-based and database identity findings, by cloud |
+| [Reading the identity graph](/docs/ciem/identity-graph) | The edges CIEM writes and where you read them |
+| [Right-sizing workflow](/docs/ciem/right-sizing) | Risk score, permission gap, access reviews and making the change |
+| [Per-cloud notes](/docs/ciem/per-cloud) | What runs on AWS, Azure, GCP, Kubernetes, OCI, Alibaba Cloud and IBM Cloud |
 
-These cover entitlement-specific conditions — wildcard grants, escalation-capable permission combinations, risky trust policies, unused entitlements — that plain configuration rules cannot express.
+## In one paragraph
 
-### Supported identity types
-
-| Identity type | AWS | Azure | GCP | OCI | Alibaba | IBM |
-| --- | --- | --- | --- | --- | --- | --- |
-| Human users | Yes | Yes | Yes | Yes | Yes | Yes |
-| Service accounts / managed identities | Yes | Yes | Yes | Yes | Yes | Yes |
-| IAM roles / app registrations | Yes | Yes | Yes | Yes | Yes | Yes |
-| Federated identities (SAML / OIDC) | Yes | Yes | Yes | — | — | — |
-| Workload identities (instance roles, pod identity) | Yes | Yes | Yes | Yes | Yes | Yes |
-| Serverless execution identities | Yes | Yes | Yes | Yes | Yes | Yes |
-| Third-party cross-account access | Yes | — | — | — | — | — |
-
-A "—" does not always mean unsupported in principle — some providers implement the identity type through a different mechanism that the platform covers under a different row.
-
-## How CIEM works
-
-CIEM is a three-stage pipeline that runs against every identity on every scan: **collect** the raw IAM configuration and usage data, **analyze** what is actually callable vs what is actually used, and **emit** prioritized findings with suggested fixes.
-
-![How CIEM works — Collect, Analyze, Findings: the three-stage pipeline](/diagrams/feat-ciem-pipeline.svg)
-
-### 1. Collect — what the platform reads from your cloud
-
-Every CIEM scan reads three classes of data through your read-only credential. No agents, no policy changes, no IAM modifications.
-
-- **IAM policies** — every identity-based policy, every resource-based policy (S3 bucket policies, KMS key policies, Lambda permissions), every Service Control Policy at the org level, every permission boundary, every trust relationship.
-- **Usage history** — the last 90 days of CloudTrail (AWS), Azure Monitor activity logs, Cloud Audit Logs (GCP), or equivalent. The platform reads which identity called which API on which resource.
-- **Identity catalog** — every user, group, role, service account, workload identity, federated identity, and cross-account trust. Federation chains and identity center mappings are followed end-to-end.
-
-### 2. Analyze — what the platform calculates per identity
-
-- **Effective permissions** — the resolved intersection of all policy sources. This is what the identity can actually call — different from what is attached on paper.
-- **Used permissions** — what the identity actually called in the last 90 days.
-- **Unused permissions** — granted but never exercised. These are the candidates for safe removal.
-- **Identity attack paths** — multi-hop chains of \`sts:AssumeRole\` and \`iam:PassRole\` that lead from this identity to a role with privilege-escalation permissions.
-
-### 3. Findings — what you see in the console
-
-The output is severity-ranked findings, not raw data: overprivileged identities with a 0–100 gap score and a generated least-privilege policy, shadow admins, stale access, and cross-account risks.
-
-![The CIEM posture view — entitlement analysis and identity risk rollup](/diagrams/p-ciem.svg)
-
-## Effective permissions — what an identity can actually do
-
-Cloud IAM permissions do not come from a single source — on AWS they come from **five overlapping policy types** that interact through a precise resolution algorithm. The platform computes the resolved set for every identity automatically.
-
-![Effective permissions — five AWS policy sources intersect to produce what an identity can actually call](/diagrams/feat-ciem-effective-perms.svg)
-
-| # | Source | What it does | Can grant? | Can deny? |
-| --- | --- | --- | --- | --- |
-| 1 | Identity-based policies | Attached directly to user, group, or role | Yes | Yes |
-| 2 | Resource-based policies | Attached to a resource (S3 bucket policy, KMS key policy) | Yes | Yes |
-| 3 | Service Control Policies | Org-level guardrails for every account and identity | No | Yes |
-| 4 | Permission boundaries | Cap the maximum effective permissions for an identity | No | Yes |
-| 5 | Session policies | Apply only during the specific STS session | No | Yes |
-
-**The resolution rule in plain English:** an action is allowed only if there is an explicit Allow somewhere AND no explicit Deny anywhere. Explicit Deny always wins. SCPs and permission boundaries can never grant — they can only restrict.
-
-**Why this matters:** "what's attached" can be wildly different from "what's actually callable". A role might appear to have \`s3:*\` in its identity policy, but a permission boundary caps it to \`s3:GetObject\`. The platform shows you the truly callable set — that is the basis for the gap score and the suggested least-privilege policy. Manual reviews of "what's attached" miss this every time.
-
-**Cross-cloud coverage:** the same effective-permission resolution runs for Azure RBAC (role assignments, scope inheritance, deny assignments), GCP IAM (allow policies, deny policies, organization policies), OCI IAM (compartment hierarchy, policy statements), and the others. The mechanism varies; the goal is the same.
-
-### Least Privilege Gap Score
-
-Each identity receives a single **Least Privilege Gap Score** from 0 to 100 — a direct measure of how much excess permission the identity carries. Higher is worse.
-
-| Score range | Meaning | Recommended action |
-| --- | --- | --- |
-| 0–20 | Minimal excess | Low priority — monitor on the next scan |
-| 21–50 | Moderate excess | Review at the next quarterly access review |
-| 51–80 | Significant excess | Remediate within 30 days |
-| 81–100 | Extreme excess — admin or near-admin without justification | Remediate immediately |
-
-\`\`\`
-Gap Score = (unused_permissions / total_permissions) × severity_weight × exposure_weight
-\`\`\`
-
-- \`unused_permissions / total_permissions\` is the basic ratio of granted permissions never exercised.
-- \`severity_weight\` is higher for write/admin permissions than for read — deleting S3 buckets weighs more than listing them.
-- \`exposure_weight\` is higher for identities reachable from the internet than for purely internal identities.
-
-**Why this is not a simple percentage:** an identity with 80% of its \`s3:GetObject\`-only permissions unused is materially different from an identity with 80% of its \`iam:*\` permissions unused. The weighting captures that.
-
-## Identity attack paths
-
-CIEM does not stop at single-identity analysis. It traces **multi-hop permission chains** — paths an attacker could follow to escalate from a low-privileged starting identity all the way to full admin. Most real-world cloud breaches use chains exactly like the one below; almost none are visible from any single identity in isolation.
-
-![Identity attack path — privilege escalation from a compromised Lambda to full admin via a role chain](/diagrams/feat-ciem-privesc-chain.svg)
-
-| Hop | Where you are | The permission that lets you advance | Why this hop is dangerous |
-| --- | --- | --- | --- |
-| 1. Start | Compromised Lambda function (low-priv) | \`sts:AssumeRole\` on \`app-processor\` | The function's code is the attacker's foothold; they execute with its role |
-| 2. app-processor role | Has \`iam:PassRole\` on \`data-pipeline-role\` | \`iam:PassRole\` | The role can hand off another role — without PassRole, the chain stops here |
-| 3. data-pipeline-role | Has S3 admin AND \`iam:CreatePolicyVersion\` | \`iam:CreatePolicyVersion\` | The killer permission — lets the attacker write a brand-new admin policy |
-| 4. Privilege escalation | Attacker creates an Allow-all policy version and attaches it | \`iam:AttachUserPolicy\` | One API call from new policy to attached admin |
-| 5. Full admin | All services, all regions | — | Data exfiltration, key rotation, account takeover |
-
-**How the platform finds these chains:**
-
-1. Enumerates every reachable role from each identity — following \`sts:AssumeRole\` and \`iam:PassRole\` edges in the security graph.
-2. Tags every permission that enables self-escalation — \`iam:CreatePolicyVersion\`, \`iam:AttachUserPolicy\`, \`iam:PutRolePolicy\`, \`iam:CreateAccessKey\`, \`iam:UpdateAssumeRolePolicy\`, plus equivalents in Azure, GCP, and OCI.
-3. Flags any chain that ends in one of those permissions, regardless of hop count.
-4. Shows which control would have prevented it — usually a permission boundary on the intermediate role, or removing an unused \`iam:PassRole\`.
-
-Common chains the platform catches: Lambda to admin via PassRole, EC2 instance role to \`iam:CreatePolicyVersion\`, cross-account trust into a weaker account, federated SSO roles with \`iam:UpdateAssumeRolePolicy\`, and GKE service accounts mapping to GCP service accounts with \`iam.serviceAccountKeys.create\`. Each finding is mapped to MITRE \`T1098.001\` (Additional Cloud Credentials) and \`T1078.004\` (Valid Accounts: Cloud Accounts). These chains also feed the platform-wide [Attack Path graph](/docs/features/attack-path) as identity edges.
-
-## Findings and remediation
-
-### Key CIEM findings
-
-The ten most-encountered CIEM findings across customer environments:
-
-| Finding | Severity | Why it is dangerous |
-| --- | --- | --- |
-| Root account used recently | Critical | Root has every permission and bypasses every guardrail |
-| \`AdministratorAccess\` attached directly to a user | Critical | Admin should be assumable, never permanent — assumption creates an audit trail |
-| MFA not enabled for privileged user | High | Single factor protecting a high-impact identity |
-| Service account with owner / admin role | High | If the machine is compromised, so is the cloud account |
-| Cross-account trust with unknown account | High | Could be a partner, could be an attacker |
-| Unused IAM user with active access keys | High | Highest-trust credential class with no monitoring |
-| 90+ days inactive access key | Medium | Abandoned, unrotated keys are a top breach precursor |
-| Overprivileged role — gap score above 80 | High | Compromise blast radius far larger than its actual job |
-| Shadow admin path detected | High | Invisible without graph analysis — usually unintentional |
-| Wildcard resource on sensitive actions | High | \`iam:*\` or \`s3:*\` on all resources — worst-case scope on the most-abused permissions |
-
-Every finding includes the affected identity, the specific policy or trust at fault, the suggested fix, and the framework controls it satisfies (CIS IAM controls, NIST AC family, ISO 27001 A.5.15/A.5.18, SOC 2 CC6.1).
-
-### Remediation workflow
-
-CIEM findings come with **a generated least-privilege policy** ready to apply — not just a flag. The platform synthesizes the policy from what the identity actually used in the last 90 days and never modifies your IAM without your explicit approval.
-
-![CIEM remediation workflow — from finding to verified fix in five stages](/diagrams/feat-ciem-remediation.svg)
-
-1. **Detected.** A finding fires on the next scan — for example "role \`data-pipeline-role\` has gap score 87/100, 12 unused services". Severity, MITRE technique, and framework citations are attached.
-2. **Review.** The console shows a side-by-side diff of effective vs used permissions over the last 90 days, down to specific actions and resources.
-3. **Suggested policy.** The platform generates a least-privilege policy in JSON, scoped exactly to what was actually used. You can adjust it — expand a wildcard if seasonal usage was missed, or add a deny for a sensitive action.
-4. **Apply.** You decide how — copy to the cloud console, hand off to your IaC pipeline (Terraform or CloudFormation), or trigger an approved automation hook. The platform never auto-applies.
-5. **Verify.** The next scan re-evaluates the identity. The gap score should drop and the finding auto-closes. If it did not improve, the platform tells you why — for example, "policy was applied but a permission boundary still allows the wildcard".
-
-> Why we never auto-apply: least-privilege errors break production. Removing a permission used only during quarterly batch jobs can cause an outage the 90-day window never saw. You get the suggested policy with full context; you make the call.
-
-Bulk remediation is supported — review and apply a batch of suggested policies through your CI/CD pipeline with a single approval. Every approval is recorded in the audit log. Suggested policies export as Terraform \`aws_iam_policy\` blocks, CloudFormation snippets, or raw JSON; CIEM findings export as CSV.
-
-### API
-
-CIEM endpoints are part of the unified platform API under the \`/api/v1/iam-security\` prefix. All endpoints require an authenticated session and are scoped to your tenant.
-
-\`\`\`
-# List CIEM findings
-GET /api/v1/iam-security/findings?severity=HIGH&status=OPEN
-
-# Effective permissions for one identity
-GET /api/v1/iam-security/identity/{identity_id}/permissions
-
-# Attack paths originating from one identity
-GET /api/v1/iam-security/identity/{identity_id}/attack-paths
-
-# Suggested least-privilege policy for one identity
-GET /api/v1/iam-security/identity/{identity_id}/suggested-policy
-\`\`\`
-
-Full request/response schemas are in the [API Reference](/docs/reference/api). Webhook delivery on new High/Critical CIEM findings is configured under Settings, then Notifications.
-
-## FAQ
-
-**How long does CIEM analysis take per account?** A typical AWS account with 200 identities and 90 days of CloudTrail history completes the CIEM stage in under 90 seconds. Larger accounts (1,000+ identities) take 3–5 minutes.
-
-**Does CIEM modify any IAM in my account?** No. The platform reads IAM configuration and usage data and generates suggested policies. Applying them is always your action.
-
-**What if I don't have 90 days of audit history?** The platform uses whatever history is available and notes the lookback window on every finding. With under 30 days, gap scores are more conservative.
-
-**Can I customize what counts as an escalation permission?** Yes. Extend the default set with org-specific permissions under Settings, then CIEM, then Escalation Definitions.
-
-**Does CIEM cover AWS Identity Center (formerly SSO)?** Yes. Permission sets, federated user assignments, and the resulting per-account roles are all enumerated; SAML and OIDC federations are followed end-to-end.
+CIEM reads identities, policies and trust settings from the inventory Onam's posture scan already builds. It resolves each identity's effective access — on AWS through group expansion, condition classification, explicit-deny netting and SCP deny checks — and writes identity relationships into the platform's security graph. Detectors then find escalation paths, shadow admins and risky trust. On AWS, CloudTrail activity collected by threat detection is compared with granted actions to measure each identity's permission gap, every identity gets a 0–100 risk score, and high-tier identities open an [access review](/docs/features/access-reviews). CIEM never changes your IAM.
 
 ## Next steps
 
-- [IAM Security](/docs/features/iam-security) — configuration posture of identities (MFA, key rotation, policy hygiene)
-- [Attack Path Analysis](/docs/features/attack-path) — identity chains combined with network and data exposure
-- [CDR](/docs/features/cdr) — detect when an identity starts behaving abnormally
-- [Book a demo](/request-demo) — see your own entitlement gap measured live
+- [IAM Security](/docs/features/iam-security) — identity hygiene: MFA, keys, password policy, root usage
+- [Attack Path Analysis](/docs/features/attack-path) — identity edges combined with network and data exposure
+- [CDR](/docs/features/cdr) — the activity that confirms escalation and feeds unused-permission analysis
 `,
   },
   {
@@ -351,53 +158,41 @@ Full request/response schemas are in the [API Reference](/docs/reference/api). W
     title: "IAM Security",
     breadcrumb: "Features / IAM Security",
     body: `
-IAM Security is the identity posture engine. Where [CIEM](/docs/features/ciem) analyzes entitlements — what identities can do vs what they use — IAM Security audits the **configuration hygiene of the identities themselves**: MFA enrollment, access key age, password policy, root account usage, wildcard admin policies, and identities nobody has touched in months. The result is a risk-scored view of every identity in every connected cloud.
+IAM Security is the identity-hygiene view of Onam's identity engine: MFA, access-key age, password policy, root usage and wildcard policies, on every scan.
 
-This page covers what the engine checks, how findings are classified into six IAM security modules, and how to read the identity risk table in the console.
+It shares its engine and inventory with [CIEM](/docs/ciem/overview). IAM Security checks each identity's configuration; CIEM works out what the identity can actually do and how it could escalate.
 
-![The IAM Security view in the Onam console (demo account)](/screenshots/screenshot-iam.png)
+![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
 
 ## What IAM Security covers
 
-The engine classifies identity-relevant findings from every posture scan into six modules. Each module gets its own summary, its own pass rate, and its own contribution to the overall IAM posture score.
+Identity findings are grouped into six modules, each with its own summary and pass rate.
 
 | Module | What it checks | Example findings |
 | --- | --- | --- |
-| Least privilege | Over-permission, wildcard grants, privilege escalation | \`wildcard_admin\` policies, full-admin roles |
-| Policy analysis | IAM policy structure and versioning | Inline policies, missing policy conditions |
+| Least privilege | Over-permission, wildcard grants, privilege escalation | Wildcard admin policies, full-admin roles |
+| Policy analysis | IAM policy structure | Inline policies, missing policy conditions |
 | MFA | Multi-factor enforcement | MFA not enabled, no hardware MFA for root |
 | Role management | Role trust and session settings | Overly broad trust principals, long max session duration |
 | Password policy | Account password strength and rotation | Minimum length too short, passwords never expire |
-| Access control | Console access, root usage, key rotation | Root account activity, access keys older than 90 days |
+| Access control | Console access, root usage, key rotation | Root account activity, old access keys |
 
-Coverage spans all 7 clouds. On AWS that means IAM users, roles, and policies; on Azure it includes Entra ID, service principals, managed identities, RBAC assignments, and PIM configuration; on GCP it includes service accounts, workload identity, and organization policies; equivalents apply for OCI, Alibaba Cloud, IBM Cloud, and Kubernetes RBAC.
+Coverage spans all seven clouds: AWS IAM; Azure Entra ID, service principals, managed identities, RBAC and PIM; GCP service accounts and workload identity; OCI IAM; Alibaba Cloud RAM; IBM Cloud IAM; and Kubernetes RBAC.
 
 ## How it works
 
-IAM Security runs after the posture scan, as a classification and enrichment pass over the findings corpus:
+1. **Load.** After each posture scan, the engine loads the findings of every rule scoped to identity security.
+2. **Add provider checks.** Per-cloud analysers add their own identity findings — for example key and token rotation on OCI, Alibaba Cloud and IBM Cloud, and RAM trust and MFA conditions on Alibaba Cloud.
+3. **Group.** Each finding is assigned to its IAM modules.
+4. **Report.** The IAM Security screen shows a posture score, findings by severity, an identity risk trend, the findings table (filterable by severity, module and status, with MFA, key-rotation and privilege-escalation shortcuts) and the **Effective Access** panel.
 
-1. **Read.** The engine loads the scan's findings from the shared findings store.
-2. **Classify.** Each finding's \`rule_id\` is matched against 15 identity patterns — \`.iam.\`, \`.mfa\`, \`.password\`, \`.root\`, \`.sso\`, plus Azure-specific patterns (\`.entraid.\`, \`.rbac.\`, \`.pim.\`, \`.serviceprincipal.\`, \`.managedidentity.\`) and GCP-specific ones (\`.serviceaccount.\`, \`.workloadidentity.\`, \`.orgpolicy.\`).
-3. **Enrich.** Identity-relevant findings are tagged with the IAM modules they belong to.
-4. **Report.** The engine assembles an IAM report: per-module summaries, per-identity rollups, and a tenant-wide IAM posture score.
-
-Because it reuses the full rule registry rather than a separate rule set, IAM Security stays automatically in sync with rule updates — a new Entra ID rule in the registry is an IAM Security finding on the next scan with zero configuration.
+Because it uses the shared rule catalogue rather than a separate rule set, a new identity rule becomes an IAM Security finding on the next scan with no configuration.
 
 ![How the IAM Security engine fits into the platform](/diagrams/p-iam.svg)
 
-## The identity risk table
+## The Effective Access panel
 
-The console presents identities the way an analyst triages them — one row per identity, risk-scored and sortable:
-
-| Identity | Type | Cloud | Risk score | MFA | Oldest key | Open findings |
-| --- | --- | --- | --- | --- | --- | --- |
-| ci-deploy-user | IAM user | AWS | 94 | No | 412 days | 7 |
-| svc-backup | Service principal | Azure | 81 | — | 180 days | 5 |
-| admin@corp | Entra ID user | Azure | 76 | No | — | 4 |
-| etl-runner@prod | Service account | GCP | 58 | — | 97 days | 3 |
-| dev-alice | IAM user | AWS | 22 | Yes | 30 days | 1 |
-
-The risk score (0–100) weights each identity's open findings by severity, privilege level, and exposure — an admin without MFA outranks a read-only user without MFA, and an internet-reachable service identity outranks an internal one. Clicking a row opens the identity's findings, its policies, and its activity summary.
+Search any principal by name, ARN or service account to see what it can do after explicit denies and SCP denies: access grouped by resource type, with access level, allow or deny, where a grant was inherited from, and admin, cross-account and SCP-blocked flags. How the table behind it is built is in [How effective permissions are computed](/docs/ciem/effective-permissions).
 
 ## Common findings
 
@@ -413,27 +208,27 @@ The risk score (0–100) weights each identity's open findings by severity, priv
 
 Each finding carries remediation steps, MITRE ATT&CK mapping, and the compliance controls it affects — MFA and key-rotation checks map directly to CIS IAM sections, NIST 800-53 AC/IA families, PCI-DSS requirement 8, and SOC 2 CC6.
 
-> Fixing the IAM Security layer first makes every other engine's numbers better. MFA enforcement and key rotation are the cheapest risk reduction in cloud security — most tenants can clear their Critical identity findings in a single afternoon.
+> Fix the IAM Security layer first. MFA enforcement and key rotation are among the cheapest risk reductions in cloud security, and they make every CIEM finding less exploitable.
 
 ## IAM Security vs CIEM
 
-The two engines are complementary and share the same identity inventory:
+They are two views of one identity engine and share one inventory:
 
 | | IAM Security | CIEM |
 | --- | --- | --- |
-| Question answered | Is this identity configured safely? | Does this identity have more permission than it uses? |
-| Data analyzed | Identity configuration (MFA, keys, policies, trust) | Effective permissions vs 90 days of usage history |
-| Typical finding | User without MFA, key not rotated | Gap score 87, shadow admin path, unused entitlements |
-| Output | Risk-scored identity table, module posture scores | Least-privilege policy suggestions, escalation chains |
+| Question answered | Is this identity configured safely? | What can it do, how could it escalate, what does it never use? |
+| Data analysed | Identity configuration: MFA, keys, password policy, policies, trust settings | Resolved effective access, trust relationships and, on AWS, CloudTrail activity |
+| Typical finding | User without MFA, key not rotated | PassRole to an admin role, shadow admin, high permission gap |
+| Output | Module posture scores, identity findings | Escalation and trust findings, risk scores, access reviews |
 
-Start with IAM Security to fix hygiene, then use [CIEM](/docs/features/ciem) to shrink entitlements toward least privilege.
+Start with IAM Security to fix hygiene, then use [CIEM](/docs/ciem/overview) to shrink access and close escalation paths.
 
 ## Next steps
 
-- [CIEM](/docs/features/ciem) — entitlement analysis and least-privilege remediation
-- [CSPM](/docs/features/cspm) — the rule registry that feeds IAM Security's classification
+- [CIEM overview](/docs/ciem/overview) — effective permissions, escalation paths and access reviews
+- [CSPM](/docs/features/cspm) — the rule catalogue IAM Security draws on
 - [Attack Path Analysis](/docs/features/attack-path) — how identity weaknesses chain with network and data exposure
-- [Book a demo](/request-demo) — see your identity risk table live
+- [Book a demo](/request-demo) — see your identities on a live walkthrough
 `,
   },
   {
