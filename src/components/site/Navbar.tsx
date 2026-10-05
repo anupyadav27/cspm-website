@@ -33,9 +33,9 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
   {
     heading: "Data & Network",
     items: [
-      { title: "DSPM — Data Security", href: "/platform/data-security", desc: "Where your sensitive data lives" },
+      { title: "DSPM — Data Security", href: "/platform/data-security", desc: "Sensitive data, who reaches it, where it flows" },
       { title: "Database Security", href: "/platform/database-security", desc: "Managed DBs + CIS engine benchmarks" },
-      { title: "Encryption & Keys", href: "/platform/encryption", desc: "KMS, rotation, and the decrypt set" },
+      { title: "Encryption & Keys", href: "/platform/encryption", desc: "KMS keys, rotation, and key-policy reach" },
       { title: "Network Security", href: "/platform/network-security", desc: "7-layer topology analysis" },
       { title: "API Security", href: "/platform/api-security", desc: "Shadow APIs, auth gaps, WAF coverage" },
     ],

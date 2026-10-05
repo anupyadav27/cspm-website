@@ -88,7 +88,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 - [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and…
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
 - [Network Security](https://www.onamsecurity.com/platform/network-security): Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path — from VPC isolation to WAF coverage and flow log monitoring — and shows…
-- [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Data Security maps every storage resource across your cloud accounts, classifies what's inside, and shows exactly which identities and network paths can reach it.
+- [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Onam's DSPM inventories every data store across your clouds, labels it from metadata, and joins it to exposure, identity, encryption and lineage — so a sensitive store is never…
 - [AI Security](https://www.onamsecurity.com/platform/ai-security): SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules.…
 - [Container & Kubernetes Security (KSPM)](https://www.onamsecurity.com/platform/container-security): Kubernetes Security Posture Management (KSPM) and container security in one place — covers your full container estate — image vulnerabilities, Kubernetes RBAC, network policies,…
 - [Vulnerability Management](https://www.onamsecurity.com/platform/vulnerability): EPSS probability, network reachability, and CISA KEV status combined — so you fix the CVEs most likely to be exploited in your specific environment, not just the highest CVSS…
@@ -101,7 +101,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 - [Agentless Scanning](https://www.onamsecurity.com/platform/agentless): Onam scans workloads using point-in-time volume snapshots orchestrated inside your own cloud account with native services — AWS Step Functions, Azure Logic Apps and GCP Workflows.…
 - [API Security](https://www.onamsecurity.com/platform/api-security): API Security discovers every API surface across your clouds — gateways, load-balanced endpoints, function URLs and ingress routes — and evaluates them against 241 application and…
 - [Database Security](https://www.onamsecurity.com/platform/database-security): Database Security evaluates every managed and self-hosted database across your estate — RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift, OCI DB Systems and more — against…
-- [Encryption & Key Management](https://www.onamsecurity.com/platform/encryption): The encryption engine evaluates 502 secrets and key-management rules across every cloud — KMS, Key Vault, Cloud KMS and OCI Vault — then answers the question that matters more…
+- [Encryption & Key Management](https://www.onamsecurity.com/platform/encryption): The encryption engine evaluates 502 secrets and key-management rules across every cloud — KMS, Key Vault, Cloud KMS and OCI Vault — then answers the questions that matter more…
 - [AI Assistant](https://www.onamsecurity.com/platform/ai-assistant): The AI assistant is a multi-agent system with thirteen domain specialists — IAM, compliance, encryption, containers, network, CDR, risk, vulnerability, data security and more —…
 - [Remediation & Auto-Fix](https://www.onamsecurity.com/platform/remediation): The remediation engine generates the specific fix for each finding — CLI command, Terraform snippet, or — for SAST findings in source code — a fix branch pushed to your repository…
 - [Asset Inventory & Discovery](https://www.onamsecurity.com/platform/inventory): The discovery engine is the foundation every other engine reads from: continuous, read-only enumeration of every resource across seven clouds and 549 services, with the…
@@ -201,6 +201,16 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Compliance Coverage](https://www.onamsecurity.com/docs/features/compliance-coverage)
 - [Technology Engine](https://www.onamsecurity.com/docs/features/technology-engine)
 - [Risk Quantification](https://www.onamsecurity.com/docs/features/risk-quantification)
+
+### Data Security (DSPM)
+- [Overview](https://www.onamsecurity.com/docs/dspm/overview)
+- [Discovery](https://www.onamsecurity.com/docs/dspm/discovery)
+- [Classification and its limits](https://www.onamsecurity.com/docs/dspm/classification)
+- [Access mapping](https://www.onamsecurity.com/docs/dspm/access-mapping)
+- [Exposure, encryption and residency](https://www.onamsecurity.com/docs/dspm/exposure-and-residency)
+- [Data lineage](https://www.onamsecurity.com/docs/dspm/lineage)
+- [Findings reference](https://www.onamsecurity.com/docs/dspm/findings-reference)
+- [Coverage by cloud](https://www.onamsecurity.com/docs/dspm/coverage)
 
 ### Architecture
 - [Overview](https://www.onamsecurity.com/docs/architecture/overview)
@@ -3386,210 +3396,29 @@ Yes. The full topology graph (VPCs, subnets, route tables, peerings, transit gat
 ## Data Security (DSPM)
 URL: https://www.onamsecurity.com/docs/features/data-security
 
-Data Security Posture Management (DSPM) answers two questions security teams cannot answer manually at cloud scale: **where is your sensitive data, and is it properly secured?** Onam's Data Security engine discovers every data store across cloud storage, databases, and data pipelines — managed AND shadow stores — classifies the data inside them as PII, PCI, or PHI, and grades each store for encryption, access control, retention, and logging.
+Data Security (DSPM): every cloud data store, labelled from metadata and joined to exposure, access, encryption and lineage. The short version.
 
-This page explains the four-stage DSPM pipeline, the classification taxonomy, how exposure levels determine severity, and how data-flow analysis catches sensitive data leaking into less-secure downstream stores.
+This page is the short version. The full documentation has its own section: start at the [DSPM overview](/docs/dspm/overview).
 
-![Data security posture management](/diagrams/data-security.svg)
+![How DSPM works — data stores, discovery, metadata classification, the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
 
-![The data security view in the Onam console (demo account)](/screenshots/screenshot-datasec.png)
+## What it answers
 
-## What DSPM Solves
+- **What data do we hold, and where?** Every data store across the connected clouds — object storage, managed databases and warehouses, streams, Kubernetes secrets and ConfigMaps — plus self-hosted databases you onboard. See [Discovery](/docs/dspm/discovery) and [Coverage by cloud](/docs/dspm/coverage).
+- **Which stores look sensitive?** PII, PHI, PCI, financial and confidential labels inferred from names, descriptions, tags and schema. Contents are not read. See [Classification and its limits](/docs/dspm/classification).
+- **How can each store be reached?** Public grants, other accounts in bucket policies, principals seen in the last 30 days of audit events, encryption and keys, and attack paths that end at the store. See [Access mapping](/docs/dspm/access-mapping).
+- **Is it protected?** Encryption at rest, access logging, versioning and backup, residency, and a 0–100 governance score per store. See [Exposure, encryption and residency](/docs/dspm/exposure-and-residency).
+- **Where does the data go next?** Replication, backup, ETL, streaming and export hops linked into chains, with cross-region and cross-account hops flagged. See [Data lineage](/docs/dspm/lineage).
 
-Every cloud organization hits the same five data-security failure modes. They share a single root cause: **new data stores are created faster than they are reviewed, classified, and secured**.
+## What it does not do
 
-| Failure mode | What it looks like | Why it happens |
-| --- | --- | --- |
-| Shadow data stores | An S3 bucket created for a one-off task that quietly accumulates production data | Bucket creation is one API call; governance is a multi-step process |
-| Over-exposed data | A public bucket with PII inside, discovered by a third-party researcher | A misclick in bucket settings or IAM copied from a public-asset bucket |
-| Unencrypted sensitive data | An RDS instance holding PII without encryption at rest | Default encryption was opt-in for years; legacy databases predate the default-on era |
-| Stale sensitive data | An old backup bucket with customer data from a deprecated product, never purged | Lifecycle policies get forgotten when the owner leaves the team |
-| Misconfigured access | Developers with direct read access to the production customer database | Incident-response convenience that nobody removed afterward |
+- It does not read objects, rows, messages or secret values, so it cannot count records or prove what an unlabelled store contains.
+- It does not compute a per-store list of every identity whose effective permissions allow a read; that is answered per identity in [CIEM](/docs/features/ciem).
+- It is not DLP: it does not inspect or block data in motion.
 
-DSPM closes the gap by re-evaluating every data store on every scan — managed stores, shadow stores, backups, snapshots, and the pipelines that move data between them.
+## Every check
 
-## How DSPM Works
-
-DSPM runs as a four-stage pipeline against every data store in your connected accounts: **Discover** what exists, **Classify** what's inside, **Evaluate** the security controls, **Emit** prioritized findings. The pipeline is agentless — no database extensions, no inline scanners, no network taps.
-
-![DSPM 4-stage pipeline — Discover, Classify, Evaluate, Findings](/diagrams/feat-datasec-pipeline.svg)
-
-### 1. Discover — find every data store
-
-The engine enumerates every data store reachable from your read-only credential, including ones nobody is tracking:
-
-- **Object storage** — every S3 bucket, Azure Blob container, GCS bucket, OCI Object Storage bucket, Alibaba OSS bucket, and IBM COS bucket, including buckets untouched for a year.
-- **Managed databases** — RDS (every engine), Azure SQL, Azure DB for Postgres/MySQL, Cosmos DB, Cloud SQL, BigQuery, DynamoDB, Redshift, Synapse, and more.
-- **Shadow stores** — self-managed databases on compute instances, attached volumes containing data files, orphaned RDS snapshots. Detected through instance-metadata pattern matching, security-group inspection, and data-file fingerprinting.
-
-A typical AWS account has 2–3x more shadow stores than the security team is tracking. Surfacing them is half the value of DSPM.
-
-### 2. Classify — identify what's sensitive
-
-For every discovered store, the engine samples a small, statistically valid window of content using your read credential, returns only matched-pattern metadata, and discards the sampled data immediately. **Bulk data never leaves your cloud account.**
-
-Classification combines regex patterns, format validators (Luhn for cards, mod-11 for national IDs), and ML models for ambiguous cases. Each classification carries a confidence score; below a configurable threshold the data is flagged "possibly sensitive" rather than positively classified.
-
-### 3. Evaluate — check the security controls
-
-For every store containing sensitive data, four control axes are evaluated, plus residency for regulated data:
-
-- **Encryption at rest** — is a KMS-managed key in use, is rotation enabled, is the key shared more broadly than it should be?
-- **Access controls** — is the store public, reachable from external accounts, or broader than the workload needs? (The [CIEM](/docs/features/ciem) signal feeds in here.)
-- **Retention** — is a lifecycle policy in place, and is data older than the policy window flagged?
-- **Logging** — are access logs enabled and tamper-proof? Can you reconstruct who read what for the last 90 days?
-- **Residency** — PCI cardholder data or GDPR-scoped data outside the approved geographic region is flagged immediately.
-
-### 4. Findings — prioritized, framework-mapped output
-
-Each finding includes the affected store, the data classification, the failed control, the suggested fix, framework citations (GDPR, PCI-DSS, HIPAA, ISO 27001), and the MITRE ATT&CK technique where applicable.
-
-![DSPM platform view — sensitive data discovery, classification, and exposure risk](/diagrams/p-datasec.svg)
-
-## Data Classification
-
-Onam classifies data into five sensitivity categories. Each maps to specific regulations and triggers different finding severities. You can extend the catalog with custom data classes under **Settings → DSPM → Custom Patterns**.
-
-| Category | Examples | Compliance trigger | Severity if exposed |
-| --- | --- | --- | --- |
-| PII — personal data | Full name, email, phone, address, SSN, DOB, government IDs, passport numbers | GDPR · CCPA · LGPD · PIPL | Critical |
-| PCI — payment data | Card PAN (Luhn-validated), CVV, expiry, cardholder name, bank account numbers | PCI-DSS v4.0 | Critical |
-| PHI — health data | Medical record IDs, patient name + diagnosis, prescriptions, insurance IDs, lab results | HIPAA · HITECH · GDPR | Critical |
-| Confidential — business | Source code, M&A documents, salary data, legally privileged documents | NDA exposure · trade-secret risk | High |
-| Credentials — high risk | API keys, plaintext passwords, private keys, connection strings with embedded creds | Universal — every framework | Critical |
-
-> Credentials are graded Critical in every context because a leaked credential cascades: an attacker with an API key pivots into the system it authorizes, exfiltrates more data, and mints more credentials. Onam treats credential leakage as the worst-case category by default.
-
-## Data Exposure Levels
-
-Every classified store is rated against four exposure tiers. The combination of sensitivity and exposure determines severity.
-
-![Data exposure levels — Public, External, Internal, Restricted](/diagrams/feat-datasec-exposure-levels.svg)
-
-| Level | Who can reach it | Default platform response |
-| --- | --- | --- |
-| Public | Anyone on the internet, no authentication | Critical finding if data is sensitive — immediate alert |
-| External | Authenticated users outside your organization (other cloud accounts, partners, contractors) | High finding — trust review prompted |
-| Internal | Anyone authenticated within your tenant | Medium finding if scope is broader than the workload needs |
-| Restricted | Only specific named principals — least privilege enforced | No finding — this is the target posture |
-
-The combination matrix that determines severity:
-
-| Sensitivity vs exposure | Public | External | Internal | Restricted |
-| --- | --- | --- | --- | --- |
-| PII / PCI / PHI | Critical | High | Medium | No finding |
-| Confidential — business | Critical | High | Medium | No finding |
-| Credentials | Critical | Critical | High | Medium |
-| Public-class data | No finding | No finding | No finding | No finding |
-
-Intentionally public assets (website images, public docs, marketing content) never produce findings — once you confirm a bucket as intentionally public, Onam stops alerting on it in future scans.
-
-## Supported Data Stores
-
-Both fully managed stores and self-managed stores running on cloud compute are detected.
-
-| Category | Services covered |
-| --- | --- |
-| Object storage | AWS S3, Azure Blob Storage, GCP Cloud Storage, OCI Object Storage, Alibaba OSS, IBM COS |
-| Managed relational | AWS RDS (MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, Aurora), Azure SQL, Azure DB for PostgreSQL/MySQL, GCP Cloud SQL, OCI DB Systems |
-| Managed NoSQL | DynamoDB, Cosmos DB, Firestore, Bigtable, Alibaba Table Store |
-| Data warehouses | Amazon Redshift, Azure Synapse, BigQuery, Snowflake (via connector) |
-| Streaming | Amazon Kinesis, Azure Event Hubs, GCP Pub/Sub |
-| Secrets and config | AWS Secrets Manager, Azure Key Vault, GCP Secret Manager (metadata only — secret values are never read) |
-| Self-managed (shadow) | Postgres / MySQL / MongoDB / Redis on compute instances, attached volumes with data files, RDS and Aurora snapshots, machine images with embedded data |
-
-Snowflake is supported via a read-only connector you authorize on the Snowflake side. Databricks support is on the roadmap.
-
-## Key DSPM Findings
-
-The ten most-encountered DSPM findings. Re-grade per finding type in **Settings → DSPM → Severity Policy**.
-
-| Finding | Severity | Description |
-| --- | --- | --- |
-| Public S3 bucket contains PII | Critical | Bucket accessible without auth, contains personal data |
-| RDS instance with PII — no encryption at rest | Critical | Sensitive data stored unencrypted on disk |
-| Database with PII — public endpoint | Critical | Database listening on a public IP, no IP allowlist |
-| Bucket with PII — no access logging | High | No audit trail for who read the data |
-| Over-privileged access to PII store | High | Developers or shared roles with direct prod-data read |
-| Backup bucket with PII — no lifecycle policy | High | Sensitive data not deleted per retention schedule |
-| PCI data in non-compliant region | High | Cardholder data stored outside approved geography |
-| PHI with unencrypted backups | High | HIPAA violation — automatic backups not encrypted |
-| Secrets found in object storage | High | API keys or passwords stored as objects |
-| Stale PII — not accessed in 1+ year | Medium | Data exists beyond likely retention requirement |
-
-Each finding includes sample matched-pattern metadata (never the data itself), suggested remediation, and framework citations such as GDPR Art. 32, PCI-DSS Req 3.4, and HIPAA §164.312.
-
-## Data Flow Analysis
-
-Sensitive data rarely stays in one place — it moves through ETL pipelines, backup jobs, analytics exports, and BI tools. **A secure source database means nothing if a downstream pipeline lands the same data in a public bucket.** DSPM follows the flow.
-
-![Data flow analysis — PII from a secure RDS source spreading through downstream stores with different exposure levels](/diagrams/feat-datasec-flow-example.svg)
-
-The worked example: a production RDS instance is configured correctly — encrypted, VPC-only, audit-logged. But three pipelines move its data onward:
-
-| Hop | Destination | Posture | Finding |
-| --- | --- | --- | --- |
-| ETL pipeline | Staging S3 bucket | Public, no encryption, no logging | Critical — PII exposed to internet |
-| Backup job | S3 backup bucket | No lifecycle policy, data stale 18+ months | High — retention violation |
-| Analytics export | Redshift warehouse | Broad read access, 47 users, weak access logs | Medium — over-privileged access |
-| Redshift to BI tool | Tableau / Power BI | External viewer accounts, no MFA | Medium — external exposure |
-
-Onam traces these flows automatically by reading IAM permissions (which identities can read which source), pipeline definitions (Lambda, Glue, Data Factory, Dataflow), and snapshot/backup configuration. Every downstream store inherits the source's classification — when sensitive data lands in a less-secure store, that is the finding.
-
-## Compliance Mapping
-
-One DSPM finding usually triggers controls in three or more frameworks at once. Per-framework rollups live on the [Framework Coverage](/docs/compliance/frameworks) page.
-
-| Finding type | GDPR | PCI-DSS | HIPAA | ISO 27001 |
-| --- | --- | --- | --- | --- |
-| Public PII exposure | Art. 32 | Req 1.3 | §164.312(e) | A.8.20 |
-| Unencrypted PII at rest | Art. 32 | Req 3.4 | §164.312(a) | A.8.24 |
-| Missing access logging | Art. 30 | Req 10.2 | §164.312(b) | A.8.15 |
-| Over-privileged data access | Art. 5(f) | Req 7.1 | §164.312(a) | A.8.3 |
-| No data retention policy | Art. 5(e) | Req 3.1 | §164.530(j) | A.8.10 |
-| Data residency violation | Art. 44–50 | Req 3.5 | n/a | A.5.34 |
-| Unencrypted PHI backups | n/a | n/a | §164.308(a)(7) | A.8.13 |
-
-## API
-
-Data Security endpoints live under the unified platform API (`/api/v1`, behind the BFF gateway).
-
-```http
-# List data security findings
-GET /api/v1/data-security/findings?severity=CRITICAL&classification=PII
-
-# Get data stores with sensitive data
-GET /api/v1/data-security/stores?has_sensitive_data=true&exposure=public
-
-# Get the data flow graph from a specific source
-GET /api/v1/data-security/flow?source_resource_uid={uid}
-```
-
-Full schemas are in the [API reference](/docs/reference/api). Webhook delivery on new Critical DSPM findings can be configured under **Settings → Notifications**.
-
-## FAQ
-
-**Does Onam copy our data to scan it?**
-No. Classification samples a small window using your read credential, returns only matched-pattern metadata, and discards the sample immediately. Bulk data never leaves your cloud account.
-
-**How are false positives handled?**
-Every classification carries a confidence score; low-confidence matches are flagged "possibly sensitive" instead of positively classified. You can mark a store, file, or column "not sensitive" with a documented justification — the suppression carries through every future scan.
-
-**Can I exclude certain data stores from DSPM scanning?**
-Yes, via tag-based exclusion (for example `dspm:scan=false`). Excluded stores still appear in inventory but are not classified or graded.
-
-**How often is data re-classified?**
-Once per scan cycle (daily by default). A typical account with 200 buckets and 50 databases completes the DSPM stage in 5–8 minutes.
-
-**Can I use DSPM findings for residency compliance reports?**
-Yes. Residency violations are tagged with the violated regulation and export as PDF audit evidence in one click.
-
-## Next steps
-
-- [Compliance](/docs/features/compliance) — how DSPM findings roll up into per-control pass rates
-- [CIEM](/docs/features/ciem) — the identity side of "who can read this data"
-- [Risk Quantification](/docs/features/risk-quantification) — what exposed data costs in dollar terms
-- [Framework Coverage](/docs/compliance/frameworks) — the full framework catalog
+The complete list of checks, what passes them and their severities is in the [DSPM findings reference](/docs/dspm/findings-reference).
 
 ---
 
@@ -4613,6 +4442,358 @@ After every scan (typically daily) and whenever the KEV or EPSS databases update
 
 ---
 
+## DSPM overview
+URL: https://www.onamsecurity.com/docs/dspm/overview
+
+DSPM in Onam Security: find every cloud data store, label it from metadata, and see how it is exposed, who reaches it and where its data flows.
+
+Data security posture management answers three questions continuously rather than once before an audit: **what data do we hold, where is it, and how exposed is it?** Onam's DSPM runs inside every scan, alongside posture, identity and attack-path analysis, and writes its results onto the same security graph.
+
+![How DSPM works — data stores, discovery, metadata classification, the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+
+## The five stages
+
+| Stage | What happens | Read more |
+| --- | --- | --- |
+| 1. Data stores | Object storage, managed databases and warehouses, streams, Kubernetes secrets and ConfigMaps, and self-hosted databases you onboard | [Coverage by cloud](/docs/dspm/coverage) |
+| 2. Discover | The posture scan records each store and its settings: encryption, policies, ACLs, public-access block, logging, versioning, backup, region, relationships | [Discovery](/docs/dspm/discovery) |
+| 3. Classify | Names, descriptions, tags, database and schema names become PII, PHI, PCI, financial and confidential labels. Contents are not read | [Classification](/docs/dspm/classification) |
+| 4. Join | Public grants, cross-account grants, observed access, encryption and keys, attack paths | [Access mapping](/docs/dspm/access-mapping) |
+| 5. Findings | Per store, every scan: classification, encryption, access, residency, logging, lifecycle, lineage and a 0–100 governance score | [Findings reference](/docs/dspm/findings-reference) |
+
+## What DSPM is, and is not
+
+- **It is** an always-current catalog of your data stores, with a sensitivity label you can trace to its source, and the exposure that makes each label matter.
+- **It is** metadata-based. It does not open objects, query rows, read stream messages or read secret values. Posture scanning connects through read-only cloud roles.
+- **It is not** a content scanner. A store whose name and tags say nothing about what it holds gets no label until someone tags it. See [Classification and its limits](/docs/dspm/classification).
+- **It is not** a DLP tool. It does not watch data in motion or block transfers.
+
+## How it connects to the rest of Onam
+
+DSPM, [Database Security](/platform/database-security) and [Encryption & Keys](/platform/encryption) share one scan and answer different questions about the same data.
+
+| Engine | Question | What it takes from DSPM | What it gives back |
+| --- | --- | --- | --- |
+| DSPM | What data do we hold, where, how exposed? | — | Labels, exposure, lineage, governance score |
+| Database Security | Is each database hardened, private, audited, backed up? | Labels on each database | A sensitive database that is public or unencrypted is raised to critical |
+| Encryption & Keys | Is it encrypted with a key we control? | Labels on each store | Sensitive data unencrypted (critical) or on a provider-managed key (high) |
+| Attack Path | Which chains of findings reach something valuable? | Sensitive, public and unencrypted flags per store | Paths that end at a sensitive store are scored as reaching a crown jewel |
+| CIEM | Who can do what? | — | Data-related identity findings merged into the DSPM view |
+
+## Where to find it in the console
+
+- **Data Security** — the catalog, findings, residency and access-monitoring tabs.
+- **Data Security → Lineage** (`/ui/datasec/lineage`) — reconstructed chains with cross-region and cross-account hops flagged.
+- **Database Security** and **Encryption** — their own pages, with DSPM labels already applied.
+
+---
+
+## DSPM discovery
+URL: https://www.onamsecurity.com/docs/dspm/discovery
+
+How DSPM finds data stores: the posture scan inventories each store and its settings through read-only cloud roles. Nothing extra is installed for it.
+
+## What is discovered
+
+DSPM does not run a separate crawl. The same discovery pass that feeds CSPM records every resource in the connected accounts, and DSPM selects the ones that hold data: object storage, managed databases and warehouses, streams, and Kubernetes secrets, ConfigMaps, persistent volume claims and StatefulSets. The full per-cloud list is in [Coverage by cloud](/docs/dspm/coverage).
+
+Self-hosted databases — PostgreSQL, MySQL, MariaDB, SQL Server, MongoDB, Oracle, Cassandra, IBM Db2 and Snowflake — join the catalog when you onboard them as technology accounts with a database credential. Without that onboarding they are not visible to DSPM.
+
+## What is recorded per store
+
+| Recorded | Used for |
+| --- | --- |
+| Name, description, tags | Classification |
+| Encryption settings and key reference | Encryption checks; the Encryption engine's coverage and sensitive-data cross-check |
+| Bucket policy, ACL grants, public-access block, provider public flags | Public exposure and cross-account grants |
+| Access logging configuration | Activity-logging check and governance score |
+| Versioning, lifecycle rules, backup retention, point-in-time restore, deletion protection | Lifecycle and backup checks |
+| Region and account | Residency, and cross-region or cross-account lineage hops |
+| Relationships to other resources | Lineage chains |
+| Event notifications (S3) and stream consumers (Kinesis) | Per-store lineage records |
+
+## How often
+
+Every scan. A store created since the last scan appears in the catalog on the next one, with its labels and checks; a store that has been deleted drops out. Findings are tied to the scan that produced them.
+
+## Access needed
+
+Posture scanning connects through read-only cloud roles: list and describe calls on the storage and database services, plus reading bucket policies and ACLs. DSPM needs no permission to read objects, rows or secret values, because it never does. (Agentless workload scanning is a separate capability that runs inside your account; DSPM does not depend on it.)
+
+---
+
+## Classification and its limits
+URL: https://www.onamsecurity.com/docs/dspm/classification
+
+How DSPM labels a store PII, PHI, PCI, financial or confidential from metadata — names, tags and schema — and what that approach cannot see.
+
+## The labels
+
+| Label | Meaning | Typical signal |
+| --- | --- | --- |
+| PII | Personal data | Name or tag tokens such as customer, user, member, employee, contact, profile, patient |
+| PHI | Health data | Tokens such as patient, health, medical, clinical, HIPAA, EHR |
+| PCI | Payment card data | Tokens such as PCI, card number, CVV, payment card (self-hosted databases) |
+| FINANCIAL | Financial data | Tokens such as billing, payment, bank, transaction, revenue, finance |
+| CONFIDENTIAL | Secrets and restricted material | Tokens such as secret, credential, password, token, private; every Kubernetes Secret; ConfigMaps with credential-like key names |
+
+A store can carry more than one label — a table called `patient-intake` is labelled both PII and PHI.
+
+## The signals
+
+1. **Store name and description.** Split into words on dashes, underscores and dots, then matched against the token lists above.
+2. **Tags.** Used when a store has no description, so a tag such as `data-class=customer` is picked up.
+3. **Database and schema names** for self-hosted databases discovered by the technology engine, matched against PII and PCI patterns.
+4. **Kubernetes ConfigMap key names** — a key named like a password or token marks the ConfigMap confidential. The values are not inspected.
+5. **Rule metadata.** When a posture rule with a data-classification context fails on a store, its context contributes a label.
+
+Because every signal is metadata you can read — a name, a tag, a schema — the reason for a label is visible in the store's own configuration.
+
+## What classification does not read
+
+- Objects or files in buckets
+- Rows or columns of data in tables
+- Messages on streams or queues
+- Secret values in vaults, secrets managers or Kubernetes Secrets
+
+## The limits, stated plainly
+
+- **False negatives.** A bucket called `nightly-exports` holding customer records gets no label, because nothing in its metadata says what it holds. Fix: tag it, or name it for its contents.
+- **False positives.** A bucket called `user-avatars-thumbnails` is labelled PII because of the token *user*. Fix: rename it, or accept the label; the reason is in the name.
+- **No record counts.** Because contents are not read, DSPM cannot tell you how many personal records a store holds, or which columns hold them.
+- **No content-level PCI proof.** A PCI label means the metadata points to card data, not that a card number was found.
+
+> If you need to know exactly what is inside unlabelled files, that requires a content scanner, which Onam's DSPM is not. The design choice is deliberate: your data stays where it is, and no permission to read it is needed.
+
+## Making classification better
+
+- Tag data stores with what they hold. A consistent tag such as `data-class` with values like `customer`, `payment` or `health` gives DSPM a reliable signal on every store.
+- Name new stores for their contents.
+- Review stores with no label but high exposure first: public, cross-account or unencrypted stores where classification has nothing to go on.
+
+---
+
+## Access mapping
+URL: https://www.onamsecurity.com/docs/dspm/access-mapping
+
+How DSPM shows who and what can reach a data store: public grants, other accounts, access seen in audit events, encryption and keys, and attack paths.
+
+Each store carries five views of access. They answer different questions, and the combination is what turns a label into a priority.
+
+## 1. Public exposure
+
+A store is treated as public only when an actual grant makes it so. For S3 the engine combines three signals, each suppressed by the matching public-access block setting:
+
+- the provider's own policy verdict that the bucket is public,
+- an ACL grant to all users or to all authenticated users,
+- a bucket-policy statement with a wildcard principal.
+
+A bucket with no public-access block configured but no public grant is **not** reported as public. For databases, the provider's publicly-accessible flag is used.
+
+## 2. Other accounts
+
+Bucket policies are read statement by statement. An `Allow` to a principal in an account other than the store's own is a finding:
+
+| Grant | Severity |
+| --- | --- |
+| Write, delete or modify from another account | Critical |
+| Policy-related actions from another account | High |
+| Read from another account | High — raised to critical if object reads on the bucket were seen in the last 24 hours |
+
+On AWS, Lake Formation grants are also checked for broad defaults and wildcard administrative grants.
+
+## 3. Observed access
+
+From cloud audit events over the last 30 days, grouped per store: the number of accesses, the number of distinct principals, the operations used and the time of last access. This is what actually happened, which is often narrower than what policy allows — and occasionally wider than anyone expected.
+
+## 4. Encryption and keys
+
+The Encryption engine reads DSPM's labels and flags sensitive data that is unencrypted (critical) or protected only by a provider-managed key (high). Key policies are parsed separately for wildcard principals, other accounts and grants. See [Exposure, encryption and residency](/docs/dspm/exposure-and-residency).
+
+## 5. Attack paths
+
+DSPM writes three facts about every store to the security graph — its top classification, whether it is public, and whether it is unencrypted at rest. The attack-path engine uses them to confirm paths whose last step reaches a sensitive store, so a chain of findings that ends at customer data is scored above one that ends at a scratch bucket. Each account also gets a count of the PII stores in it.
+
+## What access mapping does not do
+
+It does not compute, for each store, the complete list of identities whose effective permissions allow a read. That is an identity question, answered per principal in [CIEM](/docs/features/ciem) on the same graph. CIEM findings that concern data access are merged into the DSPM findings view.
+
+---
+
+## Exposure, encryption and residency
+URL: https://www.onamsecurity.com/docs/dspm/exposure-and-residency
+
+DSPM's per-store protection checks: encryption at rest, access logging, versioning and backup, the 0–100 governance score, and region residency.
+
+## Encryption at rest
+
+Each store's own encryption setting is checked: default encryption on S3 buckets, storage encryption or a KMS key on RDS, server-side encryption on DynamoDB, the encrypted flag on Redshift, encryption at rest on OpenSearch, and the equivalents on other clouds. Kinesis streams are treated as encrypted.
+
+The [Encryption & Keys](/platform/encryption) engine goes further on the same stores: which key protects each one (provider-managed or customer-managed), whether the key rotates, who its policy lets in, and what depends on it. It reads DSPM's labels, so:
+
+| Condition | Severity |
+| --- | --- |
+| Sensitive data on an unencrypted store | Critical |
+| Sensitive data on a provider-managed key rather than a customer-managed one | High |
+| Public store with sensitive data and no encryption in transit | Critical |
+
+## Activity logging
+
+Server access logging on buckets, log exports or enhanced monitoring on RDS, streams or contributor insights on DynamoDB, audit logging on Redshift and OpenSearch. A store with no access log has no record of who read it.
+
+## Lifecycle and backup
+
+Versioning or lifecycle rules on buckets; backup retention and deletion protection on RDS; point-in-time recovery on DynamoDB; automated snapshot retention on Redshift.
+
+## The governance score
+
+Every store gets a 0–100 score from three checks of equal weight: **encrypted at rest**, **not public**, **access logging on**. The possible values are 0, 33, 66 and 100. A score below 80 — that is, any store missing one of the three — is a finding: high below 50, medium otherwise.
+
+## Residency
+
+Every store's region is recorded and shown in the residency view. The default residency check in scheduled scans flags stores held outside EU and US regions. The engine also accepts an explicit list of allowed regions for residency evaluation, which flags any store outside that list instead.
+
+Residency is about where the primary copy lives. Copies made by replication to another region are visible as cross-region hops in [Data lineage](/docs/dspm/lineage).
+
+> The default EU-or-US rule will not suit every organisation — a team whose data must stay in one country needs an allowed-region list. Talk to us about setting your residency rules.
+
+---
+
+## Data lineage
+URL: https://www.onamsecurity.com/docs/dspm/lineage
+
+How Onam links replication, backup, ETL, streaming and export hops into data lineage chains, and flags copies that cross regions or accounts.
+
+![An illustrative lineage chain with a cross-region replication hop and a cross-account export hop](/diagrams/dspm-lineage-chain.svg)
+
+## How a chain is built
+
+1. **Edges come from the inventory.** Discovery records relationships between resources. Those that move data — *replicates to, backs up to, stores data in, publishes to, subscribes to, reads from, writes to, exports to, imports from* — become lineage edges.
+2. **Each hop is typed and flagged.** The relationship maps to a transfer type: replication, backup, ETL, streaming, read, write, export or import. Source and destination regions and accounts are read from their identifiers; a hop between two regions is flagged cross-region, a hop between two accounts is flagged cross-account.
+3. **Edges are walked into chains.** Chains start at stores nothing feeds — the true origins — and follow each path up to eight hops, which stops a cycle from running forever. If no multi-hop chain exists, each edge is shown on its own.
+
+Chains appear in the console under **Data Security → Lineage** (`/ui/datasec/lineage`).
+
+## Per-store lineage records
+
+Alongside chains, each store records its own outbound flows where the configuration shows them: S3 event notifications to Lambda, SQS or SNS, and the registered consumers of a Kinesis stream. These are informational — they describe where data goes, not a misconfiguration.
+
+## Why the flags matter
+
+A copy is protected by the controls where it lands, not where it started. A replication hop into another region can move regulated data out of its permitted geography even when the source bucket passes every residency check; an export hop into another account hands the copy to that account's controls. The flags mark exactly those moments.
+
+## What lineage cannot see
+
+- **Movement with no configuration trace.** A script, notebook or scheduled job that copies files using its own credentials leaves no relationship in the cloud's resource configuration.
+- **Transformations inside a job.** Lineage records that an ETL job writes to a store, not which fields it carried.
+- **Volumes.** Records per day are shown only where a source provides them; most do not.
+
+> Encryption in transit and a per-chain risk grade appear in the lineage view where the underlying relationship records them. Most relationships do not carry those fields yet, so treat the cross-region and cross-account flags as the dependable signal today.
+
+---
+
+## DSPM findings reference
+URL: https://www.onamsecurity.com/docs/dspm/findings-reference
+
+Every DSPM check: what it looks at, what passes, and the severity when a data store fails it. AWS severities shown; other clouds follow the same model.
+
+Each store is evaluated against the checks below on every scan. Rule identifiers follow the pattern `<cloud>.dspm.<check>.<store type>` — for example `aws.dspm.encryption_posture.s3_bucket`. Every finding carries the store's classification labels, so findings can be filtered to sensitive stores only.
+
+## Per-store checks
+
+| Check | Looks at | Passes when | Severity on failure (AWS) |
+| --- | --- | --- | --- |
+| Classification | Name, description, tags | No sensitive label is inferred — a labelled store is a finding so it can be reviewed | High |
+| Encryption posture | Store encryption setting | Encryption at rest is on | Critical — S3 buckets, RDS · High — DynamoDB, Redshift, OpenSearch, Glue |
+| Access control | Public grants, provider public flag | No grant makes the store public | Critical — public S3 bucket or public RDS · High — DynamoDB, Redshift |
+| Data residency | Region | Region is inside the allowed set | Medium |
+| Activity logging | Access or audit logging | Logging is on | High — S3, RDS · Medium — DynamoDB, Redshift, OpenSearch |
+| Lifecycle and backup | Versioning, lifecycle, retention, point-in-time restore | The relevant protection is on | High — RDS · Medium — S3, DynamoDB · Low — Redshift |
+| Lineage | Event notifications, stream consumers | Always passes — informational | — |
+| Governance score | Encryption, public exposure, logging | Score is 80 or more | High below 50 · Medium otherwise |
+
+## Account- and grant-level checks (AWS)
+
+| Rule | Severity |
+| --- | --- |
+| `aws.s3.bucket.no_cross_account_write_access` — another account can write | Critical |
+| `aws.s3.bucket.cross_account_read_access_reviewed` — another account can read | High; critical if object reads were seen in the last 24 hours |
+| `aws.s3.bucket.cross_account_replication_reviewed` — another account has policy actions | High |
+| `aws.s3.bucket.bucket_owner_enforced` — object ownership is not owner-enforced | Medium |
+| Lake Formation broad default or wildcard admin grants | Per rule |
+
+## Kubernetes
+
+ConfigMaps with credential-like key names are classification findings (high); every Secret is labelled confidential. ConfigMaps are not encrypted at rest by default. Under access control, a Secret in the `default` namespace is high (medium elsewhere), and a credential-bearing ConfigMap in `default` is high.
+
+## Posture rules mapped to data security
+
+Separately from the checks above, posture rules that carry data-security metadata are grouped into DSPM modules — encryption, access governance, activity monitoring, residency, compliance and classification — with GDPR, HIPAA and PCI DSS references where the rule defines them. They appear in the same findings list.
+
+## Where findings go
+
+- The **Data Security** findings view, filterable by label, module and severity.
+- The shared findings list and compliance mapping, alongside every other engine.
+- The security graph, for attack paths — see [Access mapping](/docs/dspm/access-mapping).
+
+---
+
+## DSPM coverage by cloud
+URL: https://www.onamsecurity.com/docs/dspm/coverage
+
+Which data store types DSPM analyses on each cloud and for self-hosted databases, with per-service notes on what is checked and what is not.
+
+The stores below receive the full set of DSPM checks. Other data services — on AWS, for example DocumentDB, Neptune, Timestream, Keyspaces, ElastiCache, SQS, SNS and MSK — are evaluated by the storage and database posture rules and their findings are grouped into DSPM modules, but they do not get the per-store classification and governance score.
+
+## AWS
+
+| Store | Notes |
+| --- | --- |
+| S3 buckets | Full checks; multi-signal public determination; bucket-policy cross-account analysis; object ownership; event-notification lineage |
+| RDS instances and Aurora clusters | Encryption (storage encryption or KMS key), public accessibility, log exports or enhanced monitoring, backup retention and deletion protection |
+| DynamoDB tables | Server-side encryption, point-in-time recovery, streams; not publicly reachable by design |
+| Redshift clusters | Encrypted flag, public accessibility, audit logging, snapshot retention |
+| Glue databases | Encryption and classification |
+| OpenSearch domains | Encryption at rest, log publishing |
+| Kinesis streams | Treated as encrypted; consumers recorded as lineage |
+| Lake Formation | Broad default and wildcard admin grants |
+
+## Azure
+
+Storage accounts, Data Lake Storage, Azure SQL servers, Cosmos DB, Synapse workspaces and Key Vault.
+
+## Google Cloud
+
+Cloud Storage buckets, Cloud SQL instances, BigQuery datasets, Spanner instances, Firestore databases and Secret Manager secrets. Residency treats `europe-*` locations as EU and `us-*` as US.
+
+## Oracle Cloud (OCI)
+
+Object Storage buckets, Autonomous Databases, NoSQL tables and Streaming streams.
+
+## Alibaba Cloud
+
+OSS buckets, ApsaraDB RDS instances, PolarDB clusters, Tablestore instances and MaxCompute projects.
+
+## IBM Cloud
+
+Cloud Object Storage buckets, IBM Cloud Databases instances (for example Databases for PostgreSQL), Cloudant and Event Streams.
+
+## Kubernetes
+
+Secrets (always labelled confidential), ConfigMaps (confidential when a key name looks like a credential), persistent volume claims and StatefulSets.
+
+## Self-hosted databases
+
+PostgreSQL, MySQL, MariaDB, SQL Server, MongoDB, Oracle, Cassandra, IBM Db2 and Snowflake, once onboarded as technology accounts. DSPM classifies them from their resource, database and schema names; it only adds labels and never overwrites a label from the cloud path. Engine-level hardening for the same databases is covered by [Database Security](/platform/database-security) through CIS benchmarks.
+
+## Not covered
+
+- Data inside SaaS applications other than Snowflake.
+- On-premises file shares and storage arrays.
+- Databricks.
+
+---
+
 ## Architecture Overview
 URL: https://www.onamsecurity.com/docs/architecture/overview
 
@@ -5212,7 +5393,7 @@ Cross-region data access is blocked by tenant policy. Backups run every 15 minut
 Not without your approval. Support access requires an explicit impersonation handshake that you approve, and every action taken during it is audit-logged to your tenant.
 
 **Do you ever store samples of my data?**
-No. DSPM classification stores labels and locations, never content. Object stores, database rows, and workload disks are analyzed in place or via ephemeral snapshots and never persisted.
+No. DSPM classifies stores from metadata — names, tags and schema — and stores labels and locations, never content; it does not read objects or database rows. Workload disks are examined by agentless scanning, which runs inside your account on short-lived snapshots that are not persisted.
 
 **What exactly can you do in my cloud account?**
 Only what the read-only policy you granted allows: read, list, describe. You can audit the CloudFormation template or service-principal scope before connecting, and revoke it at any time for instant cutoff.
@@ -5637,7 +5818,7 @@ The platform stores three classes of data: scan and finding data (your security 
 We never store:
 
 - **Plaintext cloud credentials.** Only credential references (ARNs, service principal IDs) are stored. The secret material lives in a managed secret store (AWS Secrets Manager, encrypted with KMS) and is fetched at scan time.
-- **Customer workload data or file contents.** Data Security (DSPM) samples to classify data types — sample data is discarded immediately after classification metadata is extracted.
+- **Customer workload data or file contents.** Data Security (DSPM) classifies stores from metadata — names, tags and schema — and does not read objects, rows or secret values.
 - **Personal data from scanned cloud resources.** The platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
 
 ## Subprocessors
@@ -5731,7 +5912,7 @@ The platform collects two classes of data — scan data (your cloud security pos
 We never collect:
 
 - **Plaintext cloud credentials** — only credential references (ARNs, service principal IDs). The secret material lives in a managed secret store and is fetched at scan time.
-- **Customer workload data or file contents** — Data Security (DSPM) samples to classify data types, but sample data is discarded immediately after classification metadata is extracted.
+- **Customer workload data or file contents** — Data Security (DSPM) classifies stores from metadata (names, tags and schema) and does not read objects, rows or secret values.
 - **Personal data from scanned cloud resources** — the platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
 - **Source code content** — SecOps reads code to scan for issues but stores only finding metadata, never the source itself.
 
@@ -8654,11 +8835,11 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 ## How Onam approaches it
 
-[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It enumerates storage resources across your connected clouds through read-only posture roles, including object storage, managed databases, warehouses, and platforms such as Snowflake and Databricks.
+[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles — object storage, managed databases and warehouses, streams and Kubernetes secrets — plus self-hosted databases, including Snowflake, that you onboard.
 
-Classification is metadata-based: Onam labels each store by likely sensitivity (PII, PHI, PCI, secrets) from names, tags, schema and configuration signals, without reading the contents. Where metadata is ambiguous, findings are marked low-confidence so a person can confirm them.
+Classification is metadata-based: Onam labels each store PII, PHI, PCI, financial or confidential from its name, description, tags and schema, without reading the contents. Because the labels come from names and tags, the reason is readable in the store's own metadata, and a missing label is fixed with a tag.
 
-The classification is joined to the same identity graph that Onam's CIEM engine uses, so each sensitive store shows which principals can read or write it and through which paths. Network reachability is layered on top, so a store that is encrypted but publicly reachable is still treated as exposed. Alongside that you get encryption coverage, a public access map, credential exposure checks in object storage, a data residency report, retention and logging coverage, and data lineage across pipeline chains. Findings refresh continuously as stores, permissions and exposure change.
+Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
 If you want to see what this looks like on your own accounts, a [14-day trial](/request-demo) is the quickest way to find out.
 
@@ -8751,9 +8932,9 @@ Every resource passes a basic encryption check. The route still has a problem: t
 
 ## How Onam approaches it
 
-Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam reconstructs pipeline chains end to end, from source through each hop to destination, and gives each chain a risk grade. It detects unencrypted hops along a flow, rather than only reporting encryption status per store, so an encrypted source feeding an unencrypted downstream store is reported as one finding about the flow instead of two unrelated findings about two resources. Critical and high-risk chain counts let you rank exposure by flow.
+Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam links the relationships your cloud's configuration already records — replication, backup, ETL writes, streaming, export and import — into chains that start at the original source and follow each path up to eight hops. Every hop that crosses a region or an account is flagged, because those are the moments a copy leaves the controls on the original.
 
-Lineage sits on the same graph as Onam's metadata-based classification, identity analysis and network reachability. That means a chain can be read alongside who can reach each store in it and whether any store is publicly reachable. Classification uses names, tags, schema and configuration signals rather than reading data contents.
+Each store in a chain carries its own DSPM checks — encryption, public access, logging, lifecycle — and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
 To see the chains in your own environment, [request a demo](/request-demo) or start a 14-day trial.
 

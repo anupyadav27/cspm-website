@@ -126,11 +126,11 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 ## How Onam approaches it
 
-[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It enumerates storage resources across your connected clouds through read-only posture roles, including object storage, managed databases, warehouses, and platforms such as Snowflake and Databricks.
+[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles — object storage, managed databases and warehouses, streams and Kubernetes secrets — plus self-hosted databases, including Snowflake, that you onboard.
 
-Classification is metadata-based: Onam labels each store by likely sensitivity (PII, PHI, PCI, secrets) from names, tags, schema and configuration signals, without reading the contents. Where metadata is ambiguous, findings are marked low-confidence so a person can confirm them.
+Classification is metadata-based: Onam labels each store PII, PHI, PCI, financial or confidential from its name, description, tags and schema, without reading the contents. Because the labels come from names and tags, the reason is readable in the store's own metadata, and a missing label is fixed with a tag.
 
-The classification is joined to the same identity graph that Onam's CIEM engine uses, so each sensitive store shows which principals can read or write it and through which paths. Network reachability is layered on top, so a store that is encrypted but publicly reachable is still treated as exposed. Alongside that you get encryption coverage, a public access map, credential exposure checks in object storage, a data residency report, retention and logging coverage, and data lineage across pipeline chains. Findings refresh continuously as stores, permissions and exposure change.
+Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
 If you want to see what this looks like on your own accounts, a [14-day trial](/request-demo) is the quickest way to find out.
 `,
@@ -228,9 +228,9 @@ Every resource passes a basic encryption check. The route still has a problem: t
 
 ## How Onam approaches it
 
-Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam reconstructs pipeline chains end to end, from source through each hop to destination, and gives each chain a risk grade. It detects unencrypted hops along a flow, rather than only reporting encryption status per store, so an encrypted source feeding an unencrypted downstream store is reported as one finding about the flow instead of two unrelated findings about two resources. Critical and high-risk chain counts let you rank exposure by flow.
+Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam links the relationships your cloud's configuration already records — replication, backup, ETL writes, streaming, export and import — into chains that start at the original source and follow each path up to eight hops. Every hop that crosses a region or an account is flagged, because those are the moments a copy leaves the controls on the original.
 
-Lineage sits on the same graph as Onam's metadata-based classification, identity analysis and network reachability. That means a chain can be read alongside who can reach each store in it and whether any store is publicly reachable. Classification uses names, tags, schema and configuration signals rather than reading data contents.
+Each store in a chain carries its own DSPM checks — encryption, public access, logging, lifecycle — and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
 To see the chains in your own environment, [request a demo](/request-demo) or start a 14-day trial.
 `,

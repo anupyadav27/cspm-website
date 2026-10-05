@@ -334,7 +334,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/data-security</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/vulnerability-management</loc>
@@ -365,6 +365,38 @@
     <lastmod>2026-07-21</lastmod>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/overview</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/discovery</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/classification</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/access-mapping</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/exposure-and-residency</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/lineage</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/findings-reference</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/dspm/coverage</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs/architecture/overview</loc>
     <lastmod>2026-09-01</lastmod>
   </url>
@@ -374,7 +406,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/architecture/data-security</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/compliance/frameworks</loc>
@@ -382,11 +414,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/security</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/data-retention</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/sla-and-slo</loc>

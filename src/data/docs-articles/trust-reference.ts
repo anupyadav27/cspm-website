@@ -90,7 +90,7 @@ The platform stores three classes of data: scan and finding data (your security 
 We never store:
 
 - **Plaintext cloud credentials.** Only credential references (ARNs, service principal IDs) are stored. The secret material lives in a managed secret store (AWS Secrets Manager, encrypted with KMS) and is fetched at scan time.
-- **Customer workload data or file contents.** Data Security (DSPM) samples to classify data types — sample data is discarded immediately after classification metadata is extracted.
+- **Customer workload data or file contents.** Data Security (DSPM) classifies stores from metadata — names, tags and schema — and does not read objects, rows or secret values.
 - **Personal data from scanned cloud resources.** The platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
 
 ## Subprocessors
@@ -185,7 +185,7 @@ The platform collects two classes of data — scan data (your cloud security pos
 We never collect:
 
 - **Plaintext cloud credentials** — only credential references (ARNs, service principal IDs). The secret material lives in a managed secret store and is fetched at scan time.
-- **Customer workload data or file contents** — Data Security (DSPM) samples to classify data types, but sample data is discarded immediately after classification metadata is extracted.
+- **Customer workload data or file contents** — Data Security (DSPM) classifies stores from metadata (names, tags and schema) and does not read objects, rows or secret values.
 - **Personal data from scanned cloud resources** — the platform records that PII, PCI, or PHI exists, where it lives, and how it is protected — never the data itself.
 - **Source code content** — SecOps reads code to scan for issues but stores only finding metadata, never the source itself.
 

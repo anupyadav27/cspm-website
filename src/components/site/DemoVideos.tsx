@@ -180,12 +180,12 @@ const CLIPS: Clip[] = [
     label: "Data Security",
     icon: Database,
     title: "Know where your PII lives",
-    sub: "847K PII records classified — public buckets and unencrypted stores flagged first",
+    sub: "Every data store labelled from metadata — public and unencrypted sensitive stores flagged first",
     nav: "datasec",
     page: {
       title: "Data Security — DSPM",
       chips: [{ text: "3 Public Buckets with PII", tone: "red" }],
-      action: "Run Classification",
+      action: "Export Catalog",
     },
     duration: 10,
     // videoSrc: "/video/demo-datasec.mp4",
@@ -885,7 +885,7 @@ type PathNode = { x: number; label: string; name: string; sub: string; color: st
 const PATH_NODES: PathNode[] = [
   { x: 90, label: "EC2", name: "i-0abc1234", sub: "IMDSv1 enabled", color: "#DC7A00", mitre: "T1552.005 — Credential API" },
   { x: 330, label: "IAM ROLE", name: "OpsAdminRole", sub: "iam:PassRole: *", color: "#7C3AED", mitre: "T1078.004 — Cloud Accounts" },
-  { x: 570, label: "S3 · CROWN JEWEL", name: "acme-prod-data", sub: "847K PII · PUBLIC READ", color: "#E32D25", mitre: "T1530 — Data from Cloud Storage", crown: true },
+  { x: 570, label: "S3 · CROWN JEWEL", name: "acme-prod-data", sub: "PII label · PUBLIC READ", color: "#E32D25", mitre: "T1530 — Data from Cloud Storage", crown: true },
 ];
 
 const PATH_EDGES = [
@@ -1028,7 +1028,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
           {[
             ["MITRE ATT&CK", "T1552.005 · Credentials from APIs"],
             ["Hops", "4 (EC2 → IMDSv1 → IAM → S3)"],
-            ["Crown Jewel Risk", "847K PII records at risk"],
+            ["Crown Jewel Risk", "PII-labelled store, public read"],
             ["Fix Priority", "P0 — Disable IMDSv1"],
           ].map(([k, v]) => (
             <div key={k} className="flex justify-between gap-2 py-[3px] text-[8.5px] border-b border-[#F8FAFC] last:border-b-0">
@@ -1345,23 +1345,23 @@ const NETWORK_CONFIG: KpiScreenConfig = {
 /* ---- Data Security / DSPM — classified data stores ---- */
 const DATASEC_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "847K", label: "PII Records Found", color: "#E32D25" },
-    { value: "3", label: "Public Buckets", color: "#E32D25" },
-    { value: "12", label: "Unencrypted Stores", color: "#DC7A00" },
-    { value: "5", label: "Cross-Region", color: "#D9A406" },
+    { value: "128", label: "Stores Monitored", color: "#2563EB" },
+    { value: "23", label: "Sensitive Stores", color: "#E32D25" },
+    { value: "3", label: "Public Access", color: "#E32D25" },
+    { value: "2", label: "Sensitive Exposed", color: "#DC7A00" },
   ],
-  columns: ["Resource", "Classification", "Records", "Encryption", "Access", "Risk"],
+  columns: ["Resource", "Labels", "Score", "Encryption", "Access", "Risk"],
   grid: "1.1fr 1.2fr 78px 92px 96px 66px",
   rows: [
-    [{ t: "acme-prod-data", kind: "mono" }, { t: "SSN · Credit Card · DOB", kind: "bold" }, { t: "847,234" }, { t: "AES-256", kind: "chip", tone: "green" }, { t: "PUBLIC READ", kind: "chip", tone: "red" }, { t: "Critical", kind: "chip", tone: "red" }],
-    [{ t: "acme-user-exports", kind: "mono" }, { t: "PII · Email · Phone", kind: "bold" }, { t: "124,891" }, { t: "None", kind: "chip", tone: "red" }, { t: "Authenticated", kind: "chip", tone: "amber" }, { t: "Critical", kind: "chip", tone: "red" }],
-    [{ t: "rds-main-postgres", kind: "mono" }, { t: "PII · Financial · PHI", kind: "bold" }, { t: "2,341,009" }, { t: "AES-256", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "High", kind: "chip", tone: "amber" }],
-    [{ t: "dynamodb-sessions", kind: "mono" }, { t: "Session · Auth Tokens", kind: "bold" }, { t: "8,821" }, { t: "Encrypted", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Medium", kind: "chip", tone: "amber" }],
-    [{ t: "acme-logs-archive", kind: "mono" }, { t: "Log Data · IP Addresses", kind: "bold" }, { t: "44.2M" }, { t: "AES-256", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Low", kind: "chip", tone: "green" }],
-    [{ t: "elasticache-cache", kind: "mono" }, { t: "Cached PII (TTL 24h)", kind: "bold" }, { t: "~50K" }, { t: "In-transit only", kind: "chip", tone: "amber" }, { t: "Internal", kind: "chip", tone: "gray" }, { t: "Medium", kind: "chip", tone: "amber" }],
-    [{ t: "acme-backup-vault", kind: "mono" }, { t: "Backup · Encrypted PII", kind: "bold" }, { t: "892,341" }, { t: "AES-256 KMS", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Low", kind: "chip", tone: "green" }],
+    [{ t: "acme-customer-exports", kind: "mono" }, { t: "PII", kind: "bold" }, { t: "66" }, { t: "SSE-KMS", kind: "chip", tone: "green" }, { t: "PUBLIC — ACL", kind: "chip", tone: "red" }, { t: "Critical", kind: "chip", tone: "red" }],
+    [{ t: "acme-billing-ledger", kind: "mono" }, { t: "Financial", kind: "bold" }, { t: "66" }, { t: "None", kind: "chip", tone: "red" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Critical", kind: "chip", tone: "red" }],
+    [{ t: "partner-share", kind: "mono" }, { t: "PII", kind: "bold" }, { t: "100" }, { t: "SSE-S3", kind: "chip", tone: "green" }, { t: "Other account", kind: "chip", tone: "amber" }, { t: "High", kind: "chip", tone: "amber" }],
+    [{ t: "patient-intake", kind: "mono" }, { t: "PII · PHI", kind: "bold" }, { t: "100" }, { t: "Encrypted", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Medium", kind: "chip", tone: "amber" }],
+    [{ t: "app-config", kind: "mono" }, { t: "Confidential", kind: "bold" }, { t: "—" }, { t: "Not at rest", kind: "chip", tone: "amber" }, { t: "default ns", kind: "chip", tone: "amber" }, { t: "High", kind: "chip", tone: "amber" }],
+    [{ t: "acme-logs-archive", kind: "mono" }, { t: "—", kind: "bold" }, { t: "100" }, { t: "SSE-KMS", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Low", kind: "chip", tone: "green" }],
+    [{ t: "nightly-exports", kind: "mono" }, { t: "no label — untagged", kind: "bold" }, { t: "66" }, { t: "SSE-S3", kind: "chip", tone: "green" }, { t: "Private", kind: "chip", tone: "gray" }, { t: "Medium", kind: "chip", tone: "amber" }],
   ],
-  footer: "Classification: 14 data types · sampled scan, no data leaves your account",
+  footer: "Labels inferred from names, tags and schema · objects and rows are not read",
 };
 
 /* ============================================================
@@ -1378,7 +1378,7 @@ const RISK_SCENARIOS = [
 ];
 
 const CROWN_JEWELS = [
-  { name: "acme-prod-data S3", sub: "847K PII records", exposure: "$4.2M exposure" },
+  { name: "acme-prod-data S3", sub: "PII-labelled store", exposure: "$4.2M exposure" },
   { name: "rds-main-postgres", sub: "Financial · PHI data", exposure: "$3.1M exposure" },
   { name: "OpsAdminRole IAM", sub: "Full AWS access", exposure: "$2.8M exposure" },
 ];

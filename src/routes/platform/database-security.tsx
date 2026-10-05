@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
+import { DataSecurityFamily } from "@/components/site/DataSecurityFamily";
 import { platformPages } from "@/data/platform-pages";
 import { seo } from "@/lib/seo";
 
@@ -13,5 +14,7 @@ export const Route = createFileRoute("/platform/database-security")({
         "Cloud database security for RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift and more: 310 database rules plus CIS benchmarks for major engines.",
       path: "/platform/database-security",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => (
+    <ProductPageTemplate data={data} extra={<DataSecurityFamily current="database-security" />} />
+  ),
 });
