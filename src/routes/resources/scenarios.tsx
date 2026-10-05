@@ -162,19 +162,11 @@ function ScenariosPage() {
               Your sector. Your path. <span className="gradient-text">Your number.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-xl mx-auto leading-relaxed">
-              These are archetypes. The real version takes minutes — connect one account read-only and
-              Onam surfaces your actual attack paths, choke points and priced exposure.
+              These are archetypes. Connect one account and Onam surfaces your actual attack paths, choke
+              points and a risk estimate for each finding.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <BrandButton to="/request-demo" size="lg">See your own case →</BrandButton>
-              <a
-                href="/case-studies/Onam-Case-Studies.pdf"
-                target="_blank"
-                rel="noopener"
-                className="inline-flex items-center justify-center rounded-[10px] px-5 py-3 text-sm font-semibold bg-white text-[#0B1220] border border-[#CBD5E1] hover:bg-[#F1F5F9] transition"
-              >
-                Download the collection (PDF)
-              </a>
             </div>
           </div>
           <div className="mt-10 grid sm:grid-cols-3 gap-4">

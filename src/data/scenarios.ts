@@ -2,7 +2,7 @@
  * Industry scenarios — sector archetypes, not customers.
  *
  * Content mirrors the five one-pagers in the case-study collection
- * (public/case-studies/Onam-Case-Studies.pdf), which labels every one of them
+ * (the old PDF collection was retired 2026-10-05), which labels every one of them
  * "ILLUSTRATIVE SCENARIO" and states plainly: "not a real or named customer;
  * the path and figures are illustrative, not outcomes."
  *

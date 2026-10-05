@@ -133,11 +133,6 @@ Onam has no public reference customers. Every scenario below is a worked example
 industry archetype — not a real or named customer, and not an outcome Onam has delivered.
 Do not cite these as customer results, case studies or benchmarks.
 
-- [Financial services](https://www.onamsecurity.com/case-studies/cs-financial.png): AWS + Azure, PCI-DSS & SOX. Path: public LB to app role to RDS holding PII.
-- [E-commerce](https://www.onamsecurity.com/case-studies/cs-ecommerce.png): multi-cloud checkout and customer data at seasonal scale.
-- [Gaming](https://www.onamsecurity.com/case-studies/cs-gaming.png): Kubernetes-heavy estate, cluster workload to service account to player data.
-- [Beauty / CPG](https://www.onamsecurity.com/case-studies/cs-beauty-cpg.png): SaaS-heavy estate, SaaS grant to shared identity to consumer data.
-- [SAP MSP](https://www.onamsecurity.com/case-studies/cs-sap-msp.png): multi-tenant, management plane to tenant boundary to customer workload.
 - All scenarios: https://www.onamsecurity.com/case-studies
 
 ## Solutions

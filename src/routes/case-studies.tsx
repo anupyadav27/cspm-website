@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Download, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server } from "lucide-react";
+import { ArrowRight, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server } from "lucide-react";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/case-studies")({
@@ -167,10 +167,6 @@ function Page() {
             <BrandButton to="/request-demo" size="lg">
               Run a scan on one account
               <ArrowRight className="h-4 w-4" />
-            </BrandButton>
-            <BrandButton href="/case-studies/Onam-Case-Studies.pdf" variant="secondary" size="lg">
-              <Download className="h-4 w-4" />
-              All five as one PDF
             </BrandButton>
           </div>
         </div>
