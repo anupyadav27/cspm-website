@@ -31,14 +31,14 @@ export const Route = createFileRoute("/trust")({
     seo({
       title: "Trust Center — how Onam Security protects your data — Onam Security",
       description:
-        "Onam Security Trust Center: how we connect to your clouds, what we store, encryption, sub-processors, disclosure, and certifications we do not yet hold.",
+        "Onam Security Trust Center: how we connect to your clouds, what we store, encryption, sub-processors, and how to report a vulnerability.",
       path: "/trust",
     }),
   component: TrustPage,
 });
 
 const SECTIONS = [
-  { id: "where-we-are", label: "Where we are today" },
+  { id: "where-we-are", label: "Compliance mapping" },
   { id: "cloud-access", label: "How Onam connects" },
   { id: "data", label: "What we store" },
   { id: "encryption", label: "Encryption" },
@@ -46,7 +46,6 @@ const SECTIONS = [
   { id: "isolation", label: "Keeping customers apart" },
   { id: "logging", label: "Logging and backups" },
   { id: "sub-processors", label: "Sub-processors" },
-  { id: "roadmap", label: "Assurance roadmap" },
   { id: "vulnerability-disclosure", label: "Vulnerability disclosure" },
   { id: "acknowledgments", label: "Acknowledgments" },
 ];
@@ -107,27 +106,6 @@ const SUB_PROCESSORS: { name: string; purpose: string; location: string }[] = [
   },
 ];
 
-const ROADMAP: { stage: string; what: string; target: string; status: string }[] = [
-  {
-    stage: "Now",
-    what: "This Trust Center and security.txt; CSA STAR Level 1 self-assessment (CAIQ)",
-    target: "October 2026",
-    status: "Trust Center and security.txt published; CAIQ in preparation",
-  },
-  {
-    stage: "Next",
-    what: "Cyber Essentials (UK); SOC 2 readiness",
-    target: "December 2026",
-    status: "Planned",
-  },
-  {
-    stage: "When a customer needs it",
-    what: "SOC 2 Type I, then Type II; ISO/IEC 27001",
-    target: "Started when a named customer requires it",
-    status: "Not started",
-  },
-];
-
 function Section({ id, title, children }: { id: string; title: string; children: ReactNode }) {
   return (
     <section id={id} className="scroll-mt-24 border-t border-[#E2E8F2] pt-10">
@@ -175,18 +153,7 @@ function TrustPage() {
       </section>
 
       <div className="mx-auto max-w-[900px] space-y-12 px-5 pb-16">
-        <Section id="where-we-are" title="Where we are today">
-          <div className="rounded-2xl border-l-4 border-[#B45309] bg-[#FFFBEB] p-5 text-[#7C2D12]">
-            <p>
-              <strong>Onam is a young company.</strong> We do not yet hold SOC 2, ISO/IEC 27001, CSA
-              STAR or any other certification or attestation, and we have not yet had an independent
-              security audit or third-party penetration test. Our plan and dates are in the{" "}
-              <a href="#roadmap" className="underline">
-                assurance roadmap
-              </a>{" "}
-              below.
-            </p>
-          </div>
+        <Section id="where-we-are" title="Compliance mapping">
           <p>
             Onam&rsquo;s product maps <em>your</em> findings to {FRAMEWORKS} compliance frameworks.
             That is a product feature, not a statement about Onam&rsquo;s own certification.
@@ -356,35 +323,6 @@ function TrustPage() {
             </table>
           </div>
           <p>We will update this list before adding a new sub-processor.</p>
-        </Section>
-
-        <Section id="roadmap" title="Our roadmap for independent assurance">
-          <p>
-            We will list an item as achieved only once we hold the certificate, report or registry
-            listing. Until then, everything below is a plan, not a claim.
-          </p>
-          <div className="overflow-x-auto rounded-xl border border-[#E2E8F2]">
-            <table className="w-full min-w-[600px] text-left text-[14px]">
-              <thead className="bg-[#F8FAFC] text-[#0B1220]">
-                <tr>
-                  <th className="px-4 py-3 font-semibold">Stage</th>
-                  <th className="px-4 py-3 font-semibold">What</th>
-                  <th className="px-4 py-3 font-semibold">Target</th>
-                  <th className="px-4 py-3 font-semibold">Status</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[#E2E8F2]">
-                {ROADMAP.map((r) => (
-                  <tr key={r.stage} className="align-top">
-                    <td className="px-4 py-3 font-semibold text-[#0B1220]">{r.stage}</td>
-                    <td className="px-4 py-3">{r.what}</td>
-                    <td className="px-4 py-3">{r.target}</td>
-                    <td className="px-4 py-3">{r.status}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </Section>
 
         <Section id="vulnerability-disclosure" title="Vulnerability disclosure">

@@ -398,7 +398,7 @@ ${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/resources/blog/${p.slug}): $
 - [About](${SITE_URL}/company/about)
 ${AUTHORS.map((a) => `- [${a.name}, ${a.role}](${SITE_URL}/company/team/${a.slug})`).join("\n")}
 - [Contact](${SITE_URL}/company/contact)
-- [Trust Center](${SITE_URL}/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure. Onam holds no security certification yet; the roadmap is on the page.
+- [Trust Center](${SITE_URL}/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure.
 `;
 
 writeFileSync(join(here, "../public/llms.txt"), llms);

@@ -273,7 +273,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Nishchal Gupta, Head of Sales](https://www.onamsecurity.com/company/team/nishchal-gupta)
 - [Ajay Chaudhary, COO](https://www.onamsecurity.com/company/team/ajay-chaudhary)
 - [Contact](https://www.onamsecurity.com/company/contact)
-- [Trust Center](https://www.onamsecurity.com/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure. Onam holds no security certification yet; the roadmap is on the page.
+- [Trust Center](https://www.onamsecurity.com/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure.
 
 # Documentation (full text)
 
