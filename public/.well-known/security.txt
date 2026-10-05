@@ -1,0 +1,8 @@
+# Onam Security - security contact (RFC 9116)
+# Policy and safe harbor: https://www.onamsecurity.com/trust#vulnerability-disclosure
+Contact: mailto:security@onamsecurity.com
+Expires: 2027-09-25T23:59:59Z
+Preferred-Languages: en
+Canonical: https://www.onamsecurity.com/.well-known/security.txt
+Policy: https://www.onamsecurity.com/trust#vulnerability-disclosure
+Acknowledgments: https://www.onamsecurity.com/trust#acknowledgments

@@ -158,7 +158,7 @@ function collectRouteFiles(dir: string): string[] {
  * Route files that only 301 to another page. Same reasoning as the "[.]" files above:
  * a redirect does not belong in the sitemap, and its target is already listed.
  */
-const REDIRECT_ONLY_ROUTES = new Set(["platform/secops.tsx"]);
+const REDIRECT_ONLY_ROUTES = new Set(["platform/secops.tsx", "company/security.tsx"]);
 
 function fileToPath(rel: string): string | null {
   if (rel === "__root.tsx" || rel.includes("$") || rel.includes("[.]")) return null;
@@ -398,7 +398,7 @@ ${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/resources/blog/${p.slug}): $
 - [About](${SITE_URL}/company/about)
 ${AUTHORS.map((a) => `- [${a.name}, ${a.role}](${SITE_URL}/company/team/${a.slug})`).join("\n")}
 - [Contact](${SITE_URL}/company/contact)
-- [Security](${SITE_URL}/company/security)
+- [Trust Center](${SITE_URL}/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure. Onam holds no security certification yet; the roadmap is on the page.
 `;
 
 writeFileSync(join(here, "../public/llms.txt"), llms);

@@ -17,6 +17,7 @@ import { Route as FinopsRouteImport } from './routes/finops'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as ToolsRouteImport } from './routes/tools'
+import { Route as TrustRouteImport } from './routes/trust'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
 import { Route as CompanyAboutRouteImport } from './routes/company/about'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
@@ -117,6 +118,11 @@ const RequestDemoRoute = RequestDemoRouteImport.update({
 const ToolsRoute = ToolsRouteImport.update({
   id: '/tools',
   path: '/tools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrustRoute = TrustRouteImport.update({
+  id: '/trust',
+  path: '/trust',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WhitepapersRoute = WhitepapersRouteImport.update({
@@ -439,6 +445,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
@@ -509,6 +516,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
@@ -581,6 +589,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/tools': typeof ToolsRoute
+  '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
@@ -654,6 +663,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/trust'
     | '/whitepapers'
     | '/company/about'
     | '/company/careers'
@@ -724,6 +734,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/trust'
     | '/whitepapers'
     | '/company/about'
     | '/company/careers'
@@ -795,6 +806,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/tools'
+    | '/trust'
     | '/whitepapers'
     | '/company/about'
     | '/company/careers'
@@ -867,6 +879,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
   ToolsRoute: typeof ToolsRoute
+  TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
   CompanyAboutRoute: typeof CompanyAboutRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
@@ -983,6 +996,13 @@ declare module '@tanstack/react-router' {
       path: '/tools'
       fullPath: '/tools'
       preLoaderRoute: typeof ToolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trust': {
+      id: '/trust'
+      path: '/trust'
+      fullPath: '/trust'
+      preLoaderRoute: typeof TrustRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/whitepapers': {
@@ -1448,6 +1468,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
   ToolsRoute: ToolsRoute,
+  TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,
   CompanyAboutRoute: CompanyAboutRoute,
   CompanyCareersRoute: CompanyCareersRoute,

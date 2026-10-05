@@ -98,7 +98,7 @@ const cols: Col[] = [
       { label: "About", to: "/company/about" },
       { label: "Careers", to: "/company/careers" },
       { label: "Contact", to: "/company/contact" },
-      { label: "Security", to: "/company/security" },
+      { label: "Trust Center", to: "/trust" },
       { label: "Pricing", to: "/pricing" },
       { label: "Privacy", to: "/company/privacy" },
       { label: "Terms", to: "/company/terms" },

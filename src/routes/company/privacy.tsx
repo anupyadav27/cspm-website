@@ -72,10 +72,10 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          When you connect a cloud account to Onam, we store the identifiers required to authenticate to that account — for example, role ARNs, service-principal IDs, and workload-identity federation trust configurations. We do not store static access keys, secret access keys, or long-lived passwords.
+          When you connect a cloud account to Onam, we store the identifiers required to authenticate to that account — for example, role ARNs and service-principal IDs. For AWS we store no secret: Onam assumes a role you create. Where a cloud needs a stored credential (for example an OCI API key or an Alibaba Cloud access key), it is kept in AWS Secrets Manager, encrypted with AWS KMS.
         </p>
         <p className="mt-2">
-          Every call Onam makes to your cloud is authenticated with a short-lived, tenant-scoped token and uses read-only permissions. Nothing Onam does can modify or delete resources in your environment.
+          Posture scanning uses read-only permissions. If you enable agentless workload scanning, the onboarding template creates scan resources inside your own account, and those resources can create and delete short-lived snapshots and scan machines; Onam&rsquo;s own role can only start that workflow. Details are on our <a href="/trust#cloud-access" className="text-[#2563EB] font-semibold hover:underline">Trust Center</a>.
         </p>
       </>
     ),
@@ -111,7 +111,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     id: "security",
     title: "Security",
     body: (
-      <p>We implement administrative, technical, and physical safeguards designed to protect the data we hold. See our <a href="/company/security" className="text-[#2563EB] font-semibold hover:underline">Security page</a> for details on encryption, access, and vulnerability disclosure.</p>
+      <p>We implement administrative, technical, and physical safeguards designed to protect the data we hold. See our <a href="/trust" className="text-[#2563EB] font-semibold hover:underline">Trust Center</a> for details on encryption, access, sub-processors and vulnerability disclosure.</p>
     ),
   },
   {
@@ -142,7 +142,7 @@ function PrivacyPage() {
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-sm text-[#64748B]">Last updated: August 2026</p>
+          <p className="mt-4 text-sm text-[#64748B]">Last updated: October 2026</p>
         </div>
       </section>
 
