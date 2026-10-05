@@ -300,8 +300,8 @@ Key facts:
 - All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
 - Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
-- Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- Every finding ships with exact remediation: CLI command or Terraform snippet; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
+- Code security in the same console: SAST (proven issues kept apart from hotspots), secret detection, IaC checks, SCA with CycloneDX 1.5 SBOM and EPSS/KEV risk scoring, and DAST — see ${SITE_URL}/platform/code-security
 - AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning

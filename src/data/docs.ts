@@ -10,6 +10,7 @@ import { articles as products } from "./docs-articles/products";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
 import { articles as operations } from "./docs-articles/operations";
 import { articles as dspm } from "./docs-articles/dspm";
+import { articles as codeSecurity } from "./docs-articles/code-security";
 
 export type { DocArticle };
 
@@ -74,6 +75,23 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Data lineage", slug: "dspm/lineage" },
       { title: "Findings reference", slug: "dspm/findings-reference" },
       { title: "Coverage by cloud", slug: "dspm/coverage" },
+    ],
+  },
+  {
+    heading: "Code Security",
+    items: [
+      { title: "Overview", slug: "code-security/overview" },
+      { title: "Connect a repository", slug: "code-security/connect-repository" },
+      { title: "Run a scan", slug: "code-security/run-a-scan" },
+      { title: "Read the results", slug: "code-security/reading-results" },
+      { title: "Static analysis (SAST)", slug: "code-security/sast" },
+      { title: "Secret detection", slug: "code-security/secrets" },
+      { title: "IaC and Dockerfiles", slug: "code-security/iac" },
+      { title: "Dependencies and SBOM", slug: "code-security/sca-sbom" },
+      { title: "Dynamic testing (DAST)", slug: "code-security/dast" },
+      { title: "AI Code Fix", slug: "code-security/ai-code-fix" },
+      { title: "CI usage", slug: "code-security/ci" },
+>>>>>>> feat/depth-code-security
     ],
   },
   {
@@ -166,8 +184,10 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...releaseNotes,
   ...products,
   ...featuresExtra,
+<<<<<<< HEAD
   ...operations,
   ...dspm,
+  ...codeSecurity,
 ];
 
 function titleFromSlug(slug: string) {

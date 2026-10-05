@@ -1,0 +1,132 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 470" width="920" height="470" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Onam Code Security — from repository to fix branch</title>
+  <desc id="d">A repository and an optional target URL feed one scan job. The job runs static analysis and secret rules, dependency analysis with an SBOM, IaC and Dockerfile checks, and dynamic testing. Results are split into security issues, hotspots to review, dependency risk and runtime findings, shown in the console and the posture score. Fixes go to a separate branch for your own review.</desc>
+  <rect width="920" height="470" fill="#F8FAFC" rx="10"/>
+
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">HOW ONAM CODE SECURITY WORKS — FROM REPOSITORY TO REVIEWED FIX</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- COLUMN 1: SOURCE -->
+  <rect x="16" y="48" width="196" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="114" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. CONNECT</text>
+  <text x="114" y="82" text-anchor="middle" font-size="8" fill="#64748B">What you point the scan at</text>
+  <line x1="26" y1="90" x2="202" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="28" y="104" width="172" height="92" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="114" y="126" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Git repository</text>
+  <text x="114" y="144" text-anchor="middle" font-size="9" fill="#64748B">HTTPS URL + branch</text>
+  <text x="114" y="158" text-anchor="middle" font-size="9" fill="#64748B">GitHub · GitLab · Bitbucket</text>
+  <text x="114" y="172" text-anchor="middle" font-size="9" fill="#64748B">Default branch auto-detected</text>
+  <text x="114" y="186" text-anchor="middle" font-size="9" fill="#64748B">if you leave it blank</text>
+
+  <rect x="28" y="208" width="172" height="78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="114" y="230" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Target URL</text>
+  <text x="114" y="248" text-anchor="middle" font-size="9" fill="#64748B">Optional · a running web app</text>
+  <text x="114" y="262" text-anchor="middle" font-size="9" fill="#64748B">or API you are authorised</text>
+  <text x="114" y="276" text-anchor="middle" font-size="9" fill="#64748B">to test</text>
+
+  <rect x="28" y="298" width="172" height="78" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="114" y="320" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">SBOM file</text>
+  <text x="114" y="338" text-anchor="middle" font-size="9" fill="#64748B">Optional · upload an existing</text>
+  <text x="114" y="352" text-anchor="middle" font-size="9" fill="#64748B">CycloneDX or SPDX JSON</text>
+  <text x="114" y="366" text-anchor="middle" font-size="9" fill="#64748B">instead of a repository</text>
+
+  <text x="114" y="404" text-anchor="middle" font-size="8" fill="#64748B">Shallow clone of one branch,</text>
+  <text x="114" y="416" text-anchor="middle" font-size="8" fill="#64748B">deleted when the scan ends</text>
+
+  <line x1="212" y1="238" x2="232" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="230,233 240,238 230,243" fill="#94A3B8"/>
+
+  <!-- COLUMN 2: SCAN -->
+  <rect x="242" y="48" width="216" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="350" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">2. SCAN</text>
+  <text x="350" y="82" text-anchor="middle" font-size="8" fill="#64748B">One isolated job per scan</text>
+  <line x1="252" y1="90" x2="448" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="254" y="102" width="192" height="64" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="350" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">SAST + secrets</text>
+  <text x="350" y="139" text-anchor="middle" font-size="9" fill="#475569">Taint rules · reviewed pattern</text>
+  <text x="350" y="152" text-anchor="middle" font-size="9" fill="#475569">rules · community security packs</text>
+
+  <rect x="254" y="174" width="192" height="64" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="350" y="194" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">SCA + SBOM</text>
+  <text x="350" y="211" text-anchor="middle" font-size="9" fill="#475569">Manifests and lockfiles parsed</text>
+  <text x="350" y="224" text-anchor="middle" font-size="9" fill="#475569">→ OSV / NVD · EPSS · CISA KEV</text>
+
+  <rect x="254" y="246" width="192" height="64" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="350" y="266" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">IaC + Dockerfiles</text>
+  <text x="350" y="283" text-anchor="middle" font-size="9" fill="#475569">Terraform · Kubernetes YAML</text>
+  <text x="350" y="296" text-anchor="middle" font-size="9" fill="#475569">CloudFormation · Dockerfile</text>
+
+  <rect x="254" y="318" width="192" height="64" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="350" y="338" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">DAST</text>
+  <text x="350" y="355" text-anchor="middle" font-size="9" fill="#475569">Runs only when a target URL</text>
+  <text x="350" y="368" text-anchor="middle" font-size="9" fill="#475569">is given · rate-limited</text>
+
+  <text x="350" y="410" text-anchor="middle" font-size="8" fill="#64748B">Scanners run side by side, not in sequence</text>
+
+  <line x1="458" y1="238" x2="478" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="476,233 486,238 476,243" fill="#94A3B8"/>
+
+  <!-- COLUMN 3: RESULTS -->
+  <rect x="488" y="48" width="200" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="588" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">3. TRIAGE</text>
+  <text x="588" y="82" text-anchor="middle" font-size="8" fill="#64748B">How results are separated</text>
+  <line x1="498" y1="90" x2="678" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="500" y="102" width="176" height="64" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" rx="8"/>
+  <text x="588" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#B91C1C">Security issues</text>
+  <text x="588" y="139" text-anchor="middle" font-size="9" fill="#475569">Confirmed by taint or AST</text>
+  <text x="588" y="152" text-anchor="middle" font-size="9" fill="#475569">rules · CWE + OWASP</text>
+
+  <rect x="500" y="174" width="176" height="64" fill="#FFFBEB" stroke="#FDE68A" stroke-width="1.5" rx="8"/>
+  <text x="588" y="194" text-anchor="middle" font-size="11" font-weight="700" fill="#B45309">Hotspots to review</text>
+  <text x="588" y="211" text-anchor="middle" font-size="9" fill="#475569">Pattern matches · severity</text>
+  <text x="588" y="224" text-anchor="middle" font-size="9" fill="#475569">capped at medium</text>
+
+  <rect x="500" y="246" width="176" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="588" y="266" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Dependency risk</text>
+  <text x="588" y="283" text-anchor="middle" font-size="9" fill="#475569">0–10 score from CVSS, EPSS,</text>
+  <text x="588" y="296" text-anchor="middle" font-size="9" fill="#475569">KEV and fix availability</text>
+
+  <rect x="500" y="318" width="176" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="588" y="338" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Runtime findings</text>
+  <text x="588" y="355" text-anchor="middle" font-size="9" fill="#475569">Endpoint · payload class</text>
+  <text x="588" y="368" text-anchor="middle" font-size="9" fill="#475569">JSON · HTML · SARIF report</text>
+
+  <text x="588" y="410" text-anchor="middle" font-size="8" fill="#64748B">Code-quality pattern rules dropped</text>
+
+  <line x1="688" y1="238" x2="708" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="706,233 716,238 706,243" fill="#94A3B8"/>
+
+  <!-- COLUMN 4: ACT -->
+  <rect x="718" y="48" width="186" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="811" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#047857" letter-spacing="1">4. ACT</text>
+  <text x="811" y="82" text-anchor="middle" font-size="8" fill="#64748B">Where the result goes</text>
+  <line x1="728" y1="90" x2="894" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="730" y="102" width="162" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="811" y="122" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">Console + reports</text>
+  <text x="811" y="139" text-anchor="middle" font-size="9" fill="#475569">Projects · alerts · trends</text>
+  <text x="811" y="152" text-anchor="middle" font-size="9" fill="#475569">CSV and PDF export</text>
+
+  <rect x="730" y="174" width="162" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="811" y="194" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">Posture score</text>
+  <text x="811" y="211" text-anchor="middle" font-size="9" fill="#475569">AppSec pillar of the</text>
+  <text x="811" y="224" text-anchor="middle" font-size="9" fill="#475569">CNAPP score</text>
+
+  <rect x="730" y="246" width="162" height="64" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="811" y="266" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">AI fix prompt</text>
+  <text x="811" y="283" text-anchor="middle" font-size="9" fill="#475569">Per finding · copy into</text>
+  <text x="811" y="296" text-anchor="middle" font-size="9" fill="#475569">your own assistant</text>
+
+  <rect x="730" y="318" width="162" height="64" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5" rx="8"/>
+  <text x="811" y="338" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">AI Code Fix</text>
+  <text x="811" y="355" text-anchor="middle" font-size="9" fill="#475569">On request · corrected files</text>
+  <text x="811" y="368" text-anchor="middle" font-size="9" fill="#475569">on a separate fix branch</text>
+
+  <text x="811" y="404" text-anchor="middle" font-size="8" fill="#64748B">Nothing merges or deploys itself —</text>
+  <text x="811" y="416" text-anchor="middle" font-size="8" fill="#64748B">your review and CI decide</text>
+
+  <text x="460" y="454" text-anchor="middle" font-size="8" fill="#94A3B8">Onam Security · Code Security</text>
+</svg>

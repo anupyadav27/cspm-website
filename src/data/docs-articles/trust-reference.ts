@@ -1179,7 +1179,7 @@ Integration status changes are announced in the [release notes](/docs/release-no
 
 - [API Reference](/docs/reference/api) — pull findings programmatically instead of (or alongside) push integrations
 - [Finding Schema](/docs/reference/finding-schema) — the exact payload shape webhooks and SIEM streams deliver
-- [SecOps](/docs/features/secops) — the SAST, SCA, and IaC scanning that backs the CI/CD integrations
+- [Code Security](/docs/code-security/overview) — SAST, SCA and IaC scanning; pipelines call it through the API ([CI usage](/docs/code-security/ci))
 - [RBAC & SSO](/docs/reference/rbac-and-sso) — who on your team can configure integrations
 `,
   },

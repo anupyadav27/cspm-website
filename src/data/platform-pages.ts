@@ -23,59 +23,84 @@ const emerald400 = "#34D399";
 
 export const platformPages: Record<string, ProductPageData> = {
   "code-security": {
-    demoClips: ["scan"],
+    hideDemo: true,
+    stats: [
+      { v: "SAST", l: "source code" },
+      { v: "SCA + SBOM", l: "dependencies" },
+      { v: "IaC", l: "templates" },
+      { v: "DAST", l: "running apps" },
+    ],
+    risk: {
+      title: "The cost of a noisy scanner",
+      body: "When every pattern match is reported as an alert, the real injection flaw sits on page four. Teams stop reading the report, and the scanner becomes a compliance checkbox instead of a control.",
+      tagline: "Confirmed issues first, hotspots kept separate",
+    },
+    ctaWhere: "on your code",
+    ctaLine:
+      "Point us at a repository and a test URL. We will run the scan with you and walk your team through what it found.",
     icon: GitBranch,
     iconColor: violet400,
     label: "Code Security",
-    question: "Will the misconfiguration I just fixed come back on the next deploy?",
-    headline: "Fix it where the resource is defined, not where it happens to be running.",
+    question: "Which of the problems in this repository actually need fixing first?",
+    headline:
+      "Scan the code, the dependencies and the running app — and see the real issues first.",
     metaDescription:
-      "Code security: SAST, DAST, SCA, IaC and secret scanning, correlated with what runs in your cloud so each finding traces to the template behind it.",
-    sub: "SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.",
+      "Code security in one console: SAST, dependency analysis with CycloneDX SBOM, IaC checks, secret detection and DAST, with confirmed issues kept apart.",
+    sub: "Onam Code Security runs static analysis, dependency and SBOM analysis, IaC checks, secret detection and dynamic testing against your repositories and web apps — and keeps findings it can confirm apart from the ones a person needs to review.",
     painPoint:
-      "An engineer unchecks 'public access' on a bucket in the console and closes the finding. The next terraform apply recreates the bucket exactly as the template describes it, because the template was never changed. The finding returns, gets re-triaged, gets fixed in the console again. Everyone is busy and nothing improves — and meanwhile a dependency scan returns 400 findings sorted by CVSS, most of them in code paths the application never executes.",
+      "The first scan of a mature repository returns a wall of findings, and most of them are pattern matches nobody can act on without reading the code. The one real injection flaw is in there somewhere, ranked next to a hundred hotspots with the same severity. The dependency report is no better: sorted by CVSS, it puts a theoretical 9.8 above a medium-rated bug that attackers are exploiting this week. The team triages for a day, fixes nothing important, and stops opening the report.",
     mechanism: [
-      "Static analysis traces untrusted input to dangerous operations in application source, and dependency analysis inventories what you actually ship — including transitive packages — against known vulnerabilities.",
-      "IaC scanning evaluates Terraform, CloudFormation, Helm and Kubernetes manifests against the same policy set the runtime posture engine uses, so a template is judged before it creates anything.",
-      "Secret detection runs across source, image layers, pipeline configuration and committed state — the places copies accumulate, rather than only the secrets store where things are done correctly.",
-      "Findings are joined to the running estate on the same security graph, so a dependency finding carries whether the workload is internet-reachable and what identity it holds — the two facts that decide whether a CVSS score matters here.",
-      "Every runtime finding keeps its provenance: which repository, template and resource block produced it, so remediation lands in code and does not reappear on the next apply.",
+      "You give Onam a repository's HTTPS address and a branch — GitHub, GitLab or Bitbucket — and, if you want dynamic testing, the URL of a running app you are authorised to test. Each scan runs as its own isolated job against a shallow clone of that branch, and the clone is deleted when the scan ends.",
+      "Static analysis runs on the open-source Semgrep engine with three rule sources: community security packs (OWASP Top 10, security audit, secrets, Node.js), Onam-curated taint rules that follow untrusted input to a dangerous call, and Onam-reviewed pattern rules. Pattern rules that were judged code-quality rather than security are dropped before a scan runs.",
+      "Every result is graded by how much the rule can prove. Taint and AST matches become Security issues and keep the severity the rule asserts; pattern matches become Hotspots to review, capped at medium, so they can never outrank a confirmed flaw. Each finding carries the file, line, rule, CWE and OWASP category.",
+      "Dependency analysis reads manifests and lockfiles itself, matches each component against OSV and NVD advisories, adds EPSS exploit probability and CISA KEV membership, and turns them into a single 0–10 risk score. The same pass produces a CycloneDX 1.5 SBOM for the repository.",
+      "IaC templates and Dockerfiles in the same clone are checked in the same scan, and secret rules run over every file. If you gave a target URL, dynamic testing discovers the app's endpoints and sends rate-limited test payloads at them.",
+      "Results land in the Code Security console — projects, alerts, scan history, per-scanner tabs and trend reports — and static and dynamic scan results also feed the AppSec pillar of the platform's CNAPP posture score, next to your cloud posture.",
     ],
     whatYouGet: [
-      "SAST across application source, with the code path that produced each finding",
-      "SCA with reachability — is the vulnerable function actually called, not just present",
-      "IaC policy evaluated against the plan, so misconfiguration is prevented rather than reported",
-      "Secret detection across source, images, pipelines and state files",
-      "Provenance on runtime findings — the repository, template and line that created the resource",
-      "Reachability and identity context joined to every dependency finding",
-      "Optional build gate — scans report by default; fail the pipeline on findings only when you switch it on",
-      "One inventory across code and cloud, so 'which running workloads ship this package' is a query",
+      "Confirmed issues kept apart from hotspots — taint-backed findings first, pattern matches in a separate review list capped at medium",
+      "CWE and OWASP on every code finding — with the file, line and rule that produced it",
+      "Coverage for mainstream languages — Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby",
+      "Dependency risk beyond CVSS — a 0–10 score built from CVSS, EPSS, CISA KEV and whether a fixed version exists",
+      "A CycloneDX 1.5 SBOM per repository — and import of existing CycloneDX or SPDX JSON SBOMs",
+      "SBOM governance — license classification and policy checks, an NTIA minimum-elements check, VEX statements and SBOM diffs",
+      "Dynamic testing of a running app — endpoint discovery, injection and SSRF payloads, header and cookie checks, JSON, HTML and SARIF reports",
+      "A fix path for every finding — rule guidance and a copyable AI fix prompt, plus AI Code Fix to put corrected files on a branch",
+      "Reports and trends — scan history per project, with CSV and PDF export",
     ],
     faqs: [
       {
-        q: "How is this different from a standalone SAST or SCA tool?",
-        a: "A standalone scanner reports findings about code. Onam joins those findings to the running estate on the same graph the posture, identity and network engines use — so a dependency finding carries whether that workload is reachable and what it can access next. That context is what turns several hundred CVSS-ranked findings into a short list.",
+        q: "Which languages does static analysis cover?",
+        a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Depth varies by language: Python, JavaScript/TypeScript, Java, C#, Go and Ruby have Onam-curated taint rules as well as community and pattern rules; C and C++ rely on community and pattern rules, so expect more of their results in the hotspot list. Other languages are not analysed today.",
       },
       {
-        q: "Does fixing a finding in the cloud console actually resolve it?",
-        a: "Usually not, if infrastructure-as-code created the resource. The next apply recreates the original configuration. Onam keeps the provenance of each runtime finding — the repository, template and resource block — so the fix can land where the resource is defined.",
+        q: "What is the difference between a security issue and a hotspot?",
+        a: "A security issue comes from a rule that can show the flaw — usually by following untrusted input to a dangerous call. A hotspot comes from a pattern rule that found something worth a look but cannot prove it is exploitable. Hotspots are capped at medium severity and listed separately, so they never bury a confirmed finding.",
       },
       {
         q: "Will this break our builds?",
-        a: "Only if you configure it to. By default a scan reports its findings and the build carries on. Failing the pipeline on findings is an option you switch on per scan, when your team is ready to enforce it.",
+        a: "No. Onam has no CI plugin, GitHub Action or pull-request check today, so nothing blocks a build. A scan reports its findings in the console and through the API. If you want a pipeline gate, a pipeline step can start a scan through the API, read the findings and decide for itself whether to fail.",
       },
       {
-        q: "Which languages and IaC formats are supported?",
-        a: "Application scanning covers the mainstream server-side languages, and IaC scanning covers Terraform, CloudFormation, Helm charts and raw Kubernetes manifests. Ask for the current list against your stack — it moves, and we would rather tell you what it does today than what it will do.",
+        q: "Does it trace a code finding to the workload running that code?",
+        a: "Not today. Code findings live in the same platform as your cloud findings and count towards the same posture score, but Onam does not yet link a finding to the specific container image or cloud workload built from that repository. We would rather say so than imply a join that is not there.",
+      },
+      {
+        q: "Can it fix what it finds?",
+        a: "Every finding comes with rule guidance and an AI fix prompt you can copy into your own assistant. For static-analysis findings, AI Code Fix can rewrite the affected files and push them to a separate branch for your team to review — today it is run with you on request rather than from a console button. Nothing merges or deploys itself.",
+      },
+      {
+        q: "What is kept from our repository?",
+        a: "The findings: file path, line, rule, message and a short code snippet for context, plus the dependency list and SBOM. The clone itself is deleted when the scan ends.",
       },
     ],
     related: [
-      { label: "What is code security?", href: "/learn/code-security" },
-      { label: "What is cloud secrets management?", href: "/learn/secrets-management" },
-      { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
-      { label: "Onam CSPM", href: "/platform/cspm" },
-      { label: "Onam Vulnerability Management", href: "/platform/vulnerability" },
+      { label: "Static analysis (SAST) and secrets", href: "/platform/code-security/sast" },
+      { label: "Dependencies and SBOM (SCA)", href: "/platform/code-security/sca-sbom" },
+      { label: "Dynamic testing (DAST)", href: "/platform/code-security/dast" },
       { label: "Onam AI Code Fix", href: "/platform/ai-code-fix" },
+      { label: "Code Security docs", href: "/docs/code-security/overview" },
+      { label: "What is code security?", href: "/learn/code-security" },
     ],
   },
   cspm: {
@@ -808,6 +833,10 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     faqs: [
       {
+        q: "How do we start a fix run?",
+        a: "Today AI Code Fix is run with you on request: you choose a completed scan and the severities to include, supply a Git token for that run, and the fix branch appears in your repository. It is not yet a button in the console. In the console, every code finding already carries rule guidance and an AI fix prompt you can copy into your own assistant.",
+      },
+      {
         q: "Does AI Code Fix merge or deploy anything?",
         a: "No. It pushes a new branch and stops. It does not open or merge a pull request and does not trigger a deploy — a developer reviews the diff, runs the test suite and merges through your normal process.",
       },
@@ -829,7 +858,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What if the generated fix is wrong?",
-        a: "Treat it as a proposed change from a fast colleague, not a verdict. The fix sits on its own branch, so a wrong fix costs a review comment and a deleted branch. The scan that runs after you merge confirms whether the finding actually closed.",
+        a: "Treat it as a proposed change from a fast colleague, not a verdict. Onam does not compile or test the rewritten file — your pipeline does that on the branch. The fix sits on its own branch, so a wrong fix costs a review comment and a deleted branch. The scan that runs after you merge confirms whether the finding actually closed.",
       },
     ],
     related: [
