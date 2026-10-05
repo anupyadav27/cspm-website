@@ -8,6 +8,7 @@ import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
 import { articles as products } from "./docs-articles/products";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
+import { articles as ciem } from "./docs-articles/ciem";
 
 export type { DocArticle };
 
@@ -59,6 +60,17 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Compliance Coverage", slug: "features/compliance-coverage" },
       { title: "Technology Engine", slug: "features/technology-engine" },
       { title: "Risk Quantification", slug: "features/risk-quantification" },
+    ],
+  },
+  {
+    heading: "CIEM",
+    items: [
+      { title: "Overview", slug: "ciem/overview" },
+      { title: "How effective permissions are computed", slug: "ciem/effective-permissions" },
+      { title: "Finding types", slug: "ciem/finding-types" },
+      { title: "Reading the identity graph", slug: "ciem/identity-graph" },
+      { title: "Right-sizing workflow", slug: "ciem/right-sizing" },
+      { title: "Per-cloud notes", slug: "ciem/per-cloud" },
     ],
   },
   {
@@ -129,6 +141,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...releaseNotes,
   ...products,
   ...featuresExtra,
+  ...ciem,
 ];
 
 function titleFromSlug(slug: string) {

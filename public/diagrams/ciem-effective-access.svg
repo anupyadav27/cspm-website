@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" width="920" height="300" font-family="Arial, sans-serif" role="img" aria-label="How Onam resolves effective permissions on AWS in five steps">
+  <title>How Onam resolves effective permissions on AWS in five steps</title>
+  <rect width="920" height="300" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
+  <text x="460" y="24" text-anchor="middle" font-size="9" font-weight="700" letter-spacing="1.2" fill="#1E40AF">EFFECTIVE PERMISSIONS ON AWS — ONE ROLE, FIVE STEPS (ILLUSTRATIVE EXAMPLE)</text>
+  <line x1="16" y1="32" x2="904" y2="32" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16" y="48" width="164" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="98.0" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">1. Statements</text>
+  <line x1="26" y1="80" x2="170" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="98.0" y="100" text-anchor="middle" font-size="8.5" fill="#475569">Identity policies on the role</text>
+  <text x="98.0" y="117" text-anchor="middle" font-size="8.5" fill="#475569">and on its groups (users)</text>
+  <text x="98.0" y="134" text-anchor="middle" font-size="8.5" fill="#475569"></text>
+  <text x="98.0" y="151" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">Allow s3:* on *</text>
+  <text x="98.0" y="168" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">Allow iam:PassRole on *</text>
+  <text x="98.0" y="185" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">Deny s3:Delete* on *</text>
+  <line x1="181" y1="133.0" x2="188" y2="133.0" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="186,128.0 196,133.0 186,138.0" fill="#94A3B8"/>
+  <rect x="197" y="48" width="164" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="279.0" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">2. Groups</text>
+  <line x1="207" y1="80" x2="351" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="279.0" y="100" text-anchor="middle" font-size="8.5" fill="#475569">Group statements copied</text>
+  <text x="279.0" y="117" text-anchor="middle" font-size="8.5" fill="#475569">onto each member user,</text>
+  <text x="279.0" y="134" text-anchor="middle" font-size="8.5" fill="#475569">tagged &#x27;inherited via&#x27;</text>
+  <text x="279.0" y="151" text-anchor="middle" font-size="8.5" fill="#475569"></text>
+  <text x="279.0" y="168" text-anchor="middle" font-size="8.5" fill="#475569">In this example the</text>
+  <text x="279.0" y="185" text-anchor="middle" font-size="8.5" fill="#475569">role has no groups</text>
+  <line x1="362" y1="133.0" x2="369" y2="133.0" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="367,128.0 377,133.0 367,138.0" fill="#94A3B8"/>
+  <rect x="378" y="48" width="164" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="460.0" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">3. Conditions</text>
+  <line x1="388" y1="80" x2="532" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="460.0" y="100" text-anchor="middle" font-size="8.5" fill="#475569">Each condition classed:</text>
+  <text x="460.0" y="117" text-anchor="middle" font-size="8.5" fill="#475569">always true · context-</text>
+  <text x="460.0" y="134" text-anchor="middle" font-size="8.5" fill="#475569">dependent · blocking</text>
+  <text x="460.0" y="151" text-anchor="middle" font-size="8.5" fill="#475569"></text>
+  <text x="460.0" y="168" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">aws:SecureTransport</text>
+  <text x="460.0" y="185" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">→ always true</text>
+  <line x1="543" y1="133.0" x2="550" y2="133.0" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="548,128.0 558,133.0 548,138.0" fill="#94A3B8"/>
+  <rect x="559" y="48" width="164" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="641.0" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">4. Denies &amp; SCPs</text>
+  <line x1="569" y1="80" x2="713" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="641.0" y="100" text-anchor="middle" font-size="8.5" fill="#475569">Overlapping explicit</text>
+  <text x="641.0" y="117" text-anchor="middle" font-size="8.5" fill="#475569">deny overrides allow;</text>
+  <text x="641.0" y="134" text-anchor="middle" font-size="8.5" fill="#475569">SCP deny statements</text>
+  <text x="641.0" y="151" text-anchor="middle" font-size="8.5" fill="#475569">checked where readable</text>
+  <text x="641.0" y="168" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">s3 allow + s3 deny</text>
+  <text x="641.0" y="185" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">→ deny marked on row</text>
+  <line x1="724" y1="133.0" x2="731" y2="133.0" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="729,128.0 739,133.0 729,138.0" fill="#94A3B8"/>
+  <rect x="740" y="48" width="164" height="170" fill="#EFF6FF" stroke="#93C5FD" stroke-width="1.5" rx="10"/>
+  <text x="822.0" y="70" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">5. Result</text>
+  <line x1="750" y1="80" x2="894" y2="80" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="822.0" y="100" text-anchor="middle" font-size="8.5" fill="#475569">One row per scope and</text>
+  <text x="822.0" y="117" text-anchor="middle" font-size="8.5" fill="#475569">access level, flagged</text>
+  <text x="822.0" y="134" text-anchor="middle" font-size="8.5" fill="#475569"></text>
+  <text x="822.0" y="151" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">s3 → write · has deny</text>
+  <text x="822.0" y="168" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">iam:PassRole on *</text>
+  <text x="822.0" y="185" text-anchor="middle" font-size="8.5" font-family="Menlo, Consolas, monospace" fill="#0F172A">→ IAM control · flagged</text>
+  <rect x="16" y="234" width="888" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="460" y="252" text-anchor="middle" font-size="9" fill="#0F172A">Escalation detectors then read the result: PassRole on * plus an admin role in the account → &#x27;privilege escalation via PassRole&#x27;.</text>
+  <text x="460" y="267" text-anchor="middle" font-size="8.5" fill="#64748B">Azure role assignments, GCP bindings and Kubernetes RoleBindings resolve into the same effective-access table.</text>
+</svg>

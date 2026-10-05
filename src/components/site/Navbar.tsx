@@ -16,8 +16,8 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
     items: [
       { title: "CNAPP", href: "/platform/cnapp", desc: "Seven pillars, one posture score" },
       { title: "CSPM", href: "/platform/cspm", desc: "Misconfigurations across all clouds" },
-      { title: "CIEM", href: "/platform/ciem", desc: "Identity & entitlement analysis" },
-      { title: "IAM Security", href: "/platform/iam", desc: "Policies, users, and privilege risk" },
+      { title: "CIEM", href: "/platform/ciem", desc: "Effective permissions & escalation paths" },
+      { title: "IAM Security", href: "/platform/iam", desc: "MFA, keys and policy hygiene" },
       { title: "Asset Inventory", href: "/platform/inventory", desc: `${SERVICES} services, seven clouds, one list` },
     ],
   },
