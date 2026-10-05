@@ -16,6 +16,615 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "dspm-implementation-checklist",
+    title: "DSPM implementation checklist: a practical rollout for cloud data",
+    category: "Data Security",
+    excerpt:
+      "A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+Most teams do not decide to buy data security posture management in the abstract. Something forces the question. An auditor asks for a map of where customer data lives. A data export turns up in a bucket nobody remembers creating. A new analytics platform arrives and nobody can say which identities can read it. DSPM is the discipline of answering those questions continuously instead of once, in a panic, the week before an audit.
+
+This post is the checklist we would use to roll it out. It is deliberately tool-neutral until the last section.
+
+## The problem DSPM exists to solve
+
+Cloud data does not stay where it was put. A single production database becomes read replicas, warehouse copies, nightly exports to object storage, a staging copy for testing, and a cache that outlived the feature it served. Each copy is created by a different team for a good reason, and each one inherits whatever access and encryption settings were convenient on the day.
+
+Three things go wrong at once:
+
+- **Nobody has a complete inventory.** The data stores the security team knows about are a subset of the ones that exist.
+- **Sensitivity is unknown.** A bucket called \`exports-2024\` might hold marketing images or a full customer table.
+- **Access is decided elsewhere.** Who can read a store is the product of identity policies, resource policies and network paths, none of which live next to the data.
+
+DSPM brings those three together: what data you have, how sensitive it is, and who or what can reach it.
+
+## How teams usually handle it today
+
+Before a DSPM programme, data security is usually a mix of:
+
+- A spreadsheet of "crown jewel" databases maintained by hand and out of date within a quarter.
+- Per-service checks from the cloud provider: is this bucket public, is this volume encrypted.
+- Periodic manual reviews of who has access to production data, often driven by a compliance deadline.
+
+None of these is wrong. The gap is that each answers one question about one resource. Exposure is usually a combination: a store that is encrypted, private, and still readable by an over-privileged role that is itself reachable from the internet.
+
+## The rollout checklist
+
+Work through these in order. Each step makes the next one cheaper.
+
+### 1. Define what "sensitive" means for you
+
+Before scanning anything, agree on the categories you care about. Most organisations start with:
+
+- Personal data (names, emails, national identifiers, dates of birth)
+- Health data
+- Payment card data
+- Secrets and credentials stored as data (keys in config exports, tokens in logs)
+
+Write down which regulations and contracts apply to each. That list decides your priorities later.
+
+### 2. Inventory every data store, across every account
+
+Cover object storage, managed relational databases, NoSQL stores, warehouses, data lakes, block and file volumes, and any SaaS data platforms you run. Include non-production accounts: test copies of production data are one of the most common places sensitive data ends up with weak controls.
+
+Checklist for this step:
+
+- Every cloud account and subscription is connected, not just production.
+- Every region is covered, including ones you do not think you use.
+- Each store has an owner, even if the first owner is "unknown, needs triage".
+
+### 3. Classify, and record your confidence
+
+Classification can be done by reading contents or by reading metadata: names, tags, schemas, column names and configuration. Each has trade-offs. Content inspection is more precise but means a tool reads your data. Metadata classification is less intrusive and faster, but it can be wrong when names are vague.
+
+Whatever approach you use, keep a confidence level on each label. A table with columns named \`ssn\` and \`dob\` is high confidence. A bucket called \`data-backup\` is not, and should be flagged for a human to confirm.
+
+### 4. Map who can reach each sensitive store
+
+This is the step most programmes skip, and it is the one that matters most. For each store labelled sensitive, answer:
+
+- Which human users, roles and service accounts can read it?
+- Which can write or delete?
+- Is it reachable from the internet, directly or through a public endpoint?
+- Are there cross-account or external principals in that list?
+
+Access is rarely granted on the store itself. It comes through role policies, group memberships and trust relationships, so this step needs identity analysis, not just a resource check.
+
+### 5. Check the basic controls on every sensitive store
+
+For each sensitive store, verify:
+
+- Encryption at rest is enabled, with a key you control where policy requires it.
+- Encryption in transit is enforced.
+- Public access is blocked unless there is a documented reason.
+- Access logging is on, so you can answer "who read this?" after the fact.
+- Retention and lifecycle rules match your data retention policy.
+- The store is in a region your residency commitments allow.
+
+### 6. Prioritise by exposure, not by count
+
+You will find more issues than you can fix in a sprint. Rank them by combining sensitivity, reachability and identity:
+
+1. Sensitive data reachable from the internet.
+2. Sensitive data readable by identities that are themselves over-privileged or unused.
+3. Sensitive data without encryption or logging.
+4. Everything else.
+
+### 7. Make it continuous
+
+A one-off DSPM assessment is out of date within weeks. Set a cadence for re-classification, alert on new stores and on permission changes to sensitive ones, and track the trend, not just the current count.
+
+## Common mistakes
+
+- **Scanning production only.** Copies in development and test accounts are where weak controls live.
+- **Treating classification as the finish line.** A labelled store with unknown access is still an unknown risk.
+- **Fixing per bucket instead of per root cause.** If one template creates every export bucket, fix the template.
+- **No owner.** A finding without an owner does not get fixed.
+
+## How Onam approaches it
+
+[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It enumerates storage resources across your connected clouds through read-only posture roles, including object storage, managed databases, warehouses, and platforms such as Snowflake and Databricks.
+
+Classification is metadata-based: Onam labels each store by likely sensitivity (PII, PHI, PCI, secrets) from names, tags, schema and configuration signals, without reading the contents. Where metadata is ambiguous, findings are marked low-confidence so a person can confirm them.
+
+The classification is joined to the same identity graph that Onam's CIEM engine uses, so each sensitive store shows which principals can read or write it and through which paths. Network reachability is layered on top, so a store that is encrypted but publicly reachable is still treated as exposed. Alongside that you get encryption coverage, a public access map, credential exposure checks in object storage, a data residency report, retention and logging coverage, and data lineage across pipeline chains. Findings refresh continuously as stores, permissions and exposure change.
+
+If you want to see what this looks like on your own accounts, a [14-day trial](/request-demo) is the quickest way to find out.
+`,
+  },
+  {
+    slug: "data-lineage-security-unencrypted-hops",
+    title: "Data lineage security: why encryption is a property of the flow, not the bucket",
+    category: "Data Security",
+    excerpt:
+      "Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+Here is a pattern that turns up in almost every data platform review. The source database is encrypted with a customer-managed key. The data lake it feeds is encrypted. The warehouse is encrypted. Every individual resource passes its encryption check. And yet, somewhere in the middle, a nightly job writes an intermediate extract to a staging location that has default settings, broad read access and no lifecycle rule. The data is sitting there in a form nobody intended.
+
+No per-resource check will flag this as a data protection problem in context, because each resource is judged alone. The weakness is in the path. That is what data lineage security is about.
+
+## What data lineage security means
+
+Data lineage is the record of where data comes from, what transforms it, and where it ends up. Data teams have used lineage for years to debug pipelines and answer "where did this number come from?". Data lineage security applies the same idea to protection: for every route sensitive data takes, are the controls consistent from the first hop to the last?
+
+The questions change from "is this bucket encrypted?" to:
+
+- Where does data from this sensitive source end up?
+- Is every hop along that route encrypted, at rest and in transit?
+- Does access widen as data moves downstream?
+- Does any hop cross a region or account boundary that your commitments do not allow?
+
+## Why pipelines create exposure
+
+Pipelines are built for correctness and speed, not for consistent controls. The common causes:
+
+- **Intermediate stores.** Staging buckets, temporary tables and export folders are created for one job and configured with whatever defaults applied.
+- **Different owners per hop.** The application team owns the source, the data engineering team owns the transforms, the analytics team owns the destination. Each secures its own piece.
+- **Access widens downstream.** Production databases are usually tightly controlled. Analytics destinations are designed to be read by many people. Sensitive columns that were never meant to leave the source travel with the rest.
+- **Copies outlive their purpose.** A one-off migration or backfill leaves a full copy behind, and nothing deletes it.
+
+## How teams handle it today
+
+Most teams handle this partly, through a mix of:
+
+- Data catalogue tools maintained by the data team, which describe lineage for analytics but rarely carry security context.
+- Per-resource posture checks, which confirm each store is encrypted and private but do not connect them.
+- Architecture reviews when a pipeline is first built, which are accurate on the day and drift afterwards.
+
+The gap is the join. The data team knows the flow. The security team knows the controls. Nobody has both on one page, so the weak hop sits between two teams' responsibilities.
+
+## A checklist for securing data flows
+
+### Map the flows that carry sensitive data
+
+- Start from the stores you have classified as sensitive, not from every pipeline.
+- For each, list the downstream destinations: replicas, exports, warehouse tables, lake partitions, caches, and SaaS destinations.
+- Include scheduled jobs, event-driven functions and manual export processes. Manual exports are the ones most often forgotten.
+
+### Check controls hop by hop
+
+For each hop on a sensitive route:
+
+- Encryption at rest is on, and the key policy is no weaker than at the source.
+- Transport between hops is encrypted.
+- Read access is no broader than the data's sensitivity justifies.
+- Public access is blocked.
+- Logging is enabled, so you can see who read the data at that hop.
+- A retention rule exists, especially for staging and intermediate stores.
+
+### Look for widening and crossing
+
+- Flag any hop where the set of identities that can read the data grows sharply compared with the source.
+- Flag any hop that moves data into another account, another cloud, or another region.
+- Flag any hop that writes to a store with no owner.
+
+### Grade the route, not just the resources
+
+Give each route a single risk grade based on its weakest hop. A route with four strong hops and one weak one is a weak route. Ranking by route rather than by store also cuts duplicate work: one finding about one flow, instead of separate tickets for each store it touches.
+
+### Fix at the point of creation
+
+Most weak hops are created by pipeline code or infrastructure templates. Fix the job definition or the template that creates the staging location, not just the instance of it you found today, or it will be recreated on the next run.
+
+### Re-check after every pipeline change
+
+New jobs, new destinations and new consumers change the route. Treat a new downstream destination for a sensitive source as something that should trigger a review.
+
+## A short worked example
+
+A customer table lives in an encrypted managed database. A nightly job exports it to an object storage folder, then loads it into a warehouse.
+
+- Source: encrypted, private, access limited to the application role.
+- Export folder: encrypted with a default key, readable by a broad data engineering role, no lifecycle rule.
+- Warehouse: encrypted, readable by the analytics group.
+
+Every resource passes a basic encryption check. The route still has a problem: the export folder keeps every night's full copy forever, readable by more identities than the source. The fix is a lifecycle rule and a narrower role on the export location, made in the template that creates it.
+
+## How Onam approaches it
+
+Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam reconstructs pipeline chains end to end, from source through each hop to destination, and gives each chain a risk grade. It detects unencrypted hops along a flow, rather than only reporting encryption status per store, so an encrypted source feeding an unencrypted downstream store is reported as one finding about the flow instead of two unrelated findings about two resources. Critical and high-risk chain counts let you rank exposure by flow.
+
+Lineage sits on the same graph as Onam's metadata-based classification, identity analysis and network reachability. That means a chain can be read alongside who can reach each store in it and whether any store is publicly reachable. Classification uses names, tags, schema and configuration signals rather than reading data contents.
+
+To see the chains in your own environment, [request a demo](/request-demo) or start a 14-day trial.
+`,
+  },
+  {
+    slug: "iac-security-scanning-fix-at-source",
+    title: "IaC security scanning: fix the template, or the finding comes back",
+    category: "Code Security",
+    excerpt:
+      "Console fixes are undone by the next terraform apply. A practical guide to IaC security scanning that traces cloud findings back to the template line.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+An engineer gets a ticket: a storage bucket allows public access. They open the cloud console, turn public access off, and close the ticket. A week later the same finding is back. Nobody re-opened the bucket by hand. The next \`terraform apply\` recreated it exactly as the template describes it, because the template was never changed.
+
+This loop is one of the most common reasons cloud security programmes feel busy without improving. The fix is not working harder on the console. It is scanning and fixing infrastructure as code (IaC), and connecting runtime findings back to the code that created them.
+
+## Why console fixes do not stick
+
+When infrastructure is managed as code, the code is the source of truth. Terraform, CloudFormation, Helm charts and Kubernetes manifests describe the desired state, and every apply pushes the cloud back towards that state. A manual change in the console is drift. Depending on how the resource is managed, the next deployment either reverts it silently or shows it as an unexpected diff that someone "fixes" by re-applying.
+
+The result is a finding that keeps coming back, gets triaged again, and wears down trust in the security tool that keeps reporting it.
+
+## What IaC security scanning does
+
+IaC security scanning evaluates infrastructure templates against security policy before anything is created. Typical checks include:
+
+- Storage with public access or without encryption.
+- Network rules open to \`0.0.0.0/0\` on sensitive ports.
+- Databases without encryption, backups or deletion protection.
+- Identity policies with wildcard actions or resources.
+- Kubernetes workloads running privileged, as root, or with host mounts.
+- Logging turned off on services that should be audited.
+
+Scanning can run in three places, and mature teams use all three:
+
+1. **In the editor or pre-commit**, so the engineer sees the issue while writing the code.
+2. **In the pull request**, so the reviewer sees it and the pipeline can gate on it.
+3. **Against the plan**, so what is checked is what will actually change, including values from variables and modules.
+
+## How teams handle it today
+
+The usual starting point is a standalone IaC scanner added to CI. It helps, but three gaps show up quickly:
+
+- **Different rules in code and in the cloud.** The IaC scanner and the runtime posture tool each have their own policy set. A template passes in CI and the resource it creates fails in production, or the reverse, and engineers stop trusting either.
+- **No link back from runtime.** When a runtime finding appears, nobody can say which repository, file and resource block created it, so the fix lands in the console again.
+- **Everything fails the build.** The first scan of an existing repository finds hundreds of issues. If the pipeline blocks on all of them, the gate is disabled within weeks.
+
+## A checklist for IaC security that holds
+
+### Coverage
+
+- All IaC formats in use are scanned: Terraform, CloudFormation, Helm, raw Kubernetes manifests, and any others your teams use.
+- Modules and shared templates are scanned at their source, since one bad module spreads to every consumer.
+- Scans run on every pull request, not only on the main branch.
+
+### Policy
+
+- One policy set for code and for runtime, so a pass in CI means the same thing as a pass in production.
+- Every rule has a clear explanation and an example of the compliant configuration.
+- Exceptions are recorded with a reason and an expiry, not by deleting the rule.
+
+### Gating
+
+- Gate on newly introduced findings. Work the existing backlog separately, on a schedule.
+- Start with a small set of high-severity rules as blocking. Add more as the backlog shrinks.
+- Make the gate's output readable in the pull request, with the file and line.
+
+### Provenance
+
+- Every runtime finding on an IaC-managed resource records which repository, template and resource block created it.
+- Tickets for those findings go to the code owner, not to whoever has console access.
+- The ticket asks for a code change. A console-only fix on a managed resource is treated as incomplete.
+
+### Verification
+
+- After the code fix merges and deploys, the runtime finding is re-evaluated and closes on evidence.
+- If the finding reappears, it is flagged as a regression, and the provenance shows which change brought it back.
+
+## Handling the backlog
+
+The first full scan of a mature codebase is usually discouraging. Some practical ways through it:
+
+- Group findings by module or template. One shared module is often responsible for a large share of them.
+- Fix the modules first. Every consumer improves on its next apply.
+- Leave findings in abandoned or archived code until last, or retire that code.
+- Track the trend of new findings per week. That number should fall first, and it is the one that shows the gate is working.
+
+## How Onam approaches it
+
+[Onam's Code Security engine](/platform/code-security) scans Terraform, CloudFormation, Helm and Kubernetes manifests against the same policy set its runtime posture engine uses, so a template is judged before it creates anything and the result means the same thing in both places. IaC policy is evaluated against the plan.
+
+Runtime findings keep their provenance: which repository, template and resource block produced the resource. That lets remediation land in code, so the fix does not disappear on the next apply. On the gating side, scans report by default; failing the build on findings is an option you switch on when you are ready.
+
+IaC scanning sits alongside static analysis, dependency analysis and secret detection in the same engine, and its findings are joined to the running estate on the same security graph as posture, identity and network data. For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
+
+[Request a demo](/request-demo) to see a runtime finding traced back to its template line.
+`,
+  },
+  {
+    slug: "ci-cd-security-gates-delta-gating",
+    title: "CI/CD security gates that engineers do not bypass",
+    category: "Code Security",
+    excerpt:
+      "Security gates that fail every build get switched off. How to design CI/CD security gates around new findings, clear output and an exception path.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+Most security teams have lived through this. A scanner is added to the pipeline with every rule set to block. On day one it fails every build in the organisation, because the codebase already has hundreds of findings. By the end of the week there is an urgent request to make the step non-blocking "just for now". A month later nobody looks at its output.
+
+A CI/CD security gate is only useful if it stays switched on. This post covers how to design one that does.
+
+## What a security gate is for
+
+A gate is a pipeline step that can stop a change from merging or deploying when it introduces a security problem. It usually combines several kinds of scanning:
+
+- **Static analysis (SAST)** of application source, for issues such as injection, unsafe deserialisation and hard-coded credentials.
+- **Software composition analysis (SCA)** of dependencies, including transitive ones, for known vulnerabilities.
+- **IaC scanning** of Terraform, CloudFormation, Helm and Kubernetes manifests, for misconfiguration before it is deployed.
+- **Secret detection**, for keys and tokens committed to source or pipeline configuration.
+- In some pipelines, **dynamic testing (DAST)** of a running build in a test environment.
+
+The gate's job is narrow: stop new problems from entering. It is not the place to fix every problem that already exists.
+
+## Why gates get bypassed
+
+The reasons are predictable:
+
+- **They block on old findings.** An engineer changing one line is blocked by an issue introduced three years ago in a file they did not touch.
+- **They are noisy.** A dependency scan that returns hundreds of findings ranked only by CVSS gives no way to tell which ones matter.
+- **The output is unreadable.** A link to an external dashboard, rather than the file, line and reason in the pull request.
+- **There is no exception path.** When a finding is a false positive or an accepted risk, the only way through is to disable the step.
+- **They are slow.** A gate that adds a long wait to every pull request gets moved to a nightly job, where it no longer gates anything.
+
+## How teams handle it today
+
+The common patterns, roughly in order of maturity:
+
+1. **Report-only scanning**, with results in a dashboard nobody checks.
+2. **Blocking on critical severity only**, which helps but still blocks on pre-existing criticals.
+3. **Baseline-and-diff**, where existing findings are recorded as a baseline and only new findings block.
+4. **Context-aware gating**, where the decision also considers whether the affected code or workload is reachable and exposed in production.
+
+Most teams get real value from moving from step 2 to step 3. Step 4 is where noise drops further.
+
+## A checklist for a gate that stays on
+
+### Scope the decision to the change
+
+- Block only on findings introduced by this change. Pre-existing findings go to a backlog with owners and a schedule.
+- Keep the baseline honest: findings in the baseline still need tracking and fixing, just not in this pull request.
+
+### Start small, then tighten
+
+- Begin with a short list of blocking rules: high-confidence, high-impact issues such as committed secrets, critical injection flaws, and public storage or open admin ports in IaC.
+- Run the rest in report-only mode and promote rules to blocking once their false positive rate is known.
+- Allow different policies per repository or branch where risk genuinely differs, with the security team owning the policy.
+
+### Make the output actionable
+
+- Show findings in the pull request, with file, line, rule and a short explanation.
+- Include a compliant example or a suggested fix where possible.
+- For dependency findings, show the version that resolves the issue.
+
+### Add context to dependency findings
+
+- Prefer reachability over presence: is the vulnerable function actually called by your code?
+- Consider exploitation signals such as EPSS and the CISA Known Exploited Vulnerabilities list alongside CVSS.
+- Consider runtime context: is the workload that ships this package internet-reachable, and what identity does it run as?
+
+### Provide an exception path
+
+- Allow a finding to be marked as a false positive or accepted risk, with a reason and an approver.
+- Give exceptions an expiry date so they are reviewed.
+- Keep exceptions visible to the security team, not hidden.
+
+### Keep it fast
+
+- Run incremental scans on the changed files where the scanner supports it.
+- Run heavier scans, such as full DAST, on a schedule or before release, not on every commit.
+
+### Measure the gate itself
+
+- Track new findings introduced per week, findings blocked, exceptions granted, and time to fix the backlog.
+- If exceptions climb, the policy is too strict or the rules are noisy. Fix the policy rather than letting the gate be bypassed.
+
+## How Onam approaches it
+
+[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC scanning and secret detection into the same platform as its cloud posture, and joins code findings to the running estate on one security graph — so a dependency finding carries whether the workload is reachable and what it can access.
+
+On gating, Onam is deliberately conservative: by default a scan reports its findings and the build carries on. Failing the pipeline on findings is an option you switch on when your team is ready to enforce it. If you want the delta-gating pattern described above, the practical route today is to start in report-only mode, work the backlog down, and switch enforcement on once the baseline is small.
+
+For SAST findings, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files and push them to a separate branch for your team to review; nothing merges itself.
+
+[Request a demo](/request-demo) to see the gate on one of your repositories.
+`,
+  },
+  {
+    slug: "ai-sast-remediation-fix-branch",
+    title: "AI SAST remediation: what an AI code fix should and should not do",
+    category: "Code Security",
+    excerpt:
+      "AI can draft fixes for SAST findings, but it should never merge its own code. A practical look at safe AI SAST remediation, with a review checklist.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+Static analysis tools are good at finding problems and poor at getting them fixed. A typical SAST run produces a list of findings, each with a rule, a file, a line and a severity. Turning each one into a correct code change is still a developer's job, and that is where the backlog grows.
+
+AI code-fix tools promise to close that gap by drafting the change. They can help. They can also introduce subtle bugs, change behaviour nobody asked them to change, or create a false sense that something has been fixed. This post covers what a safe AI SAST remediation workflow looks like, and what to check before trusting one.
+
+## Why SAST findings do not get fixed
+
+The barriers are rarely about whether a finding is real. They are about effort and context:
+
+- **The fix needs the whole file.** A SQL injection on one line may need a change to how a query helper is called, an import, or a parameter list elsewhere in the file.
+- **The developer is not the author.** Findings land on whoever owns the repository now, not whoever wrote the code.
+- **Guidance is generic.** "Use parameterised queries" is correct and still leaves the actual change to be worked out for this codebase, in this language, with this library.
+- **Many findings, one file.** A legacy file can carry several findings at once, and fixing them one by one produces conflicting changes.
+
+## What AI can reasonably do
+
+A language model given the right context can draft a plausible fix for many common SAST rule types: injection, unsafe use of cryptographic functions, hard-coded credentials, insecure deserialisation and similar. The quality depends heavily on what it is given:
+
+- **The full file**, not a snippet, so it can see imports, helper functions and code style.
+- **All the findings in that file at once**, so the changes are consistent.
+- **The rule's own guidance**: what the issue is, the recommended fix, and a compliant example in the same language.
+
+What AI should not do is decide on its own that a change is correct and ship it. A model can produce code that compiles, looks right and changes behaviour in a way only a test or a reviewer will catch.
+
+## Design principles for safe AI code fixes
+
+### The output is a proposal, not a merge
+
+The fix should arrive as a branch or a diff that goes through your normal review and CI process. Nothing should merge or deploy itself.
+
+### Fix only what was flagged
+
+The instruction to the model should be explicit: change the listed issues and nothing else, keep variable names, indentation and style, and do not add imports unless the fix requires them. Small, focused diffs are reviewable. Large rewrites are not.
+
+### Ground the model in rule metadata
+
+Pass the rule's recommendation and a compliant example in the target language. This narrows the model towards the known-good pattern instead of improvising.
+
+### Respect suppressions
+
+Findings already marked as false positives should be skipped, so the tool does not keep "fixing" code that was reviewed and accepted.
+
+### Handle credentials carefully
+
+A tool that writes to your repository needs a credential with write access. It should be passed per request, never stored or logged, and scoped to the repository being fixed.
+
+### Fall back gracefully
+
+When the model is unavailable or returns nothing useful, the developer should still get the rule's guidance and compliant example, rather than nothing.
+
+## A review checklist for AI-generated fixes
+
+Before merging any AI-drafted fix, check:
+
+- The diff touches only the lines needed to address the listed findings.
+- The fix uses the safe pattern the rule describes, such as parameterised queries rather than escaping input by hand.
+- No new dependencies or imports were added without a reason.
+- Error handling and return values are unchanged unless the fix requires it.
+- Existing tests pass, and there is a test that covers the fixed path.
+- A re-scan of the branch no longer reports the original findings.
+- A re-scan does not report new findings introduced by the change.
+- The change has a human reviewer who understands the code, not only the security rule.
+
+## Rolling it out
+
+- Start with one or two repositories and the rule types that produce the most findings.
+- Track how many AI-drafted fixes are merged as-is, merged after edits, or rejected. That ratio tells you where the tool helps.
+- Keep severity filters in mind: running AI fixes on critical and high findings first keeps review effort where it matters.
+
+## How Onam approaches it
+
+[Onam's code-fix engine](/platform/remediation) works on the findings produced by its static analysis scanner. For a completed scan, it reads the findings, skipping any already marked as false positives, and can be limited to chosen severities. It looks up each rule's metadata (title, description, recommendation and a compliant example matched to the language where one exists) and makes a shallow clone of the source repository.
+
+Findings are grouped by file. For each file, the engine sends the full file content and every finding in it, with the rule guidance, to a large language model, with instructions to fix only the listed issues and preserve everything else, including style and indentation. The corrected files are committed to a separate fix branch named after the scan and pushed to your repository for review. The engine does not merge or deploy anything; your team reviews the diff, runs tests and merges through your normal process.
+
+The Git token needed to push the branch is passed per request in a header, and is not stored or logged. Each finding's outcome is recorded with a status, so you can see which were patched on the branch and which were not. If AI generation is not available, findings still carry the rule's explanation and compliant example as guidance.
+
+[Request a demo](/request-demo) to see a fix branch generated from one of your scans.
+`,
+  },
+  {
+    slug: "cloud-access-review-checklist",
+    title: "Cloud access reviews: a checklist that ends in decisions, not spreadsheets",
+    category: "Identity",
+    excerpt:
+      "Most cloud access reviews are a spreadsheet nobody answers. A practical checklist for reviewing cloud entitlements, including machine identities.",
+    author: "anup-yadav",
+    date: "October 5, 2026",
+    readTime: "6 min",
+    body: `
+Once a quarter, someone exports a list of users and their roles, splits it by team, and emails each manager a spreadsheet with a column headed "Still needed? Y/N". Most rows come back "Y". Some do not come back at all. The spreadsheet is filed as audit evidence, and the access stays exactly as it was.
+
+That is the typical cloud access review. It satisfies an auditor's checkbox and changes very little. This post covers why, and a checklist for a review that actually removes access that should not exist.
+
+## Why cloud access reviews are harder than they look
+
+Access reviews were designed for applications with a handful of roles and a list of human users. Cloud accounts break that model in several ways:
+
+- **Most identities are not people.** Service accounts, function execution roles, instance profiles, pod identities and managed identities often outnumber human users, and none of them has a manager to ask.
+- **Attached is not effective.** What an identity can actually do depends on its policies, group memberships, permission boundaries, organisation-level guardrails and the roles it can assume. A reviewer looking at the attached policy names sees only part of it.
+- **Access crosses accounts.** A role in one account may be assumable from another, or by an external party. That access does not appear in the target account's user list at all.
+- **Reviewers lack evidence.** Asking "is this still needed?" without showing whether the access has been used invites a reflexive yes.
+- **Nothing tracks the outcome.** A "no" in a spreadsheet does not remove anything. Someone has to turn it into a change, and that step is often lost.
+
+## What a good review needs to answer
+
+For each identity in scope, the reviewer should be able to see:
+
+1. Who or what is this identity, and who owns it?
+2. What can it effectively do, after all policies and role chains are resolved?
+3. What has it actually used recently?
+4. Can it reach admin-level permissions, directly or through a chain of roles?
+5. Can anyone outside this account or organisation use it?
+6. Has it been active at all?
+
+With those answers on the page, most decisions become obvious.
+
+## A checklist for cloud access reviews
+
+### Before the review: set scope and ownership
+
+- Include every cloud account and subscription, not only production.
+- Include non-human identities explicitly. They need an owning team, not a manager.
+- Assign an owner to every identity. Identities with no identifiable owner are a finding in their own right.
+- Define the usage window you will use as evidence, and confirm the activity logs that cover it are enabled.
+
+### Prioritise what gets reviewed first
+
+You cannot review everything with the same care. Put these at the top:
+
+- **Identities that can reach admin without holding an admin role**, often called shadow admins, usually through a chain of role assumptions or a permission such as the ability to pass a role to a service.
+- **External and cross-account access** to privileged roles in production.
+- **Zombie identities**: users, roles and keys with no recent activity at all.
+- **Privileged identities without MFA.**
+- **Identities with a large gap** between what they are granted and what they use.
+
+### During the review: give reviewers evidence
+
+- Show effective permissions, not policy names.
+- Show recent usage next to granted permissions, so the gap is visible.
+- Show why the identity was flagged, if it was.
+- Offer concrete outcomes rather than yes or no: keep, reduce to a suggested policy, remove, or defer with a reason.
+
+### Record decisions as states, not answers
+
+Each identity should end the review in a clear state, for example:
+
+- **Reviewed**: access confirmed as appropriate.
+- **Needs remediation**: access should change, with a ticket or change attached.
+- **Deferred**: a decision is postponed, with a reason and a date.
+- **Pending**: not yet reviewed, and visible as such.
+
+States make the review measurable. You can see what was decided, what is outstanding and what changed since last quarter.
+
+### After the review: close the loop
+
+- Turn every "needs remediation" decision into a change in IAM, ideally a reduced policy based on observed usage rather than a manual edit.
+- Remove zombie identities and stale keys, after confirming nothing depends on them.
+- Re-check after the change, so the review evidence reflects what is actually in place.
+- Keep the review record, with decisions and reasons, as audit evidence.
+
+### Between reviews: keep it continuous
+
+- Alert on new privileged grants and new cross-account trust to production.
+- Re-flag identities that become inactive.
+- Shorten the cycle for the highest-risk identities rather than reviewing everything quarterly.
+
+## Common mistakes
+
+- **Reviewing humans only.** Machine identities often hold the broadest standing access.
+- **Approving by default.** Without usage evidence, reviewers say yes.
+- **Ignoring database grants.** An identity with no cloud IAM path to production data can still hold a standing grant inside the database.
+- **Treating the review as the outcome.** The outcome is reduced access. The review is how you get there.
+
+## How Onam approaches it
+
+[Onam's CIEM engine](/platform/ciem) resolves effective permissions for every human user, role and service account across your connected clouds, walking policies, group memberships and cross-account trust. Recent activity from CloudTrail, Azure Activity Log and GCP Cloud Audit Logs is joined against granted permissions, which produces a least-privilege gap score per identity and a suggested right-sized policy based on real usage. Non-human identities such as Lambda execution roles, instance profiles, EKS pod identities, GCP workload identities and Azure managed identities are analysed the same way as users.
+
+For review, Onam lists shadow admins, zombie identities, stale keys, external principals that can assume privileged roles, and MFA coverage for privileged identities. Escalation paths are searched on the identity graph and cross-checked against Onam's cloud detection and response, so a path that has actually been used is separated from one that is only reachable. Database CIEM extends this to grants inside managed databases.
+
+Access reviews in Onam are an attestation and remediation workflow: every identity carries a state (pending, needs remediation, reviewed or deferred), and the finding that triggered the review stays attached, so the reviewer can see why it was flagged.
+
+[Request a demo](/request-demo) to run a review against your own accounts. For the background on CIEM itself, see [CIEM vs IAM security](/resources/blog/ciem-vs-iam-security).
+`,
+  },
+  {
     slug: "wiz-alternatives",
     title: "Wiz alternatives in 2026: an honest shortlist, including us",
     category: "Buyer's Guide",

@@ -25,6 +25,28 @@ export type ProductPageData = {
   chips?: string[];
   /** Which product-demo clips to show in the "See it live" section. */
   demoClips?: ClipKey[];
+  /** Hide the "See it live" section when no console clip shows this capability. */
+  hideDemo?: boolean;
+  /** Hero stat tiles; defaults to the platform-wide four. */
+  stats?: { v: string; l: string }[];
+  /** Side card in "Why it matters"; defaults to the detection framing. */
+  risk?: { title: string; body: string; tagline: string };
+  /** Closing CTA heading suffix and line; default to the connect-your-cloud framing. */
+  ctaWhere?: string;
+  ctaLine?: string;
+};
+
+const defaultStats = [
+  { v: "10,000+", l: "security rules" },
+  { v: "7", l: "cloud providers" },
+  { v: "< 5 min", l: "to first finding" },
+  { v: "100%", l: "agentless" },
+];
+
+const defaultRisk = {
+  title: "The risk of not knowing",
+  body: "If it is not surfaced today, it is exposed today. Attackers do not wait for your quarterly review — and neither do auditors.",
+  tagline: "Real-time detection, not periodic audits",
 };
 
 const anchors = [
@@ -87,12 +109,7 @@ function Hero({ data }: { data: ProductPageData }) {
         </div>
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
-          {[
-            { v: "10,000+", l: "security rules" },
-            { v: "7", l: "cloud providers" },
-            { v: "< 5 min", l: "to first finding" },
-            { v: "100%", l: "agentless" },
-          ].map((s) => (
+          {(data.stats ?? defaultStats).map((s) => (
             <div key={s.l} className="bg-white border border-[#E5E9F0] rounded-xl px-4 py-4 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
               <div className="text-xl md:text-2xl font-display font-black text-[#0B1220]">{s.v}</div>
               <div className="text-[11px] uppercase tracking-widest text-[#64748B] mt-1">{s.l}</div>
@@ -104,11 +121,12 @@ function Hero({ data }: { data: ProductPageData }) {
   );
 }
 
-function StickyNav() {
+function StickyNav({ data }: { data: ProductPageData }) {
+  const visible = anchors.filter((a) => !(data.hideDemo && a.id === "live-demo"));
   return (
     <div className="sticky top-16 z-30 bg-white/90 backdrop-blur-xl border-b border-[#E5E9F0]">
       <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-center gap-1 overflow-x-auto">
-        {anchors.map((a) => (
+        {visible.map((a) => (
           <a key={a.id} href={`#${a.id}`}
              className="px-3 py-1.5 text-xs md:text-sm font-medium text-[#64748B] hover:text-[#2563EB] transition whitespace-nowrap">
             {a.label}
@@ -121,6 +139,7 @@ function StickyNav() {
 
 function WhyItMatters({ data }: { data: ProductPageData }) {
   const [first, ...rest] = data.painPoint.split(/(?<=[.!?])\s+/);
+  const risk = data.risk ?? defaultRisk;
   return (
     <section id="why-it-matters" className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-24">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-5 gap-10">
@@ -140,10 +159,8 @@ function WhyItMatters({ data }: { data: ProductPageData }) {
                 <AlertTriangle className="w-5 h-5 text-[#E32D25]" />
               </div>
               <div>
-                <h3 className="font-display font-bold text-[#0B1220] text-lg">The risk of not knowing</h3>
-                <p className="mt-2 text-sm text-[#475569] leading-relaxed">
-                  If it is not surfaced today, it is exposed today. Attackers do not wait for your quarterly review — and neither do auditors.
-                </p>
+                <h3 className="font-display font-bold text-[#0B1220] text-lg">{risk.title}</h3>
+                <p className="mt-2 text-sm text-[#475569] leading-relaxed">{risk.body}</p>
               </div>
             </div>
             <div className="mt-6 pt-5 border-t border-[#E5E9F0] flex items-center gap-2 text-xs text-[#475569]">
@@ -151,7 +168,7 @@ function WhyItMatters({ data }: { data: ProductPageData }) {
                 <span className="absolute inline-flex w-full h-full rounded-full bg-[#E32D25] opacity-70 animate-ping" />
                 <span className="relative inline-flex w-2 h-2 rounded-full bg-[#E32D25]" />
               </span>
-              <span className="font-medium">Real-time detection, not periodic audits</span>
+              <span className="font-medium">{risk.tagline}</span>
             </div>
           </div>
         </div>
@@ -290,10 +307,10 @@ function CtaAndRelated({ data }: { data: ProductPageData }) {
             <Sparkles className="w-3.5 h-3.5" /> Ready to see it live
           </div>
           <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Ready to see <span className="gradient-text">{data.label}</span> in your cloud?
+            Ready to see <span className="gradient-text">{data.label}</span> {data.ctaWhere ?? "in your cloud"}?
           </h2>
           <p className="mt-4 text-[#475569] max-w-lg">
-            Connect a read-only role in three minutes. Your first findings surface in under five.
+            {data.ctaLine ?? "Connect a read-only role in three minutes. Your first findings surface in under five."}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>
@@ -323,20 +340,22 @@ export function ProductPageTemplate({ data, extra }: { data: ProductPageData; ex
   return (
     <SiteLayout>
       <Hero data={data} />
-      <StickyNav />
+      <StickyNav data={data} />
       <WhyItMatters data={data} />
       <HowItWorks data={data} />
       <WhatYouGet data={data} />
-      <ProductDemo
-        id="live-demo"
-        compact
-        tone="white"
-        clips={data.demoClips ?? ["dashboard", "scan"]}
-        eyebrow="See it live"
-        title={`${data.label} in the real console.`}
-        gradientWords="real console."
-        subtitle="Not a mockup — the actual Onam console on a live demo account, showing exactly what your team sees."
-      />
+      {!data.hideDemo && (
+        <ProductDemo
+          id="live-demo"
+          compact
+          tone="white"
+          clips={data.demoClips ?? ["dashboard", "scan"]}
+          eyebrow="See it live"
+          title={`${data.label} in the real console.`}
+          gradientWords="real console."
+          subtitle="Not a mockup — the actual Onam console on a live demo account, showing exactly what your team sees."
+        />
+      )}
       {extra}
       <Faqs data={data} />
       <CtaAndRelated data={data} />

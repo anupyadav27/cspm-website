@@ -7,6 +7,54 @@
     <language>en</language>
     <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>DSPM implementation checklist: a practical rollout for cloud data</title>
+      <link>https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</guid>
+      <description>A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.</description>
+      <category>Data Security</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Data lineage security: why encryption is a property of the flow, not the bucket</title>
+      <link>https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</guid>
+      <description>Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.</description>
+      <category>Data Security</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>IaC security scanning: fix the template, or the finding comes back</title>
+      <link>https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</guid>
+      <description>Console fixes are undone by the next terraform apply. A practical guide to IaC security scanning that traces cloud findings back to the template line.</description>
+      <category>Code Security</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>CI/CD security gates that engineers do not bypass</title>
+      <link>https://www.onamsecurity.com/resources/blog/ci-cd-security-gates-delta-gating</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ci-cd-security-gates-delta-gating</guid>
+      <description>Security gates that fail every build get switched off. How to design CI/CD security gates around new findings, clear output and an exception path.</description>
+      <category>Code Security</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>AI SAST remediation: what an AI code fix should and should not do</title>
+      <link>https://www.onamsecurity.com/resources/blog/ai-sast-remediation-fix-branch</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ai-sast-remediation-fix-branch</guid>
+      <description>AI can draft fixes for SAST findings, but it should never merge its own code. A practical look at safe AI SAST remediation, with a review checklist.</description>
+      <category>Code Security</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>Cloud access reviews: a checklist that ends in decisions, not spreadsheets</title>
+      <link>https://www.onamsecurity.com/resources/blog/cloud-access-review-checklist</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/cloud-access-review-checklist</guid>
+      <description>Most cloud access reviews are a spreadsheet nobody answers. A practical checklist for reviewing cloud entitlements, including machine identities.</description>
+      <category>Identity</category>
+      <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Wiz alternatives in 2026: an honest shortlist, including us</title>
       <link>https://www.onamsecurity.com/resources/blog/wiz-alternatives</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/wiz-alternatives</guid>

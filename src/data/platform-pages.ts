@@ -46,7 +46,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Secret detection across source, images, pipelines and state files",
       "Provenance on runtime findings — the repository, template and line that created the resource",
       "Reachability and identity context joined to every dependency finding",
-      "Delta gating — fail the build on newly introduced findings, work the backlog separately",
+      "Optional build gate — scans report by default; fail the pipeline on findings only when you switch it on",
       "One inventory across code and cloud, so 'which running workloads ship this package' is a query",
     ],
     faqs: [
@@ -60,7 +60,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Will this break our builds?",
-        a: "Only if you configure it to. The default posture is to gate on newly introduced findings and report the existing backlog separately. A pipeline that fails on every pre-existing issue gets bypassed within weeks, which is a worse outcome than no gate.",
+        a: "Only if you configure it to. By default a scan reports its findings and the build carries on. Failing the pipeline on findings is an option you switch on per scan, when your team is ready to enforce it.",
       },
       {
         q: "Which languages and IaC formats are supported?",
@@ -729,6 +729,20 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   "ai-code-fix": {
+    hideDemo: true,
+    stats: [
+      { v: "1 pass", l: "per file" },
+      { v: "Branch", l: "never your main" },
+      { v: "None", l: "auto-merges" },
+      { v: "Never", l: "Git token stored" },
+    ],
+    risk: {
+      title: "The cost of a backlog",
+      body: "A finding that is known but not fixed is still exposed. Every week it waits is a week an attacker can use it — and an auditor can ask why.",
+      tagline: "Fixes proposed as code, reviewed by your team",
+    },
+    ctaWhere: "on your code",
+    ctaLine: "We will run a scan and a fix on a repository you choose, and walk your team through the branch it produces.",
     demoClips: ["scan", "dashboard"],
     icon: Wand2,
     iconColor: emerald400,
