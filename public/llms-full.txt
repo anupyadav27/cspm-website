@@ -20,6 +20,7 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 - [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam Operations](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
 
 All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
@@ -236,6 +237,25 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Savings](https://www.onamsecurity.com/docs/finops/savings)
 - [Runs & Reconciliation](https://www.onamsecurity.com/docs/finops/runs)
 - [Access & Entitlement](https://www.onamsecurity.com/docs/finops/access)
+
+### Onam Operations
+- [Overview](https://www.onamsecurity.com/docs/operations/overview)
+- [Availability & Status](https://www.onamsecurity.com/docs/operations/availability)
+- [Concepts](https://www.onamsecurity.com/docs/operations/concepts)
+- [The Workspace](https://www.onamsecurity.com/docs/operations/workspace)
+- [The Orchestrator](https://www.onamsecurity.com/docs/operations/orchestrator)
+- [The Agents](https://www.onamsecurity.com/docs/operations/agents)
+- [Asset Agent](https://www.onamsecurity.com/docs/operations/agents/asset-agent)
+- [Security Agent](https://www.onamsecurity.com/docs/operations/agents/security-agent)
+- [Compliance Agent](https://www.onamsecurity.com/docs/operations/agents/compliance-agent)
+- [Data Agent](https://www.onamsecurity.com/docs/operations/agents/data-agent)
+- [Automation Agent](https://www.onamsecurity.com/docs/operations/agents/automation-agent)
+- [FinOps Agent](https://www.onamsecurity.com/docs/operations/agents/finops-agent)
+- [DR Agent](https://www.onamsecurity.com/docs/operations/agents/dr-agent)
+- [Architecture Agent](https://www.onamsecurity.com/docs/operations/agents/architecture-agent)
+- [Governance & Approvals](https://www.onamsecurity.com/docs/operations/governance)
+- [Security & AI Safety](https://www.onamsecurity.com/docs/operations/security)
+- [Architecture](https://www.onamsecurity.com/docs/operations/architecture)
 
 ### Release Notes
 - [Release Notes](https://www.onamsecurity.com/docs/release-notes)
@@ -7293,6 +7313,870 @@ Yes. It stands alone and does not require Onam Security. If you do run more than
 ## Permissions
 
 FinOps reads billing data. It holds no write access to your cloud accounts and changes nothing in them — including when a savings recommendation is accepted, which records a decision and nothing more.
+
+---
+
+## Onam Operations overview
+URL: https://www.onamsecurity.com/docs/operations/overview
+
+Onam Operations is a workspace where your team works with specialist AI agents that investigate your cloud with evidence and change nothing without a person’s approval.
+
+> **Status: Early access.** Onam Operations runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
+
+## What it is
+
+A real question about a cloud estate usually spans several consoles — security findings, inventory, cost, recovery — and today someone joins the answers by hand. Onam Operations adds a workspace above the products that already know your cloud:
+
+- An **orchestrator** turns your request into a visible plan and routes each step to a specialist agent.
+- **Specialist agents** — Asset, Security, Compliance, Data, Automation, and later FinOps, DR and Architecture — each with a declared job, permissions and limits.
+- **Evidence** on every claim: the skill, query, rows and scan behind each number.
+- An **approval centre** where every proposed change is decided by a named person, diff first.
+- An **audit trail** of every turn, tool call, decision and approval, append-only and hash-chained.
+
+## What it is not
+
+- **Not a chatbot.** A chatbot answers. This plans, investigates, proposes and records.
+- **Not autonomous.** Every change to a customer cloud passes a human approval gate. No setting removes it.
+- **Not a second scanner.** Agents reason over the data the products already resolved. An agent that re-scans your cloud is a bug.
+
+## How it relates to the AI Assistant
+
+The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam Operations is the workspace above it — plans, tasks, approvals and an audit trail across specialist agents.
+
+## Read next
+
+- [Concepts](/docs/operations/concepts) — agents, skills, tools, tasks, approvals, evidence
+- [The workspace](/docs/operations/workspace)
+- [The agents](/docs/operations/agents)
+- [Governance and approvals](/docs/operations/governance)
+- [Security and safety](/docs/operations/security)
+- [Architecture](/docs/operations/architecture)
+
+---
+
+## Availability and status
+URL: https://www.onamsecurity.com/docs/operations/availability
+
+What in Onam Operations you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
+
+## What the labels mean
+
+| Label | Meaning |
+|---|---|
+| **Available** | In Onam Security today, for every customer. |
+| **Early access** | Running on the Onam platform and enabled per organisation by invitation. Agents answer and propose; nothing changes your cloud. |
+| **In development** | Built or specified; its data feed or enablement is not in place yet. |
+| **On the roadmap** | Designed, not offered. No date is promised. |
+
+## Capabilities
+
+| Capability | Status | Detail |
+|---|---|---|
+| AI Assistant in Onam Security | Available | Ask questions about your posture in plain language; specialists query your findings and cite them. Read-only. |
+| Agent workspace | Early access | Chat with the agents, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and actions. |
+| Orchestrator and visible plans | Early access | A multi-step question becomes a plan you can see — which agent, which skill, in which order — before and while it runs. |
+| Asset Agent and Security Agent | Early access | Over the Onam Security inventory and findings, on AWS first. |
+| Evidence on every claim | Early access | Each number cites the skill, tool, query, rows and scan time that produced it. |
+| Approval centre | Early access | One queue for every proposed change, diff first, with rollback and blast radius shown before the decision. |
+| Activity and audit trail | Early access | Every turn, tool call, decision and approval recorded append-only, with a hash-chain check that nothing was edited. |
+| Reports | Early access | A conversation or task exported with its evidence preserved. |
+| Kill switch and autonomy ceiling | Early access | Stop all agent activity for your organisation; cap how far agents may go — read, analyse, recommend, simulate, propose. |
+| Compliance Agent and Data Agent | In development | Built; waiting on the compliance-results, exposure and relationship feeds into the estate layer. |
+| Change proposals with rollback | In development | Automation Planner proposals with exact change, rollback and dry run; blast-radius inputs are being connected. |
+| Pre-built workflows | In development | Multi-step procedures such as audit preparation and exposure remediation, with approval steps built in. |
+| Executing approved changes | On the roadmap | The actor applies an approved change in an isolated sandbox, validates it and rolls back on failure. Built and tested; enabled for no customer. |
+| FinOps, DR and Architecture agents | On the roadmap | Cost, recovery and design reasoning across the estate. |
+| Cost and recovery data (Onam FinOps, Onam DRM) | On the roadmap | Joining exposure with cost and recoverability in one answer. |
+| Azure, Google Cloud and Kubernetes actions | On the roadmap | AWS first; the design keeps provider specifics inside tools so agents do not change. |
+| Event triggers and a workflow builder | On the roadmap | Start investigations from events; compose workflows that cannot publish an execute step without an approval step. |
+| Customer-authored agents | On the roadmap | Needs a sandbox and certification model that does not exist yet. |
+
+## Agents
+
+| Agent | Level | Status | Note |
+|---|---|---|---|
+| [Asset Agent](/docs/operations/agents/asset-agent) | L1 | Early access | Reads the Onam Security inventory today. |
+| [Security Agent](/docs/operations/agents/security-agent) | L1 | Early access | Reads findings today; exposure and attack-path context are being connected. |
+| [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 | In development | Waits on the compliance-results feed into the estate layer. |
+| [Data Agent](/docs/operations/agents/data-agent) | L1 | In development | Waits on the exposure and relationship feeds into the estate layer. |
+| [Automation Agent — planner](/docs/operations/agents/automation-agent) | L2 | In development | Proposal flow is built; blast-radius inputs are being connected. |
+| [Automation Agent — actor](/docs/operations/agents/automation-agent) | L3 | On the roadmap | Built and tested in the platform; not enabled for any customer. |
+| [FinOps Agent](/docs/operations/agents/finops-agent) | L1 | On the roadmap | Needs cost data in the estate layer. |
+| [DR Agent](/docs/operations/agents/dr-agent) | L1 | On the roadmap | Needs recovery data in the estate layer. |
+| [Architecture Agent](/docs/operations/agents/architecture-agent) | L2 | On the roadmap | Needs the full topology graph as an input. |
+
+## Use cases
+
+| Use case | Agents | Status |
+|---|---|---|
+| Find internet-exposed critical assets | Asset → Security | Early access |
+| Triage a new critical finding | Security → Asset | Early access |
+| Identify excessive IAM permissions | Security | Early access |
+| Review a newly connected cloud account | Asset → Security | Early access |
+| Prepare compliance evidence for an audit | Compliance → Data → Security | In development |
+| Find sensitive data exposed publicly | Data → Security | In development |
+| Create a remediation plan | Security → Automation planner | In development |
+| Execute an approved security remediation | Automation actor | On the roadmap |
+| Decide whether an idle resource is safe to remove | FinOps → Asset → DR | On the roadmap |
+| Find business-critical assets with no recovery plan | DR → Asset | On the roadmap |
+
+## Getting early access
+
+Early access is by invitation. Onam enables your organisation, connects the agents to your Onam Security data, and sets your autonomy ceiling to “propose”. [Ask for early access](/request-demo).
+
+> Executing changes in your cloud is not offered in early access. When it is, it will need a write role you create in your own account and an autonomy ceiling you raise yourself — and every change will still need a person’s approval.
+
+---
+
+## Concepts: agents, skills, tools, tasks and approvals
+URL: https://www.onamsecurity.com/docs/operations/concepts
+
+The words Onam Operations uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
+
+## The vocabulary
+
+| Term | Meaning | Example |
+|---|---|---|
+| **Agent** | A specialist with a declared purpose, level, skills, tools and permissions — a versioned definition, not a prompt | Security Agent, L1 |
+| **Skill** | A declared, versioned capability with typed input and output, a risk level and an evidence contract | `find_public_exposure` |
+| **Tool** | A concrete integration that touches something outside the platform | `cei.query` |
+| **Permission** | Authority for one agent to perform one action on one class of resource through one tool | Security Agent may *read* findings |
+| **Policy** | A rule, held as data, that decides whether something may happen and how many approvals it needs | Production security-group changes are high risk |
+| **Task** | One unit of work with a lifecycle, an owner and a result | Investigate exposure of one instance |
+| **Workflow** | A versioned multi-step procedure that can outlive a request | Prepare an account for audit |
+| **Action** | A single attempted change to the outside world | Replace one ingress rule |
+| **Approval** | A recorded human decision authorising one specific change at one version | Approved by a named person, bound to the change’s hash |
+| **Evidence** | The data behind a claim, retained and addressable | Query, 14 rows, scan ID, time observed |
+| **Memory** | What an agent keeps between turns, deliberately narrow | “This organisation treats staging as production for data classification” |
+
+## How they relate
+
+- A person creates a **task**; the orchestrator assigns its steps to **agents**.
+- An agent invokes **skills**; skills use **tools**; only the tool gateway runs a tool.
+- Every tool call is gated by **permission**; **policy** classifies the risk.
+- Skills produce **evidence**. A change needs an **approval** before an **action** can exist.
+
+Two rules follow and are enforced everywhere:
+
+1. **The only path to your cloud runs through an approval.** There is no route from an agent to your cloud.
+2. **Agents never call tools.** The skill layer exists so capability can be governed as data.
+
+## Agent levels
+
+| Level | Name | Reads | Writes | Approval |
+|---|---|---|---|---|
+| L1 | Investigator | Any estate domain it is granted | Its own investigation notes | None — it cannot change anything |
+| L2 | Proposer | Any estate domain it is granted | Change proposals only | Every proposal needs a human decision before anything is applied |
+| L3 | Actor | Any estate domain it is granted | The customer cloud, scoped to one approved change | Mandatory, per action. Starts only from an approval record |
+| L4 | Orchestrator | No estate data at all | Nothing | Routes work; never answers or acts itself |
+
+An agent’s level is fixed in its definition. Promotion needs re-certification; it is never a runtime decision.
+
+## Memory never holds a fact about your estate
+
+Estate facts change; a remembered fact goes stale silently. Agents read the current estate on every turn, with its observed time. Memory holds preferences and context you give them — and never a secret.
+
+---
+
+## The workspace
+URL: https://www.onamsecurity.com/docs/operations/workspace
+
+The Onam Operations workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
+
+> **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/platform/ai-operations#workspace) are mockups with sample data, not screenshots.
+
+## Three rules
+
+| Rule | In the interface |
+|---|---|
+| Every claim is inspectable | Numbers and names in an agent’s reply open the evidence: skill, query, rows, scan and time |
+| The plan is visible before it runs | A multi-step request shows its steps first, so you can stop it before it works |
+| Actions look like changes, not messages | Proposed changes are distinct cards — diff first, with explicit decision buttons |
+
+## Navigation
+
+| Group | Screens |
+|---|---|
+| Needs you | Home (what is waiting, running, failed) · Approvals · Inbox |
+| Ask | Chat · Assets (the estate the agents see) · Agents (who does what, and may touch what) |
+| Run | Tasks · Workflows · Reports |
+| Govern | Knowledge (what you told the agents) · Activity (the audit trail and its chain) · Settings (autonomy, budget, kill switch) |
+
+## Chat
+
+The primary working surface. Each agent answers in its own card, marked with its colour, so you always know who said what. You can target one agent (`@Security`), scope a question to accounts or environments, inspect evidence, and stop a running task at any time. A partially failed answer is never styled as a complete one: the unavailable domain is named.
+
+## Agents
+
+The agent directory shows each agent’s purpose, level, status and skills. An agent’s detail page lists its skills, tools, permission tuples, knowledge sources and known limits — a trust surface, so you can see exactly what it may touch.
+
+## Tasks
+
+Every unit of work, its state and what it is waiting on: running, waiting for approval, failed with a classified reason, cancelled or rolled back.
+
+## Approvals
+
+The single queue where changes are decided — grouped by risk then age. Each card leads with the exact change, then blast radius, reason, rollback and impact. You can approve, reject (with a reason), modify within declared bounds, or simulate. See [Governance and approvals](/docs/operations/governance).
+
+## Activity
+
+The audit record: query by user, agent, task, resource, action or time, with a check that the hash chain is intact — no record edited or removed.
+
+## Reports
+
+A conversation or task exported with its evidence preserved.
+
+## Settings and the kill switch
+
+Enable or disable agents for your organisation, set the autonomy ceiling, budgets and notification routing. The kill switch stops all agent activity for your organisation; it asks you to type the organisation name and says plainly what will happen.
+
+---
+
+## The orchestrator
+URL: https://www.onamsecurity.com/docs/operations/orchestrator
+
+The orchestrator turns a request into a plan, routes each step to a specialist agent, joins the results and surfaces conflicts. It never answers on its own.
+
+> **Status: Early access.**
+
+## What it does
+
+1. Detects the intent and classifies the request.
+2. Breaks it into steps and picks the agent for each.
+3. Builds a plan and resolves dependencies — steps with no dependency run in parallel.
+4. Passes each step the previous step’s result set, so agents narrow rather than re-discover.
+5. Aggregates the answers on one canonical resource identity.
+6. Surfaces conflicts between agents to you.
+7. If an action is needed, raises it for approval — and stops there.
+
+The orchestrator has **no access to estate data itself**. An orchestrator that could read data would eventually answer a question on its own, unaudited and without evidence.
+
+## Kinds of request
+
+| Kind | Produces | Example |
+|---|---|---|
+| Question | A direct answer from one agent | “How many production instances are in this account?” |
+| Investigation | A plan and a joined answer | “Which exposed assets have critical findings, and who owns them?” |
+| Action request | A plan, a proposal and an approval | “Close SSH from the internet on these instances.” |
+| Workflow start | A workflow run | “Prepare this account for audit.” |
+| Report | A synthesised document with evidence | “Give me the exposure summary for the board.” |
+| Unsupported | A refusal with the reason | Anything outside cloud operations, or unsafe |
+
+## Conflicts are never auto-resolved
+
+| Conflict | Example | What happens |
+|---|---|---|
+| Fact | Two sources disagree on an instance size | Both shown with sources and times; a declared precedence applies and is flagged |
+| Judgement | Security says remove it; another agent says it is a recovery dependency | Escalated to you with both positions and their evidence |
+| Recommendation | Downsize versus scale out | Shown as a trade-off; the orchestrator does not pick |
+| Staleness | One source is hours older | The oldest time is reported as the answer’s freshness |
+
+## Failure handling
+
+Permission denied is reported as “not authorised”, never as “no data”. A product that is down is named in the answer and the rest of the plan continues. A budget or loop limit stops the task and reports what is left undone. A failed validation after a change rolls back and is never retried with the same change.
+
+---
+
+## The specialist agents
+URL: https://www.onamsecurity.com/docs/operations/agents
+
+Onam Operations has eight specialist agent roles, each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+
+![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
+
+## The roster
+
+| Agent | Level | Answers | Status |
+|---|---|---|---|
+| [Asset Agent](/docs/operations/agents/asset-agent) | L1 · Read and recommend | What do we have, how is it connected, and who owns it? | Early access |
+| [Security Agent](/docs/operations/agents/security-agent) | L1 · Read and recommend | What is exposed, how can it be reached, and how bad is it? | Early access |
+| [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 · Read and recommend | Which controls hold, which do not, and where is the evidence? | In development |
+| [Data Agent](/docs/operations/agents/data-agent) | L1 · Read and recommend | What data is where, how sensitive is it, and who can reach it? | In development |
+| [Automation Agent — planner](/docs/operations/agents/automation-agent) | L2 · Propose | How exactly should this be changed, and how do we undo it? | In development |
+| [Automation Agent — actor](/docs/operations/agents/automation-agent) | L3 · Execute an approved change | Apply exactly what was approved, check it worked, undo it if not. | On the roadmap |
+| [FinOps Agent](/docs/operations/agents/finops-agent) | L1 · Read and recommend | What does it cost, where is the waste, and is removing it safe? | On the roadmap |
+| [DR Agent](/docs/operations/agents/dr-agent) | L1 · Read and recommend | What would actually come back after a failure, and how fast? | On the roadmap |
+| [Architecture Agent](/docs/operations/agents/architecture-agent) | L2 · Propose | Is this design sound, and what will a change break? | On the roadmap |
+
+## How agents escalate
+
+Escalation is upward-only and explicit. An investigating agent that finds something needing a change hands it to the Automation planner through the orchestrator; it never acquires the capability itself. Ambiguity goes to a person. Conflicts go to the orchestrator, which shows them to you.
+
+## How an agent is certified
+
+No agent is enabled until it passes four gates, each producing a recorded artifact:
+
+1. **Scope review** — every skill, tool and permission is necessary, and the narrowest that works.
+2. **Security review** — the prompt-injection test corpus passes in full; no path to an unregistered tool; cross-customer tests pass.
+3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test estates.
+4. **Documentation** — purpose, capabilities and known limits written for customers. An agent with no documented limits has not been examined.
+
+---
+
+## Asset Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/asset-agent
+
+The Asset Agent — what do we have, how is it connected, and who owns it?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Asset Agent
+
+**Status: Early access.** Reads the Onam Security inventory today.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What do we have, how is it connected, and who owns it? |
+
+Answers what exists in the estate, how it is connected, who owns it and what depends on what — always over the resolved estate, never by re-scanning.
+
+### What it does
+
+- Finds and summarises assets by cloud, account, region, type, environment and criticality
+- Maps relationships and dependencies between resources
+- Attributes ownership from tags and records, stating the source and confidence — or saying the owner is unattributed
+- Narrows a question to a candidate set that the other agents then work on
+
+### Skills it may invoke
+
+`discover_assets` · `inventory_summary` · `map_relationships` · `resolve_ownership` · `classify_asset` · `analyze_dependencies` · `analyze_topology`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `cei.resolve_identity` · `engine.estate` · `cloud.resource.read`
+
+### What it must never do
+
+- Re-scan your cloud to answer a question
+- Change anything
+- Guess an identity mapping it cannot resolve
+
+### Known limits
+
+Answers reflect the last completed scan; a resource created after it is not visible until the next one.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Security Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/security-agent
+
+The Security Agent — what is exposed, how can it be reached, and how bad is it?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Security Agent
+
+**Status: Early access.** Reads findings today; exposure and attack-path context are being connected.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What is exposed, how can it be reached, and how bad is it? |
+
+Determines what is exposed, how it can be reached, how bad that is and what should be done — always over resolved estate data.
+
+### What it does
+
+- Queries and triages findings across the Onam Security engines
+- Explains exposure, identity and network risk for a set of assets
+- Ranks risk and recommends a remediation, which it hands to the Automation Planner
+- Explains an attack path to a crown-jewel asset in plain language
+
+### Skills it may invoke
+
+`query_findings` · `find_public_exposure` · `analyze_attack_path` · `analyze_security_group` · `analyze_iam_permission` · `analyze_vulnerabilities` · `assess_posture` · `calculate_risk` · `recommend_remediation`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `engine.risk` · `engine.policy` · `cloud.findings.read` · `cloud.config.read` · `cloud.identity.read` · `cloud.audit.read`
+
+### What it must never do
+
+- Apply a fix
+- Probe your network itself
+- Report a finding it cannot cite
+
+### Known limits
+
+Exposure is as the engines computed it at the last scan; a rule changed since then is not reflected.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Compliance Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/compliance-agent
+
+The Compliance Agent — which controls hold, which do not, and where is the evidence?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Compliance Agent
+
+**Status: In development.** Waits on the compliance-results feed into the estate layer.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | Which controls hold, which do not, and where is the evidence? |
+
+States which controls hold and which do not, and produces evidence an auditor can follow — dated, retained and re-derivable.
+
+### What it does
+
+- Assesses posture against a framework and maps controls to policies
+- Validates one control across the estate
+- Collects dated evidence and assembles an audit package
+
+### Skills it may invoke
+
+`assess_compliance_posture` · `map_control_to_policy` · `collect_evidence` · `validate_control` · `prepare_audit_package`
+
+### Tools its skills may use
+
+`cei.query` · `engine.compliance` · `engine.policy` · `evidence.store` · `cloud.config.read` · `cloud.audit.read`
+
+### What it must never do
+
+- Mark a control as passing without evidence
+- Report a framework it does not cover as compliant
+
+### Known limits
+
+Control status is as the compliance engine evaluated it at its last run; a framework not in the rule library is reported as not covered.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Data Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/data-agent
+
+The Data Agent — what data is where, how sensitive is it, and who can reach it?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Data Agent
+
+**Status: In development.** Waits on the exposure and relationship feeds into the estate layer.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What data is where, how sensitive is it, and who can reach it? |
+
+Says what data exists where, how sensitive it is, who can reach it and where it flows — classifications, counts and locations, never the values.
+
+### What it does
+
+- Finds sensitive data stores and their classification
+- Analyses who and what can reach a data store
+- Traces where regulated data flows
+
+### Skills it may invoke
+
+`discover_sensitive_data` · `classify_data` · `analyze_data_exposure` · `trace_data_flow` · `assess_data_risk`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `engine.datasec` · `engine.risk` · `cloud.identity.read`
+
+### What it must never do
+
+- Read the content of your data
+- Report an unscanned store as clean
+
+### Known limits
+
+Sees classifications and counts from the data security scans only, never content.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Automation Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/automation-agent
+
+The Automation Agent works in two modes: a planner that turns a recommendation into a reversible change proposal, and an actor that may execute only from an approval.
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Automation Agent — planner
+
+**Status: In development.** Proposal flow is built; blast-radius inputs are being connected.
+
+| | |
+|---|---|
+| Level | L2 · Proposer |
+| Authority | Propose |
+| Answers | How exactly should this be changed, and how do we undo it? |
+
+Turns an accepted recommendation into a precise, reversible change proposal: the exact change, its rollback, its blast radius and a dry run — writing nothing outside the proposal.
+
+### What it does
+
+- Builds the exact change artifact and its rollback artifact
+- Assesses blast radius from recorded dependencies and recent activity
+- Simulates the change with no side effect
+- Raises the proposal to the approval queue
+
+### Skills it may invoke
+
+`generate_remediation_plan` · `build_change_artifact` · `build_rollback_artifact` · `assess_blast_radius` · `simulate_change`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `engine.policy` · `cloud.config.read` · `cloud.audit.read` · `cloud.change.plan`
+
+### What it must never do
+
+- Apply a change
+- Approve anything — agents cannot hold approval authority
+
+### Known limits
+
+Blast radius comes from recorded dependencies and recent activity and may miss traffic the platform does not observe.
+
+---
+
+## Automation Agent — actor
+
+**Status: On the roadmap.** Built and tested in the platform; not enabled for any customer.
+
+| | |
+|---|---|
+| Level | L3 · Actor |
+| Authority | Execute an approved change |
+| Answers | Apply exactly what was approved, check it worked, undo it if not. |
+
+Executes an approved change against an unchanged target inside an isolated sandbox, validates the result, rolls back on failure and produces the evidence package.
+
+### What it does
+
+- Re-reads the target and aborts if it changed since approval
+- Applies the approved artifact — nothing wider — with short-lived, scoped credentials
+- Validates the result and rolls back automatically on failure
+- Stores the before state, the commands and the after state as evidence
+
+### Skills it may invoke
+
+`execute_change` · `validate_change` · `rollback_change` · `produce_execution_evidence`
+
+### Tools its skills may use
+
+`cloud.*.write (scoped, one hour)` · `repo.pull_request` · `cloud.change.plan` · `evidence.store`
+
+### What it must never do
+
+- Start from chat — only from an approval record
+- Widen a change beyond the approved artifact
+- Continue past a failed validation
+
+### Known limits
+
+Requires you to create a write role in your own cloud account and to raise your autonomy ceiling past “propose”.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## FinOps Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/finops-agent
+
+The FinOps Agent — what does it cost, where is the waste, and is removing it safe?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## FinOps Agent
+
+**Status: On the roadmap.** Needs cost data in the estate layer.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What does it cost, where is the waste, and is removing it safe? |
+
+Explains what the estate costs, where the waste is and whether removing it is safe — no cost recommendation without a dependency and protection check.
+
+### What it does
+
+- Analyses cost, waste, idle resources and anomalies
+- Checks dependencies and recovery protection before calling anything safe to remove
+- Correlates cost with security risk
+
+### Skills it may invoke
+
+`analyze_cost` · `detect_waste` · `detect_idle_resource` · `rightsizing` · `cost_anomaly` · `correlate_cost_security`
+
+### Tools its skills may use
+
+`cei.query` · `engine.cost` · `cloud.cost.read` · `cloud.metrics.read`
+
+### What it must never do
+
+- Recommend removing a resource without a dependency and protection check
+
+### Known limits
+
+Works on the last closed billing period; forecasts are labelled as estimates.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## DR Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/dr-agent
+
+The DR Agent — what would actually come back after a failure, and how fast?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## DR Agent
+
+**Status: On the roadmap.** Needs recovery data in the estate layer.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What would actually come back after a failure, and how fast? |
+
+Says what would come back after a failure, how fast and where the gaps are — separating protection that exists from recovery that was validated.
+
+### What it does
+
+- Finds backup coverage for a business service
+- Calculates realistic recovery time and recovery point
+- Finds business-critical assets with no recovery plan
+
+### Skills it may invoke
+
+`discover_backup` · `assess_recovery_readiness` · `calculate_rto` · `calculate_rpo` · `analyze_recovery_gap`
+
+### Tools its skills may use
+
+`cei.query` · `engine.dr` · `cloud.backup.read`
+
+### What it must never do
+
+- Call something recoverable because a backup exists — untested protection is reported as untested
+
+### Known limits
+
+Where there is no recovery record for a resource, it says the recovery posture is unknown.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Architecture Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/architecture-agent
+
+The Architecture Agent — is this design sound, and what will a change break?
+
+Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Architecture Agent
+
+**Status: On the roadmap.** Needs the full topology graph as an input.
+
+| | |
+|---|---|
+| Level | L2 · Proposer |
+| Authority | Propose |
+| Answers | Is this design sound, and what will a change break? |
+
+Judges whether a design is sound and says specifically what to change — each recommendation carrying its cost, security, recovery and migration impact.
+
+### What it does
+
+- Reviews an architecture against reference designs
+- Assesses the impact of a proposed change before it ships
+- Recommends design changes as proposals
+
+### Skills it may invoke
+
+`analyze_architecture` · `review_design` · `assess_architecture_risk` · `recommend_architecture_change` · `compare_to_reference_architecture`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `engine.estate` · `engine.risk`
+
+### What it must never do
+
+- Apply a design change
+- Judge intent that lives only in design documents it cannot see
+
+### Known limits
+
+Works from the topology as last scanned.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
+
+---
+
+## Governance and approvals
+URL: https://www.onamsecurity.com/docs/operations/governance
+
+How Onam Operations decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
+
+> The approval centre is in **early access**. Executing an approved change in a customer cloud is **on the roadmap**.
+
+## Principles, in priority order
+
+1. **Human in the loop** — no configuration allows a change to your cloud without a recorded human approval. There is no flag for this.
+2. **Fail safe** — on ambiguity, timeout, missing data or policy doubt, stop and report.
+3. **Least privilege** — each agent holds the narrowest scope that does its job, checked per call.
+4. **Explicit authorisation** — permission is granted to an agent, organisation, accounts, resource class, tool and action — never implied by a role.
+5. **Evidence-based** — a claim with no evidence is a defect.
+
+## Permissions
+
+A permission is a tuple: agent · organisation · accounts · resource class · tool · action. The effective permission is the intersection of the agent’s grant, your own authority, your organisation’s policy and the conversation’s scope. An agent cannot exceed the person it acts for, and **no agent can ever hold the approve action** — the database refuses to record it.
+
+## Risk classes
+
+Risk is assigned by policy from the kind of change, resource class, environment, blast radius, reversibility and data sensitivity. **An agent never classifies its own risk.**
+
+| Risk | Approval | Examples |
+|---|---|---|
+| Low | None | Any read or analysis; adding a tag; enabling a log |
+| Medium | One approver | Resizing a non-production instance; encrypting a new bucket |
+| High | One approver plus a dry run | Narrowing a production security group; changing a production IAM policy |
+| Critical | Two distinct approvers, one an organisation admin; dry run; change window | Deleting a production database; changing an organisation-level policy |
+
+A change is raised one class automatically when the target is production, is on an attack path to a crown jewel, holds regulated data, supports a tier-1 recovery plan, has no rollback, affects more than ten resources, or falls in a change freeze. **Nothing lowers a class.** Your organisation may set a higher floor, never a lower one.
+
+## What makes an approval real
+
+| Property | Meaning |
+|---|---|
+| Bound to the change | The approval records the change’s hash; approving one change cannot authorise another |
+| Drift-checked | The target is re-read just before execution; if it changed, the approval is superseded |
+| Expiring | Default seven days |
+| Dual control | Critical changes need two distinct approvers, one an organisation admin |
+| Separation of duties | Where enabled, the requester cannot approve |
+| Reasoned rejection | A reason is mandatory and fed back to the agents |
+| Rollback first | The approver sees the rollback plan before deciding; an irreversible change is approved as irreversible |
+| Measured | Review time is recorded, so rubber-stamping becomes visible |
+
+![Approval lifecycle: proposal, risk class, pending, the four decisions, approval bound to a hash, drift check before execution.](/diagrams/ops-approval-flow.svg)
+
+## The four decisions
+
+- **Approve** — records the decision and binds the change’s hash.
+- **Reject** — terminal for this change; a reason is mandatory.
+- **Modify** — change parameters within the bounds the skill declares; risk is re-classified.
+- **Simulate** — a dry run with no side effect, shown before you decide.
+
+An approval link in an email or chat message only opens the workspace — it never decides.
+
+## Autonomy ceiling and kill switch
+
+Your organisation sets how far agents may go: read → analyse → recommend → simulate → propose → execute. Early access starts at **propose**. The kill switch in Settings stops all agent activity for your organisation; tasks in flight are cancelled safely and nothing already executed is reverted.
+
+## Audit
+
+Every agent turn, tool call, decision, approval and action is recorded with actor, time, input, output and justification — append-only and hash-chained, so an edit or deletion is detectable. The Activity screen shows whether the chain is intact.
+
+---
+
+## Security and AI safety
+URL: https://www.onamsecurity.com/docs/operations/security
+
+Onam Operations is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
+
+## Tenant isolation at every layer
+
+Your data never crosses to another customer — in a query, a cache, an agent’s memory, the context assembled for a model, a model call, an event, or a log line. Each layer is isolated and tested on its own, because one mechanism covering everything is one bug away from a breach. Identity and organisation come only from the platform gateway, never from a request body.
+
+## Zero-trust agents
+
+An agent is an untrusted principal. It has an identity on every call; its scope is verified on every call; it cannot change its own definition, permissions, level or model; escalating to another agent transfers no authority; and it can be disabled in seconds without a deploy.
+
+## Prompt injection
+
+Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam Operations treats all of it as untrusted:
+
+1. **Structured tool output only.** Free text from the estate travels in designated fields, never spliced into instructions.
+2. **Instruction and data separated.** Untrusted content is delimited and labelled as data.
+3. **Detection.** Known patterns are quarantined and logged; the investigation continues without them.
+4. **Authorisation after the model — the decisive control.** Whatever the model was persuaded to attempt, the policy engine and tool gateway check it against the agent’s declared scope, in code.
+5. **No new instructions through tool results.** Tool output cannot introduce tools, skills or instructions.
+
+The first three reduce the chance an injection succeeds. The last two mean that when one does, nothing happens.
+
+![Eight steps of an agent turn, with the policy check before the tool call and sanitising before the result returns to the model.](/diagrams/ops-agent-turn.svg)
+
+## Groundedness
+
+Every factual claim cites the skill, tool, query and rows behind it. Resource, finding and account identifiers must come from a tool result. When an agent cannot ground a claim it says so — “unable to verify” is a designed answer.
+
+## Models
+
+All inference goes through one model gateway: approved models only, in the region agreed with you, one customer’s data per call. Today it routes to Amazon Bedrock in-region. Customer data is never used to train or fine-tune a model. Agents that propose or act fail safe rather than fall back to a weaker model.
+
+## Runaway protection
+
+Every agent level has ceilings on tool calls and time, every task a cost ceiling, and repeated identical calls are detected and stopped. When a ceiling is reached, the task stops and reports what was spent and what is left undone.
+
+## Execution sandbox (on the roadmap)
+
+When execution is offered, changes will run in an isolated namespace holding the only write credential: default-deny egress allowlisted per action, a short-lived role scoped to the target, one action per container, a hard time limit, and every call captured as evidence.
+
+---
+
+## Architecture
+URL: https://www.onamsecurity.com/docs/operations/architecture
+
+The block architecture of Onam Operations: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
+
+![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
+
+## The request path
+
+| Block | Contains | Must never |
+|---|---|---|
+| A · Experience | Workspace UI, embedded panels, API clients | Hold a credential or call a product backend directly |
+| B · Entry | The platform API gateway and the Operations API | Accept a tenant ID from a request body |
+| C · Orchestration | Orchestrator, task service, workflow engine | Read estate data, or decide whether a control applies |
+| D · Agents | Agent runtime, registry, context engine, memory | Call a tool directly, or change its own scope |
+| E · Capability | Skill runtime, tool gateway, model gateway | Let unsanitised text back into the model’s context |
+| F · Intelligence | Cloud Estate Intelligence | Write anything, or guess an identity mapping |
+| G · Execution | The execution sandbox | Start without an approval record |
+| H · Models | Approved model providers | Receive data outside the permitted provider or region |
+
+## The control plane
+
+Governance (kill switch, registries), the policy engine (permissions, risk class), the approval service (the human gate) and audit and evidence (append-only, hash-chained) sit beside every block. They are in the call path, not advisory: each can refuse, and a refusal stops the request.
+
+## Two paths
+
+![Read path with three gates; write path with seven gates including a person approving the exact change.](/diagrams/ops-read-write-paths.svg)
+
+Reading passes entitlement, agent scope and the tenant filter, and returns an answer with evidence. Writing passes entitlement, agent scope, the actor level, an execute permission, a policy risk class, a person approving the exact change and a drift check — then runs in the sandbox, is validated, and rolls back on failure.
+
+## Cloud Estate Intelligence
+
+A read-only layer over what the products already found. It reads published contract views of each product’s data — never their own tables — resolves every resource to one canonical identity, stamps every row with when it was observed, and says which sources were unavailable. In early access it carries the Onam Security inventory, assets and findings; relationships, exposure, attack paths and compliance results are being connected; cost and recovery data are on the roadmap.
+
+## Five architectural commitments
+
+1. The agent layer never touches a product database directly.
+2. Nothing reaches a customer cloud except through the tool gateway and the sandbox.
+3. No component holds a model SDK; inference goes through the model gateway.
+4. Identity comes only from the platform gateway.
+5. Agent records live alongside the platform’s own, under the same tenancy rules.
+
+The product page has the same design with diagrams: [How Onam Operations is designed](/platform/ai-operations/architecture).
 
 ---
 

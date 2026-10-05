@@ -78,6 +78,8 @@ import { Route as SolutionsIbmRouteImport } from './routes/solutions/ibm'
 import { Route as SolutionsKubernetesRouteImport } from './routes/solutions/kubernetes'
 import { Route as SolutionsOciRouteImport } from './routes/solutions/oci'
 import { Route as CompanyTeamSlugRouteImport } from './routes/company/team.$slug'
+import { Route as PlatformAiOperationsIndexRouteImport } from './routes/platform/ai-operations.index'
+import { Route as PlatformAiOperationsArchitectureRouteImport } from './routes/platform/ai-operations.architecture'
 import { Route as ResourcesBlogSlugRouteImport } from './routes/resources/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -430,6 +432,18 @@ const CompanyTeamSlugRoute = CompanyTeamSlugRouteImport.update({
   path: '/company/team/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PlatformAiOperationsIndexRoute =
+  PlatformAiOperationsIndexRouteImport.update({
+    id: '/platform/ai-operations/',
+    path: '/platform/ai-operations/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformAiOperationsArchitectureRoute =
+  PlatformAiOperationsArchitectureRouteImport.update({
+    id: '/platform/ai-operations/architecture',
+    path: '/platform/ai-operations/architecture',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -506,7 +520,9 @@ export interface FileRoutesByFullPath {
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
+  '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
+  '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -577,7 +593,9 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesIndexRoute
   '/solutions': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
+  '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
+  '/platform/ai-operations': typeof PlatformAiOperationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -650,7 +668,9 @@ export interface FileRoutesById {
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
+  '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
+  '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -724,7 +744,9 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/solutions/'
     | '/company/team/$slug'
+    | '/platform/ai-operations/architecture'
     | '/resources/blog/$slug'
+    | '/platform/ai-operations/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -795,7 +817,9 @@ export interface FileRouteTypes {
     | '/resources'
     | '/solutions'
     | '/company/team/$slug'
+    | '/platform/ai-operations/architecture'
     | '/resources/blog/$slug'
+    | '/platform/ai-operations'
   id:
     | '__root__'
     | '/'
@@ -867,7 +891,9 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/solutions/'
     | '/company/team/$slug'
+    | '/platform/ai-operations/architecture'
     | '/resources/blog/$slug'
+    | '/platform/ai-operations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -938,6 +964,8 @@ export interface RootRouteChildren {
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
   CompanyTeamSlugRoute: typeof CompanyTeamSlugRoute
+  PlatformAiOperationsArchitectureRoute: typeof PlatformAiOperationsArchitectureRoute
+  PlatformAiOperationsIndexRoute: typeof PlatformAiOperationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1425,6 +1453,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompanyTeamSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/ai-operations/': {
+      id: '/platform/ai-operations/'
+      path: '/platform/ai-operations'
+      fullPath: '/platform/ai-operations/'
+      preLoaderRoute: typeof PlatformAiOperationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-operations/architecture': {
+      id: '/platform/ai-operations/architecture'
+      path: '/platform/ai-operations/architecture'
+      fullPath: '/platform/ai-operations/architecture'
+      preLoaderRoute: typeof PlatformAiOperationsArchitectureRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/blog/$slug': {
       id: '/resources/blog/$slug'
       path: '/$slug'
@@ -1528,6 +1570,8 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesIndexRoute: ResourcesIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,
   CompanyTeamSlugRoute: CompanyTeamSlugRoute,
+  PlatformAiOperationsArchitectureRoute: PlatformAiOperationsArchitectureRoute,
+  PlatformAiOperationsIndexRoute: PlatformAiOperationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -17,6 +17,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { DemoVideos } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { PRODUCTS } from "@/data/products";
+import { OpsBand } from "@/components/site/ops/OpsBand";
 
 export const Route = createFileRoute("/")({
   head: () =>
@@ -40,6 +41,7 @@ function HomePage() {
       <ProductDemo />
       <DemoVideos />
       <PlatformPillars />
+      <OpsBand />
       <Testimonials />
       <StatsSection />
       <ComplianceSection />

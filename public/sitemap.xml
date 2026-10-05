@@ -65,6 +65,14 @@
     <lastmod>2026-10-04</lastmod>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/ai-operations</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/ai-operations/architecture</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/ai-security</loc>
     <lastmod>2026-10-05</lastmod>
   </url>
@@ -451,6 +459,66 @@
   <url>
     <loc>https://www.onamsecurity.com/docs/finops/access</loc>
     <lastmod>2026-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/overview</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/availability</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/concepts</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/workspace</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/orchestrator</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/asset-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/security-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/compliance-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/data-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/automation-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/finops-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/dr-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/agents/architecture-agent</loc>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/governance</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/security</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/operations/architecture</loc>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>

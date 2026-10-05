@@ -20,6 +20,7 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 - [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam Operations](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
 
 All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
@@ -236,6 +237,25 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Savings](https://www.onamsecurity.com/docs/finops/savings)
 - [Runs & Reconciliation](https://www.onamsecurity.com/docs/finops/runs)
 - [Access & Entitlement](https://www.onamsecurity.com/docs/finops/access)
+
+### Onam Operations
+- [Overview](https://www.onamsecurity.com/docs/operations/overview)
+- [Availability & Status](https://www.onamsecurity.com/docs/operations/availability)
+- [Concepts](https://www.onamsecurity.com/docs/operations/concepts)
+- [The Workspace](https://www.onamsecurity.com/docs/operations/workspace)
+- [The Orchestrator](https://www.onamsecurity.com/docs/operations/orchestrator)
+- [The Agents](https://www.onamsecurity.com/docs/operations/agents)
+- [Asset Agent](https://www.onamsecurity.com/docs/operations/agents/asset-agent)
+- [Security Agent](https://www.onamsecurity.com/docs/operations/agents/security-agent)
+- [Compliance Agent](https://www.onamsecurity.com/docs/operations/agents/compliance-agent)
+- [Data Agent](https://www.onamsecurity.com/docs/operations/agents/data-agent)
+- [Automation Agent](https://www.onamsecurity.com/docs/operations/agents/automation-agent)
+- [FinOps Agent](https://www.onamsecurity.com/docs/operations/agents/finops-agent)
+- [DR Agent](https://www.onamsecurity.com/docs/operations/agents/dr-agent)
+- [Architecture Agent](https://www.onamsecurity.com/docs/operations/agents/architecture-agent)
+- [Governance & Approvals](https://www.onamsecurity.com/docs/operations/governance)
+- [Security & AI Safety](https://www.onamsecurity.com/docs/operations/security)
+- [Architecture](https://www.onamsecurity.com/docs/operations/architecture)
 
 ### Release Notes
 - [Release Notes](https://www.onamsecurity.com/docs/release-notes)
