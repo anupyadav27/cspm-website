@@ -36,8 +36,8 @@ Key facts:
 - All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
 - Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
-- Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- Every finding ships with exact remediation: CLI command or Terraform snippet; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
+- Code security in the same console: SAST (proven issues kept apart from hotspots), secret detection, IaC checks, SCA with CycloneDX 1.5 SBOM and EPSS/KEV risk scoring, and DAST — see https://www.onamsecurity.com/platform/code-security
 - AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
@@ -79,7 +79,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 
 ## Onam Security engines
 
-- [Code Security](https://www.onamsecurity.com/platform/code-security): SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.
+- [Code Security](https://www.onamsecurity.com/platform/code-security): Onam Code Security runs static analysis, dependency and SBOM analysis, IaC checks, secret detection and dynamic testing against your repositories and web apps — and keeps findings…
 - [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
 - [CIEM](https://www.onamsecurity.com/platform/ciem): Identity is the new perimeter. CIEM resolves the effective permissions of every human user, service account, and machine identity across all your clouds — then compares them…
 - [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security gives you a complete view of every user, role, policy, and access key across your cloud accounts — and flags everything that doesn't belong.
@@ -200,6 +200,19 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Compliance Coverage](https://www.onamsecurity.com/docs/features/compliance-coverage)
 - [Technology Engine](https://www.onamsecurity.com/docs/features/technology-engine)
 - [Risk Quantification](https://www.onamsecurity.com/docs/features/risk-quantification)
+
+### Code Security
+- [Overview](https://www.onamsecurity.com/docs/code-security/overview)
+- [Connect a repository](https://www.onamsecurity.com/docs/code-security/connect-repository)
+- [Run a scan](https://www.onamsecurity.com/docs/code-security/run-a-scan)
+- [Read the results](https://www.onamsecurity.com/docs/code-security/reading-results)
+- [Static analysis (SAST)](https://www.onamsecurity.com/docs/code-security/sast)
+- [Secret detection](https://www.onamsecurity.com/docs/code-security/secrets)
+- [IaC and Dockerfiles](https://www.onamsecurity.com/docs/code-security/iac)
+- [Dependencies and SBOM](https://www.onamsecurity.com/docs/code-security/sca-sbom)
+- [Dynamic testing (DAST)](https://www.onamsecurity.com/docs/code-security/dast)
+- [AI Code Fix](https://www.onamsecurity.com/docs/code-security/ai-code-fix)
+- [CI usage](https://www.onamsecurity.com/docs/code-security/ci)
 
 ### Architecture
 - [Overview](https://www.onamsecurity.com/docs/architecture/overview)

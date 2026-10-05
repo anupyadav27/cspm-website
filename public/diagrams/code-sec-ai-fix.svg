@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 300" width="920" height="300" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How AI Code Fix produces a fix branch</title>
+  <desc id="d">A completed static-analysis scan is filtered by severity, false positives are dropped and findings are grouped by file. A large language model receives each whole file with its findings and the rule guidance, and returns the corrected file. Corrected files are committed to a separate fix branch and pushed. Your team opens the pull request, reviews, tests and merges.</desc>
+  <rect width="920" height="300" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">AI CODE FIX — A SCAN GOES IN, A BRANCH COMES OUT, PEOPLE DECIDE THE REST</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="16" y="56" width="160" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="96" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. SELECT</text>
+  <text x="96" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Completed SAST scan</text>
+  <text x="96" y="130" text-anchor="middle" font-size="9" fill="#475569">Severity filter you choose</text>
+  <text x="96" y="146" text-anchor="middle" font-size="9" fill="#475569">False positives skipped</text>
+  <text x="96" y="162" text-anchor="middle" font-size="9" fill="#475569">Grouped by file</text>
+  <text x="96" y="200" text-anchor="middle" font-size="8" fill="#64748B">DAST and dependency findings</text>
+  <text x="96" y="212" text-anchor="middle" font-size="8" fill="#64748B">are not in scope</text>
+
+  <line x1="176" y1="140" x2="196" y2="140" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="194,135 204,140 194,145" fill="#94A3B8"/>
+
+  <rect x="206" y="56" width="160" height="170" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="286" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">2. CLONE</text>
+  <text x="286" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Shallow clone</text>
+  <text x="286" y="130" text-anchor="middle" font-size="9" fill="#475569">Git token sent with this</text>
+  <text x="286" y="146" text-anchor="middle" font-size="9" fill="#475569">request only — never stored</text>
+  <text x="286" y="162" text-anchor="middle" font-size="9" fill="#475569">or logged</text>
+  <text x="286" y="200" text-anchor="middle" font-size="8" fill="#64748B">Clone deleted when</text>
+  <text x="286" y="212" text-anchor="middle" font-size="8" fill="#64748B">the run finishes</text>
+
+  <line x1="366" y1="140" x2="386" y2="140" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="384,135 394,140 384,145" fill="#94A3B8"/>
+
+  <rect x="396" y="56" width="180" height="170" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="10"/>
+  <text x="486" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">3. REWRITE</text>
+  <text x="486" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">One model call per file</text>
+  <text x="486" y="130" text-anchor="middle" font-size="9" fill="#475569">Whole file + every finding</text>
+  <text x="486" y="146" text-anchor="middle" font-size="9" fill="#475569">+ rule guidance + safe example</text>
+  <text x="486" y="162" text-anchor="middle" font-size="9" fill="#475569">Fix only what is listed</text>
+  <text x="486" y="178" text-anchor="middle" font-size="9" fill="#475569">Keep names, imports, style</text>
+  <text x="486" y="206" text-anchor="middle" font-size="8" fill="#64748B">File content is sent to the model</text>
+
+  <line x1="576" y1="140" x2="596" y2="140" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="594,135 604,140 594,145" fill="#94A3B8"/>
+
+  <rect x="606" y="56" width="140" height="170" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5" rx="10"/>
+  <text x="676" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#047857" letter-spacing="1">4. PUSH</text>
+  <text x="676" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">Fix branch</text>
+  <text x="676" y="130" text-anchor="middle" font-size="9" fill="#475569">secops-fix/&lt;scan&gt;</text>
+  <text x="676" y="146" text-anchor="middle" font-size="9" fill="#475569">Existing files only</text>
+  <text x="676" y="162" text-anchor="middle" font-size="9" fill="#475569">Status per finding</text>
+
+  <line x1="746" y1="140" x2="766" y2="140" stroke="#94A3B8" stroke-width="2" stroke-dasharray="4 3"/>
+  <polygon points="764,135 774,140 764,145" fill="#94A3B8"/>
+
+  <rect x="776" y="56" width="128" height="170" fill="#FFFFFF" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="5 4" rx="10"/>
+  <text x="840" y="80" text-anchor="middle" font-size="9" font-weight="700" fill="#475569" letter-spacing="1">5. YOUR TEAM</text>
+  <text x="840" y="108" text-anchor="middle" font-size="11" font-weight="700" fill="#334155">Pull request</text>
+  <text x="840" y="130" text-anchor="middle" font-size="9" fill="#475569">You open it</text>
+  <text x="840" y="146" text-anchor="middle" font-size="9" fill="#475569">You review and test</text>
+  <text x="840" y="162" text-anchor="middle" font-size="9" fill="#475569">You merge</text>
+  <text x="840" y="200" text-anchor="middle" font-size="8" fill="#64748B">Onam opens, merges</text>
+  <text x="840" y="212" text-anchor="middle" font-size="8" fill="#64748B">and deploys nothing</text>
+
+  <text x="460" y="256" text-anchor="middle" font-size="9" fill="#475569">The rewritten file is not compiled or tested by Onam — your pipeline does that on the branch.</text>
+  <text x="460" y="284" text-anchor="middle" font-size="8" fill="#94A3B8">Onam Security · AI Code Fix</text>
+</svg>

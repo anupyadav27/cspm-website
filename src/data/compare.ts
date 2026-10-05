@@ -187,7 +187,7 @@ export const COMPETITORS: Competitor[] = [
     metaDescription:
       "Onam vs Snyk for code security: Snyk in its own published words, seven questions answered for Onam, and the one place Snyk is built for and we are not.",
     intro:
-      "Snyk is the name most developers already know in application security. If it is on your list next to Onam for code security, the useful framing is that the two start from opposite ends: Snyk from where code is written, Onam from the cloud the code runs in. These are the questions that decide which end your team needs first.",
+      "Snyk is the name most developers already know in application security. If it is on your list next to Onam for code security, the useful framing is that the two start from opposite ends: Snyk from where code is written, Onam from the platform that already watches your cloud. These are the questions that decide which end your team needs first.",
     inTheirWords: [
       {
         vendor: "Snyk",
@@ -218,35 +218,35 @@ export const COMPETITORS: Competitor[] = [
     questions: [
       {
         q: "Where does a finding first reach the developer?",
-        onam: "After a scan of the repository, in the Onam platform. A build gate is available but off by default: scans report, and the pipeline fails on findings only when you switch that on. Onam does not run in the developer's editor today.",
+        onam: "After a scan of the repository, in the Onam console. Onam has no editor plugin, CI plugin or pull-request check today: a scan reports, and a pipeline that wants a gate calls the scan API and decides for itself.",
       },
       {
         q: "Does a dependency finding know whether the code is running and reachable?",
-        onam: "Yes — that is the reason to put code findings on the cloud graph. A dependency finding is joined to the running workload, so it carries whether that workload is internet-reachable and what identity it holds, and SCA reports whether the vulnerable function is actually called.",
+        onam: "No. Onam ranks a dependency finding by CVSS, EPSS exploit probability, CISA KEV membership and whether a fix exists — not by call-graph reachability, and it does not yet link the finding to the workload running that code.",
       },
       {
-        q: "Does a runtime misconfiguration trace back to the template that created it?",
-        onam: "Yes. Every runtime finding keeps its provenance — the repository, template and resource block that produced it — so the fix lands in code and does not reappear on the next terraform apply.",
+        q: "How does it decide which code findings are real?",
+        onam: "By what each rule can prove. Findings from taint and AST rules are listed as security issues with their own severity; pattern-rule matches are listed separately as hotspots to review and capped at medium, so they cannot bury a proven flaw.",
       },
       {
         q: "Are IaC templates judged by the same rules as the running cloud?",
-        onam: "Yes. Terraform, CloudFormation, Helm and Kubernetes manifests are evaluated against the same policy set the runtime posture engine uses, so a template is judged before it creates anything and the verdict matches what production would get.",
+        onam: "No. Terraform, Kubernetes YAML, CloudFormation and Dockerfiles in the repository are checked in the same scan as the code, using an IaC rule set of their own — separate from the rules the posture engine applies to deployed resources.",
       },
       {
         q: "Where does secret detection look?",
-        onam: "Source, container image layers, pipeline configuration and committed state files — the places copies of a secret accumulate, not only the secrets store where things are done correctly.",
+        onam: "Every file in the current state of the scanned branch, using community and Onam secret patterns for cloud keys, private keys, SaaS tokens and hard-coded credentials. It does not scan git history or test whether a credential is live.",
       },
       {
         q: "What does an automated fix actually do?",
-        onam: "AI Code Fix rewrites each source file flagged by static analysis with a large language model and pushes the result to a separate branch. It opens no pull request, merges nothing and deploys nothing. The full content of each affected file is sent to the model, which is worth knowing before you turn it on.",
+        onam: "AI Code Fix rewrites each source file flagged by static analysis with a large language model and pushes the result to a separate branch. It opens no pull request, merges nothing and deploys nothing, and today it is run with you on request rather than from a console button. The full content of each affected file is sent to the model, which is worth knowing before you use it.",
       },
       {
         q: "What does it cost the team on day one?",
-        onam: "A repository connection and a scan. Nothing blocks a build until you decide it should, so the first week is reading findings, not negotiating exceptions with every team whose pipeline went red.",
+        onam: "A repository address and a scan. Nothing blocks a build, so the first week is reading findings, not negotiating exceptions with every team whose pipeline went red.",
       },
     ],
     honestLimit:
-      "The honest gap: Snyk is built to meet developers where they write code — in the editor and the pull request, in its own words above. Onam does not run in the editor, and our AI Code Fix pushes a branch rather than opening a pull request. If developer adoption at the keyboard is the goal, Snyk is designed for that and we are not. Our case is the join between code findings and the running cloud.",
+      "The honest gap: Snyk is built to meet developers where they write code — in the editor and the pull request, in its own words above. Onam does not run in the editor, and our AI Code Fix pushes a branch rather than opening a pull request. If developer adoption at the keyboard is the goal, Snyk is designed for that and we are not. Our case is code, dependency and app testing in the same platform as your cloud posture, with proven findings kept apart from noise.",
   },
   {
     slug: "onam-vs-cyera",

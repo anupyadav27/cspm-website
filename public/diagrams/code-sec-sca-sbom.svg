@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How Onam dependency analysis and SBOM work</title>
+  <desc id="d">Manifests and lockfiles from the repository, or an uploaded CycloneDX or SPDX SBOM, become a component list. Each component is matched to OSV and NVD advisories and enriched with EPSS and CISA KEV, producing a 0 to 10 risk score. Outputs are a CycloneDX 1.5 SBOM, license and policy checks, an NTIA minimum-elements check, VEX statements and SBOM diffs.</desc>
+  <rect width="920" height="400" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DEPENDENCY ANALYSIS (SCA) AND SBOM — FROM LOCKFILE TO RISK SCORE</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="16" y="48" width="250" height="320" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="141" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. INVENTORY</text>
+  <text x="141" y="82" text-anchor="middle" font-size="8" fill="#64748B">Parsed by Onam — no external tool</text>
+  <line x1="26" y1="90" x2="256" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="34" y="112" font-size="10" font-weight="700" fill="#1E40AF">Python</text>
+  <text x="104" y="112" font-size="9" fill="#475569">requirements · Pipfile.lock</text>
+  <text x="104" y="125" font-size="9" fill="#475569">pyproject.toml · setup.cfg</text>
+  <text x="34" y="146" font-size="10" font-weight="700" fill="#1E40AF">npm</text>
+  <text x="104" y="146" font-size="9" fill="#475569">package(-lock).json · yarn.lock</text>
+  <text x="34" y="167" font-size="10" font-weight="700" fill="#1E40AF">Java</text>
+  <text x="104" y="167" font-size="9" fill="#475569">pom.xml · build.gradle(.kts)</text>
+  <text x="34" y="188" font-size="10" font-weight="700" fill="#1E40AF">Go</text>
+  <text x="104" y="188" font-size="9" fill="#475569">go.mod</text>
+  <text x="34" y="209" font-size="10" font-weight="700" fill="#1E40AF">Rust</text>
+  <text x="104" y="209" font-size="9" fill="#475569">Cargo.toml · Cargo.lock</text>
+  <text x="34" y="230" font-size="10" font-weight="700" fill="#1E40AF">Ruby</text>
+  <text x="104" y="230" font-size="9" fill="#475569">Gemfile.lock</text>
+  <text x="34" y="251" font-size="10" font-weight="700" fill="#1E40AF">.NET</text>
+  <text x="104" y="251" font-size="9" fill="#475569">*.csproj · packages.config</text>
+  <text x="34" y="272" font-size="10" font-weight="700" fill="#1E40AF">PHP</text>
+  <text x="104" y="272" font-size="9" fill="#475569">composer.lock</text>
+  <line x1="26" y1="290" x2="256" y2="290" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="141" y="310" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">or upload an SBOM</text>
+  <text x="141" y="326" text-anchor="middle" font-size="9" fill="#64748B">CycloneDX 1.4 / 1.5 · SPDX 2.3 (JSON)</text>
+  <text x="141" y="352" text-anchor="middle" font-size="8" fill="#64748B">A lockfile wins over its manifest</text>
+
+  <line x1="266" y1="208" x2="294" y2="208" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="292,203 302,208 292,213" fill="#94A3B8"/>
+
+  <rect x="304" y="48" width="300" height="320" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="454" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">2. ENRICH AND SCORE</text>
+  <text x="454" y="82" text-anchor="middle" font-size="8" fill="#64748B">Each component, each advisory</text>
+  <line x1="314" y1="90" x2="594" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="318" y="102" width="272" height="56" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="454" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">Advisories</text>
+  <text x="454" y="142" text-anchor="middle" font-size="9" fill="#475569">OSV first, NVD as fallback</text>
+
+  <rect x="318" y="166" width="272" height="56" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5" rx="8"/>
+  <text x="454" y="188" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">Exploit signals</text>
+  <text x="454" y="206" text-anchor="middle" font-size="9" fill="#475569">EPSS probability · CISA KEV membership</text>
+
+  <rect x="318" y="230" width="272" height="80" fill="#FFFFFF" stroke="#6366F1" stroke-width="1.5" rx="8"/>
+  <text x="454" y="252" text-anchor="middle" font-size="11" font-weight="700" fill="#3730A3">Composite risk score, 0–10</text>
+  <text x="454" y="270" text-anchor="middle" font-size="9" fill="#475569">CVSS × exploit likelihood × KEV × fix available</text>
+  <text x="454" y="288" text-anchor="middle" font-size="9" fill="#475569">→ Immediate · High · Medium · Low</text>
+  <text x="454" y="302" text-anchor="middle" font-size="8" fill="#64748B">A low-CVSS bug under active exploitation can outrank a 9.8</text>
+
+  <text x="454" y="340" text-anchor="middle" font-size="8" fill="#64748B">VEX “not affected” statements are honoured</text>
+  <text x="454" y="352" text-anchor="middle" font-size="8" fill="#64748B">and kept with their reason</text>
+
+  <line x1="604" y1="208" x2="632" y2="208" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="630,203 640,208 630,213" fill="#94A3B8"/>
+
+  <rect x="642" y="48" width="262" height="320" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="773" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#047857" letter-spacing="1">3. OUTPUTS</text>
+  <text x="773" y="82" text-anchor="middle" font-size="8" fill="#64748B">For engineers, buyers and auditors</text>
+  <line x1="652" y1="90" x2="894" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="656" y="100" width="234" height="44" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5" rx="8"/>
+  <text x="773" y="119" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">CycloneDX 1.5 SBOM</text>
+  <text x="773" y="134" text-anchor="middle" font-size="9" fill="#475569">JSON, with package URLs</text>
+  <rect x="656" y="150" width="234" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="773" y="169" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">Vulnerable packages</text>
+  <text x="773" y="184" text-anchor="middle" font-size="9" fill="#475569">CVE IDs · risk · fixed version</text>
+  <rect x="656" y="200" width="234" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="773" y="219" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">License + policy checks</text>
+  <text x="773" y="234" text-anchor="middle" font-size="9" fill="#475569">Permissive · weak · strong copyleft</text>
+  <rect x="656" y="250" width="234" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="773" y="269" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">NTIA minimum elements</text>
+  <text x="773" y="284" text-anchor="middle" font-size="9" fill="#475569">Scored 0–100 per SBOM</text>
+  <rect x="656" y="300" width="234" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
+  <text x="773" y="319" text-anchor="middle" font-size="11" font-weight="700" fill="#047857">SBOM diff</text>
+  <text x="773" y="334" text-anchor="middle" font-size="9" fill="#475569">What changed between two SBOMs</text>
+
+  <text x="460" y="388" text-anchor="middle" font-size="8" fill="#94A3B8">Onam Security · Code Security · SCA and SBOM</text>
+</svg>

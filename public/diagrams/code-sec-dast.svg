@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 340" width="920" height="340" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How Onam DAST tests a running application</title>
+  <desc id="d">A target URL you are authorised to test, with optional authentication, is discovered through crawling, form and JavaScript analysis, OpenAPI parsing and path patterns. Discovered endpoints receive rate-limited test payloads for injection, cross-site scripting, SSRF, XXE, path traversal and template injection, and passive checks for headers, cookies and CSRF. Results are stored as findings and exported as JSON, HTML or SARIF.</desc>
+  <rect width="920" height="340" fill="#F8FAFC" rx="10"/>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DYNAMIC TESTING (DAST) — DISCOVER, ATTACK, REPORT</text>
+  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="16" y="48" width="200" height="262" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="116" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. TARGET</text>
+  <line x1="26" y1="78" x2="206" y2="78" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="116" y="102" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">URL you may test</text>
+  <text x="116" y="122" text-anchor="middle" font-size="9" fill="#475569">Profile: quick · normal · deep</text>
+  <text x="116" y="152" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Authentication</text>
+  <text x="116" y="170" text-anchor="middle" font-size="9" fill="#475569">None · basic · bearer token</text>
+  <text x="116" y="184" text-anchor="middle" font-size="9" fill="#475569">cookie · OAuth2 · custom header</text>
+  <text x="116" y="240" text-anchor="middle" font-size="8" fill="#64748B">Private-network targets are</text>
+  <text x="116" y="252" text-anchor="middle" font-size="8" fill="#64748B">refused by default</text>
+
+  <line x1="216" y1="180" x2="240" y2="180" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="238,175 248,180 238,185" fill="#94A3B8"/>
+
+  <rect x="250" y="48" width="200" height="262" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="350" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">2. DISCOVER</text>
+  <line x1="260" y1="78" x2="440" y2="78" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="350" y="104" text-anchor="middle" font-size="10" fill="#3730A3" font-weight="700">Link and form crawling</text>
+  <text x="350" y="130" text-anchor="middle" font-size="10" fill="#3730A3" font-weight="700">JavaScript analysis</text>
+  <text x="350" y="156" text-anchor="middle" font-size="10" fill="#3730A3" font-weight="700">OpenAPI parsing</text>
+  <text x="350" y="182" text-anchor="middle" font-size="10" fill="#3730A3" font-weight="700">Common path patterns</text>
+  <text x="350" y="252" text-anchor="middle" font-size="8" fill="#64748B">Requests are rate-limited</text>
+
+  <line x1="450" y1="180" x2="474" y2="180" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="472,175 482,180 472,185" fill="#94A3B8"/>
+
+  <rect x="484" y="48" width="240" height="262" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="604" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#B91C1C" letter-spacing="1">3. TEST</text>
+  <line x1="494" y1="78" x2="714" y2="78" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="496" y="88" width="216" height="104" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.2" rx="8"/>
+  <text x="604" y="106" text-anchor="middle" font-size="10" font-weight="700" fill="#B91C1C">Active payloads</text>
+  <text x="604" y="124" text-anchor="middle" font-size="9" fill="#475569">SQL (error and time-based) · NoSQL</text>
+  <text x="604" y="138" text-anchor="middle" font-size="9" fill="#475569">XSS · command injection · SSTI</text>
+  <text x="604" y="152" text-anchor="middle" font-size="9" fill="#475569">Path traversal · XXE · SSRF</text>
+  <text x="604" y="166" text-anchor="middle" font-size="9" fill="#475569">Open redirect · file upload</text>
+  <text x="604" y="180" text-anchor="middle" font-size="9" fill="#475569">Business-logic tampering</text>
+  <rect x="496" y="200" width="216" height="74" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="604" y="218" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Passive checks</text>
+  <text x="604" y="236" text-anchor="middle" font-size="9" fill="#475569">Security headers · cookie flags</text>
+  <text x="604" y="250" text-anchor="middle" font-size="9" fill="#475569">CSRF · error disclosure</text>
+
+  <line x1="724" y1="180" x2="748" y2="180" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="746,175 756,180 746,185" fill="#94A3B8"/>
+
+  <rect x="758" y="48" width="146" height="262" fill="#ECFDF5" stroke="#A7F3D0" stroke-width="1.5" rx="10"/>
+  <text x="831" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#047857" letter-spacing="1">4. REPORT</text>
+  <line x1="768" y1="78" x2="894" y2="78" stroke="#A7F3D0" stroke-width="1"/>
+  <text x="831" y="104" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">Findings</text>
+  <text x="831" y="120" text-anchor="middle" font-size="9" fill="#475569">Endpoint · severity</text>
+  <text x="831" y="134" text-anchor="middle" font-size="9" fill="#475569">CVSS · description</text>
+  <text x="831" y="166" text-anchor="middle" font-size="10" font-weight="700" fill="#047857">Exports</text>
+  <text x="831" y="182" text-anchor="middle" font-size="9" fill="#475569">JSON · HTML · SARIF</text>
+
+  <text x="460" y="330" text-anchor="middle" font-size="8" fill="#94A3B8">Onam Security · Code Security · DAST — only test what you own or are authorised to test</text>
+</svg>

@@ -232,7 +232,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Container Security | EKS, ECS, AKS, GKE posture, images, and K8s RBAC — [Container Security](/docs/features/container-security) |
 | Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
-| SecOps / AppSec | SAST in 7 languages, DAST, SCA and SBOM — [SecOps](/docs/features/secops) |
+| Code Security | SAST, secret detection, IaC checks, SCA with CycloneDX SBOM, and DAST — [Code Security](/docs/code-security/overview) |
 | Technology Engine | 34 self-hosted technologies in 9 categories |
 
 Encryption, database security, AI security, API security, agentless workload scanning, and the platform services (rule builder, remediation, the AI assistant) round out the full list in the [Architecture Overview](/docs/architecture/overview).

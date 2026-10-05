@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 520" width="920" height="520" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Illustrative view of a code scan result in the Onam console</title>
+  <desc id="d">A stylised illustration, not a screenshot. It shows the layout of a static-analysis scan result: summary tiles for total findings, security issues, hotspots to review and languages, then a security findings table with severity, rule, file and line, message and language. Repository names and findings are invented examples.</desc>
+  <rect width="920" height="520" fill="#E2E8F0" rx="12"/>
+  <rect x="10" y="10" width="900" height="500" fill="#FFFFFF" rx="10"/>
+  <!-- window chrome -->
+  <rect x="10" y="10" width="900" height="34" fill="#F1F5F9" rx="10"/>
+  <rect x="10" y="34" width="900" height="10" fill="#F1F5F9"/>
+  <circle cx="30" cy="27" r="5" fill="#CBD5E1"/><circle cx="46" cy="27" r="5" fill="#CBD5E1"/><circle cx="62" cy="27" r="5" fill="#CBD5E1"/>
+  <text x="460" y="31" text-anchor="middle" font-size="10" fill="#64748B">Code Security  ›  Scan  ›  example-org/payments-api @ main</text>
+  <rect x="770" y="16" width="130" height="22" fill="#FEF3C7" stroke="#F59E0B" rx="11"/>
+  <text x="835" y="31" text-anchor="middle" font-size="9" font-weight="700" fill="#92400E" letter-spacing="0.8">ILLUSTRATIVE</text>
+
+  <!-- KPI tiles -->
+  <g font-size="9" fill="#64748B">
+    <rect x="30" y="60" width="200" height="70" fill="#FFFFFF" stroke="#E2E8F0" rx="8"/>
+    <text x="44" y="80" letter-spacing="0.8">TOTAL FINDINGS</text>
+    <text x="44" y="112" font-size="24" font-weight="700" fill="#0F172A">47</text>
+    <rect x="244" y="60" width="200" height="70" fill="#FFFFFF" stroke="#FECACA" rx="8"/>
+    <text x="258" y="80" letter-spacing="0.8" fill="#B91C1C">SECURITY ISSUES</text>
+    <text x="258" y="112" font-size="24" font-weight="700" fill="#B91C1C">6</text>
+    <text x="300" y="112" font-size="8">confirmed — taint &amp; AST rules</text>
+    <rect x="458" y="60" width="200" height="70" fill="#FFFFFF" stroke="#FDE68A" rx="8"/>
+    <text x="472" y="80" letter-spacing="0.8" fill="#B45309">HOTSPOTS TO REVIEW</text>
+    <text x="472" y="112" font-size="24" font-weight="700" fill="#B45309">41</text>
+    <text x="514" y="112" font-size="8">pattern matches — confirm by hand</text>
+    <rect x="672" y="60" width="218" height="70" fill="#FFFFFF" stroke="#E2E8F0" rx="8"/>
+    <text x="686" y="80" letter-spacing="0.8">LANGUAGES</text>
+    <text x="686" y="112" font-size="14" font-weight="700" fill="#0F172A">Python · TypeScript</text>
+  </g>
+
+  <!-- table -->
+  <text x="30" y="160" font-size="12" font-weight="700" fill="#0F172A">Security Findings</text>
+  <rect x="30" y="170" width="860" height="26" fill="#F8FAFC" stroke="#E2E8F0"/>
+  <g font-size="9" font-weight="700" fill="#64748B" letter-spacing="0.6">
+    <text x="42" y="187">SEVERITY</text><text x="130" y="187">RULE</text><text x="370" y="187">FILE</text><text x="560" y="187">MESSAGE</text><text x="820" y="187">LANGUAGE</text>
+  </g>
+  <g font-size="10" fill="#334155">
+    <rect x="30" y="196" width="860" height="34" fill="#FFFFFF" stroke="#F1F5F9"/>
+    <rect x="42" y="205" width="56" height="16" rx="8" fill="#FEE2E2"/><text x="70" y="216" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C">HIGH</text>
+    <text x="130" y="217">sql-injection-fstring</text><text x="370" y="217" fill="#1E40AF">app/db/orders.py : 88</text><text x="560" y="217">User input reaches a SQL query (CWE-89)</text><text x="820" y="217">python</text>
+    <rect x="30" y="230" width="860" height="34" fill="#FFFFFF" stroke="#F1F5F9"/>
+    <rect x="42" y="239" width="56" height="16" rx="8" fill="#FEE2E2"/><text x="70" y="250" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C">HIGH</text>
+    <text x="130" y="251">ssrf-unvalidated-url</text><text x="370" y="251" fill="#1E40AF">src/webhooks/relay.ts : 41</text><text x="560" y="251">Request URL built from request body (CWE-918)</text><text x="820" y="251">typescript</text>
+    <rect x="30" y="264" width="860" height="34" fill="#FFFFFF" stroke="#F1F5F9"/>
+    <rect x="42" y="273" width="56" height="16" rx="8" fill="#FFEDD5"/><text x="70" y="284" text-anchor="middle" font-size="8" font-weight="700" fill="#C2410C">MEDIUM</text>
+    <text x="130" y="285">hardcoded-aws-secret</text><text x="370" y="285" fill="#1E40AF">config/settings.py : 12</text><text x="560" y="285">Credential committed to source (CWE-798)</text><text x="820" y="285">python</text>
+    <rect x="30" y="298" width="860" height="34" fill="#FFFFFF" stroke="#F1F5F9"/>
+    <rect x="42" y="307" width="56" height="16" rx="8" fill="#FFEDD5"/><text x="70" y="318" text-anchor="middle" font-size="8" font-weight="700" fill="#C2410C">MEDIUM</text>
+    <text x="130" y="319">path-traversal-open</text><text x="370" y="319" fill="#1E40AF">app/files/export.py : 63</text><text x="560" y="319">File path joined from user input (CWE-22)</text><text x="820" y="319">python</text>
+  </g>
+
+  <!-- side panel hint -->
+  <rect x="30" y="350" width="860" height="140" fill="#F8FAFC" stroke="#E2E8F0" rx="8"/>
+  <text x="46" y="374" font-size="11" font-weight="700" fill="#0F172A">Finding detail  ·  sql-injection-fstring</text>
+  <text x="46" y="394" font-size="9" fill="#475569">Rule guidance — what the issue is, why it matters and the safe pattern</text>
+  <rect x="46" y="404" width="400" height="70" fill="#0F172A" rx="6"/>
+  <text x="58" y="424" font-size="9" fill="#FCA5A5" font-family="Menlo, monospace">- cur.execute(f"SELECT * FROM orders WHERE id={oid}")</text>
+  <text x="58" y="444" font-size="9" fill="#86EFAC" font-family="Menlo, monospace">+ cur.execute("SELECT * FROM orders WHERE id=%s", (oid,))</text>
+  <text x="58" y="464" font-size="8" fill="#94A3B8">example only</text>
+  <text x="470" y="398" font-size="9" font-weight="700" fill="#0F172A">AI Fix Prompt</text>
+  <rect x="470" y="404" width="120" height="30" fill="#FFFFFF" stroke="#CBD5E1" rx="6"/>
+  <text x="530" y="423" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Copy Prompt</text>
+  <text x="470" y="458" font-size="8" fill="#64748B">Stylised illustration of the console layout. Names and findings are invented.</text>
+</svg>

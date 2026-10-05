@@ -322,13 +322,11 @@ The first full scan of a mature codebase is usually discouraging. Some practical
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) scans Terraform, CloudFormation, Helm and Kubernetes manifests against the same policy set its runtime posture engine uses, so a template is judged before it creates anything and the result means the same thing in both places. IaC policy is evaluated against the plan.
+[Onam's Code Security engine](/platform/code-security) checks Terraform, Kubernetes manifests, CloudFormation templates and Dockerfiles in a repository as part of every scan, alongside static analysis, dependency analysis and secret detection. The IaC checks use their own rule set, separate from the rules the runtime posture engine applies to deployed resources, and Onam does not yet trace a runtime finding back to the template line that created it — so the discipline described above, fixing in code rather than the console, is still yours to enforce.
 
-Runtime findings keep their provenance: which repository, template and resource block produced the resource. That lets remediation land in code, so the fix does not disappear on the next apply. On the gating side, scans report by default; failing the build on findings is an option you switch on when you are ready.
+On gating, Onam has no CI plugin today: a scan reports, and a pipeline that wants a gate calls the scan API and decides for itself ([CI usage](/docs/code-security/ci)). For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
 
-IaC scanning sits alongside static analysis, dependency analysis and secret detection in the same engine, and its findings are joined to the running estate on the same security graph as posture, identity and network data. For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
-
-[Request a demo](/request-demo) to see a runtime finding traced back to its template line.
+[Request a demo](/request-demo) to see a repository scanned end to end.
 `,
   },
   {
@@ -421,9 +419,9 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC scanning and secret detection into the same platform as its cloud posture, and joins code findings to the running estate on one security graph — so a dependency finding carries whether the workload is reachable and what it can access.
+[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC checks and secret detection into the same platform as its cloud posture. Static analysis keeps proven security issues apart from pattern-match hotspots, and dependency findings are ranked by EPSS and CISA KEV as well as CVSS — two ways of keeping a gate from firing on noise.
 
-On gating, Onam is deliberately conservative: by default a scan reports its findings and the build carries on. Failing the pipeline on findings is an option you switch on when your team is ready to enforce it. If you want the delta-gating pattern described above, the practical route today is to start in report-only mode, work the backlog down, and switch enforcement on once the baseline is small.
+On gating, Onam is deliberately conservative: a scan reports its findings and nothing fails on its own. Onam has no CI plugin today; a pipeline step calls the scan API, reads the findings and decides ([CI usage](/docs/code-security/ci)). Scans cover the whole branch rather than only new findings, so the practical route to the delta-gating pattern described above is to start in report-only mode, work the backlog down, and turn your gate on once the baseline is small.
 
 For SAST findings, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files and push them to a separate branch for your team to review; nothing merges itself.
 
