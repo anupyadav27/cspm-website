@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 400" width="960" height="400" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How Onam Security reconstructs a data lineage chain</title>
+  <desc id="d">An illustrative chain of four stores linked by streaming, replication and export hops, with cross-region and cross-account hops flagged.</desc>
+  <rect width="960" height="400" fill="#F8FAFC" rx="10"/>
+
+  <text x="480" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">DATA LINEAGE — ONE CHAIN, RECONSTRUCTED FROM RESOURCE RELATIONSHIPS</text>
+  <line x1="16" y1="34" x2="944" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="944" y="52" text-anchor="end" font-size="8" font-style="italic" fill="#94A3B8">Illustrative example — resource names are fictional</text>
+
+  <!-- account bands -->
+  <rect x="16" y="64" width="700" height="168" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" stroke-dasharray="4 3" rx="10"/>
+  <text x="28" y="80" font-size="8" font-weight="700" fill="#64748B" letter-spacing="0.8">ACCOUNT 1111…  (YOURS)</text>
+  <rect x="732" y="64" width="212" height="168" fill="#FFFFFF" stroke="#F59E0B" stroke-width="1" stroke-dasharray="4 3" rx="10"/>
+  <text x="744" y="80" font-size="8" font-weight="700" fill="#B45309" letter-spacing="0.8">ACCOUNT 2222…  (PARTNER)</text>
+
+  <!-- node 1 -->
+  <rect x="32" y="100" width="150" height="76" fill="#EFF4FF" stroke="#2563EB" stroke-width="1.5" rx="10"/>
+  <text x="107" y="120" text-anchor="middle" font-size="8" font-weight="700" fill="#2563EB" letter-spacing="0.8">SOURCE</text>
+  <text x="107" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1220">orders-events</text>
+  <text x="107" y="155" text-anchor="middle" font-size="8" fill="#64748B">Kinesis stream · us-east-1</text>
+
+  <!-- hop 1 -->
+  <line x1="182" y1="148" x2="250" y2="148" stroke="#64748B" stroke-width="2"/>
+  <polygon points="248,143 258,148 248,153" fill="#64748B"/>
+  <text x="220" y="140" text-anchor="middle" font-size="8" font-weight="700" fill="#334155">streaming</text>
+
+  <!-- node 2 -->
+  <rect x="260" y="100" width="150" height="76" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="335" y="120" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="0.8">HOP 1</text>
+  <text x="335" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1220">orders-raw</text>
+  <text x="335" y="155" text-anchor="middle" font-size="8" fill="#64748B">S3 bucket · us-east-1</text>
+
+  <!-- hop 2: cross-region -->
+  <line x1="410" y1="148" x2="478" y2="148" stroke="#DC2626" stroke-width="2"/>
+  <polygon points="476,143 486,148 476,153" fill="#DC2626"/>
+  <text x="448" y="140" text-anchor="middle" font-size="8" font-weight="700" fill="#334155">replication</text>
+  <rect x="412" y="156" width="72" height="15" rx="7" fill="#FDECEA"/>
+  <text x="448" y="167" text-anchor="middle" font-size="7" font-weight="700" fill="#B91C1C">CROSS-REGION</text>
+
+  <!-- node 3 -->
+  <rect x="488" y="100" width="150" height="76" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="563" y="120" text-anchor="middle" font-size="8" font-weight="700" fill="#64748B" letter-spacing="0.8">HOP 2</text>
+  <text x="563" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1220">orders-raw-dr</text>
+  <text x="563" y="155" text-anchor="middle" font-size="8" fill="#64748B">S3 bucket · eu-west-1</text>
+
+  <!-- hop 3: cross-account -->
+  <line x1="638" y1="148" x2="750" y2="148" stroke="#DC2626" stroke-width="2"/>
+  <polygon points="748,143 758,148 748,153" fill="#DC2626"/>
+  <text x="694" y="140" text-anchor="middle" font-size="8" font-weight="700" fill="#334155">export</text>
+  <rect x="650" y="156" width="88" height="15" rx="7" fill="#FDECEA"/>
+  <text x="694" y="167" text-anchor="middle" font-size="7" font-weight="700" fill="#B91C1C">CROSS-ACCOUNT</text>
+
+  <!-- node 4 -->
+  <rect x="760" y="100" width="170" height="76" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5" rx="10"/>
+  <text x="845" y="120" text-anchor="middle" font-size="8" font-weight="700" fill="#DC2626" letter-spacing="0.8">DESTINATION</text>
+  <text x="845" y="140" text-anchor="middle" font-size="10" font-weight="700" fill="#0B1220">partner-drop</text>
+  <text x="845" y="155" text-anchor="middle" font-size="8" fill="#64748B">S3 bucket · eu-west-1</text>
+
+  <text x="480" y="220" text-anchor="middle" font-size="8" fill="#64748B">Read left to right: data leaves the stream, lands in a bucket, is replicated to another region, then exported to another account.</text>
+
+  <!-- how it is built -->
+  <rect x="16" y="248" width="928" height="132" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="10"/>
+  <text x="32" y="268" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">HOW THE CHAIN IS BUILT</text>
+
+  <circle cx="44" cy="292" r="9" fill="#2563EB"/>
+  <text x="44" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="#FFFFFF">1</text>
+  <text x="60" y="289" font-size="9" font-weight="700" fill="#0B1220">Edges from the inventory</text>
+  <text x="60" y="303" font-size="8" fill="#64748B">Relationships discovery already records:</text>
+  <text x="60" y="315" font-size="8" fill="#64748B">replicates to, backs up to, stores data in,</text>
+  <text x="60" y="327" font-size="8" fill="#64748B">publishes to, reads from, writes to, exports to.</text>
+
+  <circle cx="344" cy="292" r="9" fill="#2563EB"/>
+  <text x="344" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="#FFFFFF">2</text>
+  <text x="360" y="289" font-size="9" font-weight="700" fill="#0B1220">Each hop is typed and flagged</text>
+  <text x="360" y="303" font-size="8" fill="#64748B">Transfer type (replication, backup, ETL, streaming,</text>
+  <text x="360" y="315" font-size="8" fill="#64748B">export, import), plus cross-region and cross-account</text>
+  <text x="360" y="327" font-size="8" fill="#64748B">flags read from the source and destination identifiers.</text>
+
+  <circle cx="660" cy="292" r="9" fill="#2563EB"/>
+  <text x="660" y="295" text-anchor="middle" font-size="9" font-weight="700" fill="#FFFFFF">3</text>
+  <text x="676" y="289" font-size="9" font-weight="700" fill="#0B1220">Walked from the origin</text>
+  <text x="676" y="303" font-size="8" fill="#64748B">Chains start at stores nothing feeds and are</text>
+  <text x="676" y="315" font-size="8" fill="#64748B">followed up to eight hops, so loops cannot</text>
+  <text x="676" y="327" font-size="8" fill="#64748B">run away. Shown in the console's Lineage view.</text>
+
+  <text x="480" y="362" text-anchor="middle" font-size="8" fill="#64748B">Also recorded per store: S3 event notifications to Lambda, SQS or SNS, and Kinesis stream consumers.</text>
+</svg>

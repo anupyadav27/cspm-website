@@ -604,7 +604,7 @@ Cross-region data access is blocked by tenant policy. Backups run every 15 minut
 Not without your approval. Support access requires an explicit impersonation handshake that you approve, and every action taken during it is audit-logged to your tenant.
 
 **Do you ever store samples of my data?**
-No. DSPM classification stores labels and locations, never content. Object stores, database rows, and workload disks are analyzed in place or via ephemeral snapshots and never persisted.
+No. DSPM classifies stores from metadata — names, tags and schema — and stores labels and locations, never content; it does not read objects or database rows. Workload disks are examined by agentless scanning, which runs inside your account on short-lived snapshots that are not persisted.
 
 **What exactly can you do in my cloud account?**
 Only what the read-only policy you granted allows: read, list, describe. You can audit the CloudFormation template or service-principal scope before connecting, and revoke it at any time for instant cutoff.

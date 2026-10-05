@@ -290,19 +290,19 @@ export const COMPETITORS: Competitor[] = [
     questions: [
       {
         q: "How is data classified — by reading contents, or from metadata?",
-        onam: "From metadata: resource names, tags, table and column names, schemas and configuration. Onam does not read the contents of files or rows to classify them. Where the metadata is ambiguous, the finding is labelled low-confidence so a person can confirm it.",
+        onam: "From metadata: resource names, descriptions, tags, database and schema names, and configuration. Onam does not read the contents of files or rows to classify them. Because labels come from names and tags, the reason for a label is readable in the store's own name, and a wrong or missing label is corrected with a tag.",
       },
       {
         q: "Which data stores are covered?",
-        onam: "Cloud data services across the clouds Onam scans: S3, RDS, Aurora, DynamoDB, Redshift and more on AWS; Blob Storage, Azure SQL, Cosmos DB and Data Lake Storage on Azure; GCS, BigQuery, Firestore and Spanner on GCP; the equivalents on OCI and Alibaba Cloud; plus Snowflake and Databricks.",
+        onam: "Cloud data services across the clouds Onam scans: S3, RDS, Aurora, DynamoDB, Redshift and more on AWS; Blob Storage, Azure SQL, Cosmos DB and Data Lake Storage on Azure; GCS, BigQuery, Firestore and Spanner on GCP; the equivalents on OCI, Alibaba Cloud and IBM Cloud; Kubernetes secrets; plus self-hosted databases and Snowflake once onboarded.",
       },
       {
         q: "Who can actually reach the data — and by which path?",
-        onam: "Classification is joined to the identity graph, so each store lists the principals that can read or write it and the route they take. Network reachability is layered on top: a bucket that is encrypted at rest but publicly reachable is treated as exposed.",
+        onam: "Each store shows the grants that make it public, the other accounts its policy lets in, the principals seen accessing it in the last 30 days, and the attack paths that end at it. A bucket that is encrypted at rest but publicly reachable is still treated as exposed. Per-identity effective permissions are answered in CIEM, on the same graph.",
       },
       {
         q: "Does it follow data after it lands?",
-        onam: "Yes. Lineage reconstructs each pipeline chain from source to destination and grades it, so an encrypted source feeding an unencrypted analytics table is one finding about the flow rather than two unrelated findings about two stores.",
+        onam: "Yes, as far as the cloud's resource relationships describe it. Replication, backup, ETL, streaming and export hops are linked into chains from the original source, and every hop that crosses a region or an account is flagged.",
       },
       {
         q: "Is a data finding connected to the rest of your cloud risk?",

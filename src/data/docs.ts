@@ -8,6 +8,7 @@ import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
 import { articles as products } from "./docs-articles/products";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
+import { articles as dspm } from "./docs-articles/dspm";
 
 export type { DocArticle };
 
@@ -59,6 +60,19 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Compliance Coverage", slug: "features/compliance-coverage" },
       { title: "Technology Engine", slug: "features/technology-engine" },
       { title: "Risk Quantification", slug: "features/risk-quantification" },
+    ],
+  },
+  {
+    heading: "Data Security (DSPM)",
+    items: [
+      { title: "Overview", slug: "dspm/overview" },
+      { title: "Discovery", slug: "dspm/discovery" },
+      { title: "Classification and its limits", slug: "dspm/classification" },
+      { title: "Access mapping", slug: "dspm/access-mapping" },
+      { title: "Exposure, encryption and residency", slug: "dspm/exposure-and-residency" },
+      { title: "Data lineage", slug: "dspm/lineage" },
+      { title: "Findings reference", slug: "dspm/findings-reference" },
+      { title: "Coverage by cloud", slug: "dspm/coverage" },
     ],
   },
   {
@@ -129,6 +143,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...releaseNotes,
   ...products,
   ...featuresExtra,
+  ...dspm,
 ];
 
 function titleFromSlug(slug: string) {
