@@ -30,10 +30,10 @@ export const platformPages: Record<string, ProductPageData> = {
     },
     hideDemo: true,
     stats: [
-      { v: "SAST", l: "source code" },
-      { v: "SCA + SBOM", l: "dependencies" },
-      { v: "IaC", l: "templates" },
-      { v: "DAST", l: "running apps" },
+      { v: "413", l: "SAST security rules" },
+      { v: "9", l: "languages scanned" },
+      { v: "8", l: "dependency ecosystems" },
+      { v: "479", l: "DAST test payloads" },
     ],
     risk: {
       title: "The cost of a noisy scanner",
@@ -191,8 +191,8 @@ export const platformPages: Record<string, ProductPageData> = {
     },
     stats: [
       { v: "7", l: "clouds analysed" },
-      { v: "1,459", l: "identity-domain posture rules" },
-      { v: "Multi-hop", l: "assume-role chains traced" },
+      { v: "1,342", l: "CIEM rules" },
+      { v: "12 hops", l: "assume-role chains traced" },
       { v: "4 states", l: "per access review" },
     ],
     chips: [
