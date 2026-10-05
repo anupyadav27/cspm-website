@@ -285,7 +285,7 @@ This is the decision that determines whether a CWPP rollout succeeds.
 
 **Agent-based** installs software on every workload. It gives continuous runtime telemetry — process execution, syscalls, live network connections — which snapshot scanning cannot replicate. The cost is real: a package to distribute, a version to maintain, a rollout plan, an exception list for machines that break, and a recurring negotiation with the platform team. Coverage commonly plateaus well short of 100%, and the uncovered remainder is usually the legacy estate that most needs scanning.
 
-**Agentless** takes a point-in-time snapshot of the workload's volume and analyses it out-of-band. Coverage is complete on day one because there is nothing to install, and there is zero performance impact. The trade-off is that it is point-in-time: it will not show you a process that spawned and exited between scans.
+**Agentless** takes a point-in-time snapshot of the workload's volume and analyses it out-of-band. Coverage does not depend on rolling software out to each machine, and the scan puts no load on the workload itself. The trade-off is that it is point-in-time: it will not show you a process that spawned and exited between scans.
 
 Most mature programmes use agentless as the coverage baseline and add runtime detection from cloud-native audit and flow logs, reserving agents for the small set of workloads that genuinely need live process telemetry.
 
@@ -634,9 +634,9 @@ The second one is what an attacker uses. Almost no tool surfaces it, because sur
 
 Four findings. Individually: one medium, one low, two informational. Together: a complete breach path, and every fact needed to see it lives in a different tool in most stacks.
 
-## Toxic combinations
+## Conditions that combine
 
-A toxic combination is a set of conditions that are each acceptable alone and unacceptable together. Public network exposure is fine on a marketing site. A permissive IAM role is fine on an isolated workload. Sensitive data is fine in a locked-down store. Put all three on one resource and you have a critical exposure that no individual rule flags.
+Some conditions are each acceptable alone and unacceptable together. Public network exposure is fine on a marketing site. A permissive IAM role is fine on an isolated workload. Sensitive data is fine in a locked-down store. Put all three on one resource and you have a critical exposure that no individual rule flags.
 
 Detecting them requires evaluating combinations, not rules — which is only possible if every signal is on one graph.
 
@@ -672,8 +672,8 @@ The practical shift is from "4,000 findings" to "3 paths that reach crown jewels
         a: "A chain of individually low- or medium-severity findings that together create a route from an entry point such as the public internet to a high-value asset such as a database holding sensitive data. Each link is minor; the chain is critical.",
       },
       {
-        q: "What is a toxic combination in cloud security?",
-        a: "A set of conditions that are individually acceptable but dangerous together — for example public network exposure, plus an over-permissive IAM role, plus sensitive data, all on one resource. No single rule flags it because no single condition is a violation.",
+        q: "Why do individually minor cloud findings add up to a critical risk?",
+        a: "Because some conditions are individually acceptable but dangerous together — for example public network exposure, plus an over-permissive IAM role, plus sensitive data, all on one resource. No single rule flags it because no single condition is a violation.",
       },
       {
         q: "What is a choke point in attack path analysis?",
@@ -694,7 +694,7 @@ The practical shift is from "4,000 findings" to "3 paths that reach crown jewels
       { label: "Onam Attack Path", href: "/platform/attack-path" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
-      { label: "Attack paths vs. misconfigurations: toxic combinations", href: "/resources/blog/attack-path-4000-to-3" },
+      { label: "Attack paths vs. misconfigurations: chained findings", href: "/resources/blog/attack-path-4000-to-3" },
       { label: "MITRE ATT&CK for Cloud, mapped to your posture score", href: "/resources/blog/mitre-attack-cloud-mapping" },
     ],
   },
@@ -717,19 +717,19 @@ Agent rollouts are where security programmes stall. Every agent needs a package,
 
 Six months in, a typical programme sits at partial coverage — and the uncovered remainder is disproportionately the legacy estate that most needs scanning. Worse, nobody can say with confidence which systems are uncovered, so the security posture report describes a subset of reality while reading like the whole.
 
-Agentless inverts this. Coverage is complete from the first scan because there is nothing to install.
+Agentless inverts this. Coverage does not wait for a rollout, because nothing is installed on the workloads themselves.
 
 ## How agentless workload scanning works
 
 Configuration assessment is straightforward — read the provider's APIs. Workload inspection is the interesting part:
 
-1. The platform assumes a read-only role and enumerates volumes attached to each workload.
+1. The platform enumerates the volumes attached to each workload. Reading configuration needs only read-only access; creating and analysing snapshots needs more, which is why the scanning resources usually run in the customer's own account.
 2. A **snapshot** is created using the cloud provider's native snapshot primitive.
 3. A short-lived scan worker mounts and analyses the snapshot — **inside the customer's own account**, orchestrated by native services such as AWS Step Functions, Azure Logic Apps or GCP Workflows.
 4. Structured results — package inventory, configuration signals, findings — are relayed out. Raw disk contents never leave the environment.
 5. The snapshot is deleted, and a reconciler sweeps orphaned artefacts so a failed scan cannot leave storage accruing cost.
 
-A capacity manager throttles concurrent snapshots per cloud so scanning never competes with production for quota or IOPS.
+A well-built scanner throttles concurrent snapshots per cloud so scanning does not compete with production for quota or IOPS.
 
 ## What agentless sees
 
@@ -775,7 +775,7 @@ Most mature programmes use agentless as the universal baseline, add log-based de
       },
       {
         q: "Is agentless security less effective than agent-based?",
-        a: "For coverage, configuration assessment and vulnerability detection, agentless is generally more effective because it reaches 100% of workloads immediately. Agents retain a genuine advantage for continuous runtime process telemetry and real-time blocking, which snapshot scanning cannot provide.",
+        a: "For coverage, configuration assessment and vulnerability detection, agentless is generally more effective because it reaches every supported workload without a per-machine rollout. Agents retain a genuine advantage for continuous runtime process telemetry and real-time blocking, which snapshot scanning cannot provide.",
       },
       {
         q: "Does agentless scanning send my data to the vendor?",
@@ -816,7 +816,7 @@ A severity score cannot be added to a risk register that speaks in currency, can
 
 ## The FAIR model in one line
 
-FAIR — Factor Analysis of Information Risk — is an open, published standard for quantifying risk in financial terms. At its core it is a single relationship:
+FAIR — Factor Analysis of Information Risk, published by The Open Group as the O-RT and O-RA standards — is an open standard for quantifying risk in financial terms. At its core it is a single relationship:
 
 > **Risk = Loss Event Frequency × Loss Magnitude**
 
@@ -843,7 +843,7 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
 
 ## Next steps
 
-- [How Onam prices risk with FAIR](/platform/risk)
+- [How Onam applies FAIR-style risk estimates](/platform/risk)
 - [What is a cloud attack path?](/learn/cloud-attack-path) — how blast radius is computed
 - [What is a choke point?](/learn/choke-point)
 `,

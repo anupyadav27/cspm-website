@@ -10,7 +10,7 @@ export const Route = createFileRoute("/compare/")({
     seo({
       title: "Compare cloud security platforms — Onam Security",
       description:
-        "Compare cloud security platforms: honest pages on Wiz, Orca, Prisma Cloud and Defender, plus Snyk, Cyera and CIEM tools, with where each is strong.",
+        "Compare cloud security platforms: Wiz, Orca, Prisma Cloud and Defender, plus Snyk, Cyera and CIEM tools, each in its own published words, with seven questions.",
       path: "/compare",
     }),
   component: Page,
@@ -44,7 +44,7 @@ function Page() {
             Claims about what anyone else&rsquo;s product can or cannot do. Cloud security platforms
             ship weekly, and a page asserting a competitor&rsquo;s gap is out of date within a
             quarter — at which point it is simply wrong, and everyone who checks will know. So we
-            ask the questions and answer only for Onam. Take the same seven to every vendor on your
+            quote each vendor in its own published words, ask the questions and answer only for Onam. Take the same seven to every vendor on your
             list, including us.
           </p>
         </div>
@@ -74,7 +74,7 @@ function Page() {
           Head to head
         </h2>
         <p className="mt-2 text-[15px] text-[#5C6B84]">
-          Each page answers the seven for Onam, then says where they are stronger than us.
+          Each page quotes the other vendor in its own words, answers the seven for Onam, then says where we are not the right choice.
         </p>
         <p className="mt-2 text-[15px] text-[#5C6B84]">
           Shortlisting rather than comparing two? Read{" "}
@@ -116,7 +116,7 @@ function Page() {
         <p className="mt-2 max-w-[740px] text-[15px] text-[#5C6B84]">
           Specialists, compared on their own ground. Each page quotes the other vendor in its own
           published words, with the source and the date, answers questions specific to that domain
-          for Onam, and says where the specialist is the better fit.
+          for Onam, and says where we are not the right choice.
         </p>
         <div className="mt-6 grid gap-5 md:grid-cols-3">
           {COMPETITORS.filter((c) => c.domain).map((c) => (
@@ -148,7 +148,7 @@ function Page() {
           </h2>
           <p className="mt-3 max-w-[740px] text-[15.5px] leading-relaxed text-[#475569]">
             We have no public reference customers. Rather than ask you to believe a comparison
-            table, run a read-only scan against a single account and tell us whether the attack
+            table, run a scan against a single account and tell us whether the attack
             paths are real. If they are noise, say so — that is worth more to us than a signature.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">

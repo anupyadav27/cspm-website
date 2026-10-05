@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, CheckCircle2, ChevronRight, ExternalLink, Quote, Scale } from "lucide-react";
+import { ArrowRight, ChevronRight, ExternalLink, Quote, Scale } from "lucide-react";
 import { seo } from "@/lib/seo";
 import { COMPETITORS, VERIFIED_ON, countWord, getCompetitor, questionsFor } from "@/data/compare";
 
@@ -23,7 +23,7 @@ export const Route = createFileRoute("/compare/$slug")({
       title: c.metaTitle ?? `Onam vs ${c.shortName} — ${n} questions to ask both — Onam Security`,
       description:
         c.metaDescription ??
-        `Onam vs ${c.shortName}: seven questions to ask both cloud security platforms, answered for Onam, plus where ${c.shortName} is genuinely strong.`,
+        `Onam vs ${c.shortName}: ${c.shortName} in its own published words, and seven questions to ask both cloud security platforms, answered for Onam.`,
       path: `/compare/${c.slug}`,
     });
   },
@@ -75,10 +75,9 @@ function Page() {
               <>
                 We do not make claims about {c.shortName}&rsquo;s product here. Products change
                 monthly and a page full of second-hand assertions about someone else ages into a
-                lie. What follows is seven questions worth asking any cloud security platform,
+                lie. What follows is {n} questions worth asking any cloud security platform,
                 answered for <strong className="text-[#0B1220]">Onam only</strong> — then, plainly,
-                where {c.shortName} is strong and where we are not. Ask {c.shortName} the same
-                seven.
+                where we are not the right choice. Ask {c.shortName} the same {n}.
               </>
             )}
           </p>
@@ -156,22 +155,13 @@ function Page() {
 
       <section className="mx-auto max-w-[900px] px-5 pt-12 pb-4">
         <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">
-          Where {who} {c.plural ? "are" : "is"} genuinely strong
+          Where we are not the right choice
         </h2>
         <p className="mt-2 max-w-[700px] text-[15px] leading-relaxed text-[#5C6B84]">
-          A comparison page that finds nothing good to say about the other side is marketing, not
-          evaluation. These are real advantages and you should weigh them.
+          A comparison page that hides its own limits is marketing, not evaluation. Weigh this one.
         </p>
-        <ul className="mt-6 space-y-3">
-          {c.strengths.map((s: string) => (
-            <li key={s} className="flex gap-3 text-[15.5px] leading-relaxed text-[#475569]">
-              <CheckCircle2 className="mt-[3px] h-[18px] w-[18px] shrink-0 text-[#059669]" />
-              {s}
-            </li>
-          ))}
-        </ul>
 
-        <div className="mt-8 rounded-2xl border-l-4 border-[#B45309] bg-[#FFFBEB] p-6">
+        <div className="mt-6 rounded-2xl border-l-4 border-[#B45309] bg-[#FFFBEB] p-6">
           <h3 className="text-[16px] font-bold text-[#7C2D12]">The honest gap</h3>
           <p className="mt-2 text-[15px] leading-relaxed text-[#7C2D12]">{c.honestLimit}</p>
         </div>
@@ -183,7 +173,7 @@ function Page() {
             Do not take our word for any of it
           </h2>
           <p className="mt-3 text-[15.5px] leading-relaxed text-[#475569]">
-            Run a read-only scan against one account and tell us whether the attack paths we surface
+            Run a scan against one account and tell us whether the attack paths we surface
             are real. If they are noise, we want to hear that — it is more useful to us than a
             signature. That is the same offer we make to everyone, and it is the only claim on this
             page you can check yourself today.
@@ -251,8 +241,8 @@ function Page() {
           Last reviewed {quoted.length > 0 ? quoted[0].accessed : VERIFIED_ON}. Onam&rsquo;s figures
           come from our published fact set.{" "}
           {quoted.length > 0
-            ? `Quotations are from ${c.plural ? "each vendor" : c.name}'s own pages on the dates shown; the strengths above are general market observations or restate those quotations.`
-            : `The strengths above are general market observations, not claims about ${c.shortName}'s current capabilities.`}{" "}
+            ? `Quotations are from ${c.plural ? "each vendor" : c.name}'s own pages on the dates shown.`
+            : `Nothing on this page is a claim about ${c.shortName}'s current capabilities.`}{" "}
           If anything here is wrong or out of date — including anything about {who} — tell us at{" "}
           <a className="text-[#2563EB] underline" href="mailto:hello@onamsecurity.com">
             hello@onamsecurity.com

@@ -14,8 +14,10 @@
  *
  * So we sidestep it entirely, the same way the live blog post
  * (/resources/blog/onam-vs-wiz-orca-prisma-cloud) does: pose the seven
- * questions a buyer should ask, answer them **only for Onam**, and say plainly
- * where the other platform is strong. A question is not a claim. An answer
+ * questions a buyer should ask, answer them **only for Onam**, and describe the
+ * other platform only in its own published words (inTheirWords). A question is
+ * not a claim. There is no "strengths" list in our words any more: a
+ * description of a competitor in our words is a claim about them. An answer
  * about ourselves traces to facts/product.yaml, which is already cleared.
  *
  * If you add a line here that says what a competitor does, cannot do, or
@@ -42,12 +44,6 @@ export type Competitor = {
   shortName: string;
   /** Search-facing framing, no factual claim about them. */
   intro: string;
-  /**
-   * Where they are genuinely strong. Generic, widely-known and complimentary
-   * by design — market position, ecosystem, heritage. Never a capability
-   * assertion, which would need sourcing.
-   */
-  strengths: string[];
   /** The one honest limit, guardrail 6. Different per page, all true. */
   honestLimit: string;
   /**
@@ -88,31 +84,31 @@ export type VendorQuotes = {
 export const QUESTIONS: { q: string; onam: string }[] = [
   {
     q: "How many clouds get first-class treatment?",
-    onam: "Seven, on the same footing: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 11,433 posture rule definitions across 549 cloud services — the all-cloud totals, not a per-cloud figure. Ask any vendor for the per-cloud breakdown rather than the headline number; that is where first-class and box-ticked diverge.",
+    onam: "Posture rules cover seven clouds through one rule engine: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 11,433 posture rule definitions across 549 cloud services — the all-cloud totals, not a per-cloud figure. Depth is not identical everywhere: some identity analysis, such as unused-permission and shadow-admin detection, runs on AWS today. Ask any vendor for the per-cloud breakdown rather than the headline number.",
   },
   {
     q: "Is the analysis cross-cloud, or per-cloud silos side by side?",
-    onam: "One security graph. Every engine writes the same finding contract into one store, so a path can start in one cloud and end in another. Correlation is a property of the data model here, not a report generated over separate databases.",
+    onam: "One security graph. Engines write their findings and relationships into it, attack-path entry points include other clouds, and federation between clouds is modelled as an edge — so a path can start in one cloud and end in another.",
   },
   {
-    q: "Agentless — and how long to first finding?",
-    onam: "Agentless. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account, using resources deployed there at onboarding. No agent runs on your workloads. The trade-off is stated in the trust whitepaper: snapshot scanning cannot see inside a running process.",
+    q: "Agentless — and what does onboarding grant?",
+    onam: "Agentless. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account, using resources deployed there at onboarding. No agent runs on your workloads, and every permission is in a template you can read before you run it. The trade-off is stated in the trust whitepaper: snapshot scanning cannot see inside a running process.",
   },
   {
     q: "How does it prioritise — severity labels or business impact?",
-    onam: "By verified attack path, then priced with FAIR using named external inputs. A ranked list of criticals tells you what is broken; a priced path tells you which chain reaches data and what it would cost. Ask to see the arithmetic, not just the ranking.",
+    onam: "By business impact as well as severity. Each finding gets a FAIR-style loss estimate — a minimum, likely and maximum figure from exploit likelihood, exposure, records at risk, data sensitivity, asset value and applicable regulations — raised for findings that sit on attack paths. Ask to see the inputs, not just the ranking.",
   },
   {
-    q: "Does it catch toxic combinations across engines?",
-    onam: "That is the whole design. The chain that reaches your data is usually four ordinary findings in a row, none of which any single rule would flag. Composition across posture, identity, data, workload and SaaS happens on one graph rather than by joining exports.",
+    q: "Does it connect findings across engines?",
+    onam: "Yes, on one graph. Attack-path edges come from posture, identity, network, data and threat-detection evidence, and only edges confirmed by that evidence are walked. The chain that reaches your data is usually several ordinary findings in a row, none of which a single rule would rank first.",
   },
   {
     q: "Is compliance evidence continuous or point-in-time?",
-    onam: "A control is evaluated once and reported against 78 compliance frameworks, continuously, with each gap connected to the path it sits on. Evidence for an audit — your auditor still decides what satisfies a control.",
+    onam: "Findings are mapped to 78 compliance frameworks and the scores are recomputed from the latest findings on every scan, with evidence per control, a trend per framework and PDF, CSV or Excel export for your auditor.",
   },
   {
     q: "Does coverage span code to runtime?",
-    onam: "Posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 8 platforms, and cloud detection and response — 29 engines on one graph rather than six products stitched together.",
+    onam: "Code Security (SAST, secrets, IaC, dependencies and DAST), posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 8 platforms, and cloud detection and response — 29 engines on one platform. Code findings are reported on their own today rather than traced to the workload they deploy.",
   },
 ];
 
@@ -122,42 +118,66 @@ export const COMPETITORS: Competitor[] = [
     name: "Wiz",
     shortName: "Wiz",
     intro:
-      "Wiz is on nearly every CSPM shortlist, and deservedly — it defined how most buyers think about agentless cloud security. If you are evaluating both, these are the seven questions worth asking each of us.",
-    strengths: [
-      "It set the reference point for agentless graph-based cloud security — the category largely follows its shape",
-      "A very large integration ecosystem and a mature partner network",
-      "Brand recognition that carries weight in a board conversation, which is a real advantage when you need budget",
-      "A substantial security research organisation behind the product",
+      "Wiz is on most cloud security shortlists. If you are evaluating both, here is Wiz in its own published words, and the seven questions worth asking each of us.",
+    inTheirWords: [
+      {
+        vendor: "Wiz",
+        quotes: [
+          "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime.",
+          "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited.",
+          "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources",
+          "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection.",
+        ],
+        url: "https://www.wiz.io/platform",
+        source: "wiz.io/platform",
+        accessed: "15 September 2026",
+      },
     ],
     honestLimit:
-      "The honest gap: Wiz has thousands of customers and years of production hardening. We have no public reference customers yet. If proven scale at enterprise size is your first filter, that filter does not select us today.",
+      "The honest gap: we are a young company with no public reference customers yet, and no runtime sensor. If proven scale at enterprise size or inline runtime blocking is your first filter, that filter does not select us today.",
   },
   {
     slug: "onam-vs-orca",
     name: "Orca Security",
     shortName: "Orca",
     intro:
-      "Orca made agentless scanning credible to buyers who had been told an agent was unavoidable. If it is on your shortlist alongside us, run these seven questions against both.",
-    strengths: [
-      "An early and influential agentless architecture — it moved the whole category away from agent-everywhere",
-      "A mature product with a long track record in production estates",
-      "A strong reputation for interface and workflow quality",
-      "An established ecosystem and integration surface",
+      "If Orca is on your shortlist alongside us, here is Orca in its own published words, and the seven questions to run against both.",
+    inTheirWords: [
+      {
+        vendor: "Orca Security",
+        quotes: [
+          "Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate.",
+          "Dynamic scoring and attack path analysis",
+          "Agentless scanning across every workload",
+          "Runtime observability and protection",
+        ],
+        url: "https://orca.security/platform/",
+        source: "orca.security/platform",
+        accessed: "15 September 2026",
+      },
     ],
     honestLimit:
-      "The honest gap: Orca has been deployed at scale for years and has the operational scar tissue that comes with it. We are newer, and our integration surface is smaller. Judge us on the graph and the paths, not on breadth of integrations.",
+      "The honest gap: we are newer, and our integration surface is small — Jira and ServiceNow for tickets; Slack, PagerDuty, email and webhooks for alerts. Judge us on the graph and the paths, not on breadth of integrations.",
   },
   {
     slug: "onam-vs-prisma-cloud",
     name: "Palo Alto Prisma Cloud",
     shortName: "Prisma Cloud",
     intro:
-      "Prisma Cloud usually arrives as part of a wider Palo Alto conversation, which changes the evaluation. If you are weighing it against us, these seven questions apply to both.",
-    strengths: [
-      "Breadth across a large security portfolio, and one commercial relationship covering much of it",
-      "Deep network and firewall heritage that most cloud-native vendors do not have",
-      "Existing enterprise agreements that can make procurement dramatically simpler",
-      "Global support and professional services at a scale a startup cannot match",
+      "Prisma Cloud often comes up as part of a wider Palo Alto Networks conversation, which changes the evaluation. Here is Palo Alto Networks' cloud platform in its own published words, and the seven questions that apply to both.",
+    inTheirWords: [
+      {
+        vendor: "Palo Alto Networks — Cortex Cloud",
+        quotes: [
+          "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments.",
+          "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk.",
+          "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats.",
+        ],
+        url: "https://www.paloaltonetworks.com/cortex/cloud",
+        source: "paloaltonetworks.com/cortex/cloud",
+        accessed: "15 September 2026",
+        note: "The page we read describes Cortex Cloud. If your quote says Prisma Cloud, ask which product name applies.",
+      },
     ],
     honestLimit:
       "The honest gap: if you already run Palo Alto across the estate, the consolidation argument runs in their favour, not ours. We are one platform for cloud security, not a portfolio, and we do not pretend that is the same thing.",
@@ -167,12 +187,20 @@ export const COMPETITORS: Competitor[] = [
     name: "Microsoft Defender for Cloud",
     shortName: "Defender for Cloud",
     intro:
-      "Defender for Cloud is the default consideration for Azure-centred estates, and often the incumbent by the time anyone evaluates. These seven questions are worth asking of both of us.",
-    strengths: [
-      "Native to Azure, with an integration depth into the Microsoft estate that no third party matches",
-      "Frequently already licensed, which removes procurement friction entirely",
-      "One vendor relationship, one support path, one bill",
-      "Microsoft's threat intelligence is among the largest in the world",
+      "Defender for Cloud is a common consideration for Azure-centred estates. Here it is in Microsoft's own documentation, and the seven questions worth asking of both of us.",
+    inTheirWords: [
+      {
+        vendor: "Microsoft Defender for Cloud",
+        quotes: [
+          "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle",
+          "Summarize your security posture based on the security recommendations.",
+          "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection",
+        ],
+        url: "https://learn.microsoft.com/en-us/azure/defender-for-cloud/defender-for-cloud-introduction",
+        source: "learn.microsoft.com, Defender for Cloud overview",
+        accessed: "14 September 2026",
+        note: "The same documentation lists attack path analysis under the paid Defender CSPM plan, and server protection through Microsoft Defender for Endpoint.",
+      },
     ],
     honestLimit:
       "The honest gap: if your estate is overwhelmingly Azure and Microsoft, the native option is a genuinely reasonable answer and the burden is on us to justify a second tool. Our case is strongest where the estate spans several clouds.",
@@ -187,7 +215,7 @@ export const COMPETITORS: Competitor[] = [
     metaDescription:
       "Onam vs Snyk for code security: Snyk in its own published words, seven questions answered for Onam, and the one place Snyk is built for and we are not.",
     intro:
-      "Snyk is the name most developers already know in application security. If it is on your list next to Onam for code security, the useful framing is that the two start from opposite ends: Snyk from where code is written, Onam from the platform that already watches your cloud. These are the questions that decide which end your team needs first.",
+      "If Snyk is on your list next to Onam for code security, the useful framing is that the two start from opposite ends: Snyk, by its own description below, from where code is written; Onam from the platform that already watches your cloud. These are the questions that decide which end your team needs first.",
     inTheirWords: [
       {
         vendor: "Snyk",
@@ -208,12 +236,6 @@ export const COMPETITORS: Competitor[] = [
         source: "snyk.io/product/snyk-code",
         accessed: "5 October 2026",
       },
-    ],
-    strengths: [
-      "One of the most widely recognised names in developer security — engineering teams often know it before the security team brings it up",
-      "A product family under one vendor that it lists as covering code, open source dependencies, containers, IaC and secrets",
-      "A developer-first design centred on the editor and the pull request, by its own description quoted above",
-      "A long-running vulnerability research and intelligence operation behind the product",
     ],
     questions: [
       {
@@ -258,7 +280,7 @@ export const COMPETITORS: Competitor[] = [
     metaDescription:
       "Onam vs Cyera for DSPM: Cyera in its own published words, six data security questions answered for Onam, and the honest gap on content classification.",
     intro:
-      "Cyera is one of the companies that defined data security posture management as a category. If it is on your DSPM shortlist with Onam, the two make a different first choice: Cyera builds out from the data itself, Onam builds the data question into the same graph as the rest of your cloud risk. These questions show which one fits.",
+      "If Cyera is on your DSPM shortlist with Onam, the two make a different first choice: Cyera, in its own words below, classifies the data itself; Onam builds the data question into the same graph as the rest of your cloud risk. These questions show which one fits.",
     inTheirWords: [
       {
         vendor: "Cyera",
@@ -280,12 +302,6 @@ export const COMPETITORS: Competitor[] = [
         source: "cyera.com/platform/dspm",
         accessed: "5 October 2026",
       },
-    ],
-    strengths: [
-      "A company built around data security from the start, rather than one that added DSPM to another product",
-      "Strong market momentum and analyst attention in data security posture management",
-      "Coverage it describes as reaching beyond public cloud to SaaS, DBaaS and on-premises stores, in its own words above",
-      "A platform that, by its own description, extends from data discovery into DLP, identity and AI agents",
     ],
     questions: [
       {
@@ -353,12 +369,6 @@ export const COMPETITORS: Competitor[] = [
         note: "Microsoft's own documentation now sits under previous versions. If you are on it, you are choosing a replacement either way.",
       },
     ],
-    strengths: [
-      "Specialist focus: a dedicated CIEM vendor spends all of its attention on identity and least privilege",
-      "Enforcement rather than recommendation, in Sonrai's own description above — unused permissions blocked by policy, new access granted just in time",
-      "A workflow that lets engineering request access through ChatOps instead of a ticket queue, by the same description",
-      "Depth in the category: several established specialists, so a buyer who wants a dedicated identity product has real choice",
-    ],
     questions: [
       {
         q: "Does it resolve effective permissions, or only list attached policies?",
@@ -405,7 +415,7 @@ export const countWord = (n: number) =>
   String(n);
 
 /**
- * Provenance line shown on every page. Update the date whenever the strengths
- * sections are revisited — a comparison page with no date silently rots.
+ * Provenance line shown on the index page. Update the date whenever the shared
+ * questions are revisited — a comparison page with no date silently rots.
  */
-export const VERIFIED_ON = "15 August 2026";
+export const VERIFIED_ON = "5 October 2026";
