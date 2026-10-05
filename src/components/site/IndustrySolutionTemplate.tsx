@@ -237,7 +237,7 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
         eyebrow="See it live"
         title="Evidence, in the real console."
         gradientWords="real console."
-        subtitle="The actual Onam console on a live demo account — compliance scores, dollar-quantified risk and data classification."
+        subtitle="An animated walkthrough of Onam console views with demo-account data — compliance scores, FAIR-style risk estimates and data classification."
       />
       <Faqs faqs={data.faqs} />
       <CTA data={data} />

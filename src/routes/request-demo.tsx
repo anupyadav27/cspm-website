@@ -250,7 +250,7 @@ function RequestDemo() {
         eyebrow="While you wait"
         title="The console you'll be looking at."
         gradientWords="looking at."
-        subtitle="A preview of the live demo — the real Onam console running on a demo account."
+        subtitle="A preview of the live demo — animated Onam console views with demo-account data."
       />
     </SiteLayout>
   );

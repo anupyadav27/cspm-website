@@ -131,14 +131,14 @@ const CLIPS: Clip[] = [
     key: "cdr",
     label: "CDR",
     icon: Eye,
-    title: "Detections correlated in real time",
+    title: "Detections correlated across events",
     sub: "2.3M events/hour distilled into 4 active alerts, mapped to MITRE ATT&CK",
     nav: "cdr",
     page: {
       title: "CDR — Detection & Response",
       chips: [
         { text: "4 Active Alerts", tone: "red" },
-        { text: "Live · 2.3M events/hr", tone: "green" },
+        { text: "2.3M events/hr", tone: "green" },
       ],
       action: "Configure Rules",
     },
@@ -149,8 +149,8 @@ const CLIPS: Clip[] = [
     key: "cwpp",
     label: "CWPP",
     icon: Box,
-    title: "Runtime workload protection",
-    sub: "3 EKS clusters, 24 nodes — CVEs ranked by CVSS × EPSS with exploit intel",
+    title: "Workload vulnerabilities, ranked",
+    sub: "3 EKS clusters, 24 nodes — CVEs ranked by CVSS, EPSS and CISA KEV",
     nav: "cwpp",
     page: {
       title: "Container Security",
@@ -165,7 +165,7 @@ const CLIPS: Clip[] = [
     label: "Network",
     icon: Share2,
     title: "Your network edge, mapped",
-    sub: "5 VPCs, 47 security groups — 7 internet-exposed resources with exact fix actions",
+    sub: "5 VPCs, 47 security groups — 7 internet-exposed resources, each with remediation guidance",
     nav: "cspm",
     page: {
       title: "Network Security",
@@ -194,12 +194,12 @@ const CLIPS: Clip[] = [
     key: "risk",
     label: "Risk",
     icon: Activity,
-    title: "Risk in dollars, not scores",
-    sub: "FAIR model: $5.1M annual loss expectancy across 6 scenarios and 3 crown jewels",
+    title: "Risk in dollars, not just scores",
+    sub: "FAIR-style loss estimates per finding — $5.1M likely exposure across 6 scenarios and 3 crown jewels",
     nav: "risk",
     page: {
-      title: "Risk — FAIR Model",
-      chips: [{ text: "ALE: $2.4M – $8.7M", tone: "blue" }],
+      title: "Risk — FAIR-style estimate",
+      chips: [{ text: "Exposure: $2.4M – $8.7M", tone: "blue" }],
       action: "Export Risk Report",
     },
     duration: 11,
@@ -228,11 +228,11 @@ const CLIPS: Clip[] = [
     label: "Connect Cloud",
     icon: Cloud,
     title: "Connect your first cloud account",
-    sub: "Read-only IAM role — validated and scanning in under 3 minutes",
+    sub: "Read-only IAM role for posture scanning — validated, then scanning",
     nav: "onboarding",
     page: {
       title: "Add Cloud Account",
-      chips: [{ text: "Read-only · No agents", tone: "blue" }],
+      chips: [{ text: "Read-only posture role", tone: "blue" }],
       action: "Docs",
     },
     duration: 9,
@@ -247,7 +247,7 @@ export function ProductDemo({
   eyebrow = "Product demo",
   title = "Watch the platform in action.",
   gradientWords = "in action.",
-  subtitle = "This is the real Onam console — the same views your team gets on day one, running on a live demo account.",
+  subtitle = "An animated walkthrough of the Onam console views, shown with demo-account data.",
   compact = false,
   tone = "gray",
   id,
@@ -1048,16 +1048,16 @@ function AttackPathAnimation({ duration }: { duration: number }) {
 
 const FRAMEWORKS = [
   { name: "CIS AWS Foundations", pct: 78, sub: "312 passing · 89 failing", color: "#05A052" },
-  { name: "NIST CSF 2.0", pct: 82, sub: "428 passing · 92 failing", color: "#05A052" },
-  { name: "SOC 2 Type II", pct: 71, sub: "186 passing · 74 failing", color: "#D9A406" },
-  { name: "PCI-DSS v4.0", pct: 65, sub: "143 passing · 78 failing", color: "#E32D25" },
+  { name: "NIST 800-53", pct: 82, sub: "428 passing · 92 failing", color: "#05A052" },
+  { name: "SOC 2", pct: 71, sub: "186 passing · 74 failing", color: "#D9A406" },
+  { name: "PCI DSS v4.0.1", pct: 65, sub: "143 passing · 78 failing", color: "#E32D25" },
   { name: "HIPAA Security", pct: 68, sub: "197 passing · 92 failing", color: "#DC7A00" },
   { name: "ISO 27001:2022", pct: 74, sub: "211 passing · 74 failing", color: "#D9A406" },
 ];
 
 const CONTROL_ROWS = [
   { id: "CIS 2.1.1", desc: "S3 bucket block public access enabled", fw: "CIS AWS", res: "acme-prod-data", pass: false },
-  { id: "NIST AC-2", desc: "Account management — MFA for all users", fw: "NIST CSF", res: "IAM/root", pass: false },
+  { id: "NIST AC-2", desc: "Account management — MFA for all users", fw: "NIST 800-53", res: "IAM/root", pass: false },
   { id: "SOC2 CC6.1", desc: "Encryption at rest for all data stores", fw: "SOC 2", res: "rds-main", pass: true },
   { id: "HIPAA 164.312", desc: "Audit controls — CloudTrail all regions", fw: "HIPAA", res: "CloudTrail", pass: false },
   { id: "ISO A.12.4", desc: "Monitoring — VPC Flow Logs enabled", fw: "ISO 27001", res: "vpc-prod-01", pass: true },
@@ -1392,10 +1392,10 @@ function RiskAnimation({ duration }: { duration: number }) {
   const actionOn = t > 0.85;
 
   const kpis = [
-    { value: `$${(5.1 * kpiT).toFixed(1)}M`, label: "Annual Loss Exp.", color: "#E32D25" },
+    { value: `$${(5.1 * kpiT).toFixed(1)}M`, label: "Likely exposure", color: "#E32D25" },
     { value: `${Math.round(68 * kpiT)}`, label: "Risk Score", color: "#DC7A00" },
     { value: `${Math.round(3 * kpiT)}`, label: "Crown Jewels", color: "#4F46E5" },
-    { value: "$2.4M–$8.7M", label: "95th pct ALE Range", color: "#0EA5E9" },
+    { value: "$2.4M–$8.7M", label: "Likely–max range", color: "#0EA5E9" },
   ];
 
   return (
@@ -1412,7 +1412,7 @@ function RiskAnimation({ duration }: { duration: number }) {
       <div className="flex-1 min-h-0 grid lg:grid-cols-[1.5fr_1fr] gap-2.5">
         {/* Scenarios */}
         <div className="rounded-xl bg-white border border-[#E9EDF3] p-3 overflow-hidden">
-          <div className="text-[10px] font-bold text-[#0B1220] mb-2">Top Risk Scenarios (FAIR)</div>
+          <div className="text-[10px] font-bold text-[#0B1220] mb-2">Top Risk Scenarios (FAIR-style)</div>
           <div className="flex flex-col gap-[7px]">
             {RISK_SCENARIOS.slice(0, scenariosVisible).map((s) => (
               <div key={s.name} className="animate-[fade-in_.3s_ease-out_both]">
@@ -1443,7 +1443,7 @@ function RiskAnimation({ duration }: { duration: number }) {
           <div className={cn("rounded-xl border border-[#F4C1BF] bg-[#FCF5F5] px-3 py-2 transition-all duration-500", actionOn ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2")}>
             <div className="text-[9px] font-bold text-[#B41F1A]">Recommended Action</div>
             <div className="text-[8.5px] text-[#7F1D1D] leading-relaxed mt-0.5">
-              Fix the 12 critical findings to reduce ALE by $3.2M (63%). Prioritise: S3 public access → IAM MFA → SG 0.0.0.0/0.
+              Fix the 12 critical findings to cut estimated exposure by $3.2M (63%). Prioritise: S3 public access → IAM MFA → SG 0.0.0.0/0.
             </div>
           </div>
         </div>

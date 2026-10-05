@@ -56,9 +56,9 @@ export const awsData: CloudSolutionData = {
   sub: "AWS's breadth — 200+ services across global regions — creates a sprawling attack surface that traditional tools cannot keep pace with. Onam continuously monitors every IAM policy, S3 bucket, security group, and Lambda configuration across all your AWS accounts with 800+ purpose-built rules.",
   docsHref: "/docs/onboarding/aws",
   stats: [
-    { value: "800+", label: "AWS security rules" },
-    { value: "40+", label: "AWS services monitored" },
-    { value: "< 5 min", label: "to first finding" },
+    { value: "2,018", label: "posture rules on AWS" },
+    { value: "123", label: "AWS services in the catalog" },
+    { value: "Read-only", label: "posture scanning role" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
@@ -158,8 +158,8 @@ export const azureData: CloudSolutionData = {
   sub: "Azure's nested hierarchy of management groups, subscriptions, and resource groups makes consistent security posture nearly impossible to maintain manually. Onam maps your entire Azure estate — from Entra ID conditional access policies to NSG rules on every VM NIC — and flags drift the moment it occurs.",
   docsHref: "/docs/onboarding/azure",
   stats: [
-    { value: "350+", label: "Azure security rules" },
-    { value: "35+", label: "Azure services monitored" },
+    { value: "1,926", label: "posture rules on Azure" },
+    { value: "95", label: "Azure services in the catalog" },
     { value: "Multi-tenant", label: "Entra ID support" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -258,8 +258,8 @@ export const gcpData: CloudSolutionData = {
   sub: "GCP gives engineering teams enormous flexibility and security teams enormous blind spots. Onam continuously audits every project from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   docsHref: "/docs/onboarding/gcp",
   stats: [
-    { value: "300+", label: "GCP security rules" },
-    { value: "30+", label: "GCP services monitored" },
+    { value: "1,322", label: "posture rules on GCP" },
+    { value: "71", label: "GCP services in the catalog" },
     { value: "Org-wide", label: "folder & project traversal" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -350,8 +350,8 @@ export const ociData: CloudSolutionData = {
   sub: "OCI's compartment model and policy language offer granular control, but auditing nested compartments and cross-tenancy access manually is operationally prohibitive. Onam traverses every compartment, audits IAM policies against least-privilege baselines, and monitors database, network, and storage continuously.",
   docsHref: "/docs/onboarding/oci",
   stats: [
-    { value: "220+", label: "OCI security rules" },
-    { value: "25+", label: "OCI services monitored" },
+    { value: "2,059", label: "posture rules on OCI" },
+    { value: "61", label: "OCI services in the catalog" },
     { value: "Nested", label: "compartment traversal" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -439,12 +439,12 @@ export const alicloudData: CloudSolutionData = {
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Unified Security Posture for Your Alibaba Cloud Workloads, Region by Region",
-  sub: "Alibaba Cloud's rapid regional expansion introduces security blind spots that Western-centric CSPM tools routinely miss. Onam brings the same continuous, rule-driven coverage to AliCloud — RAM policies, OSS buckets, RDS instances, and VPC configurations — that your AWS and Azure environments already have.",
+  sub: "Alibaba Cloud often runs alongside AWS and Azure, in China and international regions alike. Onam brings the same rule-driven posture coverage to it — RAM policies, OSS buckets, RDS instances and VPC configurations — evaluated by the same engine as your other clouds.",
   docsHref: "/docs/onboarding/alicloud",
   stats: [
-    { value: "180+", label: "AliCloud security rules" },
-    { value: "20+", label: "AliCloud services monitored" },
-    { value: "All regions", label: "China & international" },
+    { value: "1,151", label: "posture rules on Alibaba Cloud" },
+    { value: "68", label: "Alibaba Cloud services in the catalog" },
+    { value: "China + intl", label: "regions scanned" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
@@ -471,16 +471,16 @@ export const alicloudData: CloudSolutionData = {
   ],
   setupSteps: [
     {
-      title: "Create a RAM role for Onam",
-      body: "Provision a read-only RAM role with the AliyunReadOnlyAccess and AliyunActionTrailReadOnlyAccess system policies. Trust policy pins Onam's account with a per-tenant external ID.",
+      title: "Create a read-only RAM user for Onam",
+      body: "Create a dedicated RAM user with Alibaba's AliyunReadOnlyAccess system policy plus a custom policy of Describe, Get and List calls, and an AccessKey pair for it. The user cannot create or change identities or policies.",
     },
     {
-      title: "Paste the Role ARN into Onam",
-      body: "Multi-account Resource Directory customers connect once at the master account — every member account is discovered and onboarded automatically.",
+      title: "Enter the AccessKey in Onam",
+      body: "Paste the AccessKey ID and secret into the onboarding wizard. Onam validates them, stores them encrypted, and uses them only for read calls.",
     },
     {
       title: "Findings from the first scan",
-      body: "Onam assumes the RAM role across every enabled region — including China and international — and returns prioritized findings mapped to your frameworks.",
+      body: "Onam scans China and international regions — Hangzhou, Shanghai, Beijing, Shenzhen, Hong Kong, Singapore, Sydney, Kuala Lumpur, Tokyo, Frankfurt and the US — and returns prioritized findings mapped to your frameworks.",
     },
   ],
   featuresHeading: "What makes Onam different on Alibaba Cloud",
@@ -488,42 +488,42 @@ export const alicloudData: CloudSolutionData = {
     {
       icon: Globe2,
       iconColor: "#F2AF04",
-      title: "China-region coverage without compromise",
-      body: "Onam operates in AliCloud's China regions with the same depth as international regions while keeping your data plane inside your tenancy.",
+      title: "China and international regions, one engine",
+      body: "China regions are scanned with the same rules as international ones, through the same read-only RAM user. Posture scanning reads configuration through Alibaba Cloud APIs; it does not read the data in your stores.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
-      title: "RAM effective-permission analysis",
-      body: "System policies, custom policies, and permission boundaries are combined into a single effective-access graph — so a user assumed to be scoped is proven, not trusted.",
+      title: "RAM identity findings",
+      body: "RAM users, roles, groups, policies and access keys are inventoried, with findings for wildcard or admin policies, RAM roles with wildcard trust or assumable without MFA, broad OSS and KMS grants, access-key rotation and console MFA.",
     },
     {
       icon: Network,
       iconColor: "#05A052",
-      title: "OSS + VPC exposure chain",
-      body: "OSS bucket ACLs, bucket policies, Block Public Access, and the CDN in front of them are evaluated together so any internet-reachable path is surfaced end to end.",
+      title: "OSS and VPC exposure",
+      body: "OSS bucket ACLs and policies, security groups and VPC settings are checked by posture rules, and the findings join the same graph that attack-path analysis walks.",
     },
   ],
   faqs: [
     {
       q: "What RAM permissions does Onam require?",
-      a: "Read-only. The AliyunReadOnlyAccess and AliyunActionTrailReadOnlyAccess system policies attached to a role that trusts Onam with a per-tenant external ID.",
+      a: "Read-only. A dedicated RAM user holding Alibaba's AliyunReadOnlyAccess system policy plus a custom policy whose every action is a Describe, Get, List or Lookup call. It cannot manage users, groups or policies.",
     },
     {
       q: "Do you support Alibaba Cloud Resource Directory?",
-      a: "Yes. Onboard the master account once; Onam enumerates every member account and applies the read-only role automatically as new accounts are enrolled.",
+      a: "Yes. Connect the master account first, then create a RAM role in each member account that trusts the master account, as described in the Alibaba Cloud onboarding docs.",
     },
     {
       q: "Are China regions handled differently?",
-      a: "Onam's China-region collection is designed for MLPS-aware workloads. Data at rest for Chinese-region findings can be pinned to your preferred residency.",
+      a: "No. China regions are scanned with the same rules and the same read-only RAM user as international regions. Onam itself is hosted in a region you choose — US, Europe, India or others — to meet your compliance requirements.",
     },
     {
       q: "Do you require agents?",
-      a: "No agents. Posture scanning uses signed Alibaba Cloud API calls from Onam's control plane.",
+      a: "No agents for posture scanning. It uses signed Alibaba Cloud API calls through the read-only RAM user.",
     },
     {
       q: "Which frameworks do you map AliCloud findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS Alibaba Cloud and CIS ACK, ISO 27001:2022 and SOC 2. Custom rules can carry their own framework mappings.",
+      a: "Among the 78 frameworks Onam maps: CIS Alibaba Cloud and CIS ACK, ISO 27001:2022 and SOC 2.",
     },
   ],
 };
@@ -539,8 +539,8 @@ export const ibmData: CloudSolutionData = {
   sub: "IBM Cloud powers regulated enterprise workloads that demand rigorous, continuous security validation. Onam audits IAM access groups, Cloud Object Storage, VPC infrastructure, and Kubernetes clusters against enterprise security baselines — agentless and read-only.",
   docsHref: "/docs/onboarding/ibm",
   stats: [
-    { value: "160+", label: "IBM Cloud security rules" },
-    { value: "20+", label: "IBM Cloud services monitored" },
+    { value: "553", label: "posture rules on IBM Cloud" },
+    { value: "63", label: "IBM Cloud services in the catalog" },
     { value: "Multi-region", label: "including EU sovereign" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -639,10 +639,10 @@ export const kubernetesData: CloudSolutionData = {
   sub: "Kubernetes misconfigurations — privileged pods, exposed dashboards, RBAC bindings that grant cluster-admin — are a leading cause of container-based breaches. Onam audits every cluster object without deploying a sidecar or daemonset.",
   docsHref: "/docs/onboarding/kubernetes",
   stats: [
-    { value: "250+", label: "Kubernetes security rules" },
+    { value: "824", label: "posture rules on Kubernetes" },
     { value: "EKS / AKS / GKE", label: "+ self-managed" },
     { value: "Agentless", label: "no sidecar, no daemonset" },
-    { value: "< 5 min", label: "per cluster" },
+    { value: "CIS", label: "Kubernetes benchmarks mapped" },
   ],
   services: [
     "Deployments, StatefulSets & DaemonSets",
