@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/api-security")({
     seo({
       title: "API Security Posture Management — Onam Security",
       description:
-        "Onam discovers every API surface across AWS, Azure, GCP, OCI, Alibaba and Kubernetes — gateways, function URLs and ingress — and evaluates 241 API posture rules for auth, WAF, TLS, throttling and shadow APIs.",
+        "API security posture across AWS, Azure, GCP, OCI, Alibaba and Kubernetes: 241 rules for auth, WAF, TLS, throttling and shadow APIs.",
       path: "/platform/api-security",
     }),
   component: () => <ProductPageTemplate data={data} />,

@@ -111,7 +111,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         name: "description",
         content:
-          "Unified CSPM & cloud security platform: misconfigurations, identity risk, attack paths, threat detection & compliance across AWS, Azure, GCP, OCI, Alibaba, IBM & Kubernetes. 100% agentless.",
+          "Unified CSPM and cloud security platform: misconfigurations, identity risk, attack paths, threat detection and compliance across AWS, Azure, GCP and more.",
       },
       { name: "author", content: "Onam Security" },
       { name: "theme-color", content: "#FFFFFF" },

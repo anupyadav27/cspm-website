@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/cspm")({
     seo({
       title: "Cloud Security Posture Management (CSPM) — Onam Security",
       description:
-        "Onam CSPM finds cloud misconfigurations across AWS, Azure, GCP, OCI, Alibaba, IBM & Kubernetes — 9,853 posture rules, 100% agentless, continuous scanning, exact remediation for every finding.",
+        "Onam CSPM finds cloud misconfigurations across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes: 9,853 posture rules, each finding with its exact fix.",
       path: "/platform/cspm",
       image: "/og/platform-cspm.png",
     }),

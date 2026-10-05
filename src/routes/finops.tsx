@@ -9,7 +9,7 @@ export const Route = createFileRoute("/finops")({
   head: () =>
     seo({
       title: "Onam FinOps — cloud cost and commitment management",
-      description: data.sub,
+      description: data.metaDescription ?? data.sub,
       path: "/finops",
     }),
   component: () => <ProductPageTemplate data={data} />,

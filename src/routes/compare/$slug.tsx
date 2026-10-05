@@ -18,7 +18,7 @@ export const Route = createFileRoute("/compare/$slug")({
     const c = loaderData.competitor;
     return seo({
       title: `Onam vs ${c.shortName} — seven questions to ask both — Onam Security`,
-      description: `Evaluating Onam Security against ${c.name}? Seven questions that separate cloud security platforms, answered for Onam — plus where ${c.shortName} is genuinely strong, and the honest gap.`,
+      description: `Onam vs ${c.shortName}: seven questions to ask both cloud security platforms, answered for Onam, plus where ${c.shortName} is genuinely strong.`,
       path: `/compare/${c.slug}`,
     });
   },

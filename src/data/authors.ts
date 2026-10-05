@@ -25,6 +25,8 @@ export type Author = {
   /** Avatar tile colour on the About page and author page. */
   color: string;
   bio?: string;
+  /** <meta name="description"> for the author page, max 155 chars. Falls back to `bio`. */
+  metaDescription?: string;
   linkedin?: string;
   /** What they write about — shown on the author page, used to route new posts. */
   topics: string[];
@@ -37,6 +39,8 @@ export const AUTHORS: Author[] = [
     role: "CEO & Co-founder",
     initials: "AY",
     color: "#2563EB",
+    metaDescription:
+      "Anup Yadav: 15+ years in cloud security and infrastructure, former security architect at a fintech scale-up, led incident response across AWS and Azure.",
     bio: "15+ years in cloud security and infrastructure. Former security architect at a scale-up fintech and enterprise SaaS. Led incident response across AWS and Azure multi-cloud.",
     topics: ["Cloud risk quantification", "Buyer's guides", "Compliance"],
   },
@@ -46,6 +50,8 @@ export const AUTHORS: Author[] = [
     role: "Co-founder & Head of Engineering",
     initials: "PY",
     color: "#05A052",
+    metaDescription:
+      "Poonam Yadav, Co-founder and Head of Engineering at Onam Security, writes about CIEM, Kubernetes security, and data and code security.",
     topics: ["Identity and entitlements (CIEM)", "Kubernetes security", "Data and code security"],
   },
   {
@@ -62,6 +68,8 @@ export const AUTHORS: Author[] = [
     role: "COO",
     initials: "AC",
     color: "#F2AF04",
+    metaDescription:
+      "Ajay Chaudhary runs operations and go-to-market at Onam Security: customer success, partnerships and the business side of the company.",
     bio: "Operations and go-to-market leader with experience scaling B2B SaaS companies. Runs customer success, partnerships, and the business side of Onam so the engineering team can stay heads-down on the platform.",
     topics: ["Customer success", "Partnerships"],
   },

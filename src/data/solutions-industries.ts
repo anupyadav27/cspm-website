@@ -5,6 +5,8 @@ export const financialData: IndustrySolutionData = {
   breadcrumb: "Solutions · Financial Services",
   industryName: "Financial Services",
   headline: "Prove Cloud Compliance to Your Auditors Before They Ask",
+  metaDescription:
+    "Cloud security for financial services: banks, fintechs, insurers and asset managers get a continuous, auditable evidence trail across every cloud account.",
   sub: "Financial services firms face the strictest cloud security mandates on earth — and the shortest tolerance for breaches. Onam gives banks, fintechs, insurers, and asset managers a continuous, auditable evidence trail across every cloud account, so your next regulatory exam is a demonstration, not a scramble.",
   stats: [
     { value: "6", label: "financial frameworks mapped" },
@@ -80,6 +82,8 @@ export const healthcareData: IndustrySolutionData = {
   breadcrumb: "Solutions · Healthcare",
   industryName: "Healthcare",
   headline: "HIPAA Cloud Compliance That Survives an OCR Audit",
+  metaDescription:
+    "Healthcare cloud security and HIPAA compliance: continuous visibility into every PHI-adjacent cloud control for health systems, payers and digital health.",
   sub: "Healthcare organizations are the most targeted sector in cloud-based breaches — and HHS Office for Civil Rights now pursues cloud misconfigurations as HIPAA violations without requiring a breach. Onam gives health systems, payers, and digital health companies continuous visibility into every PHI-adjacent cloud control, 24/7.",
   stats: [
     { value: "5", label: "healthcare frameworks mapped" },

@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/cwpp")({
     seo({
       title: "Cloud Workload Protection Platform (CWPP) — Onam Security",
       description:
-        "Onam CWPP protects every workload — VMs, containers, serverless and hosts — across seven clouds. 219 workload posture rules plus CIS OS benchmarks, collected agentlessly with zero production impact.",
+        "CWPP for VMs, containers, serverless and hosts across seven clouds: 219 workload posture rules plus CIS OS benchmarks, collected without agents.",
       path: "/platform/cwpp",
       image: "/og/platform-cwpp.png",
     }),

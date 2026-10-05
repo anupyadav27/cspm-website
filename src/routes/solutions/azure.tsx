@@ -7,7 +7,7 @@ export const Route = createFileRoute("/solutions/azure")({
   head: () =>
     seo({
       title: "Azure Cloud Security Posture Management (CSPM) — Onam Security",
-      description: azureData.sub,
+      description: azureData.metaDescription ?? azureData.sub,
       path: "/solutions/azure",
       image: "/og/solutions-azure.png",
     }),

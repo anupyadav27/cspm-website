@@ -45,7 +45,7 @@ export const Route = createFileRoute("/company/team/$slug")({
     const a = loaderData.author;
     return seo({
       title: `${a.name}, ${a.role} — Onam Security`,
-      description: a.bio ?? `${a.name} is ${a.role} at Onam Security and writes about ${a.topics.join(", ").toLowerCase()}.`,
+      description: a.metaDescription ?? a.bio ?? `${a.name} is ${a.role} at Onam Security and writes about ${a.topics.join(", ").toLowerCase()}.`,
       path: `/company/team/${a.slug}`,
       ogType: "profile",
     });

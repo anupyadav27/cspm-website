@@ -16,6 +16,8 @@ export type IndustrySolutionData = {
   breadcrumb: string;
   headline: string;
   sub: string;
+  /** <meta name="description">, max 155 chars, keyword first. Falls back to `sub`. */
+  metaDescription?: string;
   industryName: string;
   stats: IndustryStat[];
   useCases: IndustryUseCase[];

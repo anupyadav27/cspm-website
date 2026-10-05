@@ -9,7 +9,7 @@ export const Route = createFileRoute("/whitepapers")({
     seo({
       title: "Technical Whitepapers — Onam Security",
       description:
-        "Five technical whitepapers on cloud attack-path analysis, FAIR risk quantification, the single-graph architecture, the read-only trust model, and compliance mapped once across 78 frameworks. Free, no signup.",
+        "Cloud security whitepapers on attack-path analysis, FAIR risk quantification, single-graph architecture, the trust model and 78-framework compliance.",
       path: "/whitepapers",
     }),
   component: Page,

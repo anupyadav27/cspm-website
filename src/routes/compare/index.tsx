@@ -10,7 +10,7 @@ export const Route = createFileRoute("/compare/")({
     seo({
       title: "Compare cloud security platforms — Onam Security",
       description:
-        "Seven questions that separate cloud security platforms, answered for Onam — with honest comparisons against Wiz, Orca Security, Prisma Cloud and Microsoft Defender for Cloud, including where each of them is stronger than us.",
+        "Compare cloud security platforms: seven questions answered for Onam, plus honest pages on Wiz, Orca, Prisma Cloud and Defender for Cloud.",
       path: "/compare",
     }),
   component: Page,

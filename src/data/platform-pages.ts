@@ -29,6 +29,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Code Security",
     question: "Will the misconfiguration I just fixed come back on the next deploy?",
     headline: "Fix it where the resource is defined, not where it happens to be running.",
+    metaDescription:
+      "Code security: SAST, DAST, SCA, IaC and secret scanning, correlated with what runs in your cloud so each finding traces to the template behind it.",
     sub: "SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.",
     painPoint:
       "An engineer unchecks 'public access' on a bucket in the console and closes the finding. The next terraform apply recreates the bucket exactly as the template describes it, because the template was never changed. The finding returns, gets re-triaged, gets fixed in the console again. Everyone is busy and nothing improves — and meanwhile a dependency scan returns 400 findings sorted by CVSS, most of them in code paths the application never executes.",
@@ -140,6 +142,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "CIEM",
     question: "Who can access what — and should they still have that access?",
     headline: "80% of cloud permissions are never used. Every unused permission is a door that doesn't need to exist.",
+    metaDescription:
+      "CIEM resolves the effective permissions of every human and machine identity across your clouds, then compares them with what was used in the last 90 days.",
     sub: "Identity is the new perimeter. CIEM resolves the effective permissions of every human user, service account, and machine identity across all your clouds — then compares them against what was actually used in the last 90 days. The gap is your attack surface.",
     painPoint:
       "Your team ships a new IAM role for a Lambda function. Someone attaches AdministratorAccess because it's Friday. Two years later it's still there — the Lambda has been retired, but the role still exists, still trusts every principal, and still has full write access to production. Multiply that by every service, every team, every environment. That is your real identity attack surface.",
@@ -269,6 +273,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Attack Path Analysis",
     question: "Which combination of misconfigurations leads directly to your most critical assets?",
     headline: "Attackers chain small issues into catastrophic breaches. Most tools only show you the individual links.",
+    metaDescription:
+      "Attack path analysis on a live security graph: Onam traces every route from an exposed entry point to your crown jewels across posture, identity, network.",
     sub: "Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an exposed entry point to your crown jewels. (Attack path analysis maps chains of cloud risk — it is unrelated to an \"on-path attack\", the interception technique formerly called man-in-the-middle.)",
     painPoint:
       "A medium-severity SSRF on an EC2 instance. A dormant IAM role with S3 write. A subnet with an over-permissive NACL. Three findings, three teams, three sprints. Individually they are noise; chained together they exfiltrate your customer database in under an hour. Standard tools list them separately — an attacker sees the path.",
@@ -354,6 +360,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "CDR — Cloud Detection & Response",
     question: "Is an attacker operating inside your cloud environment right now?",
     headline: "By the time a SIEM fires an alert, the attacker has already moved. CDR closes the gap.",
+    metaDescription:
+      "Cloud detection and response (CDR): three-tier behavioral analysis of cloud audit logs, correlated with your posture and identity graph for context.",
     sub: "Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and correlating every finding with your posture and identity graph for instant context.",
     painPoint:
       "An access key ends up in a public code repo. The SIEM ingests CloudTrail on a 15-minute batch. By the time the correlation rule fires, an attacker has already listed every bucket, enumerated your IAM policies, and started staging data in a scratch account. Ninety percent of cloud breaches involve valid credentials — traditional log tools were not built for that speed or shape.",
@@ -407,6 +415,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Threat Detection",
     question: "Is something suspicious happening in my cloud right now?",
     headline: "Attacks don't announce themselves. They look like normal cloud activity — until they don't.",
+    metaDescription:
+      "Cloud threat detection mapped to MITRE ATT&CK for Cloud, so your team knows the technique, the likely next move and how to respond.",
     sub: "Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.",
     painPoint:
       "Your alerting fires seventeen times an hour. Half are false positives from a batch job that runs during off-hours; the other half look identical to each other. Somewhere in that stream is a real attacker using valid credentials to enumerate S3 buckets from a country you don't operate in. Nobody has time to tell which is which — which is exactly what the attacker is counting on.",
@@ -462,6 +472,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Network Security",
     question: "What's actually reachable from the internet in my cloud?",
     headline: "Security groups are one layer. Your attack surface has seven.",
+    metaDescription:
+      "Cloud network security that traces the full path, from VPC isolation to WAF coverage and flow logs, to show what is actually reachable from the internet.",
     sub: "Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path — from VPC isolation to WAF coverage and flow log monitoring — and shows what's actually reachable from the internet, not just what the rules say.",
     painPoint:
       "Your security group review says port 22 is closed. But the instance sits in a public subnet, behind a load balancer that terminates TLS, in a VPC peered to a shared network where a jump host has SSH open to the world. On paper you are safe. In practice a single hop reaches the database. Rules alone lie; only reachability tells the truth.",
@@ -514,6 +526,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "DSPM — Data Security Posture Management",
     question: "Where is your sensitive data — and who can reach it?",
     headline: "Your data is in dozens of services. Do you know which ones are exposed?",
+    metaDescription:
+      "Data security posture management (DSPM): map every cloud storage resource, classify what is inside, and see which identities and paths can reach it.",
     sub: "Data Security maps every storage resource across your cloud accounts, classifies what's inside, and shows exactly which identities and network paths can reach it.",
     painPoint:
       "You had one production database in 2019. Today you have that database, three read replicas, four analytics warehouses, a dozen S3 buckets holding exports, a Snowflake stage, and a caching layer that shouldn't exist. Somewhere in that sprawl is customer PII that a summer intern's IAM role can read. Nobody drew a map — until an auditor asked for one.",
@@ -577,6 +591,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "AI Security",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
     headline: "The SEC, EU AI Act, and NIST AI RMF now require AI security posture. Most CSPM tools don't check it.",
+    metaDescription:
+      "AI security posture for SageMaker models, Bedrock endpoints, training pipelines and inference workloads, a surface standard CSPM rules miss.",
     sub: "SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks all of it.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM doesn't have a rule for it — AI security is the shadow IT nobody is watching.",
@@ -630,6 +646,8 @@ export const platformPages: Record<string, ProductPageData> = {
     chips: ["KSPM", "CIS Kubernetes Benchmark", "RBAC", "Pod Security", "Image scanning", "Admission control"],
     question: "Are my Kubernetes clusters and containers configured safely?",
     headline: "Containers move fast. Misconfigurations move faster.",
+    metaDescription:
+      "Container security and KSPM: image vulnerabilities, Kubernetes RBAC, network policies, pod security and CIS benchmarks for EKS, ECS and self-managed.",
     sub:
       "Kubernetes Security Posture Management (KSPM) and container security in one place — covers your full container estate — image vulnerabilities, Kubernetes RBAC, network policies, pod security standards, and cluster CIS benchmarks — across EKS, ECS, and self-managed clusters.",
     painPoint:
@@ -683,6 +701,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Vulnerability Management",
     question: "Which CVEs in my environment actually matter?",
     headline: "Your scanner found 4,000 CVEs. Maybe 40 are actually reachable. We show you which 40.",
+    metaDescription:
+      "Vulnerability prioritisation with EPSS, network reachability and CISA KEV, so you fix the CVEs most likely to be exploited, not the top CVSS score.",
     sub: "EPSS probability, network reachability, and CISA KEV status combined — so you fix the CVEs most likely to be exploited in your specific environment, not just the highest CVSS number.",
     painPoint:
       "Your monthly vulnerability report has 4,127 findings. Two teams spend the sprint on the highest CVSS numbers — most of which are on internal hosts that can't be reached, or in libraries that never load. The one that actually gets exploited is a mid-CVSS bug in a public-facing service that nobody flagged as reachable. Prioritisation by score alone punishes teams and misses breaches.",
@@ -810,6 +830,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Risk Quantification",
     question: "What does your current cloud attack surface actually cost if it is breached?",
     headline: "CVSS scores tell you severity. FAIR tells you the dollar amount on the table.",
+    metaDescription:
+      "Cloud risk quantification with FAIR: Onam turns technical misconfigurations into financial exposure estimates your board can act on.",
     sub: "Onam's Risk engine applies the FAIR model to every finding — converting technical misconfigurations into business-language financial exposure estimates your board can act on.",
     painPoint:
       "Security is asking for two more headcount and a bigger tooling budget. The CFO asks: what does that spend actually prevent? Nobody has a number. A wall of 12,000 CVEs and a stack of CVSS scores is not an answer a board can approve. Without dollar-denominated risk, security lives on a hunch — and hunches lose budget fights every year.",
@@ -882,6 +904,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Compliance",
     question: "Am I ready for my next audit — right now, not in 3 weeks?",
     headline: "Your auditor wants evidence. We have it ready before they ask.",
+    metaDescription:
+      "Continuous compliance: Onam maps every security finding to 78 compliance frameworks in real time, so you see today's posture, not last quarter's.",
     sub: "Onam maps every security finding to 78 compliance frameworks in real time. You always know your exact posture — not where you were last quarter, where you are today.",
     painPoint:
       "The auditor arrives on Monday. Your team spent last week screenshotting console pages and stitching evidence into a spreadsheet. Meanwhile prod deployed 40 new resources — none of which are in the evidence pack. The gap between what you can prove and what is actually running is where audits fail and remediation plans balloon.",
@@ -939,6 +963,8 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Technology Engine",
     question: "What technology is actually running in my cloud?",
     headline: "Shadow IT and forgotten services are everywhere. Let's find yours.",
+    metaDescription:
+      "Technology posture: discover the runtime stack (databases, OSes, web servers, container runtimes, appliances) and check each against its own CIS benchmark.",
     sub: "The technology engine discovers the actual runtime stack across your fleet — databases, operating systems, web servers, container runtimes, network appliances and SaaS platforms — and holds each one to the CIS benchmark written for that specific product, not to a generic cloud rule.",
     painPoint:
       "The CMDB says you run PostgreSQL and Nginx. Reality: three teams run Redis 4 that hit EOL in 2020, one team pinned Node 12 in a legacy Lambda, and a forgotten instance is running an outdated Elasticsearch open on port 9200. Every one of those has known exploits, and none of them are in your asset inventory.",

@@ -23,7 +23,7 @@ export const Route = createFileRoute("/")({
     seo({
       title: "Onam Security — Unified CNAPP: CSPM, CIEM, DSPM, CWPP & SSPM",
       description:
-        "Unified CNAPP platform: CSPM, CIEM, DSPM, CWPP, SSPM, agentless workload scanning, attack paths, threat detection & compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, Kubernetes and SaaS. 100% agentless.",
+        "Onam Security is an agentless CNAPP: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes.",
       path: "/",
     }),
   component: HomePage,

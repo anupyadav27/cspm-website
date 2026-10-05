@@ -11,7 +11,7 @@ export const Route = createFileRoute("/solutions/government")({
       // did continuous monitoring; the title and description now say so in the words used.
       title: "FedRAMP Continuous Monitoring (ConMon) Software for Government — Onam",
       description:
-        "FedRAMP continuous monitoring (ConMon) software for federal agencies and contractors: monthly ConMon evidence generated automatically against NIST 800-53, FedRAMP Moderate and High, FISMA and CMMC, across every cloud you operate. Agentless, read-only, 3PAO-ready exports.",
+        "FedRAMP continuous monitoring (ConMon) software: monthly evidence against NIST 800-53, FedRAMP Moderate and High, FISMA and CMMC, with 3PAO-ready exports.",
       path: "/solutions/government",
     }),
   component: () => <IndustrySolutionTemplate data={governmentData} />,

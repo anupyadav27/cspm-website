@@ -9,7 +9,7 @@ export const Route = createFileRoute("/estate")({
   head: () =>
     seo({
       title: "Onam Estate — the cloud estate of record",
-      description: data.sub,
+      description: data.metaDescription ?? data.sub,
       path: "/estate",
     }),
   component: () => <ProductPageTemplate data={data} />,

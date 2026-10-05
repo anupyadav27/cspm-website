@@ -629,7 +629,7 @@ Access reviews in Onam are an attestation and remediation workflow: every identi
     title: "Wiz alternatives in 2026: an honest shortlist, including us",
     category: "Buyer's Guide",
     excerpt:
-      "Six alternatives to Wiz for cloud security in 2026, each described in the vendor's own published words with a link and a date, plus Onam, which wrote this list. No scores, no claims about what anyone cannot do, and the seven questions to put to every one of them.",
+      "Wiz alternatives in 2026: six cloud security platforms in their vendors' own published words, with links and dates, plus Onam. No scores.",
     author: "anup-yadav",
     date: "September 15, 2026",
     readTime: "9 min",
@@ -733,7 +733,7 @@ Last verified 15 September 2026. Every statement about another vendor above is a
     title: "The best CSPM tools in 2026: an honest shortlist, and we are on it",
     category: "Buyer's Guide",
     excerpt:
-      "Seven CSPM tools worth shortlisting in 2026, each described in its vendor's own published words with a link and a date: Cortex Cloud, Falcon Cloud Security, Defender for Cloud, Orca, Tenable, Wiz and Onam, which wrote this list. Plus the five things that separate CSPM tools now.",
+      "Best CSPM tools in 2026: seven worth shortlisting, each in its vendor's own words with a link and date, plus the five things that now separate them.",
     author: "anup-yadav",
     date: "September 15, 2026",
     readTime: "9 min",
@@ -834,7 +834,7 @@ Last verified 15 September 2026. Every statement about another vendor is a quota
     title: "What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam",
     category: "Buyer's Guide",
     excerpt:
-      "Running a proof of concept against Wiz, Orca Security or Prisma Cloud? These are the seven questions to ask during the POC that actually separate the platforms — with Onam's answers on the record, and a checklist to score every vendor on your shortlist.",
+      "Running a cloud security POC against Wiz, Orca or Prisma Cloud? Seven questions that separate the platforms, Onam's answers, and a scoring checklist.",
     author: "anup-yadav",
     date: "July 20, 2026",
     readTime: "9 min",
@@ -920,7 +920,7 @@ The honest way to decide is the checklist above. Run it against all four of us. 
     title: "Beyond GuardDuty: how three-tier behavioral detection catches what rules miss",
     category: "CDR",
     excerpt:
-      "Rule-based detection catches known attack signatures. Statistical behavioral baselines catch incremental privilege escalation. ML anomaly detection catches the rest. Here's why you need all three.",
+      "Cloud threat detection needs three layers: rules for known signatures, behavioral baselines for slow privilege escalation, and ML anomaly detection.",
     author: "nishchal-gupta",
     date: "July 15, 2026",
     readTime: "10 min",
@@ -1013,7 +1013,7 @@ To see the three tiers against your own telemetry, [book a demo](/request-demo).
     title: "The 5 AWS misconfigurations we find in 90% of first scans",
     category: "CSPM",
     excerpt:
-      "After thousands of first-time AWS scans, the same five misconfigurations show up in nearly every environment. Here's what they are — and how to fix them fast.",
+      "Five AWS misconfigurations that commonly show up on a first scan: what they are, why they persist, and how to fix them fast.",
     author: "nishchal-gupta",
     date: "July 10, 2026",
     readTime: "6 min",
@@ -1121,7 +1121,7 @@ You need both. IAM Security keeps the door from being obviously open. CIEM makes
     title: "AI-powered cloud remediation: from finding to fix in minutes",
     category: "Engineering",
     excerpt:
-      "The average MTTR for cloud security findings is 47 days. AI-powered remediation — context-aware code fixes, Ansible playbooks for CVEs, and threat narratives — is how we close that gap.",
+      "AI-powered cloud remediation: context-aware code fixes, Ansible playbooks for CVEs and threat narratives that shorten how long findings stay open.",
     author: "nishchal-gupta",
     date: "June 30, 2026",
     readTime: "8 min",
@@ -1218,7 +1218,7 @@ For teams that implement this workflow rigorously, the 47-day MTTR becomes an ar
     title: "Attack paths vs. misconfigurations: why toxic combinations are your real cloud risk",
     category: "Attack Path",
     excerpt:
-      "Most CSPM tools surface hundreds of misconfigurations. The ones that actually lead to breaches are the ones that chain together — and most tools can't show you which chains are dangerous.",
+      "CSPM tools surface hundreds of misconfigurations. The ones behind breaches chain together; attack path analysis shows which chains are dangerous.",
     author: "nishchal-gupta",
     date: "June 24, 2026",
     readTime: "11 min",
@@ -1323,7 +1323,7 @@ This is why attack path analysis is not a CSPM feature — it is a communication
     title: "The FAIR model for cloud security: putting a dollar value on your attack surface",
     category: "Risk",
     excerpt:
-      "CVSS scores rank vulnerability severity. FAIR answers the question your board actually cares about: what does this attack surface cost if it's breached? Here's how we apply it at Onam.",
+      "FAIR model for cloud risk: CVSS ranks severity, FAIR answers what a breach of this attack surface would cost. How we apply it at Onam.",
     author: "anup-yadav",
     date: "June 17, 2026",
     readTime: "9 min",
@@ -1431,7 +1431,7 @@ The goal of FAIR is not to produce a precise dollar figure — the uncertainty r
     title: "Kubernetes RBAC pitfalls that grant cluster-admin by accident",
     category: "Containers",
     excerpt:
-      "A ClusterRoleBinding here, an aggregated role there — and suddenly your read-only role can create pods that mount the host filesystem. Six patterns to audit today.",
+      "Kubernetes RBAC pitfalls: a ClusterRoleBinding here, an aggregated role there, and a read-only role can mount the host filesystem. Six patterns to audit.",
     author: "poonam-yadav",
     date: "June 10, 2026",
     readTime: "6 min",
@@ -1616,7 +1616,7 @@ Walk through the privilege escalation techniques first. Then defense evasion. Th
     title: "How we check thousands of rules without agents: the architecture behind Onam",
     category: "Engineering",
     excerpt:
-      "A technical deep-dive into how Onam scans dozens of cloud services across 7 clouds using only read-only access — no agents, no network changes, no configuration drift.",
+      "Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.",
     author: "nishchal-gupta",
     date: "May 6, 2026",
     readTime: "10 min",

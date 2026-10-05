@@ -8,7 +8,7 @@ export const Route = createFileRoute("/solutions/alicloud")({
     seo({
       title: "Alibaba Cloud Security (CSPM) — Alongside AWS, Azure & GCP — Onam",
       description:
-        "Agentless Alibaba Cloud security posture management — 1,151 rules across ECS, ACK, OSS, RDS, RAM and VPC, mapped to CIS Alibaba Cloud and CIS ACK benchmarks. Findings on the same graph as your AWS, Azure and GCP posture.",
+        "Alibaba Cloud security posture management: 1,151 agentless rules across ECS, ACK, OSS, RDS, RAM and VPC, mapped to CIS Alibaba Cloud and CIS ACK.",
       path: "/solutions/alicloud",
       image: "/og/solutions-alicloud.png",
     }),

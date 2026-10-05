@@ -34,7 +34,7 @@ export const Route = createFileRoute("/learn/")({
     seo({
       title: "Cloud Security Glossary — CSPM, CNAPP, CWPP, CIEM, DSPM Explained",
       description:
-        "Plain-English explanations of the cloud security acronyms: CSPM, CNAPP, CWPP, CIEM, DSPM, SSPM, cloud attack paths and agentless scanning — what each covers, and how they differ.",
+        "Cloud security glossary in plain English: CSPM, CNAPP, CWPP, CIEM, DSPM, SSPM, attack paths and agentless scanning, and how each one differs.",
       path: "/learn",
       image: "/og/learn.png",
     }),

@@ -17,6 +17,8 @@ export type ProductPageData = {
   question: string;
   headline: string;
   sub: string;
+  /** <meta name="description">, max 155 chars, keyword first. Falls back to `sub`. */
+  metaDescription?: string;
   painPoint: string;
   mechanism: string[];
   whatYouGet: string[];

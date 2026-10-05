@@ -7,7 +7,7 @@ export const Route = createFileRoute("/solutions/financial")({
   head: () =>
     seo({
       title: "Cloud Security for Financial Services — PCI-DSS & RBI Ready — Onam",
-      description: financialData.sub,
+      description: financialData.metaDescription ?? financialData.sub,
       path: "/solutions/financial",
     }),
   component: () => <IndustrySolutionTemplate data={financialData} />,

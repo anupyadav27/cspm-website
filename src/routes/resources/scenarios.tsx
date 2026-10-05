@@ -10,7 +10,7 @@ export const Route = createFileRoute("/resources/scenarios")({
     seo({
       title: "Industry Scenarios — The Attack Path, Priced, By Sector — Onam Security",
       description:
-        "Five illustrative sector scenarios — financial services, e-commerce, gaming, SAP MSP and beauty/CPG. Each shows the route to a crown jewel, the single choke point that cuts it, and why exposure in dollars changes the conversation.",
+        "Illustrative cloud attack-path scenarios for five sectors: the route to a crown jewel, the choke point that cuts it, and the exposure priced in dollars.",
       path: "/resources/scenarios",
     }),
   component: ScenariosPage,

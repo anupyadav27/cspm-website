@@ -9,7 +9,7 @@ export const Route = createFileRoute("/tools")({
     seo({
       title: "Free Cloud Security Tools — Onam Security",
       description:
-        "Free, ungated calculators for cloud security teams: a FAIR-style cloud exposure estimator and a tool-consolidation ROI estimator. No signup, no email required.",
+        "Free cloud security calculators: a FAIR-style cloud exposure estimator and a tool-consolidation ROI estimator. Ungated, no signup, no email required.",
       path: "/tools",
     }),
   component: Page,

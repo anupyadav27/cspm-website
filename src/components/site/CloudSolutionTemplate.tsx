@@ -17,6 +17,8 @@ export type CloudSolutionData = {
   breadcrumb: string;
   headline: string;
   sub: string;
+  /** <meta name="description">, max 155 chars, keyword first. Falls back to `sub`. */
+  metaDescription?: string;
   docsHref: string;
   stats: CloudStat[];
   servicesHeading?: string;

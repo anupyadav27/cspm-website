@@ -9,7 +9,7 @@ export const Route = createFileRoute("/platform/cdr")({
   head: () =>
     seo({
       title: `${data.label} — Onam Security`,
-      description: data.sub,
+      description: data.metaDescription ?? data.sub,
       path: "/platform/cdr",
     }),
   component: () => <ProductPageTemplate data={data} />,

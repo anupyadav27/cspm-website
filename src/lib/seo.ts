@@ -13,6 +13,9 @@ export const SITE_URL = "https://www.onamsecurity.com";
  */
 export const GSC_VERIFICATION = "";
 
+/** Google truncates longer snippets; keep the keyword in the first few words. */
+export const META_DESCRIPTION_MAX = 155;
+
 type SeoInput = {
   title: string;
   description: string;
@@ -30,6 +33,11 @@ type SeoInput = {
  * TanStack dedupes by name/property so per-page values here win.
  */
 export function seo({ title, description, path, image = "/og-image.png", ogType = "website" }: SeoInput) {
+  if (import.meta.env?.DEV && description.length > META_DESCRIPTION_MAX) {
+    console.warn(
+      `[seo] ${path}: meta description is ${description.length} chars (max ${META_DESCRIPTION_MAX})`,
+    );
+  }
   const url = `${SITE_URL}${path === "/" ? "/" : path}`;
   const imageUrl = `${SITE_URL}${image}`;
   return {

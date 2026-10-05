@@ -79,6 +79,8 @@ export const productPages: Record<"estate" | "finops", ProductPageData> = {
     label: "Onam Estate",
     question: "What do we actually run, and how is it wired together?",
     headline: "You cannot secure, bill, or decommission a resource nobody knows exists.",
+    metaDescription:
+      "Onam Estate is a continuous cloud asset inventory: it discovers every resource, records how they connect, and keeps the picture current run after run.",
     sub:
       "Onam Estate discovers every resource across your cloud accounts, records the relationships between them, and keeps that picture current run after run — so the inventory is a live system of record rather than a spreadsheet somebody exported in March.",
     painPoint:
@@ -136,6 +138,8 @@ export const productPages: Record<"estate" | "finops", ProductPageData> = {
     label: "Onam FinOps",
     question: "Where is the money going, and who owns it?",
     headline: "The bill arrives every month. The explanation does not.",
+    metaDescription:
+      "Onam FinOps turns reconciled cloud billing into what finance asks: what we spent, who owns it, what we will spend next, and what we can stop spending.",
     sub:
       "Onam FinOps turns reconciled billing data into the four answers finance actually asks for: what did we spend, who owns it, what will we spend next, and what can we stop spending — with the reconciliation history on the page so you can tell whether the number is trustworthy yet.",
     painPoint:

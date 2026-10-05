@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/agentless")({
     seo({
       title: "Agentless Cloud Scanning — Onam Security",
       description:
-        "Onam scans every workload with zero agents — snapshot-based scanning orchestrated inside your own account via AWS Step Functions, Azure Logic Apps and GCP Workflows. Your data never leaves your environment.",
+        "Agentless workload scanning: Onam scans snapshots inside your own account via AWS Step Functions, Azure Logic Apps and GCP Workflows. No agents to run.",
       path: "/platform/agentless",
       image: "/og/platform-agentless.png",
     }),

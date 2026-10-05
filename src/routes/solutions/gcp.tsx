@@ -7,7 +7,7 @@ export const Route = createFileRoute("/solutions/gcp")({
   head: () =>
     seo({
       title: "Google Cloud (GCP) Security Posture Management — Onam Security",
-      description: gcpData.sub,
+      description: gcpData.metaDescription ?? gcpData.sub,
       path: "/solutions/gcp",
       image: "/og/solutions-gcp.png",
     }),

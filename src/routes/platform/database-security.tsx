@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/database-security")({
     seo({
       title: "Database Security Posture — Onam Security",
       description:
-        "Onam secures every managed and self-hosted database — RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift and more — with 310 cloud database rules plus 1,364 CIS engine benchmarks for PostgreSQL, MySQL, Oracle, MSSQL and MongoDB.",
+        "Cloud database security for RDS, Aurora, Azure SQL, Cloud SQL, DynamoDB, Redshift and more: 310 database rules plus CIS benchmarks for major engines.",
       path: "/platform/database-security",
     }),
   component: () => <ProductPageTemplate data={data} />,

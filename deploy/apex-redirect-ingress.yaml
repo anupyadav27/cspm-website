@@ -1,5 +1,9 @@
 # Apex → www 301 redirect — INVESTIGATED 2026-08-06, NOT APPLIED. Read before using.
 #
+# UPDATE 2026-10-05: DNS is now Route 53 (zone Z0058212GIX40Z7DHY30), not BigRock. The
+# recommended fix is a CloudFront redirect on the apex only, with no cluster change — see
+# marketing/onam-assets/seo/APEX-REDIRECT.md. Keep this file as documentation; do not apply it.
+#
 # THE PROBLEM
 # https://onamsecurity.com, http://onamsecurity.com and http://www.onamsecurity.com all
 # return HTTP 200 with full page content. Apex resolves to the same shared ELB as www.

@@ -9,7 +9,7 @@ export const Route = createFileRoute("/case-studies")({
     seo({
       title: "Illustrative Scenarios — Onam Security",
       description:
-        "Five worked cloud-security scenarios by industry archetype — financial services, e-commerce, gaming, beauty/CPG and SAP MSP. Illustrative scenarios, not customer results: Onam has no public reference customers yet.",
+        "Cloud security case studies by industry: financial services, e-commerce, gaming, beauty/CPG and SAP MSP. Illustrative scenarios, not customer results.",
       path: "/case-studies",
     }),
   component: Page,

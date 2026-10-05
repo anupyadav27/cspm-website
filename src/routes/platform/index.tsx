@@ -21,7 +21,7 @@ export const Route = createFileRoute("/platform/")({
     seo({
       title: "Onam Security — every cloud security engine on one graph",
       description:
-        "One platform, every cloud security layer. CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM, agentless scanning, attack path, threat detection and compliance — 29 engines across every cloud and SaaS platform you run.",
+        "Cloud security platform covering CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM, attack paths, threat detection and compliance: 29 engines on one security graph.",
       path: "/platform",
       image: "/og/platform.png",
     }),

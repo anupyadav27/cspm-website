@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/encryption")({
     seo({
       title: "Encryption & Key Management Security — Onam Security",
       description:
-        "Onam evaluates 502 secrets and key-management rules across AWS KMS, Azure Key Vault, GCP Cloud KMS and OCI Vault — encryption coverage, key rotation, certificate expiry, and the effective decrypt set for every key.",
+        "Encryption and key management security: 502 secrets and KMS rules across AWS KMS, Azure Key Vault, GCP Cloud KMS and OCI Vault, including key rotation.",
       path: "/platform/encryption",
     }),
   component: () => <ProductPageTemplate data={data} />,

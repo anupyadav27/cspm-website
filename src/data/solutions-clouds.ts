@@ -152,6 +152,8 @@ export const azureData: CloudSolutionData = {
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Full Azure Security Visibility Across Every Subscription and Tenant",
+  metaDescription:
+    "Azure security posture management across management groups, subscriptions and resource groups, from Entra ID conditional access to NSG rules.",
   sub: "Azure's nested hierarchy of management groups, subscriptions, and resource groups makes consistent security posture nearly impossible to maintain manually. Onam maps your entire Azure estate — from Entra ID conditional access policies to NSG rules on every VM NIC — and flags drift the moment it occurs.",
   docsHref: "/docs/onboarding/azure",
   stats: [
@@ -250,6 +252,8 @@ export const gcpData: CloudSolutionData = {
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Secure GCP Projects at Scale Without Slowing Down Engineering",
+  metaDescription:
+    "GCP security posture management: Onam audits every project, from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   sub: "GCP gives engineering teams enormous flexibility and security teams enormous blind spots. Onam continuously audits every project from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   docsHref: "/docs/onboarding/gcp",
   stats: [
@@ -629,6 +633,8 @@ export const kubernetesData: CloudSolutionData = {
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Production Kubernetes Security That Goes Beyond CIS Benchmarks",
+  metaDescription:
+    "Kubernetes security posture: find privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin, with no sidecar or daemonset.",
   sub: "Kubernetes misconfigurations — privileged pods, exposed dashboards, RBAC bindings that grant cluster-admin — are a leading cause of container-based breaches. Onam audits every cluster object without deploying a sidecar or daemonset.",
   docsHref: "/docs/onboarding/kubernetes",
   stats: [

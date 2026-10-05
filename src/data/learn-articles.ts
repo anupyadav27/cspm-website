@@ -42,7 +42,7 @@ export const LEARN_ARTICLES: LearnArticle[] = [
     question: "What is CSPM (Cloud Security Posture Management)?",
     title: "What is CSPM? Cloud Security Posture Management Explained",
     excerpt:
-      "CSPM (cloud security posture management) continuously checks cloud infrastructure for misconfigurations and compliance drift. A plain-English explanation of how it works, what it catches, what it misses, and how it differs from CNAPP, CWPP and CIEM.",
+      "CSPM (cloud security posture management) checks cloud infrastructure for misconfigurations and compliance drift: how it works, what it misses, vs CNAPP.",
     term: "Cloud Security Posture Management",
     answer:
       "Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.",
@@ -155,7 +155,7 @@ Buying these as four products from four vendors reproduces the problem they were
     question: "What is CNAPP (Cloud-Native Application Protection Platform)?",
     title: "What is CNAPP? Cloud-Native Application Protection Explained",
     excerpt:
-      "CNAPP unifies CSPM, CWPP, CIEM and DSPM on one data model instead of four consoles. What the category actually means, why it emerged, and how to tell a real CNAPP from a bundle of acquisitions.",
+      "CNAPP unifies CSPM, CWPP, CIEM and DSPM on one data model instead of four consoles. What the category means and how to spot a bundle of acquisitions.",
     term: "Cloud-Native Application Protection Platform",
     answer:
       "A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on one shared data model — so risks that span those domains are correlated rather than reported separately.",
@@ -245,7 +245,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
     question: "What is CWPP (Cloud Workload Protection Platform)?",
     title: "What is CWPP? Cloud Workload Protection Explained",
     excerpt:
-      "CWPP secures the workloads themselves — VMs, containers, serverless functions and hosts — rather than the cloud configuration around them. How it works, agent vs agentless, and how it differs from CSPM.",
+      "CWPP secures workloads themselves (VMs, containers, serverless, hosts), not the cloud config around them. How it works, agent vs agentless, CWPP vs CSPM.",
     term: "Cloud Workload Protection Platform",
     answer:
       "A Cloud Workload Protection Platform (CWPP) secures the compute workloads running in a cloud environment — virtual machines, containers, serverless functions and managed hosts — by inspecting what is installed and running inside them, rather than how the surrounding cloud infrastructure is configured.",
@@ -336,7 +336,7 @@ Most mature programmes use agentless as the coverage baseline and add runtime de
     question: "What is CIEM (Cloud Infrastructure Entitlement Management)?",
     title: "What is CIEM? Cloud Entitlement Management Explained",
     excerpt:
-      "CIEM resolves what identities can actually do in a cloud environment — after role chaining, SCPs and permission boundaries — and compares it against what they actually used. How it works and why policy review is not enough.",
+      "CIEM resolves what cloud identities can really do after role chaining and SCPs, and compares it with what they used. Why policy review falls short.",
     term: "Cloud Infrastructure Entitlement Management",
     answer:
       "Cloud Infrastructure Entitlement Management (CIEM) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved, then compares that against permissions actually used.",
@@ -423,7 +423,7 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
     question: "What is DSPM (Data Security Posture Management)?",
     title: "What is DSPM? Data Security Posture Management Explained",
     excerpt:
-      "DSPM (data security posture management) finds where sensitive data lives across cloud storage, classifies it, and works out who can reach it. How classification works, why encryption-at-rest is not the answer, and how DSPM differs from CSPM and DLP.",
+      "DSPM (data security posture management) finds sensitive data in cloud storage, classifies it and maps who can reach it. How it differs from CSPM and DLP.",
     term: "Data Security Posture Management",
     answer:
       "Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.",
@@ -506,7 +506,7 @@ DSPM is the context layer that makes the other two useful. A public bucket is a 
     question: "What is SSPM (SaaS Security Posture Management)?",
     title: "What is SSPM? SaaS Security Posture Management Explained",
     excerpt:
-      "SSPM secures the SaaS platforms your company runs on — Microsoft 365, Google Workspace, GitHub, Snowflake — which cloud CSPM tools never scan. What it covers and why SaaS admin accounts are the softest target you own.",
+      "SSPM secures the SaaS platforms you run on (Microsoft 365, Google Workspace, GitHub, Snowflake) that cloud CSPM never scans. What it covers and why.",
     term: "SaaS Security Posture Management",
     answer:
       "SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications — such as Microsoft 365, Google Workspace, GitHub and Snowflake — detecting misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.",
@@ -597,7 +597,7 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
     question: "What is a cloud attack path?",
     title: "What is a Cloud Attack Path? Attack Path Analysis Explained",
     excerpt:
-      "An attack path is the chain of individually-minor findings that together reach something valuable. Why severity-ranked lists bury real risk, what a toxic combination is, and how choke points cut hundreds of paths at once.",
+      "A cloud attack path is a chain of individually minor findings that reaches something valuable. Why severity lists bury it and how choke points cut it.",
     term: "Attack path analysis",
     answer:
       "A cloud attack path is a chain of individually low- or medium-severity findings that together create a route from an entry point — usually the public internet — to a high-value asset such as a database holding sensitive data. Attack path analysis computes these chains across posture, identity, network and workload data.",
@@ -705,7 +705,7 @@ The practical shift is from "4,000 findings" to "3 paths that reach crown jewels
     question: "What is agentless cloud security?",
     title: "What is Agentless Cloud Security? Agentless vs Agent-Based",
     excerpt:
-      "Agentless cloud security assesses infrastructure and workloads without installing software on them. How snapshot scanning works, what it can and cannot see, and an honest comparison with agent-based tooling.",
+      "Agentless cloud security assesses infrastructure and workloads without installing software on them. How snapshot scanning works and what it cannot see.",
     term: "Agentless cloud security",
     answer:
       "Agentless cloud security assesses cloud infrastructure and workloads without installing any software on them. Configuration is read through cloud provider APIs with read-only credentials, and workload contents are inspected by analysing point-in-time volume snapshots out-of-band, so nothing runs on the systems being scanned.",
@@ -802,7 +802,7 @@ Most mature programmes use agentless as the universal baseline, add log-based de
     question: "What is cloud risk quantification?",
     title: "What is Cloud Risk Quantification? FAIR Explained",
     excerpt:
-      "Cloud risk quantification expresses security exposure as a probable dollar loss instead of a severity score. How the FAIR model works, what inputs it needs, and why a priced risk is what a board can actually act on.",
+      "Cloud risk quantification expresses security exposure as a probable dollar loss, not a severity score. How the FAIR model works and what inputs it needs.",
     term: "Cloud risk quantification",
     answer:
       "Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.",
@@ -876,7 +876,7 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
     question: "What is a choke point in cloud security?",
     title: "What is a Choke Point? Attack Path Choke Points Explained",
     excerpt:
-      "A choke point is a single resource that sits on many attack paths, so fixing it severs the most routes at once. How choke points are found, why they are the highest-leverage fix, and how they turn a huge backlog into a short list.",
+      "A choke point is one resource on many attack paths, so fixing it severs the most routes at once. How choke points are found and how they shrink a backlog.",
     term: "Attack path choke point",
     answer:
       "A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.",
@@ -944,7 +944,7 @@ Choke-point remediation follows the same discipline as any high-severity work, t
     question: "What is KSPM (Kubernetes Security Posture Management)?",
     title: "What is KSPM? Kubernetes Security Posture Explained",
     excerpt:
-      "KSPM continuously checks Kubernetes clusters for misconfiguration, unsafe RBAC and workload risk. How it works, what it catches that CSPM misses, and how it differs from container scanning and CWPP.",
+      "KSPM checks Kubernetes clusters for misconfiguration, unsafe RBAC and workload risk. What it catches that CSPM misses, and how it differs from CWPP.",
     term: "Kubernetes Security Posture Management",
     answer:
       "Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.",
@@ -1036,7 +1036,7 @@ The interesting failures cross that boundary in both directions: a pod that assu
     question: "What is code security in the cloud?",
     title: "What is Code Security? SAST, SCA and IaC Explained",
     excerpt:
-      "Code security covers SAST, DAST, SCA, IaC and secret scanning. What each one catches, why fixing findings in the console alone makes them return, and how code and runtime connect.",
+      "Code security covers SAST, DAST, SCA, IaC and secret scanning. What each catches, why console-only fixes come back, and how code and runtime connect.",
     term: "Code Security",
     answer:
       "Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.",
@@ -1130,7 +1130,7 @@ The rule that keeps this survivable: **gate on the delta, not the backlog.** A p
     question: "What is cloud secrets management?",
     title: "What is Secrets Management? Keys and Rotation Explained",
     excerpt:
-      "Cloud secrets management covers how credentials, keys and tokens are stored, accessed, rotated and audited. What goes wrong, why hardcoded secrets persist, and how key management differs from secrets management.",
+      "Cloud secrets management: how credentials, keys and tokens are stored, accessed, rotated and audited, why hardcoded secrets persist, and where KMS fits.",
     term: "Cloud Secrets Management",
     answer:
       "Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.",
