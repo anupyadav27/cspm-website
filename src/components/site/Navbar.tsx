@@ -123,8 +123,8 @@ function TriggerBtn({ label, open }: { label: string; open: boolean }) {
 }
 
 /**
- * The three products sit ABOVE the engine groups, not among them. Onam Estate and
- * Onam FinOps are separately entitled products, not security engines — filing them
+ * The four products sit ABOVE the engine groups, not among them. Onam Estate,
+ * Onam FinOps and Onam DRM are separately entitled products, not security engines — filing them
  * in "SaaS, AI & Governance" would tell a buyer the opposite of what is true.
  */
 function ProductCard({ p, onClick }: { p: (typeof PRODUCTS)[number]; onClick?: () => void }) {
@@ -196,7 +196,7 @@ export function Navbar() {
             </div>
             <MegaWrap open={open === "products"} wide>
               <div className="w-[1180px] max-w-[calc(100vw-3rem)]">
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-4 gap-3">
                   {PRODUCTS.map((p) => <ProductCard key={p.key} p={p} />)}
                 </div>
 

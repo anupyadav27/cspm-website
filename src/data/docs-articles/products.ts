@@ -93,6 +93,8 @@ Inventory listings are keyset-paginated. On estates past a few hundred thousand 
     body: `
 The **Architecture** view summarises the topology of a single account: what it holds, and how the pieces connect.
 
+> The architecture view draws **AWS accounts** today. The asset inventory itself covers all seven supported clouds, because it comes from the platform's shared discovery.
+
 ## The four figures
 
 | Figure | Meaning |

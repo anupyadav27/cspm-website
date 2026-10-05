@@ -96,7 +96,10 @@ function slugBlockDate(file: string, slug: string): string | undefined {
 }
 
 const newest = (...dates: (string | undefined)[]) =>
-  dates.filter((d): d is string => !!d).sort().at(-1);
+  dates
+    .filter((d): d is string => !!d)
+    .sort()
+    .at(-1);
 
 /**
  * A static route's date: the route file, plus whatever it imports from src/data — but only
@@ -130,7 +133,9 @@ function staticRouteDate(routeRel: string, path: string): string | undefined {
 function docSlugDate(slug: string): string | undefined {
   const dir = join(repoRoot, "src/data/docs-articles");
   const candidates = existsSync(dir)
-    ? readDir(dir).filter((f) => f.endsWith(".ts")).map((f) => `src/data/docs-articles/${f}`)
+    ? readDir(dir)
+        .filter((f) => f.endsWith(".ts"))
+        .map((f) => `src/data/docs-articles/${f}`)
     : [];
   candidates.push("src/data/docs.ts");
   for (const f of candidates) {
@@ -158,7 +163,12 @@ function collectRouteFiles(dir: string): string[] {
  * Route files that only 301 to another page. Same reasoning as the "[.]" files above:
  * a redirect does not belong in the sitemap, and its target is already listed.
  */
-const REDIRECT_ONLY_ROUTES = new Set(["platform/secops.tsx", "company/security.tsx"]);
+const REDIRECT_ONLY_ROUTES = new Set([
+  "platform/secops.tsx",
+  "company/security.tsx",
+  "security.tsx",
+  "platform/drm.tsx",
+]);
 
 function fileToPath(rel: string): string | null {
   if (rel === "__root.tsx" || rel.includes("$") || rel.includes("[.]")) return null;
@@ -194,20 +204,31 @@ const TOOL_PATHS = [
 ];
 
 const entries: Entry[] = [
-  ...[...staticPaths].sort().map((p) => ({ loc: p, lastmod: staticRouteDate(routeFileFor.get(p)!, p) })),
+  ...[...staticPaths]
+    .sort()
+    .map((p) => ({ loc: p, lastmod: staticRouteDate(routeFileFor.get(p)!, p) })),
   ...TOOL_PATHS.map((loc) => ({ loc, lastmod: blameDate(`public${loc}`) })),
   ...allDocSlugs().map((slug) => ({ loc: `/docs/${slug}`, lastmod: docSlugDate(slug) })),
   ...LEARN_ARTICLES.map((a) => ({
     loc: `/learn/${a.slug}`,
-    lastmod: newest(slugBlockDate("src/data/learn-articles.ts", a.slug), blameDate("src/routes/learn.$slug.tsx")),
+    lastmod: newest(
+      slugBlockDate("src/data/learn-articles.ts", a.slug),
+      blameDate("src/routes/learn.$slug.tsx"),
+    ),
   })),
   // /compare/$slug is a dynamic route, so pathFor() skips it — enumerate explicitly.
   ...COMPETITORS.map((c) => ({
     loc: `/compare/${c.slug}`,
-    lastmod: newest(slugBlockDate("src/data/compare.ts", c.slug), blameDate("src/routes/compare/$slug.tsx")),
+    lastmod: newest(
+      slugBlockDate("src/data/compare.ts", c.slug),
+      blameDate("src/routes/compare/$slug.tsx"),
+    ),
   })),
   // /company/team/$slug — one entity page per named author (untracked until committed → today).
-  ...AUTHORS.map((a) => ({ loc: `/company/team/${a.slug}`, lastmod: blameDate("src/data/authors.ts") })),
+  ...AUTHORS.map((a) => ({
+    loc: `/company/team/${a.slug}`,
+    lastmod: blameDate("src/data/authors.ts"),
+  })),
   ...BLOG_POSTS.map((p) => ({
     loc: `/resources/blog/${p.slug}`,
     // Publish date, or the last edit if the post was revised after publishing.
@@ -263,7 +284,12 @@ const industries = [
 
 const llms = `# Onam Security
 
-> Onam Security (${SITE_URL}) is a unified CNAPP (cloud-native application protection platform) —
+> Onam (${SITE_URL}) is ONE end-to-end cloud platform, from assets to a secure, optimised and
+> resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
+> (cost) -> Onam DRM (disaster recovery), with Onam Operations — AI agents, early access — across
+> them. All four products share one discovery pass, one console and one login.
+>
+> Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
@@ -271,10 +297,8 @@ const llms = `# Onam Security
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
 >
-> Onam ships THREE separately-sold products on one console and one login: Onam Security (the CNAPP
-> described above), Onam Estate (cloud asset discovery and the estate of record), and Onam FinOps
-> (cloud cost and commitment management). Estate and FinOps are per-organisation add-ons, never
-> bundled into a security plan tier, and each stands alone.
+> Estate, FinOps and DRM are available as per-organisation add-ons, never bundled into a security
+> plan tier, and each stands alone. No prices are published for the add-ons; contact sales.
 
 Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
@@ -283,9 +307,10 @@ Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 - [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam DRM](${SITE_URL}/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Per-organisation add-on; contact sales.
 - [Onam Operations](${SITE_URL}/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/platform/ai-operations/architecture
 
-All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
+All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
 
 Key facts:

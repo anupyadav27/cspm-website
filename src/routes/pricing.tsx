@@ -111,7 +111,7 @@ const comparison: { label: string; free: string; pro: string; ent: string }[] = 
   { label: "Support", free: "Community", pro: "Email", ent: "Priority + CSM" },
   { label: "Service levels", free: "—", pro: "—", ent: "Agreed in your contract" },
   { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS or on-prem" },
-  { label: "Onam Estate / Onam FinOps", free: "—", pro: "Add-on", ent: "Add-on" },
+  { label: "Onam Estate / FinOps / DRM", free: "—", pro: "Add-on", ent: "Add-on" },
 ];
 
 const faqs = [
@@ -124,8 +124,8 @@ const faqs = [
   { q: "Do you offer a nonprofit or academic discount?", a: "Yes — contact sales. Verified nonprofits and academic institutions receive a discount on Pro and Enterprise." },
   { q: "How is usage measured for billing?", a: "Onam samples resource counts daily and averages them across the billing period. You are never charged for a resource that no longer exists." },
   {
-    q: "Are Onam Estate and Onam FinOps included in Pro or Enterprise?",
-    a: "No. Both are separate products enabled per organisation, not features of a security tier — so upgrading your security plan does not turn them on, and buying one of them does not require a security plan. Talk to sales about either.",
+    q: "Are Onam Estate, Onam FinOps and Onam DRM included in Pro or Enterprise?",
+    a: "No. Each is a separate product enabled per organisation, not features of a security tier — so upgrading your security plan does not turn them on, and buying one of them does not require a security plan. Talk to sales about any of them.",
   },
   {
     q: "Can we buy Onam FinOps without Onam Security?",
@@ -229,13 +229,13 @@ function PricingPage() {
               </div>
             </div>
             <p className="mt-3 text-sm text-[#475569] max-w-2xl leading-relaxed">
-              Onam Estate and Onam FinOps are separate products, not tiers of Onam Security. They are
+              Onam Estate, Onam FinOps and Onam DRM are separate products, not tiers of Onam Security. They are
               enabled per organisation rather than bundled into a plan, so a team that wants the cost
-              picture does not have to buy a security plan to get it — and neither one changes what
-              your security plan includes.
+              or recovery picture does not have to buy a security plan to get it — and none of them
+              changes what your security plan includes.
             </p>
 
-            <div className="mt-8 grid md:grid-cols-2 gap-4">
+            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
               {PRODUCTS.filter((p) => p.key !== "security").map((p) => {
                 const Icon = p.icon;
                 return (

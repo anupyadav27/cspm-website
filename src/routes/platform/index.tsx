@@ -105,14 +105,14 @@ function PlatformIndex() {
           <div className="text-center max-w-2xl mx-auto">
             <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">The rest of the platform</div>
             <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-3xl tracking-tight">
-              Onam Security is one of three products.
+              Onam Security is one stage of one platform.
             </h2>
             <p className="mt-3 text-[#475569]">
-              Estate and FinOps run in the same console, behind the same login, on the same discovery.
-              Each is granted per organisation and each stands on its own.
+              Estate finds what you run, Security protects it, FinOps explains what it costs and DRM
+              plans how it comes back — in the same console, behind the same login, on the same discovery.
             </p>
           </div>
-          <div className="mt-10 grid md:grid-cols-3 gap-4">
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {PRODUCTS.map((p) => {
               const Icon = p.icon;
               const isCurrent = p.key === "security";

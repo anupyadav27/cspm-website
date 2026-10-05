@@ -7,6 +7,7 @@ import { articles as architectureCompliance } from "./docs-articles/architecture
 import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
 import { articles as products } from "./docs-articles/products";
+import { articles as drm } from "./docs-articles/drm";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
 import { articles as operations } from "./docs-articles/operations";
 import { articles as dspm } from "./docs-articles/dspm";
@@ -158,6 +159,14 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
+    heading: "Onam DRM",
+    items: [
+      { title: "Overview", slug: "drm/overview" },
+      { title: "RTO, RPO & Drills", slug: "drm/objectives" },
+      { title: "Approvals, Baselines & Drift", slug: "drm/governance" },
+    ],
+  },
+  {
     heading: "Onam Operations",
     items: [
       { title: "Overview", slug: "operations/overview" },
@@ -194,6 +203,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...trustReference,
   ...releaseNotes,
   ...products,
+  ...drm,
   ...featuresExtra,
   ...operations,
   ...dspm,

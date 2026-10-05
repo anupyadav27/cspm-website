@@ -33,6 +33,10 @@
     <lastmod>2026-10-05</lastmod>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/disaster-recovery</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs</loc>
     <lastmod>2026-07-21</lastmod>
   </url>
@@ -194,10 +198,6 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/scenarios</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/security</loc>
     <lastmod>2026-10-05</lastmod>
   </url>
   <url>
@@ -534,7 +534,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/estate/architecture</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/estate/pipeline</loc>
@@ -575,6 +575,18 @@
   <url>
     <loc>https://www.onamsecurity.com/docs/finops/access</loc>
     <lastmod>2026-09-01</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/drm/overview</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/drm/objectives</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/drm/governance</loc>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/overview</loc>

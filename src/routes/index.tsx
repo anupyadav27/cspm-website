@@ -6,7 +6,7 @@ import {
   TrendingUp, Search, ShieldAlert, Users2, Fingerprint, FileCheck,
   LayoutDashboard, Plug, ListChecks, GitFork, KeyRound, Radio,
   ShieldCheck, ScanLine, HardDrive,
-  ShieldHalf, Blocks, Webhook, Package, Sparkles, Wrench,
+  ShieldHalf, Blocks, Webhook, Package, Sparkles, Wrench, ArrowDown, ExternalLink,
 } from "lucide-react";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -18,13 +18,14 @@ import { DemoVideos } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { PRODUCTS } from "@/data/products";
 import { OpsBand } from "@/components/site/ops/OpsBand";
+import { Hero, PlatformOverview, SecuritySpotlight } from "@/components/site/home/PlatformHero";
 
 export const Route = createFileRoute("/")({
   head: () =>
     seo({
-      title: "Onam Security — Unified CNAPP: CSPM, CIEM, DSPM, CWPP & SSPM",
+      title: "Onam — one cloud platform for assets, security, cost and recovery",
       description:
-        "Onam Security is an agentless CNAPP: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes.",
+        "Onam is one cloud platform: asset inventory, CNAPP security, FinOps and disaster recovery on one discovery, with AI agents in early access across them.",
       path: "/",
     }),
   component: HomePage,
@@ -34,9 +35,10 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <PlatformOverview />
+      <SecuritySpotlight />
       <OutcomeStrip />
       <CloudBar />
-      <ProductBand />
       <HowItWorks />
       <ProductDemo />
       <DemoVideos />
@@ -59,6 +61,10 @@ function HomePage() {
 
 /* ============================ FAQ + STRUCTURED DATA ============================ */
 const FAQ_ITEMS = [
+  {
+    q: "What is Onam?",
+    a: "Onam is one end-to-end cloud platform. Onam Estate discovers and maps everything you run; Onam Security finds and prioritises risk across posture, identity, data, code, attack paths and threat detection; Onam FinOps explains what it costs and who owns it; Onam DRM maps applications, predicts recovery time against your targets and flags drift from the approved plan. All four share one discovery and one console, and Onam Operations — AI agents that investigate with evidence and propose changes for a person to approve — is in early access across them.",
+  },
   {
     q: "What is cloud security posture management (CSPM)?",
     a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations — public storage buckets, open security groups, unencrypted databases, over-permissive IAM — and tells you exactly how to fix them. Onam runs 9,853 CSPM posture rules continuously across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so misconfigurations surface the day they're introduced, not at the next audit.",
@@ -89,14 +95,17 @@ const HOME_JSONLD = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Onam Security Platform",
-    applicationCategory: "SecurityApplication",
-    applicationSubCategory: "Cloud Security Posture Management (CSPM)",
+    name: "Onam",
+    applicationCategory: "BusinessApplication",
+    applicationSubCategory: "Cloud asset, security, cost and disaster recovery management",
     operatingSystem: "Cloud (SaaS)",
     url: SITE_URL,
     description:
-      "Unified cloud security platform: CSPM, CIEM, attack path analysis, threat detection, data security, and compliance across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
+      "One end-to-end cloud platform: Onam Estate (asset intelligence), Onam Security (CSPM, CIEM, attack paths, threat detection, data and code security, compliance), Onam FinOps (cloud cost) and Onam DRM (disaster recovery management) on one discovery across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
     featureList: [
+      "Onam Estate — continuous cloud asset inventory and relationship mapping",
+      "Onam FinOps — billed and effective cost, ownership attribution, forecast, budgets and savings",
+      "Onam DRM — application mapping, protection coverage, predicted RTO/RPO, recovery plans and drift from baseline",
       "CSPM — 9,853 posture rules evaluated continuously",
       "CIEM — 30-day behavioral identity risk analysis",
       "Cross-cloud attack path analysis on one graph",
@@ -104,7 +113,7 @@ const HOME_JSONLD = [
       "Compliance — 78 frameworks with continuous evidence (CIS, NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2)",
       "FAIR-model dollar-risk prioritisation",
       "Code + runtime coverage: SAST, DAST, SCA, IaC scanning",
-      "Agentless read-only onboarding in under 3 minutes",
+      "Onboarding with a template you run in your own account",
     ],
     publisher: { "@type": "Organization", name: "Onam Security", url: SITE_URL },
   },
@@ -124,7 +133,7 @@ function FAQSection() {
     <section className="py-24 border-b border-[#E5E9F0] bg-[#F8FAFC]">
       <div className="max-w-4xl mx-auto px-6">
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions"
-                       subtitle="CSPM, cloud coverage, deployment, and how Onam compares — answered straight."
+                       subtitle="The platform, cloud coverage, deployment, and how Onam compares — answered straight."
                        gradientWords="questions" />
         <div className="mt-12 space-y-3">
           {FAQ_ITEMS.map((f) => (
@@ -139,211 +148,6 @@ function FAQSection() {
         </div>
       </div>
     </section>
-  );
-}
-
-/* ============================ HERO ============================
- * Dark, and the visual is a priced attack path.
- *
- * The previous hero was the default SaaS template — white page, copy left,
- * generic findings card right — which is the same hero Wiz, Orca and Prisma
- * all run. Looking like the category is the opposite of looking like the
- * leader of it.
- *
- * Two deliberate choices:
- *
- * 1. DARK. It separates the page from the field on sight, and it is what a
- *    security buyer's own tools look like. Every colour below was checked
- *    against #0B1220 for WCAG AA — the palette here is the brand's dark theme
- *    (blue_lt #4D8DFF at 5.86:1, sub_dk #9FB0CC at 8.52:1), not new invention.
- *
- * 2. THE PATH, PRICED. The old card showed 12 critical / 84 high / 319 medium —
- *    a severity count every competitor also shows. The differentiator is
- *    "one graph": the route to a crown jewel, the single choke point that cuts
- *    it, and the dollar figure. That is what the product actually does that the
- *    others do not, so that is what the hero shows.
- *
- * The figures are from the demo tenant and are LABELLED as illustrative, per
- * the marketing guardrail that demo numbers are never presented as outcomes.
- */
-function Hero() {
-  return (
-    <section className="relative overflow-hidden bg-[#0B1220]">
-      {/* Depth without noise: two wide, low-opacity washes rather than a pattern. */}
-      <div className="pointer-events-none absolute -top-52 -right-40 w-[820px] h-[620px] rounded-full bg-[#2563EB]/20 blur-[160px]" />
-      <div className="pointer-events-none absolute -bottom-40 -left-32 w-[560px] h-[460px] rounded-full bg-[#4D8DFF]/10 blur-[150px]" />
-
-      {/* Tighter than it was (pt-20/24, pb-20, gap-14). The hero used most of a
-          1440x900 viewport to say one sentence, which pushes every piece of
-          proof below the fold — the opposite of what an enterprise evaluator
-          scanning three vendors wants. Density is the cheapest signal of
-          seriousness there is. */}
-      <div className="relative max-w-7xl mx-auto px-6 pt-14 md:pt-16 pb-14 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-12 items-center">
-        <div className="animate-slide-up">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-white/[0.06] border border-white/10 backdrop-blur-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-            <span className="text-[#9FB0CC] uppercase">Cloud Security Platform</span>
-          </div>
-
-          {/* text-balance so the browser evens the line lengths. Without it the
-              hard break left "secure," alone on its own line — a two-word orphan
-              under the biggest type on the site. */}
-          <h1 className="mt-6 font-display font-black text-white text-5xl md:text-6xl lg:text-[64px] tracking-tight leading-[1.02] text-balance">
-            Is your cloud secure, or does it just{" "}
-            <span className="text-[#4D8DFF]">feel that way?</span>
-          </h1>
-
-          <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-xl">
-            Most teams discover cloud attacks from a breach notification — or a compliance audit.
-            Onam maps every misconfiguration, identity risk, and attack path across all {CLOUDS} clouds
-            into one graph — then prices the route an attacker would actually take.
-          </p>
-
-          <div className="mt-8 flex flex-wrap items-center gap-3">
-            <BrandButton to="/request-demo" size="lg">Scan my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
-            <a
-              href="/resources/scenarios"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-base font-semibold text-white border border-white/20 hover:bg-white/[0.06] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4D8DFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1220]"
-            >
-              <Play className="w-4 h-4" /> See how it works
-            </a>
-          </div>
-
-          {/* No stat row here on purpose. There was a row of four pills, and the
-              OutcomeStrip directly below is a full-width row of four figures —
-              two stat rows stacked, which halves the weight of both. Worse, they
-              disagreed: the pills said one thing about service coverage and the
-              strip below said "200+". The numbers now live in one place. */}
-        </div>
-
-        <HeroMock />
-      </div>
-    </section>
-  );
-}
-
-function HeroMock() {
-  // The attack path, priced — and drawn as a path.
-  //
-  // First version of this was three stacked boxes in near-identical slate. It
-  // read as a LIST, and the one thing that matters here is that these hops are
-  // CONNECTED and ESCALATING. Two changes fix that:
-  //
-  //   * a rail with numbered nodes, so the eye follows one thread top to bottom
-  //   * colour that means something — blue at the entry point, amber at the
-  //     pivot where privilege is gained, red at the crown jewel. The ramp is the
-  //     story: a benign-looking instance becomes a data breach in two hops.
-  //
-  // Colour is doing semantic work here, never decoration, and it is never the
-  // only signal: each node is also numbered, and the crown jewel carries a
-  // border and a label. That matters for the ~8% of men with a colour-vision
-  // deficiency, who are heavily represented in this audience.
-  //
-  // Every value checked against the surfaces it sits on: node markers 5.31 /
-  // 10.18 / 6.10:1, hop text 15.46:1, notes 7.03:1, labels 4.54:1.
-  //
-  // min-w-0: a grid item will not shrink below min-content, and without it this
-  // widens the single mobile column and clips the headline beside it.
-  const hops = [
-    { n: 1, kind: "EC2 instance", id: "i-0abc1234def", note: "IMDSv1 enabled — credentials readable from the instance",
-      tag: "T1552.005", dot: "#4D8DFF", role: "Entry point" },
-    { n: 2, kind: "IAM role", id: "OpsAdminRole", note: "iam:PassRole:* — escalates to any role in the account",
-      tag: "T1078.004", dot: "#FBBF24", role: "Privilege gained" },
-    { n: 3, kind: "S3 bucket", id: "acme-prod-data", note: "847,000 PII records, readable once the role is assumed",
-      tag: "T1530", dot: "#FF6B63", role: "Crown jewel", crown: true },
-  ];
-  return (
-    <div className="relative animate-fade-in min-w-0">
-      <div className="absolute -inset-6 bg-gradient-to-br from-[#4D8DFF]/15 via-transparent to-transparent blur-2xl -z-10 rounded-3xl" />
-
-      <div className="rounded-2xl border border-white/10 bg-[#121C31] p-5 shadow-[0_24px_64px_rgba(0,0,0,.5)]">
-        <div className="flex items-center justify-between gap-3 pb-4 border-b border-white/10">
-          <div className="flex items-center gap-2 min-w-0">
-            <Shield className="w-4 h-4 shrink-0 text-[#4D8DFF]" />
-            <span className="text-sm font-semibold text-white truncate">Attack path to crown jewel</span>
-          </div>
-          <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FF6B63]/15 text-[#FF6B63]">
-            Critical
-          </span>
-        </div>
-
-        {/* The rail. The absolutely-positioned line sits behind the numbered
-            markers so the hops read as one continuous route rather than three
-            cards that happen to be adjacent. */}
-        <div className="relative mt-5 pl-9">
-          <div className="space-y-3">
-            {hops.map((h, i) => (
-              <div key={h.n} className="relative">
-                {/* Connector drawn PER GAP, not as one rail down the whole
-                    column. A single absolute rail has no way to know where the
-                    last marker is, so it ran past node 3 and left a dangling
-                    tail below the crown jewel — a line implying a fourth hop
-                    that does not exist. Each segment instead starts under its
-                    own marker and ends exactly at the next one: 39px is the
-                    marker's bottom edge (top-3 + 27px), -24px is the 12px gap
-                    plus the 12px inset of the following marker. */}
-                {i < hops.length - 1 && (
-                  <span
-                    aria-hidden
-                    className="absolute w-px"
-                    style={{
-                      left: "-23px",
-                      top: "39px",
-                      bottom: "-24px",
-                      background: `linear-gradient(180deg, ${h.dot} 0%, ${hops[i + 1].dot} 100%)`,
-                    }}
-                  />
-                )}
-                <span
-                  className="absolute -left-9 top-3 grid place-items-center w-[27px] h-[27px] rounded-full text-[11px] font-bold text-[#0B1220] ring-4 ring-[#121C31]"
-                  style={{ background: h.dot }}
-                >
-                  {h.n}
-                </span>
-                <div
-                  className={cn(
-                    "rounded-xl border px-3.5 py-3",
-                    h.crown ? "border-[#FF6B63]/45 bg-[#FF6B63]/[0.07]" : "border-white/10 bg-[#18243D]"
-                  )}
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <div className="flex items-center gap-2">
-                        <span className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">{h.kind}</span>
-                        <span className="text-[10px] font-semibold" style={{ color: h.dot }}>{h.role}</span>
-                      </div>
-                      <div className="text-sm font-semibold text-white truncate">{h.id}</div>
-                    </div>
-                    <span className="shrink-0 text-[10px] font-mono text-[#8FA0BC]">{h.tag}</span>
-                  </div>
-                  <div className="mt-1 text-[11px] text-[#9FB0CC]">{h.note}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* The payoff: the cut, and the number. */}
-        <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
-          <div className="min-w-0">
-            <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">Estimated exposure</div>
-            <div className="font-display font-black text-3xl text-white tracking-tight">$2.1M–$6.4M</div>
-          </div>
-          <div className="min-w-0">
-            <div className="inline-flex items-center gap-2 rounded-lg border border-[#34D399]/30 bg-[#34D399]/10 px-2.5 py-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-              <span className="text-[11px] font-semibold text-[#34D399]">Disable IMDSv1 — cuts all 3 paths</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Required by the marketing guardrails: demo-tenant numbers are
-          illustrations and are never presented as customer outcomes. */}
-      <p className="mt-3 text-[11px] text-[#7C8CA8] text-center">
-        Illustrative — demo tenant. FAIR-based range, not a customer result.
-      </p>
-    </div>
   );
 }
 
@@ -415,72 +219,6 @@ function CloudBar() {
 }
 
 /* ============================ HOW IT WORKS ============================ */
-/**
- * Three products, said once, high on the page.
- *
- * Until 2026-09-01 the homepage described one product. Onam Estate and Onam FinOps
- * had been live behind the same login for a week and appeared nowhere on the site —
- * a visitor could read every page and not learn they existed. Blurbs and packaging
- * lines come from src/data/products.ts so this band and the navbar cannot drift.
- */
-function ProductBand() {
-  return (
-    <section className="py-24 border-b border-[#E5E9F0] bg-white">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="text-center max-w-2xl mx-auto">
-          <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">Three products</div>
-          <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            One console. One login. <span className="gradient-text">One discovery.</span>
-          </h2>
-          <p className="mt-4 text-[#475569] leading-relaxed">
-            The same read-only connection that finds your security risk also produces the inventory
-            of record and the cost picture. Buy the one you need — each is granted per organisation
-            and each stands on its own.
-          </p>
-        </div>
-
-        <div className="mt-12 grid md:grid-cols-3 gap-5">
-          {PRODUCTS.map((p) => {
-            const Icon = p.icon;
-            return (
-              <Link key={p.key} to={p.href} className="group">
-                <div className="h-full flex flex-col bg-white border border-[#E5E9F0] rounded-2xl p-7 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_16px_36px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
-                  <div
-                    className="w-12 h-12 rounded-xl grid place-items-center"
-                    style={{
-                      backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
-                      boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
-                    }}
-                  >
-                    <Icon className="w-6 h-6" style={{ color: p.color }} />
-                  </div>
-                  <div className="mt-5 font-display font-black text-[#0B1220] text-xl tracking-tight">{p.name}</div>
-                  <div className="mt-1.5 text-sm font-semibold text-[#2563EB]">{p.question}</div>
-                  <p className="mt-3 text-sm text-[#475569] leading-relaxed flex-1">{p.blurb}</p>
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {p.surfaces.map((sf) => (
-                      <span
-                        key={sf}
-                        className="text-[11px] font-medium px-2 py-1 rounded-md bg-[#F1F5F9] text-[#475569] border border-[#E5E9F0]"
-                      >
-                        {sf}
-                      </span>
-                    ))}
-                  </div>
-                  <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-3">
-                    <span className="text-xs text-[#64748B]">{p.packaging}</span>
-                    <ArrowRight className="w-4 h-4 shrink-0 text-[#94A3B8] group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function HowItWorks() {
   const steps = [
     { icon: Lock, title: "Connect your cloud — takes 3 minutes",
@@ -1386,10 +1124,10 @@ function PlatformPillars() {
     <section className="py-24 border-b border-[#E5E9F0] bg-[#F7F9FC]">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
-          eyebrow="One platform · one graph"
-          title="Everything you need in one platform"
-          subtitle="CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are engines here, not separate products — 29 of them running in parallel on the same data model, so findings talk to each other."
-          gradientWords="one platform"
+          eyebrow="Inside Onam Security"
+          title="Every security layer on one graph"
+          subtitle="CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are engines inside Onam Security, not separate tools — 29 of them running in parallel on the same data model, so findings talk to each other."
+          gradientWords="one graph"
         />
         <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {pillars.map((p) => {
@@ -1539,8 +1277,8 @@ function Differentiator() {
   return (
     <section className="py-24 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader eyebrow="Why Onam" title="Onam vs. the alternatives"
-                       subtitle="Where other approaches stop, Onam keeps going — because everything is on one graph."
+        <SectionHeader eyebrow="Why Onam Security" title="Onam Security vs. the alternatives"
+                       subtitle="Where other approaches stop, Onam Security keeps going — because everything is on one graph."
                        gradientWords="the alternatives" />
         <div className="mt-14 overflow-x-auto">
           <div className="min-w-[860px] bg-white rounded-2xl border border-[#E5E9F0] overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,.04)]">
@@ -1615,11 +1353,12 @@ function FinalCTA() {
             Ready when you are
           </div>
           <h2 className="mt-5 font-display font-black text-4xl md:text-5xl text-[#0B1220] tracking-tight">
-            See what's exposed in your cloud in{" "}
-            <span className="gradient-text">under 5 minutes.</span>
+            See your cloud{" "}
+            <span className="gradient-text">end to end.</span>
           </h2>
           <p className="mt-5 text-lg text-[#475569] max-w-2xl mx-auto">
-            Connect one account. Watch findings surface live. Decide from there.
+            Connect one account once. See what you run, what is exposed, what it costs and how it comes
+            back — then decide which products you need.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Request demo →</BrandButton>

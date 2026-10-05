@@ -1,6 +1,11 @@
 # Onam Security
 
-> Onam Security (https://www.onamsecurity.com) is a unified CNAPP (cloud-native application protection platform) —
+> Onam (https://www.onamsecurity.com) is ONE end-to-end cloud platform, from assets to a secure, optimised and
+> resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
+> (cost) -> Onam DRM (disaster recovery), with Onam Operations — AI agents, early access — across
+> them. All four products share one discovery pass, one console and one login.
+>
+> Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
@@ -8,10 +13,8 @@
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
 >
-> Onam ships THREE separately-sold products on one console and one login: Onam Security (the CNAPP
-> described above), Onam Estate (cloud asset discovery and the estate of record), and Onam FinOps
-> (cloud cost and commitment management). Estate and FinOps are per-organisation add-ons, never
-> bundled into a security plan tier, and each stands alone.
+> Estate, FinOps and DRM are available as per-organisation add-ons, never bundled into a security
+> plan tier, and each stands alone. No prices are published for the add-ons; contact sales.
 
 Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-full.txt
 
@@ -20,9 +23,10 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 - [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Per-organisation add-on; contact sales.
 - [Onam Operations](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
 
-All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
+All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
 
 Key facts:
@@ -85,7 +89,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 - [CIEM](https://www.onamsecurity.com/platform/ciem): CIEM resolves what human users, roles, service accounts and workload identities can actually do — after group membership, conditions, explicit denies and SCP denies — then finds…
 - [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security is the configuration-hygiene view of Onam's identity engine: MFA, access keys, password policy, root usage, wildcard policies and trust settings, scored per module.…
 - [Attack Path Analysis](https://www.onamsecurity.com/platform/attack-path): Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an…
-- [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and…
+- [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR reads your cloud audit logs and finds attacker behaviour in them — single suspicious events, multi-step sequences and identities acting unlike themselves — mapped to…
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
 - [Network Security](https://www.onamsecurity.com/platform/network-security): Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path — from VPC isolation to WAF coverage and flow log monitoring — and shows…
 - [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Onam's DSPM inventories every data store across your clouds, labels it from metadata, and joins it to exposure, identity, encryption and lineage — so a sensitive store is never…
@@ -267,6 +271,11 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Savings](https://www.onamsecurity.com/docs/finops/savings)
 - [Runs & Reconciliation](https://www.onamsecurity.com/docs/finops/runs)
 - [Access & Entitlement](https://www.onamsecurity.com/docs/finops/access)
+
+### Onam DRM
+- [Overview](https://www.onamsecurity.com/docs/drm/overview)
+- [RTO, RPO & Drills](https://www.onamsecurity.com/docs/drm/objectives)
+- [Approvals, Baselines & Drift](https://www.onamsecurity.com/docs/drm/governance)
 
 ### Onam Operations
 - [Overview](https://www.onamsecurity.com/docs/operations/overview)
@@ -7219,6 +7228,8 @@ URL: https://www.onamsecurity.com/docs/estate/architecture
 
 The **Architecture** view summarises the topology of a single account: what it holds, and how the pieces connect.
 
+> The architecture view draws **AWS accounts** today. The asset inventory itself covers all seven supported clouds, because it comes from the platform's shared discovery.
+
 ## The four figures
 
 | Figure | Meaning |
@@ -7481,6 +7492,85 @@ Yes. It stands alone and does not require Onam Security. If you do run more than
 ## Permissions
 
 FinOps reads billing data. It holds no write access to your cloud accounts and changes nothing in them — including when a savings recommendation is accepted, which records a decision and nothing more.
+
+---
+
+## Onam DRM
+URL: https://www.onamsecurity.com/docs/drm/overview
+
+**Onam DRM** is disaster recovery management for your cloud. It maps your applications and what they depend on, reads the backup and replication your cloud configuration has, predicts recovery time (RTO) and data loss (RPO) against the targets you set, composes the order in which each application comes back, and flags drift from the recovery model you approved.
+
+It is a **separate product**, granted per organisation, and runs inside the same console as Onam Estate, Onam Security and Onam FinOps. It works from the platform's cloud inventory, so your accounts are connected once.
+
+## What it answers
+
+| Question | Where in DRM |
+| --- | --- |
+| Which applications do we run, and what do they depend on? | Applications, Dependencies, Topology |
+| What is protected, and by what? | Protection |
+| Could we recover in time? | Recovery — readiness and objectives |
+| In what order does it come back? | Recovery — plans |
+| Has anything changed since we signed off? | Monitor — drift; Governance — baselines |
+| Did the last drill meet the target? | Drills |
+
+## The stages
+
+1. **Understand.** Resources come from the platform inventory and are placed where the provider says they live — the availability zone where one is given, the region otherwise. Applications are proposed from your tags, each with the tag it came from and a confidence. Dependencies are classified as recovery order, protection (proves a copy exists) or placement (shares a failure domain).
+2. **Protect.** Backup, snapshot and replication are read from cloud configuration. A configured mechanism is reported as *discovered*, never as *protected* or *tested* — those are statements a person makes.
+3. **Recover.** Recovery plans are composed from approved items only. Predicted RTO is the critical path through the plan; predicted RPO is the worst replication link.
+4. **Govern.** Engines propose and people approve. The approved model is frozen as a baseline, and drift is measured against it.
+
+## What DRM does not do
+
+- It does **not execute a recovery** or fail anything over.
+- It does **not run DR tests.** Drills run with your own tools are recorded in DRM.
+- It has **no connectors to backup products.** Protection is read from cloud configuration, which shows that a mechanism is configured — not that last night's job succeeded or that a restore works.
+
+---
+
+## RTO, RPO & Drills
+URL: https://www.onamsecurity.com/docs/drm/objectives
+
+DRM keeps three kinds of recovery figure apart, because mixing them is how a plan looks better than it is.
+
+| Kind | Where it comes from |
+| --- | --- |
+| **Required** | You enter it per application. A calculated value never overwrites it. |
+| **Predicted** | Calculated by DRM from the approved plan and protection. |
+| **Actual** | Recorded from a drill you ran. |
+
+## Predicted RTO
+
+The critical path through the application's approved recovery plan. Steps that can run at the same time cost the longest of them, not the sum. A step nobody has timed still carries its default duration, so it never drops off the path. With no approved plan, there is no predicted RTO — the field is left blank rather than showing zero.
+
+## Predicted RPO
+
+The worst data-loss window across the application's replication links. For each link DRM takes the larger of the lag last observed and the configured target, so a quiet moment does not improve the reported figure. An application protected only by backups, with no backup frequency recorded, gets no predicted RPO rather than a guess.
+
+## Drills
+
+A drill is planned, started and completed in DRM, and the prediction at planning time is captured on it — so the result is compared with what was promised then, not with whatever the model says today. The measured recovery time, data loss, success and issues found are entered by the person who ran it. DRM does not run the drill; it records it.
+
+---
+
+## Approvals, Baselines & Drift
+URL: https://www.onamsecurity.com/docs/drm/governance
+
+## Engines propose, people approve
+
+Every application, dependency, protection pairing and plan an engine finds arrives as a **proposal** in the Approval Center. Nothing enters a recovery plan or a baseline until someone with approval rights accepts it. A rejected proposal is recorded and is not proposed again.
+
+## Baselines
+
+Approving an application's recovery model freezes it as a **baseline**: its structure and intent — components, dependencies, protection pairings, plan steps, required targets. Live readings such as replication lag are deliberately left out, because they change constantly and are not what was approved.
+
+## Drift
+
+Drift is the difference between the active baseline and the current state, **not** between last week's scan and this one. That answers the question an auditor asks — has anything changed since the plan was approved? Drift is ranked by its consequence for recovery: one changed recovery target outranks ten renamed steps.
+
+## Access
+
+DRM runs inside the same console and behind the same login as the rest of the platform. It is granted per organisation; organisations without it do not get access to DRM's pages or API. Approving and authoring are separate permissions from viewing.
 
 ---
 

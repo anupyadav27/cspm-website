@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
+import { Route as DisasterRecoveryRouteImport } from './routes/disaster-recovery'
 import { Route as DocsRouteImport } from './routes/docs'
 import { Route as EstateRouteImport } from './routes/estate'
 import { Route as FinopsRouteImport } from './routes/finops'
@@ -52,6 +53,7 @@ import { Route as PlatformCspmRouteImport } from './routes/platform/cspm'
 import { Route as PlatformCwppRouteImport } from './routes/platform/cwpp'
 import { Route as PlatformDataSecurityRouteImport } from './routes/platform/data-security'
 import { Route as PlatformDatabaseSecurityRouteImport } from './routes/platform/database-security'
+import { Route as PlatformDrmRouteImport } from './routes/platform/drm'
 import { Route as PlatformEncryptionRouteImport } from './routes/platform/encryption'
 import { Route as PlatformIamRouteImport } from './routes/platform/iam'
 import { Route as PlatformInventoryRouteImport } from './routes/platform/inventory'
@@ -94,6 +96,11 @@ const IndexRoute = IndexRouteImport.update({
 const CaseStudiesRoute = CaseStudiesRouteImport.update({
   id: '/case-studies',
   path: '/case-studies',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisasterRecoveryRoute = DisasterRecoveryRouteImport.update({
+  id: '/disaster-recovery',
+  path: '/disaster-recovery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DocsRoute = DocsRouteImport.update({
@@ -306,6 +313,11 @@ const PlatformDatabaseSecurityRoute =
     path: '/platform/database-security',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformDrmRoute = PlatformDrmRouteImport.update({
+  id: '/platform/drm',
+  path: '/platform/drm',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformEncryptionRoute = PlatformEncryptionRouteImport.update({
   id: '/platform/encryption',
   path: '/platform/encryption',
@@ -481,6 +493,7 @@ const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
+  '/disaster-recovery': typeof DisasterRecoveryRoute
   '/docs': typeof DocsRouteWithChildren
   '/estate': typeof EstateRoute
   '/finops': typeof FinopsRoute
@@ -518,6 +531,7 @@ export interface FileRoutesByFullPath {
   '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
   '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/drm': typeof PlatformDrmRoute
   '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
   '/platform/inventory': typeof PlatformInventoryRoute
@@ -559,6 +573,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
+  '/disaster-recovery': typeof DisasterRecoveryRoute
   '/estate': typeof EstateRoute
   '/finops': typeof FinopsRoute
   '/pricing': typeof PricingRoute
@@ -595,6 +610,7 @@ export interface FileRoutesByTo {
   '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
   '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/drm': typeof PlatformDrmRoute
   '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
   '/platform/inventory': typeof PlatformInventoryRoute
@@ -637,6 +653,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/case-studies': typeof CaseStudiesRoute
+  '/disaster-recovery': typeof DisasterRecoveryRoute
   '/docs': typeof DocsRouteWithChildren
   '/estate': typeof EstateRoute
   '/finops': typeof FinopsRoute
@@ -674,6 +691,7 @@ export interface FileRoutesById {
   '/platform/cwpp': typeof PlatformCwppRoute
   '/platform/data-security': typeof PlatformDataSecurityRoute
   '/platform/database-security': typeof PlatformDatabaseSecurityRoute
+  '/platform/drm': typeof PlatformDrmRoute
   '/platform/encryption': typeof PlatformEncryptionRoute
   '/platform/iam': typeof PlatformIamRoute
   '/platform/inventory': typeof PlatformInventoryRoute
@@ -717,6 +735,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/case-studies'
+    | '/disaster-recovery'
     | '/docs'
     | '/estate'
     | '/finops'
@@ -754,6 +773,7 @@ export interface FileRouteTypes {
     | '/platform/cwpp'
     | '/platform/data-security'
     | '/platform/database-security'
+    | '/platform/drm'
     | '/platform/encryption'
     | '/platform/iam'
     | '/platform/inventory'
@@ -795,6 +815,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/case-studies'
+    | '/disaster-recovery'
     | '/estate'
     | '/finops'
     | '/pricing'
@@ -831,6 +852,7 @@ export interface FileRouteTypes {
     | '/platform/cwpp'
     | '/platform/data-security'
     | '/platform/database-security'
+    | '/platform/drm'
     | '/platform/encryption'
     | '/platform/iam'
     | '/platform/inventory'
@@ -872,6 +894,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/case-studies'
+    | '/disaster-recovery'
     | '/docs'
     | '/estate'
     | '/finops'
@@ -909,6 +932,7 @@ export interface FileRouteTypes {
     | '/platform/cwpp'
     | '/platform/data-security'
     | '/platform/database-security'
+    | '/platform/drm'
     | '/platform/encryption'
     | '/platform/iam'
     | '/platform/inventory'
@@ -951,6 +975,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
+  DisasterRecoveryRoute: typeof DisasterRecoveryRoute
   DocsRoute: typeof DocsRouteWithChildren
   EstateRoute: typeof EstateRoute
   FinopsRoute: typeof FinopsRoute
@@ -987,6 +1012,7 @@ export interface RootRouteChildren {
   PlatformCwppRoute: typeof PlatformCwppRoute
   PlatformDataSecurityRoute: typeof PlatformDataSecurityRoute
   PlatformDatabaseSecurityRoute: typeof PlatformDatabaseSecurityRoute
+  PlatformDrmRoute: typeof PlatformDrmRoute
   PlatformEncryptionRoute: typeof PlatformEncryptionRoute
   PlatformIamRoute: typeof PlatformIamRoute
   PlatformInventoryRoute: typeof PlatformInventoryRoute
@@ -1038,6 +1064,13 @@ declare module '@tanstack/react-router' {
       path: '/case-studies'
       fullPath: '/case-studies'
       preLoaderRoute: typeof CaseStudiesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disaster-recovery': {
+      id: '/disaster-recovery'
+      path: '/disaster-recovery'
+      fullPath: '/disaster-recovery'
+      preLoaderRoute: typeof DisasterRecoveryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/docs': {
@@ -1327,6 +1360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformDatabaseSecurityRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/drm': {
+      id: '/platform/drm'
+      path: '/platform/drm'
+      fullPath: '/platform/drm'
+      preLoaderRoute: typeof PlatformDrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/encryption': {
       id: '/platform/encryption'
       path: '/platform/encryption'
@@ -1588,6 +1628,7 @@ const ResourcesBlogRouteWithChildren = ResourcesBlogRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CaseStudiesRoute: CaseStudiesRoute,
+  DisasterRecoveryRoute: DisasterRecoveryRoute,
   DocsRoute: DocsRouteWithChildren,
   EstateRoute: EstateRoute,
   FinopsRoute: FinopsRoute,
@@ -1625,6 +1666,7 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformCwppRoute: PlatformCwppRoute,
   PlatformDataSecurityRoute: PlatformDataSecurityRoute,
   PlatformDatabaseSecurityRoute: PlatformDatabaseSecurityRoute,
+  PlatformDrmRoute: PlatformDrmRoute,
   PlatformEncryptionRoute: PlatformEncryptionRoute,
   PlatformIamRoute: PlatformIamRoute,
   PlatformInventoryRoute: PlatformInventoryRoute,

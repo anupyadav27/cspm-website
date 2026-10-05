@@ -19,6 +19,7 @@ const cols: Col[] = [
       { label: "Onam Security", to: "/platform" },
       { label: "Onam Estate", to: "/estate" },
       { label: "Onam FinOps", to: "/finops" },
+      { label: "Onam DRM", to: "/disaster-recovery" },
       { label: "Onam Operations (early access)", to: "/platform/ai-operations" },
       { label: "Pricing & packaging", to: "/pricing" },
     ],

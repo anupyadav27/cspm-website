@@ -1,6 +1,11 @@
 # Onam Security
 
-> Onam Security (https://www.onamsecurity.com) is a unified CNAPP (cloud-native application protection platform) —
+> Onam (https://www.onamsecurity.com) is ONE end-to-end cloud platform, from assets to a secure, optimised and
+> resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
+> (cost) -> Onam DRM (disaster recovery), with Onam Operations — AI agents, early access — across
+> them. All four products share one discovery pass, one console and one login.
+>
+> Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
@@ -8,10 +13,8 @@
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
 >
-> Onam ships THREE separately-sold products on one console and one login: Onam Security (the CNAPP
-> described above), Onam Estate (cloud asset discovery and the estate of record), and Onam FinOps
-> (cloud cost and commitment management). Estate and FinOps are per-organisation add-ons, never
-> bundled into a security plan tier, and each stands alone.
+> Estate, FinOps and DRM are available as per-organisation add-ons, never bundled into a security
+> plan tier, and each stands alone. No prices are published for the add-ons; contact sales.
 
 Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-full.txt
 
@@ -20,9 +23,10 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 - [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Per-organisation add-on; contact sales.
 - [Onam Operations](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
 
-All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
+All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
 
 Key facts:
@@ -85,7 +89,7 @@ platform is stronger than Onam. Onam has no public reference customers.
 - [CIEM](https://www.onamsecurity.com/platform/ciem): CIEM resolves what human users, roles, service accounts and workload identities can actually do — after group membership, conditions, explicit denies and SCP denies — then finds…
 - [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security is the configuration-hygiene view of Onam's identity engine: MFA, access keys, password policy, root usage, wildcard policies and trust settings, scored per module.…
 - [Attack Path Analysis](https://www.onamsecurity.com/platform/attack-path): Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an…
-- [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and…
+- [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR reads your cloud audit logs and finds attacker behaviour in them — single suspicious events, multi-step sequences and identities acting unlike themselves — mapped to…
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
 - [Network Security](https://www.onamsecurity.com/platform/network-security): Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path — from VPC isolation to WAF coverage and flow log monitoring — and shows…
 - [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Onam's DSPM inventories every data store across your clouds, labels it from metadata, and joins it to exposure, identity, encryption and lineage — so a sensitive store is never…
@@ -267,6 +271,11 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Savings](https://www.onamsecurity.com/docs/finops/savings)
 - [Runs & Reconciliation](https://www.onamsecurity.com/docs/finops/runs)
 - [Access & Entitlement](https://www.onamsecurity.com/docs/finops/access)
+
+### Onam DRM
+- [Overview](https://www.onamsecurity.com/docs/drm/overview)
+- [RTO, RPO & Drills](https://www.onamsecurity.com/docs/drm/objectives)
+- [Approvals, Baselines & Drift](https://www.onamsecurity.com/docs/drm/governance)
 
 ### Onam Operations
 - [Overview](https://www.onamsecurity.com/docs/operations/overview)

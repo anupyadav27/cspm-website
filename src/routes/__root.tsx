@@ -25,7 +25,7 @@ const STRUCTURED_DATA = [
     url: SITE_URL,
     logo: `${SITE_URL}/logo-512.png`,
     description:
-      "Unified cloud security platform: CSPM, CIEM, attack paths, threat detection, and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, and Kubernetes. Read-only posture scanning; agentless workload scanning in your account.",
+      "One end-to-end cloud platform: asset intelligence (Onam Estate), cloud security (Onam Security: CSPM, CIEM, DSPM, code security, attack paths, CDR), cost (Onam FinOps) and disaster recovery (Onam DRM) across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with AI operations in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
     slogan: "One graph. Every cloud. Complete security picture.",
     knowsAbout: [
       "Cloud Security Posture Management (CSPM)",
@@ -35,6 +35,9 @@ const STRUCTURED_DATA = [
       "Cloud threat detection and response (CDR)",
       "Cloud compliance automation",
       "Kubernetes security",
+      "Cloud asset inventory",
+      "Cloud cost management (FinOps)",
+      "Cloud disaster recovery management",
     ],
     // sameAs consolidates the brand entity across properties. It is also how
     // Google disambiguates "Onam Security" from the Onam festival — add every
@@ -68,7 +71,10 @@ function NotFoundComponent() {
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
-          <Link to="/" className="inline-flex items-center justify-center rounded-[10px] bg-[#2563EB] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8]">
+          <Link
+            to="/"
+            className="inline-flex items-center justify-center rounded-[10px] bg-[#2563EB] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8]"
+          >
             Go home
           </Link>
         </div>
@@ -80,20 +86,32 @@ function NotFoundComponent() {
 function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   console.error(error);
   const router = useRouter();
-  useEffect(() => { reportLovableError(error, { boundary: "tanstack_root_error_component" }); }, [error]);
+  useEffect(() => {
+    reportLovableError(error, { boundary: "tanstack_root_error_component" });
+  }, [error]);
   return (
     <div className="flex min-h-screen items-center justify-center bg-white px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-[#0B1220]">This page didn't load</h1>
-        <p className="mt-2 text-sm text-[#64748B]">Something went wrong on our end. You can try refreshing or head back home.</p>
+        <h1 className="text-xl font-semibold tracking-tight text-[#0B1220]">
+          This page didn't load
+        </h1>
+        <p className="mt-2 text-sm text-[#64748B]">
+          Something went wrong on our end. You can try refreshing or head back home.
+        </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
-            onClick={() => { router.invalidate(); reset(); }}
+            onClick={() => {
+              router.invalidate();
+              reset();
+            }}
             className="inline-flex items-center justify-center rounded-[10px] bg-[#2563EB] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#1D4ED8]"
           >
             Try again
           </button>
-          <a href="/" className="inline-flex items-center justify-center rounded-[10px] border border-[#CBD5E1] bg-white px-4 py-2 text-sm font-medium text-[#0B1220] transition-colors hover:bg-[#F1F5F9]">
+          <a
+            href="/"
+            className="inline-flex items-center justify-center rounded-[10px] border border-[#CBD5E1] bg-white px-4 py-2 text-sm font-medium text-[#0B1220] transition-colors hover:bg-[#F1F5F9]"
+          >
             Go home
           </a>
         </div>
@@ -107,22 +125,27 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Onam Security — Unified CSPM & Cloud Security Platform" },
+      { title: "Onam — from assets to a secure, optimised and resilient cloud" },
       {
         name: "description",
         content:
-          "Unified CSPM and cloud security platform: misconfigurations, identity risk, attack paths, threat detection and compliance across AWS, Azure, GCP and more.",
+          "One cloud platform from assets to recovery: asset inventory, CNAPP security, FinOps and disaster recovery on one discovery across AWS, Azure, GCP and more.",
       },
       { name: "author", content: "Onam Security" },
       { name: "theme-color", content: "#FFFFFF" },
       // Emitted only when a token is configured — an empty content attribute
       // reads to Google as a failed verification.
-      ...(GSC_VERIFICATION ? [{ name: "google-site-verification", content: GSC_VERIFICATION }] : []),
-      { property: "og:title", content: "Onam Security — Unified CSPM & Cloud Security Platform" },
+      ...(GSC_VERIFICATION
+        ? [{ name: "google-site-verification", content: GSC_VERIFICATION }]
+        : []),
+      {
+        property: "og:title",
+        content: "Onam — from assets to a secure, optimised and resilient cloud",
+      },
       {
         property: "og:description",
         content:
-          "One platform for CSPM, CIEM, attack paths, threat detection, and compliance across AWS, Azure, GCP, OCI, Alibaba, IBM, and Kubernetes.",
+          "One platform for cloud assets, security, cost and disaster recovery across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes.",
       },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: "Onam Security" },
@@ -181,7 +204,10 @@ function RootShell({ children }: { children: ReactNode }) {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
         />
       </head>
-      <body>{children}<Scripts /></body>
+      <body>
+        {children}
+        <Scripts />
+      </body>
     </html>
   );
 }
