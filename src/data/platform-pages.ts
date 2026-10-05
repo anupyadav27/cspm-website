@@ -1391,7 +1391,7 @@ export const platformPages: Record<string, ProductPageData> = {
     label: "Remediation & Auto-Fix",
     question: "How do findings actually get fixed instead of just counted?",
     headline: "A finding without a fix is just a well-formatted complaint.",
-    sub: "The remediation engine generates the specific fix for each finding — CLI command, Terraform snippet, or pull request against your repository — and explains why it matters in language an engineer will act on.",
+    sub: "The remediation engine generates the specific fix for each finding — CLI command, Terraform snippet, or — for SAST findings in source code — a fix branch pushed to your repository — and explains why it matters in language an engineer will act on.",
     painPoint:
       "Security tools are very good at producing findings and very bad at producing outcomes. The queue grows, the dashboard turns red, and the engineering team receives a ticket saying 'S3 bucket policy is overly permissive' with a link back to the tool. Nobody disagrees that it should be fixed. It does not get fixed, because turning that sentence into a correct change against a specific bucket in a specific account is the actual work, and the tool left it undone.",
     mechanism: [

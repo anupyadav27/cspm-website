@@ -837,7 +837,7 @@ The further left you catch an issue, the cheaper the fix. These are industry ave
 | Production | Live customer-impacting deployment | ~$7,600+ | Incident response, rollback, post-mortems |
 | Post-breach | After a security incident | $4M+ | IBM 2024 average — detection, response, notification, fines |
 
-Onam runs at every stage — IDE plugin, GitHub PR / GitLab MR comments, CI integration, and the unified posture dashboard. One rule catalog evaluates the same misconfiguration consistently across all stages, so a rule that fires in production CSPM also fires on the Terraform that would create it.
+Onam runs before and after deploy — code and IaC scans on your repositories, CI integration, and the unified posture dashboard. One rule catalog evaluates the same misconfiguration consistently across all stages, so a rule that fires in production CSPM also fires on the Terraform that would create it.
 
 ## Capabilities
 
