@@ -112,7 +112,7 @@
 <rect x="775.5" y="280" width="160" height="132" rx="10" fill="#FFFFFF" stroke="#DCE6F5"/>
 <g transform="translate(855.5,310) scale(1.25)" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M0,-11 L12,-5 L0,1 L-12,-5 Z"/><path d="M-12,1 L0,7 L12,1"/><path d="M-12,7 L0,13 L12,7"/></g>
 <text x="855.5" y="350" class="stT" text-anchor="middle">Enrichment</text>
-<text x="855.5" y="370" class="stS" text-anchor="middle">Cost, risk, identity</text>
+<text x="855.5" y="370" class="stS" text-anchor="middle">Risk, identity</text>
 <text x="855.5" y="386" class="stS" text-anchor="middle">and data labels</text>
 <line x1="939.5" y1="310.0" x2="940.0" y2="310.0" stroke="#2563EB" stroke-width="2.5"/>
 <path d="M938.0,304.0 L946.0,310.0 L938.0,316.0 Z" fill="#2563EB"/>
