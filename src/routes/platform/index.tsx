@@ -5,6 +5,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { platformPages } from "@/data/platform-pages";
 import { PRODUCTS } from "@/data/products";
 import { seo } from "@/lib/seo";
+import { OpsBand } from "@/components/site/ops/OpsBand";
 
 // `as const` keeps the slugs as string literals so `/platform/${slug}` resolves to a
 // union of real route paths — a widened string[] here makes <Link to> untypeable.
@@ -96,6 +97,8 @@ function PlatformIndex() {
           ))}
         </div>
       </section>
+
+      <OpsBand />
 
       <section className="py-20 bg-[#F7F9FC] border-t border-[#E5E9F0]">
         <div className="max-w-7xl mx-auto px-6">

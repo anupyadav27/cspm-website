@@ -1,0 +1,152 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 790" width="960" height="790" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Onam Operations — block architecture</title>
+  <desc id="d">The request path descends from the workspace through entry, orchestration, agents and capability blocks to three forks: reading Cloud Estate Intelligence, executing approved changes in a sandbox, and calling approved models. A control-plane column of governance, policy, approval and audit sits beside every block and can refuse any request.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+    <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
+  </defs>
+  <rect width="960" height="790" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="30" y="34" font-size="11" font-weight="700" fill="#2563EB" letter-spacing="1.4">ONAM OPERATIONS · BLOCK ARCHITECTURE</text>
+  <text x="30" y="52" font-size="11" fill="#64748B">The request path (left) descends one block at a time. The control plane (right) is in the call path and can refuse.</text>
+
+  <!-- People -->
+  <rect x="30" y="68" width="660" height="40" rx="8" fill="#2563EB"/>
+  <text x="360" y="93" text-anchor="middle" font-size="13" font-weight="700" fill="#FFFFFF">People — security analyst · cloud architect · platform engineer · CISO</text>
+  <line x1="360" y1="108" x2="360" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- A -->
+  <rect x="30" y="126" width="660" height="62" rx="8" fill="#FFFFFF" stroke="#93B4F8" stroke-width="1.5"/>
+  <text x="46" y="148" font-size="11" font-weight="700" fill="#2563EB">A · EXPERIENCE</text>
+  <text x="46" y="168" font-size="13" font-weight="700" fill="#0B1220">Workspace UI</text>
+  <text x="160" y="168" font-size="11.5" fill="#475569">chat with agents · plans · evidence · tasks · approvals · activity · reports</text>
+  <text x="46" y="182" font-size="10.5" fill="#64748B">The only block a person touches. Holds no credential; never calls a product backend directly.</text>
+  <line x1="360" y1="188" x2="360" y2="204" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- B -->
+  <rect x="30" y="206" width="660" height="52" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="46" y="227" font-size="11" font-weight="700" fill="#2563EB">B · ENTRY</text>
+  <text x="46" y="246" font-size="12" fill="#334155"><tspan font-weight="700" fill="#0B1220">Platform API gateway</tspan> — session · entitlement · identity and tenant come only from here, never from a request body</text>
+  <line x1="360" y1="258" x2="360" y2="274" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- C -->
+  <rect x="30" y="276" width="660" height="62" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="46" y="297" font-size="11" font-weight="700" fill="#2563EB">C · ORCHESTRATION</text>
+  <text x="46" y="317" font-size="12" fill="#334155"><tspan font-weight="700" fill="#0B1220">Orchestrator</tspan> — intent → plan → route → aggregate → surface conflicts · task service · workflow engine</text>
+  <text x="46" y="332" font-size="10.5" fill="#64748B">Decides what runs; never reads estate data itself and never decides whether a control applies.</text>
+  <line x1="360" y1="338" x2="360" y2="354" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- D -->
+  <rect x="30" y="356" width="660" height="62" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="46" y="377" font-size="11" font-weight="700" fill="#2563EB">D · AGENTS</text>
+  <text x="46" y="397" font-size="12" fill="#334155"><tspan font-weight="700" fill="#0B1220">Agent runtime</tspan> — specialist agents · agent registry · context engine · memory</text>
+  <text x="46" y="412" font-size="10.5" fill="#64748B">One budgeted, scope-checked turn at a time. An agent cannot call a tool directly or change its own scope.</text>
+  <line x1="360" y1="418" x2="360" y2="434" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+
+  <!-- E -->
+  <rect x="30" y="436" width="660" height="70" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="46" y="457" font-size="11" font-weight="700" fill="#2563EB">E · CAPABILITY — the only way out of the platform</text>
+  <rect x="46" y="466" width="196" height="30" rx="6" fill="#EFF4FF" stroke="#C7D7FE"/>
+  <text x="144" y="486" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Skill runtime</text>
+  <rect x="262" y="466" width="196" height="30" rx="6" fill="#082869"/>
+  <text x="360" y="486" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">Tool gateway</text>
+  <rect x="478" y="466" width="196" height="30" rx="6" fill="#082869"/>
+  <text x="576" y="486" text-anchor="middle" font-size="12" font-weight="700" fill="#FFFFFF">Model gateway</text>
+
+  <!-- forks -->
+  <line x1="144" y1="506" x2="144" y2="538" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="152" y="527" font-size="10.5" fill="#64748B">read</text>
+  <line x1="360" y1="506" x2="360" y2="538" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ahr)"/>
+  <text x="368" y="527" font-size="10.5" fill="#DC2626">write — only from an approval</text>
+  <line x1="576" y1="506" x2="576" y2="538" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+  <text x="584" y="527" font-size="10.5" fill="#64748B">inference</text>
+
+  <!-- F G H -->
+  <rect x="30" y="540" width="214" height="84" rx="8" fill="#082869"/>
+  <text x="46" y="560" font-size="11" font-weight="700" fill="#93B4F8">F · INTELLIGENCE</text>
+  <text x="46" y="580" font-size="12.5" font-weight="700" fill="#FFFFFF">Cloud Estate Intelligence</text>
+  <text x="46" y="597" font-size="10.5" fill="#CBD5E1">estate query · graph · identity resolver</text>
+  <text x="46" y="613" font-size="10.5" fill="#CBD5E1">read-only · rows + as-of + sources</text>
+
+  <rect x="254" y="540" width="214" height="84" rx="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>
+  <text x="270" y="560" font-size="11" font-weight="700" fill="#DC2626">G · EXECUTION</text>
+  <text x="270" y="580" font-size="12.5" font-weight="700" fill="#0B1220">Execution sandbox</text>
+  <text x="270" y="597" font-size="10.5" fill="#475569">egress allowlist · one action per run</text>
+  <text x="270" y="613" font-size="10.5" fill="#475569">short-lived, scoped credentials</text>
+
+  <rect x="478" y="540" width="212" height="84" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="494" y="560" font-size="11" font-weight="700" fill="#2563EB">H · MODELS</text>
+  <text x="494" y="580" font-size="12.5" font-weight="700" fill="#0B1220">Approved model providers</text>
+  <text x="494" y="597" font-size="10.5" fill="#475569">Amazon Bedrock today, in-region</text>
+  <text x="494" y="613" font-size="10.5" fill="#475569">no training on customer data</text>
+
+  <line x1="137" y1="624" x2="137" y2="652" stroke="#64748B" stroke-width="1.5" marker-end="url(#ah)"/>
+  <line x1="361" y1="624" x2="361" y2="652" stroke="#DC2626" stroke-width="1.5" stroke-dasharray="5 3" marker-end="url(#ahr)"/>
+
+  <!-- products -->
+  <rect x="30" y="654" width="214" height="104" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="46" y="674" font-size="11" font-weight="700" fill="#334155">PRODUCT DATA</text>
+  <rect x="44" y="682" width="186" height="26" rx="5" fill="#EFF4FF" stroke="#2563EB"/>
+  <text x="137" y="699" text-anchor="middle" font-size="11.5" font-weight="700" fill="#1E3A8A">Onam Security — today</text>
+  <rect x="44" y="716" width="186" height="30" rx="5" fill="#F1F5F9" stroke="#94A3B8" stroke-dasharray="4 3"/>
+  <text x="137" y="729" text-anchor="middle" font-size="10.5" fill="#475569">Estate · FinOps · DRM data</text>
+  <text x="137" y="741" text-anchor="middle" font-size="10" fill="#64748B">on the roadmap</text>
+
+  <rect x="254" y="654" width="214" height="104" rx="8" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.2"/>
+  <text x="270" y="674" font-size="11" font-weight="700" fill="#DC2626">CUSTOMER CLOUD</text>
+  <text x="270" y="694" font-size="11.5" fill="#7F1D1D">AWS first. Changes only after</text>
+  <text x="270" y="710" font-size="11.5" fill="#7F1D1D">a named person approves the</text>
+  <text x="270" y="726" font-size="11.5" fill="#7F1D1D">exact change.</text>
+  <text x="270" y="746" font-size="10" fill="#991B1B">Execution: on the roadmap</text>
+
+  <rect x="478" y="654" width="212" height="104" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="494" y="674" font-size="11" font-weight="700" fill="#334155">FOUNDATION</text>
+  <text x="494" y="694" font-size="11" fill="#475569">PostgreSQL · object storage for</text>
+  <text x="494" y="710" font-size="11" fill="#475569">evidence · cache · event bus.</text>
+  <text x="494" y="726" font-size="11" fill="#475569">Every row carries the tenant;</text>
+  <text x="494" y="742" font-size="11" fill="#475569">no data crosses customers.</text>
+
+  <!-- control plane -->
+  <rect x="716" y="68" width="216" height="690" rx="10" fill="#FFFFFF" stroke="#082869" stroke-width="1.5"/>
+  <text x="824" y="92" text-anchor="middle" font-size="11" font-weight="700" fill="#082869" letter-spacing="1.2">CONTROL PLANE</text>
+  <text x="824" y="108" text-anchor="middle" font-size="10" fill="#64748B">in the call path, not advisory</text>
+
+  <rect x="732" y="126" width="184" height="108" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="746" y="148" font-size="12.5" font-weight="700" fill="#0B1220">Governance</text>
+  <text x="746" y="167" font-size="10.5" fill="#475569">kill switch per organisation</text>
+  <text x="746" y="183" font-size="10.5" fill="#475569">agent · skill · tool registries</text>
+  <text x="746" y="199" font-size="10.5" fill="#475569">certified agents only</text>
+  <text x="746" y="215" font-size="10.5" fill="#475569">autonomy ceiling</text>
+
+  <rect x="732" y="250" width="184" height="108" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="746" y="272" font-size="12.5" font-weight="700" fill="#0B1220">Policy engine</text>
+  <text x="746" y="291" font-size="10.5" fill="#475569">permission per agent, tool,</text>
+  <text x="746" y="307" font-size="10.5" fill="#475569">resource class and action</text>
+  <text x="746" y="323" font-size="10.5" fill="#475569">risk class set by policy,</text>
+  <text x="746" y="339" font-size="10.5" fill="#475569">never by the agent</text>
+
+  <rect x="732" y="374" width="184" height="124" rx="8" fill="#ECFDF5" stroke="#16A34A" stroke-width="1.5"/>
+  <text x="746" y="396" font-size="12.5" font-weight="700" fill="#065F46">Approval gate</text>
+  <text x="746" y="415" font-size="10.5" fill="#065F46">a named person decides</text>
+  <text x="746" y="431" font-size="10.5" fill="#065F46">bound to the change's hash</text>
+  <text x="746" y="447" font-size="10.5" fill="#065F46">expires · two people at critical</text>
+  <text x="746" y="463" font-size="10.5" fill="#065F46">target re-checked before run</text>
+  <text x="746" y="485" font-size="10" font-weight="700" fill="#065F46">An agent can never approve.</text>
+
+  <rect x="732" y="514" width="184" height="108" rx="8" fill="#F8FAFC" stroke="#CBD5E1"/>
+  <text x="746" y="536" font-size="12.5" font-weight="700" fill="#0B1220">Audit + evidence</text>
+  <text x="746" y="555" font-size="10.5" fill="#475569">every turn, tool call,</text>
+  <text x="746" y="571" font-size="10.5" fill="#475569">decision and approval</text>
+  <text x="746" y="587" font-size="10.5" fill="#475569">append-only, hash-chained</text>
+  <text x="746" y="603" font-size="10.5" fill="#475569">exportable</text>
+
+  <text x="824" y="650" text-anchor="middle" font-size="10.5" fill="#082869" font-weight="700">Any block can be refused.</text>
+  <text x="824" y="667" text-anchor="middle" font-size="10.5" fill="#64748B">A refusal stops the request</text>
+  <text x="824" y="683" text-anchor="middle" font-size="10.5" fill="#64748B">and is itself recorded.</text>
+
+  <!-- connectors from control plane to blocks -->
+  <line x1="716" y1="232" x2="694" y2="232" stroke="#082869" stroke-width="1.2" marker-end="url(#ah)"/>
+  <line x1="716" y1="307" x2="694" y2="307" stroke="#082869" stroke-width="1.2" marker-end="url(#ah)"/>
+  <line x1="716" y1="387" x2="694" y2="387" stroke="#082869" stroke-width="1.2" marker-end="url(#ah)"/>
+  <line x1="716" y1="471" x2="694" y2="471" stroke="#082869" stroke-width="1.2" marker-end="url(#ah)"/>
+  <line x1="716" y1="582" x2="694" y2="582" stroke="#082869" stroke-width="1.2" marker-end="url(#ah)"/>
+</svg>

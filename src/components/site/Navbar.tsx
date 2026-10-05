@@ -57,6 +57,11 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "SaaS Security (SSPM)", href: "/platform/saas-security", desc: "M365, Workspace, GitHub, Snowflake" },
       { title: "AI Security", href: "/platform/ai-security", desc: "SageMaker, Bedrock, and AI/ML risk" },
       { title: "AI Assistant", href: "/platform/ai-assistant", desc: "Ask your posture in plain language" },
+      {
+        title: "Onam Operations",
+        href: "/platform/ai-operations",
+        desc: "AI agents, human-approved · early access",
+      },
       { title: "Remediation", href: "/platform/remediation", desc: "Every finding ships with its fix" },
       { title: "Compliance", href: "/platform/compliance", desc: `${FRAMEWORKS} frameworks, always audit-ready` },
       { title: "Technology Engine", href: "/platform/technology", desc: "34 technologies, runtime discovery" },

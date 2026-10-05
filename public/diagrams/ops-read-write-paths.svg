@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" width="960" height="340" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Onam Operations — the read path and the write path</title>
+  <desc id="d">A read passes three automatic gates and returns an answer with evidence. A write passes seven gates, one of them a person approving the exact change, then runs in a sandbox, is validated and produces evidence; a failed validation rolls back.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+  </defs>
+  <rect width="960" height="340" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="30" y="34" font-size="11" font-weight="700" fill="#2563EB" letter-spacing="1.4">TWO PATHS THROUGH THE SAME BLOCKS</text>
+  <text x="30" y="52" font-size="11" fill="#64748B">Reading is cheap because it is safe. Changing your cloud is deliberately expensive — the asymmetry is the product.</text>
+
+  <!-- READ -->
+  <rect x="20" y="66" width="920" height="96" rx="10" fill="#FFFFFF" stroke="#CBD5E1"/>
+  <text x="36" y="88" font-size="12" font-weight="700" fill="#0B1220">READ PATH</text>
+  <text x="120" y="88" font-size="11" fill="#64748B">three automatic gates · no person needed</text>
+  <g font-size="11" text-anchor="middle">
+    <rect x="36" y="104" width="96" height="40" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/><text x="84" y="128" fill="#334155" font-weight="700">Question</text>
+    <line x1="132" y1="124" x2="156" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="158" y="104" width="120" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="218" y="128" fill="#1E3A8A">Entitlement</text>
+    <line x1="278" y1="124" x2="302" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="304" y="104" width="120" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="364" y="128" fill="#1E3A8A">Agent scope</text>
+    <line x1="424" y1="124" x2="448" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="450" y="104" width="120" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="510" y="128" fill="#1E3A8A">Tenant filter</text>
+    <line x1="570" y1="124" x2="594" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="596" y="104" width="150" height="40" rx="6" fill="#082869"/><text x="671" y="128" fill="#FFFFFF" font-weight="700">Estate Intelligence</text>
+    <line x1="746" y1="124" x2="770" y2="124" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="772" y="104" width="152" height="40" rx="6" fill="#16A34A"/><text x="848" y="128" fill="#FFFFFF" font-weight="700">Answer + evidence</text>
+  </g>
+
+  <!-- WRITE -->
+  <rect x="20" y="176" width="920" height="146" rx="10" fill="#FFFFFF" stroke="#FCA5A5"/>
+  <text x="36" y="198" font-size="12" font-weight="700" fill="#0B1220">WRITE PATH</text>
+  <text x="124" y="198" font-size="11" fill="#64748B">seven gates · one of them is a person</text>
+  <g font-size="10.5" text-anchor="middle">
+    <rect x="36" y="212" width="78" height="40" rx="6" fill="#F1F5F9" stroke="#CBD5E1"/><text x="75" y="236" fill="#334155" font-weight="700">Proposal</text>
+    <line x1="114" y1="232" x2="128" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="130" y="212" width="92" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="176" y="236" fill="#1E3A8A">Entitlement</text>
+    <line x1="222" y1="232" x2="236" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="238" y="212" width="92" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="284" y="236" fill="#1E3A8A">Agent scope</text>
+    <line x1="330" y1="232" x2="344" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="346" y="212" width="92" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="392" y="230" fill="#1E3A8A">Level L3</text><text x="392" y="244" fill="#1E3A8A">actor only</text>
+    <line x1="438" y1="232" x2="452" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="454" y="212" width="92" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="500" y="230" fill="#1E3A8A">Permission</text><text x="500" y="244" fill="#1E3A8A">to execute</text>
+    <line x1="546" y1="232" x2="560" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="562" y="212" width="92" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="608" y="230" fill="#1E3A8A">Risk class</text><text x="608" y="244" fill="#1E3A8A">by policy</text>
+    <line x1="654" y1="232" x2="668" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="670" y="208" width="132" height="48" rx="24" fill="#16A34A"/><text x="736" y="228" fill="#FFFFFF" font-weight="700">A person approves</text><text x="736" y="243" fill="#FFFFFF">this exact change</text>
+    <line x1="802" y1="232" x2="816" y2="232" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="818" y="212" width="106" height="40" rx="20" fill="#EFF4FF" stroke="#2563EB"/><text x="871" y="230" fill="#1E3A8A">Drift check</text><text x="871" y="244" fill="#1E3A8A">target unchanged</text>
+  </g>
+  <g font-size="11" text-anchor="middle">
+    <line x1="871" y1="252" x2="871" y2="266" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="770" y="268" width="154" height="38" rx="6" fill="#DC2626"/><text x="847" y="291" fill="#FFFFFF" font-weight="700">Sandbox executes</text>
+    <line x1="770" y1="287" x2="740" y2="287" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="626" y="268" width="112" height="38" rx="6" fill="#FFFFFF" stroke="#334155"/><text x="682" y="291" fill="#0B1220" font-weight="700">Validate</text>
+    <line x1="626" y1="287" x2="596" y2="287" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+    <rect x="452" y="268" width="142" height="38" rx="6" fill="#082869"/><text x="523" y="291" fill="#FFFFFF" font-weight="700">Evidence stored</text>
+    <rect x="236" y="268" width="196" height="38" rx="6" fill="#FFF7ED" stroke="#EA580C"/><text x="334" y="285" fill="#9A3412" font-weight="700">If validation fails:</text><text x="334" y="299" fill="#9A3412">roll back + raise an incident</text>
+    <text x="36" y="284" text-anchor="start" fill="#991B1B" font-size="10.5" font-weight="700">Execution in a customer</text>
+    <text x="36" y="299" text-anchor="start" fill="#991B1B" font-size="10.5" font-weight="700">cloud: on the roadmap</text>
+  </g>
+</svg>

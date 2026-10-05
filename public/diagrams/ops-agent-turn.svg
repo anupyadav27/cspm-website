@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" width="960" height="330" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Onam Operations — what one agent turn does</title>
+  <desc id="d">Eight steps: governance check, context assembled after entitlement filtering, the model chooses a declared skill, the policy engine checks permission before any tool call, the tool gateway enforces scope and tenant, the estate is queried, results are sanitised before they return to the model, and the answer is returned with evidence and recorded.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
+  </defs>
+  <rect width="960" height="330" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="30" y="34" font-size="11" font-weight="700" fill="#2563EB" letter-spacing="1.4">ONE AGENT TURN · EIGHT STEPS</text>
+  <text x="30" y="52" font-size="11" fill="#64748B">The permission check happens before the tool call, and sanitising happens before the result reaches the model again.</text>
+
+  <g font-size="11">
+    <!-- row 1 -->
+    <rect x="30" y="72" width="200" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="46" y="94" font-weight="700" fill="#2563EB">1</text><text x="62" y="94" font-weight="700" fill="#0B1220" font-size="12.5">Governance check</text>
+    <text x="46" y="116" fill="#475569">kill switch off? agent enabled</text><text x="46" y="131" fill="#475569">for this organisation? within</text><text x="46" y="146" fill="#475569">budget?</text>
+    <line x1="230" y1="120" x2="256" y2="120" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="258" y="72" width="200" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="274" y="94" font-weight="700" fill="#2563EB">2</text><text x="290" y="94" font-weight="700" fill="#0B1220" font-size="12.5">Context assembled</text>
+    <text x="274" y="116" fill="#475569">filtered to what you may see</text><text x="274" y="131" fill="#475569">before assembly; secrets</text><text x="274" y="146" fill="#475569">stripped; budgeted</text>
+    <line x1="458" y1="120" x2="484" y2="120" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="486" y="72" width="200" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="502" y="94" font-weight="700" fill="#2563EB">3</text><text x="518" y="94" font-weight="700" fill="#0B1220" font-size="12.5">Model chooses a skill</text>
+    <text x="502" y="116" fill="#475569">via the model gateway, from</text><text x="502" y="131" fill="#475569">the skills this agent declares</text><text x="502" y="146" fill="#475569">— nothing else is offered</text>
+    <line x1="686" y1="120" x2="712" y2="120" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="714" y="72" width="216" height="96" rx="8" fill="#EFF4FF" stroke="#2563EB" stroke-width="1.5"/>
+    <text x="730" y="94" font-weight="700" fill="#2563EB">4</text><text x="746" y="94" font-weight="700" fill="#0B1220" font-size="12.5">Policy check — in code</text>
+    <text x="730" y="116" fill="#334155">may this agent run this skill</text><text x="730" y="131" fill="#334155">on this target, for this user?</text><text x="730" y="146" fill="#334155">deny is recorded with its rule</text>
+
+    <line x1="822" y1="168" x2="822" y2="196" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <!-- row 2 (right to left) -->
+    <rect x="714" y="198" width="216" height="96" rx="8" fill="#082869"/>
+    <text x="730" y="220" font-weight="700" fill="#93B4F8">5</text><text x="746" y="220" font-weight="700" fill="#FFFFFF" font-size="12.5">Tool gateway</text>
+    <text x="730" y="242" fill="#CBD5E1">permission · tenant scope ·</text><text x="730" y="257" fill="#CBD5E1">rate limit · schema — the</text><text x="730" y="272" fill="#CBD5E1">single way out</text>
+    <line x1="714" y1="246" x2="688" y2="246" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="486" y="198" width="200" height="96" rx="8" fill="#FFFFFF" stroke="#CBD5E1"/>
+    <text x="502" y="220" font-weight="700" fill="#2563EB">6</text><text x="518" y="220" font-weight="700" fill="#0B1220" font-size="12.5">Estate queried</text>
+    <text x="502" y="242" fill="#475569">rows + "as of" time + scan</text><text x="502" y="257" fill="#475569">id + what was unavailable</text>
+    <line x1="486" y1="246" x2="460" y2="246" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="258" y="198" width="200" height="96" rx="8" fill="#FFF7ED" stroke="#EA580C" stroke-width="1.5"/>
+    <text x="274" y="220" font-weight="700" fill="#EA580C">7</text><text x="290" y="220" font-weight="700" fill="#0B1220" font-size="12.5">Sanitised</text>
+    <text x="274" y="242" fill="#7C2D12">cloud text (tags, policy notes)</text><text x="274" y="257" fill="#7C2D12">is labelled as data, never as</text><text x="274" y="272" fill="#7C2D12">an instruction</text>
+    <line x1="258" y1="246" x2="232" y2="246" stroke="#64748B" stroke-width="1.5" marker-end="url(#a)"/>
+
+    <rect x="30" y="198" width="200" height="96" rx="8" fill="#16A34A"/>
+    <text x="46" y="220" font-weight="700" fill="#ECFDF5">8</text><text x="62" y="220" font-weight="700" fill="#FFFFFF" font-size="12.5">Answer + evidence</text>
+    <text x="46" y="242" fill="#ECFDF5">every claim cites skill, query,</text><text x="46" y="257" fill="#ECFDF5">rows and scan; the turn is</text><text x="46" y="272" fill="#ECFDF5">recorded in the audit trail</text>
+  </g>
+  <text x="30" y="316" font-size="10.5" fill="#64748B">If the model is persuaded by injected text to try something else, step 4 and step 5 still refuse it: a model cannot call a tool its agent does not hold.</text>
+</svg>

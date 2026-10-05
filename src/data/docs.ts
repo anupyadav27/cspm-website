@@ -8,6 +8,7 @@ import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
 import { articles as products } from "./docs-articles/products";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
+import { articles as operations } from "./docs-articles/operations";
 
 export type { DocArticle };
 
@@ -114,6 +115,28 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
+    heading: "Onam Operations",
+    items: [
+      { title: "Overview", slug: "operations/overview" },
+      { title: "Availability & Status", slug: "operations/availability" },
+      { title: "Concepts", slug: "operations/concepts" },
+      { title: "The Workspace", slug: "operations/workspace" },
+      { title: "The Orchestrator", slug: "operations/orchestrator" },
+      { title: "The Agents", slug: "operations/agents" },
+      { title: "Asset Agent", slug: "operations/agents/asset-agent" },
+      { title: "Security Agent", slug: "operations/agents/security-agent" },
+      { title: "Compliance Agent", slug: "operations/agents/compliance-agent" },
+      { title: "Data Agent", slug: "operations/agents/data-agent" },
+      { title: "Automation Agent", slug: "operations/agents/automation-agent" },
+      { title: "FinOps Agent", slug: "operations/agents/finops-agent" },
+      { title: "DR Agent", slug: "operations/agents/dr-agent" },
+      { title: "Architecture Agent", slug: "operations/agents/architecture-agent" },
+      { title: "Governance & Approvals", slug: "operations/governance" },
+      { title: "Security & AI Safety", slug: "operations/security" },
+      { title: "Architecture", slug: "operations/architecture" },
+    ],
+  },
+  {
     heading: "Release Notes",
     items: [{ title: "Release Notes", slug: "release-notes" }],
   },
@@ -129,6 +152,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...releaseNotes,
   ...products,
   ...featuresExtra,
+  ...operations,
 ];
 
 function titleFromSlug(slug: string) {

@@ -283,6 +283,7 @@ Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 - [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
 - [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
 - [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
+- [Onam Operations](${SITE_URL}/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/platform/ai-operations/architecture
 
 All three run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
