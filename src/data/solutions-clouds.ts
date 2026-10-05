@@ -26,7 +26,7 @@ const CLOUD_RELATED_BASE: CloudRelated[] = [
   {
     label: "Attack Path Analysis",
     href: "/platform/attack-path",
-    blurb: "Toxic combinations and choke points computed across your whole estate.",
+    blurb: "Attack paths and choke points computed across your whole estate.",
   },
   {
     label: "CIEM — identity risk",
@@ -81,9 +81,9 @@ export const awsData: CloudSolutionData = {
     "CloudFormation, CodeBuild, CodePipeline, SageMaker, Bedrock, Elastic Beanstalk, Inspector, Macie, and more.",
   frameworks: [
     "CIS AWS Foundations Benchmark",
-    "NIST CSF 2.0",
-    "PCI-DSS v4.0",
-    "SOC 2 Type II",
+    "NIST 800-53",
+    "PCI DSS",
+    "SOC 2",
     "FedRAMP Moderate",
   ],
   setupSteps: [
@@ -96,7 +96,7 @@ export const awsData: CloudSolutionData = {
       body: "Multi-account organizations connect in a single step via AWS Organizations: deploy a StackSet from the management account and every member account is onboarded automatically.",
     },
     {
-      title: "First findings in under 5 minutes",
+      title: "Findings from the first scan",
       body: "Onam assumes the role via STS and scans all in-scope regions. Findings arrive prioritized, mapped to CIS/NIST/PCI, and ready to route to your ticketing system.",
     },
   ],
@@ -132,7 +132,7 @@ export const awsData: CloudSolutionData = {
     },
     {
       q: "How long does the first scan take?",
-      a: "Small accounts return findings in under 5 minutes. Very large environments — hundreds of accounts, thousands of resources per account — complete in 15 to 20 minutes.",
+      a: "It depends on how many accounts, regions and resources you connect. Findings appear as soon as the first scan completes, and every resource is re-checked on every scan after that.",
     },
     {
       q: "Do I need to install agents or change my network?",
@@ -140,7 +140,7 @@ export const awsData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map AWS findings to?",
-      a: "Out of the box: CIS AWS Foundations Benchmark, NIST CSF 2.0, PCI-DSS v4.0, SOC 2 Type II, and FedRAMP Moderate. Custom framework mappings are supported for internal standards.",
+      a: "Among the 78 frameworks Onam maps: CIS AWS Foundations Benchmark (several versions) and the CIS AWS service benchmarks, NIST 800-53, PCI DSS, SOC 2, and FedRAMP Moderate and High. Custom rules can carry their own framework mappings for internal standards.",
     },
   ],
 };
@@ -182,9 +182,9 @@ export const azureData: CloudSolutionData = {
   frameworks: [
     "CIS Microsoft Azure Foundations Benchmark",
     "ISO 27001:2022",
-    "NIST 800-53 Rev 5",
+    "NIST 800-53",
     "GDPR",
-    "SOC 2 Type II",
+    "SOC 2",
   ],
   setupSteps: [
     {
@@ -196,7 +196,7 @@ export const azureData: CloudSolutionData = {
       body: "One admin consent covers every subscription under the management group. Onam traverses the hierarchy automatically and inherits access to any new subscription without re-onboarding.",
     },
     {
-      title: "First findings in under 5 minutes",
+      title: "Findings from the first scan",
       body: "Onam authenticates via workload identity federation — no client secrets to rotate — and scans every subscription, region, and Entra ID tenant in scope.",
     },
   ],
@@ -240,7 +240,7 @@ export const azureData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map Azure findings to?",
-      a: "CIS Microsoft Azure Foundations Benchmark, ISO 27001:2022, NIST 800-53 Rev 5, GDPR, SOC 2 Type II, and custom internal frameworks.",
+      a: "Among the 78 frameworks Onam maps: CIS Microsoft Azure Foundations Benchmark and the CIS Azure service benchmarks, ISO 27001:2022, NIST 800-53, GDPR and SOC 2. Custom rules can carry their own framework mappings.",
     },
   ],
 };
@@ -279,19 +279,19 @@ export const gcpData: CloudSolutionData = {
   ],
   servicesPlusNote:
     "Pub/Sub, Cloud Build, Artifact Registry, Dataflow, Vertex AI, Cloud DNS, Load Balancing, and more.",
-  frameworks: ["CIS GCP Foundation Benchmark", "NIST CSF 2.0", "ISO 27001:2022", "SOC 2 Type II"],
+  frameworks: ["CIS GCP Foundation Benchmark", "NIST 800-53", "ISO 27001:2022", "SOC 2"],
   setupSteps: [
     {
       title: "Create an Onam service account",
-      body: "Provision a service account at the organization level with the Security Reviewer and Viewer roles. Terraform module included; runs in under a minute.",
+      body: "Provision a service account at the organization level with the Security Reviewer and Viewer roles. Terraform module included.",
     },
     {
       title: "Grant org-level read access",
       body: "One binding at the organization node inherits down through every folder and project. New projects — created by any engineer, at any time — are covered automatically.",
     },
     {
-      title: "First findings in under 5 minutes",
-      body: "Onam authenticates via workload identity federation, walks the resource hierarchy, and returns findings mapped to CIS GCP and your internal frameworks.",
+      title: "Findings from the first scan",
+      body: "Onam authenticates via workload identity federation, walks the resource hierarchy, and returns findings mapped to CIS GCP and the other frameworks you track.",
     },
   ],
   featuresHeading: "What makes Onam different on GCP",
@@ -322,7 +322,7 @@ export const gcpData: CloudSolutionData = {
     },
     {
       q: "How does Onam discover new projects?",
-      a: "Onam re-walks the resource hierarchy on a schedule and via Cloud Asset Inventory feeds. Projects created after onboarding are picked up automatically, typically within minutes.",
+      a: "Onam re-walks the resource hierarchy on every scan. Projects created after onboarding are picked up automatically at the next scan.",
     },
     {
       q: "Do you support multiple GCP organizations?",
@@ -334,7 +334,7 @@ export const gcpData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map GCP findings to?",
-      a: "CIS GCP Foundation Benchmark, NIST CSF 2.0, ISO 27001:2022, SOC 2 Type II, and custom internal frameworks.",
+      a: "Among the 78 frameworks Onam maps: CIS GCP Foundation Benchmark, CIS GKE, NIST 800-53, ISO 27001:2022 and SOC 2. Custom rules can carry their own framework mappings.",
     },
   ],
 };
@@ -371,7 +371,7 @@ export const ociData: CloudSolutionData = {
   ],
   servicesPlusNote:
     "Functions, API Gateway, Streaming, Data Safe, Bastion, Web Application Firewall, and more.",
-  frameworks: ["CIS Oracle Cloud Infrastructure Benchmark", "ISO 27001:2022", "SOC 2 Type II", "NIST 800-53 Rev 5"],
+  frameworks: ["CIS Oracle Cloud Infrastructure Benchmark", "ISO 27001:2022", "SOC 2", "NIST 800-53"],
   setupSteps: [
     {
       title: "Create a read-only OCI user & group",
@@ -382,8 +382,8 @@ export const ociData: CloudSolutionData = {
       body: "Upload the public key to the Onam user. The private key is stored in AWS Secrets Manager, encrypted with AWS KMS.",
     },
     {
-      title: "First findings in under 5 minutes",
-      body: "Onam walks every compartment recursively — including nested and dynamic groups — and returns findings mapped to CIS OCI in real time.",
+      title: "Findings from the first scan",
+      body: "Onam walks every compartment recursively — including nested and dynamic groups — and returns findings mapped to CIS OCI.",
     },
   ],
   featuresHeading: "What makes Onam different on OCI",
@@ -426,7 +426,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map OCI findings to?",
-      a: "CIS Oracle Cloud Infrastructure Benchmark, ISO 27001:2022, SOC 2 Type II, and NIST 800-53 Rev 5.",
+      a: "Among the 78 frameworks Onam maps: CIS Oracle Cloud Infrastructure Benchmark, CIS OKE, ISO 27001:2022, SOC 2 and NIST 800-53.",
     },
   ],
 };
@@ -464,10 +464,10 @@ export const alicloudData: CloudSolutionData = {
   servicesPlusNote:
     "MaxCompute, DataWorks, MSE, API Gateway, Container Registry, Anti-DDoS, and more.",
   frameworks: [
-    "CIS-style Alibaba Cloud Benchmark",
-    "MLPS 2.0 (China Cybersecurity Classified Protection)",
+    "CIS Alibaba Cloud Benchmark",
+    "CIS Alibaba Cloud ACK",
     "ISO 27001:2022",
-    "SOC 2 Type II",
+    "SOC 2",
   ],
   setupSteps: [
     {
@@ -479,7 +479,7 @@ export const alicloudData: CloudSolutionData = {
       body: "Multi-account Resource Directory customers connect once at the master account — every member account is discovered and onboarded automatically.",
     },
     {
-      title: "First findings in under 5 minutes",
+      title: "Findings from the first scan",
       body: "Onam assumes the RAM role across every enabled region — including China and international — and returns prioritized findings mapped to your frameworks.",
     },
   ],
@@ -489,7 +489,7 @@ export const alicloudData: CloudSolutionData = {
       icon: Globe2,
       iconColor: "#F2AF04",
       title: "China-region coverage without compromise",
-      body: "Onam operates in AliCloud's China regions with the same depth as international regions — including MLPS-relevant controls — while keeping your data plane inside your tenancy.",
+      body: "Onam operates in AliCloud's China regions with the same depth as international regions while keeping your data plane inside your tenancy.",
     },
     {
       icon: KeyRound,
@@ -523,7 +523,7 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map AliCloud findings to?",
-      a: "A CIS-style Alibaba Cloud benchmark, MLPS 2.0, ISO 27001:2022, and SOC 2 Type II, plus custom internal frameworks.",
+      a: "Among the 78 frameworks Onam maps: CIS Alibaba Cloud and CIS ACK, ISO 27001:2022 and SOC 2. Custom rules can carry their own framework mappings.",
     },
   ],
 };
@@ -561,10 +561,10 @@ export const ibmData: CloudSolutionData = {
   servicesPlusNote:
     "Event Streams, Code Engine, Container Registry, App ID, Certificate Manager, and more.",
   frameworks: [
-    "IBM Cloud Framework for Financial Services",
-    "NIST 800-53 Rev 5",
+    "CIS IBM Cloud Benchmark",
+    "NIST 800-53",
     "ISO 27001:2022",
-    "SOC 2 Type II",
+    "SOC 2",
     "GDPR",
   ],
   setupSteps: [
@@ -577,8 +577,8 @@ export const ibmData: CloudSolutionData = {
       body: "One binding at the enterprise level covers every account group and child account. New accounts added by any team are onboarded automatically.",
     },
     {
-      title: "First findings in under 5 minutes",
-      body: "Onam scans every region — classic and VPC — and returns findings mapped to IBM Cloud Framework for Financial Services and your internal standards.",
+      title: "Findings from the first scan",
+      body: "Onam scans every region — classic and VPC — and returns findings mapped to CIS IBM Cloud and the other frameworks you track.",
     },
   ],
   featuresHeading: "What makes Onam different on IBM Cloud",
@@ -598,8 +598,8 @@ export const ibmData: CloudSolutionData = {
     {
       icon: ShieldCheck,
       iconColor: "#05A052",
-      title: "Financial Services Framework coverage",
-      body: "IBM Cloud FS Framework controls are mapped natively. Regulated workloads on IBM Cloud get evidence-ready posture reporting out of the box.",
+      title: "Compliance for regulated workloads",
+      body: "Findings on IBM Cloud are mapped to CIS IBM Cloud, NIST 800-53, ISO 27001:2022, SOC 2 and GDPR, with evidence per control and PDF or CSV export.",
     },
   ],
   faqs: [
@@ -621,7 +621,7 @@ export const ibmData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map IBM Cloud findings to?",
-      a: "IBM Cloud Framework for Financial Services, NIST 800-53 Rev 5, ISO 27001:2022, SOC 2 Type II, and GDPR.",
+      a: "Among the 78 frameworks Onam maps: CIS IBM Cloud, NIST 800-53, ISO 27001:2022, SOC 2 and GDPR.",
     },
   ],
 };
@@ -663,9 +663,9 @@ export const kubernetesData: CloudSolutionData = {
   frameworks: [
     "CIS Kubernetes Benchmark",
     "CIS EKS / AKS / GKE Benchmarks",
-    "NSA/CISA Kubernetes Hardening Guide",
-    "PCI-DSS v4.0",
-    "SOC 2 Type II",
+    "CIS OpenShift",
+    "PCI DSS",
+    "SOC 2",
   ],
   setupSteps: [
     {
@@ -677,8 +677,8 @@ export const kubernetesData: CloudSolutionData = {
       body: "Federated OIDC binding to Onam's service account — no long-lived kubeconfig files exchanged. For self-managed clusters, the token is stored in AWS Secrets Manager, encrypted with AWS KMS.",
     },
     {
-      title: "First findings in under 5 minutes",
-      body: "Onam watches the API server for drift and audits every workload against CIS Kubernetes, NSA/CISA hardening, and image-supply-chain rules — no runtime agent required.",
+      title: "Findings from the first scan",
+      body: "Onam watches the API server for drift and audits workloads against CIS Kubernetes and image-supply-chain rules — no runtime agent required.",
     },
   ],
   featuresHeading: "What makes Onam different on Kubernetes",
@@ -721,7 +721,7 @@ export const kubernetesData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map Kubernetes findings to?",
-      a: "CIS Kubernetes Benchmark, CIS EKS / AKS / GKE, NSA/CISA Kubernetes Hardening Guide, PCI-DSS v4.0, and SOC 2 Type II.",
+      a: "Among the 78 frameworks Onam maps: CIS Kubernetes Benchmark, CIS EKS / AKS / GKE / OKE, CIS OpenShift, PCI DSS and SOC 2.",
     },
   ],
 };

@@ -139,7 +139,7 @@ function SetupSteps({ data }: { data: CloudSolutionData }) {
             Onboarding
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Connect in 3 steps</h2>
-          <p className="mt-3 text-[#475569]">From consent to first finding in under five minutes.</p>
+          <p className="mt-3 text-[#475569]">From consent to your first findings, with no agents to install for posture scanning.</p>
         </div>
         <div className="mt-12 grid md:grid-cols-3 gap-5">
           {data.setupSteps.map((s, i) => (
@@ -243,7 +243,7 @@ function CTA({ data }: { data: CloudSolutionData }) {
           <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
             Ready to secure your {data.cloudName} environment?
           </h2>
-          <p className="mt-4 text-[#475569] max-w-xl mx-auto">Connect a read-only role in three minutes. Your first findings surface in under five.</p>
+          <p className="mt-4 text-[#475569] max-w-xl mx-auto">Connect a read-only role for posture scanning. Your first findings arrive with the first scan.</p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Book a demo →</BrandButton>
             <BrandButton to="/pricing" size="lg" variant="secondary">See pricing</BrandButton>

@@ -17,8 +17,8 @@ const clouds: CardDef[] = [
 
 const industries: CardDef[] = [
   { name: "Financial Services", href: "/solutions/financial", blurb: "PCI-DSS, SOX, SOC 2, ISO 27001 evidence — continuously.", color: "#2563EB", abbr: "FSI" },
-  { name: "Healthcare", href: "/solutions/healthcare", blurb: "HIPAA and HITRUST controls that survive an OCR audit.", color: "#E32D25", abbr: "HC" },
-  { name: "Government", href: "/solutions/government", blurb: "FedRAMP, FISMA, CMMC — continuous ATO evidence.", color: "#05A052", abbr: "GOV" },
+  { name: "Healthcare", href: "/solutions/healthcare", blurb: "HIPAA controls mapped, with evidence per control.", color: "#E32D25", abbr: "HC" },
+  { name: "Government", href: "/solutions/government", blurb: "FedRAMP, NIST 800-53 and 800-171 evidence.", color: "#05A052", abbr: "GOV" },
 ];
 
 const cloudIcons: Record<string, typeof Cloud> = {

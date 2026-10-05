@@ -227,7 +227,7 @@ function LearnPage() {
           <div>
             <h2 className="font-display font-extrabold text-2xl text-[#0B1220]">See it on your own cloud</h2>
             <p className="mt-2 text-[#475569] max-w-2xl">
-              Connect a read-only role. First findings surface in under five minutes — across seven clouds
+              Connect a read-only role for posture scanning. Your first findings arrive with the first scan — across seven clouds
               and your SaaS platforms.
             </p>
           </div>

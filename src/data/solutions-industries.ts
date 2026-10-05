@@ -1,6 +1,6 @@
 import { Landmark, FileCheck2, ShieldAlert, HeartPulse, Lock, FileSearch, Building2, ScrollText, Radar } from "lucide-react";
 import type { IndustrySolutionData } from "@/components/site/IndustrySolutionTemplate";
-import { CLOUDS } from "@/lib/product-facts";
+import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, fmt } from "@/lib/product-facts";
 
 export const financialData: IndustrySolutionData = {
   breadcrumb: "Solutions · Financial Services",
@@ -10,9 +10,9 @@ export const financialData: IndustrySolutionData = {
     "Cloud security for financial services: banks, fintechs, insurers and asset managers get a continuous, auditable evidence trail across every cloud account.",
   sub: "Financial services firms face the strictest cloud security mandates on earth — and the shortest tolerance for breaches. Onam gives banks, fintechs, insurers, and asset managers a continuous, auditable evidence trail across every cloud account, so your next regulatory exam is a demonstration, not a scramble.",
   stats: [
-    { value: "6", label: "financial frameworks mapped" },
-    { value: "Continuous", label: "evidence collection" },
-    { value: "10,000+", label: "controls audited" },
+    { value: String(FRAMEWORKS), label: "frameworks mapped" },
+    { value: "Per control", label: "evidence collection" },
+    { value: fmt(CSPM_POSTURE_RULES), label: "posture rules" },
     { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
@@ -25,14 +25,14 @@ export const financialData: IndustrySolutionData = {
     {
       icon: Landmark,
       iconColor: "#F2AF04",
-      title: "SOX ITGC for cloud workloads",
-      body: "Change management, access control, and logical-separation evidence collected on every commit and deploy — mapped to your control matrix and ready for external audit.",
+      title: "RBI frameworks for banks and NBFCs",
+      body: "Findings mapped to the RBI frameworks for banks and for NBFCs, with a score per framework, evidence per control and PDF or CSV export for your next inspection.",
     },
     {
       icon: ShieldAlert,
       iconColor: "#E32D25",
       title: "Third-party & M&A cloud due diligence",
-      body: "Onboard a newly acquired subsidiary's cloud tenancy in minutes and get a risk-ranked posture report — before it gets connected to your production network.",
+      body: "Onboard a newly acquired subsidiary's cloud tenancy and get a risk-ranked posture report from the first scan — before it gets connected to your production network.",
     },
     {
       icon: Radar,
@@ -42,31 +42,27 @@ export const financialData: IndustrySolutionData = {
     },
   ],
   regulations: [
-    { name: "PCI-DSS v4.0", note: "Every PCI requirement mapped to concrete cloud controls with evidence exportable per QSA request." },
-    { name: "SOC 2 Type II", note: "Trust Services Criteria mapped continuously — no once-a-year scramble to reconstruct the year." },
-    { name: "ISO 27001", note: "Annex A controls mapped to cloud primitives, with change-history evidence for surveillance audits." },
-    { name: "NIST CSF", note: "Identify, Protect, Detect, Respond, Recover — every function scored per cloud account." },
-    { name: "GLBA", note: "Safeguards Rule controls covering PII in cloud storage, databases, and analytics platforms." },
-    { name: "SOX", note: "ITGCs for cloud change management, access, and segregation of duties — audit-ready evidence." },
+    { name: "PCI DSS", note: "Requirements mapped to cloud checks, with evidence per control exportable as PDF or CSV." },
+    { name: "SOC 2", note: "Trust Services Criteria mapped to cloud checks and scored from the latest findings." },
+    { name: "ISO 27001:2022", note: "Annex A controls mapped to cloud checks, with evidence per control." },
+    { name: "RBI (banks)", note: "The RBI framework for banks, mapped to cloud checks and scored per framework." },
+    { name: "RBI (NBFCs)", note: "The RBI framework for NBFCs, mapped to cloud checks and scored per framework." },
+    { name: "GDPR", note: "Technical controls for personal data in cloud storage, databases and analytics." },
   ],
   whyChoose: [
-    { title: "Evidence you can actually hand to an auditor", body: "Not screenshots. Signed, timestamped exports mapped one-to-one against your framework's controls." },
-    { title: "Coverage across every cloud your firm uses", body: "AWS, Azure, GCP, OCI, and Kubernetes — one control matrix, not seven." },
-    { title: "Segregation of duties by design", body: "Read-only access, granular RBAC inside Onam, and full audit log — Onam itself passes SOX ITGCs." },
-    { title: "Deployed by risk teams, trusted by engineering", body: "No agents, no network changes, no engineering time. Security teams get results without lobbying for onboarding." },
+    { title: "Evidence you can actually hand to an auditor", body: "Not screenshots. Timestamped evidence per control, exported as PDF or CSV." },
+    { title: "Coverage across every cloud your firm uses", body: "AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes — one control mapping, not seven." },
+    { title: "Segregation of duties by design", body: "Posture scanning connects through read-only cloud roles, with role-based access inside Onam." },
+    { title: "Deployed by risk teams, trusted by engineering", body: "No agents for posture scanning and no network changes. Security teams get results without lobbying for onboarding." },
   ],
   faqs: [
     {
-      q: "Can Onam produce PCI-DSS v4.0 evidence for our QSA?",
-      a: "Yes. Every PCI requirement is mapped to concrete AWS/Azure/GCP controls. Evidence exports include configuration snapshots, timestamps, and change history — exactly what a QSA expects to see for cloud-scoped requirements.",
+      q: "Can Onam produce PCI DSS evidence for our QSA?",
+      a: "Yes. PCI DSS requirements are mapped to cloud checks, each control keeps the resources evaluated, their results and timestamps, and reports export as PDF and CSV for your QSA to review.",
     },
     {
-      q: "How does Onam help with SOX ITGCs for cloud?",
-      a: "Onam captures continuous evidence for the three ITGC domains that auditors probe hardest in cloud: change management (who deployed what, when), access management (who has access to production, and why), and logical separation (dev/test/prod boundaries).",
-    },
-    {
-      q: "Does Onam meet DORA operational-resilience requirements?",
-      a: "Onam's continuous monitoring, incident-detection, and third-party posture-visibility capabilities align to DORA's ICT risk-management pillars. We can provide a control mapping for your DORA program on request.",
+      q: "Which frameworks does Onam map for financial services?",
+      a: "PCI DSS, SOC 2, ISO 27001:2022, GDPR, NIST 800-53, and the RBI frameworks for banks and NBFCs, among the 78 frameworks Onam maps. Each gets a score from the latest findings, evidence per control and PDF or CSV export.",
     },
     {
       q: "How is our data segregated from other Onam customers?",
@@ -78,14 +74,14 @@ export const financialData: IndustrySolutionData = {
 export const healthcareData: IndustrySolutionData = {
   breadcrumb: "Solutions · Healthcare",
   industryName: "Healthcare",
-  headline: "HIPAA Cloud Compliance That Survives an OCR Audit",
+  headline: "HIPAA Cloud Compliance Evidence, Ready Before the Audit",
   metaDescription:
     "Healthcare cloud security and HIPAA compliance: continuous visibility into every PHI-adjacent cloud control for health systems, payers and digital health.",
   sub: "Healthcare organizations are the most targeted sector in cloud-based breaches — and HHS Office for Civil Rights now pursues cloud misconfigurations as HIPAA violations without requiring a breach. Onam gives health systems, payers, and digital health companies continuous visibility into every PHI-adjacent cloud control, 24/7.",
   stats: [
-    { value: "5", label: "healthcare frameworks mapped" },
-    { value: "24/7", label: "PHI posture monitoring" },
-    { value: "< 5 min", label: "to first HIPAA finding" },
+    { value: String(FRAMEWORKS), label: "frameworks mapped" },
+    { value: "Every scan", label: "PHI posture re-checked" },
+    { value: "Per control", label: "HIPAA evidence" },
     { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
@@ -99,7 +95,7 @@ export const healthcareData: IndustrySolutionData = {
       icon: Lock,
       iconColor: "#F2AF04",
       title: "Encryption-at-rest & in-transit assurance",
-      body: "Every managed data service is audited for KMS-backed encryption, TLS enforcement, and key-rotation posture. Non-conforming resources are surfaced the moment they appear.",
+      body: "Every managed data service is audited for KMS-backed encryption, TLS enforcement, and key-rotation posture. Non-conforming resources are surfaced at the next scan.",
     },
     {
       icon: ShieldAlert,
@@ -110,20 +106,20 @@ export const healthcareData: IndustrySolutionData = {
     {
       icon: ScrollText,
       iconColor: "#05A052",
-      title: "Audit evidence for OCR & HITRUST",
-      body: "Timestamped configuration history and control-status exports mapped directly to HIPAA Security Rule and HITRUST CSF — the exact shape OCR and assessors expect.",
+      title: "HIPAA audit evidence",
+      body: "Control status and timestamped evidence per control, mapped to HIPAA and exported as PDF or CSV for your compliance officer and assessors.",
     },
   ],
   regulations: [
-    { name: "HIPAA Security Rule", note: "§164.308 (administrative), §164.310 (physical), §164.312 (technical) — mapped to concrete cloud controls." },
-    { name: "HITRUST CSF", note: "Every applicable CSF control mapped to cloud primitives with evidence for i1 and r2 assessments." },
-    { name: "NIST 800-66", note: "HIPAA implementation guidance in NIST language — for organizations that report in NIST terms." },
-    { name: "SOC 2 Type II", note: "Trust Services Criteria evidence, continuously collected, ready for BAAs and vendor risk reviews." },
+    { name: "HIPAA", note: "Security Rule safeguards mapped to cloud checks; process controls are marked for manual review." },
+    { name: "NIST 800-53", note: "Control families mapped to cloud checks — for organizations that report in NIST terms." },
+    { name: "SOC 2", note: "Trust Services Criteria evidence, collected from every scan, for vendor risk reviews." },
+    { name: "ISO 27001:2022", note: "Annex A controls mapped to cloud checks, with evidence per control." },
     { name: "GDPR", note: "For US health orgs with EU cohorts — data-residency, DPIA-relevant controls, and access logging." },
   ],
   whyChoose: [
     { title: "Purpose-built for PHI-adjacent controls", body: "Not a generic checklist. Rules that understand how PHI actually lives in AWS, Azure, and GCP." },
-    { title: "Evidence OCR will accept", body: "Signed, timestamped exports of exactly the controls a HIPAA-compliance officer needs to defend." },
+    { title: "Evidence per control", body: "Timestamped evidence for each HIPAA control, exported as PDF or CSV." },
     { title: "Zero PHI ever leaves your cloud", body: "Onam reads configuration, never data. No PHI ingested, ever." },
     { title: "Works for health systems, payers, and digital health", body: "One control set covers hospitals, insurers, digital health apps, and their BAAs." },
   ],
@@ -138,11 +134,7 @@ export const healthcareData: IndustrySolutionData = {
     },
     {
       q: "Can Onam produce evidence for an OCR audit?",
-      a: "Yes. Every HIPAA Security Rule technical safeguard has a mapped, evidence-producing control. Exports include timestamps, principal, and configuration hash — the audit trail OCR expects.",
-    },
-    {
-      q: "Do you map to HITRUST?",
-      a: "Yes. HITRUST CSF controls are mapped natively for i1 and r2 assessments — reducing evidence-collection effort ahead of your assessor engagement.",
+      a: "Onam maps HIPAA controls to cloud checks and keeps evidence per control — the resources evaluated, their results and timestamps — exported as PDF or CSV. Process controls are marked for manual review rather than scored as passing.",
     },
   ],
 };
@@ -151,9 +143,9 @@ export const governmentData: IndustrySolutionData = {
   breadcrumb: "Solutions · Government",
   industryName: "Government",
   headline: "Continuous FedRAMP Control Evidence for Your Government Cloud Workloads",
-  sub: "Federal agencies and their contractors cannot afford a security posture that is visible only at authorization time — adversaries don't wait for your next ATO renewal. Onam delivers continuous monitoring against NIST 800-53, FedRAMP, FISMA, and CMMC controls across every cloud environment your agency or contractor operates.",
+  sub: "Federal agencies and their contractors cannot afford a security posture that is visible only at authorization time — adversaries don't wait for your next ATO renewal. Onam maps findings to NIST 800-53, NIST 800-171 and FedRAMP Moderate and High controls, re-checked on every scan, across every cloud environment your agency or contractor operates.",
   stats: [
-    { value: "5", label: "federal frameworks mapped" },
+    { value: "FedRAMP", label: "Moderate and High mapped" },
     { value: "ConMon", label: "monthly evidence, automated" },
     { value: "GovCloud", label: "AWS & Azure Government" },
     { value: String(CLOUDS), label: "clouds supported" },
@@ -163,19 +155,19 @@ export const governmentData: IndustrySolutionData = {
       icon: FileCheck2,
       iconColor: "#2563EB",
       title: "Continuous ATO evidence",
-      body: "Automate the monthly Continuous Monitoring evidence expected under FedRAMP. Every 800-53 control status is timestamped, hashed, and export-ready for your 3PAO and Authorizing Official.",
+      body: "Automate the monthly Continuous Monitoring evidence expected under FedRAMP. Every 800-53 control status is timestamped and exportable as PDF or CSV for your 3PAO and Authorizing Official.",
     },
     {
       icon: Radar,
       iconColor: "#F2AF04",
       title: "Boundary drift detection",
-      body: "The moment a resource is created outside your authorization boundary, Onam flags it — with the account, principal, and time of change. Boundary drift is caught in minutes, not annual assessments.",
+      body: "When a resource is created outside your authorization boundary, Onam flags it — with the account, principal, and time of change. Boundary drift is caught at the next scan, not at the annual assessment.",
     },
     {
       icon: Building2,
       iconColor: "#05A052",
-      title: "CMMC 2.0 for the defense industrial base",
-      body: "Contractors handling CUI get every CMMC Level 2 practice mapped to concrete cloud controls — with evidence a C3PAO will accept for certification.",
+      title: "NIST 800-171 for the defense industrial base",
+      body: "Contractors handling CUI get NIST 800-171 requirements mapped to cloud checks, with evidence per control to prepare for assessment.",
     },
     {
       icon: ShieldAlert,
@@ -185,11 +177,10 @@ export const governmentData: IndustrySolutionData = {
     },
   ],
   regulations: [
-    { name: "NIST 800-53 Rev 5", note: "Every applicable control family — AC, AU, CM, IA, SC, SI — mapped to concrete cloud primitives with ConMon-ready evidence." },
-    { name: "FedRAMP", note: "Moderate and High baselines mapped natively. Evidence exports designed for 3PAO ingestion." },
-    { name: "FISMA", note: "Annual FISMA reporting supported with agency-scoped control-status rollups." },
-    { name: "CMMC 2.0", note: "Level 1 and Level 2 practices mapped for defense-industrial-base contractors." },
-    { name: "NIST 800-171", note: "Every 800-171 requirement mapped for CUI handlers ahead of CMMC assessment." },
+    { name: "NIST 800-53", note: "Cloud-relevant control families — AC, AU, CM, IA, SC, SI — mapped to cloud checks with evidence per control." },
+    { name: "FedRAMP Moderate", note: "Moderate baseline mapped to cloud checks, with PDF and CSV export." },
+    { name: "FedRAMP High", note: "High baseline mapped to cloud checks, with PDF and CSV export." },
+    { name: "NIST 800-171", note: "800-171 requirements mapped for CUI handlers." },
   ],
   whyChoose: [
     { title: "Built for continuous monitoring, not annual assessments", body: "Evidence collected every day, exportable on demand — designed for the ConMon reality of federal cloud." },
@@ -213,10 +204,6 @@ export const governmentData: IndustrySolutionData = {
     {
       q: "How does Onam handle authorization boundary?",
       a: "You define boundary by account, tag, or resource query. Every finding is attributed to boundary-in-scope, boundary-adjacent, or out-of-boundary — so 3PAOs know exactly what to review.",
-    },
-    {
-      q: "Do you help contractors prepare for CMMC 2.0?",
-      a: "Yes. Level 1 and Level 2 practices are mapped natively, with evidence exports designed for C3PAO assessments. Contractors typically shorten pre-assessment prep from months to weeks.",
     },
   ],
 };

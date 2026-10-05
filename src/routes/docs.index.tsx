@@ -33,7 +33,7 @@ function DocsHome() {
           </div>
           <div>
             <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-1">Quickstart</div>
-            <h2 className="font-display font-extrabold text-xl text-[#0B1220]">Connect your first cloud in under 5 minutes</h2>
+            <h2 className="font-display font-extrabold text-xl text-[#0B1220]">Connect your first cloud</h2>
             <p className="mt-1.5 text-sm text-[#475569]">
               Deploy a read-only CloudFormation stack, paste the Role ARN into Onam, and watch the first scan roll in.
             </p>

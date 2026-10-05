@@ -64,11 +64,11 @@ export const SCENARIOS: Scenario[] = [
     challenge:
       "Security can't be the team that slows releases — but a breach at peak season is existential, and no tool shows what an attacker could actually reach.",
     brings:
-      "A four-hop path (internet function → IMDS → IAM → S3 PII) surfaces, is verified and priced; the function is the choke point.",
+      "A four-hop path (internet function → IMDS → IAM → S3 PII) surfaces and is verified; the function is the choke point, and the findings on the path get higher loss estimates.",
     advantage:
       "Fix one node and the largest cluster of reachable paths is gone. Read-only connect means zero drag on the release pipeline.",
     differentiator:
-      "Priced paths within minutes of connecting, and peak-season exposure as a number you can track release over release.",
+      "Verified paths from the first scan, and loss estimates for the findings on them that you can track release over release.",
     accent: "#059669",
   },
   {

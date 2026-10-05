@@ -159,7 +159,7 @@ function PlatformIndex() {
               See every engine on <span className="gradient-text">your own cloud.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-lg mx-auto">
-              Connect a read-only role. First findings surface in under five minutes.
+              Connect a read-only role for posture scanning. Your first findings arrive with the first scan.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>

@@ -75,7 +75,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "How is Onam different from native cloud tools or single-layer CSPM products?",
-    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and every security layer — posture, identity (CIEM), attack paths, threat detection, data, code, and compliance — on one graph. That's what enables cross-cloud attack-path analysis, automated toxic-combination detection, and FAIR-model dollar-risk prioritisation instead of an alert firehose.",
+    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and every security layer — posture, identity (CIEM), attack paths, threat detection, data, code, and compliance — on one graph. That's what enables cross-cloud attack-path analysis and FAIR-style dollar loss estimates per finding instead of an alert firehose.",
   },
   {
     q: "Is Onam agentless, and how long does deployment take?",
@@ -109,9 +109,8 @@ const HOME_JSONLD = [
       "CSPM — 9,853 posture rules evaluated continuously",
       "CIEM — 30-day behavioral identity risk analysis",
       "Cross-cloud attack path analysis on one graph",
-      "Toxic combination detection across every security layer",
-      "Compliance — 78 frameworks with continuous evidence (CIS, NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, SOC 2)",
-      "FAIR-model dollar-risk prioritisation",
+      "Compliance — 78 frameworks with evidence per control (CIS, NIST 800-53, ISO 27001, PCI DSS, HIPAA, SOC 2)",
+      "FAIR-style dollar loss estimates per finding",
       "Code + runtime coverage: SAST, DAST, SCA, IaC scanning",
       "Onboarding with a template you run in your own account",
     ],
@@ -221,12 +220,12 @@ function CloudBar() {
 /* ============================ HOW IT WORKS ============================ */
 function HowItWorks() {
   const steps = [
-    { icon: Lock, title: "Connect your cloud — takes 3 minutes",
+    { icon: Lock, title: "Connect your cloud",
       body: "Connect with a template you run in your own account. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. No agents, no code changes." },
     { icon: Search, title: "We scan everything — including what you forgot about",
       body: `Enumerates every resource across ${fmt(SERVICES)} cloud services, checks each against ${fmt(RULE_CATALOG_TOTAL)} rules across every security layer.` },
     { icon: FileCheck, title: "You get a prioritised list, not a wall of alerts",
-      body: "Critical findings first. Each finding says what it is, why it matters, which compliance frameworks it affects, and the exact remediation (CLI command, Terraform snippet, or console walkthrough)." },
+      body: "Critical findings first. Each finding says what it is, why it matters, which compliance frameworks it affects, the fix guidance for its rule, and an AI fix prompt that drafts the CLI command, Terraform change or console steps." },
   ];
   return (
     <section className="bg-[#F7F9FC] py-24 border-b border-[#E5E9F0]">
@@ -316,7 +315,7 @@ function ProductDemo() {
     },
     {
       key: "onboarding", label: "Onboarding", icon: Plug,
-      caption: "Connect any cloud in under 3 minutes. Read-only IAM role, no agents, no long-lived credentials.",
+      caption: "Connect any cloud with a template you run in your own account. Posture scanning uses a read-only role; on AWS, no long-lived credentials.",
       badge: { sev: "success", text: "AWS connected" },
       view: ViewOnboarding,
     },
@@ -370,8 +369,8 @@ function ProductDemo() {
     },
     {
       key: "risk", label: "Risk & FAIR", icon: DollarSign,
-      caption: "Dollar-denominated annual loss expectancy from the FAIR model. Fix the $2.4M exposure first.",
-      badge: { sev: "medium", text: "$2.4M–$8.7M ALE" },
+      caption: "FAIR-style loss estimate per finding — low, likely and high — raised when the finding sits on an attack path.",
+      badge: { sev: "medium", text: "Low · likely · high" },
       view: ViewRisk,
     },
   ];
@@ -386,7 +385,7 @@ function ProductDemo() {
         <SectionHeader
           eyebrow="See the platform"
           title="One console. Every cloud. Every risk."
-          subtitle="Eleven views into the same graph — from onboarding to attack paths, findings, compliance and dollar-value risk."
+          subtitle="Eleven views into the same graph — from onboarding to attack paths, findings, compliance and dollar loss estimates."
           gradientWords="Every risk."
         />
 
@@ -1102,7 +1101,7 @@ function PlatformPillars() {
     { icon: GitBranch, title: "Attack Path", q: "Which risks actually reach crown jewels?", metric: "Cross-cloud graph analysis", to: "/platform/attack-path", color: "#E32D25" },
     { icon: Activity, title: "CDR Detection", q: "Behavioral threats across layers?", metric: "L1 · L2 · L3 detection", to: "/platform/cdr", color: "#EF4444" },
     { icon: ShieldAlert, title: "Threat Detection", q: "Are we being attacked right now?", metric: "MITRE ATT&CK-mapped", to: "/platform/threat-detection", color: "#DB2777" },
-    { icon: DollarSign, title: "Risk Quantification", q: "What's this exposure worth in dollars?", metric: "FAIR model", to: "/platform/risk", color: "#05A052" },
+    { icon: DollarSign, title: "Risk Quantification", q: "What's this exposure worth in dollars?", metric: "FAIR-style estimates", to: "/platform/risk", color: "#05A052" },
     { icon: Database, title: "DSPM — Data Security", q: "Where does sensitive data really live?", metric: "1,321 data protection rules", to: "/platform/data-security", color: "#7C3AED" },
     { icon: HardDrive, title: "Database Security", q: "Are our databases hardened?", metric: "1,364 CIS engine benchmarks", to: "/platform/database-security", color: "#B45309" },
     { icon: KeyRound, title: "Encryption & Keys", q: "Who can decrypt our data?", metric: "502 key management rules", to: "/platform/encryption", color: "#CA8A04" },
@@ -1268,10 +1267,9 @@ function Differentiator() {
   const rows: { area: string; alts: [string, string, string]; onam: string }[] = [
     { area: "Coverage", alts: ["One cloud only", "One security layer", "Point-in-time"], onam: "All 7 clouds · every security layer · continuous" },
     { area: "Attack paths", alts: ["✗", "✗", "Manual"], onam: "Cross-cloud graph analysis" },
-    { area: "Toxic combinations", alts: ["✗", "✗", "✗"], onam: "Automated across engines" },
     { area: "Compliance", alts: ["Per-provider", "Manual mapping", "Point-in-time"], onam: "78 frameworks · continuous evidence" },
     { area: "Identity", alts: ["Basic policies", "None", "Interview-based"], onam: "30-day behavioral CIEM" },
-    { area: "Prioritisation", alts: ["Alert firehose", "CVSS-only", "Report handoff"], onam: "FAIR-model dollar risk" },
+    { area: "Prioritisation", alts: ["Alert firehose", "CVSS-only", "Report handoff"], onam: "FAIR-style loss estimate per finding" },
     { area: "Code + Runtime", alts: ["Runtime only", "One or the other", "Neither"], onam: "SAST · DAST · SCA · IaC · runtime" },
   ];
   return (
