@@ -37,8 +37,8 @@ Key facts:
 - All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
 - Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
-- Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- Every finding ships with exact remediation: CLI command or Terraform snippet; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
+- Code security in the same console: SAST (proven issues kept apart from hotspots), secret detection, IaC checks, SCA with CycloneDX 1.5 SBOM and EPSS/KEV risk scoring, and DAST — see https://www.onamsecurity.com/platform/code-security
 - AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
@@ -80,10 +80,10 @@ platform is stronger than Onam. Onam has no public reference customers.
 
 ## Onam Security engines
 
-- [Code Security](https://www.onamsecurity.com/platform/code-security): SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.
+- [Code Security](https://www.onamsecurity.com/platform/code-security): Onam Code Security runs static analysis, dependency and SBOM analysis, IaC checks, secret detection and dynamic testing against your repositories and web apps — and keeps findings…
 - [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
-- [CIEM](https://www.onamsecurity.com/platform/ciem): Identity is the new perimeter. CIEM resolves the effective permissions of every human user, service account, and machine identity across all your clouds — then compares them…
-- [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security gives you a complete view of every user, role, policy, and access key across your cloud accounts — and flags everything that doesn't belong.
+- [CIEM](https://www.onamsecurity.com/platform/ciem): CIEM resolves what human users, roles, service accounts and workload identities can actually do — after group membership, conditions, explicit denies and SCP denies — then finds…
+- [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security is the configuration-hygiene view of Onam's identity engine: MFA, access keys, password policy, root usage, wildcard policies and trust settings, scored per module.…
 - [Attack Path Analysis](https://www.onamsecurity.com/platform/attack-path): Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an…
 - [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and…
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
@@ -212,6 +212,27 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Findings reference](https://www.onamsecurity.com/docs/dspm/findings-reference)
 - [Coverage by cloud](https://www.onamsecurity.com/docs/dspm/coverage)
 
+### Code Security
+- [Overview](https://www.onamsecurity.com/docs/code-security/overview)
+- [Connect a repository](https://www.onamsecurity.com/docs/code-security/connect-repository)
+- [Run a scan](https://www.onamsecurity.com/docs/code-security/run-a-scan)
+- [Read the results](https://www.onamsecurity.com/docs/code-security/reading-results)
+- [Static analysis (SAST)](https://www.onamsecurity.com/docs/code-security/sast)
+- [Secret detection](https://www.onamsecurity.com/docs/code-security/secrets)
+- [IaC and Dockerfiles](https://www.onamsecurity.com/docs/code-security/iac)
+- [Dependencies and SBOM](https://www.onamsecurity.com/docs/code-security/sca-sbom)
+- [Dynamic testing (DAST)](https://www.onamsecurity.com/docs/code-security/dast)
+- [AI Code Fix](https://www.onamsecurity.com/docs/code-security/ai-code-fix)
+- [CI usage](https://www.onamsecurity.com/docs/code-security/ci)
+
+### CIEM
+- [Overview](https://www.onamsecurity.com/docs/ciem/overview)
+- [How effective permissions are computed](https://www.onamsecurity.com/docs/ciem/effective-permissions)
+- [Finding types](https://www.onamsecurity.com/docs/ciem/finding-types)
+- [Reading the identity graph](https://www.onamsecurity.com/docs/ciem/identity-graph)
+- [Right-sizing workflow](https://www.onamsecurity.com/docs/ciem/right-sizing)
+- [Per-cloud notes](https://www.onamsecurity.com/docs/ciem/per-cloud)
+
 ### Architecture
 - [Overview](https://www.onamsecurity.com/docs/architecture/overview)
 - [Scanning Engine](https://www.onamsecurity.com/docs/architecture/scanning)
@@ -289,7 +310,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [The FAIR model for cloud security: putting a dollar value on your attack surface](https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk): FAIR model for cloud risk: CVSS ranks severity, FAIR answers what a breach of this attack surface would cost. How we apply it at Onam.
 - [Kubernetes RBAC pitfalls that grant cluster-admin by accident](https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls): Kubernetes RBAC pitfalls: a ClusterRoleBinding here, an aggregated role there, and a read-only role can mount the host filesystem. Six patterns to audit.
 - [EPSS over CVSS: prioritising the CVEs attackers actually exploit](https://www.onamsecurity.com/resources/blog/epss-over-cvss): CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.
-- [Why 90% of cloud IAM permissions are never used — and why that matters](https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used): Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.
+- [Why cloud IAM permissions go unused — and why that matters](https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used): Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.
 - [MITRE ATT&CK for Cloud: mapping real attacks to your posture score](https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping): How MITRE ATT&CK for Cloud translates abstract threat techniques into concrete cloud misconfigurations — and how your posture score tracks each one.
 - [How we check thousands of rules without agents: the architecture behind Onam](https://www.onamsecurity.com/resources/blog/agentless-cloud-security-architecture): Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.
 
@@ -534,7 +555,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Container Security | EKS, ECS, AKS, GKE posture, images, and K8s RBAC — [Container Security](/docs/features/container-security) |
 | Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
-| SecOps / AppSec | SAST in 7 languages, DAST, SCA and SBOM — [SecOps](/docs/features/secops) |
+| Code Security | SAST, secret detection, IaC checks, SCA with CycloneDX SBOM, and DAST — [Code Security](/docs/code-security/overview) |
 | Technology Engine | 34 self-hosted technologies in 9 categories |
 
 Encryption, database security, AI security, API security, agentless workload scanning, and the platform services (rule builder, remediation, the AI assistant) round out the full list in the [Architecture Overview](/docs/architecture/overview).
@@ -2349,230 +2370,37 @@ There is no separate "compliance scan" — posture and compliance are the same e
 ## CIEM — Cloud Identity & Entitlement Management
 URL: https://www.onamsecurity.com/docs/features/ciem
 
-CIEM analyzes every identity in your cloud — human users, service accounts, IAM roles, federated logins, machine identities — and answers two hard questions: **what can each identity actually do?** and **what does each identity actually need?** The gap between those two answers is your excess permission risk. The platform measures it, prioritizes it, and gives you a least-privilege policy you can apply with confidence.
+CIEM works out what each cloud identity can do, how it could escalate, who outside your account can get in and, on AWS, what it never uses.
 
-![CIEM entitlement analysis](/diagrams/ciem.svg)
+![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
 
-**Why CIEM matters:** the average cloud identity has been granted **80% more permissions than it ever uses**. Most cloud breaches now start with a compromised low-privilege identity that is then escalated through unused permissions to admin. CIEM is the discipline of closing that gap — and it is the only practical way to enforce least privilege at cloud scale, because no human team can review a million entitlements by hand.
+CIEM has its own documentation section. Start here:
 
-## The identity risk problem
-
-Modern cloud environments accumulate identities and permissions faster than security teams can review them. Every new microservice creates a new IAM role; every new SaaS integration creates a new federation; every new developer creates a new user. Permissions get added when needed but rarely removed when no longer used.
-
-| Risk | What it looks like | Why it is dangerous |
-| --- | --- | --- |
-| Overprivileged identities | A role with `s3:*` that only ever called `s3:GetObject` | If compromised, the attacker inherits the entire blast radius — not just the actually-used permission |
-| Shadow admins | A role that can `iam:PassRole` to a role that can `iam:CreatePolicyVersion` | Indirect path to admin that no one wrote down — invisible to manual review |
-| Stale identities | An ex-employee's IAM user with valid access keys 18 months later | A high-trust credential nobody is monitoring |
-| Cross-account trust risks | A role that trusts an unknown external account | Lateral movement boundary is wider than you think |
-
-**The industry baseline figure:** 80% of granted permissions are never used. This is not a flaw in your design — it is a structural property of cloud IAM. Permissions are granted defensively, workloads change, and nobody goes back to clean up. CIEM is what brings that 80% back down.
-
-## Coverage: rules and identity types
-
-### CIEM rule packs
-
-On top of the shared posture rule registry, CIEM ships its own dedicated entitlement rule packs per cloud — **1,342 CIEM-specific rules** in total:
-
-| Cloud | CIEM rules |
+| Page | What it covers |
 | --- | --- |
-| AWS | 530 |
-| Azure | 202 |
-| GCP | 176 |
-| Alibaba Cloud | 114 |
-| IBM Cloud | 110 |
-| OCI | 107 |
-| Kubernetes | 103 |
+| [CIEM overview](/docs/ciem/overview) | What CIEM answers, the CIEM screen, how it relates to IAM Security |
+| [How effective permissions are computed](/docs/ciem/effective-permissions) | Group expansion, condition classes, deny netting, SCP checks — and what is not modelled yet |
+| [Finding types](/docs/ciem/finding-types) | Escalation, shadow admins, trust, usage-based and database identity findings, by cloud |
+| [Reading the identity graph](/docs/ciem/identity-graph) | The edges CIEM writes and where you read them |
+| [Right-sizing workflow](/docs/ciem/right-sizing) | Risk score, permission gap, access reviews and making the change |
+| [Per-cloud notes](/docs/ciem/per-cloud) | What runs on AWS, Azure, GCP, Kubernetes, OCI, Alibaba Cloud and IBM Cloud |
 
-These cover entitlement-specific conditions — wildcard grants, escalation-capable permission combinations, risky trust policies, unused entitlements — that plain configuration rules cannot express.
+## In one paragraph
 
-### Supported identity types
-
-| Identity type | AWS | Azure | GCP | OCI | Alibaba | IBM |
-| --- | --- | --- | --- | --- | --- | --- |
-| Human users | Yes | Yes | Yes | Yes | Yes | Yes |
-| Service accounts / managed identities | Yes | Yes | Yes | Yes | Yes | Yes |
-| IAM roles / app registrations | Yes | Yes | Yes | Yes | Yes | Yes |
-| Federated identities (SAML / OIDC) | Yes | Yes | Yes | — | — | — |
-| Workload identities (instance roles, pod identity) | Yes | Yes | Yes | Yes | Yes | Yes |
-| Serverless execution identities | Yes | Yes | Yes | Yes | Yes | Yes |
-| Third-party cross-account access | Yes | — | — | — | — | — |
-
-A "—" does not always mean unsupported in principle — some providers implement the identity type through a different mechanism that the platform covers under a different row.
-
-## How CIEM works
-
-CIEM is a three-stage pipeline that runs against every identity on every scan: **collect** the raw IAM configuration and usage data, **analyze** what is actually callable vs what is actually used, and **emit** prioritized findings with suggested fixes.
-
-![How CIEM works — Collect, Analyze, Findings: the three-stage pipeline](/diagrams/feat-ciem-pipeline.svg)
-
-### 1. Collect — what the platform reads from your cloud
-
-Every CIEM scan reads three classes of data through your read-only credential. No agents, no policy changes, no IAM modifications.
-
-- **IAM policies** — every identity-based policy, every resource-based policy (S3 bucket policies, KMS key policies, Lambda permissions), every Service Control Policy at the org level, every permission boundary, every trust relationship.
-- **Usage history** — the last 90 days of CloudTrail (AWS), Azure Monitor activity logs, Cloud Audit Logs (GCP), or equivalent. The platform reads which identity called which API on which resource.
-- **Identity catalog** — every user, group, role, service account, workload identity, federated identity, and cross-account trust. Federation chains and identity center mappings are followed end-to-end.
-
-### 2. Analyze — what the platform calculates per identity
-
-- **Effective permissions** — the resolved intersection of all policy sources. This is what the identity can actually call — different from what is attached on paper.
-- **Used permissions** — what the identity actually called in the last 90 days.
-- **Unused permissions** — granted but never exercised. These are the candidates for safe removal.
-- **Identity attack paths** — multi-hop chains of `sts:AssumeRole` and `iam:PassRole` that lead from this identity to a role with privilege-escalation permissions.
-
-### 3. Findings — what you see in the console
-
-The output is severity-ranked findings, not raw data: overprivileged identities with a 0–100 gap score and a generated least-privilege policy, shadow admins, stale access, and cross-account risks.
-
-![The CIEM posture view — entitlement analysis and identity risk rollup](/diagrams/p-ciem.svg)
-
-## Effective permissions — what an identity can actually do
-
-Cloud IAM permissions do not come from a single source — on AWS they come from **five overlapping policy types** that interact through a precise resolution algorithm. The platform computes the resolved set for every identity automatically.
-
-![Effective permissions — five AWS policy sources intersect to produce what an identity can actually call](/diagrams/feat-ciem-effective-perms.svg)
-
-| # | Source | What it does | Can grant? | Can deny? |
-| --- | --- | --- | --- | --- |
-| 1 | Identity-based policies | Attached directly to user, group, or role | Yes | Yes |
-| 2 | Resource-based policies | Attached to a resource (S3 bucket policy, KMS key policy) | Yes | Yes |
-| 3 | Service Control Policies | Org-level guardrails for every account and identity | No | Yes |
-| 4 | Permission boundaries | Cap the maximum effective permissions for an identity | No | Yes |
-| 5 | Session policies | Apply only during the specific STS session | No | Yes |
-
-**The resolution rule in plain English:** an action is allowed only if there is an explicit Allow somewhere AND no explicit Deny anywhere. Explicit Deny always wins. SCPs and permission boundaries can never grant — they can only restrict.
-
-**Why this matters:** "what's attached" can be wildly different from "what's actually callable". A role might appear to have `s3:*` in its identity policy, but a permission boundary caps it to `s3:GetObject`. The platform shows you the truly callable set — that is the basis for the gap score and the suggested least-privilege policy. Manual reviews of "what's attached" miss this every time.
-
-**Cross-cloud coverage:** the same effective-permission resolution runs for Azure RBAC (role assignments, scope inheritance, deny assignments), GCP IAM (allow policies, deny policies, organization policies), OCI IAM (compartment hierarchy, policy statements), and the others. The mechanism varies; the goal is the same.
-
-### Least Privilege Gap Score
-
-Each identity receives a single **Least Privilege Gap Score** from 0 to 100 — a direct measure of how much excess permission the identity carries. Higher is worse.
-
-| Score range | Meaning | Recommended action |
-| --- | --- | --- |
-| 0–20 | Minimal excess | Low priority — monitor on the next scan |
-| 21–50 | Moderate excess | Review at the next quarterly access review |
-| 51–80 | Significant excess | Remediate within 30 days |
-| 81–100 | Extreme excess — admin or near-admin without justification | Remediate immediately |
-
-```
-Gap Score = (unused_permissions / total_permissions) × severity_weight × exposure_weight
-```
-
-- `unused_permissions / total_permissions` is the basic ratio of granted permissions never exercised.
-- `severity_weight` is higher for write/admin permissions than for read — deleting S3 buckets weighs more than listing them.
-- `exposure_weight` is higher for identities reachable from the internet than for purely internal identities.
-
-**Why this is not a simple percentage:** an identity with 80% of its `s3:GetObject`-only permissions unused is materially different from an identity with 80% of its `iam:*` permissions unused. The weighting captures that.
-
-## Identity attack paths
-
-CIEM does not stop at single-identity analysis. It traces **multi-hop permission chains** — paths an attacker could follow to escalate from a low-privileged starting identity all the way to full admin. Most real-world cloud breaches use chains exactly like the one below; almost none are visible from any single identity in isolation.
-
-![Identity attack path — privilege escalation from a compromised Lambda to full admin via a role chain](/diagrams/feat-ciem-privesc-chain.svg)
-
-| Hop | Where you are | The permission that lets you advance | Why this hop is dangerous |
-| --- | --- | --- | --- |
-| 1. Start | Compromised Lambda function (low-priv) | `sts:AssumeRole` on `app-processor` | The function's code is the attacker's foothold; they execute with its role |
-| 2. app-processor role | Has `iam:PassRole` on `data-pipeline-role` | `iam:PassRole` | The role can hand off another role — without PassRole, the chain stops here |
-| 3. data-pipeline-role | Has S3 admin AND `iam:CreatePolicyVersion` | `iam:CreatePolicyVersion` | The killer permission — lets the attacker write a brand-new admin policy |
-| 4. Privilege escalation | Attacker creates an Allow-all policy version and attaches it | `iam:AttachUserPolicy` | One API call from new policy to attached admin |
-| 5. Full admin | All services, all regions | — | Data exfiltration, key rotation, account takeover |
-
-**How the platform finds these chains:**
-
-1. Enumerates every reachable role from each identity — following `sts:AssumeRole` and `iam:PassRole` edges in the security graph.
-2. Tags every permission that enables self-escalation — `iam:CreatePolicyVersion`, `iam:AttachUserPolicy`, `iam:PutRolePolicy`, `iam:CreateAccessKey`, `iam:UpdateAssumeRolePolicy`, plus equivalents in Azure, GCP, and OCI.
-3. Flags any chain that ends in one of those permissions, regardless of hop count.
-4. Shows which control would have prevented it — usually a permission boundary on the intermediate role, or removing an unused `iam:PassRole`.
-
-Common chains the platform catches: Lambda to admin via PassRole, EC2 instance role to `iam:CreatePolicyVersion`, cross-account trust into a weaker account, federated SSO roles with `iam:UpdateAssumeRolePolicy`, and GKE service accounts mapping to GCP service accounts with `iam.serviceAccountKeys.create`. Each finding is mapped to MITRE `T1098.001` (Additional Cloud Credentials) and `T1078.004` (Valid Accounts: Cloud Accounts). These chains also feed the platform-wide [Attack Path graph](/docs/features/attack-path) as identity edges.
-
-## Findings and remediation
-
-### Key CIEM findings
-
-The ten most-encountered CIEM findings across customer environments:
-
-| Finding | Severity | Why it is dangerous |
-| --- | --- | --- |
-| Root account used recently | Critical | Root has every permission and bypasses every guardrail |
-| `AdministratorAccess` attached directly to a user | Critical | Admin should be assumable, never permanent — assumption creates an audit trail |
-| MFA not enabled for privileged user | High | Single factor protecting a high-impact identity |
-| Service account with owner / admin role | High | If the machine is compromised, so is the cloud account |
-| Cross-account trust with unknown account | High | Could be a partner, could be an attacker |
-| Unused IAM user with active access keys | High | Highest-trust credential class with no monitoring |
-| 90+ days inactive access key | Medium | Abandoned, unrotated keys are a top breach precursor |
-| Overprivileged role — gap score above 80 | High | Compromise blast radius far larger than its actual job |
-| Shadow admin path detected | High | Invisible without graph analysis — usually unintentional |
-| Wildcard resource on sensitive actions | High | `iam:*` or `s3:*` on all resources — worst-case scope on the most-abused permissions |
-
-Every finding includes the affected identity, the specific policy or trust at fault, the suggested fix, and the framework controls it satisfies (CIS IAM controls, NIST AC family, ISO 27001 A.5.15/A.5.18, SOC 2 CC6.1).
-
-### Remediation workflow
-
-CIEM findings come with **a generated least-privilege policy** ready to apply — not just a flag. The platform synthesizes the policy from what the identity actually used in the last 90 days and never modifies your IAM without your explicit approval.
-
-![CIEM remediation workflow — from finding to verified fix in five stages](/diagrams/feat-ciem-remediation.svg)
-
-1. **Detected.** A finding fires on the next scan — for example "role `data-pipeline-role` has gap score 87/100, 12 unused services". Severity, MITRE technique, and framework citations are attached.
-2. **Review.** The console shows a side-by-side diff of effective vs used permissions over the last 90 days, down to specific actions and resources.
-3. **Suggested policy.** The platform generates a least-privilege policy in JSON, scoped exactly to what was actually used. You can adjust it — expand a wildcard if seasonal usage was missed, or add a deny for a sensitive action.
-4. **Apply.** You decide how — copy to the cloud console, hand off to your IaC pipeline (Terraform or CloudFormation), or trigger an approved automation hook. The platform never auto-applies.
-5. **Verify.** The next scan re-evaluates the identity. The gap score should drop and the finding auto-closes. If it did not improve, the platform tells you why — for example, "policy was applied but a permission boundary still allows the wildcard".
-
-> Why we never auto-apply: least-privilege errors break production. Removing a permission used only during quarterly batch jobs can cause an outage the 90-day window never saw. You get the suggested policy with full context; you make the call.
-
-Bulk remediation is supported — review and apply a batch of suggested policies through your CI/CD pipeline with a single approval. Every approval is recorded in the audit log. Suggested policies export as Terraform `aws_iam_policy` blocks, CloudFormation snippets, or raw JSON; CIEM findings export as CSV.
-
-### API
-
-CIEM endpoints are part of the unified platform API under the `/api/v1/iam-security` prefix. All endpoints require an authenticated session and are scoped to your tenant.
-
-```
-# List CIEM findings
-GET /api/v1/iam-security/findings?severity=HIGH&status=OPEN
-
-# Effective permissions for one identity
-GET /api/v1/iam-security/identity/{identity_id}/permissions
-
-# Attack paths originating from one identity
-GET /api/v1/iam-security/identity/{identity_id}/attack-paths
-
-# Suggested least-privilege policy for one identity
-GET /api/v1/iam-security/identity/{identity_id}/suggested-policy
-```
-
-Full request/response schemas are in the [API Reference](/docs/reference/api). Webhook delivery on new High/Critical CIEM findings is configured under Settings, then Notifications.
-
-## FAQ
-
-**How long does CIEM analysis take per account?** A typical AWS account with 200 identities and 90 days of CloudTrail history completes the CIEM stage in under 90 seconds. Larger accounts (1,000+ identities) take 3–5 minutes.
-
-**Does CIEM modify any IAM in my account?** No. The platform reads IAM configuration and usage data and generates suggested policies. Applying them is always your action.
-
-**What if I don't have 90 days of audit history?** The platform uses whatever history is available and notes the lookback window on every finding. With under 30 days, gap scores are more conservative.
-
-**Can I customize what counts as an escalation permission?** Yes. Extend the default set with org-specific permissions under Settings, then CIEM, then Escalation Definitions.
-
-**Does CIEM cover AWS Identity Center (formerly SSO)?** Yes. Permission sets, federated user assignments, and the resulting per-account roles are all enumerated; SAML and OIDC federations are followed end-to-end.
+CIEM reads identities, policies and trust settings from the inventory Onam's posture scan already builds. It resolves each identity's effective access — on AWS through group expansion, condition classification, explicit-deny netting and SCP deny checks — and writes identity relationships into the platform's security graph. Detectors then find escalation paths, shadow admins and risky trust. On AWS, CloudTrail activity collected by threat detection is compared with granted actions to measure each identity's permission gap, every identity gets a 0–100 risk score, and high-tier identities open an [access review](/docs/features/access-reviews). CIEM never changes your IAM.
 
 ## Next steps
 
-- [IAM Security](/docs/features/iam-security) — configuration posture of identities (MFA, key rotation, policy hygiene)
-- [Attack Path Analysis](/docs/features/attack-path) — identity chains combined with network and data exposure
-- [CDR](/docs/features/cdr) — detect when an identity starts behaving abnormally
-- [Book a demo](/request-demo) — see your own entitlement gap measured live
+- [IAM Security](/docs/features/iam-security) — identity hygiene: MFA, keys, password policy, root usage
+- [Attack Path Analysis](/docs/features/attack-path) — identity edges combined with network and data exposure
+- [CDR](/docs/features/cdr) — the activity that confirms escalation and feeds unused-permission analysis
 
 ---
 
 ## Access Reviews
 URL: https://www.onamsecurity.com/docs/features/access-reviews
 
-**Access reviews** turn CIEM output into an attestation workflow. Every identity gets a state, an owner, and an outcome — so a review is a tracked decision rather than a spreadsheet emailed once a quarter and answered by nobody.
+**Access reviews** turn CIEM output into an attestation workflow. Each flagged identity gets a state, a reviewer and an outcome — so a review is a tracked decision rather than a spreadsheet emailed once a quarter.
 
 ## Review states
 
@@ -2587,70 +2415,58 @@ URL: https://www.onamsecurity.com/docs/features/access-reviews
 
 ## The finding stays attached
 
-Each identity under review carries the [CIEM](/docs/features/ciem) finding that flagged it — the unused permissions, the escalation path, the stale credential. A reviewer who cannot see why an identity was flagged approves it, every time.
+Each identity under review carries the [CIEM](/docs/ciem/overview) evidence that flagged it — its permission gap, granted and used counts, and high-risk unused actions. A reviewer who cannot see why an identity was flagged approves it, every time.
 
 ## What reviews cover
 
-Reviews run across the same identity population CIEM resolves: human users, roles, service accounts and machine identities, with their effective permissions and 90-day usage attached.
+Reviews open automatically for AWS identities whose CIEM risk score reaches the high tier. Decisions are written to an audit trail, expire after a set period, and return to pending if a reviewed or deferred identity is flagged again. The full workflow is in [Right-sizing workflow](/docs/ciem/right-sizing).
 
 ## Auditor evidence
 
-Because each review carries its state, its owner and its timestamp, the review history is the evidence an access-review control asks for — rather than a screenshot of a spreadsheet assembled the week before the audit.
+Because each review carries its state, its reviewer and its timestamp, the review history is the evidence an access-review control asks for — rather than a screenshot of a spreadsheet assembled the week before the audit.
 
-> Related: [CIEM](/docs/features/ciem) produces the findings; access reviews are how they get decided.
+> Related: [CIEM](/docs/ciem/overview) produces the findings; access reviews are how they get decided.
 
 ---
 
 ## IAM Security
 URL: https://www.onamsecurity.com/docs/features/iam-security
 
-IAM Security is the identity posture engine. Where [CIEM](/docs/features/ciem) analyzes entitlements — what identities can do vs what they use — IAM Security audits the **configuration hygiene of the identities themselves**: MFA enrollment, access key age, password policy, root account usage, wildcard admin policies, and identities nobody has touched in months. The result is a risk-scored view of every identity in every connected cloud.
+IAM Security is the identity-hygiene view of Onam's identity engine: MFA, access-key age, password policy, root usage and wildcard policies, on every scan.
 
-This page covers what the engine checks, how findings are classified into six IAM security modules, and how to read the identity risk table in the console.
+It shares its engine and inventory with [CIEM](/docs/ciem/overview). IAM Security checks each identity's configuration; CIEM works out what the identity can actually do and how it could escalate.
 
-![The IAM Security view in the Onam console (demo account)](/screenshots/screenshot-iam.png)
+![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
 
 ## What IAM Security covers
 
-The engine classifies identity-relevant findings from every posture scan into six modules. Each module gets its own summary, its own pass rate, and its own contribution to the overall IAM posture score.
+Identity findings are grouped into six modules, each with its own summary and pass rate.
 
 | Module | What it checks | Example findings |
 | --- | --- | --- |
-| Least privilege | Over-permission, wildcard grants, privilege escalation | `wildcard_admin` policies, full-admin roles |
-| Policy analysis | IAM policy structure and versioning | Inline policies, missing policy conditions |
+| Least privilege | Over-permission, wildcard grants, privilege escalation | Wildcard admin policies, full-admin roles |
+| Policy analysis | IAM policy structure | Inline policies, missing policy conditions |
 | MFA | Multi-factor enforcement | MFA not enabled, no hardware MFA for root |
 | Role management | Role trust and session settings | Overly broad trust principals, long max session duration |
 | Password policy | Account password strength and rotation | Minimum length too short, passwords never expire |
-| Access control | Console access, root usage, key rotation | Root account activity, access keys older than 90 days |
+| Access control | Console access, root usage, key rotation | Root account activity, old access keys |
 
-Coverage spans all 7 clouds. On AWS that means IAM users, roles, and policies; on Azure it includes Entra ID, service principals, managed identities, RBAC assignments, and PIM configuration; on GCP it includes service accounts, workload identity, and organization policies; equivalents apply for OCI, Alibaba Cloud, IBM Cloud, and Kubernetes RBAC.
+Coverage spans all seven clouds: AWS IAM; Azure Entra ID, service principals, managed identities, RBAC and PIM; GCP service accounts and workload identity; OCI IAM; Alibaba Cloud RAM; IBM Cloud IAM; and Kubernetes RBAC.
 
 ## How it works
 
-IAM Security runs after the posture scan, as a classification and enrichment pass over the findings corpus:
+1. **Load.** After each posture scan, the engine loads the findings of every rule scoped to identity security.
+2. **Add provider checks.** Per-cloud analysers add their own identity findings — for example key and token rotation on OCI, Alibaba Cloud and IBM Cloud, and RAM trust and MFA conditions on Alibaba Cloud.
+3. **Group.** Each finding is assigned to its IAM modules.
+4. **Report.** The IAM Security screen shows a posture score, findings by severity, an identity risk trend, the findings table (filterable by severity, module and status, with MFA, key-rotation and privilege-escalation shortcuts) and the **Effective Access** panel.
 
-1. **Read.** The engine loads the scan's findings from the shared findings store.
-2. **Classify.** Each finding's `rule_id` is matched against 15 identity patterns — `.iam.`, `.mfa`, `.password`, `.root`, `.sso`, plus Azure-specific patterns (`.entraid.`, `.rbac.`, `.pim.`, `.serviceprincipal.`, `.managedidentity.`) and GCP-specific ones (`.serviceaccount.`, `.workloadidentity.`, `.orgpolicy.`).
-3. **Enrich.** Identity-relevant findings are tagged with the IAM modules they belong to.
-4. **Report.** The engine assembles an IAM report: per-module summaries, per-identity rollups, and a tenant-wide IAM posture score.
-
-Because it reuses the full rule registry rather than a separate rule set, IAM Security stays automatically in sync with rule updates — a new Entra ID rule in the registry is an IAM Security finding on the next scan with zero configuration.
+Because it uses the shared rule catalogue rather than a separate rule set, a new identity rule becomes an IAM Security finding on the next scan with no configuration.
 
 ![How the IAM Security engine fits into the platform](/diagrams/p-iam.svg)
 
-## The identity risk table
+## The Effective Access panel
 
-The console presents identities the way an analyst triages them — one row per identity, risk-scored and sortable:
-
-| Identity | Type | Cloud | Risk score | MFA | Oldest key | Open findings |
-| --- | --- | --- | --- | --- | --- | --- |
-| ci-deploy-user | IAM user | AWS | 94 | No | 412 days | 7 |
-| svc-backup | Service principal | Azure | 81 | — | 180 days | 5 |
-| admin@corp | Entra ID user | Azure | 76 | No | — | 4 |
-| etl-runner@prod | Service account | GCP | 58 | — | 97 days | 3 |
-| dev-alice | IAM user | AWS | 22 | Yes | 30 days | 1 |
-
-The risk score (0–100) weights each identity's open findings by severity, privilege level, and exposure — an admin without MFA outranks a read-only user without MFA, and an internet-reachable service identity outranks an internal one. Clicking a row opens the identity's findings, its policies, and its activity summary.
+Search any principal by name, ARN or service account to see what it can do after explicit denies and SCP denies: access grouped by resource type, with access level, allow or deny, where a grant was inherited from, and admin, cross-account and SCP-blocked flags. How the table behind it is built is in [How effective permissions are computed](/docs/ciem/effective-permissions).
 
 ## Common findings
 
@@ -2666,27 +2482,27 @@ The risk score (0–100) weights each identity's open findings by severity, priv
 
 Each finding carries remediation steps, MITRE ATT&CK mapping, and the compliance controls it affects — MFA and key-rotation checks map directly to CIS IAM sections, NIST 800-53 AC/IA families, PCI-DSS requirement 8, and SOC 2 CC6.
 
-> Fixing the IAM Security layer first makes every other engine's numbers better. MFA enforcement and key rotation are the cheapest risk reduction in cloud security — most tenants can clear their Critical identity findings in a single afternoon.
+> Fix the IAM Security layer first. MFA enforcement and key rotation are among the cheapest risk reductions in cloud security, and they make every CIEM finding less exploitable.
 
 ## IAM Security vs CIEM
 
-The two engines are complementary and share the same identity inventory:
+They are two views of one identity engine and share one inventory:
 
 | | IAM Security | CIEM |
 | --- | --- | --- |
-| Question answered | Is this identity configured safely? | Does this identity have more permission than it uses? |
-| Data analyzed | Identity configuration (MFA, keys, policies, trust) | Effective permissions vs 90 days of usage history |
-| Typical finding | User without MFA, key not rotated | Gap score 87, shadow admin path, unused entitlements |
-| Output | Risk-scored identity table, module posture scores | Least-privilege policy suggestions, escalation chains |
+| Question answered | Is this identity configured safely? | What can it do, how could it escalate, what does it never use? |
+| Data analysed | Identity configuration: MFA, keys, password policy, policies, trust settings | Resolved effective access, trust relationships and, on AWS, CloudTrail activity |
+| Typical finding | User without MFA, key not rotated | PassRole to an admin role, shadow admin, high permission gap |
+| Output | Module posture scores, identity findings | Escalation and trust findings, risk scores, access reviews |
 
-Start with IAM Security to fix hygiene, then use [CIEM](/docs/features/ciem) to shrink entitlements toward least privilege.
+Start with IAM Security to fix hygiene, then use [CIEM](/docs/ciem/overview) to shrink access and close escalation paths.
 
 ## Next steps
 
-- [CIEM](/docs/features/ciem) — entitlement analysis and least-privilege remediation
-- [CSPM](/docs/features/cspm) — the rule registry that feeds IAM Security's classification
+- [CIEM overview](/docs/ciem/overview) — effective permissions, escalation paths and access reviews
+- [CSPM](/docs/features/cspm) — the rule catalogue IAM Security draws on
 - [Attack Path Analysis](/docs/features/attack-path) — how identity weaknesses chain with network and data exposure
-- [Book a demo](/request-demo) — see your identity risk table live
+- [Book a demo](/request-demo) — see your identities on a live walkthrough
 
 ---
 
@@ -3054,119 +2870,29 @@ cdr:
 
 ---
 
-## SecOps — Code & Application Security
+## SecOps — code and application security
 URL: https://www.onamsecurity.com/docs/features/secops
 
-Onam SecOps brings SAST, DAST, and SCA/SBOM scanning into the same platform as your cloud posture data — correlating code vulnerabilities with cloud exposure context to surface the risks that truly matter. A SQL injection in an internet-exposed function with broad IAM permissions is not the same risk as the identical bug in an internal batch job; SecOps scores them accordingly.
+SecOps is the engine behind Onam Code Security. It runs static analysis, secret detection, IaC checks, dependency and SBOM analysis, and dynamic testing, and reports them in the Code Security area of the console.
 
-This page covers the three scan types, SBOM generation, the AI-powered fix engine, and CI/CD integration.
+The full documentation now lives in the **Code Security** section:
 
-## SAST — static application security testing
-
-The SAST engine analyzes source code across **7 languages** using dedicated per-language scanners plus a Semgrep-based rule engine with curated rule packs:
-
-| Language | Coverage focus |
+| Topic | Page |
 | --- | --- |
-| Python | Injection, unsafe deserialization, crypto misuse, hardcoded secrets |
-| JavaScript / TypeScript | XSS, prototype pollution, ReDoS, SSRF |
-| Java | Deserialization, XXE, SSRF, expression-language injection |
-| Go | Race conditions, crypto misuse, SSRF |
-| C | Buffer overflows, format strings, memory safety |
-| C++ | Use-after-free, integer overflow, unsafe casts |
-| C# | Deserialization, path traversal, LDAP injection |
+| What it does and how it fits with the rest of Onam | [Overview](/docs/code-security/overview) |
+| Static analysis — Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby | [SAST](/docs/code-security/sast) |
+| Hard-coded credentials and keys | [Secret detection](/docs/code-security/secrets) |
+| Terraform, Kubernetes YAML, CloudFormation and Dockerfiles | [IaC checks](/docs/code-security/iac) |
+| Dependencies, risk scoring, CycloneDX SBOM, VEX and NTIA | [SCA and SBOM](/docs/code-security/sca-sbom) |
+| Testing a running app or API | [DAST](/docs/code-security/dast) |
+| Corrected files on a fix branch | [AI Code Fix](/docs/code-security/ai-code-fix) |
+| Calling scans from a pipeline | [CI usage](/docs/code-security/ci) |
 
-A dedicated Kubernetes manifest scanner covers workload definitions alongside application code. Rule content draws on the OWASP Top 10, CWE Top 25, and cloud-specific security patterns, and custom rules are authored in Semgrep-compatible YAML — version-controlled alongside your repository content.
+## In one paragraph
 
-## DAST — dynamic application security testing
+Static analysis runs community security packs, Onam-curated taint rules and Onam-reviewed pattern rules, and keeps proven **security issues** apart from **hotspots to review**, which are capped at medium. Dependency analysis parses manifests and lockfiles natively, matches OSV and NVD advisories, and scores each one 0–10 from CVSS, EPSS, CISA KEV and fix availability. Dynamic testing discovers and attacks the endpoints of a running app you are authorised to test. AI Code Fix rewrites files flagged by static analysis onto a separate branch; nothing merges itself. There is no CI plugin today — pipelines call the API.
 
-The DAST scanner exercises running applications with active test payloads across 12 vulnerability classes:
-
-- SQL injection (MySQL, PostgreSQL, MSSQL, Oracle, SQLite variants)
-- Cross-site scripting (reflected, stored, DOM-based)
-- Server-side request forgery (internal network, cloud metadata endpoints)
-- XML external entity injection
-- Template injection (Jinja2, Twig, Freemarker, Pebble, Velocity)
-- IDOR / broken object-level authorization
-- Authentication bypass (default credentials, forced browsing, JWT attacks)
-- Business logic flaws (price manipulation, quantity bypass)
-- HTTP request smuggling
-- GraphQL introspection and injection
-- API security (broken authentication, excessive data exposure, mass assignment)
-- File upload bypass
-
-> Point DAST only at environments you own and are authorized to test. Payloads are active — they exercise real injection and authentication paths. Staging environments with production-like configuration give the best signal.
-
-## SCA — software composition analysis
-
-SCA scans third-party dependencies across the major package managers — npm/yarn/pnpm, pip/poetry, Maven/Gradle, Go modules, Cargo, Bundler, Composer, and NuGet — and builds the **full transitive dependency tree**, not just direct dependencies. CVEs are flagged at the level where they are introduced and attributed back to the direct dependency that brought them in.
-
-Every component is enriched from the same intelligence feeds the [Vulnerability engine](/docs/features/vulnerability-management) uses:
-
-| Source | What it adds |
-| --- | --- |
-| NVD | CVE records with CVSS v3 scores and vectors |
-| EPSS | 30-day exploit probability (FIRST.org daily feed) |
-| CISA KEV | Active-exploitation flag (daily feed) |
-| OSV / GitHub Security Advisories | Ecosystem-specific advisories |
-
-## SBOM generation
-
-The SBOM engine generates a complete Software Bill of Materials from a Git repository URL — it clones the repo, reads every dependency file directly from source, and builds the component inventory. No external tooling required.
-
-- Output is **CycloneDX 1.5**, the OWASP standard format required by US Executive Order 14028 for federal software contracts
-- Full component inventory: name, version, package URL, licenses, checksums
-- CVE status pre-populated for every component, with EPSS and KEV data embedded
-- **VEX support** — record "this CVE exists in our dependency but we are not affected because..." with a documented reason, so known-safe findings stay silenced with an audit trail
-- Accepts pre-built CycloneDX or SPDX files as an alternative input path
-- Exportable as JSON or XML for procurement, regulatory, and audit purposes
-
-![How SBOM components map to vulnerability intelligence](/diagrams/feat-vuln-sbom.svg)
-
-## AI-powered fixes
-
-For SAST findings, [AI Code Fix](/platform/ai-code-fix) rewrites the flagged source files — not just a description of the problem:
-
-1. **Grouping** — findings from a completed scan are grouped by file; you choose which severities to include, and findings marked as false positives are skipped.
-2. **Context** — a large language model receives the whole file, every finding in it, and the rule's recommendation and language-matched safe example.
-3. **Fix generation** — the model returns the full corrected file, fixing only the listed issues and keeping the rest of the code unchanged.
-4. **Fix branch** — corrected files are committed to a new fix branch and pushed for review. No pull request is merged and nothing is deployed automatically.
-
-AI Code Fix covers SAST findings in source files only; it does not write tests, produce IaC patches or fix DAST results.
-
-## CI/CD integration
-
-SecOps runs as a CI/CD check, so vulnerable code and dependencies are blocked before they ship:
-
-```
-- uses: onam-security/secops-scan@v2
-  with:
-    api_key: ${{ secrets.ONAM_API_KEY }}
-    fail_on: critical    # critical | high | medium
-    exclude_accepted: true
-```
-
-Blocking gates are configurable per environment:
-
-- Block any deployment to production with a Critical SAST finding
-- Block any dependency with a KEV-flagged CVE from reaching staging
-- Warn (non-blocking) on Medium findings in development branches
-
-For infrastructure templates — Terraform, CloudFormation, Helm charts, Kubernetes manifests, ARM/Bicep, Pulumi, and Docker Compose — see [IaC Scanning](/docs/features/iac-scanning), which runs in the same CI/CD flow.
-
-## FAQ
-
-**How does SCA handle transitive dependencies?** The full dependency tree is resolved to any depth. A CVE in a transitive dependency is flagged where it is introduced and attributed to the direct dependency that pulled it in, so you know exactly what to upgrade.
-
-**What is the difference between SecOps scanning and the CSPM engine?** CSPM scans deployed cloud resources through read-only cloud APIs. SecOps scans source code, running applications, and dependencies before and after deployment. Running both gives you pre-deploy prevention and post-deploy verification.
-
-**Can I write custom SAST rules?** Yes. Custom rules use Semgrep-compatible YAML, apply to any supported language, and are version-controlled alongside your repository content.
-
-## Next steps
-
-- [IaC Scanning](/docs/features/iac-scanning) — catch misconfigurations in templates before deployment
-- [Vulnerability Management](/docs/features/vulnerability-management) — the shared CVE, EPSS, and KEV intelligence pipeline
-- [Container Security](/docs/features/container-security) — image scanning and Kubernetes posture
-- [Book a demo](/request-demo) — see a repository scanned end to end
+![How a code scan flows, from repository to reviewed fix](/diagrams/code-sec-pipeline.svg)
 
 ---
 
@@ -3676,10 +3402,9 @@ The five high-risk patterns flagged:
 | `cluster-admin` bound to a service account | Critical | Pod compromise = cluster takeover; only fix is rebinding |
 | Wildcard verbs (`*`) on sensitive resources | High | `verbs: ["*"]` on secrets, pods, or clusterroles enables secret read plus arbitrary exec |
 | `exec` / `attach` in production | High | `pods/exec` and `pods/attach` allow shells into running pods, bypassing image immutability |
-| Unused service accounts with broad permissions | Medium | Cluster-wide grants unused for 90 days — shrink the entitlement footprint |
 | Default service account with non-default bindings | Medium | Every pod in the namespace silently inherits the extra access |
 
-> Worked example: ClusterRoleBinding `dev-admin` grants `cluster-admin` to service account `default/app-runner` in namespace `production` — a Critical finding. Suggested fix: create a least-privilege ClusterRole limited to the permissions the app actually used in the last 90 days, bind that, then remove the cluster-admin binding.
+> Worked example: ClusterRoleBinding `dev-admin` grants `cluster-admin` to service account `default/app-runner` in namespace `production` — a Critical finding. Suggested fix: create a least-privilege ClusterRole limited to the resources and verbs the app needs, bind that, then remove the cluster-admin binding.
 
 ## Pod Security Standards
 
@@ -3797,266 +3522,23 @@ Yes — namespaces, workloads, services, the RBAC graph, and network policies ex
 
 ---
 
-## IaC Scanning & SecOps
+## IaC Scanning
 URL: https://www.onamsecurity.com/docs/features/iac-scanning
 
-Onam's SecOps engine scans **Infrastructure-as-Code templates, application code, and open-source dependencies** before they reach production — at pull-request time, in CI, and on demand. The goal is to catch security issues at the earliest, cheapest point in the SDLC: in the editor, before merge, before the pipeline deploys, before a real cloud resource exists.
+Infrastructure-as-code templates are checked by Onam Code Security as part of every repository scan. Terraform (`.tf`), YAML (Kubernetes manifests, CloudFormation), JSON and Dockerfiles found in the repository go to the IaC checker in the same scan job as static analysis and dependency analysis.
 
-This page covers the shift-left cost model, the five scan categories (SAST, IaC, SCA, DAST, secrets), language and template coverage, CI/CD integration with working configs, and the finding catalog.
+Full detail, including what is not supported, is on [IaC and Dockerfile checks](/docs/code-security/iac).
 
-![Shift-left IaC scanning pipeline](/diagrams/iac-scanning.svg)
+## In brief
 
-## The Shift-Left Model
+- **Formats:** Terraform, Kubernetes YAML, CloudFormation (YAML or JSON) and Dockerfiles.
+- **Not supported:** rendered Helm charts (templates are read as files), Bicep, Pulumi programs and Kustomize builds.
+- **Separate rules from posture.** IaC checks use their own rule set, distinct from the rules the [CSPM engine](/docs/features/cspm) evaluates against running resources.
+- **No CI plugin.** Scans run from the console or the API; see [CI usage](/docs/code-security/ci).
 
-The further left you catch an issue, the cheaper the fix. These are industry averages from IBM's Cost of a Data Breach report and NIST's software cost estimation studies:
+For running Kubernetes clusters rather than manifests, see [Container Security](/docs/features/container-security).
 
-| Stage | Where the issue is found | Average cost to fix | Why the cost grows |
-| --- | --- | --- | --- |
-| Development | Developer's IDE / pre-commit hook | ~$80 | One person, one file, one edit |
-| Code review | Pull-request review | ~$240 | Reviewer plus author context-switch |
-| CI pipeline | Build / test / scan job | ~$960 | Pipeline minutes, re-runs, branch coordination |
-| Staging | Deployed to staging | ~$7,600 | Test-data state and downstream system impact |
-| Production | Live customer-impacting deployment | ~$7,600+ | Incident response, rollback, post-mortems |
-| Post-breach | After a security incident | $4M+ | IBM 2024 average — detection, response, notification, fines |
-
-Onam runs before and after deploy — code and IaC scans on your repositories, CI integration, and the unified posture dashboard. One rule catalog evaluates the same misconfiguration consistently across all stages, so a rule that fires in production CSPM also fires on the Terraform that would create it.
-
-## Capabilities
-
-Five scan categories ship out of the box. Enable them individually per repository or run them together in one integrated scan.
-
-| Category | Acronym | Scope | Notes |
-| --- | --- | --- | --- |
-| Static Application Security Testing | SAST | Source code in 7 languages plus Kubernetes manifests | semgrep-based analysis plus dedicated per-language scanners · OWASP Top 10 · CWE-mapped |
-| Infrastructure-as-Code scanning | IaC | Terraform · CloudFormation · ARM · Bicep · Helm · Kustomize · raw K8s YAML · Pulumi · Ansible · Dockerfile | 340+ Terraform rules plus per-format coverage |
-| Software Composition Analysis | SCA | Open-source dependency CVEs · license compliance · transitive analysis · SBOM generation | All major language ecosystems |
-| Dynamic Application Security Testing | DAST | Runtime fuzzing of HTTP APIs and web apps | 479 attack payloads · OWASP API Top 10 · injection and auth-bypass |
-| Secrets detection | Secrets | Hardcoded credentials in any file | 120+ patterns — see below |
-
-A typical PR scan completes in 30–90 seconds for a ~50K LOC repo. Monorepos of 1M+ LOC take 5–10 minutes; PR-webhook scans are incremental and only analyze changed files.
-
-## SAST Language Coverage
-
-SAST covers **seven languages**, each with a dedicated scanner plus shared semgrep rules, and additionally scans Kubernetes YAML manifests:
-
-| Language | Frameworks and focus |
-| --- | --- |
-| Python | Django, Flask, FastAPI, SQLAlchemy |
-| JavaScript / TypeScript | Node.js, React, Express, Next.js, NestJS |
-| Java | Spring Boot, Spring MVC, Hibernate |
-| Go | net/http, Gin, Echo, GORM |
-| C# / .NET | ASP.NET Core, Entity Framework |
-| C | Memory safety, buffer overflows |
-| C++ | Memory safety, buffer overflows |
-| Kubernetes YAML | Pod specs, RBAC, network policies |
-
-## IaC Framework Coverage
-
-A rule like "S3 bucket public access not blocked" fires identically against Terraform, CloudFormation, Pulumi, and Helm — wherever the template surfaces the misconfiguration. **The rule catalog is unified across template languages**, so there are not four rule sets to maintain.
-
-![IaC framework coverage — Terraform, CloudFormation, Kubernetes, and other template families converging on one engine](/diagrams/feat-iac-frameworks.svg)
-
-| Family | Variants supported | Notes |
-| --- | --- | --- |
-| Terraform / OpenTofu | AWS (200+ resources), Azure (150+), GCP (130+), Kubernetes provider | Module recursion supported · `.tf` and `.tf.json` |
-| AWS CloudFormation | SAM, native CFN (YAML / JSON), CDK synth output | CDK is scanned post-synth, not the TypeScript / Python source |
-| Kubernetes | Helm charts (`.tgz` plus `values.yaml` plus rendered manifests), Kustomize overlays and bases, raw YAML, CRDs | Helm rendering is performed by the scanner — pass the chart, not the rendered output |
-| Other | Azure ARM and Bicep, Pulumi (Python / TypeScript), Ansible playbooks and roles, Dockerfiles / Containerfiles | Pulumi requires the synthesized state for full coverage |
-
-## CI/CD Integration
-
-First-class integrations ship for the most common CI systems. Each runs the same scanner with the same rule catalog — only the orchestration differs.
-
-### GitHub Actions
-
-```yaml
-# .github/workflows/onam-scan.yml
-name: Onam Security Scan
-
-on:
-  pull_request:
-    branches: [main, develop]
-  push:
-    branches: [main]
-
-jobs:
-  security-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Onam IaC + SAST Scan
-        uses: onam-io/secops-scan-action@v1
-        with:
-          api-key: ${{ secrets.ONAM_API_KEY }}
-          scan-types: iac,sast,sca,secrets
-          fail-on: CRITICAL,HIGH
-          paths: |
-            terraform/
-            k8s/
-            src/
-
-      - name: Upload SARIF Results
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: onam-results.sarif
-        if: always()
-```
-
-The action scans IaC templates and application code, checks dependencies (SCA), detects secrets, fails the job on Critical or High findings, and uploads SARIF to the GitHub Security tab.
-
-### GitLab CI
-
-```yaml
-# .gitlab-ci.yml
-onam-security-scan:
-  stage: test
-  image: onam/secops-scanner:latest
-  script:
-    - onam scan --type iac,sast,sca,secrets
-                --api-key $ONAM_API_KEY
-                --fail-on CRITICAL,HIGH
-                --output sarif
-  artifacts:
-    reports:
-      sast: onam-results.sarif
-    when: always
-  rules:
-    - if: $CI_MERGE_REQUEST_IID
-    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
-```
-
-### Jenkins
-
-```groovy
-// Jenkinsfile
-pipeline {
-    agent any
-    stages {
-        stage('Onam Security Scan') {
-            steps {
-                sh '''
-                    onam scan \
-                      --type iac,sast,sca,secrets \
-                      --api-key ${ONAM_API_KEY} \
-                      --fail-on CRITICAL,HIGH \
-                      --output junit \
-                      --output-file onam-results.xml
-                '''
-            }
-            post {
-                always {
-                    junit 'onam-results.xml'
-                }
-            }
-        }
-    }
-}
-```
-
-Azure DevOps, CircleCI, Bitbucket Pipelines, and Buildkite use the same `onam` CLI.
-
-## Finding Categories
-
-Findings come in two main dimensions — SAST findings (application code) and IaC findings (infrastructure templates). Each carries severity, CWE / CIS mappings, and a remediation suggestion.
-
-### SAST finding examples
-
-| Finding | Severity | CWE | Language |
-| --- | --- | --- | --- |
-| SQL injection via f-string | Critical | CWE-89 | Python |
-| Command injection via subprocess | Critical | CWE-78 | Python, Node.js |
-| Hardcoded credentials | High | CWE-798 | All |
-| Path traversal | High | CWE-22 | All |
-| XSS via unescaped output | High | CWE-79 | JS/TS |
-| Insecure deserialization | High | CWE-502 | Java, Python |
-| SSRF via unvalidated URL | High | CWE-918 | All |
-| JWT secret hardcoded | High | CWE-798 | All |
-| Weak cryptography (MD5/SHA1) | Medium | CWE-327 | All |
-| Missing CSRF protection | Medium | CWE-352 | Web frameworks |
-
-### IaC finding examples
-
-| Finding | Severity | Resource type |
-| --- | --- | --- |
-| S3 bucket with public ACL | Critical | `aws_s3_bucket` |
-| Security group: SSH open to `0.0.0.0/0` | Critical | `aws_security_group` |
-| RDS instance not encrypted | High | `aws_db_instance` |
-| EKS node group with public endpoint | High | `aws_eks_cluster` |
-| Privileged container in pod spec | High | Kubernetes Pod |
-| `cluster-admin` binding in Helm chart | High | Kubernetes ClusterRoleBinding |
-| Lambda function with admin role | High | `aws_iam_role` |
-| Terraform state in unencrypted S3 | Medium | `terraform_backend` |
-| Missing resource limits in K8s | Medium | Kubernetes Deployment |
-| Docker image using `latest` tag | Medium | Dockerfile |
-
-## Secrets Detection Patterns
-
-120+ secret patterns across five categories. Each pattern combines a regex with an entropy or format check — high-entropy strings that match no known pattern are also flagged as "possible generic secret".
-
-| Category | Patterns include | Why it's dangerous |
-| --- | --- | --- |
-| Cloud credentials | AWS access keys, GCP service account JSON, Azure client secrets, OCI API keys | Full account compromise |
-| API keys | GitHub PAT, GitLab PAT, Slack, Stripe, Twilio, SendGrid, OpenAI, Anthropic | Direct service abuse and billing fraud |
-| Database credentials | PostgreSQL / MySQL / MongoDB connection strings, Redis URLs with auth | Direct data access |
-| Certificates and keys | RSA / EC private key PEM, PKCS12, SSH private keys | TLS termination and client-cert bypass |
-| Generic patterns | High-entropy strings, `password=` and `secret=` assignments, bearer tokens in code | Catch-all for unknown formats |
-
-> Pre-commit integration is available via `pre-commit-onam-secrets` — the same pattern set runs locally on every commit and blocks secrets before they ever reach the remote. Once a secret is pushed, rotating it is the only safe remediation; scrubbing git history is not enough.
-
-## Output Formats
-
-| Format | Use case |
-| --- | --- |
-| SARIF | GitHub Security tab, VS Code, any SARIF-compatible tool — recommended default |
-| JUnit XML | Jenkins, Azure DevOps test reports |
-| JSON | API consumption, custom dashboards, SIEM ingestion |
-| HTML | Human-readable report for non-developer stakeholders |
-| PDF | Audit and compliance evidence |
-
-## API
-
-```http
-# List SecOps findings for a repository
-GET /api/v1/secops/findings?repo=github.com/org/repo&severity=CRITICAL
-
-# Trigger a scan on a repository
-POST /api/v1/secops/scan
-Content-Type: application/json
-{"repo_url": "https://github.com/org/repo", "branch": "main", "scan_types": ["iac", "sast", "sca"]}
-
-# Get scan results by scan ID
-GET /api/v1/secops/scans/{scan_id}/findings
-```
-
-Webhook delivery on every completed scan can be configured under **Settings → Notifications**.
-
-## FAQ
-
-**How does SecOps integrate with branch protection?**
-The PR / MR integration posts a status check you can require in branch protection. Critical or High findings fail the check, blocking merge until resolved or suppressed.
-
-**Can I suppress a finding I've reviewed and accepted?**
-Yes. Suppressions are file-and-line-anchored, require a documented justification, follow the file if it moves, and expire after 90 days by default unless renewed.
-
-**Does SCA scan dependencies recursively?**
-Yes — full transitive analysis. A vulnerability in a dependency-of-a-dependency surfaces with its full path, so you can decide whether to bump the direct dependency or wait upstream.
-
-**Can I run SecOps on monorepos?**
-Yes. Path-based scoping scans only changed paths on PRs, with per-path rule profiles (stricter for `production/` than `playground/`).
-
-**What about AI-generated code?**
-SAST treats it identically to human-written code. AI-generated code shows a slightly higher rate of hardcoded credentials and incomplete input validation — the same catalog catches both.
-
-**Can I use SecOps in air-gapped environments?**
-Yes — on-premises deployment on Enterprise plans. The scanner runs entirely in your network, with rule updates pulled via a one-way mirror.
-
-## Next steps
-
-- [Vulnerability Management](/docs/features/vulnerability-management) — the runtime side of the same CVE data
-- [Container Security](/docs/features/container-security) — what happens to Helm and pod-spec issues after deploy
-- [Integration catalog](/docs/reference/integration-catalog) — every supported CI, ticketing, and notification integration
-- [CSPM](/docs/features/cspm) — the production-side rule catalog that mirrors these IaC rules
+![How a code scan flows, from repository to reviewed fix](/diagrams/code-sec-pipeline.svg)
 
 ---
 
@@ -4791,6 +4273,876 @@ PostgreSQL, MySQL, MariaDB, SQL Server, MongoDB, Oracle, Cassandra, IBM Db2 and 
 - Data inside SaaS applications other than Snowflake.
 - On-premises file shares and storage arrays.
 - Databricks.
+
+---
+
+## Code Security — overview
+URL: https://www.onamsecurity.com/docs/code-security/overview
+
+Onam Code Security scans the things that build your applications: source code, dependencies, infrastructure-as-code templates and — if you give it a URL — the running application itself. It lives in the same console as Onam's cloud posture, identity and data engines, under the same login and roles.
+
+![How a code scan flows, from repository to reviewed fix](/diagrams/code-sec-pipeline.svg)
+
+## What a scan does
+
+| Scanner | What it reads | What it produces |
+| --- | --- | --- |
+| [Static analysis (SAST)](/docs/code-security/sast) | Source files in Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby | Security issues (proven by taint or AST rules) and hotspots to review (pattern matches) |
+| [Secret detection](/docs/code-security/secrets) | Every file in the clone | Hard-coded credentials, keys and tokens |
+| [IaC checks](/docs/code-security/iac) | Terraform, YAML (Kubernetes, CloudFormation), JSON and Dockerfiles | Misconfigurations in templates and images |
+| [Dependencies and SBOM (SCA)](/docs/code-security/sca-sbom) | Manifests and lockfiles, or an uploaded SBOM | Vulnerable packages with a 0–10 risk score, and a CycloneDX 1.5 SBOM |
+| [Dynamic testing (DAST)](/docs/code-security/dast) | A running web app or API, from its URL | Findings per endpoint, exportable as JSON, HTML or SARIF |
+
+Static analysis, secret detection, IaC checks and dependency analysis run on every repository scan. Dynamic testing runs only when the scan includes a target URL.
+
+## How it fits with the rest of Onam
+
+- **Same platform, same roles.** Code findings are read and scans started with the same role-based access as every other engine.
+- **Posture score.** SAST and DAST results feed the AppSec pillar of the [CNAPP posture score](/docs/features/cnapp).
+- **Shared advisories.** Dependency findings are matched against the same OSV and NVD advisory store the [Vulnerability engine](/docs/features/vulnerability-management) uses.
+- **Findings store.** Static-analysis findings are also written to the platform-wide findings store, tagged as code, with the file path as the resource.
+
+What it does **not** do yet: link a code finding to the container image or cloud workload built from that repository, tell you whether a vulnerable dependency function is actually called, or trace a runtime misconfiguration back to its template line. Plan around those gaps rather than assume them away.
+
+## Fixing what it finds
+
+Every finding carries the rule's guidance and an AI fix prompt you can copy into your own assistant. For static-analysis findings, [AI Code Fix](/docs/code-security/ai-code-fix) can rewrite the affected files and push them to a separate branch for your review.
+
+## Where to go next
+
+1. [Connect a repository](/docs/code-security/connect-repository)
+2. [Run a scan](/docs/code-security/run-a-scan)
+3. [Read the results](/docs/code-security/reading-results)
+4. [Use it from CI](/docs/code-security/ci)
+
+---
+
+## Connect a repository
+URL: https://www.onamsecurity.com/docs/code-security/connect-repository
+
+There are two ways to point Onam at code: connect the repository as an account during onboarding, or give its address directly when you start a scan.
+
+## Option 1 — connect it as an account
+
+In **Onboarding**, choose the code repository type and the provider (GitHub or GitLab in the form today; Bitbucket addresses are also accepted by the scanner). The form asks for:
+
+| Field | Required | Notes |
+| --- | --- | --- |
+| Repository URL | Yes | The HTTPS clone address, for example `https://github.com/org/repo` |
+| Branch | No | Leave blank to use the repository's default branch, detected on connect |
+| Access token | No | GitHub personal access token or GitLab access token |
+
+A connected repository can be scanned by account, so its URL, branch and scan settings come from the connection rather than being typed each time.
+
+## Option 2 — give the address when you scan
+
+The **New Security Scan** dialog in Code Security takes a repository URL and branch directly. See [Run a scan](/docs/code-security/run-a-scan).
+
+## Address rules
+
+- **HTTPS only.** SSH addresses are not accepted.
+- **Allowed hosts.** github.com, gitlab.com and bitbucket.org by default.
+- **No internal addresses.** Private-network and cluster-internal hosts are refused.
+
+## Private repositories
+
+> Public repositories scan without a token. The connection form accepts a token for private repositories, but scanning a private repository is not reliable today: check that the first scan reaches **completed** rather than **failed**, and contact support if it fails to clone. We will update this page when private-repository scanning is fully supported.
+
+## What happens to your code
+
+Each scan makes a shallow clone of one branch inside an isolated scan job and deletes it when the scan ends. Onam keeps the findings — file path, line, rule, message and a short code snippet — and the dependency list and SBOM. Vendored dependencies, build output, minified files and files over 512 KB are removed before scanning.
+
+---
+
+## Run a scan
+URL: https://www.onamsecurity.com/docs/code-security/run-a-scan
+
+## From the console
+
+1. Open **Code Security** and choose **New Scan Pipeline** (or **New Security Scan** on the Projects page).
+2. Enter the **Repository URL** and, optionally, a **Branch** (default `main`).
+3. Optionally enter a **DAST Target URL** — a running app or API you are authorised to test.
+4. Choose **Start Pipeline**.
+
+Static analysis and dependency analysis start together. Dynamic testing starts as well if you gave a target URL. Each runs as its own job, so one can finish before the others.
+
+## How the branch is chosen
+
+If you name a branch other than `main`, that branch is scanned. Otherwise Onam uses the default branch recorded on the connected account, then asks the repository for its default branch, and falls back to `main`.
+
+## What a scan costs in time
+
+Scan time depends mostly on repository size. Each scan job has a one-hour limit; a scan that runs past it is marked failed. Watch progress on the **Scan History** tab.
+
+## From the API
+
+The console calls the same API you can call yourself. See [Use it from CI](/docs/code-security/ci) for a worked example, and the [API reference](/docs/reference/api) for authentication.
+
+| Call | Purpose |
+| --- | --- |
+| `POST /api/v1/secops/sast/scan` | Start a repository scan (static analysis; dependency analysis starts alongside) |
+| `GET /api/v1/secops/sast/scan/{scan_id}/status` | Poll status |
+| `GET /api/v1/secops/sast/scan/{scan_id}/findings` | Read findings, optionally filtered by `severity` or `language` |
+| `POST /api/v1/secops/dast/scan` | Start a dynamic test of a target URL |
+
+## Who can start a scan
+
+Viewing results needs read access to code security (`secops:read`). Starting scans needs a role that can create scans; read-only roles cannot.
+
+---
+
+## Read the results
+URL: https://www.onamsecurity.com/docs/code-security/reading-results
+
+## The Code Security home
+
+The home page has six tabs: **Overview**, **Alerts**, **Scan History**, **SAST**, **DAST** and **SCA**.
+
+- **Overview** — security issues, total findings, repositories scanned and the last scan, with a risk table per project.
+- **Alerts** — every finding across scanners. Filter by type (security issues, hotspots to review, informational), severity, scanner and status.
+- **Scan History** — every scan, its target, status, finding count and date.
+- **SAST / DAST / SCA** — one row per scan for that scanner, with its own summary numbers.
+
+## A static-analysis scan
+
+![Illustrative layout of a scan result — a stylised view, not a screenshot](/diagrams/ui-code-sec-scan-detail.svg)
+
+*Illustrative — a stylised view of the layout, not a screenshot. Names and findings are invented.*
+
+A scan opens on four numbers: **Total Findings**, **Security Issues**, **Hotspots to Review** and **Languages**. Below them are a severity chart, the most-triggered rules, and two panels:
+
+- **Security Findings** — results from taint and AST rules. These are the findings to work first. Severity is whatever the rule asserts.
+- **Hotspots to Review** — results from pattern rules. They are capped at medium (low if the rule has not been reviewed) and need a person to confirm them. They are not counted as alerts.
+
+Each row shows severity, rule, file and line, message, language and status. Selecting a finding opens its detail: the rule's explanation and recommendation, a code example where the rule has one, and an **AI fix prompt** you can copy into an assistant.
+
+## Projects
+
+**Projects** lists every scanned repository with a risk score, critical and high counts, languages and last scan. A project opens to its security issues, dependencies (package, CVEs, risk and recommendation) and scan history.
+
+## Dependencies and SBOM
+
+![Illustrative layout of an SBOM result — a stylised view, not a screenshot](/diagrams/ui-code-sec-sbom.svg)
+
+*Illustrative — a stylised view of the layout, not a screenshot. Package names and figures are invented.*
+
+An SBOM view shows total components, vulnerable packages, total CVEs and license types, a **Vulnerable Packages** table (package, package URL, CVE count, risk level, CVE IDs, license) and a **License Analysis** tab.
+
+## Reports
+
+**Reports & Trends** charts findings over time across all scanners, with per-scanner trend tabs. Export as CSV or PDF.
+
+## Severity, in one table
+
+| Source | Shown as | Severity |
+| --- | --- | --- |
+| Curated taint rule, community rule | Security issue | As the rule asserts — can be critical |
+| Reviewed pattern rule | Hotspot to review | Medium at most |
+| Unreviewed pattern rule | Hotspot to review | Low at most |
+| Dependency advisory | Vulnerable package | Risk level from the 0–10 composite score |
+| DAST check | DAST finding | Per check, with CVSS |
+
+## Things to know
+
+- Each scan produces a fresh list of findings. Triage decisions are not yet carried from one scan to the next.
+- Within a scan, the same rule on the same file and line is reported once, and several pattern rules firing on one line are collapsed.
+
+---
+
+## Static analysis (SAST)
+URL: https://www.onamsecurity.com/docs/code-security/sast
+
+Onam's static analysis runs on the open-source Semgrep engine with three rule sources, and grades every result by how much its rule can prove.
+
+![Three rule sources, two kinds of result](/diagrams/code-sec-sast-tiers.svg)
+
+## Languages
+
+| Language | File extensions | Curated taint rules | Pattern rules |
+| --- | --- | --- | --- |
+| Python | `.py` | Yes | — |
+| JavaScript | `.js` `.mjs` `.jsx` | Yes | Yes |
+| TypeScript | `.ts` `.tsx` | Yes (shared with JavaScript) | Yes |
+| Java | `.java` | Yes | Yes |
+| C# | `.cs` | Yes | Yes |
+| Go | `.go` | Yes | Yes |
+| Ruby | `.rb` | Yes | — |
+| C | `.c` `.h` | — | Yes |
+| C++ | `.cpp` `.cxx` `.cc` `.hpp` `.hxx` | — | Yes |
+
+Community security packs apply across all of them. PHP, Kotlin, Rust, Swift and Scala are not analysed today.
+
+## The three rule sources
+
+1. **Community security packs** — OWASP Top 10, a general security audit, secrets and Node.js, pulled from the Semgrep registry. General-purpose packs that mix security with code style are deliberately not used.
+2. **Onam curated taint rules** — hand-written rules that follow untrusted input (a request parameter, a header, a file) to a dangerous sink (a query, a shell, a file path, an outbound request). Each carries its own CWE, OWASP category and severity, and has tests in the rule repository.
+3. **Onam reviewed pattern rules** — broader pattern rules, each triaged by hand into security, code-quality, accessibility or not-applicable. Only the security ones run; the rest are dropped before a scan.
+
+## Severity follows evidence
+
+| Result from | Listed as | Severity cap |
+| --- | --- | --- |
+| Community or curated rule | Security issue | None — the rule's own severity |
+| Pattern rule triaged as security | Hotspot to review | Medium |
+| Pattern rule not yet triaged | Hotspot to review | Low |
+
+This is the core design choice: a pattern match cannot show that untrusted input reaches the code it matched, so it is never allowed to outrank a finding that can.
+
+## What is skipped
+
+Before scanning, the clone is pruned of `node_modules`, `vendor`, build output, static and documentation folders, minified `*.min.js` files and any file over 512 KB. That keeps third-party code — covered by [dependency analysis](/docs/code-security/sca-sbom) — out of the static results.
+
+## What each finding carries
+
+| Field | Example |
+| --- | --- |
+| File and line | `app/db/orders.py`, line 88 |
+| Rule | `sql-injection-fstring` |
+| Severity | critical, high, medium or low |
+| Message | What the rule found |
+| CWE / OWASP | CWE-89 · A03 Injection |
+| Confidence and tier | Security issue or hotspot |
+| Code snippet | A few lines of context |
+
+## Limits worth knowing
+
+- Analysis is per scan of one branch. There is no incremental or changed-files-only mode.
+- Custom rules cannot be added from the console.
+- If the community packs cannot be loaded for a scan, the scan still runs with Onam's own rules and is flagged as having reduced coverage.
+
+---
+
+## Secret detection
+URL: https://www.onamsecurity.com/docs/code-security/secrets
+
+Secret detection runs in the same pass as [static analysis](/docs/code-security/sast), over every file in the clone, so there is nothing separate to switch on.
+
+## What it looks for
+
+Two sources run together:
+
+- **The community secrets pack** from the Semgrep registry.
+- **Onam's own secret patterns**, which work on any file type:
+
+| Pattern | Typical form |
+| --- | --- |
+| AWS access key ID | `AKIA…` |
+| AWS secret access key | 40-character key next to an AWS key name |
+| Private key block | `-----BEGIN … PRIVATE KEY-----` |
+| GitHub token | `ghp_…`, `gho_…` and related prefixes |
+| Slack token | `xox…` |
+| Stripe key | `sk_live_…` |
+| Google API key | `AIza…` |
+| Google service-account key | JSON with a private key field |
+| Hard-coded JWT | Three base64url segments in source |
+| Generic secret assignment | `password = "…"`, `secret = "…"` and similar |
+
+Findings are tagged CWE-798 (use of hard-coded credentials) and appear with the other static-analysis results.
+
+## What it does not do
+
+- **No git history.** The scan reads the current state of the branch from a shallow clone. A secret committed and later deleted is not found.
+- **No live verification.** Onam does not test whether a detected credential still works.
+- **No pre-commit hook.** Detection happens when a scan runs, not on a developer's machine.
+
+> If a secret has ever been pushed, rotate it. Deleting it from the file, or even rewriting history, does not undo the exposure.
+
+---
+
+## IaC and Dockerfile checks
+URL: https://www.onamsecurity.com/docs/code-security/iac
+
+Infrastructure-as-code files in a scanned repository are checked in the same scan job as the source code.
+
+## What is routed to the IaC checker
+
+| File | Typical content |
+| --- | --- |
+| `*.tf` | Terraform |
+| `*.yaml`, `*.yml` | Kubernetes manifests, CloudFormation templates |
+| `*.json` | CloudFormation templates and other JSON configuration |
+| `Dockerfile`, `Dockerfile.*`, `*.dockerfile` | Container build files |
+
+Each file has a short per-file time limit, so one pathological file cannot stall the scan.
+
+## What it checks
+
+For Kubernetes manifests, checks look for the misconfigurations that recur in workload definitions: privileged containers and privilege escalation, host namespaces, added Linux capabilities, sensitive host paths and Docker socket mounts, hard-coded credentials, wildcard RBAC rules, cleartext protocols and mutable image tags. Dockerfiles are checked for build hygiene. Findings appear with the other scan results, with file and line.
+
+## Limits worth knowing
+
+- **Helm charts are not rendered.** Templates are read as files; values are not substituted.
+- **Not supported:** Bicep, Pulumi programs and Kustomize builds.
+- **Separate from the posture rules.** IaC checks use their own rule set. They are not the same rules the cloud posture (CSPM) engine evaluates against running resources, so a template result and a runtime result are not guaranteed to agree.
+- The IaC checker ships inside the scanner image. Ask us for its current rule list against your templates before relying on a specific check.
+
+To check running Kubernetes clusters rather than their manifests, see [Container Security](/docs/features/container-security).
+
+---
+
+## Dependencies and SBOM (SCA)
+URL: https://www.onamsecurity.com/docs/code-security/sca-sbom
+
+Dependency analysis runs on every repository scan. It reads manifests and lockfiles itself — no external scanner — matches each component to known advisories, and writes a CycloneDX SBOM.
+
+![From lockfile to risk score](/diagrams/code-sec-sca-sbom.svg)
+
+## Supported manifests and lockfiles
+
+| Ecosystem | Files read |
+| --- | --- |
+| Python | `requirements*.txt`, `Pipfile.lock`, `pyproject.toml`, `setup.cfg` |
+| npm | `package.json`, `package-lock.json`, `yarn.lock` |
+| Java | `pom.xml`, `build.gradle`, `build.gradle.kts` |
+| Go | `go.mod` |
+| Rust | `Cargo.toml`, `Cargo.lock` |
+| Ruby | `Gemfile.lock` |
+| .NET | `*.csproj`, `packages.config` |
+| PHP | `composer.lock` |
+
+Where a lockfile and its manifest are both present, the lockfile's pinned versions are used. A lockfile also lists transitive packages, so those are covered; from a manifest alone, only declared dependencies are known.
+
+Not read today: `poetry.lock`, `pnpm-lock.yaml`, `go.sum`, Gradle lockfiles, and a `Pipfile` without its lock. For those stacks, generate an SBOM with your build tool and upload it.
+
+## Matching and enrichment
+
+1. **Advisories** — each component is matched against the OSV database, with the NVD as a fallback, from the same store the [Vulnerability engine](/docs/features/vulnerability-management) maintains.
+2. **Exploit signals** — each match gets its EPSS score and CISA KEV membership, cached and refreshed daily.
+3. **Risk score** — a composite 0–10 score from CVSS, EPSS, KEV and fix availability.
+
+| Score | Priority |
+| --- | --- |
+| 8.0–10.0 | Immediate |
+| 6.0–7.9 | High |
+| 3.0–5.9 | Medium |
+| 0.0–2.9 | Low |
+
+EPSS and KEV move the score in both directions: a vulnerability with very low exploitation probability is scored down, and one on the KEV list is scored up. Onam does not perform call-graph reachability analysis.
+
+## SBOM
+
+- **Output:** CycloneDX 1.5, JSON, with package URLs.
+- **Input:** upload CycloneDX 1.4 or 1.5, or SPDX 2.3, in JSON. Uploaded SBOMs get the same enrichment.
+- **Diff:** compare any two SBOMs to see what was added, removed or changed.
+
+SPDX export and XML formats are not available today.
+
+## VEX
+
+Record a VEX statement against a component and vulnerability — **not affected**, **affected**, **fixed** or **under investigation** — with a justification. Advisories marked not affected are left out of that component's results.
+
+## License and policy checks
+
+Licenses are classified as permissive, weak copyleft or strong copyleft. Built-in policies cover: no unmitigated critical vulnerabilities, no high vulnerabilities with a known fix left unpatched, no strong copyleft, every component licensed, no unrecognised licenses, and a maximum critical count.
+
+> License checks need license data. Uploaded SBOMs usually carry it; components found by parsing lockfiles usually do not, so run license policy on uploaded SBOMs.
+
+## NTIA minimum elements
+
+Each SBOM can be checked against the NTIA minimum elements for an SBOM and scored 0–100, which is useful before sending one to a customer or regulator.
+
+## Not covered here
+
+Container images are not scanned by Code Security today. Vulnerabilities in images and running workloads are covered by the [Vulnerability](/docs/features/vulnerability-management) and [Container Security](/docs/features/container-security) engines.
+
+---
+
+## Dynamic testing (DAST)
+URL: https://www.onamsecurity.com/docs/code-security/dast
+
+Dynamic testing exercises a running web application or API from the outside, the way an attacker would.
+
+![Discover, test, report](/diagrams/code-sec-dast.svg)
+
+> Only test applications you own or are explicitly authorised to test. The payloads are real injection attempts. Use a staging environment that mirrors production.
+
+## Starting a test
+
+- **Console:** add a **DAST Target URL** in the New Security Scan dialog. The test runs alongside the repository scan.
+- **API:** `POST /api/v1/secops/dast/scan` with the target URL, a profile and optional authentication.
+
+| Setting | Options |
+| --- | --- |
+| Profile | `quick` (default), `normal`, `deep` |
+| Authentication | none, basic, bearer token, cookie, OAuth2, custom header |
+
+Targets on private networks are refused by default.
+
+## Discovery
+
+The scanner builds an endpoint inventory from link and form crawling, analysis of the app's JavaScript, an OpenAPI description if the app publishes one, and common path patterns. Requests are rate-limited. Full browser rendering of single-page apps is not part of the deployed scanner, so publishing an OpenAPI description gives the most complete coverage.
+
+## Checks
+
+| Kind | Checks |
+| --- | --- |
+| Injection | SQL (error-based and time-based blind), NoSQL, command, server-side template injection, cross-site scripting |
+| Server-side | Path traversal, XXE, SSRF |
+| Application logic | Open redirect, file upload handling, parameter and method tampering, forced browsing |
+| Passive | Security headers, cookie flags, CSRF protection, error and stack-trace disclosure |
+
+## Results
+
+Each finding records the endpoint, vulnerability type, severity, CVSS and a description. Results show on the **DAST** tab and the DAST scan page (total findings, critical and high, endpoints, attacks sent). Reports are available as JSON, HTML or SARIF from `GET /api/v1/secops/dast/scan/{scan_id}/report?format=json|html|sarif`.
+
+## Credentials for the target
+
+Authentication details are passed to the scan job that tests your app. Use a dedicated test account with the least access the test needs.
+
+DAST findings are about endpoints, not source files, so they are not traced to a line of code and [AI Code Fix](/docs/code-security/ai-code-fix) does not apply to them.
+
+---
+
+## AI Code Fix
+URL: https://www.onamsecurity.com/docs/code-security/ai-code-fix
+
+AI Code Fix turns static-analysis findings into corrected source files on a separate branch, for your team to review and merge.
+
+![A scan goes in, a branch comes out, people decide the rest](/diagrams/code-sec-ai-fix.svg)
+
+## How you use it today
+
+AI Code Fix is run with you on request — it is not yet a button in the console. You choose a completed scan and the severities to include, and supply a Git token for that run. In the console, every code finding already has an **AI fix prompt** you can copy into the assistant your team uses.
+
+## What it does, step by step
+
+1. **Select.** Findings from the chosen static-analysis scan are filtered by severity. Findings marked as false positive or not applicable are skipped. The rest are grouped by file.
+2. **Clone.** The repository is shallow-cloned using the Git token sent with this request. The token travels in a request header, is never written to the database or logs, and the clone is deleted when the run ends.
+3. **Rewrite.** For each file, a large language model receives the whole file, every finding in it, and the rule's guidance — what the issue is, how to fix it, and a safe example where the rule has one. It is told to fix only the listed issues and keep everything else — names, imports, indentation and style — unchanged, and to return the complete file. One call per file means several findings in one file are fixed together.
+4. **Write.** A corrected file is written back only if it differs from the original and the path already exists inside the repository.
+5. **Push.** Changed files are committed to a new branch named `secops-fix/<first 8 characters of the scan ID>` and pushed. The commit message asks for review before merging.
+
+## What it never does
+
+- Open, approve or merge a pull request.
+- Write to your default branch.
+- Deploy anything.
+- Write tests, IaC patches or dependency upgrades.
+- Fix DAST or dependency findings — they have no source line to rewrite.
+
+## What it does not check
+
+Onam does not compile, lint or test the rewritten file. Your normal pipeline should run on the fix branch before anyone merges it.
+
+## Status per finding
+
+Each finding in the run ends as one of: **applied** (committed to the branch), **fix generated** (a fix was produced but not committed), **failed**, or **skipped**, with the reason.
+
+## Data handling
+
+- The **full content of each affected file** is sent to the language model. Only files with findings are sent.
+- The Git token needs read access and permission to push a branch. It is not stored.
+- Each run is audit-logged: who asked, for which scan and which repository.
+- Runs are limited in concurrency and time; a busy or over-long run is rejected rather than queued indefinitely.
+
+See also the [AI Code Fix product page](/platform/ai-code-fix).
+
+---
+
+## Use it from CI
+URL: https://www.onamsecurity.com/docs/code-security/ci
+
+Onam does not ship a CI plugin, GitHub Action, command-line tool or pull-request check today, and it does not post comments on pull requests. A scan **reports**; it does not fail anything on its own.
+
+If you want a pipeline step that scans and decides, call the same API the console uses.
+
+## The pattern
+
+1. **Start** a scan of the branch you built.
+2. **Poll** its status until it is no longer `queued` or `running`.
+3. **Read** the findings, filtered to the severities you care about.
+4. **Decide** in your own script whether to fail the job.
+
+## Example
+
+Authenticate as described in the [API reference](/docs/reference/api), using an account whose role can start scans. Then:
+
+```
+# 1. Start a scan — the response includes secops_scan_id and status "queued"
+POST /api/v1/secops/sast/scan
+Content-Type: application/json
+
+{"tenant_id": "<your tenant id>", "repo_url": "https://github.com/org/repo", "branch": "release-2.4"}
+
+# 2. Poll until status is completed or failed
+GET /api/v1/secops/sast/scan/{secops_scan_id}/status
+
+# 3. Read high-severity findings — the response has "total" and "findings"
+GET /api/v1/secops/sast/scan/{secops_scan_id}/findings?severity=high
+```
+
+Your script then fails the job if `total` is above the threshold you choose — for example, any high or critical security issue. Because hotspots are capped at medium, a gate on high and critical only acts on proven findings.
+
+## About the fail switch
+
+The scan service has a `fail_on_findings` option, and it is **off by default**. It applies only to the service's older folder-scan endpoint, not to repository scans started as above — so for repository scans, the pass/fail decision belongs in your pipeline script.
+
+## Things to plan for
+
+- **Whole-branch scans.** Each scan analyses the full branch; there is no changed-files-only or new-findings-only mode. A gate on "any high finding" will fail on findings that already existed. Start in report-only mode, work the backlog down, then turn the gate on.
+- **Scan time.** Repository size drives it, and the scan job has a one-hour limit. Give the polling step a generous timeout.
+- **Public repositories.** See the note on private repositories in [Connect a repository](/docs/code-security/connect-repository).
+
+---
+
+## CIEM overview
+URL: https://www.onamsecurity.com/docs/ciem/overview
+
+Onam CIEM resolves what each cloud identity can do, finds its escalation paths, and turns the riskiest into tracked access reviews.
+
+![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
+
+## What CIEM answers
+
+| Question | Where you find the answer |
+| --- | --- |
+| What can this identity actually do? | The **Effective Access** panel on the IAM Security screen — search any principal |
+| Can it make itself an admin? | **Escalation** findings and the **Shadow Admins** count on the CIEM screen |
+| Who outside my account can get in? | **Cross-Account** findings — external, wildcard and federated trust |
+| What has it been granted but never used? | **Least Privilege** column and the identity detail dialog (AWS) |
+| Which identities should a person look at first? | **Risk Score** column and the **Access Reviews** view (AWS) |
+
+## How it fits together
+
+1. **Identity sources.** CIEM reads identities, policies and trust settings from the cloud inventory that Onam's posture scan already builds. It makes no extra calls into your cloud. On AWS it also reads CloudTrail activity collected by Onam's threat detection.
+2. **Effective-permission resolver.** Per identity: group expansion, condition classification, explicit-deny netting and SCP deny checks, producing one effective-access row per identity, resource scope and access level. See [How effective permissions are computed](/docs/ciem/effective-permissions).
+3. **Identity graph.** Identity relationships are written to the platform's security graph, where escalation, blast radius and Attack Path analysis read them. See [Reading the identity graph](/docs/ciem/identity-graph).
+4. **Findings and reviews.** Escalation paths, shadow admins, risky trust, unused permissions and stale roles become findings; AWS identities get a 0–100 risk score, and high-tier identities open an access review. See [Finding types](/docs/ciem/finding-types) and [Right-sizing workflow](/docs/ciem/right-sizing).
+
+## CIEM and IAM Security
+
+Both are views of one identity engine and share one inventory.
+
+| | IAM Security | CIEM |
+| --- | --- | --- |
+| Question | Is this identity configured safely? | What can it do, how could it escalate, what does it never use? |
+| Typical finding | User without MFA, access key past rotation, wildcard policy | PassRole to an admin role, external trust without ExternalId, high permission gap |
+| Unit of analysis | One setting on one identity | The identity after policies, groups, denies and trust are resolved |
+| Console | IAM Security screen (with the Effective Access panel) | CIEM screen: Identities, Findings, Access Reviews |
+
+Start with [IAM Security](/docs/features/iam-security) to clear hygiene; use CIEM to shrink access and close escalation paths.
+
+## The CIEM screen
+
+The console's CIEM screen has three views:
+
+- **Identities.** Headline counts for identities at risk, escalation paths (with how many are CDR-confirmed), shadow admins and zombie identities; a breakdown by identity type — roles, users, service accounts, root; and a table with risk score, least-privilege gap, blast radius, admin access and zombie status per identity. Clicking a row shows the score breakdown and the high-risk unused actions.
+- **Findings.** One table for escalation, policy, cross-account and database identity findings, with bulk suppress, export and ticket creation.
+- **Access Reviews.** The attestation queue — see [Right-sizing workflow](/docs/ciem/right-sizing).
+
+## Coverage at a glance
+
+AWS has the deepest coverage: full effective-permission resolution, multi-hop assume-role chains, shadow admins, unused permissions, risk scoring and access reviews. Azure, GCP and Kubernetes have effective access and escalation detection; OCI and IBM Cloud have escalation detection; trust checks run on every cloud except Kubernetes. Details are in [Per-cloud notes](/docs/ciem/per-cloud).
+
+## What CIEM does not do
+
+- **It never changes your IAM.** Findings and reviews tell you what to remove; you remove it.
+- **Unused-permission analysis is AWS-only today**, and needs CloudTrail activity to be flowing into Onam's threat detection.
+- **There is no separate identity-graph screen.** You read the graph through the Effective Access panel, escalation findings and the [Attack Path](/docs/features/attack-path) view.
+
+---
+
+## How effective permissions are computed
+URL: https://www.onamsecurity.com/docs/ciem/effective-permissions
+
+An identity's effective permissions are what it can do once group membership, conditions, explicit denies and organisation guardrails are applied.
+
+Reading the policy attached to a role does not tell you that. Onam resolves it per identity and stores the result in one effective-access table that the console, the escalation detectors and Attack Path all read.
+
+![Effective permissions on AWS — statements, group expansion, condition classes, deny and SCP checks, result](/diagrams/ciem-effective-access.svg)
+
+## AWS: the five steps
+
+### 1. Collect statements
+
+Every identity-based policy statement — managed and inline, on users, roles and groups — is recorded with its effect, actions, resources and conditions.
+
+### 2. Expand groups
+
+Statements attached to a group are copied onto each member user and tagged *inherited via* that group, so a user's effective access includes what it gets through its groups. Admin access that arrives this way raises its own finding.
+
+### 3. Classify conditions
+
+Each condition is classed from an attacker's point of view, and the worst class across a statement's keys wins:
+
+| Class | Meaning | Examples |
+| --- | --- | --- |
+| Always true | An attacker meets it trivially | `aws:SecureTransport`, `aws:RequestedRegion`, `aws:UserAgent` |
+| Context-dependent | Met if the attacker controls the principal | `aws:MultiFactorAuthPresent`, session tags |
+| Effectively blocking | Needs out-of-band access | source IP, VPC endpoint, organisation membership, `sts:ExternalId` |
+
+### 4. Net out denies and check SCPs
+
+An explicit deny overrides an overlapping allow, unless the deny's own condition is one an attacker cannot meet. Overridden rows are kept and marked, so you can see that a grant exists but is denied. Where Onam can read your AWS Organization, SCP deny statements are checked and blocked grants are marked *SCP-blocked*.
+
+### 5. Record access level and flags
+
+Each resulting row carries:
+
+| Field | Values |
+| --- | --- |
+| Access level | admin · IAM control · write · read · list · tagging |
+| Admin | the grant is admin-equivalent |
+| Cross-account | the grant crosses an account boundary |
+| Net allow | false when a deny overrides it |
+| SCP-blocked | an SCP deny statement blocks it |
+
+## What is not modelled yet
+
+Say this out loud before you rely on the result:
+
+- **Granularity.** Rows are kept per statement and service, not per individual API action.
+- **Allow-list SCPs** (an SCP that permits only listed services) are not modelled; only SCP deny statements are.
+- **Permission boundaries** are recorded but do not yet reduce effective access.
+- **Resource-based policies** (S3 bucket policies, KMS key policies and similar) are collected and feed Attack Path, but are not folded into the effective-access table.
+- **Session policies** are not modelled.
+
+## Azure, GCP and Kubernetes
+
+- **Azure.** Role assignments are joined to their role definitions, the scope is classified — management group, subscription, resource group or resource — and ABAC conditions on assignments are evaluated. Entra group membership is not expanded.
+- **GCP.** IAM bindings on projects, service accounts and data resources (buckets, BigQuery datasets, Pub/Sub topics) become effective-access rows, with GCP roles mapped onto the same access levels.
+- **Kubernetes.** RoleBindings and ClusterRoleBindings are resolved to service accounts and their rules; secrets access and pods/exec are treated as their own high-risk levels.
+
+OCI, Alibaba Cloud and IBM Cloud are analysed at the policy level for escalation and hygiene, without an effective-access table.
+
+## Looking it up in the console
+
+Open **IAM Security → Effective Access** and search for a principal by name, ARN or service account. The detail view groups the identity's access by resource type and shows the access level, allow or deny, the first actions, where a grant was inherited from, and the admin, cross-account and SCP-blocked flags.
+
+---
+
+## CIEM finding types
+URL: https://www.onamsecurity.com/docs/ciem/finding-types
+
+Every CIEM finding type, what triggers it, and the clouds it runs on today. Severities shown are the defaults the detectors assign.
+
+## Privilege escalation
+
+| Finding | Trigger | Severity | Cloud |
+| --- | --- | --- | --- |
+| Escalation via PassRole | `iam:PassRole` on `*`, with an admin role present in the account | Critical | AWS |
+| Escalation via assume-role chain | A chain of trust relationships — searched over many hops — leads from the identity to an admin role | High | AWS |
+| Escalation via boundary bypass | The identity can delete or replace permission boundaries | High | AWS |
+| Escalation via service-linked role | The identity can create service-linked roles | High | AWS |
+| Escalation via RBAC owner, PIM activation, service principal owner rights | Owner-level or activatable privileged assignments | High–Critical | Azure |
+| Escalation via key creation, primitive role, workload identity | Service-account key creation, owner/editor bindings, broad workload identity | High–Critical | GCP |
+| Escalation via policy, group or user management; tenancy admin; secret access; broad dynamic groups; instance principals | OCI policy statements that let an identity widen its own access | High–Critical | OCI |
+| Escalation via IAM identity admin, access-group management, API-key creation, secrets access | IBM Cloud policies that let an identity widen its own access | High–Critical | IBM Cloud |
+| RBAC escalation | Service account bound to cluster-admin, able to write Roles or ClusterRoles, exec into pods, or read secrets cluster-wide | High–Critical | Kubernetes |
+
+Escalation findings are marked *SCP-blocked* and lowered to informational when an SCP deny statement blocks the action they rely on.
+
+**CDR-confirmed.** When Onam's cloud detection and response has seen the same identity call escalation operations in the last month — AssumeRole, PassRole, CreatePolicyVersion, AttachRolePolicy, AttachUserPolicy, DeleteRolePermissionsBoundary, CreateServiceLinkedRole — the AWS finding is raised to critical and marked confirmed. This shows the identity has been exercising escalation operations. It does not prove every hop of the path was walked.
+
+## Shadow admins (AWS)
+
+Identities that are not admins on paper but can make themselves one. Admin is recognised as AdministratorAccess, PowerUserAccess or IAMFullAccess.
+
+| Pattern | Trigger | Severity |
+| --- | --- | --- |
+| Policy attachment | `iam:AttachRolePolicy` or `iam:AttachUserPolicy` on `*` | Critical |
+| Policy version rewrite | `iam:CreatePolicyVersion` with `iam:SetDefaultPolicyVersion` | Critical |
+| Role creation | `iam:CreateRole` with `iam:AttachRolePolicy` | High |
+| Group membership | `iam:AddUserToGroup` where a group holds an admin policy | High |
+
+## Trust and access
+
+| Finding | Trigger | Cloud |
+| --- | --- | --- |
+| Wildcard trust principal | A role trust policy allows `*` | AWS |
+| Cross-account role without ExternalId | A foreign account can assume the role and there is no `sts:ExternalId` condition | AWS |
+| User with admin access | A user has admin-equivalent effective access | AWS |
+| Admin via group membership | Admin access is inherited from a group | AWS |
+| Policy allows what an SCP denies | A grant that an SCP deny statement blocks | AWS |
+| Cross-tenant access without conditional access | External identity-provider access without conditional access | Azure |
+| Service principal or managed identity at broad scope | Owner, Contributor or User Access Administrator at subscription or management-group scope | Azure |
+| Workload identity pool without attribute condition | Any token from the federated issuer can map in | GCP |
+| Trusted profile trusting another account | Trusted profile policy scoped to an external account | IBM Cloud |
+| RAM role with wildcard trust, or assumable without MFA | Broad or unprotected RAM role trust | Alibaba Cloud |
+| Dynamic group matching a whole compartment | Matching rule wider than a specific resource | OCI |
+
+## Usage-based (AWS)
+
+| Finding | Trigger |
+| --- | --- |
+| Stale role | No CloudTrail activity for the role in the recent activity window |
+| Permission gap | Granted actions the identity has not called; the high-risk unused ones — such as `iam:PassRole`, `iam:CreatePolicyVersion`, `s3:PutBucketPolicy`, `kms:ScheduleKeyDeletion`, `sts:AssumeRole` — are listed separately |
+
+## Database identity activity
+
+Detections from credentialed database connections (for example PostgreSQL, MySQL, SQL Server, Oracle, MongoDB, Snowflake): new superuser or admin role grants, failed-login spikes, logins from unexpected addresses, bulk reads and audit-configuration changes. They appear under the **Database CIEM** module in the CIEM findings table. This is activity detection, not an analysis of table-level grants.
+
+## Identity posture rules
+
+CIEM findings sit alongside the identity rules in Onam's posture catalogue — 1,459 rules in the identity domain — which the [IAM Security](/docs/features/iam-security) view covers: MFA, key age, password policy, root usage and wildcard policies.
+
+---
+
+## Reading the identity graph
+URL: https://www.onamsecurity.com/docs/ciem/identity-graph
+
+CIEM writes identity relationships into Onam's security graph, so "who can reach this role?" becomes a graph question.
+
+## Edges CIEM writes
+
+| Edge | From → to | Cloud |
+| --- | --- | --- |
+| has-policy | User or role → managed policy | AWS |
+| member-of | User → group | AWS |
+| assumes | Trusted principal → role (marked when it crosses accounts) | AWS |
+| can-access | Identity → a specific resource named in its policy | AWS |
+| runs-as | Compute instance → service account; pod → Kubernetes service account | GCP, Kubernetes |
+| uses-identity | Virtual machine → managed identity | Azure |
+
+On Kubernetes, workload-identity annotations (EKS IRSA, GKE Workload Identity, AKS Workload Identity) link a service account to the cloud identity it maps to.
+
+## Where you read it
+
+There is no separate identity-graph screen. The graph shows up in four places:
+
+1. **Effective Access panel** (IAM Security screen) — one identity's resolved access, with where each grant was inherited from.
+2. **Escalation findings** (CIEM screen) — the assume-role chain behind an *escalation via assume-role chain* finding is a path through the assumes edges; the finding names the start and the admin role it reaches.
+3. **Blast radius** (CIEM Identities table) — the number of resources with open high or critical findings that an identity can reach within a few hops of assumes and has-policy edges.
+4. **[Attack Path](/docs/features/attack-path)** — identity edges join network and data edges, so a path can run from an internet-exposed workload through the identity it runs as to the data that identity can read.
+
+## Reading an escalation chain
+
+For an assume-role chain finding, read it left to right:
+
+- **Start identity** — the identity that holds the first trust relationship.
+- **Hops** — each role it can assume in turn. Service, wildcard and federated principals are not followed as hops; they are reported as trust findings instead.
+- **End** — a role holding an admin policy or admin-equivalent actions.
+
+To break the chain, remove the cheapest hop: usually the trust relationship on an intermediate role, or an unused `sts:AssumeRole` grant on the start identity.
+
+---
+
+## Right-sizing workflow
+URL: https://www.onamsecurity.com/docs/ciem/right-sizing
+
+Right-sizing turns a CIEM finding into a smaller grant: pick who to review, see what they use, decide, change it, then check the next scan.
+
+![From identity risk score to access review](/diagrams/ciem-review-flow.svg)
+
+## 1. Find who to review
+
+On AWS, every role and user gets a 0–100 risk score. The parts:
+
+| Part | Points |
+| --- | --- |
+| Escalation paths | 10 per path, up to 30 |
+| Recent escalation activity seen by CDR | 40 |
+| Blast radius | 2 per reachable resource with an open high or critical finding, up to 20 |
+| Permission gap | gap percentage ÷ 5, up to 20 |
+
+Tiers: **critical** 80 and above, **high** 60 and above, **medium** 30 and above, otherwise **low**. Identities in the high tier or above open an access review automatically, with the highest-scoring first.
+
+## 2. See what it uses (AWS)
+
+The permission gap compares the actions an identity has been granted with the actions CloudTrail shows it calling in the recent activity window. The review row shows:
+
+- **Least privilege** — the share of granted actions not called;
+- **Granted** and **Used** — the counts behind it;
+- **High-risk unused** — unused grants that matter most, such as `iam:PassRole`, `iam:CreatePolicyVersion`, `iam:AttachRolePolicy`, `s3:DeleteBucket`, `s3:PutBucketPolicy`, `kms:ScheduleKeyDeletion`, `sts:AssumeRole`.
+
+Usage comes from CloudTrail events collected by Onam's threat detection. With no CloudTrail flowing, every grant looks unused — check that first.
+
+## 3. Decide
+
+In **CIEM → Access Reviews**, a reviewer with the `review:decide` permission marks each identity:
+
+| State | Meaning |
+| --- | --- |
+| Pending | Waiting for a decision |
+| Needs remediation | Something must change |
+| Reviewed | Decision recorded, no change needed |
+| Deferred | Postponed, and the postponement recorded |
+
+Every change is written to an audit trail with the reviewer and time. Decisions expire after a set period and return to pending, and if a reviewed or deferred identity is flagged again it goes back to pending.
+
+## 4. Change it
+
+Onam does not edit your IAM. Remove the high-risk unused actions first — they cut the most risk per change — in your own console or infrastructure-as-code. Before removing anything, allow for jobs that run less often than the activity window, such as quarter-end batch jobs and disaster-recovery roles.
+
+A suggested least-privilege policy is in development. Until it ships, build the replacement from the **Used** actions.
+
+## 5. Check the next scan
+
+On the next scan the gap, escalation and score are recomputed. A closed escalation path drops its points and the finding resolves; a reduced grant lowers the gap.
+
+## Over the API
+
+The access-review workflow is available on the platform API:
+
+```
+GET  /api/v1/iam-security/access-review              # list reviews (filter by status)
+POST /api/v1/iam-security/access-review/{identity}    # record a decision: reviewed | needs_remediation | deferred
+```
+
+The decision endpoint requires the `review:decide` permission. See the [API reference](/docs/reference/api) for authentication.
+
+---
+
+## CIEM per-cloud notes
+URL: https://www.onamsecurity.com/docs/ciem/per-cloud
+
+What CIEM does on each cloud today. AWS has the deepest coverage; the other clouds are honest subsets, and this page is where we say which.
+
+## AWS
+
+- **Identities:** IAM users, roles, groups, instance profiles, managed and inline policies, trust policies.
+- **Effective access:** full chain — group expansion, condition classes, explicit-deny netting, SCP deny checks. See [effective permissions](/docs/ciem/effective-permissions) for what is not modelled yet.
+- **Escalation:** PassRole, multi-hop assume-role chains, boundary bypass, service-linked role creation; shadow admins (four patterns); CDR confirmation.
+- **Trust:** foreign accounts, wildcard principals, missing ExternalId, SAML and OIDC federation — including GitHub, GitLab, GCP and Azure issuers.
+- **Non-human identities:** roles classified as service-linked, AWS service, execution (Lambda, ECS and similar), CI/CD over OIDC, EKS service account (IRSA), cross-account, user-assumable or wildcard.
+- **Usage:** CloudTrail-based permission gap and stale roles.
+- **Scoring and reviews:** risk score, blast radius and access reviews.
+- **Needs:** CloudTrail flowing into Onam's threat detection for the usage-based findings; read access to AWS Organizations for SCP checks.
+
+## Azure
+
+- **Identities:** role definitions and assignments, Entra service principals, managed identities (user- and system-assigned).
+- **Effective access:** assignments joined to role definitions, scope classified, ABAC conditions evaluated. Entra group membership is not expanded.
+- **Escalation:** RBAC Owner, PIM activation, service principal owner rights.
+- **Trust and scope:** cross-tenant access without conditional access; service principals and managed identities with Owner, Contributor or User Access Administrator at broad scope; guests with privileged roles.
+- **Graph:** VM → managed identity links.
+
+## Google Cloud
+
+- **Identities:** IAM bindings, service accounts, workload identity pools.
+- **Effective access:** bindings on projects, service accounts, buckets, BigQuery datasets and Pub/Sub topics, mapped onto the shared access levels.
+- **Escalation:** service-account key creation, primitive (owner/editor) roles, broad workload identity.
+- **Findings:** service accounts with Owner, keys past rotation age, public principals in bindings, workload identity pools without an attribute condition, service-account chaining.
+- **Graph:** compute instance → service account links.
+
+## Kubernetes
+
+- **Identities:** service accounts, Roles and ClusterRoles, RoleBindings and ClusterRoleBindings, pods.
+- **Effective access:** bindings resolved to service accounts and their rules.
+- **Escalation:** cluster-admin bindings, Role and ClusterRole write, pods/exec and pods/attach, cluster-wide secrets read, node access, cross-namespace escalation.
+- **Graph:** pod → service account links; workload-identity annotations to the cloud identity.
+
+## OCI
+
+- **Identities:** users, groups, policies, dynamic groups, API keys, auth tokens, customer secret keys.
+- **Escalation:** policy, group or user management; tenancy admin; secret access; broad dynamic-group matching rules; instance principals.
+- **Hygiene:** MFA, key and token rotation, Administrators group membership, inactive users with credentials.
+
+## Alibaba Cloud
+
+- **Identities:** RAM users, roles, groups, policies, access keys.
+- **Findings:** wildcard or admin policies, RAM roles with wildcard trust or assumable without MFA, broad OSS and KMS grants, access-key rotation, console MFA.
+
+## IBM Cloud
+
+- **Identities:** API keys, service IDs, trusted profiles, access groups, policies.
+- **Escalation:** IAM identity admin, access-group management, API-key creation for service IDs, secrets access.
+- **Trust:** trusted profiles that trust another account.
+- **Hygiene:** account MFA enforcement, API-key rotation.
+
+## Not yet on these clouds
+
+Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. Multi-hop assume-role chains are AWS-only.
 
 ---
 
@@ -6902,7 +7254,7 @@ Integration status changes are announced in the [release notes](/docs/release-no
 
 - [API Reference](/docs/reference/api) — pull findings programmatically instead of (or alongside) push integrations
 - [Finding Schema](/docs/reference/finding-schema) — the exact payload shape webhooks and SIEM streams deliver
-- [SecOps](/docs/features/secops) — the SAST, SCA, and IaC scanning that backs the CI/CD integrations
+- [Code Security](/docs/code-security/overview) — SAST, SCA and IaC scanning; pipelines call it through the API ([CI usage](/docs/code-security/ci))
 - [RBAC & SSO](/docs/reference/rbac-and-sso) — who on your team can configure integrations
 
 ---
@@ -9021,13 +9373,11 @@ The first full scan of a mature codebase is usually discouraging. Some practical
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) scans Terraform, CloudFormation, Helm and Kubernetes manifests against the same policy set its runtime posture engine uses, so a template is judged before it creates anything and the result means the same thing in both places. IaC policy is evaluated against the plan.
+[Onam's Code Security engine](/platform/code-security) checks Terraform, Kubernetes manifests, CloudFormation templates and Dockerfiles in a repository as part of every scan, alongside static analysis, dependency analysis and secret detection. The IaC checks use their own rule set, separate from the rules the runtime posture engine applies to deployed resources, and Onam does not yet trace a runtime finding back to the template line that created it — so the discipline described above, fixing in code rather than the console, is still yours to enforce.
 
-Runtime findings keep their provenance: which repository, template and resource block produced the resource. That lets remediation land in code, so the fix does not disappear on the next apply. On the gating side, scans report by default; failing the build on findings is an option you switch on when you are ready.
+On gating, Onam has no CI plugin today: a scan reports, and a pipeline that wants a gate calls the scan API and decides for itself ([CI usage](/docs/code-security/ci)). For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
 
-IaC scanning sits alongside static analysis, dependency analysis and secret detection in the same engine, and its findings are joined to the running estate on the same security graph as posture, identity and network data. For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
-
-[Request a demo](/request-demo) to see a runtime finding traced back to its template line.
+[Request a demo](/request-demo) to see a repository scanned end to end.
 
 ---
 
@@ -9115,9 +9465,9 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC scanning and secret detection into the same platform as its cloud posture, and joins code findings to the running estate on one security graph — so a dependency finding carries whether the workload is reachable and what it can access.
+[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC checks and secret detection into the same platform as its cloud posture. Static analysis keeps proven security issues apart from pattern-match hotspots, and dependency findings are ranked by EPSS and CISA KEV as well as CVSS — two ways of keeping a gate from firing on noise.
 
-On gating, Onam is deliberately conservative: by default a scan reports its findings and the build carries on. Failing the pipeline on findings is an option you switch on when your team is ready to enforce it. If you want the delta-gating pattern described above, the practical route today is to start in report-only mode, work the backlog down, and switch enforcement on once the baseline is small.
+On gating, Onam is deliberately conservative: a scan reports its findings and nothing fails on its own. Onam has no CI plugin today; a pipeline step calls the scan API, reads the findings and decides ([CI usage](/docs/code-security/ci)). Scans cover the whole branch rather than only new findings, so the practical route to the delta-gating pattern described above is to start in report-only mode, work the backlog down, and turn your gate on once the baseline is small.
 
 For SAST findings, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files and push them to a separate branch for your team to review; nothing merges itself.
 
@@ -9742,13 +10092,13 @@ It's essentially a posture check against identity best practices. Every CSPM doe
 
 CIEM starts where IAM Security stops. It reconciles **who has which entitlements**, **what those entitlements evaluate to** given every trust policy, permission boundary, and SCP in the chain, and — most importantly — **what was actually used** in the last 90 days.
 
-The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output is:
+The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output looks more like this (illustrative examples):
 
 - `user@example.com` has effective `s3:PutObject` on 412 buckets across 3 accounts, but has only ever written to 4 of them.
 - `OnamReadOnly` in account `****4821` is assumable by 17 principals in 6 other accounts through a chain of two roles.
-- The service account `acme-corp-ci` has never used 91% of its granted permissions since it was created.
+- The CI service account `build-runner` has never called most of the actions it was granted when it was created.
 
-That third bullet is where CIEM stops being interesting and starts being urgent. **Unused entitlements are the single largest source of over-privilege in most environments.**
+That third bullet is where CIEM stops being interesting and starts being urgent. **Unused entitlements are usually where over-privilege hides.**
 
 ## Where the two overlap
 
@@ -10066,15 +10416,15 @@ The goal of FAIR is not to produce a precise dollar figure — the uncertainty r
 
 ---
 
-## Why 90% of cloud IAM permissions are never used — and why that matters
+## Why cloud IAM permissions go unused — and why that matters
 URL: https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used
 Published: May 28, 2026
 
 Every cloud security team has the same conversation at some point: "We have too many IAM policies to audit manually." What they rarely say out loud is that the vast majority of the permissions in those policies have never been used once.
 
-Across the cloud accounts we analyse, **more than 90% of granted IAM permissions are never exercised in a 90-day window.** For AWS, that figure is consistent across account sizes, industries, and engineering team maturity. It is not a failure of individual teams — it is the natural consequence of how cloud IAM actually works in practice.
+We are not going to put a percentage on it: a figure without a published sample behind it is marketing, not data. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. It is not a failure of individual teams — it is the natural consequence of how cloud IAM actually works in practice.
 
-![The IAM security view in the Onam console (demo account)](/screenshots/screenshot-iam.png)
+![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
 
 ## How permissions accumulate
 
@@ -10096,28 +10446,24 @@ The SolarWinds attack demonstrated this at scale: compromised service accounts w
 
 ## How CIEM measures the gap
 
-CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap — the difference between what an identity is permitted to do and what it actually does. The process has three steps.
+CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap — the difference between what an identity is permitted to do and what it actually does. Here is how Onam does it today.
 
-**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can actually do. Service Control Policies (SCPs) at the organization level can restrict what managed policies allow. Permission boundaries limit IAM users and roles. Resource-based policies on S3 buckets or KMS keys can grant access that is not reflected in identity-based policies. CIEM resolves all of these layers into a single effective permission set.
+**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can actually do. Group membership adds permissions; explicit denies elsewhere remove them; conditions decide whether a grant applies at all; Service Control Policies (SCPs) at the organization level can block what an identity policy allows. Onam copies group policies onto members, classifies every condition by whether an attacker could satisfy it, nets out explicit denies and checks SCP deny statements. Permission boundaries and resource-based policies add further layers that Onam does not yet fold into the result — [the docs](/docs/ciem/effective-permissions) list exactly what is and is not modelled.
 
-![How effective permissions are resolved from identity policies, boundaries, SCPs, and resource policies](/diagrams/feat-ciem-effective-perms.svg)
+![How Onam resolves effective permissions on AWS — statements, groups, conditions, denies and SCPs](/diagrams/ciem-effective-access.svg)
 
-**2. Usage analysis from activity logs.** CloudTrail records every API call made in your AWS account. CIEM reads these logs — or their equivalents on Azure, GCP, and the other supported clouds — and builds a map of which permissions were exercised, by which identity, and when. A permission that appears in the effective permission set but has not appeared in any CloudTrail event in 90 days is flagged as unused.
+**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones — `iam:PassRole`, `iam:CreatePolicyVersion`, `s3:PutBucketPolicy`, `kms:ScheduleKeyDeletion` and similar — are listed separately. Onam does this for AWS today.
 
-**3. Least-privilege policy generation.** For each identity with unused permissions, CIEM can generate a suggested replacement policy that contains only the permissions that were actually used. This gives engineers a concrete, actionable change rather than an abstract "reduce permissions" recommendation.
+**3. A concrete change, not an abstract one.** The unused list — especially the high-risk unused actions — tells engineers exactly what to remove, and the used list is the starting point for a replacement policy. That is a change someone can review, rather than a vague "reduce permissions" ticket.
 
-## The numbers in practice
+## Where the gap is usually widest
 
-Across accounts we have analysed, the average gap between granted and used permissions breaks down as follows:
+Some identity types accumulate unused permissions faster than others:
 
-| Identity type | Granted permissions unused |
-| --- | --- |
-| Service accounts (Lambda, ECS, EC2 instance profiles) | 94% |
-| Cross-account roles | 91% |
-| Human IAM users | 87% |
-| Federated identities (SAML, OIDC) | 83% |
-
-The highest gap is consistently in service accounts — the identities most often forgotten after the feature they were created for is deployed and the team moves on to the next thing.
+- **Service accounts and workload roles** (Lambda, ECS, EC2 instance profiles). Created for one feature, forgotten when the team moves on, and rarely reviewed because no human logs in as them.
+- **Cross-account roles.** Set up for a partner, a migration or a tool, then left in place long after the reason has gone.
+- **Human users.** Permissions follow people through team changes; few are removed when they move.
+- **Federated identities.** Broad SSO roles are convenient and hard to scope per person.
 
 ## What to do about it
 
@@ -10125,13 +10471,13 @@ The goal is not to achieve zero unused permissions immediately. That would requi
 
 **Start with the highest-risk identities.** Shadow admins — identities that can reach admin-level access without holding an admin role — are the highest priority. A service account that can assume a role that can assume another role with `iam:*` permissions is a three-hop privilege escalation path. CIEM surfaces these chains; fix them first.
 
-**Enforce for new identities.** The easiest permission to remediate is one that was never granted. Add a review gate to your IAM policy creation process that requires justification for any permission that has not been used in the last 90 days in a similar role. This does not fix existing debt, but it stops new debt from accumulating.
+**Enforce for new identities.** The easiest permission to remediate is one that was never granted. Add a review gate to your IAM policy creation process that requires justification for any permission a similar role has not needed. This does not fix existing debt, but it stops new debt from accumulating.
 
-**Automate the generation, not the application.** CIEM can generate least-privilege replacement policies automatically. Do not apply them automatically — have a human review the suggestion for operational correctness before switching. What looks unused over 90 days may be used on a quarterly or annual cycle.
+**Automate the analysis, not the removal.** Let tooling compute the gap continuously, but do not remove permissions automatically — have a human review each change for operational correctness first. What looks unused over a few weeks may be used on a quarterly or annual cycle.
 
-> The cost of a false-positive access removal is a production incident. Generate automatically, apply carefully.
+> The cost of a false-positive access removal is a production incident. Measure automatically, remove carefully.
 
-The 90% figure is not a problem you can fix in a sprint. It is a long-running hygiene practice, and the right tool makes continuous progress measurable instead of invisible.
+Over-provisioning is not a problem you fix in a sprint. It is a long-running hygiene practice, and the right tool makes continuous progress measurable instead of invisible.
 
 ---
 

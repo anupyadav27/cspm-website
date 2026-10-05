@@ -37,8 +37,8 @@ Key facts:
 - All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
 - Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
 - FAIR-model risk quantification — findings prioritised by estimated dollar exposure, not just CVSS
-- Every finding ships with exact remediation: CLI command, Terraform snippet, or pull request against the source repository
-- Code-to-runtime coverage: SAST, DAST, SCA, and IaC scanning correlated with runtime findings
+- Every finding ships with exact remediation: CLI command or Terraform snippet; for static-analysis code findings, AI Code Fix pushes corrected files to a separate branch for review
+- Code security in the same console: SAST (proven issues kept apart from hotspots), secret detection, IaC checks, SCA with CycloneDX 1.5 SBOM and EPSS/KEV risk scoring, and DAST — see https://www.onamsecurity.com/platform/code-security
 - AI assistant with 13 domain specialists answers posture questions from live findings, read-only and tenant-scoped
 
 ## Positioning
@@ -80,10 +80,10 @@ platform is stronger than Onam. Onam has no public reference customers.
 
 ## Onam Security engines
 
-- [Code Security](https://www.onamsecurity.com/platform/code-security): SAST, DAST, SCA, IaC and secret scanning, correlated with what is actually running in your cloud — so a finding traces back to the template that created it, and the fix holds.
+- [Code Security](https://www.onamsecurity.com/platform/code-security): Onam Code Security runs static analysis, dependency and SBOM analysis, IaC checks, secret detection and dynamic testing against your repositories and web apps — and keeps findings…
 - [CSPM](https://www.onamsecurity.com/platform/cspm): Every resource your team deploys is a potential gap. Onam checks 9,853 CSPM posture rules continuously — across all your clouds — so you know about misconfigurations the same day…
-- [CIEM](https://www.onamsecurity.com/platform/ciem): Identity is the new perimeter. CIEM resolves the effective permissions of every human user, service account, and machine identity across all your clouds — then compares them…
-- [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security gives you a complete view of every user, role, policy, and access key across your cloud accounts — and flags everything that doesn't belong.
+- [CIEM](https://www.onamsecurity.com/platform/ciem): CIEM resolves what human users, roles, service accounts and workload identities can actually do — after group membership, conditions, explicit denies and SCP denies — then finds…
+- [IAM Security](https://www.onamsecurity.com/platform/iam): IAM Security is the configuration-hygiene view of Onam's identity engine: MFA, access keys, password policy, root usage, wildcard policies and trust settings, scored per module.…
 - [Attack Path Analysis](https://www.onamsecurity.com/platform/attack-path): Onam builds a live security graph across posture, identity, network, and vulnerability data — then runs automated path analysis to show every route an attacker could take from an…
 - [CDR — Cloud Detection & Response](https://www.onamsecurity.com/platform/cdr): Onam CDR runs continuous three-tier behavioral analysis over your cloud audit logs — detecting everything from known attack patterns to novel techniques no signature has seen, and…
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
@@ -212,6 +212,27 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Findings reference](https://www.onamsecurity.com/docs/dspm/findings-reference)
 - [Coverage by cloud](https://www.onamsecurity.com/docs/dspm/coverage)
 
+### Code Security
+- [Overview](https://www.onamsecurity.com/docs/code-security/overview)
+- [Connect a repository](https://www.onamsecurity.com/docs/code-security/connect-repository)
+- [Run a scan](https://www.onamsecurity.com/docs/code-security/run-a-scan)
+- [Read the results](https://www.onamsecurity.com/docs/code-security/reading-results)
+- [Static analysis (SAST)](https://www.onamsecurity.com/docs/code-security/sast)
+- [Secret detection](https://www.onamsecurity.com/docs/code-security/secrets)
+- [IaC and Dockerfiles](https://www.onamsecurity.com/docs/code-security/iac)
+- [Dependencies and SBOM](https://www.onamsecurity.com/docs/code-security/sca-sbom)
+- [Dynamic testing (DAST)](https://www.onamsecurity.com/docs/code-security/dast)
+- [AI Code Fix](https://www.onamsecurity.com/docs/code-security/ai-code-fix)
+- [CI usage](https://www.onamsecurity.com/docs/code-security/ci)
+
+### CIEM
+- [Overview](https://www.onamsecurity.com/docs/ciem/overview)
+- [How effective permissions are computed](https://www.onamsecurity.com/docs/ciem/effective-permissions)
+- [Finding types](https://www.onamsecurity.com/docs/ciem/finding-types)
+- [Reading the identity graph](https://www.onamsecurity.com/docs/ciem/identity-graph)
+- [Right-sizing workflow](https://www.onamsecurity.com/docs/ciem/right-sizing)
+- [Per-cloud notes](https://www.onamsecurity.com/docs/ciem/per-cloud)
+
 ### Architecture
 - [Overview](https://www.onamsecurity.com/docs/architecture/overview)
 - [Scanning Engine](https://www.onamsecurity.com/docs/architecture/scanning)
@@ -289,7 +310,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [The FAIR model for cloud security: putting a dollar value on your attack surface](https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk): FAIR model for cloud risk: CVSS ranks severity, FAIR answers what a breach of this attack surface would cost. How we apply it at Onam.
 - [Kubernetes RBAC pitfalls that grant cluster-admin by accident](https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls): Kubernetes RBAC pitfalls: a ClusterRoleBinding here, an aggregated role there, and a read-only role can mount the host filesystem. Six patterns to audit.
 - [EPSS over CVSS: prioritising the CVEs attackers actually exploit](https://www.onamsecurity.com/resources/blog/epss-over-cvss): CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.
-- [Why 90% of cloud IAM permissions are never used — and why that matters](https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used): Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.
+- [Why cloud IAM permissions go unused — and why that matters](https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used): Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.
 - [MITRE ATT&CK for Cloud: mapping real attacks to your posture score](https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping): How MITRE ATT&CK for Cloud translates abstract threat techniques into concrete cloud misconfigurations — and how your posture score tracks each one.
 - [How we check thousands of rules without agents: the architecture behind Onam](https://www.onamsecurity.com/resources/blog/agentless-cloud-security-architecture): Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.
 

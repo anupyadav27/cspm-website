@@ -101,6 +101,18 @@
     <lastmod>2026-10-05</lastmod>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/platform/code-security/dast</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/code-security/sast</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/platform/code-security/sca-sbom</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/platform/compliance</loc>
     <lastmod>2026-10-05</lastmod>
   </url>
@@ -258,7 +270,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/getting-started/core-concepts</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/aws</loc>
@@ -298,15 +310,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/ciem</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/access-reviews</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/iam-security</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/attack-path</loc>
@@ -326,7 +338,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/secops</loc>
-    <lastmod>2026-10-04</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/network-security</loc>
@@ -342,7 +354,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/container-security</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/iac-scanning</loc>
@@ -397,6 +409,74 @@
     <lastmod>2026-10-05</lastmod>
   </url>
   <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/overview</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/connect-repository</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/run-a-scan</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/reading-results</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/sast</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/secrets</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/iac</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/sca-sbom</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/dast</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/ai-code-fix</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/code-security/ci</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/overview</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/effective-permissions</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/finding-types</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/identity-graph</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/right-sizing</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/docs/ciem/per-cloud</loc>
+    <lastmod>2026-10-05</lastmod>
+  </url>
+  <url>
     <loc>https://www.onamsecurity.com/docs/architecture/overview</loc>
     <lastmod>2026-09-01</lastmod>
   </url>
@@ -434,7 +514,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/integration-catalog</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/rbac-and-sso</loc>
@@ -698,7 +778,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</loc>
@@ -722,7 +802,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping</loc>

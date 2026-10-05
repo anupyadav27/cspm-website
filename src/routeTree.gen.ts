@@ -45,7 +45,6 @@ import { Route as PlatformAttackPathRouteImport } from './routes/platform/attack
 import { Route as PlatformCdrRouteImport } from './routes/platform/cdr'
 import { Route as PlatformCiemRouteImport } from './routes/platform/ciem'
 import { Route as PlatformCnappRouteImport } from './routes/platform/cnapp'
-import { Route as PlatformCodeSecurityRouteImport } from './routes/platform/code-security'
 import { Route as PlatformComplianceRouteImport } from './routes/platform/compliance'
 import { Route as PlatformContainerSecurityRouteImport } from './routes/platform/container-security'
 import { Route as PlatformCspmRouteImport } from './routes/platform/cspm'
@@ -80,6 +79,10 @@ import { Route as SolutionsOciRouteImport } from './routes/solutions/oci'
 import { Route as CompanyTeamSlugRouteImport } from './routes/company/team.$slug'
 import { Route as PlatformAiOperationsIndexRouteImport } from './routes/platform/ai-operations.index'
 import { Route as PlatformAiOperationsArchitectureRouteImport } from './routes/platform/ai-operations.architecture'
+import { Route as PlatformCodeSecurityIndexRouteImport } from './routes/platform/code-security/index'
+import { Route as PlatformCodeSecurityDastRouteImport } from './routes/platform/code-security/dast'
+import { Route as PlatformCodeSecuritySastRouteImport } from './routes/platform/code-security/sast'
+import { Route as PlatformCodeSecurityScaSbomRouteImport } from './routes/platform/code-security/sca-sbom'
 import { Route as ResourcesBlogSlugRouteImport } from './routes/resources/blog.$slug'
 
 const IndexRoute = IndexRouteImport.update({
@@ -265,11 +268,6 @@ const PlatformCnappRoute = PlatformCnappRouteImport.update({
   path: '/platform/cnapp',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PlatformCodeSecurityRoute = PlatformCodeSecurityRouteImport.update({
-  id: '/platform/code-security',
-  path: '/platform/code-security',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PlatformComplianceRoute = PlatformComplianceRouteImport.update({
   id: '/platform/compliance',
   path: '/platform/compliance',
@@ -444,6 +442,30 @@ const PlatformAiOperationsArchitectureRoute =
     path: '/platform/ai-operations/architecture',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformCodeSecurityIndexRoute =
+  PlatformCodeSecurityIndexRouteImport.update({
+    id: '/platform/code-security/',
+    path: '/platform/code-security/',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformCodeSecurityDastRoute =
+  PlatformCodeSecurityDastRouteImport.update({
+    id: '/platform/code-security/dast',
+    path: '/platform/code-security/dast',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformCodeSecuritySastRoute =
+  PlatformCodeSecuritySastRouteImport.update({
+    id: '/platform/code-security/sast',
+    path: '/platform/code-security/sast',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const PlatformCodeSecurityScaSbomRoute =
+  PlatformCodeSecurityScaSbomRouteImport.update({
+    id: '/platform/code-security/sca-sbom',
+    path: '/platform/code-security/sca-sbom',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
@@ -483,7 +505,6 @@ export interface FileRoutesByFullPath {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
-  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -521,8 +542,12 @@ export interface FileRoutesByFullPath {
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
+  '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
+  '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
+  '/platform/code-security/': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -556,7 +581,6 @@ export interface FileRoutesByTo {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
-  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -594,8 +618,12 @@ export interface FileRoutesByTo {
   '/solutions': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
+  '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
+  '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations': typeof PlatformAiOperationsIndexRoute
+  '/platform/code-security': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -631,7 +659,6 @@ export interface FileRoutesById {
   '/platform/cdr': typeof PlatformCdrRoute
   '/platform/ciem': typeof PlatformCiemRoute
   '/platform/cnapp': typeof PlatformCnappRoute
-  '/platform/code-security': typeof PlatformCodeSecurityRoute
   '/platform/compliance': typeof PlatformComplianceRoute
   '/platform/container-security': typeof PlatformContainerSecurityRoute
   '/platform/cspm': typeof PlatformCspmRoute
@@ -669,8 +696,12 @@ export interface FileRoutesById {
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
+  '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
+  '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
+  '/platform/code-security/': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -707,7 +738,6 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
-    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -745,8 +775,12 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/code-security/dast'
+    | '/platform/code-security/sast'
+    | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations/'
+    | '/platform/code-security/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -780,7 +814,6 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
-    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -818,8 +851,12 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/code-security/dast'
+    | '/platform/code-security/sast'
+    | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations'
+    | '/platform/code-security'
   id:
     | '__root__'
     | '/'
@@ -854,7 +891,6 @@ export interface FileRouteTypes {
     | '/platform/cdr'
     | '/platform/ciem'
     | '/platform/cnapp'
-    | '/platform/code-security'
     | '/platform/compliance'
     | '/platform/container-security'
     | '/platform/cspm'
@@ -892,8 +928,12 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/code-security/dast'
+    | '/platform/code-security/sast'
+    | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations/'
+    | '/platform/code-security/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -928,7 +968,6 @@ export interface RootRouteChildren {
   PlatformCdrRoute: typeof PlatformCdrRoute
   PlatformCiemRoute: typeof PlatformCiemRoute
   PlatformCnappRoute: typeof PlatformCnappRoute
-  PlatformCodeSecurityRoute: typeof PlatformCodeSecurityRoute
   PlatformComplianceRoute: typeof PlatformComplianceRoute
   PlatformContainerSecurityRoute: typeof PlatformContainerSecurityRoute
   PlatformCspmRoute: typeof PlatformCspmRoute
@@ -965,7 +1004,11 @@ export interface RootRouteChildren {
   SolutionsIndexRoute: typeof SolutionsIndexRoute
   CompanyTeamSlugRoute: typeof CompanyTeamSlugRoute
   PlatformAiOperationsArchitectureRoute: typeof PlatformAiOperationsArchitectureRoute
+  PlatformCodeSecurityDastRoute: typeof PlatformCodeSecurityDastRoute
+  PlatformCodeSecuritySastRoute: typeof PlatformCodeSecuritySastRoute
+  PlatformCodeSecurityScaSbomRoute: typeof PlatformCodeSecurityScaSbomRoute
   PlatformAiOperationsIndexRoute: typeof PlatformAiOperationsIndexRoute
+  PlatformCodeSecurityIndexRoute: typeof PlatformCodeSecurityIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -1222,13 +1265,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformCnappRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/platform/code-security': {
-      id: '/platform/code-security'
-      path: '/platform/code-security'
-      fullPath: '/platform/code-security'
-      preLoaderRoute: typeof PlatformCodeSecurityRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/platform/compliance': {
       id: '/platform/compliance'
       path: '/platform/compliance'
@@ -1467,6 +1503,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformAiOperationsArchitectureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/code-security/': {
+      id: '/platform/code-security/'
+      path: '/platform/code-security'
+      fullPath: '/platform/code-security/'
+      preLoaderRoute: typeof PlatformCodeSecurityIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/code-security/dast': {
+      id: '/platform/code-security/dast'
+      path: '/platform/code-security/dast'
+      fullPath: '/platform/code-security/dast'
+      preLoaderRoute: typeof PlatformCodeSecurityDastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/code-security/sast': {
+      id: '/platform/code-security/sast'
+      path: '/platform/code-security/sast'
+      fullPath: '/platform/code-security/sast'
+      preLoaderRoute: typeof PlatformCodeSecuritySastRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/code-security/sca-sbom': {
+      id: '/platform/code-security/sca-sbom'
+      path: '/platform/code-security/sca-sbom'
+      fullPath: '/platform/code-security/sca-sbom'
+      preLoaderRoute: typeof PlatformCodeSecurityScaSbomRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/resources/blog/$slug': {
       id: '/resources/blog/$slug'
       path: '/$slug'
@@ -1534,7 +1598,6 @@ const rootRouteChildren: RootRouteChildren = {
   PlatformCdrRoute: PlatformCdrRoute,
   PlatformCiemRoute: PlatformCiemRoute,
   PlatformCnappRoute: PlatformCnappRoute,
-  PlatformCodeSecurityRoute: PlatformCodeSecurityRoute,
   PlatformComplianceRoute: PlatformComplianceRoute,
   PlatformContainerSecurityRoute: PlatformContainerSecurityRoute,
   PlatformCspmRoute: PlatformCspmRoute,
@@ -1571,7 +1634,11 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsIndexRoute: SolutionsIndexRoute,
   CompanyTeamSlugRoute: CompanyTeamSlugRoute,
   PlatformAiOperationsArchitectureRoute: PlatformAiOperationsArchitectureRoute,
+  PlatformCodeSecurityDastRoute: PlatformCodeSecurityDastRoute,
+  PlatformCodeSecuritySastRoute: PlatformCodeSecuritySastRoute,
+  PlatformCodeSecurityScaSbomRoute: PlatformCodeSecurityScaSbomRoute,
   PlatformAiOperationsIndexRoute: PlatformAiOperationsIndexRoute,
+  PlatformCodeSecurityIndexRoute: PlatformCodeSecurityIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

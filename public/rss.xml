@@ -143,7 +143,7 @@
       <pubDate>Tue, 02 Jun 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Why 90% of cloud IAM permissions are never used — and why that matters</title>
+      <title>Why cloud IAM permissions go unused — and why that matters</title>
       <link>https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</guid>
       <description>Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.</description>
