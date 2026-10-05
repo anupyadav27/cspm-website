@@ -33,7 +33,7 @@ Enterprise but human — the voice that survives Google's quality systems:
   `##`/`###`, `**bold**`, `| tables |`, `![alt](/screenshots/….png)` where a real screenshot fits).
 - 7–12 min read. End with a soft CTA linking `/request-demo` plus 1–2 internal links to
   relevant `/platform/*` or `/docs/*` pages inline.
-- Author: "Onam Security Team" (never invent a human byline).
+- Author: a real person from `src/data/authors.ts` who owns the piece (never invent a byline).
 
 ## 3. Wire it in
 
@@ -46,12 +46,10 @@ Enterprise but human — the voice that survives Google's quality systems:
 
 Check the deployment memory for the current image number; use the next vN.
 
-> **Current image: `v54`** — deployed 2026-09-15 (two shortlist posts, `wiz-alternatives` and
-> `best-cspm-tools`, every vendor quoted from its own page with a date; the 2026-08-19 title
-> rewrites for IBM/Alibaba/CIEM; FedRAMP ConMon packaging on /solutions/government; sitemap
-> `<lastmod>` from git history on every URL; learn titles without the brand suffix; About page
-> figures on `product-facts` constants; blog posts linked from the learn explainers). v53 (09-14)
-> pointed /resources at the `/compare` routes and 301'd the `/compare/*.html` cards. Next is v55.
+> **Current image: `v56`** — deployed 2026-10-05 (AI Code Fix page; code security, CIEM, DSPM and
+> Onam Operations sections with docs and diagrams; Trust Center; comparison pages vs Snyk, Cyera and
+> CIEM tools; six blog posts; meta descriptions ≤155; all Onam-own certification/SLA claims, onam.io
+> addresses, "100% agentless" and unverified testimonials removed). Next is v57.
 > Cluster:
 > `deployment/cspm-docs-website` in `threat-engine-engines`, EKS
 > `onam-eks-cluster` (ap-south-1). **Build with `NITRO_PRESET=node-server`** — the
