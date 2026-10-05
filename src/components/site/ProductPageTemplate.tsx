@@ -4,6 +4,7 @@ import { useState, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
+import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
 import { FRAMEWORKS } from "@/lib/product-facts";
@@ -30,6 +31,8 @@ export type ProductPageData = {
   demoClips?: ClipKey[];
   /** Hide the "See it live" section when no console clip shows this capability. */
   hideDemo?: boolean;
+  /** Reviewed header illustration shown under the hero stats. */
+  heroImage?: HeroImage;
   /** Hero stat tiles; defaults to the platform-wide four. */
   stats?: { v: string; l: string }[];
   /** Side card in "Why it matters"; defaults to the detection framing. */
@@ -120,6 +123,11 @@ function Hero({ data }: { data: ProductPageData }) {
           ))}
         </div>
       </div>
+      {data.heroImage && (
+        <div className="relative px-6 pb-16">
+          <HeroIllustration image={data.heroImage} />
+        </div>
+      )}
     </section>
   );
 }

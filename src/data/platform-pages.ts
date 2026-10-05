@@ -23,6 +23,11 @@ const emerald400 = "#34D399";
 
 export const platformPages: Record<string, ProductPageData> = {
   "code-security": {
+    heroImage: {
+      src: "/images/heroes/code-security.webp",
+      alt: "Illustration: a code repository scanned by four checks — static analysis, dependencies, secrets and infrastructure files. Static-analysis findings go to AI Code Fix, which puts corrected files on a separate branch that a developer reviews before merging; the other findings go to a findings board.",
+      caption: "Illustration. AI Code Fix covers static-analysis findings and is run with you on request; nothing merges without your review.",
+    },
     hideDemo: true,
     stats: [
       { v: "SAST", l: "source code" },
@@ -161,6 +166,11 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   ciem: {
+    heroImage: {
+      src: "/images/heroes/ciem.webp",
+      alt: "Illustration: people, workloads and roles connect through an identity graph to cloud resources; one amber path steps through a second role to admin rights, and unused permissions are trimmed.",
+      caption: "Illustration. Escalation paths are found across clouds; unused-permission analysis and access reviews run for AWS today.",
+    },
     // The "ciem" demo clip is a coded animation of an IAM Security screen that does not
     // match the real console, so it is hidden here; the diagrams in CiemExtra carry the visuals.
     hideDemo: true,
@@ -572,6 +582,11 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   "data-security": {
+    heroImage: {
+      src: "/images/heroes/data-security.webp",
+      alt: "Illustration: data stores across three clouds stay closed while their labels are read from the outside; lines show which identities can reach each store, and one store exposed to the internet is highlighted.",
+      caption: "Illustration. Classification uses names, tags and schema — Onam never opens the data. Lineage links related stores and flags hops that cross regions or accounts.",
+    },
     demoClips: ["datasec", "attack"],
     icon: Database,
     iconColor: csmAmber,

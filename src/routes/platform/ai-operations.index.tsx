@@ -1,3 +1,4 @@
+import { HeroIllustration } from "@/components/site/HeroIllustration";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -180,6 +181,15 @@ function Hero() {
             ))}
           </ul>
         </nav>
+      </div>
+      <div className="relative px-6 pb-16">
+        <HeroIllustration
+          image={{
+            src: "/images/heroes/ai-operations.webp",
+            alt: "Illustration: a person works with eight specialist AI agents; every proposed change passes through an approval gate before it reaches the cloud environment below.",
+            caption: "Illustration of the design. Some agents are in early access or on the roadmap — see availability below. No change reaches your cloud without approval.",
+          }}
+        />
       </div>
     </section>
   );
