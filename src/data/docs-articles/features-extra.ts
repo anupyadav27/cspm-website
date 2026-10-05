@@ -94,7 +94,7 @@ Controls are marked by how they are collected — via **API**, or requiring an *
     title: "Access Reviews",
     breadcrumb: "Features / Access Reviews",
     body: `
-**Access reviews** turn CIEM output into an attestation workflow. Every identity gets a state, an owner, and an outcome — so a review is a tracked decision rather than a spreadsheet emailed once a quarter and answered by nobody.
+**Access reviews** turn CIEM output into an attestation workflow. Each flagged identity gets a state, a reviewer and an outcome — so a review is a tracked decision rather than a spreadsheet emailed once a quarter.
 
 ## Review states
 
@@ -109,17 +109,17 @@ Controls are marked by how they are collected — via **API**, or requiring an *
 
 ## The finding stays attached
 
-Each identity under review carries the [CIEM](/docs/features/ciem) finding that flagged it — the unused permissions, the escalation path, the stale credential. A reviewer who cannot see why an identity was flagged approves it, every time.
+Each identity under review carries the [CIEM](/docs/ciem/overview) evidence that flagged it — its permission gap, granted and used counts, and high-risk unused actions. A reviewer who cannot see why an identity was flagged approves it, every time.
 
 ## What reviews cover
 
-Reviews run across the same identity population CIEM resolves: human users, roles, service accounts and machine identities, with their effective permissions and 90-day usage attached.
+Reviews open automatically for AWS identities whose CIEM risk score reaches the high tier. Decisions are written to an audit trail, expire after a set period, and return to pending if a reviewed or deferred identity is flagged again. The full workflow is in [Right-sizing workflow](/docs/ciem/right-sizing).
 
 ## Auditor evidence
 
-Because each review carries its state, its owner and its timestamp, the review history is the evidence an access-review control asks for — rather than a screenshot of a spreadsheet assembled the week before the audit.
+Because each review carries its state, its reviewer and its timestamp, the review history is the evidence an access-review control asks for — rather than a screenshot of a spreadsheet assembled the week before the audit.
 
-> Related: [CIEM](/docs/features/ciem) produces the findings; access reviews are how they get decided.
+> Related: [CIEM](/docs/ciem/overview) produces the findings; access reviews are how they get decided.
 `,
   },
   {

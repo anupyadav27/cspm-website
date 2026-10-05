@@ -360,7 +360,7 @@ Full resolution across the identity graph — including transitive access. If ro
 
 Effective permissions are compared against real usage from cloud audit logs, typically over a 90-day window. The gap between granted and used is the excess.
 
-That gap is consistently enormous. Industry analyses repeatedly find that the large majority of granted cloud permissions are never exercised. Every unused permission is attack surface with no operational benefit — a door that exists solely because someone attached a broad policy on a Friday and nothing ever removed it.
+In most estates that gap is large, because permissions are added when something breaks and rarely removed when it stops. Every unused permission is attack surface with no operational benefit — a door that exists solely because someone attached a broad policy on a Friday and nothing ever removed it.
 
 ## What CIEM finds
 
@@ -384,7 +384,7 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
 
 ## Next steps
 
-- [How Onam implements CIEM](/platform/ciem) — effective permissions across seven clouds
+- [How Onam implements CIEM](/platform/ciem) — effective permissions, escalation paths and access reviews
 - [What is a cloud attack path?](/learn/cloud-attack-path)
 - [What is CNAPP?](/learn/cnapp)
 `,
@@ -413,7 +413,7 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
       { label: "CIEM vs IAM Security: what's actually the difference?", href: "/resources/blog/ciem-vs-iam-security" },
-      { label: "Why 90% of cloud IAM permissions are never used", href: "/resources/blog/why-cloud-iam-permissions-are-never-used" },
+      { label: "Why cloud IAM permissions go unused — and why it matters", href: "/resources/blog/why-cloud-iam-permissions-are-never-used" },
     ],
   },
 

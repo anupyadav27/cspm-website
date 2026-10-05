@@ -1526,7 +1526,7 @@ function ComplianceSection() {
 function WhyNow() {
   const items = [
     { icon: Cloud, title: "Attack surface is growing 40% YoY", body: "Every new microservice, S3 bucket, and IAM role is a new door. Manual reviews can't keep up.", color: "#2563EB", tint: "#EFF4FF" },
-    { icon: Fingerprint, title: "Identity sprawl is the new perimeter", body: "80% of cloud breaches start with an over-privileged identity. Nobody is auditing them weekly.", color: "#F2AF04", tint: "#FEF6E0" },
+    { icon: Fingerprint, title: "Identity sprawl is the new perimeter", body: "Every service, pipeline and integration adds roles and trust. Few teams can say what each one can actually reach.", color: "#F2AF04", tint: "#FEF6E0" },
     { icon: Layers, title: "Multi-cloud complexity is the norm", body: "The average enterprise runs 3+ clouds. Native tools only see their own turf.", color: "#7C3AED", tint: "#F3E8FF" },
     { icon: AlertTriangle, title: "Breach costs hit $4.88M on average", body: "IBM 2024 report. Cloud breaches cost 15% more than on-prem — and take 88 more days to detect.", color: "#E32D25", tint: "#FDECEA" },
   ];

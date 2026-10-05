@@ -362,27 +362,27 @@ export const COMPETITORS: Competitor[] = [
     questions: [
       {
         q: "Does it resolve effective permissions, or only list attached policies?",
-        onam: "Effective permissions. The engine walks every policy, group membership and cross-account trust for each identity to compute what it can actually do — not just what is attached to it.",
+        onam: "Effective permissions. On AWS, group policies are expanded onto members, conditions are classified, explicit denies are netted out and SCP deny statements are checked; Azure assignments, GCP bindings and Kubernetes RoleBindings resolve into the same table. Trust relationships are analysed alongside.",
       },
       {
         q: "Is unused access measured against real activity?",
-        onam: "Yes, against 90 days of CloudTrail, Azure Activity Log and GCP Cloud Audit Logs. Findings that need no logs — shadow admins, cross-account trust, MFA gaps — work as soon as the account is connected.",
+        onam: "On AWS, yes: granted actions are compared with CloudTrail activity collected by Onam's threat detection, and the high-risk unused ones are listed. Usage-based analysis for the other clouds is not shipped yet. Findings that need no logs — escalation paths, shadow admins, cross-account trust — work as soon as the account is connected.",
       },
       {
         q: "Are machine identities first-class?",
-        onam: "Yes. Lambda execution roles, EC2 instance profiles, EKS pod identities, GCP workload identities and Azure managed identities are analysed the same way as people: effective permissions resolved, usage tracked, unused surface reported.",
+        onam: "Yes. AWS roles are classified by who can assume them — AWS services, execution roles, CI/CD over OIDC, EKS service accounts, cross-account principals — and Azure managed identities, GCP service accounts and Kubernetes service accounts are resolved like users, with the link from each VM, instance or pod to the identity it runs as.",
       },
       {
         q: "Which privilege-escalation paths have actually been used?",
-        onam: "Escalation paths are searched on the identity graph and cross-checked against cloud detection and response, so a path that has been walked is separated from one that is merely possible.",
+        onam: "Escalation paths found from policy are cross-checked against cloud detection and response: when the same identity has recently called escalation operations such as AssumeRole, PassRole or CreatePolicyVersion, the AWS finding is raised and marked CDR-confirmed. That shows the identity is exercising escalation operations; it does not prove each hop was walked.",
       },
       {
         q: "Does it look inside databases, or only at cloud IAM?",
-        onam: "Both. Database CIEM reads the grants inside managed databases. An identity with no IAM path to production data but a standing grant on the database itself is invisible to a tool that reads only the provider's IAM layer.",
+        onam: "Partly. Database CIEM connects to databases with credentials you provide and detects identity activity inside them — new superuser and admin role grants, failed-login spikes, bulk reads. It does not yet analyse table-level grants as effective permissions.",
       },
       {
         q: "How does an access review end?",
-        onam: "With a recorded decision. Every identity carries a state — pending, needs remediation, reviewed or deferred — with an owner and the finding that triggered it, rather than a spreadsheet emailed once a quarter.",
+        onam: "With a recorded decision. Each flagged identity carries a state — pending, needs remediation, reviewed or deferred — with the reviewer, the time and the evidence that triggered it, in an audit trail. Decisions expire and come back for review.",
       },
       {
         q: "Is identity risk connected to data and network exposure?",
@@ -390,7 +390,7 @@ export const COMPETITORS: Competitor[] = [
       },
     ],
     honestLimit:
-      "The honest gap: Onam finds unused and dangerous permissions and generates right-sized policies from real usage, but it does not enforce them. Nothing in Onam blocks a permission by policy or brokers just-in-time access — your team applies the change. If automated enforcement is what you are buying, Sonrai describes exactly that in its own words above, and we do not offer it.",
+      "The honest gap: Onam finds dangerous and, on AWS, unused permissions, but it does not enforce anything. Nothing in Onam blocks a permission by policy or brokers just-in-time access — your team applies the change. If automated enforcement is what you are buying, Sonrai describes exactly that in its own words above, and we do not offer it.",
   },
 ];
 

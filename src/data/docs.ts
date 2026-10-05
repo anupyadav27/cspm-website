@@ -11,6 +11,7 @@ import { articles as featuresExtra } from "./docs-articles/features-extra";
 import { articles as operations } from "./docs-articles/operations";
 import { articles as dspm } from "./docs-articles/dspm";
 import { articles as codeSecurity } from "./docs-articles/code-security";
+import { articles as ciem } from "./docs-articles/ciem";
 
 export type { DocArticle };
 
@@ -91,7 +92,17 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Dynamic testing (DAST)", slug: "code-security/dast" },
       { title: "AI Code Fix", slug: "code-security/ai-code-fix" },
       { title: "CI usage", slug: "code-security/ci" },
->>>>>>> feat/depth-code-security
+    ],
+  },
+  {
+    heading: "CIEM",
+    items: [
+      { title: "Overview", slug: "ciem/overview" },
+      { title: "How effective permissions are computed", slug: "ciem/effective-permissions" },
+      { title: "Finding types", slug: "ciem/finding-types" },
+      { title: "Reading the identity graph", slug: "ciem/identity-graph" },
+      { title: "Right-sizing workflow", slug: "ciem/right-sizing" },
+      { title: "Per-cloud notes", slug: "ciem/per-cloud" },
     ],
   },
   {
@@ -184,10 +195,10 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...releaseNotes,
   ...products,
   ...featuresExtra,
-<<<<<<< HEAD
   ...operations,
   ...dspm,
   ...codeSecurity,
+  ...ciem,
 ];
 
 function titleFromSlug(slug: string) {
