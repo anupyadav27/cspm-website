@@ -1,9 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, CheckCircle2, ChevronRight, Scale } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronRight, ExternalLink, Quote, Scale } from "lucide-react";
 import { seo } from "@/lib/seo";
-import { COMPETITORS, QUESTIONS, VERIFIED_ON, getCompetitor } from "@/data/compare";
+import { COMPETITORS, VERIFIED_ON, countWord, getCompetitor, questionsFor } from "@/data/compare";
 
 export const Route = createFileRoute("/compare/$slug")({
   loader: ({ params }) => {
@@ -13,12 +13,17 @@ export const Route = createFileRoute("/compare/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Not found — Onam Security" }, { name: "robots", content: "noindex" }] };
+      return {
+        meta: [{ title: "Not found — Onam Security" }, { name: "robots", content: "noindex" }],
+      };
     }
     const c = loaderData.competitor;
+    const n = countWord(questionsFor(c).length);
     return seo({
-      title: `Onam vs ${c.shortName} — seven questions to ask both — Onam Security`,
-      description: `Onam vs ${c.shortName}: seven questions to ask both cloud security platforms, answered for Onam, plus where ${c.shortName} is genuinely strong.`,
+      title: c.metaTitle ?? `Onam vs ${c.shortName} — ${n} questions to ask both — Onam Security`,
+      description:
+        c.metaDescription ??
+        `Onam vs ${c.shortName}: seven questions to ask both cloud security platforms, answered for Onam, plus where ${c.shortName} is genuinely strong.`,
       path: `/compare/${c.slug}`,
     });
   },
@@ -28,6 +33,11 @@ export const Route = createFileRoute("/compare/$slug")({
 function Page() {
   const { competitor: c } = Route.useLoaderData();
   const others = COMPETITORS.filter((o) => o.slug !== c.slug);
+  const questions = questionsFor(c);
+  const n = countWord(questions.length);
+  const quoted = c.inTheirWords ?? [];
+  const who = c.referAs ?? c.shortName;
+  const Who = who.charAt(0).toUpperCase() + who.slice(1);
 
   return (
     <SiteLayout>
@@ -42,7 +52,7 @@ function Page() {
 
         <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
           <Scale className="h-3.5 w-3.5" />
-          Run these questions against both
+          {c.domain ? `${c.domain} · ask both` : "Run these questions against both"}
         </div>
 
         <h1 className="mt-4 text-[38px] font-extrabold leading-[1.08] tracking-[-1px] text-[#0B1220] sm:text-[44px]">
@@ -52,26 +62,85 @@ function Page() {
 
         <div className="mt-6 rounded-2xl border border-[#E2E8F2] bg-[#F8FAFC] p-6">
           <p className="text-[14.5px] leading-relaxed text-[#475569]">
-            <strong className="text-[#0B1220]">How to read this page.</strong> We do not make claims
-            about {c.shortName}&rsquo;s product here. Products change monthly and a page full of
-            second-hand assertions about someone else ages into a lie. What follows is seven
-            questions worth asking any cloud security platform, answered for{" "}
-            <strong className="text-[#0B1220]">Onam only</strong> — then, plainly, where{" "}
-            {c.shortName} is strong and where we are not. Ask {c.shortName} the same seven.
+            <strong className="text-[#0B1220]">How to read this page.</strong>{" "}
+            {quoted.length > 0 ? (
+              <>
+                Everything said about {who} here is a quotation from their own public pages, with
+                the address and the date we read it. We do not say what anyone else&rsquo;s product
+                cannot do — products change monthly, and second-hand assertions age into lies. Then{" "}
+                {n} questions, answered for <strong className="text-[#0B1220]">Onam only</strong>,
+                and plainly where we are not the right choice. Ask {who} the same {n}.
+              </>
+            ) : (
+              <>
+                We do not make claims about {c.shortName}&rsquo;s product here. Products change
+                monthly and a page full of second-hand assertions about someone else ages into a
+                lie. What follows is seven questions worth asking any cloud security platform,
+                answered for <strong className="text-[#0B1220]">Onam only</strong> — then, plainly,
+                where {c.shortName} is strong and where we are not. Ask {c.shortName} the same
+                seven.
+              </>
+            )}
           </p>
         </div>
       </section>
 
+      {quoted.length > 0 && (
+        <section className="mx-auto max-w-[900px] px-5 pb-10">
+          <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">
+            {Who}, in their own words
+          </h2>
+          <p className="mt-2 text-[15px] text-[#5C6B84]">
+            Quoted verbatim from their public pages. If a page has changed, the quote is out of
+            date, not invented — tell us and we will update it.
+          </p>
+          <div className="mt-6 space-y-5">
+            {quoted.map((v) => (
+              <figure key={v.url} className="rounded-2xl border border-[#E2E8F2] bg-white p-6">
+                <figcaption className="flex items-center gap-2 text-[13px] font-bold uppercase tracking-[1.2px] text-[#5C6B84]">
+                  <Quote className="h-4 w-4 text-[#2563EB]" />
+                  {v.vendor}
+                </figcaption>
+                {v.quotes.map((q) => (
+                  <blockquote
+                    key={q}
+                    className="mt-3 border-l-2 border-[#CBD5E1] pl-4 text-[15.5px] leading-relaxed text-[#334155]"
+                  >
+                    &ldquo;{q}&rdquo;
+                  </blockquote>
+                ))}
+                {v.note && (
+                  <p className="mt-3 text-[14.5px] leading-relaxed text-[#475569]">{v.note}</p>
+                )}
+                <p className="mt-4 text-[13px] text-[#5C6B84]">
+                  Source:{" "}
+                  <a
+                    href={v.url}
+                    target="_blank"
+                    rel="noopener noreferrer nofollow"
+                    className="text-[#2563EB] underline"
+                  >
+                    {v.source}
+                    <ExternalLink className="ml-1 inline h-3 w-3 align-[-1px]" />
+                  </a>
+                  , accessed {v.accessed}.
+                </p>
+              </figure>
+            ))}
+          </div>
+        </section>
+      )}
+
       <section className="mx-auto max-w-[900px] px-5 pb-4">
         <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">
-          The seven questions
+          The {n} questions
         </h2>
         <p className="mt-2 text-[15px] text-[#5C6B84]">
-          Our answers. Put the same list in front of {c.shortName}.
+          Our answers. Put the same list in front of {who}.
         </p>
 
         <ol className="mt-8 space-y-7">
-          {QUESTIONS.map((item, i) => (
+          {questions.map((item, i) => (
             <li key={item.q} className="flex gap-4">
               <span className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#EFF4FF] text-[14px] font-bold text-[#2563EB]">
                 {i + 1}
@@ -87,7 +156,7 @@ function Page() {
 
       <section className="mx-auto max-w-[900px] px-5 pt-12 pb-4">
         <h2 className="text-[27px] font-bold tracking-[-0.5px] text-[#0B1220]">
-          Where {c.shortName} is genuinely strong
+          Where {who} {c.plural ? "are" : "is"} genuinely strong
         </h2>
         <p className="mt-2 max-w-[700px] text-[15px] leading-relaxed text-[#5C6B84]">
           A comparison page that finds nothing good to say about the other side is marketing, not
@@ -124,13 +193,19 @@ function Page() {
               Run a scan on one account
               <ArrowRight className="h-4 w-4" />
             </BrandButton>
-            <BrandButton
-              href="/resources/blog/onam-vs-wiz-orca-prisma-cloud"
-              variant="secondary"
-              size="lg"
-            >
-              The full buyer&rsquo;s guide
-            </BrandButton>
+            {c.platformHref ? (
+              <BrandButton href={c.platformHref} variant="secondary" size="lg">
+                How Onam does it
+              </BrandButton>
+            ) : (
+              <BrandButton
+                href="/resources/blog/onam-vs-wiz-orca-prisma-cloud"
+                variant="secondary"
+                size="lg"
+              >
+                The full buyer&rsquo;s guide
+              </BrandButton>
+            )}
           </div>
         </div>
       </section>
@@ -154,21 +229,31 @@ function Page() {
 
         <p className="mt-6 text-[14px] text-[#5C6B84]">
           Building a shortlist instead?{" "}
-          <Link to="/resources/blog/$slug" params={{ slug: "wiz-alternatives" }} className="text-[#2563EB] underline">
+          <Link
+            to="/resources/blog/$slug"
+            params={{ slug: "wiz-alternatives" }}
+            className="text-[#2563EB] underline"
+          >
             Wiz alternatives in 2026
           </Link>{" "}
           and{" "}
-          <Link to="/resources/blog/$slug" params={{ slug: "best-cspm-tools" }} className="text-[#2563EB] underline">
+          <Link
+            to="/resources/blog/$slug"
+            params={{ slug: "best-cspm-tools" }}
+            className="text-[#2563EB] underline"
+          >
             the best CSPM tools in 2026
           </Link>
           , every vendor in its own published words.
         </p>
 
         <p className="mt-10 border-t border-[#E2E8F2] pt-5 text-[12.5px] italic leading-relaxed text-[#5C6B84]">
-          Last reviewed {VERIFIED_ON}. Onam&rsquo;s figures come from our published fact set; the
-          strengths above are general market observations, not claims about {c.shortName}&rsquo;s
-          current capabilities. If anything here is wrong or out of date — including anything about{" "}
-          {c.shortName} — tell us at{" "}
+          Last reviewed {quoted.length > 0 ? quoted[0].accessed : VERIFIED_ON}. Onam&rsquo;s figures
+          come from our published fact set.{" "}
+          {quoted.length > 0
+            ? `Quotations are from ${c.plural ? "each vendor" : c.name}'s own pages on the dates shown; the strengths above are general market observations or restate those quotations.`
+            : `The strengths above are general market observations, not claims about ${c.shortName}'s current capabilities.`}{" "}
+          If anything here is wrong or out of date — including anything about {who} — tell us at{" "}
           <a className="text-[#2563EB] underline" href="mailto:hello@onamsecurity.com">
             hello@onamsecurity.com
           </a>{" "}

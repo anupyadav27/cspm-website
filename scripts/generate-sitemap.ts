@@ -331,7 +331,7 @@ These pages pose seven evaluation questions and answer them for Onam ONLY. They 
 make no factual claim about any competitor's product, and each states plainly where the other
 platform is stronger than Onam. Onam has no public reference customers.
 
-${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): seven questions answered for Onam, where ${c.shortName} is genuinely strong, and the honest gap.`).join("\n")}
+${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slug}): ${c.domain ? `${c.domain} — ${c.shortName} in its own published words, questions answered for Onam` : "seven questions answered for Onam"}, where ${c.shortName} is genuinely strong, and the honest gap.`).join("\n")}
 - All comparisons: ${SITE_URL}/compare
 
 ## Onam Security engines
