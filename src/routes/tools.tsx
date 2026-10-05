@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, BookOpen, Calculator, TrendingDown, LockOpen } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, LockOpen } from "lucide-react";
 import { seo } from "@/lib/seo";
 
 export const Route = createFileRoute("/tools")({
@@ -31,10 +31,10 @@ const tools: Tool[] = [
   {
     title: "Cloud Exposure Estimator",
     pill: "FAIR method",
-    desc: "Estimate the annualized loss exposure of a single breached data store, using inputs you can defend in front of a CFO.",
+    desc: "Estimate what a single breached data store could cost, and an annualized figure from a likelihood you choose, using inputs you can defend in front of a CFO.",
     points: [
       "FAIR-style loss magnitude × likelihood",
-      "Per-record costs from IBM's Cost of a Data Breach 2024",
+      "Per-record cost set from your own data",
       "Sensitivity and regulatory multipliers you control",
     ],
     limit:
@@ -60,22 +60,6 @@ const tools: Tool[] = [
     color: "#0891B2",
     bg: "#ECFEFF",
   },
-  {
-    title: "Capabilities Flipbook",
-    pill: "Interactive",
-    desc: "The full platform capability set as an interactive flipbook — every engine, every cloud, every compliance framework, page by page.",
-    points: [
-      "All 7 clouds and every security engine",
-      "Compliance coverage per framework",
-      "Readable in the browser, nothing to download",
-    ],
-    limit:
-      "A capabilities reference, not a benchmark or a comparison. Verify anything you plan to quote against the current product.",
-    href: "/tools/Onam-Capabilities-Flipbook.html",
-    Icon: BookOpen,
-    color: "#7C3AED",
-    bg: "#F5F3FF",
-  },
 ];
 
 function Page() {
@@ -97,7 +81,7 @@ function Page() {
         </p>
       </section>
 
-      <section className="mx-auto grid max-w-[1100px] gap-6 px-5 pb-16 md:grid-cols-2 lg:grid-cols-3">
+      <section className="mx-auto grid max-w-[1100px] gap-6 px-5 pb-16 md:grid-cols-2">
         {tools.map((t) => (
           <div
             key={t.title}
@@ -154,7 +138,8 @@ function Page() {
             A calculator behind an email form is worth less to you and less to us. These are useful
             on their own, they are free to share, and you can send the link to a colleague without
             signing them up for anything. If the numbers make you curious about your real
-            environment, the platform runs read-only and agentless — but that is your call to make,
+            environment, posture scanning connects through read-only cloud roles and agentless workload
+            scanning runs inside your account — but that is your call to make,
             not a toll on the way in.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">

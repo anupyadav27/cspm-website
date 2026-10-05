@@ -98,7 +98,6 @@ const LIBRARY: { title: string; items: { label: string; href: string; internal?:
     title: "Brochures & case studies",
     items: [
       { label: "Capabilities brochure (PDF)", href: "/brochures/Onam-Capabilities-Brochure.pdf" },
-      { label: "Capabilities flipbook (interactive)", href: "/tools/Onam-Capabilities-Flipbook.html" },
       { label: "Industry scenarios (5 sectors)", href: "/resources/scenarios" },
       { label: "Case study collection (PDF)", href: "/case-studies/Onam-Case-Studies.pdf" },
       { label: "Financial services", href: "/case-studies/cs-financial.png" },

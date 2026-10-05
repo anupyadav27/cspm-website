@@ -63,7 +63,7 @@ input:focus{outline:none;border-color:var(--blue)}
 <div class="card">
 <h2>Your inputs</h2>
 <div class="field">
-<label>Point tools replaced <span class="rangeval" id="toolsv">4</span><span class="hint">— separate security tools Onam consolidates</span></label>
+<label>Point tools replaced <span class="rangeval" id="toolsv">4</span><span class="hint">— separate security tools you would retire</span></label>
 <input type="range" id="tools" min="1" max="10" value="4" step="1">
 </div>
 <div class="field">
@@ -71,8 +71,8 @@ input:focus{outline:none;border-color:var(--blue)}
 <input type="number" id="toolcost" value="90000" min="0" step="5000">
 </div>
 <div class="field">
-<label>Onam platform annual cost (USD) <span class="hint">— your quoted or estimated price</span></label>
-<input type="number" id="onamcost" value="180000" min="0" step="5000">
+<label>Onam platform annual cost (USD) <span class="hint">— enter the quote you are comparing</span></label>
+<input type="number" id="onamcost" value="" placeholder="Your quote" min="0" step="5000">
 </div>
 <div class="field">
 <label>Security team size <span class="rangeval" id="teamv">6</span><span class="hint">— people touching these tools</span></label>
@@ -107,7 +107,7 @@ input:focus{outline:none;border-color:var(--blue)}
 <div class="foot">
 <div>Consolidation isn't a bundle — it's one data model. See Whitepaper 03, <i>One graph, one data model.</i></div>
 <a class="cta" href="https://www.onamsecurity.com/request-demo" target="_blank" rel="noopener">Talk to Onam →</a>
-<div style="margin-top:14px;font-size:11px;color:#9AA7B8">onamsecurity.com · one graph, priced risk · Figures are illustrative estimates from your inputs, not a quote.</div>
+<div style="margin-top:14px;font-size:11px;color:#9AA7B8">onamsecurity.com · one graph · Figures are illustrative estimates from your inputs, not a quote.</div>
 </div>
 </div>
 <script>
@@ -122,7 +122,7 @@ function calc(){
  const timeSave=team*hrs*48*rate; // 48 working weeks
  const total=licenseSave+timeSave;
  $('total').textContent=fmt(total);
- $('payoff').textContent = total>0 ? 'License + '+fmt(timeSave)+' of reclaimed team time' : 'Net cost at these inputs — adjust tools or price';
+ $('payoff').textContent = $('onamcost').value==='' ? 'Enter the platform quote to net it off the licence total' : (total>0 ? 'License + '+fmt(timeSave)+' of reclaimed team time' : 'Net cost at these inputs — adjust tools or price');
  const mx=Math.max(licenseToday,total,1);
  $('b1').style.width=(licenseToday/mx*100)+'%';$('v1').textContent=fmt(licenseToday);
  $('b2').style.width=(onam/mx*100)+'%';$('v2').textContent=fmt(onam);

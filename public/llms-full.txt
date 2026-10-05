@@ -131,7 +131,6 @@ platform is stronger than Onam. Onam has no public reference customers.
 
 - [Cloud Exposure Estimator](https://www.onamsecurity.com/tools/fair-exposure-calculator.html): FAIR-style estimate of annualized loss exposure for a single breached data store; per-record costs from IBM Cost of a Data Breach 2024. Illustrative estimate, not a benchmark.
 - [Consolidation ROI Estimator](https://www.onamsecurity.com/tools/roi-consolidation-calculator.html): compares point-tool licence spend plus engineering time against a single platform. Uses your own inputs; illustrative.
-- [Capabilities Flipbook](https://www.onamsecurity.com/tools/Onam-Capabilities-Flipbook.html): interactive reference covering every engine, cloud and compliance framework.
 - All tools: https://www.onamsecurity.com/tools
 
 ## Technical whitepapers (no signup, no email gate)
