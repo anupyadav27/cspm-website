@@ -24,10 +24,10 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
   {
     heading: "Threat & Attack",
     items: [
-      { title: "Attack Path", href: "/platform/attack-path", desc: "Crown jewels, toxic combos, attack graphs" },
+      { title: "Attack Path", href: "/platform/attack-path", desc: "Routes to crown jewels, choke points" },
       { title: "CDR — Detection", href: "/platform/cdr", desc: "L1/L2/L3 behavioral threat detection" },
       { title: "Threat Detection", href: "/platform/threat-detection", desc: "MITRE ATT&CK–mapped attack chains" },
-      { title: "Risk Quantification", href: "/platform/risk", desc: "FAIR model — dollar-value exposure" },
+      { title: "Risk Quantification", href: "/platform/risk", desc: "FAIR-style loss estimate per finding" },
     ],
   },
   {
@@ -44,7 +44,7 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
     heading: "Workloads & Code",
     items: [
       { title: "CWPP — Workloads", href: "/platform/cwpp", desc: "VMs, containers, serverless, hosts" },
-      { title: "Agentless Scanning", href: "/platform/agentless", desc: "Snapshot-based — nothing to install" },
+      { title: "Agentless Scanning", href: "/platform/agentless", desc: "Snapshot scanning inside your account" },
       { title: "Container Security", href: "/platform/container-security", desc: "EKS, ECS, and image scanning" },
       { title: "Vulnerability Mgmt", href: "/platform/vulnerability", desc: "CVEs in context, not just CVSS" },
       { title: "Code Security", href: "/platform/code-security", desc: "SAST, DAST, SCA, IaC" },
@@ -62,8 +62,8 @@ const platformGroups: { heading: string; items: MenuItem[] }[] = [
         href: "/platform/ai-operations",
         desc: "AI agents, human-approved · early access",
       },
-      { title: "Remediation", href: "/platform/remediation", desc: "Every finding ships with its fix" },
-      { title: "Compliance", href: "/platform/compliance", desc: `${FRAMEWORKS} frameworks, always audit-ready` },
+      { title: "Remediation", href: "/platform/remediation", desc: "Fix guidance and an AI fix prompt" },
+      { title: "Compliance", href: "/platform/compliance", desc: `${FRAMEWORKS} frameworks, evidence per control` },
       { title: "Technology Engine", href: "/platform/technology", desc: "34 technologies, runtime discovery" },
     ],
   },
@@ -80,7 +80,7 @@ const solutionsClouds: MenuItem[] = [
 ];
 
 const solutionsIndustries: MenuItem[] = [
-  { title: "Financial Services", href: "/solutions/financial", desc: "PCI-DSS, SOX-ready" },
+  { title: "Financial Services", href: "/solutions/financial", desc: "PCI DSS and RBI mappings" },
   { title: "Healthcare", href: "/solutions/healthcare", desc: "HIPAA-first controls" },
   { title: "Government", href: "/solutions/government", desc: "FedRAMP control mapping" },
 ];

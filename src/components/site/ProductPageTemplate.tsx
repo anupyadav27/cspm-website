@@ -7,7 +7,7 @@ import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
-import { FRAMEWORKS } from "@/lib/product-facts";
+import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, SERVICES, fmt } from "@/lib/product-facts";
 
 export type FaqItem = { q: string; a: string };
 export type RelatedLink = { label: string; href: string };
@@ -43,16 +43,16 @@ export type ProductPageData = {
 };
 
 const defaultStats = [
-  { v: "10,000+", l: "security rules" },
-  { v: "7", l: "cloud providers" },
-  { v: "< 5 min", l: "to first finding" },
+  { v: fmt(CSPM_POSTURE_RULES), l: "posture rules" },
+  { v: String(CLOUDS), l: "cloud providers" },
+  { v: String(SERVICES), l: "cloud services" },
   { v: String(FRAMEWORKS), l: "compliance frameworks" },
 ];
 
 const defaultRisk = {
   title: "The risk of not knowing",
   body: "If it is not surfaced today, it is exposed today. Attackers do not wait for your quarterly review — and neither do auditors.",
-  tagline: "Real-time detection, not periodic audits",
+  tagline: "Re-checked on every scan, not once a quarter",
 };
 
 const anchors = [

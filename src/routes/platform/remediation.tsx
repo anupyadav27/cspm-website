@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/remediation")({
     seo({
       title: "Remediation & Auto-Fix — Onam Security",
       description:
-        "Cloud security remediation: every Onam finding ships with its fix, an exact CLI command or Terraform snippet, and is verified on the next scan.",
+        "Cloud security remediation: fix guidance per rule, an AI fix prompt on every finding, fix branches for source code, and verification on the next scan.",
       path: "/platform/remediation",
     }),
   component: () => <ProductPageTemplate data={data} />,

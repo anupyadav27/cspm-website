@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/cnapp")({
     seo({
       title: "CNAPP — Unified Cloud-Native Application Protection — Onam Security",
       description:
-        "CNAPP posture score across seven pillars (CSPM, CIEM, CWPP, DSPM, network, threat and AppSec) that decomposes from a board-level number to one finding.",
+        "One CNAPP posture score across seven pillars — posture, threat detection and IAM, workloads, data, network, threat and code — with a risk band and a trend.",
       path: "/platform/cnapp",
       image: "/og/platform-cnapp.png",
     }),
