@@ -1,5 +1,6 @@
 import { Network, KeyRound, Eye, Layers, GitBranch, ShieldCheck, Globe2, Server, Cpu, Boxes } from "lucide-react";
 import type { CloudSolutionData, CloudRelated } from "@/components/site/CloudSolutionTemplate";
+import { CLOUDS, FRAMEWORKS } from "@/lib/product-facts";
 
 /**
  * Internal links every cloud page carries, plus per-cloud extras below.
@@ -58,7 +59,7 @@ export const awsData: CloudSolutionData = {
     { value: "800+", label: "AWS security rules" },
     { value: "40+", label: "AWS services monitored" },
     { value: "< 5 min", label: "to first finding" },
-    { value: "100%", label: "agentless, read-only" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "IAM Users, Roles & Policies",
@@ -123,7 +124,7 @@ export const awsData: CloudSolutionData = {
   faqs: [
     {
       q: "What AWS permissions does Onam require?",
-      a: "Read-only. The managed SecurityAudit and ReadOnlyAccess policies attached to a role that trusts Onam's AWS account with a per-tenant external ID. No write, no destructive, no data-plane access to your S3 objects or database contents.",
+      a: "For posture scanning, read-only: the AWS-managed SecurityAudit and ReadOnlyAccess policies attached to a role that trusts Onam's AWS account with a per-tenant external ID. ReadOnlyAccess is broad enough to read stored objects; Onam requests it so data security posture management can locate sensitive data, and posture scanning reads configuration and metadata, not object or database contents. If you enable agentless workload scanning, the template also creates a scan workflow in your account, and Onam's role can start it.",
     },
     {
       q: "Can I scan every account in my AWS Organization in one step?",
@@ -135,7 +136,7 @@ export const awsData: CloudSolutionData = {
     },
     {
       q: "Do I need to install agents or change my network?",
-      a: "No. Onam is 100% agentless. Every call is an AWS API call from Onam's control plane using STS AssumeRole. No VPC peering, no PrivateLink, no security-group changes required.",
+      a: "No agents and no network changes. Posture scanning is AWS API calls from Onam's control plane using STS AssumeRole — no VPC peering, no PrivateLink, no security-group changes. Agentless workload scanning, if you enable it, runs inside your account through resources the onboarding template creates.",
     },
     {
       q: "Which frameworks do you map AWS findings to?",
@@ -160,7 +161,7 @@ export const azureData: CloudSolutionData = {
     { value: "350+", label: "Azure security rules" },
     { value: "35+", label: "Azure services monitored" },
     { value: "Multi-tenant", label: "Entra ID support" },
-    { value: "100%", label: "agentless deployment" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "Entra ID (Azure AD)",
@@ -260,7 +261,7 @@ export const gcpData: CloudSolutionData = {
     { value: "300+", label: "GCP security rules" },
     { value: "30+", label: "GCP services monitored" },
     { value: "Org-wide", label: "folder & project traversal" },
-    { value: "100%", label: "agentless deployment" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "IAM & Service Accounts",
@@ -305,7 +306,7 @@ export const gcpData: CloudSolutionData = {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "IAM binding + BigQuery permission graph",
-      body: "Standard and conditional IAM bindings are correlated with BigQuery dataset ACLs and column-level policy tags. See exactly which principals can read your regulated data.",
+      body: "Standard and conditional IAM bindings are correlated with BigQuery dataset ACLs and column-level policy tags. See which principals are granted read access to your regulated data.",
     },
     {
       icon: Boxes,
@@ -352,7 +353,7 @@ export const ociData: CloudSolutionData = {
     { value: "220+", label: "OCI security rules" },
     { value: "25+", label: "OCI services monitored" },
     { value: "Nested", label: "compartment traversal" },
-    { value: "100%", label: "agentless, read-only" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "IAM Users, Groups & Policies",
@@ -378,7 +379,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       title: "Generate an API signing key",
-      body: "Upload the public key to the Onam user. The private key is stored in Onam's HSM-backed key vault — never exported, never accessible to humans.",
+      body: "Upload the public key to the Onam user. The private key is stored in AWS Secrets Manager, encrypted with AWS KMS.",
     },
     {
       title: "First findings in under 5 minutes",
@@ -444,7 +445,7 @@ export const alicloudData: CloudSolutionData = {
     { value: "180+", label: "AliCloud security rules" },
     { value: "20+", label: "AliCloud services monitored" },
     { value: "All regions", label: "China & international" },
-    { value: "100%", label: "agentless deployment" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "RAM Users, Roles & Policies",
@@ -518,7 +519,7 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       q: "Do you require agents?",
-      a: "No. Onam is 100% agentless — every call is a signed AliCloud API call from Onam's control plane.",
+      a: "No agents. Posture scanning uses signed Alibaba Cloud API calls from Onam's control plane.",
     },
     {
       q: "Which frameworks do you map AliCloud findings to?",
@@ -541,7 +542,7 @@ export const ibmData: CloudSolutionData = {
     { value: "160+", label: "IBM Cloud security rules" },
     { value: "20+", label: "IBM Cloud services monitored" },
     { value: "Multi-region", label: "including EU sovereign" },
-    { value: "100%", label: "agentless, read-only" },
+    { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
   services: [
     "IAM Users, Access Groups & Trusted Profiles",
@@ -673,7 +674,7 @@ export const kubernetesData: CloudSolutionData = {
     },
     {
       title: "Bind to Onam's service account",
-      body: "Federated OIDC binding to Onam's service account — no long-lived kubeconfig files exchanged. For self-managed clusters, a short-lived token is stored in Onam's HSM-backed vault.",
+      body: "Federated OIDC binding to Onam's service account — no long-lived kubeconfig files exchanged. For self-managed clusters, the token is stored in AWS Secrets Manager, encrypted with AWS KMS.",
     },
     {
       title: "First findings in under 5 minutes",
@@ -704,7 +705,7 @@ export const kubernetesData: CloudSolutionData = {
   faqs: [
     {
       q: "Do I need to install an agent or daemonset in my cluster?",
-      a: "No. Onam is 100% agentless. It talks to the Kubernetes API server as a read-only ServiceAccount — no sidecar, no daemonset, no eBPF probes.",
+      a: "No agents. Onam talks to the Kubernetes API server as a read-only ServiceAccount — no sidecar, no daemonset, no eBPF probes.",
     },
     {
       q: "Which Kubernetes distributions do you support?",

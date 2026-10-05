@@ -6,6 +6,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
+import { FRAMEWORKS } from "@/lib/product-facts";
 
 export type FaqItem = { q: string; a: string };
 export type RelatedLink = { label: string; href: string };
@@ -42,7 +43,7 @@ const defaultStats = [
   { v: "10,000+", l: "security rules" },
   { v: "7", l: "cloud providers" },
   { v: "< 5 min", l: "to first finding" },
-  { v: "100%", l: "agentless" },
+  { v: String(FRAMEWORKS), l: "compliance frameworks" },
 ];
 
 const defaultRisk = {
@@ -355,7 +356,7 @@ export function ProductPageTemplate({ data, extra }: { data: ProductPageData; ex
           eyebrow="See it live"
           title={`${data.label} in the real console.`}
           gradientWords="real console."
-          subtitle="Not a mockup — the actual Onam console on a live demo account, showing exactly what your team sees."
+          subtitle="A recreation of the Onam console with sample data — the screens and finding types your team works with."
         />
       )}
       {extra}

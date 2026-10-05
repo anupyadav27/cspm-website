@@ -297,7 +297,7 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
         eyebrow="See it live"
         title={`${data.cloudName} in the real console.`}
         gradientWords="real console."
-        subtitle="Not a mockup — the actual Onam console on a live demo account: connect, inventory and posture in one view."
+        subtitle="A recreation of the Onam console with sample data: connect, inventory and posture in one view."
       />
       <Features data={data} />
       <Faqs faqs={data.faqs} />

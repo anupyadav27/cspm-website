@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { Logo } from "./Logo";
-import { ShieldCheck, Award, Youtube, Twitter, Linkedin, Github, type LucideIcon } from "lucide-react";
+import { ShieldCheck, Youtube, Twitter, Linkedin, Github, type LucideIcon } from "lucide-react";
 
 /** Official brand profiles. Mirrored in the Organization `sameAs` array. */
 const SOCIALS: { label: string; href: string; icon: LucideIcon }[] = [
@@ -158,14 +158,13 @@ export function Footer() {
             </div>
           </div>
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#E5E9F0] bg-white">
+            <Link
+              to="/trust"
+              className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#E5E9F0] bg-white hover:border-[#CBD5E1] transition"
+            >
               <ShieldCheck className="w-3.5 h-3.5 text-[#05A052]" />
-              <span className="text-xs font-medium text-[#0B1220]">SOC 2 Type II</span>
-            </div>
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-[#E5E9F0] bg-white">
-              <Award className="w-3.5 h-3.5 text-[#2563EB]" />
-              <span className="text-xs font-medium text-[#0B1220]">ISO 27001</span>
-            </div>
+              <span className="text-xs font-medium text-[#0B1220]">Trust Center</span>
+            </Link>
           </div>
         </div>
       </div>

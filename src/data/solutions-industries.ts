@@ -1,5 +1,6 @@
 import { Landmark, FileCheck2, ShieldAlert, HeartPulse, Lock, FileSearch, Building2, ScrollText, Radar } from "lucide-react";
 import type { IndustrySolutionData } from "@/components/site/IndustrySolutionTemplate";
+import { CLOUDS } from "@/lib/product-facts";
 
 export const financialData: IndustrySolutionData = {
   breadcrumb: "Solutions · Financial Services",
@@ -12,7 +13,7 @@ export const financialData: IndustrySolutionData = {
     { value: "6", label: "financial frameworks mapped" },
     { value: "Continuous", label: "evidence collection" },
     { value: "10,000+", label: "controls audited" },
-    { value: "100%", label: "agentless & read-only" },
+    { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
     {
@@ -68,12 +69,8 @@ export const financialData: IndustrySolutionData = {
       a: "Onam's continuous monitoring, incident-detection, and third-party posture-visibility capabilities align to DORA's ICT risk-management pillars. We can provide a control mapping for your DORA program on request.",
     },
     {
-      q: "Is Onam itself audited?",
-      a: "Yes — SOC 2 Type II, and controls aligned to ISO 27001. Reports are available under NDA.",
-    },
-    {
       q: "How is our data segregated from other Onam customers?",
-      a: "Per-tenant encryption keys, tenant-scoped databases, and network isolation. No shared secrets, no cross-tenant queries.",
+      a: "Every customer's data carries a tenant identifier, and in our main databases PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows. Data is encrypted at rest. See the Trust Center at /trust for details.",
     },
   ],
 };
@@ -89,7 +86,7 @@ export const healthcareData: IndustrySolutionData = {
     { value: "5", label: "healthcare frameworks mapped" },
     { value: "24/7", label: "PHI posture monitoring" },
     { value: "< 5 min", label: "to first HIPAA finding" },
-    { value: "100%", label: "agentless & read-only" },
+    { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
     {
@@ -144,10 +141,6 @@ export const healthcareData: IndustrySolutionData = {
       a: "Yes. Every HIPAA Security Rule technical safeguard has a mapped, evidence-producing control. Exports include timestamps, principal, and configuration hash — the audit trail OCR expects.",
     },
     {
-      q: "Do you sign a BAA?",
-      a: "Yes. Onam signs BAAs for all healthcare customers. Because Onam never processes PHI, the BAA scope is narrow and easy for your privacy team to review.",
-    },
-    {
       q: "Do you map to HITRUST?",
       a: "Yes. HITRUST CSF controls are mapped natively for i1 and r2 assessments — reducing evidence-collection effort ahead of your assessor engagement.",
     },
@@ -157,13 +150,13 @@ export const healthcareData: IndustrySolutionData = {
 export const governmentData: IndustrySolutionData = {
   breadcrumb: "Solutions · Government",
   industryName: "Government",
-  headline: "FedRAMP-Aligned Cloud Security for Government Workloads, Continuously",
+  headline: "Continuous FedRAMP Control Evidence for Your Government Cloud Workloads",
   sub: "Federal agencies and their contractors cannot afford a security posture that is visible only at authorization time — adversaries don't wait for your next ATO renewal. Onam delivers continuous monitoring against NIST 800-53, FedRAMP, FISMA, and CMMC controls across every cloud environment your agency or contractor operates.",
   stats: [
     { value: "5", label: "federal frameworks mapped" },
     { value: "ConMon", label: "monthly evidence, automated" },
     { value: "GovCloud", label: "AWS & Azure Government" },
-    { value: "100%", label: "agentless, read-only" },
+    { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [
     {
@@ -224,10 +217,6 @@ export const governmentData: IndustrySolutionData = {
     {
       q: "Do you help contractors prepare for CMMC 2.0?",
       a: "Yes. Level 1 and Level 2 practices are mapped natively, with evidence exports designed for C3PAO assessments. Contractors typically shorten pre-assessment prep from months to weeks.",
-    },
-    {
-      q: "Is Onam FedRAMP authorized?",
-      a: "Onam operates FedRAMP-aligned environments for government workloads. Current authorization status is available under NDA on request.",
     },
   ],
 };

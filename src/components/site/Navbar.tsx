@@ -82,7 +82,7 @@ const solutionsClouds: MenuItem[] = [
 const solutionsIndustries: MenuItem[] = [
   { title: "Financial Services", href: "/solutions/financial", desc: "PCI-DSS, SOX-ready" },
   { title: "Healthcare", href: "/solutions/healthcare", desc: "HIPAA-first controls" },
-  { title: "Government", href: "/solutions/government", desc: "FedRAMP alignment" },
+  { title: "Government", href: "/solutions/government", desc: "FedRAMP control mapping" },
 ];
 
 /**

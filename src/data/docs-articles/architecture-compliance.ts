@@ -90,17 +90,17 @@ Five non-negotiable principles drive every decision in the platform. Together th
 
 ### 1. Agentless by default
 
-You install nothing to scan your clouds. The platform never deploys agents on your VMs, never injects sidecars into your containers, and never adds a daemon to your Kubernetes nodes. Every scan is performed externally over read-only cloud APIs (AWS SDK, Azure Management API, GCP Cloud Asset API, and equivalents) using credentials you control.
+Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. The platform does not deploy agents on your VMs, inject sidecars into your containers, or add a daemon to your Kubernetes nodes. Posture scans run over cloud APIs (AWS SDK, Azure Management API, GCP Cloud Asset API, and equivalents) using credentials you control. If you enable agentless workload scanning, the onboarding template creates a scan workflow, short-lived scan machines and a results bucket in your account.
 
 The one deliberate exception is opt-in: the optional \`onam-agent\` for Linux, macOS, and Windows performs OS-level vulnerability scanning on hosts you choose and reports outbound to the central engine. The cloud connection itself always stays agentless.
 
-**Why this matters for you:** zero blast radius from the platform itself. If you revoke access tomorrow, your environment keeps running unchanged. There is nothing to uninstall.
+**Why this matters for you:** you can read every permission in the template before you deploy it, and revoking access cuts Onam off.
 
 ### 2. Multi-tenant always
 
-Every database query is filtered by your tenant identifier taken from the authenticated request. There are no shared tables, no cross-tenant views, and no admin "see-everything" mode. Tenant isolation is enforced independently at three layers — the API gateway, the security engines, and the database — so a bug in any one layer cannot expose another tenant's data.
+Every database query is filtered by your tenant identifier taken from the authenticated request. In the main databases, PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows. Tenant isolation is enforced independently at three layers — the API gateway, the security engines, and the database — so a bug in any one layer cannot expose another tenant's data.
 
-**Why this matters for you:** SOC 2 and ISO 27001 auditors look for defense-in-depth on data isolation. Three independent enforcement points satisfy that requirement.
+**Why this matters for you:** isolation does not rest on a single check. Even if one layer had a bug, the others would still keep tenants apart.
 
 ### 3. Pipeline-driven with a single scan ID
 
@@ -224,7 +224,7 @@ Dedicated CIEM rule files add identity-specific coverage on top: AWS 530, Azure 
 
 **Coverage parity:** the same finding contract, the same severity grading (Critical, High, Medium, Low, Info), and the same MITRE mapping apply across all seven providers. A "publicly exposed object storage" finding on AWS S3 and on Azure Blob shows up identically in your dashboard — same severity, same control mapping, same remediation pattern.
 
-> The platform never writes, deletes, or modifies anything in your cloud account. Read-only is enforced by the IAM policy you grant — you can audit it before you enable scanning. See [Platform data security and tenancy](/docs/architecture/data-security).
+> Posture scanning never writes, deletes, or modifies anything in your cloud account — it uses the read-only permissions you grant, which you can audit before you enable scanning. Agentless workload scanning, if you enable it, runs inside your account through resources the onboarding template creates. See [Platform data security and tenancy](/docs/architecture/data-security).
 
 ---
 
@@ -300,9 +300,9 @@ Every API request carries an \`AuthContext\` — a server-built object with the 
 
 1. **Layer 1 — API gateway.** The auth middleware validates your access token, looks up the user, and constructs the \`AuthContext\`. The token is signed; tampering invalidates it immediately. Engines never trust client-supplied identity.
 2. **Layer 2 — security engine.** Every route validates that the caller holds the right \`feature:action\` permission (e.g. \`findings:read\`, \`scans:create\`). Unauthorized callers receive HTTP 403 with no data leakage in the error body.
-3. **Layer 3 — database query.** Every read and write is filtered by your tenant ID. There is no global query path and no admin bypass.
+3. **Layer 3 — database.** In the main databases, PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows.
 
-> There is no environment variable, debug toggle, or support-mode switch that bypasses authentication, and there are no shared tables. Onam support staff cannot read your tenant's findings without an explicit, fully audit-logged impersonation handshake that you must approve. The full storage, credential, and residency model is documented in [Platform data security and tenancy](/docs/architecture/data-security).
+> The full storage, credential, and residency model is documented in [Platform data security and tenancy](/docs/architecture/data-security).
 
 ### Role-based access control
 
@@ -322,28 +322,21 @@ Sensitive areas — Data Security, AI Security, Encryption, Database Security, C
 
 ### Reliability
 
-| Component | Target |
-| --- | --- |
-| Platform availability | 99.9% monthly uptime SLA on Pro and Enterprise (99.95% on Enterprise+) |
-| Scan completion (40-service AWS account) | 15 minutes end to end (SLO) |
-| API p95 latency | 500 ms or less for read endpoints |
-| Findings delivery | Real-time stream as each domain completes |
+Findings appear as each domain completes, so you do not wait for the whole scan. Service levels — availability, support response times and any related remedies — are agreed in your order form or customer agreement. See [Service Levels](/docs/trust/sla-and-slo).
 
-A live status page and historical incident reports are available at [status.onam.io](https://status.onam.io). Maintenance windows are announced 7 days in advance.
+### Data residency and backups
 
-### Data residency and disaster recovery
-
-Your findings, inventory, and graph data are stored in the region you select: \`ap-south-1\` (Mumbai, all plans), \`eu-west-1\` (Ireland, Enterprise), \`us-east-1\` (N. Virginia, all plans), and \`us-gov-west-1\` (Government/FedRAMP plans). Cross-region access is blocked by tenant policy and backups stay in-region. Recovery targets: **RPO 15 minutes** (backups every 15 minutes), **RTO 2 hours**, with quarterly DR tests reported publicly.
+Onam runs on AWS, in the region agreed with you — US, Europe, India or other regions — so you can meet your own compliance requirements. Databases are backed up with AWS Backup.
 
 ---
 
 ## Frequently asked questions
 
 **Does the scanner modify any cloud resources?**
-No. Every stage uses read-only IAM roles or API credentials. The platform never writes to, deletes from, or modifies your cloud environment. The IAM policy you grant explicitly excludes write actions — you can audit it before enabling.
+Posture scanning connects through read-only cloud roles and does not change your environment. Agentless workload scanning, if you enable it, runs inside your account: the template creates a scan workflow, short-lived scan machines built from disk snapshots, and a results bucket, and those resources create and delete snapshots and scan machines. Onam's own role can only start that workflow. You can read every permission in the template before you deploy it.
 
 **How is my data isolated from other tenants?**
-Three independent enforcement layers: the API gateway builds the auth context, the engine validates permissions, and every database query filters by tenant ID. There are no shared tables, no cross-tenant views, and no admin bypass.
+Three independent enforcement layers: the API gateway builds the auth context, the engine validates permissions, and every database query filters by tenant ID. PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows.
 
 **How often does the platform scan?**
 Default is once per day per cloud account. You can configure up to four scans per day on Pro plans, and run ad-hoc scans at any time from the console or the API.
@@ -357,8 +350,8 @@ The pipeline marks the failed stage and continues. Findings from successful stag
 **Can I export my data?**
 Yes. Finding history and inventory export as JSON, CSV, or Parquet via the API; compliance reports export as PDF. You retain ownership of all data.
 
-**Is the platform SOC 2 / ISO 27001 certified?**
-SOC 2 Type II, ISO 27001, ISO 27701, and PCI DSS v4 — all current. Pentest report and CAIQ are available under NDA.
+**How do I review Onam's own security?**
+The [Trust Center](/trust) explains how Onam connects to your clouds, what it stores, encryption, sub-processors and how to report a vulnerability. Send security questionnaires to \`security@onamsecurity.com\`.
 
 ---
 
@@ -506,52 +499,39 @@ Scanning scales horizontally: enumeration and rule evaluation parallelize per ac
     title: "Platform Data Security & Tenancy",
     breadcrumb: "Architecture / Data Security",
     body: `
-This page describes how the Onam platform itself protects **your** data: how tenants are isolated, exactly what is stored (and what never is), how your cloud credentials are handled, and how read-only access is enforced. It is the page to hand your security reviewer during vendor assessment.
+This page describes how the Onam platform itself protects **your** data: how tenants are kept apart, what is stored, how your cloud credentials are handled, and what Onam can do in your cloud accounts. The [Trust Center](/trust) is the authoritative, current version of this information.
 
 > Looking for the product feature that classifies PII in your buckets and databases? That is **Data Security (DSPM)** — a scanning engine, documented under Features in the sidebar. This page is about the security of the platform, not a feature of it.
 
 ## Tenancy and isolation
 
-Every tenant's data lives in **tenant-scoped databases encrypted with per-tenant keys**. On top of that physical separation, every request is checked at three independent layers, so a bug in any single layer cannot expose another tenant's data.
+Every customer's data carries a tenant identifier, and every request is checked at more than one layer.
 
 ![Multi-tenant isolation — three-layer enforcement at gateway, engine, and database](/diagrams/arch-multi-tenant.svg)
 
-1. **API gateway.** The BFF gateway validates the signed access token and constructs an \`AuthContext\` — tenant ID, role, permissions — on the server. Engines never trust client-supplied identity.
-2. **Engine permission check.** Every route requires the matching \`feature:action\` permission (e.g. \`findings:read\`, \`scans:create\`). Unauthorized calls get HTTP 403 with no data in the error body.
-3. **Database filter.** Every query is scoped to the caller's tenant ID. There is no global query path, no cross-tenant view, and no admin bypass.
+1. **API gateway.** The gateway validates the session and constructs an \`AuthContext\` — tenant ID, role, permissions — on the server. Engines never trust client-supplied identity.
+2. **Engine permission check.** Routes require the matching \`feature:action\` permission (e.g. \`findings:read\`, \`scans:create\`). Unauthorized calls get HTTP 403.
+3. **Database.** In the main databases, PostgreSQL row-level security policies make the database itself refuse to return another tenant's rows.
 
-Two guarantees worth repeating to your auditor: there is **no auth-skipping flag** anywhere in the platform (no environment variable, no debug toggle, no support mode), and there are **no shared data tables**. Onam support staff cannot read your findings without an explicit, fully audit-logged impersonation handshake that you approve first.
+## What is stored — and what is not
 
-## What is stored — and what never is
-
-The platform stores security **metadata about** your cloud estate, not the data **inside** it.
-
-| Data | Stored? | Details |
-| --- | --- | --- |
-| Resource configuration metadata | Yes | Settings, policies, tags, public-access flags — what the read-only APIs return |
-| Asset inventory and relationships | Yes | Normalized records in \`asset_inventory\` and typed edges in \`asset_relationships\` |
-| Findings and posture snapshots | Yes | The \`security_findings\` and \`posture_snapshot\` tables, tenant-scoped |
-| Attack-path graph | Yes | Neo4j property graph, per tenant |
-| CDR detections | Yes | Detection results from audit-log analysis; raw log events follow your retention window |
-| DSPM classification results | Yes | Labels and match locations only — never copies of the classified data |
-| Credential references | Yes — encrypted | Stored in AWS Secrets Manager, encrypted with KMS; see below |
-| Object and file contents | **Never** | S3 objects, blobs, GCS files — contents are never copied out |
-| Database rows | **Never** | Table data never leaves your account; only configuration and classification metadata |
-| Workload disk or memory | **Never persisted** | Agentless snapshot analysis is ephemeral — artifacts are discarded after the scan |
-| Cloud account passwords | **Never** | The platform uses roles and service principals, not console passwords |
-
-> The DSPM engine classifies data **in place**, inside your cloud account, using the same read-only access as every other engine. What crosses the boundary is a classification result ("this column matches PCI"), never the column's contents.
+- **Stored:** configuration and metadata from your clouds, findings, the asset and attack-path graph (PostgreSQL and Neo4j), and your users' account details.
+- **Audit log:** reads of the product's data views are recorded — who, what, when, from where, and the result.
+- **Not read or stored:** posture scanning and data classification read configuration and metadata; they do not read the contents of your files, objects or database rows.
+- **AI Code Fix only:** when you run a fix, the repository is cloned for that run and the clone is deleted when it finishes. The Git token is used for that request only and is never stored or logged.
 
 ## Credential handling
 
-Cloud credentials are the most sensitive thing you give the platform, and they are handled accordingly:
+| Cloud | What you create | Access level |
+| --- | --- | --- |
+| AWS | An IAM role that Onam assumes with an External ID | AWS-managed SecurityAudit and ReadOnlyAccess policies, read of AWS Organizations account lists, and permission to start Onam's scan workflow in your account |
+| Azure | Role assignments for Onam's service principal | Built-in Reader and Storage Blob Data Reader |
+| Google Cloud | A service account | Viewer, Cloud Asset Viewer and Security Reviewer; billing read only if you opt in |
+| Oracle Cloud (OCI) | A dedicated user and group | Read policies across the tenancy, including users, groups, policies, vaults, keys and secret metadata |
+| Alibaba Cloud | A dedicated RAM user | A dedicated read-only RAM policy |
+| IBM Cloud | A service ID | Viewer-level (read-only) access, scoped to a resource group |
 
-- **AWS** — a CloudFormation-launched, **read-only IAM role** assumed cross-account via \`sts:AssumeRole\` with a unique **ExternalId** per tenant, which prevents confused-deputy attacks. An access-key option exists, but the role is recommended.
-- **Azure** — a service principal with a client secret, scoped to Reader.
-- **GCP, OCI, Alibaba Cloud, IBM Cloud, Kubernetes** — equivalent read-only credentials (service account, read-only user, kubeconfig).
-- **Storage** — credential references are stored in **AWS Secrets Manager**, encrypted with **KMS**. Secret material is fetched at scan time, used in memory, and never written to logs or findings.
-
-The AWS trust policy your CloudFormation stack creates looks like this — note the ExternalId condition:
+Where a cloud needs a stored credential (for example an OCI API key or an Alibaba Cloud access key), it is kept in **AWS Secrets Manager**, which encrypts it with **AWS KMS**. For AWS no secret is stored — Onam assumes your role. The AWS trust policy your CloudFormation stack creates looks like this — note the ExternalId condition, which prevents confused-deputy attacks:
 
 \`\`\`
 {
@@ -564,60 +544,44 @@ The AWS trust policy your CloudFormation stack creates looks like this — note 
 }
 \`\`\`
 
-Rotation follows the policy you set on your side (rotating a role's ExternalId or a service principal's secret takes effect on the next scan). Revoking the role or secret in your cloud cuts off all platform access instantly — there is nothing to uninstall.
+Revoking the role or credential in your cloud cuts off Onam's access.
 
-## Read-only enforcement
+## What Onam can do in your cloud accounts
 
-Read-only is not a promise — it is a property of the IAM policy **you** grant, which you can audit before enabling scanning:
+- **Posture scanning is read-only.** It uses read permissions only.
+- **Agentless workload scanning runs inside your account.** If you enable it (AWS, Azure, Google Cloud), the template also creates resources in your account: a scan workflow, short-lived scan machines built from disk snapshots, and a storage bucket for results. Those resources hold the permissions needed to create and delete snapshots and scan machines; Onam's own role can only start that workflow, not create or delete resources itself. Leftover scan resources are removed automatically after a set number of hours.
+- **Broad read policies.** AWS's ReadOnlyAccess policy and Azure's Storage Blob Data Reader role are broad enough to read stored objects, not only configuration. Onam requests them so data security posture management can locate where sensitive data lives.
 
-- The role/service principal includes only read, list, and describe actions. No write, delete, or modify action is requested, ever.
-- Every scan stage — enumeration, rule evaluation, engine fan-out, graph build — consumes API responses only. Nothing executes inside your account.
-- The platform **pulls**; your account pushes nothing. Even CDR log analysis reads CloudTrail, Azure Monitor, GCP Audit Logs, OCI Audit, ActionTrail, and IBM COS through the same read-only credentials.
-- The one opt-in exception is the optional \`onam-agent\` for OS-level vulnerability scanning on Linux/macOS/Windows hosts you choose. It reports outbound to the central engine and can be removed at any time; the cloud connection itself stays agentless.
+You grant access with a template run in your own account, so you can read every permission before you deploy it.
 
-## One security model across every engine
+![The security domains all share the same tenancy and access model](/diagrams/arch-security-pillars.svg)
 
-All 29 engines — from CSPM checks to the attack-path graph — operate under the same guarantees described on this page: tenant-tagged writes through a shared findings writer, per-tenant encryption, read-only cloud access, and gateway-enforced \`AuthContext\` on every read.
+## Encryption
 
-![The security domains all inherit the same tenancy, encryption, and read-only guarantees](/diagrams/arch-security-pillars.svg)
+- **At rest:** customer data is encrypted at rest. Stored credentials are encrypted by AWS KMS through Secrets Manager.
+- **In transit:** data is encrypted in transit for all customer-facing and service-to-service traffic, with one internal job being moved to TLS. Browser-to-Onam traffic uses HTTPS.
 
-Data in transit is protected with TLS 1.2+ on every hop — cloud API to scanner, engine to database, database to console. Data at rest is encrypted with KMS-managed, per-tenant keys. Backups are encrypted with the same keys and never leave the tenant's region.
+## Data residency, backups and deletion
 
-## Data residency, retention, and deletion
-
-You choose your data region at tenant creation, and everything — findings, inventory, graph, backups — stays there.
-
-![Data residency — tenant-selected regions with in-region backups and no cross-region replication](/diagrams/trust-data-residency.svg)
-
-| Region | Coverage | Plans |
-| --- | --- | --- |
-| \`ap-south-1\` (Mumbai) | India · APAC | All plans |
-| \`eu-west-1\` (Ireland) | EU · UK · GDPR residency | Enterprise |
-| \`us-east-1\` (N. Virginia) | US · Americas | All plans |
-| \`us-gov-west-1\` | US Federal · ITAR · FedRAMP | Government plans |
-
-Cross-region data access is blocked by tenant policy. Backups run every 15 minutes (RPO 15 minutes; RTO 2 hours) and stay in-region. When you offboard, your tenant's databases, secrets, and graph are deleted on a documented schedule, with a deletion certificate available on request.
+Onam runs on AWS, in the region agreed with you — US, Europe, India or other regions — so you can meet your own compliance requirements. Databases are backed up with AWS Backup. Customer data is kept for 30 days after a customer deactivates, then deleted. See [Data Retention](/docs/trust/data-retention).
 
 ## Frequently asked questions
 
-**Can Onam employees see my findings?**
-Not without your approval. Support access requires an explicit impersonation handshake that you approve, and every action taken during it is audit-logged to your tenant.
-
-**Do you ever store samples of my data?**
-No. DSPM classifies stores from metadata — names, tags and schema — and stores labels and locations, never content; it does not read objects or database rows. Workload disks are examined by agentless scanning, which runs inside your account on short-lived snapshots that are not persisted.
+**Do you store samples of my data?**
+No. Posture scanning and data classification read configuration and metadata; they do not read the contents of your files, objects or database rows.
 
 **What exactly can you do in my cloud account?**
-Only what the read-only policy you granted allows: read, list, describe. You can audit the CloudFormation template or service-principal scope before connecting, and revoke it at any time for instant cutoff.
+Posture scanning only reads. If you enable agentless workload scanning, resources created in your account by the template take and delete snapshots and run short-lived scan machines; Onam's role can only start that workflow.
 
 **Where are my credentials kept?**
-As references in AWS Secrets Manager, encrypted with KMS, fetched only at scan time. Role-based access with ExternalId is recommended over static keys on every provider that supports it.
+Where a stored credential is needed, in AWS Secrets Manager, encrypted with AWS KMS. For AWS, no secret is stored.
 
 ## Next steps
 
+- [Trust Center](/trust) — the authoritative summary of how Onam protects your data
 - [Architecture overview](/docs/architecture/overview) — the 29 engines and the tenant-isolated data model in context
-- [The scan pipeline](/docs/architecture/scanning) — what those read-only credentials are used for, stage by stage
-- [Compliance framework coverage](/docs/compliance/frameworks) — turn platform guarantees into audit evidence
-- [Book a demo](/request-demo) — bring your security reviewer; we'll walk the trust boundary live
+- [The scan pipeline](/docs/architecture/scanning) — what those credentials are used for, stage by stage
+- [Book a demo](/request-demo) — bring your security reviewer
 `,
   },
   {
@@ -712,7 +676,7 @@ A representative selection, grouped by region and type:
 | **Financial services** | PCI-DSS v4.0 & v4.0.1 · SWIFT CSCF · DORA · SOX |
 | **APAC & Americas** | RBI ITF (India) · APRA CPS 234 (Australia) · MAS TRM (Singapore) · LGPD (Brazil) · CCPA (California) |
 
-**New framework requests** are welcomed — most additions complete within 8 weeks. Email support@onam.io with the framework name, version, and business justification.
+**New framework requests** are welcomed — most additions complete within 8 weeks. Email hello@onamsecurity.com with the framework name, version, and business justification.
 
 ### Coverage by cloud provider
 
@@ -817,7 +781,7 @@ The platform automates the HIPAA Security Rule technical safeguards (§164.312) 
 | Administrative — Risk Analysis (§164.308a1) | Vulnerability scanning cadence, risk scoring |
 | Administrative — Access Management (§164.308a4) | Access reviews, provisioning workflows, dormancy |
 
-Physical safeguards (§164.310) are inherited from your cloud provider's HIPAA-eligible BAA. **HITRUST CSF v11.3** is supported as a separate framework for organizations certifying against HITRUST. Onam signs a BAA with healthcare customers on the Enterprise plan — contact legal@onam.io.
+Physical safeguards (§164.310) are inherited from your cloud provider's HIPAA-eligible BAA. **HITRUST CSF v11.3** is supported as a separate framework for organizations certifying against HITRUST.
 
 ### ISO 27001:2022 family
 
@@ -862,7 +826,7 @@ Coverage of CC6 (logical access controls) is particularly deep — it maps direc
 
 ### FedRAMP and CMMC
 
-FedRAMP builds on NIST 800-53. The platform evaluates the **~325 controls in the FedRAMP Moderate baseline** and supports **FedRAMP High** on Government plans, producing an SSP appendix that maps your environment to each control's status. Key automated controls include AC-2 (account management), AC-6 (least privilege), AU-2/AU-9 (audit events and protection), CM-6 (configuration settings), IA-2/IA-5 (MFA and authenticator management), RA-5 (vulnerability scanning), SC-8/SC-13 (transmission and cryptographic protection), and SI-2/SI-4 (flaw remediation and monitoring). **CMMC 2.0 Levels 2 and 3** reuse the same 800-171-derived control set for defense contractors.
+FedRAMP builds on NIST 800-53. The platform evaluates the **~325 controls in the FedRAMP Moderate baseline** and the **FedRAMP High** baseline, producing an SSP appendix that maps your environment to each control's status. Key automated controls include AC-2 (account management), AC-6 (least privilege), AU-2/AU-9 (audit events and protection), CM-6 (configuration settings), IA-2/IA-5 (MFA and authenticator management), RA-5 (vulnerability scanning), SC-8/SC-13 (transmission and cryptographic protection), and SI-2/SI-4 (flaw remediation and monitoring). **CMMC 2.0 Levels 2 and 3** reuse the same 800-171-derived control set for defense contractors.
 
 ### EU operational resilience — DORA, NIS2, EU AI Act
 

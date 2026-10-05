@@ -268,8 +268,8 @@ const llms = `# Onam Security
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
 > encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
-> Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. 100% agentless: connect a cloud in under
-> 3 minutes with a read-only role.
+> Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
+> read-only cloud roles; agentless workload scanning runs inside your account.
 >
 > Onam ships THREE separately-sold products on one console and one login: Onam Security (the CNAPP
 > described above), Onam Estate (cloud asset discovery and the estate of record), and Onam FinOps
@@ -295,7 +295,7 @@ Key facts:
 - 78 compliance frameworks with continuous evidence: CIS Benchmarks, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI-DSS v4, HIPAA, SOC 2, GDPR, FedRAMP High/Moderate, Canada PBMM, RBI, and more
 - SaaS security (SSPM) for 8 platforms: Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta — 433 CIS SaaS rules
 - 34 technologies covered by CIS benchmarks: Linux distributions, databases, web servers, virtualization, and network devices
-- 100% agentless — read-only IAM role / service principal / service account; stores only a role ARN, never long-lived credentials
+- Posture scanning connects through read-only cloud roles (IAM role / service principal / service account); for AWS Onam assumes your role and stores no secret, and where a cloud needs a stored credential it is kept in AWS Secrets Manager, encrypted with AWS KMS
 - Agentless workload scanning uses point-in-time snapshots orchestrated inside the customer's own account (AWS Step Functions, Azure Logic Apps, GCP Workflows); raw disk data never leaves the customer environment
 - All clouds, SaaS platforms, and engines correlate on one graph: cross-cloud attack paths and automated toxic-combination detection
 - Unified CNAPP posture score across 7 pillars: CSPM, CIEM, CWPP, DSPM, network, threat, AppSec
@@ -357,7 +357,6 @@ ${LEARN_ARTICLES.map((a) => `- [${a.question}](${SITE_URL}/learn/${a.slug}): ${a
 - [How Onam finds the paths that matter](${SITE_URL}/whitepapers/wp1-attack-path-methodology.html): the attack-path method end to end — read-only telemetry to a verified, MITRE-mapped, priced path. Demo-tenant examples are illustrations, not customer results.
 - [Cloud risk in dollars](${SITE_URL}/whitepapers/wp2-risk-quantification.html): how a verified attack path is priced with FAIR, using named external inputs. An estimate of exposure, not a prediction of breach.
 - [One graph, one data model](${SITE_URL}/whitepapers/wp3-architecture.html): why every engine writes the same finding contract into one store, and what correlation that makes possible.
-- [Security & trust](${SITE_URL}/whitepapers/wp4-security-trust.html): how Onam connects, what it stores, what it never stores, and how tenants stay isolated. Posture scanning uses read-only cloud roles; agentless workload scanning runs inside your account — it does not see inside a running process.
 - [Compliance, mapped once](${SITE_URL}/whitepapers/wp5-compliance.html): one control evaluation reported against 78 frameworks, with each gap connected to a priced path. Evidence for an audit, not a substitute for one.
 - All whitepapers: ${SITE_URL}/whitepapers
 

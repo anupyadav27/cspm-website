@@ -122,7 +122,7 @@ export const DOC_SECTIONS: DocSection[] = [
     items: [
       { title: "Trust Center", slug: "trust/security" },
       { title: "Data Retention", slug: "trust/data-retention" },
-      { title: "SLA & SLO", slug: "trust/sla-and-slo" },
+      { title: "Service Levels", slug: "trust/sla-and-slo" },
     ],
   },
   {

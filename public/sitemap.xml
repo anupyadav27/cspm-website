@@ -178,7 +178,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/pricing</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/request-demo</loc>
@@ -186,7 +186,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources</loc>
-    <lastmod>2026-09-16</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog</loc>
@@ -274,7 +274,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/aws</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/azure</loc>
@@ -282,7 +282,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/gcp</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/oci</loc>
@@ -290,7 +290,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/alicloud</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/onboarding/ibm</loc>
@@ -478,7 +478,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/architecture/overview</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/architecture/scanning</loc>
@@ -490,7 +490,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/compliance/frameworks</loc>
-    <lastmod>2026-08-06</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/security</loc>
@@ -502,11 +502,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/sla-and-slo</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/api</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/finding-schema</loc>
@@ -518,7 +518,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/rbac-and-sso</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/estate/overview</loc>
@@ -538,7 +538,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/estate/access</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/finops/overview</loc>
@@ -634,7 +634,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>
-    <lastmod>2026-09-01</lastmod>
+    <lastmod>2026-10-05</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cspm</loc>
