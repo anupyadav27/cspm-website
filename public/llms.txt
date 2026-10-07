@@ -1,8 +1,8 @@
-# Onam Security
+# Onam
 
 > Onam (https://www.onamsecurity.com) is ONE end-to-end cloud platform, from assets to a secure, optimised and
 > resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
-> (cost) -> Onam DRM (disaster recovery), with Onam Operations — AI agents, early access — across
+> (cost) -> Onam DRM (disaster recovery), with Onam AIOps — AI agents, early access — across
 > them. All four products share one discovery pass, one console and one login.
 >
 > Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
@@ -13,18 +13,34 @@
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
 >
-> Estate, FinOps and DRM are available as per-organisation add-ons, never bundled into a security
-> plan tier, and each stands alone. No prices are published for the add-ons; contact sales.
+> Estate, FinOps and DRM are separately licensed products, granted per organisation, never bundled
+> into a security plan tier; each stands alone and none requires Onam Security. No prices are
+> published for them; contact sales.
 
 Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-full.txt
 
 ## Products
 
 - [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
-- [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
-- [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
-- [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Per-organisation add-on; contact sales.
-- [Onam Operations](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
+- [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
+- [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
+- [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
+- [Onam AIOps](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
+
+Capabilities, one page each:
+- [Inventory — Onam Estate](https://www.onamsecurity.com/estate/inventory): The Inventory view lists every resource Onam Estate's discovery has found, across every connected account and region — each with the time discovery last confirmed it exists.
+- [Architecture — Onam Estate](https://www.onamsecurity.com/estate/architecture): The Architecture view summarises one account's topology: what it holds, how the pieces connect, and which relationships cross the account boundary. It draws AWS accounts today.
+- [Discovery pipeline — Onam Estate](https://www.onamsecurity.com/estate/discovery): The Pipeline view is the run history for discovery: every pass over your accounts and regions, what triggered it and how it ended. Discovery is read-only — nothing is installed and nothing is modified.
+- [Cost explorer — Onam FinOps](https://www.onamsecurity.com/finops/explore): Onam FinOps shows spend as a daily series and ranks what changed since the last period. You see billed and effective cost side by side, so the number matches the invoice and the reality.
+- [Ownership & attribution — Onam FinOps](https://www.onamsecurity.com/finops/ownership): Onam FinOps attributes cost to owners and cost centres with rules you control. It tells you how much of the bill it could attribute, and shows the amount it could not.
+- [Forecast, budgets & anomalies — Onam FinOps](https://www.onamsecurity.com/finops/plan): Onam FinOps forecasts spend as a range, not a single line. Budgets are tracked against the forecast as well as actuals, and anomalies are found in the daily series.
+- [Savings — Onam FinOps](https://www.onamsecurity.com/finops/savings): Onam FinOps holds cost-reduction recommendations, each with a recorded decision. The headline figure is labelled as an upper bound, not a promise.
+- [Reconciled billing — Onam FinOps](https://www.onamsecurity.com/finops/reconciliation): Onam FinOps records every ingestion run and shows the reconciliation state of every period. You can see whether a number is settled before you quote it.
+- [Applications & dependencies — Onam DRM](https://www.onamsecurity.com/disaster-recovery/applications): You recover an application, not a volume. Onam DRM proposes your applications from the tags you already use and classifies every dependency between their parts by what it means for recovery.
+- [Protection — Onam DRM](https://www.onamsecurity.com/disaster-recovery/protection): Onam DRM reads backup plans, snapshots, replicas and replication from your cloud configuration and reports each one as discovered — never as protected or tested, because those are statements a person makes.
+- [Recovery plans — Onam DRM](https://www.onamsecurity.com/disaster-recovery/recovery-plans): Onam DRM composes each application's recovery plan from approved applications, dependencies and protection: ordered steps, the steps that can run at the same time, and the critical path that sets how long it should take.
+- [RTO, RPO & drills — Onam DRM](https://www.onamsecurity.com/disaster-recovery/objectives): Onam DRM keeps three kinds of recovery figure apart — the targets you require, the figures it predicts from the approved plan, and the actual results of drills you record — because mixing them is how a plan looks better than it is.
+- [Baselines & drift — Onam DRM](https://www.onamsecurity.com/disaster-recovery/drift): Onam DRM freezes each approved recovery model as a baseline and measures drift against it, so you see every difference from what you signed off — ranked by what it does to recoverability.
 
 All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.
@@ -112,6 +128,12 @@ the right choice. Onam has no public reference customers.
 - [What is KSPM (Kubernetes Security Posture Management)?](https://www.onamsecurity.com/learn/kspm): Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.
 - [What is code security in the cloud?](https://www.onamsecurity.com/learn/code-security): Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.
 - [What is cloud secrets management?](https://www.onamsecurity.com/learn/secrets-management): Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.
+- [What is a cloud asset inventory?](https://www.onamsecurity.com/learn/cloud-asset-inventory): A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts — compute, storage, databases, networks, identities and managed services — with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs, not by manual entry.
+- [What is FinOps?](https://www.onamsecurity.com/learn/finops): FinOps is an operational framework and cultural practice for managing variable cloud spend. It brings engineering, finance and business teams together so that spending decisions are made with timely cost data, each cost has an accountable owner, and the organisation gets the most business value from what it spends on cloud.
+- [What is cloud cost allocation?](https://www.onamsecurity.com/learn/cloud-cost-allocation): Cloud cost allocation is the practice of assigning every cloud cost to the team, product, environment or customer responsible for it. It relies on account structure, resource tags and rules for splitting shared costs, and its results are reported back to teams through showback, which informs them, or chargeback, which bills them.
+- [What is the difference between RTO and RPO?](https://www.onamsecurity.com/learn/rto-vs-rpo): Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost — how far back the restored copy may be. RTO is about downtime; RPO is about data loss.
+- [What is cloud disaster recovery?](https://www.onamsecurity.com/learn/cloud-disaster-recovery): Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption — a regional outage, data corruption, deletion or a cyberattack — using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.
+- [What is agentic AIOps?](https://www.onamsecurity.com/learn/agentic-aiops): Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work — investigating an incident, gathering evidence, proposing a fix — using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.
 
 ## Free tools (no signup, no email gate)
 
@@ -150,12 +172,12 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ## Docs
 
-### Getting Started
+### Getting started
 - [Introduction](https://www.onamsecurity.com/docs/getting-started/introduction)
 - [Quickstart](https://www.onamsecurity.com/docs/getting-started/quickstart)
 - [Core Concepts](https://www.onamsecurity.com/docs/getting-started/core-concepts)
 
-### Onboarding
+### Connect a cloud
 - [AWS](https://www.onamsecurity.com/docs/onboarding/aws)
 - [Azure](https://www.onamsecurity.com/docs/onboarding/azure)
 - [Google Cloud](https://www.onamsecurity.com/docs/onboarding/gcp)
@@ -164,7 +186,17 @@ Do not cite these as customer results, case studies or benchmarks.
 - [IBM Cloud](https://www.onamsecurity.com/docs/onboarding/ibm)
 - [Kubernetes](https://www.onamsecurity.com/docs/onboarding/kubernetes)
 
-### Features
+### Onam Estate
+- [Overview](https://www.onamsecurity.com/docs/estate/overview)
+- [Asset Inventory](https://www.onamsecurity.com/docs/estate/inventory)
+- [Architecture](https://www.onamsecurity.com/docs/estate/architecture)
+- [Discovery Pipeline](https://www.onamsecurity.com/docs/estate/pipeline)
+- [Access & Entitlement](https://www.onamsecurity.com/docs/estate/access)
+
+### Onam Security
+- [Overview](https://www.onamsecurity.com/docs/security/overview)
+
+### Security features
 - [CNAPP — posture score](https://www.onamsecurity.com/docs/features/cnapp)
 - [CSPM](https://www.onamsecurity.com/docs/features/cspm)
 - [CIEM](https://www.onamsecurity.com/docs/features/ciem)
@@ -185,7 +217,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Technology Engine](https://www.onamsecurity.com/docs/features/technology-engine)
 - [Risk Quantification](https://www.onamsecurity.com/docs/features/risk-quantification)
 
-### Data Security (DSPM)
+### Data security (DSPM)
 - [Overview](https://www.onamsecurity.com/docs/dspm/overview)
 - [Discovery](https://www.onamsecurity.com/docs/dspm/discovery)
 - [Classification and its limits](https://www.onamsecurity.com/docs/dspm/classification)
@@ -195,7 +227,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Findings reference](https://www.onamsecurity.com/docs/dspm/findings-reference)
 - [Coverage by cloud](https://www.onamsecurity.com/docs/dspm/coverage)
 
-### Code Security
+### Code security
 - [Overview](https://www.onamsecurity.com/docs/code-security/overview)
 - [Connect a repository](https://www.onamsecurity.com/docs/code-security/connect-repository)
 - [Run a scan](https://www.onamsecurity.com/docs/code-security/run-a-scan)
@@ -208,7 +240,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [AI Code Fix](https://www.onamsecurity.com/docs/code-security/ai-code-fix)
 - [CI usage](https://www.onamsecurity.com/docs/code-security/ci)
 
-### CIEM
+### Identity (CIEM)
 - [Overview](https://www.onamsecurity.com/docs/ciem/overview)
 - [How effective permissions are computed](https://www.onamsecurity.com/docs/ciem/effective-permissions)
 - [Finding types](https://www.onamsecurity.com/docs/ciem/finding-types)
@@ -216,31 +248,13 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Right-sizing workflow](https://www.onamsecurity.com/docs/ciem/right-sizing)
 - [Per-cloud notes](https://www.onamsecurity.com/docs/ciem/per-cloud)
 
-### Architecture
-- [Overview](https://www.onamsecurity.com/docs/architecture/overview)
-- [Scanning Engine](https://www.onamsecurity.com/docs/architecture/scanning)
-- [Data Security](https://www.onamsecurity.com/docs/architecture/data-security)
-
 ### Compliance
 - [Framework Coverage](https://www.onamsecurity.com/docs/compliance/frameworks)
 
-### Trust
-- [Trust Center](https://www.onamsecurity.com/docs/trust/security)
-- [Data Retention](https://www.onamsecurity.com/docs/trust/data-retention)
-- [Service Levels](https://www.onamsecurity.com/docs/trust/sla-and-slo)
-
-### Reference
-- [API](https://www.onamsecurity.com/docs/reference/api)
-- [Finding Schema](https://www.onamsecurity.com/docs/reference/finding-schema)
-- [Integration Catalog](https://www.onamsecurity.com/docs/reference/integration-catalog)
-- [RBAC & SSO](https://www.onamsecurity.com/docs/reference/rbac-and-sso)
-
-### Onam Estate
-- [Overview](https://www.onamsecurity.com/docs/estate/overview)
-- [Asset Inventory](https://www.onamsecurity.com/docs/estate/inventory)
-- [Architecture](https://www.onamsecurity.com/docs/estate/architecture)
-- [Discovery Pipeline](https://www.onamsecurity.com/docs/estate/pipeline)
-- [Access & Entitlement](https://www.onamsecurity.com/docs/estate/access)
+### Security architecture
+- [Overview](https://www.onamsecurity.com/docs/architecture/overview)
+- [Scanning Engine](https://www.onamsecurity.com/docs/architecture/scanning)
+- [Data Security](https://www.onamsecurity.com/docs/architecture/data-security)
 
 ### Onam FinOps
 - [Overview](https://www.onamsecurity.com/docs/finops/overview)
@@ -254,10 +268,14 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ### Onam DRM
 - [Overview](https://www.onamsecurity.com/docs/drm/overview)
+- [Applications & Dependencies](https://www.onamsecurity.com/docs/drm/applications)
+- [Protection](https://www.onamsecurity.com/docs/drm/protection)
+- [Recovery Plans & Readiness](https://www.onamsecurity.com/docs/drm/recovery-plans)
 - [RTO, RPO & Drills](https://www.onamsecurity.com/docs/drm/objectives)
 - [Approvals, Baselines & Drift](https://www.onamsecurity.com/docs/drm/governance)
+- [Access & Entitlement](https://www.onamsecurity.com/docs/drm/access)
 
-### Onam Operations
+### Onam AIOps
 - [Overview](https://www.onamsecurity.com/docs/operations/overview)
 - [Availability & Status](https://www.onamsecurity.com/docs/operations/availability)
 - [Concepts](https://www.onamsecurity.com/docs/operations/concepts)
@@ -276,7 +294,18 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Security & AI Safety](https://www.onamsecurity.com/docs/operations/security)
 - [Architecture](https://www.onamsecurity.com/docs/operations/architecture)
 
-### Release Notes
+### Trust
+- [Trust Center](https://www.onamsecurity.com/docs/trust/security)
+- [Data Retention](https://www.onamsecurity.com/docs/trust/data-retention)
+- [Service Levels](https://www.onamsecurity.com/docs/trust/sla-and-slo)
+
+### Reference
+- [API](https://www.onamsecurity.com/docs/reference/api)
+- [Finding Schema](https://www.onamsecurity.com/docs/reference/finding-schema)
+- [Integration Catalog](https://www.onamsecurity.com/docs/reference/integration-catalog)
+- [RBAC & SSO](https://www.onamsecurity.com/docs/reference/rbac-and-sso)
+
+### Release notes
 - [Release Notes](https://www.onamsecurity.com/docs/release-notes)
 
 ## Blog

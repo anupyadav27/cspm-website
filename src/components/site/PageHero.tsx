@@ -63,7 +63,7 @@ export function StubPage({
       <PageHero eyebrow={eyebrow} title={title} subtitle={subtitle} gradientWords={gradientWords} />
       <section className="relative max-w-7xl mx-auto px-6 py-24">
         <div className="bg-white border border-[#E5E9F0] rounded-3xl p-10 text-center shadow-[0_1px_3px_rgba(16,24,40,.06)]">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-4 bg-[#E7F6EF] text-[#05A052] border border-[#BFE8D2]">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-widest mb-4 bg-[#E7F6EF] text-[#047857] border border-[#BFE8D2]">
             Coming soon
           </div>
           <h2 className="font-display font-extrabold text-2xl text-[#0B1220]">

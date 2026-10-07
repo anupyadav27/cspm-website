@@ -3,11 +3,12 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ArrowRight, Calculator, TrendingDown, LockOpen } from "lucide-react";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/tools")({
   head: () =>
     seo({
-      title: "Free Cloud Security Tools — Onam Security",
+      title: "Free cloud security tools — Onam",
       description:
         "Free cloud security calculators: a FAIR-style cloud exposure estimator and a tool-consolidation ROI estimator. Ungated, no signup, no email required.",
       path: "/tools",
@@ -65,8 +66,10 @@ const tools: Tool[] = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[1100px] px-5 pt-14 pb-10">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#0D9488" pattern="dots" icon={Calculator} />
+        <div className="relative mx-auto max-w-[1100px] px-5 pt-20 pb-12 md:pt-24 md:pb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[2px] text-[#2563EB]">
           <LockOpen className="h-3.5 w-3.5" />
           No signup. No email. No gate.
         </div>
@@ -79,6 +82,14 @@ function Page() {
           tools we already own. They run entirely in your browser — nothing you type is sent
           anywhere.
         </p>
+        <p className="mt-3 max-w-[680px] text-[15px] leading-relaxed text-[#475569]">
+          Both come from{" "}
+          <a href="/platform" className="font-semibold text-[#2563EB] underline">Onam Security</a>{" "}
+          work. For cost and recovery questions, see{" "}
+          <a href="/finops" className="font-semibold text-[#2563EB] underline">Onam FinOps</a> and{" "}
+          <a href="/disaster-recovery" className="font-semibold text-[#2563EB] underline">Onam DRM</a>.
+        </p>
+      </div>
       </section>
 
       <section className="mx-auto grid max-w-[1100px] gap-6 px-5 pb-16 md:grid-cols-2">
@@ -96,7 +107,7 @@ function Page() {
 
             <div className="mt-5 flex items-center gap-3">
               <h2 className="text-[22px] font-bold tracking-[-0.3px] text-[#0B1220]">{t.title}</h2>
-              <span className="rounded-md border border-[#E2E8F2] bg-[#F8FAFC] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
+              <span className="rounded-md border border-[#E2E8F2] bg-[#F8FAFC] px-2 py-0.5 text-xs font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
                 {t.pill}
               </span>
             </div>

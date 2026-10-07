@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, Cloud, Container as ContainerIcon, ShieldCheck, type LucideIcon } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
+import { Backdrop, Section, Container, SectionHeading, IconTile, Card, StatusChip } from "@/components/site/system";
+import { getSuite, type SuiteKey } from "@/data/product-suite";
 
 export type CloudFeature = { icon: LucideIcon; iconColor: string; title: string; body: string };
 export type CloudStep = { title: string; body: string };
@@ -37,22 +39,39 @@ export type CloudSolutionData = {
    */
   related?: CloudRelated[];
   cloudName: string;
+  /** Overrides for the "Across the platform" cards. Defaults come from cloudPlatformNotes. */
+  platform?: Partial<PlatformNotes>;
+};
+
+/** Each provider's own brand colour, used only as the banner tint. */
+const CLOUD_ACCENT: Record<string, string> = {
+  AWS: "#FF9900",
+  Azure: "#0078D4",
+  "Google Cloud": "#4285F4",
+  OCI: "#C74634",
+  "Alibaba Cloud": "#FF6A00",
+  "IBM Cloud": "#0F62FE",
+  Kubernetes: "#326CE5",
 };
 
 function Hero({ data }: { data: CloudSolutionData }) {
   return (
     <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-      <div className="absolute inset-0 dot-grid opacity-60" />
-      <div className="absolute -top-40 right-1/4 w-[600px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-      <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
-        <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">{data.breadcrumb}</div>
+      <Backdrop
+        tone="light"
+        color={CLOUD_ACCENT[data.cloudName] ?? "#2563EB"}
+        pattern="grid"
+        icon={data.cloudName === "Kubernetes" ? ContainerIcon : Cloud}
+      />
+      <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24 text-center">
+        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">{data.breadcrumb}</div>
         <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
           {data.headline}
         </h1>
         <p className="mt-6 text-lg text-[#475569] max-w-3xl mx-auto leading-relaxed">{data.sub}</p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <BrandButton to="/request-demo" size="lg">Book a live demo <ArrowRight className="w-4 h-4" /></BrandButton>
-          <BrandButton href={data.docsHref} size="lg" variant="secondary">Read the docs</BrandButton>
+          <BrandButton href={data.docsHref} size="lg" variant="secondary">How to connect {data.cloudName}</BrandButton>
         </div>
       </div>
     </section>
@@ -66,7 +85,7 @@ function StatStrip({ stats }: { stats: CloudStat[] }) {
         {stats.map((s, i) => (
           <div key={i} className="px-6 first:pl-0 last:pr-0 text-center md:text-left">
             <div className="text-2xl md:text-3xl font-display font-black text-[#0B1220]">{s.value}</div>
-            <div className="mt-1 text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
+            <div className="mt-1 text-xs uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
           </div>
         ))}
       </div>
@@ -79,7 +98,7 @@ function Services({ data }: { data: CloudSolutionData }) {
     <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Coverage
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -109,7 +128,7 @@ function Frameworks({ data }: { data: CloudSolutionData }) {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
               Compliance
             </div>
             <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
@@ -135,7 +154,7 @@ function SetupSteps({ data }: { data: CloudSolutionData }) {
     <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Onboarding
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Connect in 3 steps</h2>
@@ -160,7 +179,7 @@ function Features({ data }: { data: CloudSolutionData }) {
     <section className="bg-white border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Differentiators
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -202,7 +221,7 @@ function Faqs({ faqs }: { faqs: CloudFaq[] }) {
       />
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             FAQ
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Questions we get a lot</h2>
@@ -241,9 +260,12 @@ function CTA({ data }: { data: CloudSolutionData }) {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Ready to secure your {data.cloudName} environment?
+            See Onam on your {data.cloudName} environment
           </h2>
-          <p className="mt-4 text-[#475569] max-w-xl mx-auto">Connect a read-only role for posture scanning. Your first findings arrive with the first scan.</p>
+          <p className="mt-4 text-[#475569] max-w-xl mx-auto">
+            Connect once with read-only access. Every Onam product you use works from the same discovery, so your
+            accounts are connected once.
+          </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Book a demo →</BrandButton>
             <BrandButton to="/pricing" size="lg" variant="secondary">See pricing</BrandButton>
@@ -282,11 +304,115 @@ function RelatedReading({ items, cloudName }: { items: CloudRelated[]; cloudName
   );
 }
 
+/* ───────────────────────── Across the platform ─────────────────────────
+ * The other Onam products on this cloud or industry. Every sentence here is taken
+ * from src/data/product-suite.ts, src/data/products.ts and the product docs
+ * (src/data/docs-articles/products.ts, drm.ts, operations.ts, trust-reference.ts).
+ * Do not add a cloud-specific claim the docs do not make — where coverage for a
+ * cloud is not documented, the card says to ask rather than implying support.
+ */
+
+export type PlatformNotes = { security: string; estate: string; finops: string; drm: string; aiops: string };
+
+export function cloudPlatformNotes(cloudName: string): PlatformNotes {
+  const isAws = cloudName === "AWS";
+  return {
+    security: `Posture, identity, attack paths, workloads and compliance for ${cloudName}. The detail is on the rest of this page.`,
+    estate: `Every ${cloudName} resource Onam discovers lands in one inventory, with provider, region, account, state and last-seen time, through the same read-only access. Every discovery run is recorded with its trigger and status. ${
+      isAws
+        ? "The per-account architecture view draws each AWS account's topology: what it holds and how it connects."
+        : `The per-account architecture view draws AWS accounts today, not ${cloudName}.`
+    }`,
+    finops: `Onam FinOps works on reconciled billing data: billed and effective cost, ownership, forecast, budgets, anomalies and savings. It holds read-only billing access and changes nothing in your accounts.${
+      cloudName === "Google Cloud" ? " On Google Cloud, billing is read only if you opt in when you grant access." : ""
+    } Ask us which ${cloudName} billing data applies to your accounts.`,
+    drm: `Onam DRM works from the same inventory: it proposes applications from your tags, reads backup, snapshot and replication from cloud configuration, and predicts RTO and RPO against your targets. It plans and records — it does not run a failover or a DR test. Ask us about DRM coverage for ${cloudName}.`,
+    aiops: isAws
+      ? "AI agents investigate your Onam Security inventory and findings and propose changes a person approves. Executing a change in your AWS account is built but not offered — it is on the roadmap."
+      : `AI agents investigate your Onam Security inventory and findings and propose changes a person approves. Executing a change in a customer cloud is on the roadmap, with AWS first; nothing is executed in ${cloudName} today.`,
+  };
+}
+
+export function industryPlatformNotes(industryName: string): PlatformNotes {
+  const who = industryName.toLowerCase();
+  return {
+    security: `Posture, identity, data security and compliance evidence for ${who} workloads. The detail is on the rest of this page.`,
+    estate:
+      "Auditors start with what you run. Onam Estate keeps one inventory of every discovered resource across accounts and regions, and records every discovery run — so the asset list carries its own provenance instead of being an export from last quarter.",
+    finops:
+      "Billed and effective cost side by side, cost attributed to owners and cost centres with the unattributed amount stated plainly, and forecasts as low, expected and high figures. Read-only: accepting a saving records a decision and changes nothing in your accounts.",
+    drm: "Regulators expect tested recovery plans. Onam DRM maps applications and what they depend on, predicts RTO and RPO against the targets you set, records the drills you run with your own tools, and measures drift from the recovery model you approved. It plans and records; it does not run the failover.",
+    aiops:
+      "AI agents that investigate your Onam Security data with evidence on every claim, and propose changes a person approves. Nothing changes your cloud without that approval.",
+  };
+}
+
+const PLATFORM_ORDER: SuiteKey[] = ["estate", "security", "finops", "drm", "aiops"];
+
+export function AcrossThePlatform({
+  title,
+  lead,
+  notes,
+}: {
+  title: string;
+  lead: string;
+  notes: PlatformNotes;
+}) {
+  return (
+    <Section id="platform" tone="surface">
+      <Container>
+        <SectionHeading eyebrow="Across the platform" title={title} lead={lead} />
+        <div className="mt-12 grid md:grid-cols-2 gap-5">
+          {PLATFORM_ORDER.map((key) => {
+            const p = getSuite(key);
+            return (
+              <Card key={key} className={cn("p-6 flex flex-col", key === "aiops" && "md:col-span-2")}>
+                <div className="flex items-start gap-4">
+                  <IconTile icon={p.icon} color={p.color} />
+                  <div className="min-w-0">
+                    <div className="text-xs font-semibold uppercase tracking-widest text-muted-500">{p.stage}</div>
+                    <div className="mt-1 flex flex-wrap items-center gap-2">
+                      <h3 className="font-display font-bold text-ink text-lg">
+                        <Link to={p.href} className="hover:text-brand-500">
+                          {p.name}
+                        </Link>
+                      </h3>
+                      {key === "aiops" && <StatusChip status="early" />}
+                    </div>
+                  </div>
+                </div>
+                <p className="mt-4 text-sm text-body leading-relaxed flex-1">{notes[key]}</p>
+                <div className="mt-5 flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold">
+                  <Link to={p.href} className="inline-flex items-center gap-1 text-brand-500 hover:underline">
+                    {key === "security" ? "All security engines" : `About ${p.name}`}
+                    <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+                  </Link>
+                  <Link to={p.docs} className="text-body hover:text-brand-500">
+                    Docs
+                  </Link>
+                  <Link to="/request-demo" search={{ product: key }} className="text-body hover:text-brand-500">
+                    {key === "aiops" ? "Ask for early access" : "Book a demo"}
+                  </Link>
+                </div>
+              </Card>
+            );
+          })}
+        </div>
+      </Container>
+    </Section>
+  );
+}
+
 export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
   return (
     <SiteLayout>
       <Hero data={data} />
       <StatStrip stats={data.stats} />
+      <AcrossThePlatform
+        title={`One platform on ${data.cloudName}`}
+        lead={`Connect ${data.cloudName} once. Onam Security is covered in detail below; the rest of the platform works from the same discovery.`}
+        notes={{ ...cloudPlatformNotes(data.cloudName), ...data.platform }}
+      />
       <Services data={data} />
       <Frameworks data={data} />
       <SetupSteps data={data} />
@@ -295,8 +421,8 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
         tone="white"
         clips={["onboard", "assets", "dashboard"]}
         eyebrow="See it live"
-        title={`${data.cloudName} in the real console.`}
-        gradientWords="real console."
+        title={`${data.cloudName} in the Onam Security console.`}
+        gradientWords="Onam Security console."
         subtitle="A recreation of the Onam console with sample data: connect, inventory and posture in one view."
       />
       <Features data={data} />

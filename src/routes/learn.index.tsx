@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, GraduationCap } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { LEARN_ARTICLES } from "@/data/learn-articles";
+import { LEARN_ARTICLES, LEARN_PRODUCT_LABEL, learnProduct, type LearnProduct } from "@/data/learn-articles";
 import { seo, SITE_URL } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 /** The acronym comparison table — the thing people actually arrive looking for. */
 const COMPARISON: { acronym: string; expands: string; scope: string; slug: string }[] = [
@@ -15,12 +16,21 @@ const COMPARISON: { acronym: string; expands: string; scope: string; slug: strin
   { acronym: "CNAPP", expands: "Cloud-Native Application Protection Platform", scope: "All of the above, correlated on one data model.", slug: "cnapp" },
 ];
 
+/** Glossary groups, in platform lifecycle order, with the product page each one leads to. */
+const GROUPS: { product: LearnProduct; lead: string; href: string; cta: string }[] = [
+  { product: "platform", lead: "Knowing what you run — the inventory every other discipline starts from.", href: "/estate", cta: "Onam Estate" },
+  { product: "security", lead: "Posture, identity, data, workloads and code — and how the categories overlap.", href: "/platform", cta: "Onam Security" },
+  { product: "finops", lead: "Who spends what, who owns it, and how cloud cost is managed as a practice.", href: "/finops", cta: "Onam FinOps" },
+  { product: "drm", lead: "Recovery objectives, recovery strategies, and what makes a plan hold up.", href: "/disaster-recovery", cta: "Onam DRM" },
+  { product: "aiops", lead: "AI agents in operations, and how people stay in control of them.", href: "/platform/ai-operations", cta: "Onam AIOps" },
+];
+
 const collectionJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Cloud Security Glossary",
+  name: "Cloud Platform Glossary",
   description:
-    "Vendor-neutral explanations of cloud security categories: CSPM, CNAPP, CWPP, CIEM, DSPM, SSPM, attack path analysis and agentless scanning.",
+    "Vendor-neutral explanations of cloud asset inventory, cloud security, FinOps, disaster recovery and agentic AIOps.",
   url: `${SITE_URL}/learn`,
   hasPart: LEARN_ARTICLES.map((a) => ({
     "@type": "Article",
@@ -32,9 +42,9 @@ const collectionJsonLd = {
 export const Route = createFileRoute("/learn/")({
   head: () =>
     seo({
-      title: "Cloud Security Glossary — CSPM, CNAPP, CWPP, CIEM, DSPM Explained",
+      title: "Cloud Platform Glossary — Security, FinOps, DR and AIOps Explained",
       description:
-        "Cloud security glossary in plain English: CSPM, CNAPP, CWPP, CIEM, DSPM, SSPM, attack paths and agentless scanning, and how each one differs.",
+        "Cloud glossary in plain English: asset inventory, CSPM, CNAPP, CIEM, DSPM, FinOps, cost allocation, RTO vs RPO, disaster recovery and agentic AIOps.",
       path: "/learn",
       image: "/og/learn.png",
     }),
@@ -47,19 +57,18 @@ function LearnIndex() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(collectionJsonLd) }} />
 
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-0 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-16 text-center">
+        <Backdrop tone="light" color="#2563EB" pattern="dots" icon={GraduationCap} />
+        <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Learn
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-4xl md:text-6xl tracking-tight leading-[1.05]">
-            The cloud security <span className="gradient-text">acronyms, explained.</span>
+            Cloud platform terms, <span className="gradient-text">explained.</span>
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            CSPM, CNAPP, CWPP, CIEM, DSPM, SSPM. Six acronyms, heavily overlapping marketing, and very
-            little agreement on what any of them mean. These are vendor-neutral explanations of what each
-            category actually covers — and, more usefully, what it does not.
+            Asset inventory, security posture, FinOps, disaster recovery and AI agents in operations — each with its
+            own vocabulary and plenty of overlapping marketing. These are vendor-neutral explanations of what each
+            term actually covers, and what it does not.
           </p>
         </div>
       </section>
@@ -67,7 +76,7 @@ function LearnIndex() {
       <section className="py-20 bg-white border-b border-[#E5E9F0]">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-            CSPM vs CNAPP vs CWPP vs CIEM vs DSPM vs SSPM
+            Security: CSPM vs CNAPP vs CWPP vs CIEM vs DSPM vs SSPM
           </h2>
           <p className="mt-3 text-[#475569]">
             The short version: five of these are components, and one is the umbrella.
@@ -104,26 +113,43 @@ function LearnIndex() {
       </section>
 
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight mb-8">
-            All explainers
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display font-extrabold text-ink text-2xl md:text-3xl tracking-tight">
+            All explainers, by topic
           </h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {LEARN_ARTICLES.map((a) => (
-              <Link key={a.slug} to="/learn/$slug" params={{ slug: a.slug }} className="group">
-                <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all flex flex-col">
-                  <h3 className="font-display font-bold text-[#0B1220] text-lg leading-snug group-hover:text-[#2563EB]">
-                    {a.question}
-                  </h3>
-                  <p className="mt-2.5 text-sm text-[#475569] leading-relaxed flex-1">{a.excerpt}</p>
-                  <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between">
-                    <span className="text-xs font-medium text-[#2563EB]">Read</span>
-                    <ArrowRight className="w-4 h-4 text-[#94A3B8] group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition" />
+          {GROUPS.map((g) => {
+            const articles = LEARN_ARTICLES.filter((a) => learnProduct(a) === g.product);
+            if (articles.length === 0) return null;
+            return (
+              <div key={g.product} id={g.product} className="mt-12 scroll-mt-24">
+                <div className="flex flex-wrap items-end justify-between gap-3 border-b border-line pb-3 mb-6">
+                  <div>
+                    <h3 className="font-display font-bold text-ink text-xl">{LEARN_PRODUCT_LABEL[g.product]}</h3>
+                    <p className="mt-1 text-sm text-body">{g.lead}</p>
                   </div>
+                  <a href={g.href} className="text-sm font-semibold text-brand-600 hover:text-ink">
+                    {g.cta} →
+                  </a>
                 </div>
-              </Link>
-            ))}
-          </div>
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {articles.map((a) => (
+                    <Link key={a.slug} to="/learn/$slug" params={{ slug: a.slug }} className="group">
+                      <div className="h-full bg-white border border-line rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all flex flex-col">
+                        <h4 className="font-display font-bold text-ink text-lg leading-snug group-hover:text-brand-500">
+                          {a.question}
+                        </h4>
+                        <p className="mt-2.5 text-sm text-body leading-relaxed flex-1">{a.excerpt}</p>
+                        <div className="mt-5 pt-4 border-t border-line flex items-center justify-between">
+                          <span className="text-xs font-medium text-brand-600">Read</span>
+                          <ArrowRight className="w-4 h-4 text-muted-500 group-hover:text-brand-500 group-hover:translate-x-0.5 transition" aria-hidden />
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -131,15 +157,15 @@ function LearnIndex() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="gradient-border rounded-3xl p-10 md:p-14 text-center">
             <h2 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              Stop reading. <span className="gradient-text">Start scanning.</span>
+              Stop reading. <span className="gradient-text">See your own cloud.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-lg mx-auto">
-              Every category on this page is one engine on the Onam platform. Connect a read-only role and
-              see all of them against your own cloud.
+              Estate, Security, FinOps and DRM run on one Onam platform, with AIOps agents across them. Connect a
+              read-only role once and see your own cloud.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>
-              <BrandButton to="/platform" size="lg" variant="secondary">Explore the platform</BrandButton>
+              <BrandButton to="/" size="lg" variant="secondary">Explore the platform</BrandButton>
             </div>
           </div>
         </div>

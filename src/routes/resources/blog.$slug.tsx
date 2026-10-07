@@ -5,7 +5,8 @@ import { Prose } from "@/components/site/Prose";
 import { BLOG_POSTS, getPost, type BlogPost } from "@/data/blog-posts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { getAuthor, personJsonLd } from "@/data/authors";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Newspaper } from "lucide-react";
+import { Backdrop } from "@/components/site/system";
 
 function articleJsonLd(p: BlogPost) {
   const author = getAuthor(p.author);
@@ -105,8 +106,9 @@ function Article() {
         }}
       />
       <article>
-        <section className="border-b border-[#E5E9F0] bg-white">
-          <div className="max-w-3xl mx-auto px-6 pt-14 pb-10">
+        <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
+          <Backdrop tone="light" color="#2563EB" pattern="dots" icon={Newspaper} className="opacity-80" />
+          <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-14">
             <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
               <Link to="/resources" className="hover:text-[#2563EB]">Resources</Link>
               <ChevronRight className="w-3.5 h-3.5" />
@@ -142,7 +144,7 @@ function Article() {
               <span>{post.readTime} read</span>
             </div>
           </div>
-          <div className="max-w-3xl mx-auto px-6">
+          <div className="relative max-w-3xl mx-auto px-6">
             <div className="h-px bg-gradient-to-r from-transparent via-[#E5E9F0] to-transparent" />
           </div>
         </section>

@@ -270,5 +270,53 @@
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
+    <item>
+      <title>What is a cloud asset inventory?</title>
+      <link>https://www.onamsecurity.com/learn/cloud-asset-inventory</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-asset-inventory</guid>
+      <description>A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts — compute, storage, databases, networks, identities and managed services — with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs, not by manual entry.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is FinOps?</title>
+      <link>https://www.onamsecurity.com/learn/finops</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/finops</guid>
+      <description>FinOps is an operational framework and cultural practice for managing variable cloud spend. It brings engineering, finance and business teams together so that spending decisions are made with timely cost data, each cost has an accountable owner, and the organisation gets the most business value from what it spends on cloud.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is cloud cost allocation?</title>
+      <link>https://www.onamsecurity.com/learn/cloud-cost-allocation</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-cost-allocation</guid>
+      <description>Cloud cost allocation is the practice of assigning every cloud cost to the team, product, environment or customer responsible for it. It relies on account structure, resource tags and rules for splitting shared costs, and its results are reported back to teams through showback, which informs them, or chargeback, which bills them.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is the difference between RTO and RPO?</title>
+      <link>https://www.onamsecurity.com/learn/rto-vs-rpo</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/rto-vs-rpo</guid>
+      <description>Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost — how far back the restored copy may be. RTO is about downtime; RPO is about data loss.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is cloud disaster recovery?</title>
+      <link>https://www.onamsecurity.com/learn/cloud-disaster-recovery</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-disaster-recovery</guid>
+      <description>Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption — a regional outage, data corruption, deletion or a cyberattack — using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>What is agentic AIOps?</title>
+      <link>https://www.onamsecurity.com/learn/agentic-aiops</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/learn/agentic-aiops</guid>
+      <description>Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work — investigating an incident, gathering evidence, proposing a fix — using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.</description>
+      <category>Learn</category>
+      <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
+    </item>
   </channel>
 </rss>

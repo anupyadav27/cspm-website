@@ -39,7 +39,7 @@ The gap between those three is where forgotten infrastructure lives — and it i
 ## How discovery works
 
 1. A discovery pipeline enumerates resources across your connected accounts and regions using the **same read-only credentials** as the rest of the platform. Nothing is installed and nothing is modified.
-2. Each resource is written as an **asset** with provider, region, account, state, last-seen time and monthly cost.
+2. Each resource is written as an **asset** with provider, region, account, state and last-seen time.
 3. Relationships are written as **edges** — containment edges describe what lives inside what, external edges describe what crosses the account boundary.
 4. Every pass is recorded as a **run** with its trigger, status, start and completion, so the inventory carries its own provenance.
 
@@ -47,7 +47,7 @@ The gap between those three is where forgotten infrastructure lives — and it i
 
 ## What it is not
 
-Estate does not evaluate posture rules, score risk, or raise security findings — that is [Onam Security](/docs/getting-started/introduction). Estate answers what exists and how it is connected. The two products read the same discovery output and answer different questions from it.
+Estate does not evaluate posture rules, score risk, or raise security findings — that is [Onam Security](/docs/security/overview). Estate answers what exists and how it is connected. The two products read the same discovery output and answer different questions from it.
 `,
   },
   {
@@ -65,15 +65,12 @@ The **Inventory** view lists every resource the discovery pipeline has found, ac
 | Provider | Which cloud it was discovered in |
 | Region | The region it lives in |
 | Account | The account or subscription that owns it |
-| Monthly cost | What the resource costs per month |
 | State | The resource's current lifecycle state |
 | Last seen | How long ago discovery last confirmed it exists |
 
-## Why cost is on a security-adjacent inventory
+## What about cost?
 
-Because the two questions are asked by the same person about the same resource, ten minutes apart. An inventory that cannot answer "what does this cost" sends its user to the billing console, where the resource is identified differently and connected to nothing. Estate stamps monthly cost onto the asset row so the estate is answerable to a finance question without leaving the page.
-
-For the full cost picture — attribution, forecast, budgets, anomalies and savings — see [Onam FinOps](/docs/finops/overview), which is a separate product.
+Estate answers what exists and how it is connected; it does not report what a resource costs. For cost — what you spent, who owns it, forecast, budgets, anomalies and savings — see [Onam FinOps](/docs/finops/overview), which is a separate product built on your billing data.
 
 ## Last seen, and why it matters
 
@@ -271,9 +268,9 @@ Coverage is reported as a number because tag-based allocation is never complete,
 
 Rules map resources to owners and cost centres. Unattributed spend is the working list for improving them — each rule you add moves a slice from unattributed into coverage, and the number tells you immediately whether it worked.
 
-## Attribution is not chargeback
+## Attribution reports chargeback; it does not move money
 
-Ownership answers who is responsible for spend. It does not move money between ledgers, issue internal invoices, or enforce anything. It is the input a chargeback process needs, not the process itself.
+Ownership answers who is responsible for spend, and showback and chargeback statements say what each cost centre is responsible for. FinOps does not move money between ledgers, issue internal invoices, or enforce anything — it gives your finance process the figures, not the process itself.
 `,
   },
   {

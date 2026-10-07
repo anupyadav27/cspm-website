@@ -11,11 +11,12 @@ import {
   ClipboardCheck,
 } from "lucide-react";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/whitepapers")({
   head: () =>
     seo({
-      title: "Technical Whitepapers — Onam Security",
+      title: "Technical whitepapers — Onam",
       description:
         "Cloud security whitepapers on attack-path analysis, FAIR-style risk estimates, single-graph architecture and 78-framework compliance.",
       path: "/whitepapers",
@@ -110,16 +111,18 @@ const papers: Paper[] = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[1100px] px-5 pt-14 pb-10">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#4F46E5" pattern="flow" icon={FileText} />
+        <div className="relative mx-auto max-w-[1100px] px-5 pt-20 pb-12 md:pt-24 md:pb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[2px] text-[#2563EB]">
           <FileText className="h-3.5 w-3.5" />
           No signup. No email. No gate.
         </div>
         <h1 className="mt-4 text-[40px] font-extrabold leading-[1.06] tracking-[-1px] text-[#0B1220] sm:text-[46px]">
-          Technical whitepapers
+          Onam Security technical whitepapers
         </h1>
         <p className="mt-4 max-w-[720px] text-[17px] leading-relaxed text-[#475569]">
-          Four papers on how the platform actually works — the attack-path method, how a finding
+          Four papers on how Onam Security actually works — the attack-path method, how a finding
           gets a loss estimate, why everything writes into one graph, and how one control evaluation
           reports against 78 frameworks. Written for engineers and architects who want the
           mechanism, not the pitch.
@@ -134,6 +137,7 @@ function Page() {
             All four as one PDF
           </BrandButton>
         </div>
+      </div>
       </section>
 
       <section className="mx-auto grid max-w-[1100px] gap-6 px-5 pb-16 md:grid-cols-2">
@@ -149,14 +153,14 @@ function Page() {
               >
                 <p.Icon className="h-5 w-5" style={{ color: p.color }} />
               </div>
-              <span className="text-[13px] font-bold tracking-[1px] text-[#CBD5E1]">{p.n}</span>
+              <span className="text-[13px] font-bold tracking-[1px] text-[#64748B]">{p.n}</span>
             </div>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">
               <h2 className="text-[21px] font-bold leading-snug tracking-[-0.3px] text-[#0B1220]">
                 {p.title}
               </h2>
-              <span className="rounded-md border border-[#E2E8F2] bg-[#F8FAFC] px-2 py-0.5 text-[10px] font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
+              <span className="rounded-md border border-[#E2E8F2] bg-[#F8FAFC] px-2 py-0.5 text-xs font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
                 {p.pill}
               </span>
             </div>

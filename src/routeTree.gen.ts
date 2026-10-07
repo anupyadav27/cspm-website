@@ -21,6 +21,7 @@ import { Route as SecurityRouteImport } from './routes/security'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
+import { Route as WhyOnamRouteImport } from './routes/why-onam'
 import { Route as CompanyAboutRouteImport } from './routes/company/about'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
@@ -33,8 +34,11 @@ import { Route as CompareOnamVsCortexCloudDothtmlRouteImport } from './routes/co
 import { Route as CompareOnamVsDefenderForCloudDothtmlRouteImport } from './routes/compare/onam-vs-defender-for-cloud[.]html'
 import { Route as CompareOnamVsOrcaDothtmlRouteImport } from './routes/compare/onam-vs-orca[.]html'
 import { Route as CompareOnamVsWizDothtmlRouteImport } from './routes/compare/onam-vs-wiz[.]html'
+import { Route as DisasterRecoveryModuleRouteImport } from './routes/disaster-recovery_.$module'
 import { Route as DocsIndexRouteImport } from './routes/docs.index'
 import { Route as DocsSplatRouteImport } from './routes/docs.$'
+import { Route as EstateModuleRouteImport } from './routes/estate_.$module'
+import { Route as FinopsModuleRouteImport } from './routes/finops_.$module'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
 import { Route as PlatformIndexRouteImport } from './routes/platform/index'
@@ -148,6 +152,11 @@ const WhitepapersRoute = WhitepapersRouteImport.update({
   path: '/whitepapers',
   getParentRoute: () => rootRouteImport,
 } as any)
+const WhyOnamRoute = WhyOnamRouteImport.update({
+  id: '/why-onam',
+  path: '/why-onam',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const CompanyAboutRoute = CompanyAboutRouteImport.update({
   id: '/company/about',
   path: '/company/about',
@@ -211,6 +220,11 @@ const CompareOnamVsWizDothtmlRoute = CompareOnamVsWizDothtmlRouteImport.update({
   path: '/compare/onam-vs-wiz.html',
   getParentRoute: () => rootRouteImport,
 } as any)
+const DisasterRecoveryModuleRoute = DisasterRecoveryModuleRouteImport.update({
+  id: '/disaster-recovery_/$module',
+  path: '/disaster-recovery/$module',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DocsIndexRoute = DocsIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -220,6 +234,16 @@ const DocsSplatRoute = DocsSplatRouteImport.update({
   id: '/$',
   path: '/$',
   getParentRoute: () => DocsRoute,
+} as any)
+const EstateModuleRoute = EstateModuleRouteImport.update({
+  id: '/estate_/$module',
+  path: '/estate/$module',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FinopsModuleRoute = FinopsModuleRouteImport.update({
+  id: '/finops_/$module',
+  path: '/finops/$module',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const LearnIndexRoute = LearnIndexRouteImport.update({
   id: '/learn/',
@@ -503,6 +527,7 @@ export interface FileRoutesByFullPath {
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
+  '/why-onam': typeof WhyOnamRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -514,7 +539,10 @@ export interface FileRoutesByFullPath {
   '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
   '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
   '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
+  '/disaster-recovery/$module': typeof DisasterRecoveryModuleRoute
   '/docs/$': typeof DocsSplatRoute
+  '/estate/$module': typeof EstateModuleRoute
+  '/finops/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
@@ -582,6 +610,7 @@ export interface FileRoutesByTo {
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
+  '/why-onam': typeof WhyOnamRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -593,7 +622,10 @@ export interface FileRoutesByTo {
   '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
   '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
   '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
+  '/disaster-recovery/$module': typeof DisasterRecoveryModuleRoute
   '/docs/$': typeof DocsSplatRoute
+  '/estate/$module': typeof EstateModuleRoute
+  '/finops/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
@@ -663,6 +695,7 @@ export interface FileRoutesById {
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
+  '/why-onam': typeof WhyOnamRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -674,7 +707,10 @@ export interface FileRoutesById {
   '/compare/onam-vs-defender-for-cloud.html': typeof CompareOnamVsDefenderForCloudDothtmlRoute
   '/compare/onam-vs-orca.html': typeof CompareOnamVsOrcaDothtmlRoute
   '/compare/onam-vs-wiz.html': typeof CompareOnamVsWizDothtmlRoute
+  '/disaster-recovery_/$module': typeof DisasterRecoveryModuleRoute
   '/docs/$': typeof DocsSplatRoute
+  '/estate_/$module': typeof EstateModuleRoute
+  '/finops_/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
@@ -745,6 +781,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/trust'
     | '/whitepapers'
+    | '/why-onam'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -756,7 +793,10 @@ export interface FileRouteTypes {
     | '/compare/onam-vs-defender-for-cloud.html'
     | '/compare/onam-vs-orca.html'
     | '/compare/onam-vs-wiz.html'
+    | '/disaster-recovery/$module'
     | '/docs/$'
+    | '/estate/$module'
+    | '/finops/$module'
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
@@ -824,6 +864,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/trust'
     | '/whitepapers'
+    | '/why-onam'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -835,7 +876,10 @@ export interface FileRouteTypes {
     | '/compare/onam-vs-defender-for-cloud.html'
     | '/compare/onam-vs-orca.html'
     | '/compare/onam-vs-wiz.html'
+    | '/disaster-recovery/$module'
     | '/docs/$'
+    | '/estate/$module'
+    | '/finops/$module'
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
@@ -904,6 +948,7 @@ export interface FileRouteTypes {
     | '/tools'
     | '/trust'
     | '/whitepapers'
+    | '/why-onam'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -915,7 +960,10 @@ export interface FileRouteTypes {
     | '/compare/onam-vs-defender-for-cloud.html'
     | '/compare/onam-vs-orca.html'
     | '/compare/onam-vs-wiz.html'
+    | '/disaster-recovery_/$module'
     | '/docs/$'
+    | '/estate_/$module'
+    | '/finops_/$module'
     | '/learn/$slug'
     | '/platform/agentless'
     | '/platform/ai-assistant'
@@ -985,6 +1033,7 @@ export interface RootRouteChildren {
   ToolsRoute: typeof ToolsRoute
   TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
+  WhyOnamRoute: typeof WhyOnamRoute
   CompanyAboutRoute: typeof CompanyAboutRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
@@ -996,6 +1045,9 @@ export interface RootRouteChildren {
   CompareOnamVsDefenderForCloudDothtmlRoute: typeof CompareOnamVsDefenderForCloudDothtmlRoute
   CompareOnamVsOrcaDothtmlRoute: typeof CompareOnamVsOrcaDothtmlRoute
   CompareOnamVsWizDothtmlRoute: typeof CompareOnamVsWizDothtmlRoute
+  DisasterRecoveryModuleRoute: typeof DisasterRecoveryModuleRoute
+  EstateModuleRoute: typeof EstateModuleRoute
+  FinopsModuleRoute: typeof FinopsModuleRoute
   LearnSlugRoute: typeof LearnSlugRoute
   PlatformAgentlessRoute: typeof PlatformAgentlessRoute
   PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
@@ -1136,6 +1188,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WhitepapersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/why-onam': {
+      id: '/why-onam'
+      path: '/why-onam'
+      fullPath: '/why-onam'
+      preLoaderRoute: typeof WhyOnamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/company/about': {
       id: '/company/about'
       path: '/company/about'
@@ -1220,6 +1279,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CompareOnamVsWizDothtmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/disaster-recovery_/$module': {
+      id: '/disaster-recovery_/$module'
+      path: '/disaster-recovery/$module'
+      fullPath: '/disaster-recovery/$module'
+      preLoaderRoute: typeof DisasterRecoveryModuleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/docs/': {
       id: '/docs/'
       path: '/'
@@ -1233,6 +1299,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/docs/$'
       preLoaderRoute: typeof DocsSplatRouteImport
       parentRoute: typeof DocsRoute
+    }
+    '/estate_/$module': {
+      id: '/estate_/$module'
+      path: '/estate/$module'
+      fullPath: '/estate/$module'
+      preLoaderRoute: typeof EstateModuleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/finops_/$module': {
+      id: '/finops_/$module'
+      path: '/finops/$module'
+      fullPath: '/finops/$module'
+      preLoaderRoute: typeof FinopsModuleRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/learn/': {
       id: '/learn/'
@@ -1638,6 +1718,7 @@ const rootRouteChildren: RootRouteChildren = {
   ToolsRoute: ToolsRoute,
   TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,
+  WhyOnamRoute: WhyOnamRoute,
   CompanyAboutRoute: CompanyAboutRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,
@@ -1650,6 +1731,9 @@ const rootRouteChildren: RootRouteChildren = {
     CompareOnamVsDefenderForCloudDothtmlRoute,
   CompareOnamVsOrcaDothtmlRoute: CompareOnamVsOrcaDothtmlRoute,
   CompareOnamVsWizDothtmlRoute: CompareOnamVsWizDothtmlRoute,
+  DisasterRecoveryModuleRoute: DisasterRecoveryModuleRoute,
+  EstateModuleRoute: EstateModuleRoute,
+  FinopsModuleRoute: FinopsModuleRoute,
   LearnSlugRoute: LearnSlugRoute,
   PlatformAgentlessRoute: PlatformAgentlessRoute,
   PlatformAiAssistantRoute: PlatformAiAssistantRoute,

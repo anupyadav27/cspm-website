@@ -1,11 +1,12 @@
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
-import { ChevronRight, Linkedin } from "lucide-react";
+import { ChevronRight, Linkedin, UserRound } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { AUTHORS, getAuthor, personJsonLd, authorUrl, RENAMED_SLUGS, type Author } from "@/data/authors";
 import { BLOG_POSTS } from "@/data/blog-posts";
 import { LEARN_ARTICLES } from "@/data/learn-articles";
 import { seo, SITE_URL } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 /**
  * One page per named author. This is the entity page every article's schema points at,
@@ -40,12 +41,12 @@ export const Route = createFileRoute("/company/team/$slug")({
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
-      return { meta: [{ title: "Not found — Onam Security" }, { name: "robots", content: "noindex" }] };
+      return { meta: [{ title: "Not found — Onam" }, { name: "robots", content: "noindex" }] };
     }
     const a = loaderData.author;
     return seo({
-      title: `${a.name}, ${a.role} — Onam Security`,
-      description: a.metaDescription ?? a.bio ?? `${a.name} is ${a.role} at Onam Security and writes about ${a.topics.join(", ").toLowerCase()}.`,
+      title: `${a.name}, ${a.role} — Onam`,
+      description: a.metaDescription ?? a.bio ?? `${a.name} is ${a.role} at Onam and writes about ${a.topics.join(", ").toLowerCase()}.`,
       path: `/company/team/${a.slug}`,
       ogType: "profile",
     });
@@ -78,8 +79,9 @@ function AuthorPage() {
     <SiteLayout>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema(author)) }} />
 
-      <section className="border-b border-[#E5E9F0] bg-white">
-        <div className="max-w-3xl mx-auto px-6 pt-14 pb-12">
+      <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
+        <Backdrop tone="light" color={author.color} pattern="dots" icon={UserRound} />
+        <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-16">
           <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-8">
             <Link to="/company/about" className="hover:text-[#2563EB]">About</Link>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -95,7 +97,7 @@ function AuthorPage() {
             </div>
             <div>
               <h1 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">{author.name}</h1>
-              <div className="mt-1 text-base font-semibold text-[#2563EB]">{author.role}, Onam Security</div>
+              <div className="mt-1 text-base font-semibold text-[#2563EB]">{author.role}, Onam</div>
               {author.bio && <p className="mt-4 text-[#475569] leading-relaxed">{author.bio}</p>}
               <div className="mt-4 flex flex-wrap gap-2">
                 {author.topics.map((t) => (

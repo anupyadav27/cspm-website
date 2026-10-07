@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, GitBranch, TrendingUp, Star, ArrowRight, ChevronRight } from "lucide-react";
+import { AlertTriangle, GitBranch, TrendingUp, Star, ArrowRight, ChevronRight, Workflow } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { SCENARIOS, type Scenario } from "@/data/scenarios";
 import { seo, SITE_URL } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/resources/scenarios")({
   head: () =>
@@ -20,7 +21,7 @@ export const Route = createFileRoute("/resources/scenarios")({
 function AttackPath({ s }: { s: Scenario }) {
   return (
     <div className="rounded-2xl border border-[#E5E9F0] bg-[#F7F9FC] p-5">
-      <div className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#64748B]">
+      <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#64748B]">
         The attack path Onam surfaces
       </div>
       <div className="mt-4 overflow-x-auto">
@@ -39,7 +40,7 @@ function AttackPath({ s }: { s: Scenario }) {
                   {n.label}
                 </div>
                 {n.chokePoint && (
-                  <span className="mt-1.5 px-2 py-0.5 rounded-full bg-[#B45309] text-white text-[9px] font-bold uppercase tracking-wider">
+                  <span className="mt-1.5 px-2 py-0.5 rounded-full bg-[#B45309] text-white text-[11px] font-bold uppercase tracking-wider">
                     Choke point
                   </span>
                 )}
@@ -91,9 +92,8 @@ function ScenariosPage() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-0 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-14">
+        <Backdrop tone="light" color="#7C3AED" pattern="graph" icon={Workflow} />
+        <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
           <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
             <Link to="/resources" className="hover:text-[#2563EB]">Resources</Link>
             <ChevronRight className="w-3.5 h-3.5" />
@@ -133,7 +133,7 @@ function ScenariosPage() {
                   <p className="mt-1.5 text-sm text-[#64748B]">{s.context}</p>
                 </div>
                 <span
-                  className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider border shrink-0"
+                  className="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border shrink-0"
                   style={{ color: s.accent, borderColor: `${s.accent}44`, background: `${s.accent}0F` }}
                 >
                   Illustrative

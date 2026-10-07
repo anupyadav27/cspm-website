@@ -7,7 +7,7 @@ import { OPS_LEVELS } from "@/data/operations";
 import { seo } from "@/lib/seo";
 
 /**
- * How Onam Operations is designed — block architecture, drawn from the agentic platform's
+ * How Onam AIOps is designed — block architecture, drawn from the agentic platform's
  * docs/05 §1 (block architecture), docs/18 (architecture views), docs/03 (agents, permissions),
  * docs/08 (security) and docs/10 (approval). Diagrams live in public/diagrams/ops-*.svg.
  * Status badges follow src/data/operations.ts. Executing changes is ON THE ROADMAP.
@@ -16,9 +16,9 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/platform/ai-operations/architecture")({
   head: () =>
     seo({
-      title: "How Onam Operations is designed — agentic architecture",
+      title: "How Onam AIOps is designed — agentic architecture",
       description:
-        "Onam Operations architecture: orchestrator, agent runtime, model and tool gateways, estate intelligence and a human approval gate before any change.",
+        "Onam AIOps architecture: orchestrator, agent runtime, model and tool gateways, estate intelligence and a human approval gate before any change.",
       path: "/platform/ai-operations/architecture",
     }),
   component: ArchitecturePage,
@@ -173,7 +173,7 @@ function ArchitecturePage() {
             to="/platform/ai-operations"
             className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#2563EB] hover:underline"
           >
-            <ArrowLeft className="h-3.5 w-3.5" /> Onam Operations
+            <ArrowLeft className="h-3.5 w-3.5" /> Onam AIOps
           </Link>
           <div className="mt-5 flex flex-wrap items-center gap-2">
             <span className="inline-flex items-center rounded-full border border-[#DBE7FE] bg-[#EFF4FF] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-[#1D4ED8]">
@@ -185,7 +185,7 @@ function ArchitecturePage() {
             Every arrow is a <span className="gradient-text">control point</span>, not a pipe.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
-            Onam Operations is a governed agent platform built above the products that already know
+            Onam AIOps is a governed agent platform built above the products that already know
             your cloud. It reasons over their resolved data instead of re-scanning, sends every call
             through one tool gateway and one model gateway, and puts a person between any
             recommendation and any change. This page walks through the design, block by block.
@@ -542,7 +542,7 @@ function ArchitecturePage() {
         title="A new surface on the existing platform, not a new silo"
         intro={
           <p>
-            Onam Operations runs as its own service group on the Onam platform, behind the same
+            Onam AIOps runs as its own service group on the Onam platform, behind the same
             gateway, session and organisation model as Onam Security. It introduces no new identity
             or tenancy mechanism: identity reaches it only from the gateway, every table carries the
             tenant, and its data stays in the region agreed with you.
@@ -567,7 +567,7 @@ function ArchitecturePage() {
           ))}
         </div>
         <div className="mt-10 flex flex-wrap gap-3">
-          <BrandButton to="/platform/ai-operations">Back to Onam Operations</BrandButton>
+          <BrandButton to="/platform/ai-operations">Back to Onam AIOps</BrandButton>
           <BrandButton href="/docs/operations/governance" variant="secondary">
             Governance and safety docs <ArrowRight className="h-4 w-4" />
           </BrandButton>

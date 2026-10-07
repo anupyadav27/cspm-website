@@ -52,7 +52,7 @@ export const awsData: CloudSolutionData = {
     { label: "CWPP — workload protection", href: "/platform/cwpp", blurb: "EC2, EKS, ECS and Lambda workloads, scanned without agents." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Stop AWS Misconfigurations Before Attackers Find Them First",
+  headline: "Stop AWS misconfigurations before attackers find them first",
   sub: "AWS's breadth — 200+ services across global regions — creates a sprawling attack surface that traditional tools cannot keep pace with. Onam continuously monitors every IAM policy, S3 bucket, security group, and Lambda configuration across all your AWS accounts with 800+ purpose-built rules.",
   docsHref: "/docs/onboarding/aws",
   stats: [
@@ -152,7 +152,7 @@ export const azureData: CloudSolutionData = {
     { label: "SaaS Security (SSPM)", href: "/platform/saas-security", blurb: "Microsoft 365, SharePoint and Entra posture on the same graph." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Full Azure Security Visibility Across Every Subscription and Tenant",
+  headline: "Full Azure security visibility across every subscription and tenant",
   metaDescription:
     "Azure security posture management across management groups, subscriptions and resource groups, from Entra ID conditional access to NSG rules.",
   sub: "Azure's nested hierarchy of management groups, subscriptions, and resource groups makes consistent security posture nearly impossible to maintain manually. Onam maps your entire Azure estate — from Entra ID conditional access policies to NSG rules on every VM NIC — and flags drift the moment it occurs.",
@@ -252,7 +252,7 @@ export const gcpData: CloudSolutionData = {
     { label: "Data Security (DSPM)", href: "/platform/data-security", blurb: "BigQuery and GCS classification, exposure and access paths." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Secure GCP Projects at Scale Without Slowing Down Engineering",
+  headline: "Secure GCP projects at scale without slowing down engineering",
   metaDescription:
     "GCP security posture management: Onam audits every project, from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   sub: "GCP gives engineering teams enormous flexibility and security teams enormous blind spots. Onam continuously audits every project from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
@@ -346,7 +346,7 @@ export const ociData: CloudSolutionData = {
     { label: "Database Security", href: "/platform/database-security", blurb: "Autonomous DB and DB Systems posture, plus CIS Oracle Database benchmarks." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Enterprise-Grade OCI Security Monitoring That Matches Oracle's Complexity",
+  headline: "Enterprise-grade OCI security monitoring that matches Oracle's complexity",
   sub: "OCI's compartment model and policy language offer granular control, but auditing nested compartments and cross-tenancy access manually is operationally prohibitive. Onam traverses every compartment, audits IAM policies against least-privilege baselines, and monitors database, network, and storage continuously.",
   docsHref: "/docs/onboarding/oci",
   stats: [
@@ -438,7 +438,7 @@ export const alicloudData: CloudSolutionData = {
     { label: "Container Security", href: "/platform/container-security", blurb: "ACK cluster hardening against CIS Alibaba Cloud ACK." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Unified Security Posture for Your Alibaba Cloud Workloads, Region by Region",
+  headline: "Unified security posture for your Alibaba Cloud workloads, region by region",
   sub: "Alibaba Cloud often runs alongside AWS and Azure, in China and international regions alike. Onam brings the same rule-driven posture coverage to it — RAM policies, OSS buckets, RDS instances and VPC configurations — evaluated by the same engine as your other clouds.",
   docsHref: "/docs/onboarding/alicloud",
   stats: [
@@ -535,7 +535,7 @@ export const ibmData: CloudSolutionData = {
     { label: "Database Security", href: "/platform/database-security", blurb: "Db2 and Cloudant posture, plus CIS IBM Db2 benchmark coverage." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Continuous Security Posture for IBM Cloud Enterprise Workloads",
+  headline: "Continuous security posture for IBM Cloud enterprise workloads",
   sub: "IBM Cloud powers regulated enterprise workloads that demand rigorous, continuous security validation. Onam audits IAM access groups, Cloud Object Storage, VPC infrastructure, and Kubernetes clusters against enterprise security baselines — agentless and read-only.",
   docsHref: "/docs/onboarding/ibm",
   stats: [
@@ -633,7 +633,7 @@ export const kubernetesData: CloudSolutionData = {
     { label: "CWPP — workload protection", href: "/platform/cwpp", blurb: "Cluster workloads across every distribution, agentlessly." },
     ...CLOUD_RELATED_BASE,
   ],
-  headline: "Production Kubernetes Security That Goes Beyond CIS Benchmarks",
+  headline: "Production Kubernetes security that goes beyond CIS benchmarks",
   metaDescription:
     "Kubernetes security posture: find privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin, with no sidecar or daemonset.",
   sub: "Kubernetes misconfigurations — privileged pods, exposed dashboards, RBAC bindings that grant cluster-admin — are a leading cause of container-based breaches. Onam audits every cluster object without deploying a sidecar or daemonset.",

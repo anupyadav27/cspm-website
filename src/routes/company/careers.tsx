@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { MapPin, ArrowRight, Compass, HeartHandshake, Rocket } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/company/careers")({
   head: () =>
     seo({
-      title: "Careers — Onam Security",
+      title: "Careers — Onam",
       description:
-        "We're a small, senior team building the cloud security platform we always wanted.",
+        "We're a small, senior team building the cloud platform we always wanted — asset inventory, security, cost and disaster recovery on one discovery.",
       path: "/company/careers",
     }),
   component: CareersPage,
@@ -31,15 +32,14 @@ function CareersPage() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-1/4 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6 pt-24 pb-16 text-center">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Careers</div>
+        <Backdrop tone="light" color="#7C3AED" pattern="grid" icon={Rocket} />
+        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Careers</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
-            Build the cloud security platform we always wanted.
+            Build the cloud platform we always wanted.
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            We're a small, senior team of security engineers, detection researchers, and platform builders. If you've spent a career being frustrated by cloud security tooling — come fix it with us.
+            We're a small, senior team of security engineers, detection researchers, and platform builders, working on four products — Onam Estate, Security, FinOps and DRM — and the AI agents across them. If you've spent a career being frustrated by cloud tooling — come fix it with us.
           </p>
         </div>
       </section>
@@ -48,7 +48,7 @@ function CareersPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Open roles</div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Open roles</div>
               <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Where we're hiring</h2>
             </div>
             <p className="text-sm text-[#64748B]">Don't see your role? Email <a href="mailto:careers@onam.security" className="text-[#2563EB] font-semibold hover:underline">careers@onam.security</a>.</p>
@@ -59,7 +59,7 @@ function CareersPage() {
                 <div>
                   <div className="flex items-center gap-3 flex-wrap">
                     <h3 className="font-display font-bold text-[#0B1220] text-lg">{r.title}</h3>
-                    <span className="px-2 py-0.5 rounded-full text-[11px] font-semibold bg-[#F1F5F9] text-[#475569] border border-[#E5E9F0]">{r.team}</span>
+                    <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F1F5F9] text-[#475569] border border-[#E5E9F0]">{r.team}</span>
                   </div>
                   <p className="mt-2 text-sm text-[#475569] leading-relaxed max-w-2xl">{r.blurb}</p>
                   <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-[#64748B]">
@@ -81,7 +81,7 @@ function CareersPage() {
       <section className="bg-[#F7F9FC] py-16 border-y border-[#E3E8F0]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Before you apply</div>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Before you apply</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Read the engineering briefing first</h2>
             <p className="mt-4 text-[#5C6B84] text-lg leading-relaxed">
               The same deck we use internally — what the system actually is, what you would
@@ -106,7 +106,7 @@ function CareersPage() {
       <section className="bg-white py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">How we work</div>
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">How we work</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">The team, in three lines</h2>
           </div>
           <div className="mt-12 grid md:grid-cols-3 gap-5">

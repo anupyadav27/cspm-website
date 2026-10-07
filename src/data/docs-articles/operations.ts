@@ -10,7 +10,7 @@ import {
 } from "../operations";
 
 /**
- * Docs for Onam Operations (the agentic operations layer). Agent articles are generated from
+ * Docs for Onam AIOps (the agentic operations layer). Agent articles are generated from
  * src/data/operations.ts so the docs and the product page cannot disagree about an agent's
  * status, tools or limits. Honesty rules are in the header of that file.
  */
@@ -75,11 +75,11 @@ function agentArticle(slug: (typeof AGENT_DOC_SLUGS)[number]): DocArticle {
   return {
     slug: `operations/agents/${slug}`,
     title,
-    breadcrumb: `Onam Operations / Agents / ${title}`,
+    breadcrumb: `Onam AIOps / Agents / ${title}`,
     body: `
 ${intro}
 
-Every agent in Onam Operations is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 ${agents.map(agentSection).join("\n---\n")}
 > Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
 `,
@@ -89,16 +89,16 @@ ${agents.map(agentSection).join("\n---\n")}
 export const articles: DocArticle[] = [
   {
     slug: "operations/overview",
-    title: "Onam Operations overview",
-    breadcrumb: "Onam Operations / Overview",
+    title: "Onam AIOps overview",
+    breadcrumb: "Onam AIOps / Overview",
     body: `
-Onam Operations is a workspace where your team works with specialist AI agents that investigate your cloud with evidence and change nothing without a person’s approval.
+Onam AIOps is a workspace where your team works with specialist AI agents that investigate your cloud with evidence and change nothing without a person’s approval.
 
-> **Status: Early access.** Onam Operations runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
+> **Status: Early access.** Onam AIOps runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
 
 ## What it is
 
-A real question about a cloud estate usually spans several consoles — security findings, inventory, cost, recovery — and today someone joins the answers by hand. Onam Operations adds a workspace above the products that already know your cloud:
+A real question about a cloud estate usually spans several consoles — security findings, inventory, cost, recovery — and today someone joins the answers by hand. Onam AIOps adds a workspace above the products that already know your cloud:
 
 - An **orchestrator** turns your request into a visible plan and routes each step to a specialist agent.
 - **Specialist agents** — Asset, Security, Compliance, Data, Automation, and later FinOps, DR and Architecture — each with a declared job, permissions and limits.
@@ -114,7 +114,7 @@ A real question about a cloud estate usually spans several consoles — security
 
 ## How it relates to the AI Assistant
 
-The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam Operations is the workspace above it — plans, tasks, approvals and an audit trail across specialist agents.
+The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam AIOps is the workspace above it — plans, tasks, approvals and an audit trail across specialist agents.
 
 ## Read next
 
@@ -129,9 +129,9 @@ The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to 
   {
     slug: "operations/availability",
     title: "Availability and status",
-    breadcrumb: "Onam Operations / Availability",
+    breadcrumb: "Onam AIOps / Availability",
     body: `
-What in Onam Operations you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
+What in Onam AIOps you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
 
 ## What the labels mean
 
@@ -167,9 +167,9 @@ Early access is by invitation. Onam enables your organisation, connects the agen
   {
     slug: "operations/concepts",
     title: "Concepts: agents, skills, tools, tasks and approvals",
-    breadcrumb: "Onam Operations / Concepts",
+    breadcrumb: "Onam AIOps / Concepts",
     body: `
-The words Onam Operations uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
+The words Onam AIOps uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
 
 ## The vocabulary
 
@@ -215,9 +215,9 @@ Estate facts change; a remembered fact goes stale silently. Agents read the curr
   {
     slug: "operations/workspace",
     title: "The workspace",
-    breadcrumb: "Onam Operations / Workspace",
+    breadcrumb: "Onam AIOps / Workspace",
     body: `
-The Onam Operations workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
+The Onam AIOps workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
 
 > **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/platform/ai-operations#workspace) are mockups with sample data, not screenshots.
 
@@ -270,7 +270,7 @@ Enable or disable agents for your organisation, set the autonomy ceiling, budget
   {
     slug: "operations/orchestrator",
     title: "The orchestrator",
-    breadcrumb: "Onam Operations / Orchestrator",
+    breadcrumb: "Onam AIOps / Orchestrator",
     body: `
 The orchestrator turns a request into a plan, routes each step to a specialist agent, joins the results and surfaces conflicts. It never answers on its own.
 
@@ -316,9 +316,9 @@ Permission denied is reported as “not authorised”, never as “no data”. A
   {
     slug: "operations/agents",
     title: "The specialist agents",
-    breadcrumb: "Onam Operations / Agents",
+    breadcrumb: "Onam AIOps / Agents",
     body: `
-Onam Operations has eight specialist agent roles, each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+Onam AIOps has eight specialist agent roles, each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
 
 ![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
 
@@ -346,9 +346,9 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
   {
     slug: "operations/governance",
     title: "Governance and approvals",
-    breadcrumb: "Onam Operations / Governance",
+    breadcrumb: "Onam AIOps / Governance",
     body: `
-How Onam Operations decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
+How Onam AIOps decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
 
 > The approval centre is in **early access**. Executing an approved change in a customer cloud is **on the roadmap**.
 
@@ -410,9 +410,9 @@ Every agent turn, tool call, decision, approval and action is recorded with acto
   {
     slug: "operations/security",
     title: "Security and AI safety",
-    breadcrumb: "Onam Operations / Security",
+    breadcrumb: "Onam AIOps / Security",
     body: `
-Onam Operations is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
+Onam AIOps is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
 
 ## Tenant isolation at every layer
 
@@ -424,7 +424,7 @@ An agent is an untrusted principal. It has an identity on every call; its scope 
 
 ## Prompt injection
 
-Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam Operations treats all of it as untrusted:
+Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam AIOps treats all of it as untrusted:
 
 1. **Structured tool output only.** Free text from the estate travels in designated fields, never spliced into instructions.
 2. **Instruction and data separated.** Untrusted content is delimited and labelled as data.
@@ -456,9 +456,9 @@ When execution is offered, changes will run in an isolated namespace holding the
   {
     slug: "operations/architecture",
     title: "Architecture",
-    breadcrumb: "Onam Operations / Architecture",
+    breadcrumb: "Onam AIOps / Architecture",
     body: `
-The block architecture of Onam Operations: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
+The block architecture of Onam AIOps: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
 
 ![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
 
@@ -497,7 +497,7 @@ A read-only layer over what the products already found. It reads published contr
 4. Identity comes only from the platform gateway.
 5. Agent records live alongside the platform’s own, under the same tenancy rules.
 
-The product page has the same design with diagrams: [How Onam Operations is designed](/platform/ai-operations/architecture).
+The product page has the same design with diagrams: [How Onam AIOps is designed](/platform/ai-operations/architecture).
 `,
   },
 ];

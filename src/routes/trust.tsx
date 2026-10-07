@@ -5,6 +5,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { seo } from "@/lib/seo";
 import { FRAMEWORKS } from "@/lib/product-facts";
+import { Backdrop } from "@/components/site/system";
 
 /**
  * Trust Center — /trust
@@ -29,9 +30,9 @@ const SECURITY_EMAIL = "security@onamsecurity.com";
 export const Route = createFileRoute("/trust")({
   head: () =>
     seo({
-      title: "Trust Center — how Onam Security protects your data — Onam Security",
+      title: "Trust Center — how Onam protects your data — Onam",
       description:
-        "Onam Security Trust Center: how we connect to your clouds, what we store, encryption, sub-processors, and how to report a vulnerability.",
+        "Onam Trust Center: how Onam connects to your clouds, what each product reads and stores, encryption, sub-processors, and how to report a vulnerability.",
       path: "/trust",
     }),
   component: TrustPage,
@@ -40,6 +41,7 @@ export const Route = createFileRoute("/trust")({
 const SECTIONS = [
   { id: "where-we-are", label: "Compliance mapping" },
   { id: "cloud-access", label: "How Onam connects" },
+  { id: "per-product", label: "What each product reads and stores" },
   { id: "data", label: "What we store" },
   { id: "encryption", label: "Encryption" },
   { id: "sign-in", label: "Sign-in and access" },
@@ -85,6 +87,67 @@ const CLOUD_ACCESS: { cloud: string; create: string; access: string }[] = [
   },
 ];
 
+/**
+ * Per-product reads and stores. ONLY facts stated in the product docs:
+ * docs-articles/products.ts (estate/*, finops/*), drm.ts, operations.ts (operations/overview,
+ * availability, security), trust-reference.ts. If a fact is not in those docs, leave it out.
+ */
+const PER_PRODUCT: { name: string; href: string; docs: string; reads: string; stores: string; never: string }[] = [
+  {
+    name: "Onam Estate",
+    href: "/estate",
+    docs: "/docs/estate/access",
+    reads:
+      "Your cloud resources and how they connect, through the same read-only access as the rest of the platform — a read-only IAM role, service principal or service account.",
+    stores:
+      "Each discovered resource as an asset (provider, region, account, state, last-seen time), the relationships between them as edges, and a record of every discovery run with its trigger, status, start and completion.",
+    never: "Installs nothing on a workload and never writes to your environment.",
+  },
+  {
+    name: "Onam Security",
+    href: "/platform",
+    docs: "/docs/trust/security",
+    reads:
+      "Cloud configuration and metadata through the access described above. Posture scanning and data classification do not read the contents of your files, objects or database rows.",
+    stores:
+      "Configuration and metadata from your clouds, findings, and the asset and attack-path graph — described in detail in the sections below.",
+    never:
+      "Posture scanning uses read permissions only. Agentless workload scanning, if you enable it, runs inside your own account.",
+  },
+  {
+    name: "Onam FinOps",
+    href: "/finops",
+    docs: "/docs/finops/access",
+    reads: "Billing data, with read-only billing access. On Google Cloud, billing is read only if you opt in.",
+    stores:
+      "Billed and effective cost per period, ownership rules, savings recommendations with the accept or dismiss decision recorded against them, and every ingestion and reconciliation run.",
+    never:
+      "Holds no write access to your cloud accounts. Accepting a savings recommendation records a decision; it does not resize, stop or delete anything.",
+  },
+  {
+    name: "Onam DRM",
+    href: "/disaster-recovery",
+    docs: "/docs/drm/governance",
+    reads:
+      "The platform's cloud inventory, and backup, snapshot and replication settings from cloud configuration. It has no connectors to backup products.",
+    stores:
+      "Proposals and the approvals or rejections made on them, approved baselines (components, dependencies, protection pairings, plan steps and required targets), the RTO and RPO targets you enter, and the drills you record.",
+    never:
+      "Does not execute a recovery, fail anything over or run a DR test. Approvals, baselines and drill records are records inside DRM, not changes to your cloud.",
+  },
+  {
+    name: "Onam AIOps (early access)",
+    href: "/platform/ai-operations",
+    docs: "/docs/operations/security",
+    reads:
+      "Your Onam Security data, once Onam enables early access for your organisation. All inference goes through one model gateway — today Amazon Bedrock in the region agreed with you, one customer's data per call.",
+    stores:
+      "An append-only, hash-chained audit trail of every turn, tool call, decision and approval, and the evidence behind each claim.",
+    never:
+      "Changes nothing in your cloud without a person's approval; executing changes is not offered in early access. Customer data is never used to train or fine-tune a model.",
+  },
+];
+
 const SUB_PROCESSORS: { name: string; purpose: string; location: string }[] = [
   {
     name: "Amazon Web Services",
@@ -118,8 +181,10 @@ function Section({ id, title, children }: { id: string; title: string; children:
 function TrustPage() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[900px] px-5 pt-12 pb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#047857" pattern="rings" icon={ShieldCheck} />
+        <div className="relative mx-auto max-w-[900px] px-5 pt-20 pb-10 md:pt-24 md:pb-14">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[2px] text-[#2563EB]">
           <ShieldCheck className="h-3.5 w-3.5" />
           Trust Center
         </div>
@@ -127,9 +192,11 @@ function TrustPage() {
           Security at Onam
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-[#475569]">
-          Onam Security reads your cloud configuration so it can show you which risks an attacker
-          can reach. That makes our own security part of the product. This page explains, plainly,
-          how Onam connects to your clouds, what it stores, and what we have and have not done yet.
+          Onam reads your cloud — its resources, configuration and, for Onam FinOps, billing data —
+          so it can tell you what you run, what is exposed, what it costs and whether it would
+          recover. That makes our own security part of the product. This page explains, plainly,
+          how Onam connects to your clouds, what each product reads and stores, and what we have
+          and have not done yet.
         </p>
         <p className="mt-3 text-[13px] text-[#5C6B84]">Last updated {UPDATED}.</p>
 
@@ -150,6 +217,7 @@ function TrustPage() {
             ))}
           </ul>
         </nav>
+      </div>
       </section>
 
       <div className="mx-auto max-w-[900px] space-y-12 px-5 pb-16">
@@ -208,6 +276,39 @@ function TrustPage() {
             configuration and metadata; they do not read the contents of your files, objects or
             database rows.
           </p>
+        </Section>
+
+        <Section id="per-product" title="What each product reads and stores">
+          <p>
+            All products run in the same console, behind the same login, and work from the same
+            connection to your clouds. Onam Estate, FinOps, DRM and AIOps are each granted per
+            organisation. Here is what each product reads,
+            what it keeps, and what it does not do.
+          </p>
+          <div className="grid gap-4">
+            {PER_PRODUCT.map((p) => (
+              <div key={p.name} className="rounded-xl border border-[#E2E8F2] bg-white p-5">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <h3 className="text-[17px] font-bold text-[#0B1220]">
+                    <Link to={p.href} className="hover:text-[#2563EB]">
+                      {p.name}
+                    </Link>
+                  </h3>
+                  <Link to={p.docs} className="text-[14px] font-semibold text-[#2563EB] hover:underline">
+                    Read the docs
+                  </Link>
+                </div>
+                <dl className="mt-3 grid gap-3 text-[15px] sm:grid-cols-[110px_1fr]">
+                  <dt className="font-semibold text-[#0B1220]">Reads</dt>
+                  <dd>{p.reads}</dd>
+                  <dt className="font-semibold text-[#0B1220]">Stores</dt>
+                  <dd>{p.stores}</dd>
+                  <dt className="font-semibold text-[#0B1220]">Never</dt>
+                  <dd>{p.never}</dd>
+                </dl>
+              </div>
+            ))}
+          </div>
         </Section>
 
         <Section id="data" title="What we store, and where">

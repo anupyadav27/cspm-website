@@ -69,7 +69,7 @@ function card({ eyebrow, title, sub, accent }) {
     <div class="foot">
       <div class="brand">
         <img class="mark" src="${LOGO_DATA_URI}" alt=""/>
-        <div class="name">Onam Security</div>
+        <div class="name">Onam</div>
       </div>
       <div class="url">onamsecurity.com</div>
     </div>
@@ -81,7 +81,24 @@ function card({ eyebrow, title, sub, accent }) {
 // per card — an OG title is not always the same as the page <title>.
 const CARDS = [
   // ── Learn glossary ────────────────────────────────────────────────────────
-  ['learn',                       'Cloud Security Glossary', 'CSPM, CNAPP, CWPP, CIEM, DSPM — explained', 'Vendor-neutral definitions of every cloud security acronym.', '#2563EB'],
+  // ── Platform (2026-10-07) — '../og-image' writes the site-wide default ─────
+  ['../og-image',                 'Onam platform', 'From assets to a secure, optimised and resilient cloud.', 'Estate · Security · FinOps · DRM — with Onam AIOps agents in early access.', '#2563EB'],
+  ['home',                        'Onam platform', 'From assets to a secure, optimised and resilient cloud.', 'Estate · Security · FinOps · DRM — with Onam AIOps agents in early access.', '#2563EB'],
+  ['estate',                      'Onam Estate', 'What do we actually run, and how is it wired together?', 'Continuous cloud asset inventory and relationships — one estate of record.', '#7C3AED'],
+  ['finops',                      'Onam FinOps', 'Where is the money going, and who owns it?', 'Reconciled cloud cost: attribution, forecast, budgets, anomalies and savings.', '#059669'],
+  ['drm',                         'Onam DRM', 'If a region fails tonight, what comes back — and how fast?', 'Applications mapped, protection read, predicted RTO and RPO against your targets.', '#D97706'],
+  ['aiops',                       'Onam AIOps · Early access', 'AI agents do the investigation. People make the call.', 'Evidence on every claim. A person approves every change.', '#4F46E5'],
+  ['docs',                        'Documentation', 'Onam documentation', 'Estate, Security, FinOps, DRM and AIOps — connect a cloud once.', '#2563EB'],
+  ['learn-cloud-asset-inventory', 'Learn', 'What is a cloud asset inventory?', 'Every resource, its relationships, and why a CMDB drifts.', '#7C3AED'],
+  ['learn-finops',                'Learn', 'What is FinOps?', 'Cloud financial management — engineering, finance and the bill.', '#059669'],
+  ['learn-cloud-cost-allocation', 'Learn', 'What is cloud cost allocation?', 'Showback, chargeback, tags — and the cost nobody can attribute.', '#059669'],
+  ['learn-rto-vs-rpo',            'Learn', 'RTO vs RPO', 'How long you can be down, and how much data you can lose.', '#D97706'],
+  ['learn-cloud-disaster-recovery','Learn', 'What is cloud disaster recovery?', 'Backup and restore, pilot light, warm standby, multi-site.', '#D97706'],
+  ['learn-agentic-aiops',         'Learn', 'What is agentic AIOps?', 'AI agents in operations — with a person approving every change.', '#4F46E5'],
+  ['learn-kspm',                  'Learn', 'What is KSPM?', 'Kubernetes security posture, cluster by cluster.', '#326CE5'],
+  ['learn-code-security',         'Learn', 'What is code security?', 'SAST, SCA, secrets and IaC — before code ships.', '#0891B2'],
+  ['learn-secrets-management',    'Learn', 'What is secrets management?', 'Keys, tokens and rotation — and where secrets leak.', '#CA8A04'],
+  ['learn',                       'Learn', 'Cloud platform terms, explained', 'Asset inventory, security posture, FinOps, disaster recovery and AI agents.', '#2563EB'],
   ['learn-cspm',                  'Learn', 'What is CSPM?', 'Cloud Security Posture Management — what it catches, and what it misses.', '#2563EB'],
   ['learn-cnapp',                 'Learn', 'What is CNAPP?', 'The umbrella category — and how to spot a bundle pretending to be one.', '#4F46E5'],
   ['learn-cwpp',                  'Learn', 'What is CWPP?', 'Workload protection across VMs, containers, serverless and hosts.', '#059669'],
@@ -94,14 +111,14 @@ const CARDS = [
   ['learn-choke-point',           'Learn', 'What is a choke point?', 'Fix one node, eliminate hundreds of attack paths.', '#EA580C'],
 
   // ── Platform ──────────────────────────────────────────────────────────────
-  ['platform',                    'Platform', 'One platform. Every cloud security engine.', '29 engines on one graph, across seven clouds and your SaaS.', '#2563EB'],
-  ['platform-cspm',               'Platform', 'Cloud Security Posture Management', '9,853 posture rules across seven clouds. 100% agentless.', '#2563EB'],
+  ['platform',                    'Onam Security', 'Is your cloud secure, or does it just feel that way?', '29 engines on one security graph, across seven clouds and your SaaS.', '#2563EB'],
+  ['platform-cspm',               'Platform', 'Cloud Security Posture Management', '9,853 posture rules across seven clouds. Read-only, no agents.', '#2563EB'],
   ['platform-cnapp',              'Platform', 'CNAPP — one posture score', 'Seven scored pillars that decompose to a single finding.', '#4F46E5'],
   ['platform-cwpp',               'Platform', 'CWPP — Workload Protection', 'VMs, containers, serverless and hosts. No agents.', '#059669'],
   ['platform-saas-security',      'Platform', 'SaaS Security (SSPM)', 'M365, Workspace, GitHub, Snowflake — 433 CIS SaaS rules.', '#8B5CF6'],
   ['platform-attack-path',        'Platform', 'Cloud Attack Path Analysis', 'Toxic combinations and choke points across your estate.', '#E32D25'],
   ['platform-agentless',          'Platform', 'Agentless Scanning', 'Snapshot-based, inside your own account. Nothing to install.', '#06B6D4'],
-  ['platform-ciem',               'Platform', 'CIEM — Identity & Entitlements', '80% of cloud permissions are never used.', '#F2AF04'],
+  ['platform-ciem',               'Platform', 'CIEM — Identity & Entitlements', 'Effective permissions and escalation paths, from 30-day behaviour.', '#F2AF04'],
   ['platform-data-security',      'Platform', 'DSPM — Data Security', 'Where your sensitive data lives, and who can reach it.', '#7C3AED'],
   ['platform-compliance',         'Platform', 'Compliance — 78 frameworks', 'Continuous evidence. Export in one click.', '#059669'],
 
@@ -115,8 +132,8 @@ const CARDS = [
   ['solutions-kubernetes',        'Solutions', 'Kubernetes Security', 'EKS, AKS, GKE, OKE and any conformant cluster.', '#326CE5'],
 
   // ── Other ─────────────────────────────────────────────────────────────────
-  ['resources',                   'Resources', 'Whitepapers, tools & explainers', 'The FAIR calculator, capability brochures and attack-path deep dives.', '#0891B2'],
-  ['pricing',                     'Pricing', 'Straightforward cloud security pricing', 'Start free. $22 per resource per month on Pro.', '#05A052'],
+  ['resources',                   'Resources', 'Whitepapers, tools & explainers', 'Guides, calculators and deep dives across the Onam platform.', '#0891B2'],
+  ['pricing',                     'Pricing', 'Four products. Buy the ones you need.', 'Onam Security from free. Estate, FinOps and DRM granted per organisation.', '#05A052'],
 ];
 
 (async () => {

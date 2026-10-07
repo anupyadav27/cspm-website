@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
-import { productPages } from "@/data/products";
+import { ProductFlagship } from "@/components/site/ProductFlagship";
+import { productFlagships } from "@/data/products";
 import { seo } from "@/lib/seo";
 
-const data = productPages.estate;
+const data = productFlagships.estate;
 
 export const Route = createFileRoute("/estate")({
   head: () =>
     seo({
       title: "Onam Estate — the cloud estate of record",
-      description: data.metaDescription ?? data.sub,
+      description: data.page.metaDescription ?? data.page.sub,
       path: "/estate",
+      image: "/og/estate.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductFlagship data={data} />,
 });

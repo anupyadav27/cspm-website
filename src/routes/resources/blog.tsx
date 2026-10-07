@@ -1,8 +1,10 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
+import { Newspaper } from "lucide-react";
 import { getAuthor } from "@/data/authors";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/data/blog-posts";
 import { useState } from "react";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/resources/blog")({
   head: () => ({
@@ -32,8 +34,8 @@ function BlogIndex() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute -top-32 right-0 w-[600px] h-[400px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-12">
+        <Backdrop tone="light" color="#2563EB" pattern="flow" icon={Newspaper} />
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
           <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-3">Blog</div>
           <h1 className="font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight max-w-3xl leading-[1.05]">
             The Onam blog

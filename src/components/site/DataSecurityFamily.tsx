@@ -95,7 +95,7 @@ export function DataSecurityFamily({ current }: { current: Key }) {
                   </div>
                   <div className="font-display font-bold text-[#0B1220]">{m.name}</div>
                   {here && (
-                    <span className="ml-auto text-[10px] font-bold uppercase tracking-widest text-[#2563EB]">
+                    <span className="ml-auto text-[11px] font-bold uppercase tracking-widest text-[#2563EB]">
                       You are here
                     </span>
                   )}

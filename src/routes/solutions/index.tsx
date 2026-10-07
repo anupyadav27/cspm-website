@@ -1,12 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Cloud, Cloudy, Server, Container, Landmark, HeartPulse, Building2 } from "lucide-react";
+import { ArrowRight, Cloud, Cloudy, Server, Container, Landmark, HeartPulse, Building2, Globe } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 type CardDef = { name: string; href: string; blurb: string; color: string; abbr: string };
 
 const clouds: CardDef[] = [
-  { name: "Amazon Web Services", href: "/solutions/aws", blurb: "800+ rules across every AWS account and region.", color: "#F2AF04", abbr: "AWS" },
+  { name: "Amazon Web Services", href: "/solutions/aws", blurb: "Posture, identity and attack paths across every AWS account and region — plus the per-account architecture view.", color: "#F2AF04", abbr: "AWS" },
   { name: "Microsoft Azure", href: "/solutions/azure", blurb: "Every subscription, tenant, and Entra ID policy — mapped.", color: "#2563EB", abbr: "AZ" },
   { name: "Google Cloud", href: "/solutions/gcp", blurb: "Org-wide traversal from IAM to BigQuery to GKE.", color: "#05A052", abbr: "GCP" },
   { name: "Oracle Cloud (OCI)", href: "/solutions/oci", blurb: "Compartment-tree depth for regulated enterprise workloads.", color: "#E32D25", abbr: "OCI" },
@@ -16,9 +17,9 @@ const clouds: CardDef[] = [
 ];
 
 const industries: CardDef[] = [
-  { name: "Financial Services", href: "/solutions/financial", blurb: "PCI-DSS, SOX, SOC 2, ISO 27001 evidence — continuously.", color: "#2563EB", abbr: "FSI" },
-  { name: "Healthcare", href: "/solutions/healthcare", blurb: "HIPAA controls mapped, with evidence per control.", color: "#E32D25", abbr: "HC" },
-  { name: "Government", href: "/solutions/government", blurb: "FedRAMP, NIST 800-53 and 800-171 evidence.", color: "#05A052", abbr: "GOV" },
+  { name: "Financial services", href: "/solutions/financial", blurb: "PCI-DSS, SOX, SOC 2, ISO 27001 evidence, plus recovery plans you can check.", color: "#2563EB", abbr: "FSI" },
+  { name: "Healthcare", href: "/solutions/healthcare", blurb: "HIPAA controls mapped, with evidence per control, and one inventory of what you run.", color: "#E32D25", abbr: "HC" },
+  { name: "Government", href: "/solutions/government", blurb: "FedRAMP, NIST 800-53 and 800-171 evidence, with cost and recovery on the same platform.", color: "#05A052", abbr: "GOV" },
 ];
 
 const cloudIcons: Record<string, typeof Cloud> = {
@@ -42,7 +43,7 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
         >
           <Icon className="w-5 h-5" style={{ color: item.color }} />
         </div>
-        <div className="text-[11px] font-bold uppercase tracking-widest text-[#64748B]">{item.abbr}</div>
+        <div className="text-xs font-bold uppercase tracking-widest text-[#64748B]">{item.abbr}</div>
       </div>
       <h3 className="mt-5 font-display font-bold text-[#0B1220] text-lg">{item.name}</h3>
       <p className="mt-2 text-sm text-[#475569] leading-relaxed flex-1">{item.blurb}</p>
@@ -56,9 +57,9 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
 export const Route = createFileRoute("/solutions/")({
   head: () =>
     seo({
-      title: "Solutions — Onam Security",
+      title: "Solutions — Onam",
       description:
-        "Security for every cloud and every industry — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, Kubernetes; financial services, healthcare, government.",
+        "Onam on every cloud and for every industry — Estate, Security, FinOps, DRM and AIOps on AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes.",
       path: "/solutions",
     }),
   component: SolutionsIndex,
@@ -68,15 +69,16 @@ function SolutionsIndex() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-1/4 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6 pt-24 pb-16 text-center">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Solutions</div>
+        <Backdrop tone="light" color="#2563EB" pattern="grid" icon={Globe} />
+        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Solutions</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-5xl md:text-6xl tracking-tight leading-[1.05]">
-            Security for every cloud and every industry.
+            Onam on every cloud, for every industry.
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            One control set. Seven clouds. Every framework your auditor cares about — continuously monitored, agentless, read-only.
+            Four products — Estate, Security, FinOps and DRM — with AIOps across them, connected once with read-only
+            access. Each page shows what every product does on that cloud or for that industry, and where coverage
+            stops today.
           </p>
         </div>
       </section>
@@ -84,7 +86,7 @@ function SolutionsIndex() {
       <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
               By cloud
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -100,7 +102,7 @@ function SolutionsIndex() {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
               By industry
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">

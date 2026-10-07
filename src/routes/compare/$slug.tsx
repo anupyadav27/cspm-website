@@ -4,6 +4,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { ArrowRight, ChevronRight, ExternalLink, Quote, Scale } from "lucide-react";
 import { seo } from "@/lib/seo";
 import { COMPETITORS, VERIFIED_ON, countWord, getCompetitor, questionsFor } from "@/data/compare";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/compare/$slug")({
   loader: ({ params }) => {
@@ -41,7 +42,9 @@ function Page() {
 
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[900px] px-5 pt-12 pb-8">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#4F46E5" pattern="grid" icon={Scale} />
+        <div className="relative mx-auto max-w-[900px] px-5 pt-20 pb-10 md:pt-24 md:pb-14">
         <nav className="flex items-center gap-1.5 text-[13px] text-[#5C6B84]">
           <Link to="/compare" className="hover:text-[#2563EB]">
             Compare
@@ -82,6 +85,7 @@ function Page() {
             )}
           </p>
         </div>
+      </div>
       </section>
 
       {quoted.length > 0 && (

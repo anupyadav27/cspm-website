@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 330" width="960" height="330" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Onam Operations — approval lifecycle</title>
+  <title id="t">Onam AIOps — approval lifecycle</title>
   <desc id="d">A proposal is classified by policy and waits as pending. An approver can simulate, modify, reject with a reason, or approve. Approval binds to the change's hash and expires; critical changes need a second, distinct approver. Before execution the target is re-read; if it drifted, the approval is superseded and must be requested again.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>

@@ -1,16 +1,17 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
-import { productPages } from "@/data/products";
+import { ProductFlagship } from "@/components/site/ProductFlagship";
+import { productFlagships } from "@/data/products";
 import { seo } from "@/lib/seo";
 
-const data = productPages.finops;
+const data = productFlagships.finops;
 
 export const Route = createFileRoute("/finops")({
   head: () =>
     seo({
       title: "Onam FinOps — cloud cost and commitment management",
-      description: data.metaDescription ?? data.sub,
+      description: data.page.metaDescription ?? data.page.sub,
       path: "/finops",
+      image: "/og/finops.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductFlagship data={data} />,
 });

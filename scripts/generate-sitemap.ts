@@ -11,6 +11,7 @@ import { SITE_URL } from "../src/lib/seo";
 import { allDocSlugs, DOC_SECTIONS, getDocArticle } from "../src/data/docs";
 import { BLOG_POSTS } from "../src/data/blog-posts";
 import { LEARN_ARTICLES } from "../src/data/learn-articles";
+import { CAPABILITIES, PRODUCT_BASE } from "../src/data/capabilities";
 import { COMPETITORS } from "../src/data/compare";
 import { AUTHORS } from "../src/data/authors";
 import { execFileSync } from "node:child_process";
@@ -216,6 +217,12 @@ const entries: Entry[] = [
       blameDate("src/routes/learn.$slug.tsx"),
     ),
   })),
+  // Capability pages (/estate/$module, /finops/$module, /disaster-recovery/$module) are
+  // dynamic routes too.
+  ...CAPABILITIES.map((c) => ({
+    loc: `${PRODUCT_BASE[c.product]}/${c.slug}`,
+    lastmod: newest(blameDate(`src/data/capabilities/${c.product}.ts`), blameDate("src/components/site/CapabilityPage.tsx")),
+  })),
   // /compare/$slug is a dynamic route, so pathFor() skips it — enumerate explicitly.
   ...COMPETITORS.map((c) => ({
     loc: `/compare/${c.slug}`,
@@ -282,11 +289,11 @@ const industries = [
   ["government", governmentData],
 ] as const;
 
-const llms = `# Onam Security
+const llms = `# Onam
 
 > Onam (${SITE_URL}) is ONE end-to-end cloud platform, from assets to a secure, optimised and
 > resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
-> (cost) -> Onam DRM (disaster recovery), with Onam Operations — AI agents, early access — across
+> (cost) -> Onam DRM (disaster recovery), with Onam AIOps — AI agents, early access — across
 > them. All four products share one discovery pass, one console and one login.
 >
 > Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
@@ -297,18 +304,22 @@ const llms = `# Onam Security
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
 >
-> Estate, FinOps and DRM are available as per-organisation add-ons, never bundled into a security
-> plan tier, and each stands alone. No prices are published for the add-ons; contact sales.
+> Estate, FinOps and DRM are separately licensed products, granted per organisation, never bundled
+> into a security plan tier; each stands alone and none requires Onam Security. No prices are
+> published for them; contact sales.
 
 Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
 ## Products
 
 - [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold as Free, Pro or Enterprise.
-- [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with monthly cost on every asset row and full pipeline-run provenance. Per-organisation add-on; contact sales.
-- [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Per-organisation add-on; contact sales.
-- [Onam DRM](${SITE_URL}/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Per-organisation add-on; contact sales.
-- [Onam Operations](${SITE_URL}/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/platform/ai-operations/architecture
+- [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
+- [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
+- [Onam DRM](${SITE_URL}/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
+- [Onam AIOps](${SITE_URL}/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/platform/ai-operations/architecture
+
+Capabilities, one page each:
+${CAPABILITIES.map((c) => `- [${c.name} — ${c.product === "drm" ? "Onam DRM" : c.product === "finops" ? "Onam FinOps" : "Onam Estate"}](${SITE_URL}${PRODUCT_BASE[c.product]}/${c.slug}): ${c.lead}`).join("\n")}
 
 All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
 organisation entitled to more than one does not connect its cloud accounts twice.

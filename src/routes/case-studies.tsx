@@ -1,13 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server } from "lucide-react";
+import { ArrowRight, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server, Briefcase } from "lucide-react";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/case-studies")({
   head: () =>
     seo({
-      title: "Illustrative Scenarios — Onam Security",
+      title: "Illustrative scenarios — Onam",
       description:
         "Cloud security case studies by industry: financial services, e-commerce, gaming, beauty/CPG and SAP MSP. Illustrative scenarios, not customer results.",
       path: "/case-studies",
@@ -32,7 +33,7 @@ const scenarios: Scenario[] = [
     sector: "AWS + Azure · trading apps, PII, payment data · PCI-DSS & SOX",
     path: "Public LB → app role → RDS (PII)",
     question: "Audit season means assembling evidence from many tools, and the board asks the one question the stack cannot answer: how exposed are we, in dollars?",
-    slug: "cs-financial",
+    slug: "financial-services",
     Icon: Landmark,
     color: "#2563EB",
     bg: "#EFF4FF",
@@ -42,7 +43,7 @@ const scenarios: Scenario[] = [
     sector: "Multi-cloud · checkout, customer data, seasonal scale",
     path: "Exposed service → over-privileged role → customer data store",
     question: "Peak season doubles the footprint in a week. Which of the new findings actually reach checkout data?",
-    slug: "cs-ecommerce",
+    slug: "ecommerce",
     Icon: ShoppingCart,
     color: "#0891B2",
     bg: "#ECFEFF",
@@ -52,7 +53,7 @@ const scenarios: Scenario[] = [
     sector: "Kubernetes-heavy · player data, live services",
     path: "Cluster workload → service account → player data",
     question: "Hundreds of namespaces and constant deploys. Which RBAC grant is the one that matters this week?",
-    slug: "cs-gaming",
+    slug: "gaming",
     Icon: Gamepad2,
     color: "#7C3AED",
     bg: "#F5F3FF",
@@ -62,7 +63,7 @@ const scenarios: Scenario[] = [
     sector: "SaaS-heavy · marketing stack, consumer PII",
     path: "SaaS grant → shared identity → consumer data",
     question: "Most of the estate is SaaS the security team never provisioned. Where does consumer data actually sit?",
-    slug: "cs-beauty-cpg",
+    slug: "beauty-cpg",
     Icon: Sparkles,
     color: "#DB2777",
     bg: "#FDF2F8",
@@ -72,7 +73,7 @@ const scenarios: Scenario[] = [
     sector: "Multi-tenant · regulated workloads, customer estates",
     path: "Management plane → tenant boundary → customer workload",
     question: "Every tenant is someone else's audit. How do you prove isolation holds across all of them at once?",
-    slug: "cs-sap-msp",
+    slug: "sap-msp",
     Icon: Server,
     color: "#059669",
     bg: "#ECFDF5",
@@ -82,18 +83,22 @@ const scenarios: Scenario[] = [
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[1100px] px-5 pt-14 pb-8">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#FCD34D] bg-[#FFFBEB] px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#B45309]">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#2563EB" pattern="graph" icon={Briefcase} />
+        <div className="relative mx-auto max-w-[1100px] px-5 pt-20 pb-10 md:pt-24 md:pb-14">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#FCD34D] bg-[#FFFBEB] px-3 py-1.5 text-xs font-bold uppercase tracking-[2px] text-[#B45309]">
           <Info className="h-3.5 w-3.5" />
           Illustrative scenarios — not customer results
         </div>
         <h1 className="mt-4 text-[40px] font-extrabold leading-[1.06] tracking-[-1px] text-[#0B1220] sm:text-[46px]">
-          Five worked scenarios
+          Five worked security scenarios
         </h1>
         <p className="mt-4 max-w-[720px] text-[17px] leading-relaxed text-[#475569]">
           What an attack path looks like in five different estates — the chain, the choke point, and
           the question the security team is actually being asked. Each one is a worked example
-          against an industry archetype.
+          against an industry archetype. These scenarios cover{" "}
+          <a href="/platform" className="font-semibold text-[#2563EB] underline">Onam Security</a>; the
+          rest of the platform is on the <a href="/" className="font-semibold text-[#2563EB] underline">home page</a>.
         </p>
 
         <div className="mt-7 rounded-2xl border border-[#FCD34D] bg-[#FFFBEB] p-6">
@@ -108,6 +113,7 @@ function Page() {
             publish those instead and say so plainly.
           </p>
         </div>
+      </div>
       </section>
 
       <section className="mx-auto grid max-w-[1100px] gap-6 px-5 pb-16 md:grid-cols-2">
@@ -123,7 +129,7 @@ function Page() {
               >
                 <s.Icon className="h-5 w-5" style={{ color: s.color }} />
               </div>
-              <span className="rounded-md border border-[#FCD34D] bg-[#FFFBEB] px-2 py-0.5 text-[9.5px] font-bold uppercase tracking-[1.2px] text-[#B45309]">
+              <span className="rounded-md border border-[#FCD34D] bg-[#FFFBEB] px-2 py-0.5 text-xs font-bold uppercase tracking-[1.2px] text-[#B45309]">
                 Illustrative
               </span>
             </div>
@@ -134,7 +140,7 @@ function Page() {
             <p className="mt-1.5 text-[13px] text-[#5C6B84]">{s.sector}</p>
 
             <div className="mt-4 rounded-xl bg-[#F8FAFC] px-4 py-3">
-              <div className="text-[10px] font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
+              <div className="text-xs font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
                 The path
               </div>
               <div className="mt-1 text-[14px] font-semibold text-[#0B1220]">{s.path}</div>
@@ -143,7 +149,7 @@ function Page() {
             <p className="mt-4 text-[15px] leading-relaxed text-[#475569]">{s.question}</p>
 
             <div className="mt-6">
-              <BrandButton href={`/case-studies/${s.slug}.png`} size="lg">
+              <BrandButton href={`/resources/scenarios#${s.slug}`} size="lg">
                 View the scenario
                 <ArrowRight className="h-4 w-4" />
               </BrandButton>
@@ -164,7 +170,7 @@ function Page() {
             that it is noise. That is more useful to us than a signature.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <BrandButton to="/request-demo" size="lg">
+            <BrandButton to="/request-demo" search={{ product: "security" }} size="lg">
               Run a scan on one account
               <ArrowRight className="h-4 w-4" />
             </BrandButton>

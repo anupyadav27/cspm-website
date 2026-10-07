@@ -1,4 +1,5 @@
 import { HeroIllustration } from "@/components/site/HeroIllustration";
+import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -12,7 +13,9 @@ import {
   X,
 } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { SuiteStrip } from "@/components/site/home/ProductSuite";
 import { BrandButton } from "@/components/site/BrandButton";
+import { Backdrop } from "@/components/site/system";
 import {
   ApprovalMock,
   AuditMock,
@@ -36,7 +39,7 @@ import {
 import { seo, faqJsonLd } from "@/lib/seo";
 
 /**
- * Onam Operations — flagship page for the agentic operations layer.
+ * Onam AIOps — flagship page for the agentic operations layer.
  *
  * Honesty rules (see src/data/operations.ts header): every capability carries a status badge.
  * Only the AI Assistant is "Available". The workspace, orchestrator, Asset and Security agents
@@ -46,7 +49,7 @@ import { seo, faqJsonLd } from "@/lib/seo";
 
 const FAQS = [
   {
-    q: "Can I use Onam Operations today?",
+    q: "Can I use Onam AIOps today?",
     a: "It is in early access: running on the Onam platform and enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. The AI Assistant inside Onam Security is available to every customer today.",
   },
   {
@@ -55,7 +58,7 @@ const FAQS = [
   },
   {
     q: "How is this different from the AI Assistant?",
-    a: "The AI Assistant answers questions about your findings inside the Onam Security console. Onam Operations is a workspace above it: multi-step investigations with visible plans, evidence cards, tasks, an approval centre and an audit trail, run by specialist agents with declared permissions.",
+    a: "The AI Assistant answers questions about your findings inside the Onam Security console. Onam AIOps is a workspace above it: multi-step investigations with visible plans, evidence cards, tasks, an approval centre and an audit trail, run by specialist agents with declared permissions.",
   },
   {
     q: "Is my data used to train models?",
@@ -70,10 +73,11 @@ const FAQS = [
 export const Route = createFileRoute("/platform/ai-operations/")({
   head: () =>
     seo({
-      title: "Onam Operations — specialist AI agents for cloud operations",
+      title: "Onam AIOps — specialist AI agents for cloud operations",
       description:
-        "Onam Operations: specialist AI agents investigate your cloud with evidence on every claim and change nothing without human approval. In early access.",
+        "Onam AIOps: specialist AI agents investigate your cloud with evidence on every claim and change nothing without human approval. In early access.",
       path: "/platform/ai-operations",
+      image: "/og/aiops.png",
     }),
   component: AiOperationsPage,
 });
@@ -106,7 +110,9 @@ function AiOperationsPage() {
       <EvidenceSection />
       <SecuritySection />
       <UseCasesSection />
+      <OverviewSheet />
       <FaqSection />
+      <SuiteStrip current="aiops" />
       <FinalCta />
       <script
         type="application/ld+json"
@@ -116,37 +122,55 @@ function AiOperationsPage() {
   );
 }
 
+/** AIOps indigo, lightened to read as text on the night band. */
+const AIOPS_ON_NIGHT = "color-mix(in srgb, #4F46E5 50%, #FFFFFF)";
+
 function Hero() {
   return (
-    <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-      <div className="absolute inset-0 dot-grid opacity-60" />
-      <div className="pointer-events-none absolute -top-40 right-0 h-[500px] w-[700px] rounded-full bg-[#2563EB]/10 blur-[140px]" />
-      <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-16 sm:px-6 md:pt-24">
-        <div className="flex flex-wrap items-center gap-2">
-          <span className="inline-flex items-center rounded-full border border-[#DBE7FE] bg-[#EFF4FF] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-[#1D4ED8]">
-            Onam Operations
-          </span>
-          <StatusBadge status="early" />
+    <section className="relative overflow-hidden bg-night">
+      <Backdrop tone="night" color="#4F46E5" pattern="grid" />
+      <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 md:pt-20">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest"
+                style={{ color: AIOPS_ON_NIGHT }}
+              >
+                Onam AIOps
+              </span>
+              <StatusBadge status="early" />
+            </div>
+            <h1 className="mt-6 font-display text-4xl font-black leading-[1.05] tracking-tight text-white text-balance md:text-5xl lg:text-[52px]">
+              Specialist AI agents that investigate your cloud — and{" "}
+              <span style={{ color: AIOPS_ON_NIGHT }}>change nothing without your approval.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-on-night-muted text-pretty">
+              Onam AIOps is a workspace where your team works alongside specialist agents that
+              already have your cloud estate in context. They plan a multi-step investigation, run it
+              across domains, show the evidence for every number, and propose changes for a person to
+              decide. Every step is recorded.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <BrandButton to="/request-demo" search={{ product: "aiops" }} size="lg">
+                Ask for early access <ArrowRight className="h-4 w-4" />
+              </BrandButton>
+              <BrandButton to="/platform/ai-operations/architecture" size="lg" variant="onDark">
+                How it is designed
+              </BrandButton>
+            </div>
+          </div>
+          <div className="min-w-0 [&_figure]:mt-0 [&_figure]:max-w-none [&_img]:border-white/10 [&_img]:shadow-[0_32px_80px_rgba(0,0,0,.55)] [&_figcaption]:text-left [&_figcaption]:text-on-night-muted">
+            <HeroIllustration
+              image={{
+                src: "/images/heroes/ai-operations.webp",
+                alt: "Illustration: a person works with eight specialist AI agents; every proposed change passes through an approval gate before it reaches the cloud environment below.",
+                caption: "Illustration of the design. Some agents are in early access or on the roadmap — see availability below. No change reaches your cloud without approval.",
+              }}
+            />
+          </div>
         </div>
-        <h1 className="mt-6 max-w-4xl font-display text-4xl font-black leading-[1.05] tracking-tight text-[#0B1220] md:text-6xl">
-          Specialist AI agents that investigate your cloud — and{" "}
-          <span className="gradient-text">change nothing without your approval.</span>
-        </h1>
-        <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
-          Onam Operations is a workspace where your team works alongside specialist agents that
-          already have your cloud estate in context. They plan a multi-step investigation, run it
-          across domains, show the evidence for every number, and propose changes for a person to
-          decide. Every step is recorded.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-3">
-          <BrandButton to="/request-demo" size="lg">
-            Ask for early access <ArrowRight className="h-4 w-4" />
-          </BrandButton>
-          <BrandButton to="/platform/ai-operations/architecture" size="lg" variant="secondary">
-            How it is designed
-          </BrandButton>
-        </div>
-        <ul className="mt-10 grid gap-3 text-[14.5px] text-[#334155] sm:grid-cols-3 [&>*]:min-w-0">
+        <ul className="mt-12 grid gap-3 text-[14.5px] text-white/90 sm:grid-cols-3 [&>*]:min-w-0">
           {[
             [ListChecks, "A plan you can see before it runs"],
             [FileSearch, "Evidence on every claim"],
@@ -156,9 +180,9 @@ function Hero() {
             return (
               <li
                 key={text as string}
-                className="flex items-center gap-2.5 rounded-xl border border-[#E5E9F0] bg-white/80 px-3.5 py-3"
+                className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.05] px-3.5 py-3"
               >
-                <I className="h-4 w-4 shrink-0 text-[#2563EB]" />
+                <I className="h-4 w-4 shrink-0" style={{ color: AIOPS_ON_NIGHT }} />
                 <span>{text as string}</span>
               </li>
             );
@@ -166,30 +190,21 @@ function Hero() {
         </ul>
         <nav
           aria-label="On this page"
-          className="mt-10 rounded-2xl border border-[#E2E8F2] bg-[#F8FAFC] p-5"
+          className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5"
         >
-          <p className="text-[12px] font-bold uppercase tracking-[1.5px] text-[#5C6B84]">
+          <p className="text-[12px] font-bold uppercase tracking-[1.5px] text-on-night-muted">
             On this page
           </p>
           <ul className="mt-3 grid gap-x-6 gap-y-1.5 text-[14.5px] sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
             {NAV.map((n) => (
               <li key={n.id}>
-                <a href={`#${n.id}`} className="text-[#2563EB] hover:underline">
+                <a href={`#${n.id}`} className="text-[#A9C4FF] hover:text-white hover:underline">
                   {n.label}
                 </a>
               </li>
             ))}
           </ul>
         </nav>
-      </div>
-      <div className="relative px-6 pb-16">
-        <HeroIllustration
-          image={{
-            src: "/images/heroes/ai-operations.webp",
-            alt: "Illustration: a person works with eight specialist AI agents; every proposed change passes through an approval gate before it reaches the cloud environment below.",
-            caption: "Illustration of the design. Some agents are in early access or on the roadmap — see availability below. No change reaches your cloud without approval.",
-          }}
-        />
       </div>
     </section>
   );
@@ -203,7 +218,7 @@ function TodaySection() {
       title="What you can use today, and what is still coming"
       intro={
         <p>
-          Onam Operations is new. We label every capability on this page so you never have to guess
+          Onam AIOps is new. We label every capability on this page so you never have to guess
           whether something exists. Nothing marked “On the roadmap” is available, and no date is
           promised for it.
         </p>
@@ -277,7 +292,7 @@ function ProblemSection() {
         </div>
         <div className="rounded-2xl border border-[#BBF7D0] bg-[#F0FDF4] p-6">
           <div className="text-[12px] font-bold uppercase tracking-widest text-[#15803D]">
-            With Onam Operations
+            With Onam AIOps
           </div>
           <ul className="mt-4 space-y-3 text-[15px] text-[#14532D]">
             {[
@@ -349,7 +364,7 @@ function WorkspaceSection() {
       </div>
       <div className="mt-8">
         <IllustrativeFrame
-          title="Onam Operations · Chat"
+          title="Onam AIOps · Chat"
           caption="Chat with the agents: navigation on the left, each agent’s reply in its own attributed card, and a context panel for evidence, tasks and actions."
         >
           <WorkspaceMock />
@@ -420,7 +435,7 @@ function AgentsSection() {
                 </li>
               ))}
             </ul>
-            <div className="mt-3 text-[11px] font-bold uppercase tracking-widest text-[#94A3B8]">
+            <div className="mt-3 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">
               Tools
             </div>
             <div className="mt-1.5 flex flex-wrap gap-1">
@@ -782,7 +797,7 @@ function FinalCta() {
             answer and propose; nothing changes your cloud.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
-            <BrandButton to="/request-demo" size="lg">
+            <BrandButton to="/request-demo" search={{ product: "aiops" }} size="lg">
               Ask for early access
             </BrandButton>
             <BrandButton href="/docs/operations/overview" size="lg" variant="secondary">

@@ -9,9 +9,12 @@ import {
 } from "lucide-react";
 
 /**
- * ProductDemo — the real Onam console, replicated as an animated demo.
+ * ProductDemo — an animated, ILLUSTRATIVE walkthrough of the Onam Security console.
  *
- * The stage is a faithful replica of the production app (sidebar, topbar,
+ * Not a capture: the 2026-10-06 asset audit found these clips differ from the real
+ * console (extra sidebar entries, a Run Scan button, invented figures), so every
+ * subtitle says "illustrative". Replace clips with real captures as they are taken.
+ * Originally modelled on the production app (sidebar, topbar,
  * demo-account data taken from real product screens). Each clip is a coded
  * animation today; when a real .mp4 screen recording becomes available, set
  * `videoSrc` on the clip below and the component renders a native <video>
@@ -247,7 +250,7 @@ export function ProductDemo({
   eyebrow = "Product demo",
   title = "Watch the platform in action.",
   gradientWords = "in action.",
-  subtitle = "An animated walkthrough of the Onam console views, shown with demo-account data.",
+  subtitle = "An illustrative, animated walkthrough of Onam Security console views. Figures are examples, not customer data.",
   compact = false,
   tone = "gray",
   id,
@@ -450,7 +453,7 @@ function ConsoleSidebar({ active }: { active: string }) {
 
 function pillToneCls(tone: PillTone) {
   switch (tone) {
-    case "green": return "bg-[#E7F6EF] text-[#05A052] border-[#BFE8D2]";
+    case "green": return "bg-[#E7F6EF] text-[#047857] border-[#BFE8D2]";
     case "red": return "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]";
     case "amber": return "bg-[#FEF3E4] text-[#B45309] border-[#F6DCB8]";
     case "blue": return "bg-[#EFF4FF] text-[#1D4ED8] border-[#DBE7FE]";
@@ -663,7 +666,7 @@ function DashboardAnimation({ duration }: { duration: number }) {
                 <div className="text-[8px] text-[#5C6B84]">{c.assets}</div>
               </div>
               {on && (
-                <span className="text-[8px] font-bold text-[#05A052] bg-[#E7F6EF] border border-[#BFE8D2] rounded-full px-1.5 py-0.5 animate-[fade-in_.3s_ease-out_both]">
+                <span className="text-[8px] font-bold text-[#047857] bg-[#E7F6EF] border border-[#BFE8D2] rounded-full px-1.5 py-0.5 animate-[fade-in_.3s_ease-out_both]">
                   Connected
                 </span>
               )}
@@ -1105,7 +1108,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
               <span className="hidden md:block text-[9px] font-mono text-[#64748B] truncate">{r.res}</span>
               <span className={cn(
                 "inline-flex w-fit justify-self-end items-center px-2 py-0.5 rounded text-[8px] font-bold border",
-                r.pass ? "bg-[#E7F6EF] text-[#05A052] border-[#BFE8D2]" : "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]",
+                r.pass ? "bg-[#E7F6EF] text-[#047857] border-[#BFE8D2]" : "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]",
               )}>
                 {r.pass ? "PASS" : "FAIL"}
               </span>

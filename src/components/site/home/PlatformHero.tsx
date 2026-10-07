@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowRight, Bot, ExternalLink, Play, Shield, ShieldHalf } from "lucide-react";
 import type { ComponentType, CSSProperties } from "react";
 import { BrandButton } from "@/components/site/BrandButton";
+import { Backdrop } from "@/components/site/system";
 import { CLOUDS } from "@/lib/product-facts";
 import { cn } from "@/lib/utils";
 import { PRODUCTS } from "@/data/products";
@@ -16,7 +17,7 @@ import { PRODUCTS } from "@/data/products";
 /* ============================ HERO ============================
  * The end-to-end story, said first (owner-cleared 2026-10-05, product.yaml
  * `availability_cleared`): one platform — Estate -> Security -> FinOps -> DRM, with
- * Onam Operations (early access) across them.
+ * Onam AIOps (early access) across them.
  *
  * Dark and single-column on purpose. The reviewed platform diagram sits directly
  * under it and IS the hero visual; a second picture beside the headline would compete
@@ -29,13 +30,14 @@ import { PRODUCTS } from "@/data/products";
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#0B1220]">
-      <div className="pointer-events-none absolute -top-52 -right-40 w-[820px] h-[620px] rounded-full bg-[#2563EB]/20 blur-[160px]" />
-      <div className="pointer-events-none absolute -bottom-40 -left-32 w-[560px] h-[460px] rounded-full bg-[#4D8DFF]/10 blur-[150px]" />
+      <Backdrop tone="night" color="#2563EB" pattern="grid" />
+      {/* Settle to flat night so the hero meets the dark top band of the platform overview without a seam. */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-[linear-gradient(180deg,transparent_0%,#0B1220_62%)]" aria-hidden />
 
       <div className="relative max-w-5xl mx-auto px-6 pt-14 md:pt-20 pb-28 md:pb-36 text-center animate-slide-up">
         <div className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider bg-white/[0.06] border border-white/10">
           <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-          <span className="text-[#9FB0CC] uppercase">Estate · Security · FinOps · DRM</span>
+          <span className="text-[#9FB0CC] uppercase">Estate · Security · FinOps · DRM · AIOps</span>
         </div>
 
         <h1 className="mt-6 font-display font-black text-white text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[68px] tracking-tight md:leading-[1.02] text-balance">
@@ -109,7 +111,7 @@ const STRIP: StripItem[] = [
   }),
   {
     key: "operations",
-    name: "Onam Operations",
+    name: "Onam AIOps",
     stage: "Across all four",
     href: "/platform/ai-operations",
     icon: Bot,
@@ -136,13 +138,13 @@ export function PlatformOverview() {
               src="/diagrams/onam-platform-overview.svg"
               width={1536}
               height={1024}
-              alt="Onam platform overview: from assets to a secure, optimised and resilient cloud. Cloud and SaaS data flows into Onam Estate's unified asset graph; Onam Security, Onam FinOps and Onam DRM act on it; Onam Operations (early access) puts AI agents across the platform with human approval."
+              alt="Onam platform overview: from assets to a secure, optimised and resilient cloud. Cloud and SaaS data flows into Onam Estate's unified asset graph; Onam Security, Onam FinOps and Onam DRM act on it; Onam AIOps (early access) puts AI agents across the platform with human approval."
               className="block w-full h-auto"
               decoding="async"
             />
           </a>
           <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 py-3 border-t border-[#E5E9F0] bg-white text-xs text-[#64748B]">
-            <span>One discovery feeds every product. Onam Operations is in early access.</span>
+            <span>One discovery feeds every product. Onam AIOps is in early access.</span>
             <a
               href="/diagrams/onam-platform-overview.svg"
               target="_blank"
@@ -188,11 +190,11 @@ export function PlatformOverview() {
                         <Icon className="w-5 h-5" style={{ color: p.color }} />
                       </div>
                       {p.badge ? (
-                        <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#EEF2FF] text-[#4338CA] border border-[#E0E7FF]">
+                        <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#EEF2FF] text-[#4338CA] border border-[#E0E7FF]">
                           {p.badge}
                         </span>
                       ) : (
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-[#64748B]">
+                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
                           {p.stage}
                         </span>
                       )}
@@ -221,20 +223,23 @@ export function PlatformOverview() {
  * priced attack path that used to be the hero visual. Copy is the former hero's,
  * re-scoped to Onam Security.
  */
-export function SecuritySpotlight() {
+/** `asHero`: the top of /platform — the heading becomes the page's h1 and the primary
+ *  button asks for a demo instead of linking to the page the reader is already on. */
+export function SecuritySpotlight({ asHero = false }: { asHero?: boolean } = {}) {
+  const Heading = asHero ? "h1" : "h2";
   return (
     <section className="relative overflow-hidden bg-[#0B1220]">
-      <div className="pointer-events-none absolute -top-40 -left-40 w-[640px] h-[520px] rounded-full bg-[#2563EB]/15 blur-[150px]" />
+      <Backdrop tone="night" color="#2563EB" pattern="graph" />
       <div className="relative max-w-7xl mx-auto px-6 py-20 grid lg:grid-cols-[1.05fr_1fr] gap-10 lg:gap-12 items-center">
         <div className="min-w-0">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-semibold tracking-wider bg-white/[0.06] border border-white/10">
             <ShieldHalf className="w-3.5 h-3.5 text-[#4D8DFF]" />
             <span className="text-[#9FB0CC] uppercase">Onam Security</span>
           </div>
-          <h2 className="mt-6 font-display font-black text-white text-4xl md:text-5xl tracking-tight leading-[1.05] text-balance">
+          <Heading className="mt-6 font-display font-black text-white text-4xl md:text-5xl tracking-tight leading-[1.05] text-balance">
             Is your cloud secure, or does it just{" "}
             <span className="text-[#4D8DFF]">feel that way?</span>
-          </h2>
+          </Heading>
           <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-xl">
             Onam Security maps every misconfiguration, identity risk, and attack path across all{" "}
             {CLOUDS} clouds into one graph — then prices the route an attacker would actually take.
@@ -242,8 +247,12 @@ export function SecuritySpotlight() {
             Estate keeps current.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <BrandButton to="/platform" size="lg">
-              Explore Onam Security <ArrowRight className="w-4 h-4" />
+            <BrandButton
+              to={asHero ? "/request-demo" : "/platform"}
+              search={asHero ? { product: "security" } : undefined}
+              size="lg"
+            >
+              {asHero ? "Scan my cloud" : "Explore Onam Security"} <ArrowRight className="w-4 h-4" />
             </BrandButton>
             <a
               href="/resources/scenarios"

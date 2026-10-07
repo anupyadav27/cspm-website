@@ -71,7 +71,7 @@ export function ResourceSignup() {
           placeholder="you@company.com"
           aria-label="Work email"
           className={cn(
-            "flex-1 rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-blue-500/30",
+            "flex-1 rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30",
             state === "error" ? "border-[#E32D25]" : "border-[#CBD5E1]",
           )}
         />

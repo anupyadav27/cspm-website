@@ -1,17 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Mail, ShieldAlert, Lock } from "lucide-react";
+import { CheckCircle2, Mail, ShieldAlert, Lock, MessageSquare } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
 import { submitLead } from "@/lib/lead-capture";
+import { SUITE, type SuiteKey } from "@/data/product-suite";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/company/contact")({
   head: () =>
     seo({
-      title: "Contact — Onam Security",
+      title: "Contact — Onam",
       description:
-        "Get in touch with Onam Security — general questions, pre-sales, security disclosure, and privacy.",
+        "Get in touch with Onam about Estate, Security, FinOps, DRM or AIOps — general questions, pre-sales, security disclosure, and privacy.",
       path: "/company/contact",
     }),
   component: ContactPage,
@@ -20,7 +22,7 @@ export const Route = createFileRoute("/company/contact")({
 const reasons = [
   "General question",
   "Pre-sales & pricing",
-  "Security concern or second opinion",
+  "A second opinion on our cloud (security, cost or recovery)",
   "Partner or integration enquiry",
   "Press or analyst",
 ];
@@ -36,6 +38,9 @@ function ContactPage() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [products, setProducts] = useState<SuiteKey[]>([]);
+  const toggleProduct = (k: SuiteKey) =>
+    setProducts((prev) => (prev.includes(k) ? prev.filter((x) => x !== k) : [...prev, k]));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -50,7 +55,7 @@ function ContactPage() {
     // Only show success once the lead is actually persisted server-side.
     setSending(true);
     try {
-      await submitLead({ data: { kind: "contact", ...form } });
+      await submitLead({ data: { kind: "contact", ...form, products } });
       setSubmitted(true);
     } catch {
       setErrors({
@@ -64,10 +69,9 @@ function ContactPage() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-1/4 w-[600px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Contact</div>
+        <Backdrop tone="light" color="#2563EB" pattern="dots" icon={MessageSquare} />
+        <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Contact</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Get in touch.
           </h1>
@@ -97,7 +101,7 @@ function ContactPage() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Alex Rivera"
-                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
                     {errors.name && <p className="mt-1 text-xs text-[#E32D25]">{errors.name}</p>}
                   </div>
@@ -108,11 +112,37 @@ function ContactPage() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="you@company.com"
-                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
                     {errors.email && <p className="mt-1 text-xs text-[#E32D25]">{errors.email}</p>}
                   </div>
                 </div>
+                <fieldset>
+                  <legend className="block text-sm font-semibold text-[#0B1220]">
+                    Which product is this about? <span className="text-[#64748B] font-normal">(optional)</span>
+                  </legend>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {SUITE.map((p) => {
+                      const active = products.includes(p.key);
+                      return (
+                        <button
+                          type="button"
+                          key={p.key}
+                          aria-pressed={active}
+                          onClick={() => toggleProduct(p.key)}
+                          className={cn(
+                            "px-3 py-1.5 rounded-full text-xs font-semibold border transition",
+                            active
+                              ? "bg-[#2563EB] text-white border-[#2563EB]"
+                              : "bg-white text-[#0B1220] border-[#CBD5E1] hover:border-[#64748B]",
+                          )}
+                        >
+                          {p.name}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
                 <div>
                   <label className="block text-sm font-semibold text-[#0B1220]">Reason</label>
                   <select
@@ -132,7 +162,7 @@ function ContactPage() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={5}
                     placeholder="A short note about what you're looking for."
-                    className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.message ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                    className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.message ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                   />
                   {errors.message && <p className="mt-1 text-xs text-[#E32D25]">{errors.message}</p>}
                 </div>
@@ -170,7 +200,7 @@ function ContactPage() {
                       <Icon className="w-5 h-5" style={{ color: i.iconColor }} />
                     </div>
                     <div>
-                      <div className="text-[11px] uppercase tracking-widest font-bold text-[#64748B]">{i.label}</div>
+                      <div className="text-xs uppercase tracking-widest font-bold text-[#64748B]">{i.label}</div>
                       <div className="mt-1 font-display font-bold text-[#0B1220] group-hover:text-[#2563EB] transition">{i.email}</div>
                       <p className="mt-1.5 text-sm text-[#475569] leading-relaxed">{i.note}</p>
                     </div>

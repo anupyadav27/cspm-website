@@ -1,8 +1,30 @@
-import { Building2, DollarSign, LifeBuoy, ShieldHalf, type LucideIcon } from "lucide-react";
+import {
+  AppWindow,
+  Boxes,
+  Building2,
+  CalendarRange,
+  DollarSign,
+  GitCompareArrows,
+  History,
+  KeyRound,
+  LifeBuoy,
+  ListOrdered,
+  Network,
+  PiggyBank,
+  ShieldCheck,
+  ShieldHalf,
+  Timer,
+  TrendingUp,
+  Users,
+  Workflow,
+  type LucideIcon,
+} from "lucide-react";
 import type { ProductPageData } from "@/components/site/ProductPageTemplate";
+import type { ConsoleShot, FlagshipData } from "@/components/site/flagship/types";
+import { CLOUDS } from "@/lib/product-facts";
 
 /**
- * The four products, plus Onam Operations (early access) across them.
+ * The four products, plus Onam AIOps (early access) across them.
  *
  * Owner-cleared positioning (product.yaml `availability_cleared`, 2026-10-05): Onam is ONE
  * end-to-end platform — Estate (assets) -> Security -> FinOps (cost) -> DRM (recovery).
@@ -65,8 +87,8 @@ export const PRODUCTS: ProductSummary[] = [
     color: "#7C3AED",
     question: "What do we actually run, and how is it wired together?",
     blurb:
-      "Continuous discovery of every cloud resource and the relationships between them — the estate of record, with cost on every row.",
-    packaging: "Per-organisation add-on. Contact sales.",
+      "Continuous discovery of every cloud resource and the relationships between them — the estate of record that every other product works from.",
+    packaging: "Stand-alone, granted per organisation. Contact sales.",
     surfaces: ["Overview", "Inventory", "Architecture", "Pipeline"],
   },
   {
@@ -78,7 +100,7 @@ export const PRODUCTS: ProductSummary[] = [
     question: "Where is the money going, and who owns it?",
     blurb:
       "Cloud cost and commitment management on reconciled billing data — attribution, forecast, budgets, anomalies and savings.",
-    packaging: "Per-organisation add-on. Contact sales.",
+    packaging: "Stand-alone, granted per organisation. Contact sales.",
     surfaces: ["Overview", "Explore", "Ownership", "Plan", "Savings", "Resources", "Runs"],
   },
   {
@@ -90,16 +112,16 @@ export const PRODUCTS: ProductSummary[] = [
     question: "If a region fails tonight, what comes back, in what order, and how fast?",
     blurb:
       "Disaster recovery management — applications and dependencies mapped, protection read from cloud configuration, predicted RTO and RPO against your targets, and drift from the plan you approved.",
-    packaging: "Per-organisation add-on. Contact sales.",
+    packaging: "Stand-alone, granted per organisation. Contact sales.",
     surfaces: ["Applications", "Protection", "Recovery plans", "Objectives", "Drills", "Drift"],
   },
 ];
 
-/** Hero tiles for the add-on pages: what the product does, in words — no uncleared figures. */
+/** Hero tiles for the product pages: what the product does, in words — no uncleared figures. */
 const ESTATE_STATS = [
-  { v: "7 clouds", l: "in the shared inventory" },
+  { v: `${CLOUDS} clouds`, l: "in the shared inventory" },
   { v: "Every run", l: "recorded with its status" },
-  { v: "Cost", l: "on every asset row" },
+  { v: "Read-only", l: "no agents, nothing installed" },
   { v: "One", l: "inventory for every product" },
 ];
 
@@ -119,12 +141,10 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       "A discovery pipeline enumerates resources across your connected accounts and regions using read-only credentials, and records what it found as assets with provider, region, account, state and last-seen time.",
       "Relationships are captured as first-class edges rather than inferred later — containment edges describe what lives inside what, external edges describe what reaches outside the boundary.",
       "Every run is recorded with its trigger, status, start and completion, so the inventory carries its own provenance and a stale or partial run is visible instead of silently degrading the picture.",
-      "Assets are stamped with monthly cost as they are discovered, which is what makes the estate answerable to a finance question and not only to an engineering one.",
       "The same inventory feeds Onam Security's graph and Onam DRM's application map, so an organisation running more than one product gets one inventory rather than several that disagree.",
     ],
     whatYouGet: [
       "Asset inventory — every discovered resource with provider, region, account, state and last-seen time",
-      "Monthly cost on every asset row, so the estate answers finance questions as well as engineering ones",
       "Architecture view — per-account topology with assets, edges, containment edges and external edges (AWS accounts today)",
       "Relationship graph — what contains what, and what reaches outside the account boundary",
       "Pipeline history — every discovery run with its trigger, status and duration",
@@ -135,11 +155,11 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
     faqs: [
       {
         q: "How is this different from the asset inventory inside Onam Security?",
-        a: "It is the same discovery, sold as its own product. Onam Security's inventory exists to answer security questions — what is exposed, what is over-permissioned, what sits on an attack path. Onam Estate is the estate of record: what exists, how it is connected, what it costs, and when it was last seen. Organisations entitled to both get one inventory feeding both, which is the point — a second inventory that disagrees with the first is worse than none.",
+        a: "It is the same discovery, sold as its own product. Onam Security's inventory exists to answer security questions — what is exposed, what is over-permissioned, what sits on an attack path. Onam Estate is the estate of record: what exists, how it is connected, and when it was last seen. Organisations entitled to both get one inventory feeding both, which is the point — a second inventory that disagrees with the first is worse than none.",
       },
       {
         q: "Do I need Onam Security to buy Onam Estate?",
-        a: "No. Estate is granted per organisation as its own add-on. An Estate-only organisation gets discovery-only scans; an organisation with both gets the full pipeline. Neither one is bundled into a security plan tier.",
+        a: "No. Estate is granted per organisation as its own product. An Estate-only organisation gets discovery-only scans; an organisation with both gets the full pipeline. Neither one is bundled into a security plan tier.",
       },
       {
         q: "How is it deployed?",
@@ -160,6 +180,8 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
     ],
     stats: ESTATE_STATS,
     hideDemo: true,
+    docsHref: "/docs/estate/overview",
+    demoProduct: "estate",
     risk: {
       title: "The cost of an inventory nobody trusts",
       body: "Every other answer — what is exposed, what it costs, what has to come back first after an outage — starts from the list of what exists. If that list is wrong, every answer built on it is wrong too.",
@@ -218,7 +240,7 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       },
       {
         q: "Do I need Onam Security to buy Onam FinOps?",
-        a: "No. FinOps is granted per organisation as its own add-on and stands alone. It runs at /finops inside the same console behind the same login, so if you do have the other products it is a product switch rather than a separate tool.",
+        a: "No. FinOps is granted per organisation as its own product and stands alone. It runs at /finops inside the same console behind the same login, so if you do have the other products it is a product switch rather than a separate tool.",
       },
       {
         q: "Our tagging is incomplete. Is the attribution useless?",
@@ -234,7 +256,7 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       },
       {
         q: "How does it relate to Onam Estate?",
-        a: "Estate stamps monthly cost onto every discovered asset, so the two answer adjacent halves of the same question — Estate tells you what exists and how it is connected, FinOps tells you what it costs, who owns it and where it is going. They are sold separately and each stands on its own.",
+        a: "They answer adjacent halves of the same question. Estate tells you what exists and how it is connected; FinOps tells you what it costs, who owns it and where it is going. They are sold separately, each stands on its own, and they run in the same console behind the same login.",
       },
     ],
     stats: [
@@ -244,6 +266,8 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       { v: "Accept / dismiss", l: "on every saving" },
     ],
     hideDemo: true,
+    docsHref: "/docs/finops/overview",
+    demoProduct: "finops",
     risk: {
       title: "The cost of an unexplained bill",
       body: "Spend nobody owns is spend nobody reduces. Without attribution and a settled number, every cost conversation starts with an argument about whose figure is right.",
@@ -308,6 +332,8 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       { v: "Drills", l: "recorded, prediction vs actual" },
     ],
     hideDemo: true,
+    docsHref: "/docs/drm/overview",
+    demoProduct: "drm",
     risk: {
       title: "The cost of an untested plan",
       body: "A recovery time that is wrong on the high side is a nuisance. Wrong on the low side, you find out during the outage. DRM is built to show the gaps before then.",
@@ -335,7 +361,7 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       },
       {
         q: "Do I need Onam Security or Onam Estate to buy DRM?",
-        a: "DRM is granted per organisation as its own add-on. It reads the platform's cloud inventory, so your cloud accounts are connected once and every product you use works from the same list of resources. It runs inside the same console, behind the same login.",
+        a: "DRM is granted per organisation as its own product. It reads the platform's cloud inventory, so your cloud accounts are connected once and every product you use works from the same list of resources. It runs inside the same console, behind the same login.",
       },
       {
         q: "Does DRM change anything in our cloud accounts?",
@@ -347,6 +373,333 @@ export const productPages: Record<"estate" | "finops" | "drm", ProductPageData> 
       { label: "Onam Estate — the inventory DRM builds on", href: "/estate" },
       { label: "Onam FinOps — what it all costs", href: "/finops" },
       { label: "DRM documentation", href: "/docs/drm/overview" },
+    ],
+  },
+};
+
+/* ============================ FLAGSHIP PAGES ============================
+ * What the flagship template (ProductFlagship.tsx) adds on top of the copy above.
+ * Tour copy is taken from the product docs (src/data/docs-articles/products.ts,
+ * drm.ts) and says only what those views show.
+ *
+ * Screenshots: only Onam DRM has real console captures today — the demo tenant
+ * (demo-tenant-01, seeded data, captured 2026-09-26 from drm/screenshots), with the
+ * local "No session" bar and the dev-server badge cropped out. Estate and FinOps get
+ * their screens once they are captured from the live console; until then the page
+ * shows the reviewed illustration and the views in words, never a mock screen.
+ */
+
+const drmShot = (file: string, path: string, alt: string, height: number): ConsoleShot => ({
+  src: `/screenshots/console/drm-${file}.webp`,
+  url: `app.onamsecurity.com/drm${path}`,
+  alt,
+  width: 1440,
+  height,
+});
+
+export const productFlagships: Record<"estate" | "finops" | "drm", FlagshipData> = {
+  estate: {
+    key: "estate",
+    page: productPages.estate,
+    answer:
+      "Onam Estate discovers every resource across your cloud accounts, records how they connect, and keeps the picture current run after run — one estate of record for every other product.",
+    moduleIcons: {
+      Inventory: Boxes,
+      Architecture: Network,
+      "Discovery pipeline": Workflow,
+      "Access & entitlement": KeyRound,
+    },
+    stepTitles: ["Discover", "Relate", "Record every run", "Share one inventory"],
+    tour: [
+      {
+        module: "Inventory",
+        title: "Every resource, in one list",
+        body: "Every resource the discovery pipeline has found, across every connected account and region.",
+        shows: [
+          "Asset name and type, provider, region and account",
+          "Lifecycle state and the time discovery last confirmed the resource exists",
+          "A last-seen time that ages when a resource stops appearing, so half-decommissioned infrastructure becomes visible",
+          "Keyset paging, so very large estates stay quick to page through",
+        ],
+      },
+      {
+        module: "Architecture",
+        title: "One account's topology",
+        body: "What a single account holds, and how the pieces connect — drawn from a scene the discovery pipeline builds.",
+        shows: [
+          "Assets, edges, containment edges and external edges for the account",
+          "External edges first: the account's real connection to everything outside it",
+          "An asset-type breakdown, so sprawl is visible by shape and not only by count",
+          "AWS accounts today; an account with no completed run says so instead of drawing an empty diagram",
+        ],
+      },
+      {
+        module: "Discovery pipeline",
+        title: "The provenance behind the list",
+        body: "Every discovery pass over your accounts and regions, with what started it and how it ended.",
+        shows: [
+          "Trigger — schedule, onboarding or a manual request",
+          "Status, start and completion for every run",
+          "A failed or partial run shown as one, so a stale picture is visible as stale",
+          "Scan scope that follows entitlement: Estate alone runs discovery on its own",
+        ],
+      },
+      {
+        module: "Access & entitlement",
+        title: "Who in your organisation sees Estate",
+        body: "Estate runs at /estate in the same console as the rest of the platform, behind the same login.",
+        shows: [
+          "Switch to Estate from the product switcher — no second login or URL",
+          "Granted per organisation, never bundled into a security plan tier",
+          "Hidden for organisations without the grant, and enforced server-side by the API gateway",
+          "Read-only cloud access: nothing installed on a workload, nothing written to your environment",
+        ],
+      },
+    ],
+    limits: [
+      {
+        title: "The architecture view draws AWS accounts today",
+        body: `The inventory covers all ${CLOUDS} clouds Onam supports. The per-account topology view is AWS-only for now.`,
+      },
+      {
+        title: "It is as current as the last run, not real-time",
+        body: "Discovery runs on a schedule. Every asset carries a last-seen time and every run its status, so you can see how fresh the picture is.",
+      },
+      {
+        title: "It does not raise security findings",
+        body: "Estate answers what exists and how it connects. Posture rules, risk scores and findings are Onam Security.",
+      },
+      {
+        title: "It does not change your cloud",
+        body: "Discovery is read-only. Estate does not tag, fix, stop or remove anything.",
+      },
+    ],
+  },
+
+  finops: {
+    key: "finops",
+    page: productPages.finops,
+    answer:
+      "Onam FinOps turns reconciled billing data into what finance asks: what we spent, who owns it, what we will spend next and what we can stop — with the provenance of every figure on the page.",
+    moduleIcons: {
+      // Keyed by the module titles in product-suite.ts.
+      "Cost explorer": TrendingUp,
+      "Ownership & attribution": Users,
+      "Forecast, budgets & anomalies": CalendarRange,
+      Savings: PiggyBank,
+      "Reconciled billing": History,
+    },
+    stepTitles: ["Ingest", "Reconcile", "Attribute", "Decompose", "Forecast", "Decide"],
+    tour: [
+      {
+        module: "Explore",
+        title: "What moved, and where",
+        body: "The daily cost series and period-over-period movement.",
+        shows: [
+          "Daily cost, the granularity at which a spike has an answer",
+          "Movement against the previous period, ranked by what contributed",
+          "A flag on partial periods, so an early-month comparison is not read as final",
+        ],
+      },
+      {
+        module: "Ownership",
+        title: "Who owns the spend",
+        body: "Cost attributed to owners and cost centres by your ownership rules.",
+        shows: [
+          "Attribution coverage as a percentage",
+          "The unattributed amount, stated beside it",
+          "Ownership rules that map resources to owners and cost centres",
+        ],
+      },
+      {
+        module: "Plan",
+        title: "What comes next",
+        body: "Forecast, budgets and anomalies — the forward-looking half of cost management.",
+        shows: [
+          "A forecast as low, expected and high, not a single line",
+          "Budgets tracked against the forecast as well as actuals",
+          "Anomalies detected on the daily series, not monthly totals",
+        ],
+      },
+      {
+        module: "Savings",
+        title: "What you can stop spending",
+        body: "Cost-reduction recommendations, each with a decision attached.",
+        shows: [
+          "A portfolio upper bound, labelled as a bound rather than a projection",
+          "Accept or dismiss on every recommendation, recorded",
+          "Nothing changed in your account — accepting records the decision only",
+        ],
+      },
+      {
+        module: "Runs & reconciliation",
+        title: "How settled the number is",
+        body: "The ingestion and reconciliation history behind every figure.",
+        shows: [
+          "Daily runs for the current period and a monthly-close run for finished ones",
+          "Which periods are settled and quotable, and which are still moving",
+          "Gaps in the run history, visible as gaps",
+        ],
+      },
+      {
+        module: "The cost model",
+        title: "Billed and effective, side by side",
+        body: "How billing data is reconciled and reported.",
+        shows: [
+          "Billed cost — what the provider invoiced",
+          "Effective cost — commitments and amortised charges spread over the periods they cover",
+          "Cost by category, owner, resource and day, checked so the parts add up to the whole",
+        ],
+      },
+    ],
+    limits: [
+      {
+        title: "It does not act on a saving",
+        body: "Accepting a recommendation records the decision. FinOps does not resize, stop or delete anything in your account.",
+      },
+      {
+        title: "It does not move money",
+        body: "Showback and chargeback statements say what each owner and cost centre is responsible for. FinOps does not move money between ledgers or issue internal invoices — your finance process does that.",
+      },
+      {
+        title: "Attribution is only as complete as your rules",
+        body: "Coverage is reported as a percentage with the unattributed amount beside it, rather than implied to be complete.",
+      },
+      {
+        title: "The current period is an estimate until it closes",
+        body: "Daily figures move until the monthly-close run. New accounts need some daily history before anomaly detection is useful.",
+      },
+    ],
+  },
+
+  drm: {
+    key: "drm",
+    page: productPages.drm,
+    answer:
+      "Onam DRM maps your applications and what they depend on, reads the protection your cloud configuration actually has, and predicts recovery time and data loss against the targets you set.",
+    heroShot: drmShot(
+      "overview",
+      "",
+      "Onam DRM overview: applications under management, how many are DR-ready, at risk or not ready, open drift, an enterprise resilience score and an RTO trend.",
+      849,
+    ),
+    shotCaption: "Onam DRM console — demo tenant data.",
+    moduleIcons: {
+      "Applications & dependencies": AppWindow,
+      Protection: ShieldCheck,
+      "Recovery plans": ListOrdered,
+      "RTO, RPO & drills": Timer,
+      "Baselines & drift": GitCompareArrows,
+    },
+    stepTitles: [
+      "Start from the inventory",
+      "Propose applications",
+      "Classify dependencies",
+      "Read protection",
+      "Compose the plan",
+      "Predict RTO and RPO",
+      "Approve and baseline",
+      "Record drills",
+    ],
+    tour: [
+      {
+        module: "Applications & dependencies",
+        title: "Every application and its recovery readiness",
+        body: "Applications proposed from your tags, with their sites, targets, baseline and drift in one table.",
+        shows: [
+          "Primary and recovery site for each application",
+          "Required against predicted RTO and RPO",
+          "Last recorded drill, baseline version, drift and readiness",
+        ],
+        shot: drmShot(
+          "applications",
+          "/applications",
+          "Onam DRM applications table: business group, criticality, primary and recovery site, required and predicted RTO and RPO, last drill, baseline, drift and readiness per application.",
+          849,
+        ),
+      },
+      {
+        module: "Protection",
+        title: "Protection as configured — not as hoped",
+        body: "Backup, replication, storage and traffic protection read from cloud configuration. Mapped is not protected; protected is not tested.",
+        shows: [
+          "Coverage measured against each mechanism's own population",
+          "Protection by resource type, including types with no record at all",
+          "Gaps in the model shown as gaps, not as a score of zero",
+        ],
+        shot: drmShot(
+          "protection",
+          "/protection",
+          "Onam DRM protection overview: protection, backup and replication records, coverage bars and protection by resource type.",
+          709,
+        ),
+      },
+      {
+        module: "Recovery plans",
+        title: "The order everything comes back",
+        body: "A plan composed from approved items: phases in order, steps that run in parallel, and the critical path.",
+        shows: [
+          "Critical path against the fully serial time",
+          "Required RTO and whether the plan meets it",
+          "Steps whose automation nobody has assessed, labelled unknown",
+        ],
+        shot: drmShot(
+          "recovery-plan",
+          "/recovery/plans/00678a1a-e018-4c96-9576-d4f1a2803632",
+          "Onam DRM recovery plan: six phases from pre-checks to validation, a 52-minute critical path against a 60-minute required RTO.",
+          849,
+        ),
+      },
+      {
+        module: "RTO, RPO & drills",
+        title: "Why a number is that number",
+        body: "Required, predicted and actual recovery figures kept apart, with the critical path that produces the prediction.",
+        shows: [
+          "Applications breaching RTO or RPO, and those within both",
+          "Applications whose figures cannot be calculated yet, and why",
+          "The RTO critical path, phase by phase",
+        ],
+        shot: drmShot(
+          "objectives",
+          "/recovery/objectives",
+          "Onam DRM RTO and RPO view: applications breaching each objective, the RTO critical path by phase, and an RPO left blank because no replication link exists.",
+          849,
+        ),
+      },
+      {
+        module: "Baselines & drift",
+        title: "What changed since you signed off",
+        body: "Drift measured against the approved baseline — never scan against scan — ranked by what it does to recoverability.",
+        shows: [
+          "Open drift by severity and applications affected",
+          "What changed, the approved state and the current state",
+          "Each difference kept until someone resolves it",
+        ],
+        shot: drmShot(
+          "drift",
+          "/monitor/drift",
+          "Onam DRM drift view: open drift by severity, and a table of what changed since the approved baseline for each application.",
+          725,
+        ),
+      },
+    ],
+    limits: [
+      {
+        title: "It does not execute a recovery",
+        body: "DRM plans, predicts and records. It does not fail anything over or start a recovery in your environment.",
+      },
+      {
+        title: "It does not run DR tests",
+        body: "Drills run with your own tools and runbooks are recorded in DRM, with the measured result set against the prediction.",
+      },
+      {
+        title: "It has no connectors to backup products",
+        body: "Protection is read from cloud configuration. That shows a mechanism is configured — not that last night's job succeeded or that a restore works.",
+      },
+      {
+        title: "It does not guess a figure it cannot derive",
+        body: "With no approved plan, or backup-only protection with no recorded frequency, the predicted RTO or RPO stays blank.",
+      },
     ],
   },
 };

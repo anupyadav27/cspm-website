@@ -6,7 +6,7 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/healthcare")({
   head: () =>
     seo({
-      title: "Cloud Security for Healthcare — HIPAA Compliance — Onam Security",
+      title: "Cloud Security for Healthcare — HIPAA Compliance — Onam",
       description: healthcareData.metaDescription ?? healthcareData.sub,
       path: "/solutions/healthcare",
     }),

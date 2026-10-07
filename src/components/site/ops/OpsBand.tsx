@@ -3,7 +3,7 @@ import { ArrowRight, FileSearch, ListChecks, Lock } from "lucide-react";
 import { StatusBadge } from "./OpsUi";
 
 /**
- * Promotional band for Onam Operations, used on the homepage and the platform index.
+ * Promotional band for Onam AIOps, used on the homepage and the platform index.
  * Keep the "Early access" badge: the workspace is enabled per organisation by invitation and
  * agents cannot change a customer's cloud (see src/data/operations.ts).
  */
@@ -14,7 +14,7 @@ export function OpsBand() {
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[11px] font-bold uppercase tracking-widest text-[#93B4F8]">
-              Onam Operations
+              Onam AIOps
             </span>
             <StatusBadge status="early" />
           </div>

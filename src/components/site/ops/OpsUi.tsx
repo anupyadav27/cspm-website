@@ -1,5 +1,5 @@
 /**
- * Onam Operations — status badges and ILLUSTRATIVE workspace mockups.
+ * Onam AIOps — status badges and ILLUSTRATIVE workspace mockups.
  *
  * Every mockup here is drawn in HTML from the UX specification (docs/04 §2, §3.6, §4) and
  * the workspace's real navigation (apps/workspace Nav.tsx). They are NOT screenshots and
@@ -87,10 +87,10 @@ export function WorkspaceMock() {
   return (
     <div className="grid min-w-[340px] text-[12.5px] md:grid-cols-[150px_1fr] lg:grid-cols-[150px_1fr_220px]">
       <aside className="hidden border-r border-[#E5E9F0] bg-[#F8FAFC] p-3 md:block">
-        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam Operations</div>
+        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AIOps</div>
         {NAV.map((g) => (
           <div key={g.section} className="mb-3">
-            <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#94A3B8]">
+            <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
               {g.section}
             </div>
             {g.items.map((i) => (
@@ -129,7 +129,7 @@ export function WorkspaceMock() {
           <div className="mb-1 flex items-center gap-2">
             <AgentDot color="#0F766E" label="As" />
             <span className="font-semibold text-[#0B1220]">Asset Agent</span>
-            <span className="text-[10.5px] text-[#94A3B8]">discover_assets · 214 rows</span>
+            <span className="text-[10.5px] text-[#64748B]">discover_assets · 214 rows</span>
           </div>
           <p className="text-[#334155]">
             214 production assets in the selected accounts; 61 have no owner tag.
@@ -142,7 +142,7 @@ export function WorkspaceMock() {
           <div className="mb-1 flex items-center gap-2">
             <AgentDot color="#1D4ED8" label="Se" />
             <span className="font-semibold text-[#0B1220]">Security Agent</span>
-            <span className="text-[10.5px] text-[#94A3B8]">query_findings · 12 rows</span>
+            <span className="text-[10.5px] text-[#64748B]">query_findings · 12 rows</span>
           </div>
           <p className="text-[#334155]">
             <strong className="text-[#0B1220]">12 of them</strong> carry a critical finding. The top
@@ -156,7 +156,7 @@ export function WorkspaceMock() {
             <span className="font-semibold underline">Review</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-3 py-2 text-[#94A3B8]">
+        <div className="flex items-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-3 py-2 text-[#64748B]">
           <span className="flex-1">Ask the agents… (@Security to target one)</span>
           <span className="rounded-md bg-[#2563EB] px-2 py-0.5 text-[11px] font-semibold text-white">
             Send
@@ -191,7 +191,7 @@ export function WorkspaceMock() {
             </div>
           ))}
         </div>
-        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#94A3B8]">
+        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
           Evidence
         </div>
         {["E-101 findings", "E-102 inventory"].map((e) => (
@@ -199,7 +199,7 @@ export function WorkspaceMock() {
             ▸ {e}
           </div>
         ))}
-        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#94A3B8]">
+        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
           Run
         </div>
         <div className="mt-1 text-[11px] text-[#475569]">2 steps · 1 wave · complete</div>
@@ -326,7 +326,7 @@ export function EvidenceMock() {
       <div className="rounded-xl border border-[#E5E9F0]">
         <div className="flex items-center justify-between border-b border-[#E5E9F0] bg-[#F8FAFC] px-3 py-2 text-[11px] font-bold uppercase tracking-widest text-[#334155]">
           <span>Evidence E-101</span>
-          <span className="font-medium normal-case tracking-normal text-[#94A3B8]">copy</span>
+          <span className="font-medium normal-case tracking-normal text-[#64748B]">copy</span>
         </div>
         <dl className="divide-y divide-[#F1F5F9] text-[12.5px]">
           {rows.map(([k, v]) => (
@@ -413,7 +413,7 @@ export function ApprovalMock() {
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <div className="mb-0.5 text-[9.5px] font-bold uppercase tracking-widest text-[#94A3B8]">
+      <div className="mb-0.5 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
         {title}
       </div>
       <div className="text-[#334155]">{children}</div>
@@ -438,7 +438,7 @@ export function AuditMock() {
         <span className="font-bold">Hash chain:</span> intact — no record edited or removed
       </div>
       <table className="w-full text-left text-[12px]">
-        <thead className="text-[10px] uppercase tracking-widest text-[#94A3B8]">
+        <thead className="text-[10px] uppercase tracking-widest text-[#64748B]">
           <tr>
             <th className="py-1.5 pr-3 font-bold">Time</th>
             <th className="py-1.5 pr-3 font-bold">Actor</th>
@@ -497,7 +497,7 @@ export function DiagramFigure({
   );
 }
 
-/** Small section shell shared by the two Onam Operations pages. */
+/** Small section shell shared by the two Onam AIOps pages. */
 export function OpsSection({
   id,
   eyebrow,

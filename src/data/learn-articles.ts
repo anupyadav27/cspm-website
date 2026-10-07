@@ -15,8 +15,21 @@ export type LearnFaq = { q: string; a: string };
 
 import type { AuthorSlug } from "./authors";
 
+/** The product an explainer belongs to; groups /learn. Omitted means Security. */
+export type LearnProduct = "platform" | "security" | "finops" | "drm" | "aiops";
+
+export const LEARN_PRODUCT_LABEL: Record<LearnProduct, string> = {
+  platform: "Platform & Estate",
+  security: "Security",
+  finops: "FinOps",
+  drm: "Disaster recovery",
+  aiops: "AIOps",
+};
+
 export type LearnArticle = {
   slug: string;
+  /** Product group on /learn. Defaults to "security". */
+  product?: LearnProduct;
   /** Named author — see src/data/authors.ts. */
   author: AuthorSlug;
   /** H1 — phrased exactly as the target query. */
@@ -1214,7 +1227,563 @@ The last point is the one most often missed: a secrets programme that only inspe
       { label: "Onam Code Security", href: "/platform/code-security" },
     ],
   },
+  {
+    slug: "cloud-asset-inventory",
+    product: "platform",
+    author: "poonam-yadav",
+    question: "What is a cloud asset inventory?",
+    title: "What is a Cloud Asset Inventory? Discovery, Relationships, CMDB",
+    excerpt:
+      "A cloud asset inventory is a continuously discovered list of every cloud resource and how they connect: how it differs from a CMDB, and what to include.",
+    term: "Cloud Asset Inventory",
+    answer:
+      "A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts — compute, storage, databases, networks, identities and managed services — with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs, not by manual entry.",
+    readTime: "6 min",
+    body: `
+## Why a cloud asset inventory matters
+
+Every other cloud discipline starts with the same question: *what do we actually run?* Security cannot protect a database nobody knows exists. Finance cannot allocate the cost of a cluster with no owner. A recovery plan cannot bring back a dependency it never listed.
+
+In a data centre the answer changed slowly — servers arrived on a loading dock. In the cloud, a resource is one API call away, and so is its disappearance. Inventories that were accurate on Monday are wrong by Friday unless something keeps them current.
+
+That is why the major control frameworks put inventory first. Asset inventory is the opening control in the **CIS Critical Security Controls**, and *Asset Management* is the first category of the *Identify* function in the **NIST Cybersecurity Framework**.
+
+## How is a cloud asset inventory built?
+
+A modern inventory is discovered, not declared:
+
+1. **Connect** — a read-only credential in each cloud account, subscription or project.
+2. **Enumerate** — call the provider's APIs across every region and service to list what exists.
+3. **Normalise** — give every resource a stable identity, type, account, region, state and tags, so the same resource is not counted twice under different names.
+4. **Relate** — record the relationships between resources: what runs inside what, what attaches to what, what can reach what.
+5. **Repeat** — re-run on a schedule or on change events, and record when each resource was **last seen** so deleted resources drop out instead of lingering.
+
+## What should a cloud asset inventory include?
+
+| Field | Why it matters |
+| --- | --- |
+| Provider, account, region | Where the resource lives and who is billed for it |
+| Type and service | What it is — a VM, a bucket, a managed database, a role |
+| State and last seen | Whether it still exists, and how current the record is |
+| Tags and owner | Who is responsible for it |
+| Relationships | What it depends on and what depends on it |
+| Configuration | The settings security and recovery decisions are made from |
+
+## Cloud asset inventory vs CMDB
+
+A configuration management database (CMDB) is the system of record for IT services and their configuration items, usually maintained through change processes and reconciliation. A cloud asset inventory is the **discovered** truth of what the provider says exists right now.
+
+They are complementary, not competing. The common failure is treating a CMDB populated by hand or by periodic import as if it were current. In the cloud, the CMDB is most useful when it is fed from discovery, not reconciled against it once a quarter.
+
+## Why relationships matter as much as the list
+
+A flat list answers "how many databases do we have?". It does not answer "what breaks if this subnet goes away?", "which roles can read this bucket?" or "which application pays for this volume?". Those questions are about **edges**, not rows — which is why mature inventories store resources as a graph.
+
+## Common gaps
+
+- **Shadow resources** created outside the provisioning pipeline, which never appear in infrastructure-as-code state.
+- **Orphaned resources** — unattached volumes, old snapshots, idle load balancers — that outlive the workload they served.
+- **Unowned resources** with no tag or account mapping, which nobody will patch, pay for or recover.
+- **Stale records** that stay in the inventory after the resource is deleted, because nothing checks when it was last seen.
+
+## Next steps
+
+- [How Onam Estate builds the estate of record](/estate) — continuous discovery and relationships across your connected clouds
+- [What is CSPM?](/learn/cspm) — what security does with the inventory
+- [What is cloud cost allocation?](/learn/cloud-cost-allocation) — what finance does with it
+`,
+    faqs: [
+      {
+        q: "What is the difference between a cloud asset inventory and a CMDB?",
+        a: "A CMDB is a system of record for IT services and configuration items, typically maintained through change processes. A cloud asset inventory is discovered from provider APIs and reflects what exists right now. The strongest setups feed the CMDB from discovery rather than reconciling the two by hand.",
+      },
+      {
+        q: "How often should a cloud asset inventory be updated?",
+        a: "Continuously, or as close to it as the provider APIs allow. Cloud resources are created and deleted in minutes, so an inventory refreshed monthly is mostly a historical document. Recording when each resource was last seen is what lets deleted resources drop out.",
+      },
+      {
+        q: "Does a cloud asset inventory need agents?",
+        a: "No. Cloud resources are described by the provider's control-plane APIs, so a read-only credential is enough to enumerate them. Agents are only needed to see inside a workload — installed packages, running processes — which is a different question from what exists.",
+      },
+      {
+        q: "Why do asset inventories need relationships, not just a list?",
+        a: "Because most real questions are about connections: what an application depends on, what can reach a database, which team pays for a volume. A list of resources cannot answer those; a graph of resources and the edges between them can.",
+      },
+    ],
+    related: [
+      { label: "What is CSPM?", href: "/learn/cspm" },
+      { label: "What is cloud cost allocation?", href: "/learn/cloud-cost-allocation" },
+      { label: "What is cloud disaster recovery?", href: "/learn/cloud-disaster-recovery" },
+      { label: "Onam Estate", href: "/estate" },
+    ],
+  },
+  {
+    slug: "finops",
+    product: "finops",
+    author: "anup-yadav",
+    question: "What is FinOps?",
+    title: "What is FinOps? Cloud Financial Management Explained",
+    excerpt:
+      "FinOps manages cloud spend through shared accountability between engineering, finance and business teams: its phases, activities and common mistakes.",
+    term: "FinOps (Cloud Financial Operations)",
+    answer:
+      "FinOps is an operational framework and cultural practice for managing variable cloud spend. It brings engineering, finance and business teams together so that spending decisions are made with timely cost data, each cost has an accountable owner, and the organisation gets the most business value from what it spends on cloud.",
+    readTime: "7 min",
+    body: `
+## Why FinOps exists
+
+On-premises infrastructure was bought up front, through a procurement process, a few times a year. Cloud infrastructure is bought by the minute, by engineers, through an API. The people who create cost are no longer the people who approve it — and the bill arrives after the money is spent.
+
+Traditional finance controls do not fit that model. Blocking spend slows engineering down; ignoring it produces a surprise at month end. FinOps is the discipline that sits between the two: give the people creating cost the information to make good decisions, and give finance a reliable view of where the money goes.
+
+The term and its framework are stewarded by the **FinOps Foundation**, a project of the Linux Foundation, which publishes the framework, its principles and the open FOCUS specification for cost and usage data.
+
+## What are the phases of FinOps?
+
+The FinOps Foundation describes a repeating lifecycle of three phases:
+
+1. **Inform** — make cost visible and attributable: who spent what, on which service, for which product. Allocation, showback and forecasting live here.
+2. **Optimise** — reduce waste and improve rates: rightsizing, removing idle resources, scheduling non-production environments, and commitment discounts such as reserved capacity and savings plans.
+3. **Operate** — make it routine: budgets, policies, anomaly alerts, and decisions taken as part of normal engineering and planning cycles.
+
+Teams cycle through all three continuously, and different parts of the organisation can be at different stages at once.
+
+## What does a FinOps practice actually do?
+
+| Activity | The question it answers |
+| --- | --- |
+| Cost allocation | Who owns this spend? |
+| Showback and chargeback | Does each team see — or pay for — what it uses? |
+| Forecasting and budgets | What will we spend, and are we on track? |
+| Anomaly detection | Did something change that nobody intended? |
+| Rate optimisation | Are we paying the best available price for steady usage? |
+| Usage optimisation | Are we running things we do not need? |
+| Unit economics | What does it cost to serve one customer, transaction or request? |
+
+## Billed cost vs amortised cost
+
+One of the first things a FinOps team learns is that "what did we spend?" has more than one correct answer. **Billed cost** is what the invoice says for the period. **Amortised (effective) cost** spreads up-front commitment payments across the periods they cover. A three-year commitment paid up front makes the billed figure spike once; the amortised figure shows the real monthly cost. Mature practices report both and say which one a number is.
+
+## Common FinOps mistakes
+
+- **Treating it as a cost-cutting project.** FinOps is about value, not only reduction; spending more on a growing product can be the right answer.
+- **Optimising before allocating.** Savings are hard to act on when nobody owns the resources they apply to.
+- **Quoting unsettled numbers.** Cloud billing data arrives late and is revised; a partial month presented as final causes false alarms.
+- **Centralising every decision.** A central team enables; the engineers who own the workloads act.
+
+## Next steps
+
+- [What is cloud cost allocation?](/learn/cloud-cost-allocation) — showback, chargeback and tagging
+- [How Onam FinOps works](/finops) — reconciled billing data, ownership and savings
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — knowing what you pay for
+`,
+    faqs: [
+      {
+        q: "What does FinOps stand for?",
+        a: "FinOps is a portmanteau of finance and DevOps. It describes the practice of bringing financial accountability to variable cloud spend, by having engineering, finance and business teams make spending decisions together using timely cost data.",
+      },
+      {
+        q: "Who is responsible for FinOps in an organisation?",
+        a: "Usually a small central FinOps team that sets standards, owns the data and tooling, and negotiates commitments — working with engineering teams who own the workloads and act on recommendations, and finance teams who own budgets and forecasting. Accountability for each cost sits with the team that creates it.",
+      },
+      {
+        q: "Is FinOps only about reducing cloud costs?",
+        a: "No. The goal is to maximise the business value of cloud spend. Sometimes that means cutting waste; sometimes it means spending more on a product that is growing. The point is that the decision is made deliberately, with good data, by someone accountable.",
+      },
+      {
+        q: "What is FOCUS in FinOps?",
+        a: "FOCUS, the FinOps Open Cost and Usage Specification, is an open specification for cloud billing data published under the FinOps Foundation. It defines common columns and terms so cost data from different providers can be combined and compared without bespoke translation.",
+      },
+    ],
+    related: [
+      { label: "What is cloud cost allocation?", href: "/learn/cloud-cost-allocation" },
+      { label: "What is a cloud asset inventory?", href: "/learn/cloud-asset-inventory" },
+      { label: "Onam FinOps", href: "/finops" },
+      { label: "Onam FinOps documentation", href: "/docs/finops/overview" },
+    ],
+  },
+  {
+    slug: "cloud-cost-allocation",
+    product: "finops",
+    author: "anup-yadav",
+    question: "What is cloud cost allocation?",
+    title: "What is Cloud Cost Allocation? Showback, Chargeback and Tagging",
+    excerpt:
+      "Cloud cost allocation assigns every cloud cost to the team or product responsible: tagging, account structure, shared costs, showback vs chargeback.",
+    term: "Cloud Cost Allocation",
+    answer:
+      "Cloud cost allocation is the practice of assigning every cloud cost to the team, product, environment or customer responsible for it. It relies on account structure, resource tags and rules for splitting shared costs, and its results are reported back to teams through showback, which informs them, or chargeback, which bills them.",
+    readTime: "7 min",
+    body: `
+## Why cost allocation comes first
+
+A cloud bill lists services and resources. It does not list owners. Until each cost is tied to someone accountable, every other FinOps activity stalls: a rightsizing recommendation has nobody to act on it, a budget has nothing to measure against, and an anomaly has nobody to ask.
+
+Allocation turns "we spent more on compute this month" into "the payments team's staging environment doubled in size on the 14th".
+
+## How is cloud cost allocated?
+
+Most organisations combine three mechanisms, from coarsest to finest:
+
+1. **Account structure** — separate accounts, subscriptions or projects per team, product or environment. Anything inside an account inherits its owner. This is the most reliable mechanism because it does not depend on anyone remembering a tag.
+2. **Tags and labels** — key-value metadata on each resource, such as \`team\`, \`product\`, \`environment\` and \`cost-centre\`. Tags allow finer splits inside shared accounts.
+3. **Allocation rules** — logic applied after the fact to costs that neither of the above can attribute, such as shared platforms, support charges and commitment discounts.
+
+## What makes a good tagging strategy?
+
+- **A short, mandatory set of keys.** Three to five required tags that every resource must carry beat thirty optional ones.
+- **Controlled values.** \`prod\`, \`Prod\` and \`production\` are three different owners to a report. Publish the allowed values.
+- **Enforcement at creation.** Tag policies, infrastructure-as-code checks or provisioning guardrails stop untagged resources being created, which is far cheaper than fixing them later.
+- **Not every cost can be tagged.** Some charges — data transfer, support, some marketplace fees — carry no resource tags at all, so tagging alone never reaches full coverage.
+- **Measure coverage.** Report the share of spend that is allocated, and treat the unallocated remainder as a number to drive down rather than a rounding error.
+
+## How are shared costs split?
+
+Shared platforms — a Kubernetes cluster, a central network, a logging pipeline — serve many teams at once. Common approaches:
+
+| Method | How it works | Good for |
+| --- | --- | --- |
+| Even split | Divide equally among consumers | Small, roughly equal consumers |
+| Proportional | Split by a usage driver — CPU requested, bytes ingested, requests served | Platforms with measurable consumption |
+| Fixed ratio | Agreed percentages, reviewed periodically | Costs with no reliable driver |
+| Central | Keep it in a platform budget, unallocated | Costs no team can influence |
+
+Whichever method is chosen, publish it. A split that teams cannot reproduce will be argued with rather than acted on.
+
+## Showback vs chargeback
+
+- **Showback** reports each team's allocated cost back to it, without moving money. It builds awareness and is where most organisations start.
+- **Chargeback** bills the cost to the team's budget through internal accounting. It creates stronger accountability, but only works when allocation is accurate enough that teams accept the numbers.
+
+Moving to chargeback before allocation is trusted tends to produce disputes about the data instead of decisions about the spend.
+
+## Next steps
+
+- [What is FinOps?](/learn/finops) — the practice cost allocation belongs to
+- [How Onam FinOps attributes ownership](/finops) — with attribution coverage stated, not assumed
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the resource list allocation is built on
+`,
+    faqs: [
+      {
+        q: "What is the difference between showback and chargeback?",
+        a: "Showback reports each team's cloud costs to it for awareness, without moving money. Chargeback bills those costs to the team's budget through internal accounting. Showback is usually the first step; chargeback follows once teams trust the allocation.",
+      },
+      {
+        q: "Can tags alone allocate all cloud costs?",
+        a: "No. Some charges carry no resource tags — data transfer, support fees, some marketplace and commitment charges — and shared platforms serve many teams at once. Account structure and allocation rules are needed alongside tags to reach full coverage.",
+      },
+      {
+        q: "How do you allocate Kubernetes costs?",
+        a: "Usually proportionally: the cluster's cost is split across namespaces or workloads by a usage driver such as requested CPU and memory, with idle capacity either spread across consumers or kept as a platform cost. The chosen method should be published so teams can reproduce their share.",
+      },
+      {
+        q: "What is a good level of cost allocation coverage?",
+        a: "There is no universal target, but the unallocated share should be measured, reported and shrinking. What matters most is that the coverage figure is stated alongside the allocated numbers, so nobody mistakes a partial picture for a complete one.",
+      },
+    ],
+    related: [
+      { label: "What is FinOps?", href: "/learn/finops" },
+      { label: "What is a cloud asset inventory?", href: "/learn/cloud-asset-inventory" },
+      { label: "Onam FinOps", href: "/finops" },
+      { label: "Ownership & attribution in Onam FinOps", href: "/docs/finops/ownership" },
+    ],
+  },
+  {
+    slug: "rto-vs-rpo",
+    product: "drm",
+    author: "poonam-yadav",
+    question: "What is the difference between RTO and RPO?",
+    title: "RTO vs RPO: Recovery Time and Recovery Point Objectives",
+    excerpt:
+      "RTO is how long a system can be down; RPO is how much data you can afford to lose. How each is set, measured, and what drives it in the cloud.",
+    term: "RTO and RPO",
+    answer:
+      "Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost — how far back the restored copy may be. RTO is about downtime; RPO is about data loss.",
+    readTime: "6 min",
+    body: `
+## RTO and RPO in one example
+
+An order database fails at 14:00. The last usable copy is from 13:45, and the service is back at 15:30.
+
+- The **recovery point** was 13:45 — fifteen minutes of orders were lost. If the RPO was 30 minutes, it was met.
+- The **recovery time** was 90 minutes. If the RTO was one hour, it was missed.
+
+The two objectives are independent. A system can lose no data and still be down for a day, or come back in minutes with an hour of data missing.
+
+## How are RTO and RPO set?
+
+They are **business decisions**, not technical ones. A business impact analysis asks, for each application, what an hour of downtime costs and what losing an hour of data costs — in revenue, regulatory exposure, customer harm and reputation. The answers set the targets.
+
+Targets usually come in tiers: a handful of critical applications with tight objectives, more with moderate ones, and the rest recoverable within a day or longer. Tiering matters because tighter objectives cost more to meet.
+
+## What drives RPO?
+
+RPO is set by **how often a copy is made** and **how far behind it runs**:
+
+- **Periodic backups and snapshots** — the worst-case data loss is roughly the interval between them, plus the time to complete one.
+- **Asynchronous replication** — data loss is the replication lag at the moment of failure, which varies with load.
+- **Synchronous replication** — writes are acknowledged only once both copies have them, so data loss can approach zero, at the cost of latency and distance limits.
+
+## What drives RTO?
+
+RTO is set by **everything that has to happen before users are served again**:
+
+1. Detecting the failure and deciding to recover.
+2. Provisioning or activating infrastructure in the recovery location.
+3. Restoring or promoting data.
+4. Starting services **in dependency order** — the database before the application, the application before the load balancer.
+5. Redirecting traffic, including DNS changes and their time to live.
+6. Verifying that the application actually works.
+
+Steps that can run in parallel reduce the total; the longest chain of steps that must run one after another — the critical path — sets it.
+
+## Required, predicted and actual
+
+A useful discipline is to keep three numbers apart for each application:
+
+| Number | Where it comes from |
+| --- | --- |
+| **Required** | The target the business set |
+| **Predicted** | What the current design and protection should achieve |
+| **Actual** | What a test or real recovery measured |
+
+Plans fail when these are blurred — when the required number is quoted as if it had been measured, or a prediction is never checked against a test.
+
+## RTO and RPO vs MTD
+
+**Maximum tolerable downtime (MTD)** — also called maximum tolerable period of disruption — is the point beyond which the business suffers unacceptable or irreversible harm. RTO must sit inside it, with enough margin to verify the recovery and resume normal operation.
+
+## Next steps
+
+- [What is cloud disaster recovery?](/learn/cloud-disaster-recovery) — the strategies that deliver different RTOs and RPOs
+- [How Onam DRM predicts RTO and RPO](/disaster-recovery) — against the targets you set
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — knowing what has to recover
+`,
+    faqs: [
+      {
+        q: "What does RTO stand for?",
+        a: "RTO stands for Recovery Time Objective: the maximum acceptable time between a disruption and the restoration of a service. It is a target set by the business, usually through a business impact analysis.",
+      },
+      {
+        q: "What does RPO stand for?",
+        a: "RPO stands for Recovery Point Objective: the maximum acceptable amount of data loss, expressed as time. An RPO of 15 minutes means the recovered data may be at most 15 minutes older than the moment of failure.",
+      },
+      {
+        q: "Which is more important, RTO or RPO?",
+        a: "Neither in general — it depends on the application. A payments ledger may tolerate some downtime but no data loss, so its RPO is tight. A public website may tolerate losing recent content but not long outages, so its RTO is tight. Each application needs both set deliberately.",
+      },
+      {
+        q: "Can RPO be zero?",
+        a: "Close to it, with synchronous replication, where a write is only confirmed once every copy has it. That adds latency and limits how far apart the copies can be, so true zero RPO is usually reserved for the most critical data. It also does not protect against corruption or deletion, which replicate too.",
+      },
+      {
+        q: "How do you know an RTO can actually be met?",
+        a: "By testing. A design and a plan give a predicted recovery time; only a drill or a real recovery measures the actual one. Recording the prediction before each test, and comparing it with the measured result afterwards, is what shows whether the plan is realistic.",
+      },
+    ],
+    related: [
+      { label: "What is cloud disaster recovery?", href: "/learn/cloud-disaster-recovery" },
+      { label: "What is a cloud asset inventory?", href: "/learn/cloud-asset-inventory" },
+      { label: "Onam DRM", href: "/disaster-recovery" },
+      { label: "RTO, RPO & drills in Onam DRM", href: "/docs/drm/objectives" },
+    ],
+  },
+  {
+    slug: "cloud-disaster-recovery",
+    product: "drm",
+    author: "poonam-yadav",
+    question: "What is cloud disaster recovery?",
+    title: "What is Cloud Disaster Recovery? Strategies, RTO/RPO, Testing",
+    excerpt:
+      "Cloud disaster recovery restores applications and data after a major failure: backup and restore, pilot light, warm standby, multi-site, how to choose.",
+    term: "Cloud Disaster Recovery",
+    answer:
+      "Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption — a regional outage, data corruption, deletion or a cyberattack — using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.",
+    readTime: "8 min",
+    body: `
+## Disaster recovery vs high availability
+
+High availability keeps a service running through **small, expected failures**: an instance dies, a disk fails, an availability zone goes dark. It is designed into the architecture and usually works automatically.
+
+Disaster recovery handles **large or unusual failures** that high availability does not cover: a whole region unavailable, data deleted or encrypted by an attacker, a bad change replicated everywhere at once. Replication alone is not disaster recovery — a corrupted table replicates as faithfully as a good one. That is why point-in-time copies, isolated from the primary, remain part of every serious plan.
+
+## What are the cloud disaster recovery strategies?
+
+Four strategies are commonly described — including in cloud providers' own disaster recovery guidance. They trade cost against recovery time and data loss:
+
+| Strategy | What runs in the recovery region | Typical RTO / RPO | Relative cost |
+| --- | --- | --- | --- |
+| **Backup and restore** | Nothing but copies of data and infrastructure definitions | Hours | Lowest |
+| **Pilot light** | Data replicated continuously; core services provisioned but switched off or scaled to zero | Tens of minutes | Low |
+| **Warm standby** | A complete, scaled-down copy of the environment, running | Minutes | Medium |
+| **Multi-site active/active** | A full copy serving live traffic in more than one region | Near zero | Highest |
+
+The figures are orders of magnitude, not guarantees. Actual recovery time depends on the application, its data volume and the procedure — which is why it has to be tested.
+
+### Backup and restore
+
+Data is backed up — ideally to another region and account — and infrastructure is defined as code so it can be recreated. After a disaster, the environment is rebuilt and data restored. Cheapest to run; slowest to recover.
+
+### Pilot light
+
+The data layer is replicated continuously to the recovery region, and the rest of the environment exists in a minimal state. Recovery means switching on and scaling up the application tier around data that is already there.
+
+### Warm standby
+
+A functional, smaller copy of the whole environment runs all the time. Recovery means scaling it to production size and redirecting traffic. Because it is always running, it can also be tested more easily.
+
+### Multi-site active/active
+
+Two or more regions serve production traffic simultaneously. Losing one means the others absorb its load. It gives the fastest recovery but requires the application to handle data consistency across regions, which is a design decision, not a configuration switch.
+
+## How to choose a strategy
+
+Start from the business targets, not the technology. A [business impact analysis](/learn/rto-vs-rpo) gives each application a required RTO and RPO; the strategy is the cheapest one that meets them. Most organisations use several at once — active/active for a few critical services, backup and restore for most internal systems.
+
+## What makes a disaster recovery plan work?
+
+1. **A complete inventory** of what each application depends on — the database, the queue, the secrets, the DNS records, the identity provider.
+2. **A recovery order** that follows those dependencies.
+3. **Protection that matches the targets** — backup frequency and replication that can actually deliver the RPO.
+4. **Isolation** — copies in a separate account or with immutability, so an attacker or a mistake cannot delete the primary and the backup together.
+5. **Testing** — regular drills that measure real recovery time and data loss against the targets.
+6. **Drift control** — a check that the environment still matches the plan, because a new database added without a replica quietly breaks it.
+
+## Regulation
+
+Disaster recovery is increasingly a regulatory expectation, not only good practice. Financial-sector rules such as the EU's Digital Operational Resilience Act (DORA) expect tested ICT business continuity and recovery arrangements, and healthcare rules such as the HIPAA Security Rule require a contingency plan including data backup and disaster recovery procedures.
+
+## Next steps
+
+- [What is the difference between RTO and RPO?](/learn/rto-vs-rpo) — the two targets every strategy is measured against
+- [How Onam DRM maps recovery readiness](/disaster-recovery) — dependencies, protection, predicted RTO/RPO and drift
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the starting point of every recovery plan
+`,
+    faqs: [
+      {
+        q: "What is the difference between backup and disaster recovery?",
+        a: "A backup is a copy of data. Disaster recovery is the whole capability to bring an application back: the copies, the infrastructure to run on, the order in which components start, the procedure, and the testing that proves it works. Backups are one input to disaster recovery, not a substitute for it.",
+      },
+      {
+        q: "Is multi-region replication enough for disaster recovery?",
+        a: "Not on its own. Replication protects against losing a location, but it also copies deletions, corruption and ransomware encryption to the other region. Point-in-time backups kept isolated from the primary are still needed, along with a tested procedure for failing over.",
+      },
+      {
+        q: "How often should disaster recovery be tested?",
+        a: "At least as often as regulation or internal policy requires, and after significant changes to the application. Many organisations test critical applications several times a year and the rest annually. What matters is that each test measures actual recovery time and data loss against the targets.",
+      },
+      {
+        q: "What is pilot light in disaster recovery?",
+        a: "A strategy where the data layer is continuously replicated to the recovery region while the rest of the environment is kept minimal or switched off. In a disaster, the application tier is started and scaled up around data that is already in place.",
+      },
+      {
+        q: "What is drift in disaster recovery?",
+        a: "Drift is any change to the environment since the recovery plan was approved that the plan does not reflect — a new resource without protection, a dependency that moved, a changed recovery site. Undetected drift is how a plan that was correct when signed becomes wrong without anyone editing it.",
+      },
+    ],
+    related: [
+      { label: "What is the difference between RTO and RPO?", href: "/learn/rto-vs-rpo" },
+      { label: "What is a cloud asset inventory?", href: "/learn/cloud-asset-inventory" },
+      { label: "Onam DRM", href: "/disaster-recovery" },
+      { label: "Onam DRM documentation", href: "/docs/drm/overview" },
+    ],
+  },
+  {
+    slug: "agentic-aiops",
+    product: "aiops",
+    author: "anup-yadav",
+    question: "What is agentic AIOps?",
+    title: "What is Agentic AIOps? AI Agents in Cloud Operations",
+    excerpt:
+      "Agentic AIOps uses AI agents that investigate and propose cloud operations changes, with a person approving each action: how it works and stays safe.",
+    term: "Agentic AIOps",
+    answer:
+      "Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work — investigating an incident, gathering evidence, proposing a fix — using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.",
+    readTime: "7 min",
+    body: `
+## From AIOps to agentic AIOps
+
+**AIOps** — a term coined by the analyst firm Gartner — describes applying machine learning and analytics to operations data: correlating alerts, detecting anomalies, reducing noise. It tells an operator *what* is happening faster.
+
+**Agentic AIOps** goes a step further. An AI agent, usually built on a large language model, is given a goal ("why did checkout latency rise?"), a set of tools (query the inventory, read the logs, check recent changes) and permission boundaries. It plans the steps, calls the tools, reasons about the results and reports back — or proposes an action.
+
+The difference is between a dashboard that highlights an anomaly and an assistant that investigates it.
+
+## What can AI agents do in cloud operations?
+
+| Task | What the agent does |
+| --- | --- |
+| Investigation | Gathers configuration, metrics, logs and recent changes across systems and summarises what it finds |
+| Inventory questions | Answers "what do we run, where, and who owns it?" from live data |
+| Security triage | Explains a finding, checks whether it is reachable or exploitable, and groups related issues |
+| Change proposals | Drafts a fix — a configuration change, a pull request, a runbook — for a person to review |
+| Reporting | Produces summaries and evidence for audits or reviews |
+
+## Why human-in-the-loop approval matters
+
+An agent that can only read is low risk. An agent that can change production is a new kind of privileged identity — one that can be wrong with confidence, or be manipulated through the data it reads.
+
+**Human-in-the-loop** design keeps a person in the decision: the agent investigates and proposes, and a named human approves before anything changes. Good implementations make the decision easy to make well:
+
+- the proposal states **what will change, why, and what evidence supports it**;
+- it shows **how to undo** the change;
+- approval is a recorded act by an accountable person, not a default.
+
+## Levels of autonomy
+
+A useful way to think about agent authority is as a ladder an organisation climbs deliberately:
+
+1. **Answer** — read-only questions and explanations.
+2. **Investigate** — multi-step, read-only analysis with evidence.
+3. **Propose** — draft changes for a person to approve.
+4. **Act with approval** — execute a change after explicit approval.
+5. **Act within policy** — execute pre-approved, low-risk changes on its own, inside strict limits.
+
+Most organisations should start at the bottom and move up one level at a time, per environment and per kind of change.
+
+## How to keep AI agents safe in operations
+
+- **Least privilege.** Give each agent only the tools and permissions its job needs, scoped to the accounts it works on.
+- **Evidence on every claim.** Require agents to cite the data behind their conclusions, so a person can check them.
+- **Audit trail.** Record every question, tool call, proposal and approval.
+- **A kill switch.** Be able to stop all agent activity immediately.
+- **An autonomy ceiling.** Set, per organisation or environment, the highest level an agent may operate at.
+- **Treat inputs as untrusted.** Logs, tickets and resource tags can contain text written to manipulate a model. Security guidance such as the OWASP Top 10 for LLM applications lists prompt injection and excessive agency among the main risks.
+
+## Next steps
+
+- [How Onam AIOps works](/platform/ai-operations) — agents that investigate with evidence and propose; a person approves
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the data agents reason over
+- [What is a cloud attack path?](/learn/cloud-attack-path) — the kind of security question agents help triage
+`,
+    faqs: [
+      {
+        q: "What is the difference between AIOps and agentic AIOps?",
+        a: "AIOps applies machine learning to operations data to correlate alerts and detect anomalies. Agentic AIOps adds AI agents that plan and carry out multi-step tasks with tools — investigating an issue, gathering evidence, proposing a fix — rather than only surfacing signals for a person to investigate.",
+      },
+      {
+        q: "What does human-in-the-loop mean for AI agents?",
+        a: "It means a person approves an agent's proposed action before it is carried out. The agent can investigate and recommend, but a named, accountable human decides whether a change is made, and that decision is recorded.",
+      },
+      {
+        q: "Is it safe to let AI agents change cloud infrastructure?",
+        a: "Only with controls: least-privilege permissions, human approval for changes, an audit trail, a kill switch and a ceiling on autonomy. Many organisations keep agents read-only or proposal-only until they have evidence about how the agents behave in their environment.",
+      },
+      {
+        q: "What is prompt injection in AIOps?",
+        a: "Prompt injection is when text in the data an agent reads — a log line, a ticket, a resource tag — contains instructions that try to change the agent's behaviour. Agents in operations read a lot of untrusted text, so their permissions and approval steps must assume some of it is hostile.",
+      },
+    ],
+    related: [
+      { label: "What is a cloud asset inventory?", href: "/learn/cloud-asset-inventory" },
+      { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
+      { label: "Onam AIOps", href: "/platform/ai-operations" },
+      { label: "Onam AIOps availability", href: "/docs/operations/availability" },
+    ],
+  },
 ];
+
+export const learnProduct = (a: LearnArticle): LearnProduct => a.product ?? "security";
 
 export function getLearnArticle(slug: string): LearnArticle | undefined {
   return LEARN_ARTICLES.find((a) => a.slug === slug);

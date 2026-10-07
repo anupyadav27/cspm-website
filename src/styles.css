@@ -73,6 +73,20 @@
   --color-amber-bright: #F2AF04;
   --color-red-bright: #E32D25;
   --color-purple-bright: #7C3AED;
+
+  /* Website v2 (WEBSITE-V2-PLAN.md §4). Product accents, and the two greys whose
+     roles are easy to confuse: muted-500 (above) is the lightest grey allowed for
+     TEXT on white (4.76:1); subtle is for icons and borders only (2.56:1). */
+  --color-subtle: #94A3B8;
+  --color-line-strong: #CBD5E1;
+  --color-night: #0B1220;
+  --color-night-2: #121C31;
+  --color-on-night-muted: #9FB0CC;
+  --color-product-estate: #7C3AED;
+  --color-product-security: #2563EB;
+  --color-product-finops: #059669;
+  --color-product-drm: #D97706;
+  --color-product-aiops: #4F46E5;
 }
 
 :root {
@@ -199,3 +213,15 @@
 @utility animate-pulse-slow { animation: pulse-slow 6s ease-in-out infinite; }
 @utility animate-slide-up { animation: slide-up .7s cubic-bezier(.16,1,.3,1) both; }
 @utility animate-fade-in { animation: fade-in .8s ease-out both; }
+
+/* Respect the OS setting: no slide-ins, no auto-advancing demos, no smooth scroll. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

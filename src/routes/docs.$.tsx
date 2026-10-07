@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { Prose } from "@/components/site/Prose";
 import { BrandButton } from "@/components/site/BrandButton";
-import { getDocArticle, DOC_SECTIONS, allDocSlugs } from "@/data/docs";
+import { getDocArticle, DOC_SECTIONS, DOC_PRODUCT_LABEL, allDocSlugs } from "@/data/docs";
 import { seo, descriptionFromMarkdown, SITE_URL } from "@/lib/seo";
 import { extractHeadings, slugifyHeading } from "@/components/site/Prose";
 import { ChevronRight } from "lucide-react";
@@ -49,6 +49,14 @@ function findNeighbors(slug: string) {
   };
 }
 
+/** The breadcrumb with its product in front, so a Security "Features / CSPM" page reads as Security's. */
+function productBreadcrumb(slug: string, breadcrumb: string) {
+  const sec = DOC_SECTIONS.find((s) => s.items.some((i) => i.slug === slug));
+  if (!sec || sec.product === "shared") return breadcrumb;
+  const label = DOC_PRODUCT_LABEL[sec.product];
+  return breadcrumb.startsWith(label) ? breadcrumb : `${label} / ${breadcrumb}`;
+}
+
 function docJsonLd(article: { title: string; slug: string; body: string }) {
   return [
     {
@@ -57,10 +65,10 @@ function docJsonLd(article: { title: string; slug: string; body: string }) {
       headline: article.title,
       description: descriptionFromMarkdown(article.body) || article.title,
       mainEntityOfPage: `${SITE_URL}/docs/${article.slug}`,
-      author: { "@type": "Organization", name: "Onam Security" },
+      author: { "@type": "Organization", name: "Onam" },
       publisher: {
         "@type": "Organization",
-        name: "Onam Security",
+        name: "Onam",
         logo: { "@type": "ImageObject", url: `${SITE_URL}/logo-512.png` },
       },
     },
@@ -91,7 +99,7 @@ function DocArticle() {
         <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-4">
           <Link to="/docs" className="hover:text-[#2563EB]">Docs</Link>
           <ChevronRight className="w-3.5 h-3.5" />
-          <span className="text-[#0B1220]">{article.breadcrumb}</span>
+          <span className="text-[#0B1220]">{productBreadcrumb(article.slug, article.breadcrumb)}</span>
         </nav>
         <h1 className="font-display font-black text-[#0B1220] text-3xl md:text-[40px] tracking-tight leading-[1.1]">
           {article.title}

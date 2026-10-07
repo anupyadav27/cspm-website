@@ -5,7 +5,7 @@ import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, fmt } from "@/lib/product-facts
 export const financialData: IndustrySolutionData = {
   breadcrumb: "Solutions · Financial Services",
   industryName: "Financial Services",
-  headline: "Prove Cloud Compliance to Your Auditors Before They Ask",
+  headline: "Prove cloud compliance to your auditors before they ask",
   metaDescription:
     "Cloud security for financial services: banks, fintechs, insurers and asset managers get a continuous, auditable evidence trail across every cloud account.",
   sub: "Financial services firms face the strictest cloud security mandates on earth — and the shortest tolerance for breaches. Onam gives banks, fintechs, insurers, and asset managers a continuous, auditable evidence trail across every cloud account, so your next regulatory exam is a demonstration, not a scramble.",
@@ -74,7 +74,7 @@ export const financialData: IndustrySolutionData = {
 export const healthcareData: IndustrySolutionData = {
   breadcrumb: "Solutions · Healthcare",
   industryName: "Healthcare",
-  headline: "HIPAA Cloud Compliance Evidence, Ready Before the Audit",
+  headline: "HIPAA cloud compliance evidence, ready before the audit",
   metaDescription:
     "Healthcare cloud security and HIPAA compliance: continuous visibility into every PHI-adjacent cloud control for health systems, payers and digital health.",
   sub: "HIPAA asks you to safeguard electronic PHI wherever it lives, and in the cloud that means configuration: encryption, access and exposure on every store that may hold it. Onam gives health systems, payers and digital health companies visibility into those controls, re-checked on every scan.",
@@ -142,7 +142,7 @@ export const healthcareData: IndustrySolutionData = {
 export const governmentData: IndustrySolutionData = {
   breadcrumb: "Solutions · Government",
   industryName: "Government",
-  headline: "Continuous FedRAMP Control Evidence for Your Government Cloud Workloads",
+  headline: "Continuous FedRAMP control evidence for your government cloud workloads",
   sub: "Federal agencies and their contractors need a security posture that is visible between authorizations, not only at ATO time. Onam maps findings to NIST 800-53, NIST 800-171 and FedRAMP Moderate and High controls, re-checked on every scan, across every cloud account your agency or contractor connects.",
   stats: [
     { value: "FedRAMP", label: "Moderate and High mapped" },

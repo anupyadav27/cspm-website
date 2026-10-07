@@ -50,9 +50,13 @@ export type LeadInput = {
   reason?: string;
   message?: string;
   clouds?: string[];
+  /** Products of interest: estate | security | finops | drm | aiops. */
+  products?: string[];
   /** Honeypot — real users never fill this. Bots do. */
   website?: string;
 };
+
+const PRODUCT_KEYS = ["estate", "security", "finops", "drm", "aiops"];
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
@@ -88,6 +92,12 @@ function validate(raw: unknown): LeadInput {
     reason: clean(d.reason, 200),
     message: clean(d.message, 5000),
     clouds: Array.isArray(d.clouds) ? d.clouds.slice(0, 20).map((c) => clean(c, 40)) : [],
+    products: Array.isArray(d.products)
+      ? d.products
+          .map((x) => clean(x, 20))
+          .filter((x) => PRODUCT_KEYS.includes(x))
+          .slice(0, 5)
+      : [],
     website: clean(d.website, 200),
   };
 }
@@ -117,6 +127,7 @@ export const submitLead = createServerFn({ method: "POST" })
       reason: data.reason || null,
       message: data.message || null,
       clouds: data.clouds?.length ? data.clouds : null,
+      products: data.products?.length ? data.products : null,
       source: "www.onamsecurity.com",
     };
 
@@ -143,6 +154,7 @@ export const submitLead = createServerFn({ method: "POST" })
         `Email:    ${data.email}`,
         data.company ? `Company:  ${data.company}` : null,
         data.reason ? `Reason:   ${data.reason}` : null,
+        data.products?.length ? `Products: ${data.products.join(", ")}` : null,
         data.clouds?.length ? `Clouds:   ${data.clouds.join(", ")}` : null,
         data.message ? `\nMessage:\n${data.message}` : null,
         ``,

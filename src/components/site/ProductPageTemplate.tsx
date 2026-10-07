@@ -1,7 +1,9 @@
-import { type LucideIcon, AlertTriangle, ArrowRight, CheckCircle2, Sparkles } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { type LucideIcon, AlertTriangle, ArrowRight, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
+import { OverviewSheet } from "@/components/site/OverviewSheet";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
+import { Backdrop } from "@/components/site/system";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
@@ -40,7 +42,26 @@ export type ProductPageData = {
   /** Closing CTA heading suffix and line; default to the connect-your-cloud framing. */
   ctaWhere?: string;
   ctaLine?: string;
+  /** The product's own docs; engine pages (/platform/*) default to Onam Security's. */
+  docsHref?: string;
+  /** Preselects the product on /request-demo; engine pages default to "security". */
+  demoProduct?: "security" | "estate" | "finops" | "drm" | "aiops";
 };
+
+/** Onam Security's docs home — the same link the Products menu uses for Security. */
+const SECURITY_DOCS = "/docs/security/overview";
+
+/** Engine pages live under /platform/*; they belong to Onam Security. */
+function useEngineContext(data: ProductPageData) {
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isEngine = pathname.startsWith("/platform/");
+  const product = data.demoProduct ?? (isEngine ? "security" : undefined);
+  return {
+    isEngine,
+    docsHref: data.docsHref ?? (isEngine ? SECURITY_DOCS : "/docs"),
+    demoSearch: product ? { product } : undefined,
+  };
+}
 
 const defaultStats = [
   { v: fmt(CSPM_POSTURE_RULES), l: "posture rules" },
@@ -92,12 +113,28 @@ function IconTile({ Icon, color, size = "lg" }: { Icon: LucideIcon; color: strin
 }
 
 function Hero({ data }: { data: ProductPageData }) {
+  const ctx = useEngineContext(data);
   return (
     <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-      <div className="absolute inset-0 dot-grid opacity-60" />
-      <div className="absolute -top-40 right-1/4 w-[600px] h-[500px] rounded-full blur-[140px] opacity-40 pointer-events-none"
-           style={{ backgroundColor: data.iconColor + "22" }} />
-      <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-16 text-center animate-slide-up">
+      <Backdrop tone="light" color={data.iconColor} pattern="graph" icon={data.icon} />
+      <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20 text-center animate-slide-up">
+        {ctx.isEngine && (
+          <nav aria-label="Breadcrumb" className="-mt-12 mb-10 flex justify-center">
+            <ol className="flex items-center gap-1.5 text-sm text-muted-500">
+              <li>
+                <Link to="/platform" className="font-medium hover:text-brand-500 transition">
+                  Onam Security
+                </Link>
+              </li>
+              <li aria-hidden>
+                <ChevronRight className="w-3.5 h-3.5 text-subtle" />
+              </li>
+              <li aria-current="page" className="font-semibold text-ink">
+                {data.label}
+              </li>
+            </ol>
+          </nav>
+        )}
         <div className="flex justify-center">
           <IconTile Icon={data.icon} color={data.iconColor} />
         </div>
@@ -110,8 +147,8 @@ function Hero({ data }: { data: ProductPageData }) {
         </h1>
         <p className="mt-6 text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto">{data.sub}</p>
         <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-          <BrandButton to="/request-demo" size="lg">See it in my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
-          <BrandButton to="/docs" size="lg" variant="secondary">Read the docs</BrandButton>
+          <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg">See it in my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
+          <BrandButton to={ctx.docsHref} size="lg" variant="secondary">Read the docs</BrandButton>
         </div>
 
         <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -158,9 +195,9 @@ function WhyItMatters({ data }: { data: ProductPageData }) {
           <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Why this matters
           </div>
-          <p className="mt-5 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl leading-tight tracking-tight">
+          <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl leading-tight tracking-tight">
             {first}
-          </p>
+          </h2>
           <p className="mt-5 text-[#475569] leading-relaxed text-base">{rest.join(" ")}</p>
         </div>
         <div className="lg:col-span-2">
@@ -310,6 +347,7 @@ function Faqs({ data }: { data: ProductPageData }) {
 }
 
 function CtaAndRelated({ data }: { data: ProductPageData }) {
+  const ctx = useEngineContext(data);
   return (
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.4fr_1fr] gap-8">
@@ -324,7 +362,7 @@ function CtaAndRelated({ data }: { data: ProductPageData }) {
             {data.ctaLine ?? "Connect a read-only role in three minutes. Your first findings surface in under five."}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>
+            <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg">Book a live demo →</BrandButton>
             <BrandButton to="/pricing" size="lg" variant="secondary">See pricing</BrandButton>
           </div>
         </div>
@@ -368,6 +406,7 @@ export function ProductPageTemplate({ data, extra }: { data: ProductPageData; ex
         />
       )}
       {extra}
+      <OverviewSheet />
       <Faqs data={data} />
       <CtaAndRelated data={data} />
     </SiteLayout>

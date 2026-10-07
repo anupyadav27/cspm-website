@@ -4,11 +4,12 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { ArrowRight, Scale } from "lucide-react";
 import { seo } from "@/lib/seo";
 import { COMPETITORS, QUESTIONS, VERIFIED_ON } from "@/data/compare";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/compare/")({
   head: () =>
     seo({
-      title: "Compare cloud security platforms — Onam Security",
+      title: "Compare cloud security platforms — Onam",
       description:
         "Compare cloud security platforms: Wiz, Orca, Prisma Cloud and Defender, plus Snyk, Cyera and CIEM tools, each in its own published words, with seven questions.",
       path: "/compare",
@@ -19,8 +20,10 @@ export const Route = createFileRoute("/compare/")({
 function Page() {
   return (
     <SiteLayout>
-      <section className="mx-auto max-w-[1000px] px-5 pt-14 pb-10">
-        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
+      <section className="relative overflow-hidden bg-white">
+        <Backdrop tone="light" color="#4F46E5" pattern="grid" icon={Scale} />
+        <div className="relative mx-auto max-w-[1000px] px-5 pt-20 pb-12 md:pt-24 md:pb-16">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-xs font-bold uppercase tracking-[2px] text-[#2563EB]">
           <Scale className="h-3.5 w-3.5" />
           Seven questions. Ask them of us too.
         </div>
@@ -33,6 +36,17 @@ function Page() {
           that actually separate them — and we answer them for ourselves, in public, including the
           places where the answer does not flatter us.
         </p>
+        <p className="mt-4 max-w-[720px] rounded-xl border border-[#E2E8F2] bg-white px-4 py-3 text-[15px] leading-relaxed text-[#475569]">
+          <strong className="text-[#0B1220]">These comparisons cover Onam Security.</strong> Onam is
+          a platform of four products; comparisons for{" "}
+          <Link to="/estate" className="text-[#2563EB] underline">Onam Estate</Link>,{" "}
+          <Link to="/finops" className="text-[#2563EB] underline">Onam FinOps</Link> and{" "}
+          <Link to="/disaster-recovery" className="text-[#2563EB] underline">Onam DRM</Link> are
+          not published yet. Each of those pages says plainly what the product does and does not
+          do — or ask us on a{" "}
+          <Link to="/request-demo" className="text-[#2563EB] underline">demo</Link>.
+        </p>
+      </div>
       </section>
 
       <section className="mx-auto max-w-[1000px] px-5 pb-14">

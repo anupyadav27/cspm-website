@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Check, X, HelpCircle, Sparkles } from "lucide-react";
+import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
+import { Check, X, HelpCircle, Sparkles, ArrowRight, Scale } from "lucide-react";
 import { useState } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -7,13 +8,16 @@ import { cn } from "@/lib/utils";
 import { seo, faqJsonLd } from "@/lib/seo";
 import { ENGINES, FRAMEWORKS } from "@/lib/product-facts";
 import { PRODUCTS } from "@/data/products";
+import { getSuite } from "@/data/product-suite";
+import { OPS_STATUS } from "@/data/operations";
+import { Backdrop, IconTile, StatusChip } from "@/components/site/system";
 
 export const Route = createFileRoute("/pricing")({
   head: () =>
     seo({
-      title: "Pricing — Onam Security",
+      title: "Pricing — Onam",
       description:
-        "Straightforward pricing for cloud security. Try Onam free — no credit card required.",
+        "Pricing for the Onam platform. Onam Security has Free, Pro and Enterprise plans. Onam Estate, FinOps and DRM are stand-alone products granted per organisation — contact sales. Onam AIOps is in early access by invitation.",
       path: "/pricing",
       image: "/og/pricing.png",
     }),
@@ -111,7 +115,6 @@ const comparison: { label: string; free: string; pro: string; ent: string }[] = 
   { label: "Support", free: "Community", pro: "Email", ent: "Priority + CSM" },
   { label: "Service levels", free: "—", pro: "—", ent: "Agreed in your contract" },
   { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS or on-prem" },
-  { label: "Onam Estate / FinOps / DRM", free: "—", pro: "Add-on", ent: "Add-on" },
 ];
 
 const faqs = [
@@ -130,6 +133,10 @@ const faqs = [
   {
     q: "Can we buy Onam FinOps without Onam Security?",
     a: "Yes. Each product stands alone. If you do run more than one they share the same login, the same console and the same discovery, so you are not connecting your cloud accounts twice.",
+  },
+  {
+    q: "How do we get Onam AIOps?",
+    a: "Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to \"propose\" — agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.",
   },
 ];
 
@@ -168,7 +175,12 @@ function TierCard({ t }: { t: Tier }) {
             {t.cta.label}
           </a>
         ) : (
-          <BrandButton to={t.cta.to!} variant={t.highlight ? "primary" : "secondary"} className="w-full">
+          <BrandButton
+            to={t.cta.to!}
+            search={t.cta.to === "/request-demo" ? { product: "security" } : undefined}
+            variant={t.highlight ? "primary" : "secondary"}
+            className="w-full"
+          >
             {t.cta.label}
           </BrandButton>
         )}
@@ -184,7 +196,7 @@ function TierCard({ t }: { t: Tier }) {
       {t.notIncluded && t.notIncluded.length > 0 && (
         <div className="mt-4 pt-4 border-t border-[#E5E9F0] space-y-2.5">
           {t.notIncluded.map((f) => (
-            <div key={f} className="flex items-start gap-2.5 text-sm text-[#94A3B8]">
+            <div key={f} className="flex items-start gap-2.5 text-sm text-muted-500">
               <X className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{f}</span>
             </div>
@@ -197,42 +209,77 @@ function TierCard({ t }: { t: Tier }) {
 
 function PricingPage() {
   const [open, setOpen] = useState<number | null>(0);
+  const security = getSuite("security");
+  const aiops = getSuite("aiops");
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-1/4 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-5xl mx-auto px-6 pt-24 pb-16 text-center">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Pricing</div>
-          <h1 className="mt-5 font-display font-black text-[#0B1220] text-5xl md:text-6xl tracking-tight leading-[1.05]">
-            Straightforward pricing for cloud security.
+        <Backdrop tone="light" color="#059669" pattern="dots" icon={Scale} />
+        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Pricing</div>
+          <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.05]">
+            Four products. Buy the ones you need.
           </h1>
-          <p className="mt-5 text-lg text-[#475569]">Try it free, no credit card required.</p>
+          <p className="mt-5 text-lg text-[#475569]">
+            Onam Security has published plans and a free tier, no credit card required. Onam Estate, FinOps and DRM
+            are stand-alone products granted per organisation. Onam AIOps is in early access.
+          </p>
+          <nav aria-label="Jump to a product" className="mt-8 flex flex-wrap justify-center gap-2">
+            {[
+              { href: "#security", label: "Onam Security" },
+              { href: "#products", label: "Estate · FinOps · DRM" },
+              { href: "#aiops", label: "Onam AIOps" },
+            ].map((l) => (
+              <a
+                key={l.href}
+                href={l.href}
+                className="px-3.5 py-1.5 rounded-full text-sm font-semibold border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </section>
 
-      <section className="bg-white py-16">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-6">
-          {tiers.map((t) => <TierCard key={t.name} t={t} />)}
-        </div>
-      </section>
-
-      <section className="bg-white pb-16">
-        <div className="max-w-5xl mx-auto px-6">
-          <div className="rounded-2xl border border-[#E5E9F0] bg-[#FBFCFE] p-8 md:p-10">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl tracking-tight">
-                Product add-ons
+      <section id="security" className="bg-white pt-16 pb-16 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-start gap-4 max-w-3xl">
+            <IconTile icon={security.icon} color={security.color} size="lg" />
+            <div>
+              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
+                Onam Security plans
               </h2>
-              <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">
-                Granted per organisation
+              <p className="mt-2 text-[#475569] leading-relaxed">
+                {security.blurb}{" "}
+                <Link to="/platform" className="font-medium text-[#2563EB] hover:underline">
+                  What Onam Security does
+                </Link>
+              </p>
+            </div>
+          </div>
+          <div className="mt-10 grid md:grid-cols-3 gap-6">
+            {tiers.map((t) => <TierCard key={t.name} t={t} />)}
+          </div>
+        </div>
+      </section>
+
+      <section id="products" className="bg-white pb-16 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="rounded-2xl border border-[#E5E9F0] bg-[#FBFCFE] p-6 sm:p-8 md:p-10">
+            <div className="flex flex-wrap items-baseline justify-between gap-3">
+              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
+                Onam Estate, FinOps and DRM
+              </h2>
+              <div className="text-xs uppercase tracking-widest text-[#64748B] font-semibold">
+                Stand-alone · granted per organisation
               </div>
             </div>
             <p className="mt-3 text-sm text-[#475569] max-w-2xl leading-relaxed">
-              Onam Estate, Onam FinOps and Onam DRM are separate products, not tiers of Onam Security. They are
-              enabled per organisation rather than bundled into a plan, so a team that wants the cost
-              or recovery picture does not have to buy a security plan to get it — and none of them
-              changes what your security plan includes.
+              Each is its own product, granted per organisation — not a tier or feature of Onam Security. None of
+              them requires a security plan, and upgrading a security plan does not turn them on. If you run more
+              than one product, they share one login, one console and one discovery, so your cloud accounts are
+              connected once. No price is published yet; talk to us.
             </p>
 
             <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -255,11 +302,12 @@ function PricingPage() {
                         <div className="text-xs text-[#64748B]">{p.question}</div>
                       </div>
                     </div>
-                    <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">{p.blurb}</p>
+                    <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">{getSuite(p.key).blurb}</p>
                     <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-4">
                       <div className="font-display font-black text-[#0B1220] text-xl">Contact sales</div>
                       <Link
                         to="/request-demo"
+                        search={{ product: p.key }}
                         className="text-sm font-semibold px-4 py-2 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
                       >
                         Talk to us
@@ -276,6 +324,37 @@ function PricingPage() {
         </div>
       </section>
 
+      <section id="aiops" className="bg-white pb-20 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="rounded-2xl border border-[#E5E9F0] bg-white p-6 sm:p-8 md:p-10 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+            <div className="flex items-start gap-4">
+              <IconTile icon={aiops.icon} color={aiops.color} size="lg" />
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
+                    {aiops.name}
+                  </h2>
+                  <StatusChip status="early" />
+                </div>
+                <p className="mt-2 text-[#475569] leading-relaxed max-w-2xl">{aiops.blurb}</p>
+                <p className="mt-3 text-sm text-[#475569] leading-relaxed max-w-2xl">
+                  By invitation. {OPS_STATUS.early.meaning} Agents work on your Onam Security data today. No price is
+                  published.
+                </p>
+                <Link to="/platform/ai-operations" className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:underline">
+                  What Onam AIOps does <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+                </Link>
+              </div>
+            </div>
+            <BrandButton to="/request-demo" search={{ product: "aiops" }} variant="secondary">
+              Ask for an invitation
+            </BrandButton>
+          </div>
+        </div>
+      </section>
+
+      <MarketplaceStrip tone="surface" />
+
       <section className="bg-[#F7F9FC] border-y border-[#E5E9F0] py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
@@ -283,8 +362,12 @@ function PricingPage() {
               Compare plans
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              What's included in each tier
+              What's included in each Onam Security plan
             </h2>
+            <p className="mt-3 text-[#475569]">
+              The plans below cover Onam Security only. Onam Estate, FinOps and DRM are granted separately, per
+              organisation, and are not part of any plan.
+            </p>
           </div>
           <div className="mt-10 overflow-x-auto rounded-2xl border border-[#E5E9F0] bg-white">
             <table className="w-full text-sm">

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 560" width="960" height="560" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Onam Operations — the specialist agents and their levels</title>
+  <title id="t">Onam AIOps — the specialist agents and their levels</title>
   <desc id="d">An orchestrator routes work to read-and-recommend agents (Asset, Security, Compliance, Data, FinOps, DR) and to proposing agents (Architecture, Automation planner). Proposals pass a human approval gate before the Automation actor may execute. Each agent is marked early access, in development or on the roadmap.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>

@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { FileText } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/company/terms")({
   head: () =>
     seo({
-      title: "Terms of Service — Onam Security",
+      title: "Terms of Service — Onam",
       description:
         "The terms governing your use of Onam Security's cloud security platform and website.",
       path: "/company/terms",
@@ -124,9 +126,8 @@ function TermsPage() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute inset-0 dot-grid opacity-60" />
-        <div className="absolute -top-40 right-1/4 w-[500px] h-[400px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-14">
+        <Backdrop tone="light" color="#64748B" pattern="dots" icon={FileText} className="opacity-70" />
+        <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-14 md:pt-24 md:pb-16">
           <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Legal</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Terms of Service

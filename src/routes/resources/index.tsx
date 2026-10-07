@@ -2,16 +2,17 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { BLOG_POSTS } from "@/data/blog-posts";
-import { ArrowRight, Cloud, ShieldCheck, Layers, BadgeCheck } from "lucide-react";
+import { ArrowRight, Cloud, ShieldCheck, Layers, BadgeCheck, BookOpen, Library } from "lucide-react";
 import { seo } from "@/lib/seo";
 import { ResourceSignup } from "@/components/site/ResourceSignup";
+import { Backdrop } from "@/components/site/system";
 
 export const Route = createFileRoute("/resources/")({
   head: () =>
     seo({
-      title: "Resources — Onam Security",
+      title: "Resources — Onam",
       description:
-        "Guides, documentation, and technical references for cloud security practitioners.",
+        "Guides, documentation and technical references for cloud, security, FinOps and SRE teams — across Onam Estate, Security, FinOps, DRM and AIOps.",
       path: "/resources",
       image: "/og/resources.png",
     }),
@@ -30,6 +31,20 @@ type Category = {
 
 const categories: Category[] = [
   {
+    title: "Product documentation",
+    desc: "Start here for each product: what it answers, how it works, and what it does not do.",
+    color: "#7C3AED",
+    bg: "#F5F3FF",
+    Icon: BookOpen,
+    links: [
+      { label: "Onam Estate", to: "/docs/estate/overview" },
+      { label: "Onam Security", to: "/docs/security/overview" },
+      { label: "Onam FinOps", to: "/docs/finops/overview" },
+      { label: "Onam DRM", to: "/docs/drm/overview" },
+      { label: "Onam AIOps (early access)", to: "/docs/operations/overview" },
+    ],
+  },
+  {
     title: "Connect Your Cloud",
     desc: "Step-by-step onboarding guides for every supported cloud provider.",
     color: "#2563EB",
@@ -41,11 +56,12 @@ const categories: Category[] = [
       { label: "Google Cloud", to: "/docs/onboarding/gcp" },
       { label: "Oracle Cloud (OCI)", to: "/docs/onboarding/oci" },
       { label: "Alibaba Cloud", to: "/docs/onboarding/alicloud" },
+      { label: "IBM Cloud", to: "/docs/onboarding/ibm" },
       { label: "Kubernetes", to: "/docs/onboarding/kubernetes" },
     ],
   },
   {
-    title: "Security Capabilities",
+    title: "Onam Security engines",
     desc: "Deep-dives on each security engine — what it checks, how it works, and how to read results.",
     color: "#0891B2",
     bg: "#ECFEFF",
@@ -59,8 +75,8 @@ const categories: Category[] = [
     ],
   },
   {
-    title: "Architecture",
-    desc: "How Onam scans, stores, and secures your data.",
+    title: "Onam Security architecture",
+    desc: "How Onam Security scans, stores, and secures your data.",
     color: "#05A052",
     bg: "#E7F6EF",
     Icon: Layers,
@@ -112,7 +128,7 @@ const LIBRARY: { title: string; items: { label: string; href: string; internal?:
     // 1400px fixed-width cards with no navigation, which read as a broken page on every
     // screen. The real comparison pages are the /compare routes; the old .html addresses
     // now 301 to them (src/routes/compare/*[.]html.tsx).
-    title: "How we compare",
+    title: "How Onam Security compares",
     items: [
       { label: "All comparisons — the seven questions", href: "/compare", internal: true },
       { label: "Onam vs Wiz", href: "/compare/onam-vs-wiz", internal: true },
@@ -145,12 +161,13 @@ function Page() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <div className="absolute -top-32 right-0 w-[600px] h-[400px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-14">
-          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-3">Resources</div>
+        <Backdrop tone="light" color="#0891B2" pattern="flow" icon={Library} />
+        <div className="relative max-w-7xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
+          <div className="text-xs uppercase tracking-widest font-semibold text-[#1D4ED8] mb-3">Resources</div>
           <h1 className="font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight max-w-3xl leading-[1.05]">Resources</h1>
           <p className="mt-4 text-lg text-[#475569] max-w-2xl">
-            Guides, documentation, and technical references for cloud security practitioners.
+            Guides, documentation and technical references for cloud, security, FinOps and SRE teams. Most of the
+            library below is about Onam Security; product documentation covers every product.
           </p>
         </div>
       </section>
@@ -162,8 +179,8 @@ function Page() {
           rel="noopener"
           className="group block rounded-2xl border border-[#DBE7FE] bg-gradient-to-br from-[#0A1E4D] to-[#123A8A] p-8 md:p-10 text-white shadow-[0_8px_24px_rgba(16,24,40,.08)] hover:shadow-[0_14px_40px_rgba(16,24,40,.18)] transition"
         >
-          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#9FC0FF] mb-3">Interactive · New</div>
-          <h2 className="font-display font-black text-2xl md:text-[32px] leading-[1.1] tracking-tight">
+          <div className="text-xs uppercase tracking-widest font-semibold text-[#9FC0FF] mb-3">Interactive · New</div>
+          <h2 className="text-white font-display font-black text-2xl md:text-[32px] leading-[1.1] tracking-tight">
             Four hops. Three tools blind. One breach.
           </h2>
           <p className="mt-3 text-[#CFE0FF] max-w-2xl">
@@ -177,7 +194,7 @@ function Page() {
       </section>
 
       <section className="max-w-7xl mx-auto px-6 pt-14">
-        <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-2">Library</div>
+        <div className="text-xs uppercase tracking-widest font-semibold text-[#1D4ED8] mb-2">Library</div>
         <h2 className="font-display font-extrabold text-2xl md:text-3xl text-[#0B1220]">Whitepapers, brochures &amp; tools</h2>
         <p className="mt-2 text-[#475569] max-w-2xl">
           Technical whitepapers, the capabilities brochure, illustrative calculators, and short
@@ -255,7 +272,7 @@ function Page() {
         <div className="max-w-7xl mx-auto px-6 py-16">
           <div className="flex items-end justify-between mb-8">
             <div>
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#1D4ED8] mb-2">From the blog</div>
+              <div className="text-xs uppercase tracking-widest font-semibold text-[#1D4ED8] mb-2">From the blog</div>
               <h2 className="font-display font-extrabold text-2xl md:text-3xl text-[#0B1220]">Latest posts</h2>
             </div>
             <Link to="/resources/blog" className="text-sm font-medium text-[#2563EB] hover:underline">
@@ -270,7 +287,7 @@ function Page() {
                 params={{ slug: p.slug }}
                 className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 hover:shadow-[0_8px_24px_rgba(16,24,40,.08)] transition"
               >
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-xs font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
                   {p.category}
                 </span>
                 <h3 className="mt-3 font-display font-bold text-[17px] text-[#0B1220] leading-snug group-hover:text-[#2563EB]">

@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 340" width="960" height="340" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
-  <title id="t">Onam Operations — the read path and the write path</title>
+  <title id="t">Onam AIOps — the read path and the write path</title>
   <desc id="d">A read passes three automatic gates and returns an answer with evidence. A write passes seven gates, one of them a person approving the exact change, then runs in a sandbox, is validated and produces evidence; a failed validation rolls back.</desc>
   <defs>
     <marker id="a" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>

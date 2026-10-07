@@ -1,72 +1,59 @@
 import { Link } from "@tanstack/react-router";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
-import { SERVICES, FRAMEWORKS } from "@/lib/product-facts";
-import { PRODUCTS } from "@/data/products";
+import { SUITE, AIOPS_COLOR, type SuiteKey, type SuiteProduct } from "@/data/product-suite";
+import { StatusBadge } from "@/components/site/ops/OpsUi";
 
 export { Logo } from "./Logo";
 
 type MenuItem = { title: string; href: string; desc: string };
 
-const platformGroups: { heading: string; items: MenuItem[] }[] = [
+type MenuKey = "products" | "solutions" | "resources" | "company";
+
+/**
+ * Top bar (owner decision 2026-10-07): Products · Solutions · Why Onam · Resources ·
+ * Company, with Docs, Log in and Request demo on the right. Pricing is under
+ * Resources › Evaluate: enterprise buyers start with a demo, not a price list. Learn, Docs and the
+ * resource library used to be three separate top-level links; they are one
+ * Resources menu now, grouped by what the visitor is doing.
+ */
+const resourceGroups: { heading: string; items: MenuItem[] }[] = [
   {
-    heading: "Posture & Identity",
+    heading: "Learn",
     items: [
-      { title: "CNAPP", href: "/platform/cnapp", desc: "Seven pillars, one posture score" },
-      { title: "CSPM", href: "/platform/cspm", desc: "Misconfigurations across all clouds" },
-      { title: "CIEM", href: "/platform/ciem", desc: "Effective permissions & escalation paths" },
-      { title: "IAM Security", href: "/platform/iam", desc: "MFA, keys and policy hygiene" },
-      { title: "Asset Inventory", href: "/platform/inventory", desc: `${SERVICES} services, seven clouds, one list` },
+      { title: "Learn — glossary", href: "/learn", desc: "Asset inventory, security, FinOps, DR and AI agents, explained" },
+      { title: "Blog", href: "/resources/blog", desc: "Engineering and product writing" },
+      { title: "Scenarios", href: "/resources/scenarios", desc: "Real situations, step by step" },
     ],
   },
   {
-    heading: "Threat & Attack",
+    heading: "Build",
     items: [
-      { title: "Attack Path", href: "/platform/attack-path", desc: "Routes to crown jewels, choke points" },
-      { title: "CDR — Detection", href: "/platform/cdr", desc: "L1/L2/L3 behavioral threat detection" },
-      { title: "Threat Detection", href: "/platform/threat-detection", desc: "MITRE ATT&CK–mapped attack chains" },
-      { title: "Risk Quantification", href: "/platform/risk", desc: "FAIR-style loss estimate per finding" },
+      { title: "Documentation", href: "/docs", desc: "Every product, from first connection" },
+      { title: "Connect a cloud", href: "/docs/onboarding/aws", desc: "Onboarding guides for all seven clouds" },
+      { title: "Release notes", href: "/docs/release-notes", desc: "What changed, and when" },
     ],
   },
   {
-    heading: "Data & Network",
+    heading: "Evaluate",
     items: [
-      { title: "DSPM — Data Security", href: "/platform/data-security", desc: "Sensitive data, who reaches it, where it flows" },
-      { title: "Database Security", href: "/platform/database-security", desc: "Managed DBs + CIS engine benchmarks" },
-      { title: "Encryption & Keys", href: "/platform/encryption", desc: "KMS keys, rotation, and key-policy reach" },
-      { title: "Network Security", href: "/platform/network-security", desc: "7-layer topology analysis" },
-      { title: "API Security", href: "/platform/api-security", desc: "Shadow APIs, auth gaps, WAF coverage" },
+      { title: "Whitepapers", href: "/whitepapers", desc: "Architecture, methodology and trust" },
+      { title: "Tools & calculators", href: "/tools", desc: "Exposure and consolidation calculators" },
+      { title: "Case studies", href: "/case-studies", desc: "How teams use Onam" },
+      { title: "Compare", href: "/compare", desc: "Onam Security side by side with others" },
+      { title: "Plans & pricing", href: "/pricing", desc: "Onam Security plans; other products per organisation" },
+      { title: "Cloud marketplaces", href: "/why-onam#marketplaces", desc: "AWS, Azure and Google Cloud listings" },
     ],
   },
-  {
-    heading: "Workloads & Code",
-    items: [
-      { title: "CWPP — Workloads", href: "/platform/cwpp", desc: "VMs, containers, serverless, hosts" },
-      { title: "Agentless Scanning", href: "/platform/agentless", desc: "Snapshot scanning inside your account" },
-      { title: "Container Security", href: "/platform/container-security", desc: "EKS, ECS, and image scanning" },
-      { title: "Vulnerability Mgmt", href: "/platform/vulnerability", desc: "CVEs in context, not just CVSS" },
-      { title: "Code Security", href: "/platform/code-security", desc: "SAST, DAST, SCA, IaC" },
-      { title: "AI Code Fix", href: "/platform/ai-code-fix", desc: "Fixes pushed to a branch" },
-    ],
-  },
-  {
-    heading: "SaaS, AI & Governance",
-    items: [
-      { title: "SaaS Security (SSPM)", href: "/platform/saas-security", desc: "M365, Workspace, GitHub, Snowflake" },
-      { title: "AI Security", href: "/platform/ai-security", desc: "SageMaker, Bedrock, and AI/ML risk" },
-      { title: "AI Assistant", href: "/platform/ai-assistant", desc: "Ask your posture in plain language" },
-      {
-        title: "Onam Operations",
-        href: "/platform/ai-operations",
-        desc: "AI agents, human-approved · early access",
-      },
-      { title: "Remediation", href: "/platform/remediation", desc: "Fix guidance and an AI fix prompt" },
-      { title: "Compliance", href: "/platform/compliance", desc: `${FRAMEWORKS} frameworks, evidence per control` },
-      { title: "Technology Engine", href: "/platform/technology", desc: "34 technologies, runtime discovery" },
-    ],
-  },
+];
+
+const companyItems: MenuItem[] = [
+  { title: "About", href: "/company/about", desc: "Who we are and why Onam exists" },
+  { title: "Trust Center", href: "/trust", desc: "Security, data handling and what each product stores" },
+  { title: "Careers", href: "/company/careers", desc: "Build the platform with us" },
+  { title: "Contact", href: "/company/contact", desc: "Talk to the team" },
 ];
 
 const solutionsClouds: MenuItem[] = [
@@ -92,13 +79,15 @@ const solutionsIndustries: MenuItem[] = [
  * 1440 — the first column was unreadable and the first product card was clipped.
  * The header is fixed and h-16, so `fixed top-16` lands the panel directly under it.
  */
-function MegaWrap({ open, wide, children }: { open: boolean; wide?: boolean; children: React.ReactNode }) {
+function MegaWrap({ id, open, wide, children }: { id: string; open: boolean; wide?: boolean; children: React.ReactNode }) {
+  // `invisible` when closed: opacity alone leaves every link in the tab order.
   return (
     <div
+      id={id}
       className={cn(
         "left-1/2 -translate-x-1/2 pt-3 z-50 transition-all duration-200",
         wide ? "fixed top-16" : "absolute top-full",
-        open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-1 pointer-events-none",
+        open ? "opacity-100 translate-y-0 pointer-events-auto visible" : "opacity-0 -translate-y-1 pointer-events-none invisible",
       )}
     >
       <div className="bg-white rounded-2xl border border-[#E5E9F0] shadow-[0_18px_48px_rgba(16,24,40,.14)] p-6">
@@ -108,9 +97,23 @@ function MegaWrap({ open, wide, children }: { open: boolean; wide?: boolean; chi
   );
 }
 
-function TriggerBtn({ label, open }: { label: string; open: boolean }) {
+function TriggerBtn({
+  label,
+  open,
+  controls,
+  onToggle,
+}: {
+  label: string;
+  open: boolean;
+  controls: string;
+  onToggle: () => void;
+}) {
   return (
     <button
+      type="button"
+      aria-expanded={open}
+      aria-controls={controls}
+      onClick={onToggle}
       className={cn(
         "flex items-center gap-1 text-sm font-medium transition-colors py-2",
         open ? "text-[#2563EB]" : "text-[#334155] hover:text-[#2563EB]",
@@ -123,19 +126,30 @@ function TriggerBtn({ label, open }: { label: string; open: boolean }) {
 }
 
 /**
- * The four products sit ABOVE the engine groups, not among them. Onam Estate,
- * Onam FinOps and Onam DRM are separately entitled products, not security engines — filing them
- * in "SaaS, AI & Governance" would tell a buyer the opposite of what is true.
+ * Products menu: the five products across the top (four in lifecycle order, then
+ * Onam AIOps), and the modules of whichever one is pointed at underneath. Estate,
+ * FinOps and DRM are separately entitled products, not security engines, so each
+ * gets its own panel rather than a column inside Onam Security's.
  */
-function ProductCard({ p, onClick }: { p: (typeof PRODUCTS)[number]; onClick?: () => void }) {
+function SuiteTab({ p, active, onActivate }: { p: SuiteProduct; active: boolean; onActivate: () => void }) {
   const Icon = p.icon;
   return (
     <Link
       to={p.href}
-      onClick={onClick}
-      className="group flex items-start gap-3 p-3 rounded-xl border border-[#E5E9F0] hover:border-[#C7D7FE] hover:bg-[#F5F8FF] transition"
+      onMouseEnter={onActivate}
+      onFocus={onActivate}
+      aria-current={active ? "true" : undefined}
+      className={cn(
+        "relative flex items-start gap-3 p-3 rounded-xl border transition",
+        active ? "bg-[#F5F8FF] border-[#C7D7FE]" : "border-[#E5E9F0] hover:border-[#C7D7FE]",
+      )}
     >
-      <div
+      <span
+        aria-hidden
+        className="absolute inset-x-3 -top-px h-[3px] rounded-b-full transition-opacity"
+        style={{ backgroundColor: p.color, opacity: active ? 1 : 0 }}
+      />
+      <span
         className="w-9 h-9 shrink-0 rounded-lg grid place-items-center"
         style={{
           backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
@@ -143,20 +157,73 @@ function ProductCard({ p, onClick }: { p: (typeof PRODUCTS)[number]; onClick?: (
         }}
       >
         <Icon className="w-[18px] h-[18px]" style={{ color: p.color }} />
-      </div>
-      <div className="min-w-0">
-        <div className="text-sm font-bold text-[#0B1220] group-hover:text-[#2563EB] transition">{p.name}</div>
-        <div className="text-xs text-[#64748B] mt-0.5 leading-snug">{p.question}</div>
-      </div>
+      </span>
+      <span className="min-w-0">
+        <span className="block text-[11px] uppercase tracking-wider font-semibold text-[#64748B]">{p.stage}</span>
+        <span className="flex items-center gap-1.5 text-sm font-bold text-[#0B1220]">
+          {p.name}
+          {p.badge && (
+            <span
+              className="text-[11px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded"
+              style={{ color: AIOPS_COLOR, backgroundColor: "#EEF2FF" }}
+            >
+              Early
+            </span>
+          )}
+        </span>
+      </span>
     </Link>
   );
 }
 
-function MenuLink({ item }: { item: MenuItem }) {
+function SuitePanel({ p }: { p: SuiteProduct }) {
+  const cols = p.groups.length >= 5 ? "grid-cols-5" : p.groups.length === 2 ? "grid-cols-2" : "grid-cols-1";
+  return (
+    <div className="mt-4 grid grid-cols-[250px_1fr] gap-6 pt-5 border-t border-[#E5E9F0]">
+      <div className="pr-6 border-r border-[#E5E9F0]">
+        <div className="text-sm font-semibold text-[#0B1220] leading-snug">{p.question}</div>
+        <p className="mt-2 text-xs text-[#64748B] leading-relaxed">{p.blurb}</p>
+        <div className="mt-4 flex flex-col gap-2">
+          <Link to={p.href} className="text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
+            Explore {p.name} →
+          </Link>
+          <Link to={p.docs} className="text-sm font-medium text-[#334155] hover:text-[#2563EB]">
+            Documentation →
+          </Link>
+        </div>
+        {p.agent && (
+          <Link to={p.agent.href} className="mt-4 block rounded-lg border border-[#E0E7FF] bg-[#F8F9FF] p-2.5 hover:border-[#C7D2FE] transition">
+            <span className="block text-[11px] uppercase tracking-wider font-bold" style={{ color: AIOPS_COLOR }}>
+              With Onam AIOps
+            </span>
+            <span className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-[#0B1220]">
+              {p.agent.name} <StatusBadge status={p.agent.status} />
+            </span>
+          </Link>
+        )}
+      </div>
+      <div className={cn("grid gap-5", cols)}>
+        {p.groups.map((g) => (
+          <div key={g.heading}>
+            <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">{g.heading}</div>
+            <div className={cn("gap-x-6", p.groups.length === 1 ? "grid grid-cols-2 gap-y-1" : "space-y-1")}>
+              {g.items.map((i) => (
+                <MenuLink key={i.title + i.href} item={i} status={i.status} />
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MenuLink({ item, status }: { item: MenuItem; status?: SuiteProduct["groups"][number]["items"][number]["status"] }) {
   return (
     <Link to={item.href} className="block p-2 -mx-2 rounded-lg hover:bg-[#F5F8FF] transition group">
-      <div className="text-sm font-semibold text-[#0B1220] group-hover:text-[#2563EB] transition">
+      <div className="flex flex-wrap items-center gap-1.5 text-sm font-semibold text-[#0B1220] group-hover:text-[#2563EB] transition">
         {item.title}
+        {status && status !== "early" && <StatusBadge status={status} />}
       </div>
       <div className="text-xs text-[#64748B] mt-0.5">{item.desc}</div>
     </Link>
@@ -164,9 +231,50 @@ function MenuLink({ item }: { item: MenuItem }) {
 }
 
 export function Navbar() {
-  const [open, setOpen] = useState<"products" | "solutions" | null>(null);
+  const [open, setOpen] = useState<MenuKey | null>(null);
+  // Hover intent: the pointer crosses a strip of header between the trigger and the
+  // panel, and diagonal moves clip the trigger's box. Closing after a short delay —
+  // cancelled the moment the pointer re-enters — keeps the menu open on the way.
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  //
+  // Switching is delayed too: a diagonal move from "Products" down into its panel
+  // crosses the "Solutions" trigger, and switching on contact closed Products under
+  // the pointer. Another menu takes over only if the pointer rests on its trigger.
+  const openRef = useRef(open);
+  openRef.current = open;
+  const hoverOpen = (k: MenuKey) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    const cur = openRef.current;
+    if (cur === null || cur === k) setOpen(k);
+    else closeTimer.current = setTimeout(() => setOpen(k), 200);
+  };
+  const hoverClose = () => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setOpen(null), 250);
+  };
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [tab, setTab] = useState<SuiteKey>("estate");
+  const [mobileProduct, setMobileProduct] = useState<SuiteKey | null>(null);
+  const activeProduct = SUITE.find((p) => p.key === tab)!;
+
+  useEffect(() => {
+    // A click on "Products" only ever opens the menu: hovering opens it a moment
+    // before the click lands, so a toggle closed it under the pointer. It closes on
+    // Escape, on a click anywhere outside the header, or when the pointer leaves.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(null);
+    };
+    const onDown = (e: MouseEvent) => {
+      if (!(e.target as Element | null)?.closest?.("header")) setOpen(null);
+    };
+    window.addEventListener("keydown", onKey);
+    window.addEventListener("mousedown", onDown);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("mousedown", onDown);
+    };
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -187,50 +295,35 @@ export function Navbar() {
 
         <nav className="hidden lg:flex items-center gap-1">
           <div
-            className="relative"
-            onMouseEnter={() => setOpen("products")}
-            onMouseLeave={() => setOpen(null)}
+            className="relative h-16 flex items-center"
+            onMouseEnter={() => hoverOpen("products")}
+            onMouseLeave={hoverClose}
           >
             <div className="px-3">
-              <TriggerBtn label="Products" open={open === "products"} />
+              <TriggerBtn label="Products" open={open === "products"} controls="menu-products" onToggle={() => setOpen("products")} />
             </div>
-            <MegaWrap open={open === "products"} wide>
-              <div className="w-[1180px] max-w-[calc(100vw-3rem)]">
-                <div className="grid grid-cols-4 gap-3">
-                  {PRODUCTS.map((p) => <ProductCard key={p.key} p={p} />)}
+            <MegaWrap id="menu-products" open={open === "products"} wide>
+              <div className="w-[1180px] max-w-[calc(100vw-3rem)]" onClick={() => setOpen(null)}>
+                <div className="grid grid-cols-5 gap-3">
+                  {SUITE.map((p) => (
+                    <SuiteTab key={p.key} p={p} active={p.key === tab} onActivate={() => setTab(p.key)} />
+                  ))}
                 </div>
-
-                <div className="mt-5 pt-5 border-t border-[#E5E9F0]">
-                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-4">
-                    Inside Onam Security
-                  </div>
-                  <div className="grid grid-cols-5 gap-5">
-                    {platformGroups.map((g) => (
-                      <div key={g.heading}>
-                        <div className="text-[11px] uppercase tracking-widest font-semibold text-[#94A3B8] mb-3">
-                          {g.heading}
-                        </div>
-                        <div className="space-y-1">
-                          {g.items.map((i) => <MenuLink key={i.href} item={i} />)}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <SuitePanel p={activeProduct} />
               </div>
             </MegaWrap>
           </div>
 
           <div
-            className="relative"
-            onMouseEnter={() => setOpen("solutions")}
-            onMouseLeave={() => setOpen(null)}
+            className="relative h-16 flex items-center"
+            onMouseEnter={() => hoverOpen("solutions")}
+            onMouseLeave={hoverClose}
           >
             <div className="px-3">
-              <TriggerBtn label="Solutions" open={open === "solutions"} />
+              <TriggerBtn label="Solutions" open={open === "solutions"} controls="menu-solutions" onToggle={() => setOpen("solutions")} />
             </div>
-            <MegaWrap open={open === "solutions"}>
-              <div className="grid grid-cols-2 gap-8 w-[640px]">
+            <MegaWrap id="menu-solutions" open={open === "solutions"}>
+              <div className="grid grid-cols-2 gap-8 w-[640px]" onClick={() => setOpen(null)}>
                 <div>
                   <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">
                     By cloud
@@ -251,23 +344,55 @@ export function Navbar() {
             </MegaWrap>
           </div>
 
-          <Link to="/platform/compliance" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
-            Compliance
+          <Link to="/why-onam" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
+            Why Onam
           </Link>
-          <Link to="/pricing" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
-            Pricing
-          </Link>
-          <Link to="/learn" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
-            Learn
-          </Link>
-          <Link to="/resources" className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
-            Resources
-          </Link>
+
+          <div
+            className="relative h-16 flex items-center"
+            onMouseEnter={() => hoverOpen("resources")}
+            onMouseLeave={hoverClose}
+          >
+            <div className="px-3">
+              <TriggerBtn label="Resources" open={open === "resources"} controls="menu-resources" onToggle={() => setOpen("resources")} />
+            </div>
+            <MegaWrap id="menu-resources" open={open === "resources"}>
+              <div className="grid grid-cols-3 gap-8 w-[840px] max-w-[calc(100vw-3rem)]" onClick={() => setOpen(null)}>
+                {resourceGroups.map((g) => (
+                  <div key={g.heading}>
+                    <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">{g.heading}</div>
+                    <div className="space-y-1">
+                      {g.items.map((i) => <MenuLink key={i.href} item={i} />)}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </MegaWrap>
+          </div>
+
+          <div
+            className="relative h-16 flex items-center"
+            onMouseEnter={() => hoverOpen("company")}
+            onMouseLeave={hoverClose}
+          >
+            <div className="px-3">
+              <TriggerBtn label="Company" open={open === "company"} controls="menu-company" onToggle={() => setOpen("company")} />
+            </div>
+            <MegaWrap id="menu-company" open={open === "company"}>
+              <div className="w-[320px] space-y-1" onClick={() => setOpen(null)}>
+                {companyItems.map((i) => <MenuLink key={i.href} item={i} />)}
+              </div>
+            </MegaWrap>
+          </div>
+
         </nav>
 
-        <div className="hidden lg:flex items-center gap-3">
+        <div className="hidden lg:flex items-center gap-4">
+          <Link to="/docs" className="text-sm font-medium text-[#334155] hover:text-[#2563EB] transition">
+            Docs
+          </Link>
           <a
-            href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui/dashboard"
+            href="https://app.onamsecurity.com/ui/dashboard"
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-[#334155] hover:text-[#2563EB] transition"
@@ -294,26 +419,55 @@ export function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-[#E5E9F0] max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="p-6 space-y-6">
-            <div className="space-y-2">
-              {PRODUCTS.map((p) => <ProductCard key={p.key} p={p} onClick={() => setMobileOpen(false)} />)}
-            </div>
-            <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] pt-2">
-              Inside Onam Security
-            </div>
-            {platformGroups.map((g) => (
-              <div key={g.heading}>
-                <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">
-                  {g.heading}
-                </div>
-                <div className="space-y-1">
-                  {g.items.map((i) => (
-                    <Link key={i.href} to={i.href} onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">
-                      {i.title}
-                    </Link>
-                  ))}
-                </div>
+            <div>
+              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">Products</div>
+              <div className="divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
+                {SUITE.map((p) => {
+                  const open = mobileProduct === p.key;
+                  const Icon = p.icon;
+                  return (
+                    <div key={p.key}>
+                      <button
+                        onClick={() => setMobileProduct(open ? null : p.key)}
+                        aria-expanded={open}
+                        className="w-full flex items-center gap-3 py-3 text-left"
+                      >
+                        <Icon className="w-5 h-5 shrink-0" style={{ color: p.color }} />
+                        <span className="flex-1 min-w-0">
+                          <span className="block text-sm font-bold text-[#0B1220]">{p.name}</span>
+                          <span className="block text-xs text-[#64748B]">{p.stage}</span>
+                        </span>
+                        {p.badge && <StatusBadge status="early" />}
+                        <ChevronDown className={cn("w-4 h-4 text-[#64748B] transition-transform", open && "rotate-180")} />
+                      </button>
+                      {open && (
+                        <div className="pb-4 pl-8 space-y-3">
+                          <Link to={p.href} onClick={() => setMobileOpen(false)} className="block text-sm font-semibold text-[#2563EB]">
+                            Explore {p.name} →
+                          </Link>
+                          {p.groups.map((g) => (
+                            <div key={g.heading}>
+                              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-1">{g.heading}</div>
+                              {g.items.map((i) => (
+                                <Link
+                                  key={i.title + i.href}
+                                  to={i.href}
+                                  onClick={() => setMobileOpen(false)}
+                                  className="flex flex-wrap items-center gap-2 text-sm text-[#0B1220] py-1.5"
+                                >
+                                  {i.title}
+                                  {i.status && i.status !== "early" && <StatusBadge status={i.status} />}
+                                </Link>
+                              ))}
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
-            ))}
+            </div>
             <div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">By cloud</div>
               <div className="grid grid-cols-2 gap-1">
@@ -333,11 +487,19 @@ export function Navbar() {
               ))}
             </div>
             <div className="pt-4 border-t border-[#E5E9F0] space-y-2">
-              <Link to="/pricing" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Pricing</Link>
-              <Link to="/learn" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Learn</Link>
-              <Link to="/resources" onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">Resources</Link>
+              {[...resourceGroups, { heading: "Company", items: companyItems }].map((g) => (
+                <div key={g.heading} className="pb-2">
+                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-1">{g.heading}</div>
+                  {g.items.map((i) => (
+                    <Link key={i.href} to={i.href} onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">
+                      {i.title}
+                    </Link>
+                  ))}
+                </div>
+              ))}
+              <Link to="/why-onam" onClick={() => setMobileOpen(false)} className="block text-sm font-semibold text-[#0B1220] py-1.5">Why Onam</Link>
               <a
-                href="http://a3e22be456af44b03b31800c6a49ae89-349bf801ed209557.elb.ap-south-1.amazonaws.com/ui/dashboard"
+                href="https://app.onamsecurity.com/ui/dashboard"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="block text-sm text-[#0B1220] py-1.5"

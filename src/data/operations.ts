@@ -1,5 +1,5 @@
 /**
- * Onam Operations — the agentic operations layer. One source of truth for the
+ * Onam AIOps — the agentic operations layer. One source of truth for the
  * flagship page (/platform/ai-operations), the design page
  * (/platform/ai-operations/architecture) and the docs section (/docs/operations/*).
  *
@@ -21,7 +21,7 @@
  *                     clouds other than AWS for agent actions.
  *   Estate, FinOps and DRM are NOT cleared in facts/product.yaml, so on these surfaces they are
  *   named only as roadmap data sources. No counts of skills/tools/tests appear: none is cleared.
- *   Name: "Onam Operations" — the customer-facing name recommended in docs/01 §4 (OD-01).
+ *   Name: "Onam AIOps" — owner decision 2026-10-06, replacing "Onam Operations" (docs/01 §4, OD-01).
  */
 
 export type OpsStatus = "available" | "early" | "development" | "roadmap";
@@ -61,7 +61,7 @@ export const OPS_STATUS: Record<
   },
 };
 
-export const OPS_PRODUCT = "Onam Operations";
+export const OPS_PRODUCT = "Onam AIOps";
 
 export type OpsAgent = {
   id: string;

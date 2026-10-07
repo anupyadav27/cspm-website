@@ -13,17 +13,35 @@ import { articles as operations } from "./docs-articles/operations";
 import { articles as dspm } from "./docs-articles/dspm";
 import { articles as codeSecurity } from "./docs-articles/code-security";
 import { articles as ciem } from "./docs-articles/ciem";
+import { articles as security } from "./docs-articles/security";
 
 export type { DocArticle };
 
+/** The product a docs section belongs to. The sidebar groups sections by it. */
+export type DocProduct = "platform" | "estate" | "security" | "finops" | "drm" | "aiops" | "shared";
+
+export const DOC_PRODUCT_LABEL: Record<DocProduct, string> = {
+  platform: "Platform",
+  estate: "Onam Estate",
+  security: "Onam Security",
+  finops: "Onam FinOps",
+  drm: "Onam DRM",
+  aiops: "Onam AIOps",
+  shared: "Trust & reference",
+};
+
 export type DocSection = {
   heading: string;
+  /** Product group, rendered as a title above its sections. Order follows DOC_SECTIONS. */
+  product: DocProduct;
   items: { title: string; slug: string }[];
 };
 
 export const DOC_SECTIONS: DocSection[] = [
+  /* ── Platform ── */
   {
-    heading: "Getting Started",
+    heading: "Getting started",
+    product: "platform",
     items: [
       { title: "Introduction", slug: "getting-started/introduction" },
       { title: "Quickstart", slug: "getting-started/quickstart" },
@@ -31,7 +49,8 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
-    heading: "Onboarding",
+    heading: "Connect a cloud",
+    product: "platform",
     items: [
       { title: "AWS", slug: "onboarding/aws" },
       { title: "Azure", slug: "onboarding/azure" },
@@ -42,8 +61,27 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Kubernetes", slug: "onboarding/kubernetes" },
     ],
   },
+  /* ── Onam Estate ── */
   {
-    heading: "Features",
+    heading: "Onam Estate",
+    product: "estate",
+    items: [
+      { title: "Overview", slug: "estate/overview" },
+      { title: "Asset Inventory", slug: "estate/inventory" },
+      { title: "Architecture", slug: "estate/architecture" },
+      { title: "Discovery Pipeline", slug: "estate/pipeline" },
+      { title: "Access & Entitlement", slug: "estate/access" },
+    ],
+  },
+  /* ── Onam Security ── */
+  {
+    heading: "Onam Security",
+    product: "security",
+    items: [{ title: "Overview", slug: "security/overview" }],
+  },
+  {
+    heading: "Security features",
+    product: "security",
     items: [
       { title: "CNAPP — posture score", slug: "features/cnapp" },
       { title: "CSPM", slug: "features/cspm" },
@@ -67,7 +105,8 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
-    heading: "Data Security (DSPM)",
+    heading: "Data security (DSPM)",
+    product: "security",
     items: [
       { title: "Overview", slug: "dspm/overview" },
       { title: "Discovery", slug: "dspm/discovery" },
@@ -80,7 +119,8 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
-    heading: "Code Security",
+    heading: "Code security",
+    product: "security",
     items: [
       { title: "Overview", slug: "code-security/overview" },
       { title: "Connect a repository", slug: "code-security/connect-repository" },
@@ -96,7 +136,8 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
-    heading: "CIEM",
+    heading: "Identity (CIEM)",
+    product: "security",
     items: [
       { title: "Overview", slug: "ciem/overview" },
       { title: "How effective permissions are computed", slug: "ciem/effective-permissions" },
@@ -107,46 +148,23 @@ export const DOC_SECTIONS: DocSection[] = [
     ],
   },
   {
-    heading: "Architecture",
+    heading: "Compliance",
+    product: "security",
+    items: [{ title: "Framework Coverage", slug: "compliance/frameworks" }],
+  },
+  {
+    heading: "Security architecture",
+    product: "security",
     items: [
       { title: "Overview", slug: "architecture/overview" },
       { title: "Scanning Engine", slug: "architecture/scanning" },
       { title: "Data Security", slug: "architecture/data-security" },
     ],
   },
-  {
-    heading: "Compliance",
-    items: [{ title: "Framework Coverage", slug: "compliance/frameworks" }],
-  },
-  {
-    heading: "Trust",
-    items: [
-      { title: "Trust Center", slug: "trust/security" },
-      { title: "Data Retention", slug: "trust/data-retention" },
-      { title: "Service Levels", slug: "trust/sla-and-slo" },
-    ],
-  },
-  {
-    heading: "Reference",
-    items: [
-      { title: "API", slug: "reference/api" },
-      { title: "Finding Schema", slug: "reference/finding-schema" },
-      { title: "Integration Catalog", slug: "reference/integration-catalog" },
-      { title: "RBAC & SSO", slug: "reference/rbac-and-sso" },
-    ],
-  },
-  {
-    heading: "Onam Estate",
-    items: [
-      { title: "Overview", slug: "estate/overview" },
-      { title: "Asset Inventory", slug: "estate/inventory" },
-      { title: "Architecture", slug: "estate/architecture" },
-      { title: "Discovery Pipeline", slug: "estate/pipeline" },
-      { title: "Access & Entitlement", slug: "estate/access" },
-    ],
-  },
+  /* ── Onam FinOps ── */
   {
     heading: "Onam FinOps",
+    product: "finops",
     items: [
       { title: "Overview", slug: "finops/overview" },
       { title: "The Cost Model", slug: "finops/cost-model" },
@@ -158,16 +176,24 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Access & Entitlement", slug: "finops/access" },
     ],
   },
+  /* ── Onam DRM ── */
   {
     heading: "Onam DRM",
+    product: "drm",
     items: [
       { title: "Overview", slug: "drm/overview" },
+      { title: "Applications & Dependencies", slug: "drm/applications" },
+      { title: "Protection", slug: "drm/protection" },
+      { title: "Recovery Plans & Readiness", slug: "drm/recovery-plans" },
       { title: "RTO, RPO & Drills", slug: "drm/objectives" },
       { title: "Approvals, Baselines & Drift", slug: "drm/governance" },
+      { title: "Access & Entitlement", slug: "drm/access" },
     ],
   },
+  /* ── Onam AIOps ── */
   {
-    heading: "Onam Operations",
+    heading: "Onam AIOps",
+    product: "aiops",
     items: [
       { title: "Overview", slug: "operations/overview" },
       { title: "Availability & Status", slug: "operations/availability" },
@@ -188,11 +214,43 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Architecture", slug: "operations/architecture" },
     ],
   },
+  /* ── Platform-wide ── */
   {
-    heading: "Release Notes",
+    heading: "Trust",
+    product: "shared",
+    items: [
+      { title: "Trust Center", slug: "trust/security" },
+      { title: "Data Retention", slug: "trust/data-retention" },
+      { title: "Service Levels", slug: "trust/sla-and-slo" },
+    ],
+  },
+  {
+    heading: "Reference",
+    product: "shared",
+    items: [
+      { title: "API", slug: "reference/api" },
+      { title: "Finding Schema", slug: "reference/finding-schema" },
+      { title: "Integration Catalog", slug: "reference/integration-catalog" },
+      { title: "RBAC & SSO", slug: "reference/rbac-and-sso" },
+    ],
+  },
+  {
+    heading: "Release notes",
+    product: "shared",
     items: [{ title: "Release Notes", slug: "release-notes" }],
   },
 ];
+
+/** Sections grouped by product, in sidebar order. */
+export function docGroups(sections: DocSection[] = DOC_SECTIONS) {
+  const groups: { product: DocProduct; label: string; sections: DocSection[] }[] = [];
+  for (const s of sections) {
+    const last = groups[groups.length - 1];
+    if (last && last.product === s.product) last.sections.push(s);
+    else groups.push({ product: s.product, label: DOC_PRODUCT_LABEL[s.product], sections: [s] });
+  }
+  return groups;
+}
 
 const CUSTOM_ARTICLES: DocArticle[] = [
   ...gettingStarted,
@@ -209,6 +267,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...dspm,
   ...codeSecurity,
   ...ciem,
+  ...security,
 ];
 
 function titleFromSlug(slug: string) {

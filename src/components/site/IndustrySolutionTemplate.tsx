@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { ArrowRight, CheckCircle2, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, HeartPulse, Landmark, ShieldCheck, type LucideIcon } from "lucide-react";
+import { Backdrop } from "@/components/site/system";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
+import { AcrossThePlatform, industryPlatformNotes, type PlatformNotes } from "@/components/site/CloudSolutionTemplate";
 
 export type IndustryUseCase = { icon: LucideIcon; iconColor: string; title: string; body: string };
 export type IndustryFeature = { title: string; body: string };
@@ -24,22 +26,31 @@ export type IndustrySolutionData = {
   regulations: IndustryRegulation[];
   whyChoose: IndustryFeature[];
   faqs: IndustryFaq[];
+  /** Overrides for the "Across the platform" cards. Defaults come from industryPlatformNotes. */
+  platform?: Partial<PlatformNotes>;
+};
+
+/** Banner watermark and tint per industry. */
+const INDUSTRY_BANNER: Record<string, { icon: LucideIcon; color: string }> = {
+  "Financial Services": { icon: Landmark, color: "#2563EB" },
+  Healthcare: { icon: HeartPulse, color: "#0D9488" },
+  Government: { icon: Building2, color: "#4F46E5" },
 };
 
 function Hero({ data }: { data: IndustrySolutionData }) {
+  const banner = INDUSTRY_BANNER[data.industryName] ?? { icon: Building2, color: "#2563EB" };
   return (
     <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-      <div className="absolute inset-0 dot-grid opacity-60" />
-      <div className="absolute -top-40 right-1/4 w-[600px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
-      <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 text-center">
-        <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">{data.breadcrumb}</div>
+      <Backdrop tone="light" color={banner.color} pattern="rings" icon={banner.icon} />
+      <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24 text-center">
+        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">{data.breadcrumb}</div>
         <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
           {data.headline}
         </h1>
         <p className="mt-6 text-lg text-[#475569] max-w-3xl mx-auto leading-relaxed">{data.sub}</p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
           <BrandButton to="/request-demo" size="lg">Book a live demo <ArrowRight className="w-4 h-4" /></BrandButton>
-          <BrandButton to="/platform" size="lg" variant="secondary">Explore the platform</BrandButton>
+          <BrandButton href="#platform" size="lg" variant="secondary">See the whole platform</BrandButton>
         </div>
       </div>
     </section>
@@ -53,7 +64,7 @@ function StatStrip({ stats }: { stats: IndustryStat[] }) {
         {stats.map((s, i) => (
           <div key={i} className="px-6 first:pl-0 last:pr-0 text-center md:text-left">
             <div className="text-2xl md:text-3xl font-display font-black text-[#0B1220]">{s.value}</div>
-            <div className="mt-1 text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
+            <div className="mt-1 text-xs uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
           </div>
         ))}
       </div>
@@ -66,11 +77,11 @@ function UseCases({ data }: { data: IndustrySolutionData }) {
     <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Use cases
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            What {data.industryName} teams solve with Onam
+            What {data.industryName.toLowerCase()} teams solve with Onam Security
           </h2>
         </div>
         <div className="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -103,11 +114,11 @@ function Regulations({ data }: { data: IndustrySolutionData }) {
     <section className="bg-white border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Compliance
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Regulations & frameworks we map to
+            Regulations & frameworks Onam Security maps to
           </h2>
         </div>
         <div className="mt-8 flex flex-wrap gap-2">
@@ -135,11 +146,11 @@ function WhyChoose({ data }: { data: IndustrySolutionData }) {
     <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             Why Onam
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Why {data.industryName} teams choose Onam
+            Why {data.industryName.toLowerCase()} teams choose Onam
           </h2>
         </div>
         <div className="mt-12 grid md:grid-cols-2 gap-4">
@@ -170,7 +181,7 @@ function Faqs({ faqs }: { faqs: IndustryFaq[] }) {
       />
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
             FAQ
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Questions we get a lot</h2>
@@ -209,9 +220,12 @@ function CTA({ data }: { data: IndustrySolutionData }) {
             <ShieldCheck className="w-6 h-6" />
           </div>
           <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Bring continuous compliance to your {data.industryName} cloud
+            See Onam on your {data.industryName.toLowerCase()} cloud
           </h2>
-          <p className="mt-4 text-[#475569] max-w-xl mx-auto">Continuous evidence, mapped to your frameworks, ready before your next audit.</p>
+          <p className="mt-4 text-[#475569] max-w-xl mx-auto">
+            Security evidence mapped to your frameworks, one inventory of what you run, cost you can attribute, and a
+            recovery plan you can check — on one platform.
+          </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Book a demo →</BrandButton>
             <BrandButton to="/pricing" size="lg" variant="secondary">See pricing</BrandButton>
@@ -227,6 +241,11 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
     <SiteLayout>
       <Hero data={data} />
       <StatStrip stats={data.stats} />
+      <AcrossThePlatform
+        title={`One platform for ${data.industryName.toLowerCase()} teams`}
+        lead="Security evidence is covered in detail below. Inventory, cost and recovery work from the same discovery, so your cloud accounts are connected once."
+        notes={{ ...industryPlatformNotes(data.industryName), ...data.platform }}
+      />
       <UseCases data={data} />
       <Regulations data={data} />
       <WhyChoose data={data} />
@@ -235,8 +254,8 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
         tone="white"
         clips={["compliance", "risk", "datasec"]}
         eyebrow="See it live"
-        title="Evidence, in the real console."
-        gradientWords="real console."
+        title="Evidence, in the Onam Security console."
+        gradientWords="Onam Security console."
         subtitle="An animated walkthrough of Onam console views with demo-account data — compliance scores, FAIR-style risk estimates and data classification."
       />
       <Faqs faqs={data.faqs} />
