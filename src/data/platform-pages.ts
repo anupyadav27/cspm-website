@@ -674,25 +674,25 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: violet400,
     label: "AI Security",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
-    headline: "The SEC, EU AI Act, and NIST AI RMF now require AI security posture. Most CSPM tools don't check it.",
+    headline: "Your AI services have a security surface of their own. Most CSPM rules don't check it.",
     metaDescription:
       "AI security posture for SageMaker models, Bedrock endpoints, training pipelines and inference workloads, a surface standard CSPM rules miss.",
-    sub: "SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks all of it.",
+    sub: "SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks their configuration, deepest on AWS today.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM doesn't have a rule for it — AI security is the shadow IT nobody is watching.",
     mechanism: [
       "Onam enumerates AI-specific resources — SageMaker endpoints, notebooks, training jobs, Bedrock invocations, model artifacts — via read-only APIs.",
       "Each resource is evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events.",
-      "Training data lineage is walked back through the storage graph so you see which datasets flow into which models and who has access along the way.",
+      "On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
       "Findings integrate with the identity, network, and data engines, so an over-permissive endpoint reachable from the internet ranks alongside the equivalent web-app risk.",
-      "Rules refresh continuously as new AI services and features ship, and compliance mappings track the EU AI Act and NIST AI RMF as those frameworks evolve.",
+      "Each finding is tagged with MITRE ATLAS, the public catalogue of known attacks on AI systems. Onam checks configuration — it does not read prompts or attack-test models.",
     ],
     whatYouGet: [
       "SageMaker endpoint access control — public vs VPC-only",
       "Bedrock model invocation audit",
       "Training job isolation (VPC + security groups)",
       "Model artifact encryption at rest",
-      "Training data access analysis",
+      "Shadow AI detection (AWS, from audit logs)",
       "SageMaker Studio network isolation",
       "ML service role scoping",
       "Logging and monitoring for inference and training",
@@ -704,15 +704,15 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Why does AI security need a separate engine if I already have CSPM?",
-        a: "AI services have configuration surfaces standard CSPM rules do not cover — network mode of endpoints, execution role scoping, artifact encryption, dataset lineage, invocation logging. AI Security applies AI-native rules and joins the findings to the same graph so risk shows up in the same queue.",
+        a: "AI services have configuration surfaces standard CSPM rules do not cover — network mode of endpoints, execution role scoping, artifact encryption, invocation logging, guardrails. AI Security applies AI-native rules and joins the findings to the same graph so risk shows up in the same queue.",
       },
       {
-        q: "What Azure and GCP AI services are on the roadmap?",
-        a: "Azure OpenAI, Azure Machine Learning, and Cognitive Services on Azure; Vertex AI, Model Garden, and Gemini on GCP. Roadmap follows customer signal — coverage of a service is prioritised by usage in the fleet.",
+        q: "What about Azure and Google Cloud AI services?",
+        a: "AWS has the deepest coverage today. Early checks exist for Azure Machine Learning and Cognitive Services and for Google Cloud AI services; coverage is still growing and follows customer demand.",
       },
       {
         q: "Do AI security findings appear in compliance reports?",
-        a: "Yes. AI findings map to the same 78 compliance frameworks as the rest of the platform, plus dedicated mappings to the EU AI Act and NIST AI RMF. Auditor-ready exports include AI-specific evidence.",
+        a: "AI findings sit in the same findings queue and exports as the rest of the platform, each tagged with MITRE ATLAS. Dedicated EU AI Act and NIST AI RMF mappings are not available today.",
       },
     ],
     related: [
