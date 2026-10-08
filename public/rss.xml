@@ -210,7 +210,7 @@
       <title>What is DSPM (Data Security Posture Management)?</title>
       <link>https://www.onamsecurity.com/learn/dspm</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/dspm</guid>
-      <description>Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.</description>
+      <description>DSPM (Data Security Posture Management) is the continuous discovery and classification of sensitive data across cloud storage, databases and warehouses, combined with an assessment of who and what can reach it. It answers three questions a configuration check cannot: where sensitive data lives, how sensitive it is, and whether any identity or network path exposes it.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -223,10 +223,10 @@
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>What is a cloud attack path?</title>
+      <title>What is attack path analysis?</title>
       <link>https://www.onamsecurity.com/learn/cloud-attack-path</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-attack-path</guid>
-      <description>A cloud attack path is a chain of individually low- or medium-severity findings that together create a route from an entry point — usually the public internet — to a high-value asset such as a database holding sensitive data. Attack path analysis computes these chains across posture, identity, network and workload data.</description>
+      <description>Attack path analysis is the process of finding the chains of weaknesses an attacker could link together to move from an entry point, such as the public internet, to a high-value asset, such as a database of customer records. It joins configuration, identity, network, vulnerability and data findings into a graph and ranks the routes by what they reach.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -263,10 +263,10 @@
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
     <item>
-      <title>What is code security in the cloud?</title>
+      <title>What is code security?</title>
       <link>https://www.onamsecurity.com/learn/code-security</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/code-security</guid>
-      <description>Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.</description>
+      <description>Code security is the practice of finding and fixing security defects in everything that builds a system — application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration — before it is deployed. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>

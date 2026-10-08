@@ -568,82 +568,175 @@ Onam evaluates identity alongside configuration in the same platform, across AWS
     slug: "dspm",
     author: "poonam-yadav",
     question: "What is DSPM (Data Security Posture Management)?",
-    title: "What is DSPM? Data Security Posture Management Explained",
+    title: "What is DSPM? Meaning, How DSPM Security Works, vs CSPM",
     excerpt:
-      "DSPM (data security posture management) finds sensitive data in cloud storage, classifies it and maps who can reach it. How it differs from CSPM and DLP.",
+      "What is DSPM? Data security posture management finds sensitive cloud data, classifies it and maps who can reach it. DSPM vs CSPM vs DLP, examples, FAQs.",
     term: "Data Security Posture Management",
     answer:
-      "Data Security Posture Management (DSPM) discovers where sensitive data resides across cloud storage, databases and warehouses, classifies it by sensitivity, and determines which identities and network paths can reach it — shifting the security question from how a store is configured to what is actually inside it and who can read it.",
-    readTime: "6 min",
+      "DSPM (Data Security Posture Management) is the continuous discovery and classification of sensitive data across cloud storage, databases and warehouses, combined with an assessment of who and what can reach it. It answers three questions a configuration check cannot: where sensitive data lives, how sensitive it is, and whether any identity or network path exposes it.",
+    readTime: "11 min",
     body: `
-## The problem DSPM solves
+## DSPM at a glance
+
+| Question | Answer |
+| --- | --- |
+| What does DSPM stand for? | Data Security Posture Management (sometimes mistyped "DPSM") |
+| What does it look at? | The data itself — object storage, managed databases, warehouses, data lakes, file shares, backups and snapshots |
+| What does it produce? | An inventory of data stores, a sensitivity label for each, and the identities and network paths that can reach them |
+| What does it classify? | PII, PHI, cardholder data, credentials and secrets, intellectual property |
+| What does it not do? | Block data leaving in real time — that is DLP |
+| Where does it fit? | Alongside [CSPM](/learn/cspm), [CIEM](/learn/ciem) and [CWPP](/learn/cwpp), usually inside a [CNAPP](/learn/cnapp) |
+
+## DSPM meaning: the problem it solves
 
 Most organisations cannot answer a simple question: where is our customer data?
 
-Not because nobody cares, but because data sprawls faster than anyone documents it. One production database becomes a database, three read replicas, four analytics warehouses, a dozen buckets holding exports, a data lake, a Snowflake stage, and a caching layer somebody stood up for a demo. Every copy is a copy of the risk, and no map exists — until an auditor, a regulator or a breach demands one.
+Not because nobody cares, but because data spreads faster than anyone documents it. One production database becomes three read replicas, several analytics warehouses, buckets of CSV exports, a data lake, a warehouse stage and a cache someone stood up for a demo. Every copy carries the same risk as the original, and no map exists until an auditor, a regulator or an incident asks for one.
 
-## Why "encrypted at rest" is a weak answer
-
-Compliance reports routinely show 100% encryption at rest. It is usually true and frequently irrelevant.
-
-Encryption at rest protects against one specific threat: someone physically obtaining the storage medium. It does nothing about the far likelier scenario — a legitimate credential reading the data through the API exactly as designed. If the key is a provider-managed key that every principal in the account can use, "encrypted" is a checkbox, not a control.
-
-DSPM asks the better questions: what is in this store, who can read it, and is any path to it reachable from outside?
+Copies nobody tracks are often called **shadow data**: snapshots kept after a migration, test environments loaded with production records, exports left in a bucket after a one-off analysis. DSPM security starts by finding them.
 
 ## How DSPM works
 
-1. **Discover** every data store across the estate — object storage, managed databases, warehouses, file systems, backups and snapshots.
-2. **Classify** what each one holds. Sensitivity labels typically cover PII, PHI, PCI cardholder data, credentials and intellectual property.
-3. **Map access** by joining classification with the identity graph, so you know exactly which principals can read or write each store.
-4. **Assess exposure** by layering network reachability on top — a technically encrypted bucket that is publicly reachable is exposed.
-5. **Monitor** continuously, because new datasets and permission changes appear constantly.
+1. **Discover** every data store across accounts, subscriptions and projects — including the ones not in any inventory. A [cloud asset inventory](/learn/cloud-asset-inventory) is the starting point.
+2. **Classify** what each store holds, by content sampling, by metadata, or both.
+3. **Map access** by joining each store to the identity graph: which users, roles, service accounts and third parties can read or write it, directly or through role assumption.
+4. **Assess exposure** by adding network reachability and encryption context — is the store public, is the key usable by everyone in the account, is a copy sitting in a less-protected region?
+5. **Prioritise and remediate** by sensitivity multiplied by exposure, not by the severity of the configuration rule alone.
+6. **Monitor continuously**, because new datasets and new permissions appear every day.
 
 ## Metadata vs content classification
 
-Vendors split into two approaches, and the distinction matters for procurement and privacy review.
+DSPM tools split into two approaches, and the difference matters for procurement and privacy review.
 
-**Content-based** classification reads the data and pattern-matches on it. It is the more precise method and the more invasive one: it requires read access to the actual records, and often means data leaves your environment.
+**Content-based** classification reads samples of the data and pattern-matches on it — national ID formats, card numbers that pass a Luhn check, email addresses. It is the more precise method and the more invasive one: it needs read access to real records, and the scanning may run outside your environment.
 
-**Metadata-based** classification infers sensitivity from resource names, tags, schema and column names, storage class and configuration. A table with columns \`ssn\` and \`date_of_birth\`, or a bucket named \`customer-pii-exports\`, is a high-confidence classification without anyone reading a row. It is less precise on ambiguous stores, but it never touches the underlying data — which is often the deciding factor for regulated environments.
+**Metadata-based** classification infers sensitivity from resource names, tags, schemas and column names, storage class and configuration. A table with columns \`ssn\` and \`date_of_birth\`, or a bucket named \`customer-pii-exports\`, is a confident label without reading a row. It is less precise on ambiguous stores, but it never touches the underlying data — often the deciding factor in regulated environments.
 
-## DSPM vs CSPM vs DLP
+Ask any DSPM vendor which one it uses, where the scanning runs, and whether sampled data leaves your account.
 
-- **[CSPM](/learn/cspm)** — is the store configured correctly?
-- **DSPM** — what is in the store, and who can reach it?
-- **DLP** — is data leaving through a channel it should not?
+## DSPM vs CSPM
 
-DSPM is the context layer that makes the other two useful. A public bucket is a medium finding; a public bucket holding 800,000 PII records is an incident. Same misconfiguration, entirely different priority — and only DSPM knows the difference.
+| | DSPM | CSPM |
+| --- | --- | --- |
+| Starting point | The data | The cloud resource |
+| Question it answers | What is in this store, and who can reach it? | Is this resource configured correctly? |
+| Typical finding | A bucket holding customer PII is readable by a role used by a public web server | A bucket has public access enabled |
+| Prioritises by | Data sensitivity and exposure | Rule severity and benchmark |
+| Usual baseline | Data classification policy, GDPR, HIPAA, PCI DSS | CIS Foundations Benchmarks, NIST, SOC 2 |
 
-## Next steps
+The two are complementary. CSPM tells you a bucket is public; DSPM tells you whether that bucket holds marketing images or customer records. Same misconfiguration, very different priority. See [What is CSPM?](/learn/cspm) for the infrastructure side.
 
-- [How Onam implements DSPM](/platform/data-security)
-- [What is CSPM?](/learn/cspm)
-- [What is CNAPP?](/learn/cnapp)
+## DSPM vs DLP
+
+- **DLP (data loss prevention)** watches data **in motion** — email, uploads, endpoints, web traffic — and blocks it leaving through channels it should not.
+- **DSPM** assesses data **at rest** — where it is stored, how sensitive it is, and who can reach it.
+
+DLP is a control at the boundary; DSPM is an assessment of the estate. DSPM findings make DLP policy sharper, because you know which data deserves the strictest rules.
+
+## DSPM vs data governance and DSPM vs CIEM
+
+**Data governance** decides who *should* own and use data — catalogues, stewardship, retention policy. DSPM checks what is actually true in the cloud: whether the copies, permissions and exposure match that intent.
+
+**[CIEM](/learn/ciem)** maps effective permissions for every identity. DSPM uses that map from the data's side: not "what can this role do?" but "who can read this table?". The two answers should come from the same identity graph, or they will disagree.
+
+## DSPM use cases
+
+- **Find shadow data** — forgotten snapshots, test copies of production, abandoned exports.
+- **Prove compliance scope** — GDPR Article 30 records of processing, HIPAA safeguards for PHI, PCI DSS Requirement 3 for stored account data. You cannot scope an audit for data you have not found.
+- **Prioritise cloud findings** — raise the priority of any misconfiguration on a store that holds sensitive data.
+- **Reduce access** — remove read access to sensitive stores from identities that never use it.
+- **Govern AI and analytics data** — know which training sets, vector stores and notebooks hold personal data before they are shared.
+- **Respond to incidents** — when a credential leaks, answer "what sensitive data could it read?" before the investigation stalls.
+
+## DSPM examples: three findings and their fixes
+
+**1. A database snapshot shared with another account.** A snapshot taken before a migration was shared with a vendor account and never unshared. CSPM may flag the sharing; DSPM adds that the snapshot holds a customer table. Fix: revoke the share, delete the snapshot if it is no longer needed, and add a policy that blocks cross-account snapshot sharing.
+
+**2. An analytics export bucket readable by a web tier role.** The bucket is private, encrypted and passes every configuration rule. But the role attached to an internet-facing service has \`s3:GetObject\` on \`*\`, so it can read the exports. Fix: scope the role to the buckets it uses, and add a bucket policy that allows only the analytics role.
+
+\`\`\`json
+{
+  "Effect": "Deny",
+  "Principal": "*",
+  "Action": "s3:GetObject",
+  "Resource": "arn:aws:s3:::customer-exports/*",
+  "Condition": {
+    "StringNotEquals": { "aws:PrincipalArn": "arn:aws:iam::111122223333:role/analytics-reader" }
+  }
+}
+\`\`\`
+
+**3. "Encrypted at rest" with a key everyone can use.** Compliance shows full encryption coverage. But the key is a provider-managed default that any principal in the account can use, so encryption adds nothing against a stolen credential. Fix: use a customer-managed key for sensitive stores and restrict \`kms:Decrypt\` to the roles that need the data. See [What is cloud secrets management?](/learn/secrets-management) for key handling.
+
+## Why "encrypted at rest" is a weak answer
+
+Encryption at rest protects against one threat: someone obtaining the physical storage medium. It does nothing about the likelier case — a legitimate credential reading the data through the API exactly as designed. DSPM asks the better questions: what is in this store, who can decrypt it, and is any path to it reachable from outside? That last question is [attack path analysis](/learn/cloud-attack-path), with the data store as the target.
+
+## DSPM best practices
+
+1. **Start with discovery, not classification.** You cannot classify stores you have not found; include backups, snapshots and every account.
+2. **Agree the sensitivity labels first.** Four or five labels that map to your regulations beat thirty nobody applies.
+3. **Decide how classification may touch data.** Settle content versus metadata scanning with privacy and legal before rollout.
+4. **Join data to identity.** A sensitivity label without an access map tells you what to worry about, not what to fix.
+5. **Prioritise by sensitivity times exposure.** A public store of public data is low; a private store of PII readable by an internet-facing role is high.
+6. **Delete before you protect.** The cheapest secure copy of data is the one that no longer exists.
+7. **Re-scan continuously.** New datasets and new grants appear with every deploy and every analyst query.
+
+## DSPM tools: what to ask
+
+DSPM is sold as a standalone product and as part of a CNAPP. When you compare options, ask: which stores and clouds it covers (including warehouses and SaaS data platforms); whether it classifies by content, metadata or both, and where scanning runs; whether it shows effective access through role assumption, not just direct grants; and whether data findings appear next to the cloud and identity findings that create the exposure.
+
+## How Onam approaches data security posture
+
+Onam evaluates data stores in the same platform as its cloud posture and identity checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,321 rule definitions are tagged to the data protection domain, 310 to storage and databases, and 502 to secrets and key management; Snowflake is one of its eight SaaS connectors, with 39 CIS SaaS rules. One honest limit: configuration rules tell you how a store is protected, not how many sensitive records sit inside it.
+
+- [Onam Data Security (DSPM)](/platform/data-security)
+- [Onam Database Security](/platform/database-security)
 `,
     faqs: [
       {
-        q: "What does DSPM stand for?",
-        a: "DSPM stands for Data Security Posture Management — discovering where sensitive data lives across cloud environments, classifying it, and determining who can access it.",
+        q: "What is DSPM?",
+        a: "DSPM (Data Security Posture Management) continuously discovers and classifies sensitive data across cloud storage, databases and warehouses, and determines which identities and network paths can reach it, so teams can fix the exposures that matter most.",
+      },
+      {
+        q: "What does DSPM mean in security?",
+        a: "In security, DSPM means Data Security Posture Management — a data-centric approach that starts from where sensitive data lives rather than from how infrastructure is configured. It is sometimes mistyped as DPSM.",
+      },
+      {
+        q: "What is the difference between DSPM and CSPM?",
+        a: "CSPM checks whether cloud resources are configured securely. DSPM checks what sensitive data those resources hold and who can reach it. CSPM can tell you a bucket is public; DSPM tells you whether that bucket holds customer records. Most programmes need both.",
       },
       {
         q: "What is the difference between DSPM and DLP?",
-        a: "DLP (Data Loss Prevention) monitors data in motion and blocks it leaving through unauthorised channels. DSPM maps data at rest — where it is, how sensitive it is, and which identities and network paths can reach it. DLP is a control at the boundary; DSPM is an assessment of the estate.",
+        a: "DLP monitors data in motion and blocks it leaving through unauthorised channels. DSPM assesses data at rest — where it is, how sensitive it is, and which identities and network paths can reach it. DLP is a boundary control; DSPM is an assessment of the estate.",
       },
       {
         q: "Does DSPM read my actual data?",
-        a: "It depends on the approach. Content-based classification reads records directly and is more precise but requires access to the data itself. Metadata-based classification infers sensitivity from names, tags, schemas and configuration without reading any content, which many regulated organisations prefer.",
+        a: "It depends on the approach. Content-based classification samples records and is more precise but needs access to the data. Metadata-based classification infers sensitivity from names, tags, schemas and configuration without reading content, which many regulated organisations prefer.",
       },
       {
         q: "Why is DSPM needed if data is already encrypted?",
-        a: "Encryption at rest protects against physical media theft, not against a legitimate credential reading the data through the API. If the encryption key is usable by every principal in the account, encryption adds little. DSPM answers who can actually decrypt and read the data.",
+        a: "Encryption at rest protects against theft of the storage medium, not against a legitimate credential reading the data through the API. If every principal in the account can use the key, encryption adds little. DSPM answers who can actually decrypt and read the data.",
+      },
+      {
+        q: "What is shadow data?",
+        a: "Copies of sensitive data that nobody is tracking — snapshots left after a migration, test environments loaded with production records, exports left in storage after a one-off analysis. Finding shadow data is one of the main reasons teams adopt DSPM.",
+      },
+      {
+        q: "Is DSPM part of CNAPP?",
+        a: "Increasingly, yes. DSPM is sold standalone and as a component of a cloud-native application protection platform, where data sensitivity can be used to prioritise cloud, identity and workload findings.",
       },
     ],
     related: [
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CIEM?", href: "/learn/ciem" },
-      { label: "Onam DSPM", href: "/platform/data-security" },
-      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
-      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
+      { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "What is attack path analysis?", href: "/learn/cloud-attack-path" },
+      { label: "Onam Data Security (DSPM)", href: "/platform/data-security" },
+      { label: "DSPM implementation checklist", href: "/resources/blog/dspm-implementation-checklist" },
+      { label: "Data lineage security: the unencrypted hops", href: "/resources/blog/data-lineage-security-unencrypted-hops" },
     ],
   },
 
@@ -741,106 +834,162 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
   {
     slug: "cloud-attack-path",
     author: "nishchal-gupta",
-    question: "What is a cloud attack path?",
-    title: "What is a Cloud Attack Path? Attack Path Analysis Explained",
+    question: "What is attack path analysis?",
+    title: "What is Attack Path Analysis? Attack Path Mapping in Cloud",
     excerpt:
-      "A cloud attack path is a chain of individually minor findings that reaches something valuable. Why severity lists bury it and how choke points cut it.",
+      "What is attack path analysis? How attack path mapping and attack path management find chained cloud risks and choke points. Examples, on-path attack, FAQs.",
     term: "Attack path analysis",
     answer:
-      "A cloud attack path is a chain of individually low- or medium-severity findings that together create a route from an entry point — usually the public internet — to a high-value asset such as a database holding sensitive data. Attack path analysis computes these chains across posture, identity, network and workload data.",
-    readTime: "7 min",
+      "Attack path analysis is the process of finding the chains of weaknesses an attacker could link together to move from an entry point, such as the public internet, to a high-value asset, such as a database of customer records. It joins configuration, identity, network, vulnerability and data findings into a graph and ranks the routes by what they reach.",
+    readTime: "11 min",
     body: `
-## Not to be confused with an "on-path attack"
+## Attack path analysis at a glance
 
-Worth clearing up first, because the terms look alike and mean nothing like each other.
-
-An **on-path attack** (the term that replaced "man-in-the-middle") is a technique where an attacker positions themselves between two communicating parties to intercept or alter traffic. It describes a single interception technique at the network layer.
-
-An **attack path** is the opposite kind of concept: not one technique, but a *chain* of configuration and identity weaknesses that together lead from an entry point to a valuable asset. On-path attacks are about eavesdropping on a conversation; attack paths are about route-finding across an environment.
-
-Everything below is about the second one.
+| Question | Answer |
+| --- | --- |
+| What is an attack path? | One route from an entry point to a valuable target, made of several linked weaknesses |
+| What does analysis produce? | The routes that reach critical assets, ranked, plus the choke points many routes share |
+| What data does it need? | Cloud configuration, identities and permissions, network reachability, vulnerabilities, data sensitivity |
+| How is it modelled? | As a graph — resources and identities are nodes, permissions and network routes are edges |
+| What does it not do? | Prove that an attacker has used a path — that is detection and response |
+| Related terms | Attack path mapping, attack path management, attack graph, choke point |
 
 ## Why finding lists fail
 
-A typical cloud environment produces thousands of findings. Ranked by severity, the top of the list is dominated by criticals on resources nobody can reach, while the finding that actually matters sits at position 800 marked "medium".
+A typical cloud environment produces thousands of findings. Ranked by severity, the top of the list fills with criticals on resources nobody can reach, while the finding that matters sits far down marked "medium".
 
 Severity is a property of a finding in isolation. Risk is a property of a finding *in context*. The two diverge constantly:
 
 - A critical CVE on an isolated development instance with no data and no network path is close to harmless.
 - A medium-severity IMDSv1 setting on an internet-facing instance whose role can read the customer database is the whole breach.
 
-The second one is what an attacker uses. Almost no tool surfaces it, because surfacing it requires knowing four things at once.
+The second is what an attacker uses. Seeing it requires knowing four things at once — exposure, identity, permissions and data — which usually live in four different tools.
 
-## What a path actually looks like
+## Attack path example: four findings, one breach
 
 > **Entry** — an EC2 instance is reachable from the internet on port 443.
-> **Hop 1** — the instance has IMDSv1 enabled, so a server-side request forgery yields credentials.
-> **Hop 2** — those credentials belong to a role that can assume a second, more privileged role.
+> **Hop 1** — the instance allows IMDSv1, so a server-side request forgery bug returns its role credentials.
+> **Hop 2** — that role can assume a second, more privileged role.
 > **Hop 3** — the second role has \`s3:GetObject\` on a production bucket.
-> **Target** — that bucket holds 847,000 customer records classified as PII.
+> **Target** — the bucket holds customer records classified as personal data.
 
-Four findings. Individually: one medium, one low, two informational. Together: a complete breach path, and every fact needed to see it lives in a different tool in most stacks.
+Individually: one medium, one low, two informational findings. Together: a complete route to customer data. Breaking any single hop breaks the path — enforcing IMDSv2 is a one-line change:
 
-## Conditions that combine
+\`\`\`hcl
+metadata_options {
+  http_tokens = "required"  # IMDSv2 only
+}
+\`\`\`
 
-Some conditions are each acceptable alone and unacceptable together. Public network exposure is fine on a marketing site. A permissive IAM role is fine on an isolated workload. Sensitive data is fine in a locked-down store. Put all three on one resource and you have a critical exposure that no individual rule flags.
+A second common shape is identity-only: a CI/CD role with \`iam:PassRole\` and \`lambda:CreateFunction\` can create a function that runs as an administrator role — privilege escalation without touching a single vulnerable package. That is why identity is the backbone of most cloud paths; see [What is CIEM?](/learn/ciem).
 
-Detecting them requires evaluating combinations, not rules — which is only possible if every signal is on one graph.
+## How attack path analysis works
 
-## Choke points
-
-Once paths are computed, most environments show heavy convergence: hundreds of distinct paths routing through a handful of nodes. That over-permissive role attached to twelve services, or that one peered VPC.
-
-A choke point is a node that appears in a disproportionate number of paths. Fixing one choke point can eliminate more risk than closing a hundred individual findings, and it is the single most useful output of attack path analysis — it converts an unbounded backlog into a short, ordered list of high-leverage fixes.
-
-## How it is computed
-
-1. **Build a graph** — resources, identities, network routes and data stores as nodes; relationships as edges.
-2. **Mark entry points** — anything reachable from the internet or from a lower-trust boundary.
-3. **Mark targets** — crown jewels, typically defined by data classification rather than by hand.
-4. **Traverse** — find every route from entry to target, respecting real permission semantics including transitive role assumption.
+1. **Build a graph** — resources, identities, network routes and data stores as nodes; permissions, trust relationships and reachability as edges.
+2. **Mark entry points** — anything reachable from the internet, from a partner account, or from a lower-trust boundary.
+3. **Mark targets** — crown jewels, ideally defined by data classification ([DSPM](/learn/dspm)) rather than by hand.
+4. **Traverse** — find every route from entry to target, respecting real permission semantics, including transitive role assumption and resource policies.
 5. **Rank** — by target value, path length, exploitability of each hop, and how many paths share a node.
+6. **Map to MITRE ATT&CK** — label each hop with a technique so detection engineers can check coverage and run tabletop exercises.
 
-Mapping each hop to MITRE ATT&CK techniques makes the output legible to detection engineers and useful for tabletop exercises.
+## Attack path analysis vs attack path mapping vs attack path management
 
-## What it changes
+- **Attack path mapping** is the visual part: drawing the routes from entry to target so people can see them. Often done in a red-team or consulting engagement.
+- **Attack path analysis** is the computation behind it: finding every route in the graph and ranking them by what they reach and how exploitable each hop is.
+- **Attack path management** is the continuous programme: discover, analyse, prioritise, fix the highest-leverage hops, then re-validate that the path is gone — repeated as the environment changes.
 
-The practical shift is from "4,000 findings" to "3 paths that reach crown jewels, converging on 2 choke points". That is a backlog a team can actually clear this sprint — and it is the difference between a tool that reports risk and a tool that reduces it.
+Analysis done once is a snapshot. Cloud environments change with every deploy, so useful attack path work is continuous.
 
-## Next steps
+## Attack path analysis vs attack surface management
 
-- [How Onam implements attack path analysis](/platform/attack-path)
-- [What is CIEM?](/learn/ciem) — identity is how attackers move
+| | Attack path analysis | Attack surface management (ASM) |
+| --- | --- | --- |
+| Question | What can an attacker reach after getting in? | What can an attacker see and touch from outside? |
+| Scope | Inside the environment — identities, permissions, internal networks, data | The external perimeter — domains, IPs, exposed services, certificates |
+| Output | Ranked routes to critical assets, and choke points | An inventory of exposed assets and their weaknesses |
+| Relationship | Uses ASM's exposed assets as entry points | Stops at the edge |
+
+They work together: ASM finds the doors, attack path analysis shows where each door leads. Both feed continuous threat exposure management (CTEM) programmes.
+
+## Attack path vs attack graph vs attack tree
+
+- An **attack graph** models every possible route across an environment at once.
+- An **attack path** is one route through that graph, from entry to target.
+- An **attack tree** breaks a single attacker goal into sub-goals and steps — a planning tool rather than a map of your environment.
+
+## Choke points: where to fix first
+
+Once paths are computed, most environments show heavy convergence: many distinct paths routing through a handful of nodes — an over-permissive role attached to many services, or a single peered network.
+
+A [choke point](/learn/choke-point) is a node that appears in a disproportionate number of paths. Fixing one can remove more risk than closing many individual findings, which turns an unbounded backlog into a short, ordered list of high-leverage fixes. Pair it with [cloud risk quantification](/learn/cloud-risk-quantification) when you need to explain the priority in business terms.
+
+## Attack path analysis in cloud vs on-premises
+
+On-premises, attack path analysis grew up around Active Directory — tools such as BloodHound map how a low-privileged account can reach Domain Admin through group memberships, sessions and ACLs. In the cloud the edges are different: IAM policies, role trust, resource policies, security groups, Kubernetes RBAC and workload identities. The method is the same; the graph has to be built from cloud APIs. Kubernetes adds its own layer — see [What is KSPM?](/learn/kspm) — and running workloads add vulnerabilities — see [What is CWPP?](/learn/cwpp).
+
+## Attack path vs on-path attack
+
+The terms look alike and are unrelated. An **on-path attack** (the newer name for a man-in-the-middle attack) is a single technique: an attacker positions themselves between two communicating parties to intercept or alter traffic. An **attack path** is a chain of weaknesses that leads from an entry point to a valuable asset. One is eavesdropping on a conversation; the other is route-finding across an environment. TLS everywhere and certificate validation defend against on-path attacks; breaking hops and choke points defends against attack paths.
+
+## Attack path analysis best practices
+
+1. **Define crown jewels by data, not by guesswork.** Classification tells you which targets matter.
+2. **Model identity in full.** Include role assumption, resource policies and workload identities — most cloud paths are identity paths.
+3. **Fix choke points first.** One shared role or one network route can sit on many paths.
+4. **Break the cheapest hop.** You do not need to fix every link — one broken link closes the path.
+5. **Re-validate after each fix.** Confirm the path is gone, not just that the finding is marked resolved.
+6. **Run it continuously.** A quarterly path review describes an environment that no longer exists.
+7. **Map hops to MITRE ATT&CK** so detection covers the paths you cannot close yet.
+
+## How Onam approaches attack path analysis
+
+Onam keeps the signals attack path analysis joins in one platform across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes: 9,853 CSPM posture rules, and in its rule catalog 1,459 rule definitions tagged to IAM, 1,166 to network and 1,321 to data protection. One honest limit: a path computed from configuration shows that a route is possible; it is not evidence that anyone has used it.
+
+- [Onam Attack Path](/platform/attack-path)
 - [What is CNAPP?](/learn/cnapp)
 `,
     faqs: [
       {
-        q: "What is a cloud attack path?",
-        a: "A chain of individually low- or medium-severity findings that together create a route from an entry point such as the public internet to a high-value asset such as a database holding sensitive data. Each link is minor; the chain is critical.",
+        q: "What is attack path analysis?",
+        a: "Attack path analysis finds the chains of weaknesses an attacker could link together to move from an entry point, such as the internet, to a high-value asset, such as a customer database. It joins configuration, identity, network, vulnerability and data findings into a graph and ranks the routes by what they reach.",
       },
       {
-        q: "Why do individually minor cloud findings add up to a critical risk?",
-        a: "Because some conditions are individually acceptable but dangerous together — for example public network exposure, plus an over-permissive IAM role, plus sensitive data, all on one resource. No single rule flags it because no single condition is a violation.",
+        q: "What is attack path mapping?",
+        a: "Attack path mapping is the visual side of attack path work: drawing the routes an attacker could take from an entry point to critical assets, so security and engineering teams can see how individual weaknesses connect.",
+      },
+      {
+        q: "What is attack path management?",
+        a: "Attack path management is the continuous practice of discovering, analysing, prioritising and removing attack paths as the environment changes, then re-validating that each fixed path is actually gone.",
+      },
+      {
+        q: "What is the difference between attack path analysis and attack surface management?",
+        a: "Attack surface management inventories what is exposed from outside — domains, IPs, services. Attack path analysis shows what an attacker can reach after getting in, through identities, permissions and internal networks. ASM finds the doors; attack path analysis shows where they lead.",
+      },
+      {
+        q: "What is a cloud attack path?",
+        a: "A chain of individually low- or medium-severity cloud findings — for example an exposed instance, an over-permissive role and a readable bucket — that together create a route from the internet to sensitive data. Each link is minor; the chain is critical.",
       },
       {
         q: "What is a choke point in attack path analysis?",
-        a: "A node that appears in a disproportionate number of attack paths — commonly an over-permissive role or a peered network. Remediating one choke point can eliminate hundreds of paths at once, which makes it the highest-leverage fix available.",
+        a: "A node that appears in a disproportionate number of attack paths, commonly an over-permissive role or a peered network. Fixing one choke point can remove many paths at once, which makes it the highest-leverage fix available.",
       },
       {
         q: "How is attack path analysis different from vulnerability scanning?",
         a: "Vulnerability scanning finds weaknesses in individual components and ranks them by CVSS. Attack path analysis determines whether those weaknesses connect to each other and to something valuable. A critical CVE with no path to anything ranks below a medium finding that completes a chain to your customer database.",
       },
       {
-        q: "What is the difference between an attack path and an on-path attack?",
-        a: "They are unrelated despite the similar wording. An on-path attack — previously called man-in-the-middle — is a single technique where an attacker intercepts traffic between two parties. An attack path is a chain of configuration and identity weaknesses that together lead from an entry point to a high-value asset. One is an interception technique; the other is a route across an environment.",
+        q: "What is an on-path attack, and is it the same as an attack path?",
+        a: "No. An on-path attack, formerly called man-in-the-middle, is a single technique where an attacker intercepts traffic between two parties. An attack path is a chain of configuration and identity weaknesses leading from an entry point to a high-value asset.",
       },
     ],
     related: [
       { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is DSPM?", href: "/learn/dspm" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is a choke point?", href: "/learn/choke-point" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "Onam Attack Path", href: "/platform/attack-path" },
-      { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
-      { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
       { label: "Attack paths vs. misconfigurations: chained findings", href: "/resources/blog/attack-path-4000-to-3" },
       { label: "MITRE ATT&CK for Cloud, mapped to your posture score", href: "/resources/blog/mitre-attack-cloud-mapping" },
     ],
@@ -1303,75 +1452,148 @@ Onam treats Kubernetes as one of the seven environments its posture engine cover
   {
     slug: "code-security",
     author: "poonam-yadav",
-    question: "What is code security in the cloud?",
-    title: "What is Code Security? SAST, SCA and IaC Explained",
+    question: "What is code security?",
+    title: "What is Code Security? SAST vs SCA vs IaC Scanning",
     excerpt:
-      "Code security covers SAST, DAST, SCA, IaC and secret scanning. What each catches, why console-only fixes come back, and how code and runtime connect.",
+      "What is code security? How SAST, SCA, DAST, IaC scanning and secret detection fit together, what security as code means, and how to gate a pipeline.",
     term: "Code Security",
     answer:
-      "Code security is the practice of finding security defects in the artefacts that build a system — application source, dependencies, infrastructure-as-code templates and pipeline configuration — before they are deployed. It combines static analysis, dependency analysis, IaC scanning and secret detection, applied continuously as code changes.",
-    readTime: "8 min",
+      "Code security is the practice of finding and fixing security defects in everything that builds a system — application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration — before it is deployed. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.",
+    readTime: "11 min",
     body: `
-## The four techniques, and what each one can see
+## Code security at a glance
 
-They are usually sold together and they look for different things.
+| Question | Answer |
+| --- | --- |
+| What does it cover? | Your source code, third-party dependencies, IaC templates, container images, CI/CD configuration |
+| Main techniques | SAST, SCA, IaC scanning, secret detection, plus DAST against the running app |
+| When does it run? | IDE and pre-commit, pull request, build, and before deploy |
+| What does it not do? | Prove a finding is exploitable in production — that needs runtime and cloud context |
+| Related practice | Security as code — writing security policy itself as versioned, testable code |
+| Where does it fit? | The "code" layer of a [CNAPP](/learn/cnapp), feeding [CSPM](/learn/cspm), [KSPM](/learn/kspm) and [CWPP](/learn/cwpp) |
 
-**SAST — static application security testing.** Reads source code without running it, tracing how untrusted input flows to a dangerous operation. Catches injection, unsafe deserialisation, path traversal, weak cryptography. It sees code paths that tests never execute, and it produces false positives where it cannot prove a path is unreachable.
+## What code security covers
 
-**SCA — software composition analysis.** Inventories dependencies, including transitive ones, and matches them against known vulnerabilities. Most of the code shipped is not written in-house, so this is usually where the volume is. Its weakness is the inverse of SAST's: it reports a vulnerable package whether or not the vulnerable function is ever called.
+Most of what runs in production was not written by your team. A typical service is your code, a large tree of open-source packages, a base image, Terraform or CloudFormation that creates the cloud resources, Helm charts or manifests that deploy it, and a pipeline that holds the credentials to do all of that. Each layer can carry a defect, and each needs a different technique to find it.
 
-**DAST — dynamic application security testing.** Exercises the running application from the outside. It finds what is genuinely reachable, including configuration and deployment problems no static tool sees, but only on paths it manages to reach.
+## SAST vs SCA vs IaC scanning
 
-**IaC scanning.** Evaluates Terraform, CloudFormation, Helm charts and Kubernetes manifests against policy before anything is created. This is the earliest possible point to catch a misconfiguration — the template that will create a public bucket, rather than the public bucket.
+| | SAST | SCA | IaC scanning |
+| --- | --- | --- | --- |
+| Scans | Your own source code | Third-party and open-source dependencies | Terraform, CloudFormation, Bicep, Helm, Kubernetes manifests |
+| Finds | Injection, unsafe deserialisation, path traversal, weak crypto | Packages with known CVEs, licence problems, outdated versions | Public storage, open security groups, missing encryption, privileged pods |
+| Runs code? | No | No | No |
+| Main weakness | False positives where it cannot prove a path is unreachable | Reports a vulnerable package whether or not the vulnerable function is called | Only sees what is in the template, not changes made in the console |
+| Typical open-source tools | Semgrep, CodeQL | OWASP Dependency-Check, Trivy, Grype | Checkov, Trivy (formerly tfsec), KICS |
 
-**Secret detection** cuts across all of them: credentials in source, in image layers, in pipeline configuration, in committed state files.
+**DAST — dynamic application security testing** — is the fourth technique. It exercises the running application from outside, so it finds what is genuinely reachable, including configuration and deployment problems no static tool sees, but only on paths it manages to reach.
+
+**Secret detection** cuts across all of them: credentials in source, in commit history, in image layers, in pipeline variables and in committed state files. Tools such as Gitleaks and TruffleHog run as pre-commit hooks and in CI. See [What is cloud secrets management?](/learn/secrets-management).
+
+**SBOM** — a software bill of materials, in SPDX or CycloneDX format — is the inventory SCA produces. Keep one per build, so "which running services contain this package?" is a query rather than a project.
+
+## What is IaC scanning?
+
+IaC scanning evaluates infrastructure-as-code against security policy before anything is created. It is the earliest point to catch a cloud misconfiguration: the template that *will* create a public bucket, rather than the public bucket.
+
+Scan in two places. The **template** in the pull request catches the mistake when it is cheap to fix. The **plan** (\`terraform plan\` output) catches what the template resolves to once variables and modules are filled in — a module default can open a port that the template never mentions.
+
+## What is security as code?
+
+**Security as code** means writing security policies, controls and tests as versioned code that runs automatically, instead of as documents and manual reviews. Examples: an OPA or Kyverno policy that rejects privileged pods; a Checkov custom rule that blocks unencrypted databases; a pipeline step that fails on a leaked credential.
+
+The difference from code security is direction. **Code security** scans code for defects. **Security as code** turns security rules themselves into code — reviewed in pull requests, tested, and enforced by the pipeline. Mature teams do both: the scanners are the checks, and security as code is how the policy those checks enforce is written down and versioned.
 
 ## Why fixing it in the console makes it come back
 
-This is the failure that makes code security a cloud security concern rather than an application security one.
+A posture tool reports a storage bucket with public access. An engineer opens the cloud console, unchecks the box and marks the finding resolved. The next \`terraform apply\` recreates the bucket exactly as the template describes it — public — because the template was never changed.
 
-A posture tool reports a storage bucket with public access. An engineer opens the cloud console, unchecks the box, marks the finding resolved. The next \`terraform apply\` recreates the bucket exactly as the template describes it — public — because the template was never changed.
+The finding returns, gets re-triaged, gets fixed in the console again. Everyone is working; nothing is improving.
 
-The finding returns, gets re-triaged, gets fixed in the console again. Everyone is working, nothing is improving.
+**The fix has to land where the resource is defined.** That means knowing which template, repository and line produced a given running resource — connecting the code side to the runtime side rather than running two programmes that never meet.
 
-**The fix has to land where the resource is defined.** That requires knowing which template, repository and line produced a given running resource — which means connecting the code side to the runtime side rather than running two programmes that never meet.
+## Code security examples: three findings and their fixes
+
+**1. IaC — a bucket created without a public-access block.** The scanner flags the template in the pull request. Fix in the template, not the console:
+
+\`\`\`hcl
+resource "aws_s3_bucket_public_access_block" "exports" {
+  bucket                  = aws_s3_bucket.exports.id
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+\`\`\`
+
+**2. SAST — SQL built from user input.** The analyser traces a request parameter into a query string. Fix: use a parameterised query.
+
+\`\`\`python
+# Before: cursor.execute(f"SELECT * FROM orders WHERE id = {order_id}")
+cursor.execute("SELECT * FROM orders WHERE id = %s", (order_id,))
+\`\`\`
+
+**3. Secret detection — a cloud access key in a config file.** Deleting the line is not enough; the key is in commit history. Fix: revoke and rotate the key first, then remove it from history, then move the value to a secrets manager and block the pattern with a pre-commit hook.
 
 ## Reachability is what makes the numbers usable
 
-A dependency scan on a mature service commonly returns hundreds of findings. Fixing them in CVSS order is a reasonable-sounding strategy that wastes most of the effort, because severity describes the vulnerability, not your exposure to it.
+A dependency scan on a mature service can return hundreds of findings. Fixing them in CVSS order sounds reasonable and wastes most of the effort, because severity describes the vulnerability, not your exposure to it. Three questions change the order:
 
-Three questions change the order:
-
-1. **Is the vulnerable function actually called?** A critical CVE in a code path the application never executes is not a critical risk to that application.
+1. **Is the vulnerable function called?** A critical CVE in a code path the application never executes is not a critical risk to that application.
 2. **Is the workload reachable?** The same container behind an internal service and behind an internet-facing load balancer carries very different risk.
-3. **What can it reach next?** A vulnerable workload with a read-only role is contained. The same workload with a role that can assume other roles is an entry point.
+3. **What can it reach next?** A vulnerable workload with a read-only role is contained. The same workload with a role that can assume other roles is an entry point — see [attack path analysis](/learn/cloud-attack-path) and [CIEM](/learn/ciem).
 
-None of those questions can be answered from the code alone, which is why code findings become useful when they are joined to runtime context.
+None of those can be answered from the code alone, which is why code findings become useful when they are joined to runtime and cloud context.
 
-## Where it belongs in the pipeline
+## Where code security belongs in the pipeline
 
 | Stage | What runs | What it should block |
 | --- | --- | --- |
-| Pre-commit | Secret detection | Any credential, always |
-| Pull request | SAST diff, SCA on changed dependencies, IaC policy | New Critical or High on changed code |
+| IDE / pre-commit | Secret detection, fast SAST | Any credential, always |
+| Pull request | SAST on the diff, SCA on changed dependencies, IaC policy | New Critical or High findings on changed code |
 | Build | Image scan, SBOM generation | Base images with known critical CVEs |
-| Pre-deploy | IaC policy against the plan | Templates that would violate posture policy |
+| Pre-deploy | IaC policy against the plan | Plans that would violate posture policy |
 | Runtime | Posture, reachability, drift | Nothing — it reports; blocking here breaks production |
 
-The rule that keeps this survivable: **gate on the delta, not the backlog.** A pipeline that fails on every pre-existing finding gets switched off within a fortnight. One that fails only on newly introduced findings holds the line while the backlog is worked separately.
+The rule that keeps this survivable: **gate on the delta, not the backlog.** A pipeline that fails on every pre-existing finding gets switched off. One that fails only on newly introduced findings holds the line while the backlog is worked separately.
 
-## What good looks like
+## Code security best practices
 
-- Secret detection running before code leaves a laptop, not after it reaches the default branch.
-- SCA prioritised by reachability, not by CVSS.
-- IaC policy evaluated against the plan, so the misconfiguration is prevented rather than reported.
-- Every runtime finding traceable back to the template and repository that produced it.
-- One inventory across code and cloud, so "which running workloads contain this dependency?" is a query rather than a project.
+1. **Detect secrets before code leaves the laptop**, not after it reaches the default branch.
+2. **Prioritise SCA by reachability**, not by CVSS alone.
+3. **Scan IaC against the plan**, so misconfigurations are prevented rather than reported.
+4. **Fix at source.** Every runtime finding should trace back to the template and repository that produced it.
+5. **Write policy as code.** Version it, review it and test it like any other code.
+6. **Protect the pipeline itself.** Branch protection, least-privilege CI tokens and short-lived cloud credentials through OIDC — the pipeline holds the keys to production.
+7. **Keep one inventory across code and cloud**, so a new CVE can be traced to running workloads in one query.
+
+## How Onam approaches code security
+
+Onam's cleared figures in this area cover the platforms code lives on and the cloud it deploys to. GitHub and GitLab are two of its eight SaaS posture connectors, with 122 CIS rules for GitLab; in its cloud rule catalog, 502 rule definitions are tagged to secrets and key management and 241 to application and API. One honest limit: GitHub has posture checks but no CIS rule pack yet.
+
+- [Onam Code Security](/platform/code-security)
+- [Onam SaaS Security (GitHub, GitLab)](/platform/saas-security)
 `,
     faqs: [
       {
-        q: "What is the difference between SAST, DAST and SCA?",
-        a: "SAST reads your source code without running it. DAST exercises the running application from outside. SCA inventories third-party dependencies and matches them against known vulnerabilities. They find different classes of defect and none of them substitutes for another.",
+        q: "What is code security?",
+        a: "Code security is finding and fixing security defects in everything that builds a system — source code, open-source dependencies, infrastructure-as-code, container images and pipeline configuration — before deployment, using SAST, SCA, IaC scanning and secret detection on every change.",
+      },
+      {
+        q: "What is the difference between SAST, SCA and IaC scanning?",
+        a: "SAST analyses your own source code for insecure patterns such as injection. SCA inventories third-party dependencies and matches them against known vulnerabilities. IaC scanning checks infrastructure templates such as Terraform and Kubernetes manifests for misconfigurations before they are deployed. Each finds a different class of problem.",
+      },
+      {
+        q: "What is the difference between SAST and DAST?",
+        a: "SAST reads source code without running it and can see paths that tests never execute. DAST tests the running application from outside and finds what is genuinely reachable, including deployment problems, but only on the paths it manages to exercise. They complement each other.",
+      },
+      {
+        q: "What is security as code?",
+        a: "Security as code is writing security policies, controls and tests as versioned code that runs automatically in the pipeline — for example an admission policy that rejects privileged pods, or a rule that blocks unencrypted databases — instead of relying on documents and manual review.",
+      },
+      {
+        q: "What is IaC scanning?",
+        a: "IaC scanning evaluates infrastructure-as-code — Terraform, CloudFormation, Bicep, Helm charts and Kubernetes manifests — against security policy before resources are created, so misconfigurations such as public storage or open security groups are caught in the pull request.",
       },
       {
         q: "Why do cloud misconfigurations come back after being fixed?",
@@ -1379,19 +1601,22 @@ The rule that keeps this survivable: **gate on the delta, not the backlog.** A p
       },
       {
         q: "Should a build fail on every security finding?",
-        a: "No. Gate on newly introduced findings and work the existing backlog separately. A pipeline that fails on every pre-existing issue is switched off or bypassed within weeks, which is worse than no gate at all.",
+        a: "No. Gate on newly introduced findings and work the existing backlog separately. A pipeline that fails on every pre-existing issue tends to be switched off or bypassed, which is worse than no gate.",
       },
       {
         q: "What is reachability analysis in dependency scanning?",
-        a: "Determining whether the vulnerable function in a dependency is actually invoked by your application. It typically removes the large majority of raw findings and is the difference between a dependency report you can act on and one you cannot.",
+        a: "Determining whether the vulnerable function in a dependency is actually invoked by your application, and whether the workload is exposed. It turns a long dependency report into a short list you can act on.",
       },
     ],
     related: [
       { label: "What is cloud secrets management?", href: "/learn/secrets-management" },
       { label: "What is KSPM?", href: "/learn/kspm" },
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "Onam Code Security", href: "/platform/code-security" },
-      { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },
+      { label: "IaC security scanning: fix at source", href: "/resources/blog/iac-security-scanning-fix-at-source" },
     ],
   },
   {

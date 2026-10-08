@@ -8,7 +8,7 @@ const data = platformPages["attack-path"];
 export const Route = createFileRoute("/platform/attack-path")({
   head: () =>
     seo({
-      title: `${data.label} — Onam Security`,
+      title: "Attack Path Analysis & Management for Cloud | Onam Security",
       description: data.metaDescription ?? data.sub,
       path: "/platform/attack-path",
       image: "/og/platform-attack-path.png",

@@ -82,11 +82,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/api-security</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/attack-path</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/cdr</loc>
@@ -206,7 +206,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/alicloud</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/aws</loc>
@@ -214,7 +214,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/azure</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/financial</loc>
@@ -226,15 +226,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/government</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/healthcare</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/ibm</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/kubernetes</loc>
@@ -242,7 +242,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/oci</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/tools</loc>
@@ -678,23 +678,23 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cspm</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cnapp</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cwpp</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/ciem</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/dspm</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/sspm</loc>
@@ -702,7 +702,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-attack-path</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/agentless-cloud-security</loc>
@@ -718,11 +718,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/kspm</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/code-security</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/secrets-management</loc>
@@ -850,7 +850,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</loc>
@@ -878,15 +878,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-alternatives</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/best-cspm-tools</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</loc>
