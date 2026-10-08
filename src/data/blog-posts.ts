@@ -16,6 +16,137 @@ export type BlogPost = {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
+    slug: "wiz-vs-orca-poc-questions",
+    title: "Wiz vs Orca POC: 30 questions to ask in any CNAPP trial",
+    category: "Buyer's Guide",
+    excerpt:
+      "Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.",
+    author: "anup-yadav",
+    date: "October 7, 2026",
+    readTime: "9 min",
+    body: `
+A cloud security proof of concept usually ends with two vendors who both found plenty, both demoed well, and a team that still cannot say which one to buy. That is not the buyer's fault. Point any CNAPP at a messy cloud account and findings appear. The questions below are designed to separate platforms that look identical in a demo, whether your shortlist is Wiz vs Orca, Wiz vs Cortex Cloud, or anything else.
+
+They are vendor-neutral on purpose. Onam Security wrote this, and Onam sells a cloud security platform, so where we mention ourselves it is labelled. Every question works just as well with us left off your list.
+
+## Before the POC: set it up so the answers mean something
+
+Most POCs are decided before the first scan, by how they are set up.
+
+- **Use the same accounts for every vendor.** Two or three non-production accounts you know have real problems, connected to every platform in the same week. Different accounts produce incomparable results.
+- **Plant known issues.** Before connecting anyone, create five to ten misconfigurations you can name: a public storage bucket, a role with a wildcard policy, a security group open to the internet, an unencrypted database, a workload with a known vulnerable package and a path from it to sensitive data. You now have an answer key.
+- **Write the success criteria down first.** Three to five outcomes, agreed with whoever signs the purchase, before any vendor is in the room.
+- **Name one scorer per criterion,** so the platform with the best sales engineer does not win by default.
+
+Two weeks is enough for everything below. A POC that needs longer is usually missing an answer key.
+
+## Week 1, days 1–2: access and deployment
+
+1. **Exactly what permissions does onboarding grant?** Ask for the policy or template before you run it, and read every action. Read-only should mean read-only.
+2. **What runs in my account, and who pays for it?** Some scanning creates resources in your account, such as snapshots or scanner compute. Ask what, where, and whether it shows on your cloud bill.
+3. **Which features need an agent or sensor, and on which workloads?** Both Wiz and Orca describe agentless scanning plus an optional runtime sensor on their own pages, so ask both precisely what the sensor adds and what a workload without it receives.
+4. **Where does my data go?** Which region stores findings and metadata, what leaves the account, and how long it is retained.
+5. **How long until the inventory is complete?** Do not ask, measure. Note when each account was connected and when its inventory stopped growing.
+
+## Week 1, days 2–4: coverage
+
+6. **Which of my clouds get the full engine?** Ask for the per-cloud rule breakdown, not the headline total, and a live demo on your second and third clouds, not only AWS.
+7. **Which of my services are covered?** Export the inventory and compare it with your own list of services in use. The missing ones matter more than the count.
+8. **How is Kubernetes covered?** Cluster configuration, workload configuration, RBAC, and whether a container finding links to the cloud identity the pod can assume. See [KSPM](/learn/kspm).
+9. **What about identity?** Effective permissions, unused permissions, and cross-account trust. Ask on which clouds each of those works. See [CIEM](/learn/ciem).
+10. **Does it see code and infrastructure as code?** And can it trace a runtime finding back to the Terraform or template that created it, so the fix is not undone on the next deploy?
+
+## Week 1, day 5: accuracy
+
+11. **Did it find every planted issue?** Score against your answer key. This is the single most objective test in the POC.
+12. **How many of the top 50 findings are real?** Have an engineer mark each as real, false positive, or accepted risk. Compare the false-positive rate across vendors.
+13. **How many findings are the same problem counted twice?** One public bucket can surface as a posture finding, a data finding and an exposure finding. Duplicates inflate counts and waste triage time.
+14. **How fast does a change show up?** Make a configuration change and time how long until it appears as a finding, and how long until it closes after you fix it.
+15. **How are exceptions handled?** Can you accept a risk with an owner, a reason and an expiry date, and does it come back when it expires?
+
+## Week 2, days 1–2: prioritisation
+
+16. **What does it rank first, and why?** Ask the vendor to explain the top three findings in your accounts, live, without slides.
+17. **What unit is the ranking in?** A severity label, a score, or business impact? Ask how you would explain the number to a CFO. See [cloud risk quantification](/learn/cloud-risk-quantification).
+18. **Does it connect findings across engines?** A public subnet, an over-privileged role and a vulnerable workload are each medium alone and serious together. Ask it to show that chain in your accounts. See [cloud attack paths](/learn/cloud-attack-path).
+19. **Can an attack path cross a cloud boundary?** If you run more than one cloud, ask whether federation between them is modelled, and demo it.
+20. **How are vulnerabilities weighted?** CVSS alone, or exploit likelihood such as EPSS and known-exploited status, and reachability? See [EPSS over CVSS](/resources/blog/epss-over-cvss).
+
+## Week 2, days 3–4: remediation and workflow
+
+21. **What does the fix guidance look like?** Console steps, CLI, and an infrastructure-as-code change. The IaC fix is the one that lasts.
+22. **Does it route findings to the right owner?** By account, tag or team, into the ticketing tool you already use, without opening one ticket per duplicate.
+23. **If it auto-remediates, with what permissions?** Any write access is a new attack surface. Ask what it can change, who approves, and how it is audited.
+24. **Does a fix get verified?** The finding should close on the next scan, with evidence, not when someone ticks a box.
+25. **Can each team see only its own estate?** Role-based access, scoped views, and SSO with group mapping.
+
+## Week 2, day 5: compliance, cost and exit
+
+26. **Which frameworks are mapped, and is evidence continuous?** Ask whether framework scores update as infrastructure changes or only when a report is exported.
+27. **What does an auditor actually receive?** Export a report for one framework and ask your auditor whether it is usable.
+28. **What unit does the price grow with?** Workloads, resources, accounts or spend, and what happens to the bill when your estate doubles.
+29. **What is in the base package and what is an add-on?** Get it in writing against the features you used in the POC.
+30. **How do I get my data out?** API access, bulk export, and what happens to your data when the contract ends.
+
+## A scoring sheet you can copy
+
+| Area | Weight (example) | Evidence to collect |
+| --- | --- | --- |
+| Access and deployment | 15% | Permission review, time to complete inventory |
+| Coverage | 20% | Per-cloud breakdown, missing services |
+| Accuracy | 25% | Planted issues found, false-positive rate in top 50 |
+| Prioritisation | 20% | Top three explained live, cross-engine and cross-cloud paths |
+| Remediation and workflow | 10% | IaC fix quality, ticket routing, fix verification |
+| Compliance, cost and exit | 10% | Auditor feedback, pricing unit, export test |
+
+Change the weights to match your success criteria, but fix them before the POC starts, not after you have a favourite.
+
+## Wiz vs Orca specifically
+
+Both vendors describe a similar shape on their own pages. Wiz says it "connects in minutes via API" with "Runtime protection from the Wiz Sensor" (wiz.io/platform, 7 October 2026). Orca describes "Agentless scanning across every workload" through SideScanning and "Runtime observability & protection" from the Orca Sensor (orca.security/platform, 7 October 2026). Because the architectures are close, the differences will show up in questions 11 to 20: what each finds in your accounts, how much is noise, and what each ranks first. That is where to spend your scoring time. For more options beyond these two, see [Wiz alternatives in 2026](/resources/blog/wiz-alternatives) and [the best CSPM tools](/resources/blog/best-cspm-tools).
+
+## Warning signs during a POC
+
+None of these proves a product is wrong for you, but each deserves a direct question.
+
+- The demo only ever runs in the vendor's own tenant, never yours.
+- The top findings are generic benchmark checks with no context about your environment.
+- Rule counts are given as one total with no per-cloud breakdown.
+- Nobody can explain, live, why the first finding is ranked first.
+- Pricing arrives only after the POC is "won".
+
+## Where Onam fits (our section)
+
+If you include us, these are our answers, stated so you can check them. Posture scanning connects through read-only cloud roles you can read before you run them; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, including OCI, Alibaba Cloud and IBM Cloud, and we publish the per-cloud counts. Findings sit on one graph, so a path can cross clouds, and each finding carries a FAIR-style loss estimate with its inputs shown. Compliance is recomputed on every scan against 78 frameworks.
+
+The honest limit: we have no public reference customers yet and no runtime enforcement. If inline blocking is one of your success criteria, we will not meet it. Our answers to the seven questions that matter most are in [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and the head-to-heads are on the [Onam vs Wiz](/compare/onam-vs-wiz) and [Onam vs Orca](/compare/onam-vs-orca) pages.
+
+## Frequently asked questions
+
+### What questions should I ask during a Wiz vs Orca POC?
+
+Ask what onboarding grants, what the runtime sensor adds, whether each platform found your planted issues, its false-positive rate in the top 50 findings, what it ranks first and why, how it routes and verifies fixes, and what unit the price grows with. The 30 questions above cover each week of a two-week POC.
+
+### How long should a CNAPP POC take?
+
+Two weeks is enough if you prepare an answer key of planted issues and agreed success criteria before the first vendor connects. Longer POCs usually signal unclear criteria rather than a harder evaluation.
+
+### How many vendors should be in a POC?
+
+Two or three, including your incumbent if you have one. More than three in the same accounts and the same fortnight is hard for one team to score fairly.
+
+### Should a POC use production accounts?
+
+Start with non-production accounts that mirror production and contain known issues. Add a production account only once the permission review in question 1 is complete and signed off.
+
+### What success criteria should a cloud security POC have?
+
+Three to five measurable outcomes agreed before it starts, for example: finds all planted issues, false-positive rate below an agreed level in the top 50, top three findings explained live, and a fix verified automatically on rescan.
+
+*Read next: [What is CNAPP](/learn/cnapp), [What is CSPM](/learn/cspm), and [how attack paths work](/learn/cloud-attack-path).*
+`,
+  },
+  {
     slug: "dspm-implementation-checklist",
     title: "DSPM implementation checklist: a practical rollout for cloud data",
     category: "Data Security",
@@ -624,222 +755,368 @@ Access reviews in Onam are an attestation and remediation workflow: every identi
   },
   {
     slug: "wiz-alternatives",
-    title: "Wiz alternatives in 2026: an honest shortlist, including us",
+    title: "Wiz alternatives in 2026: 8 cloud security platforms compared",
     category: "Buyer's Guide",
     excerpt:
-      "Wiz alternatives in 2026: six cloud security platforms in their vendors' own published words, with links and dates, plus Onam. No scores.",
+      "Wiz alternatives in 2026 compared: Orca, Cortex Cloud, Defender for Cloud, CrowdStrike, Tenable, Sysdig and more. Who each fits, how it deploys, pricing.",
     author: "anup-yadav",
     date: "September 15, 2026",
-    readTime: "9 min",
+    readTime: "12 min",
     body: `
-Onam Security wrote this list, and Onam is on it. Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and we score nobody. Where we add a view of our own, it is labelled as ours.
+*Updated 7 October 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
 
-People search for Wiz alternatives for ordinary reasons. A renewal quote landed. A second or third cloud arrived that the incumbent treats as a checkbox. The security team wants a ranking denominated in something the finance team can read. Someone decided that nothing more should be installed on workloads. None of those reasons is a verdict on Wiz, which is on nearly every cloud security shortlist for good reason. They are questions, and the honest way to answer them is to put the same questions to every platform on the list, including Wiz and including us.
+## The short answer
+
+The most common Wiz alternatives in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly sold as Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Which one fits depends less on feature lists than on four things you already know: which security vendor you are standardised on, which cloud you run most, whether you need runtime blocking, and what unit you want risk ranked in.
+
+## Wiz alternatives at a glance
+
+Each cell in the deployment and ranking columns is what the vendor's own page says, on the date shown further down. "Best fit" is our view. Pricing says only what is public.
+
+| Platform | Best fit, in our view | Deployment, as the vendor describes it | Ranking, as described | Public pricing |
+| --- | --- | --- | --- | --- |
+| Orca Security | Teams that want Wiz's agentless-first shape from another vendor | Agentless SideScanning; optional Orca Sensor | Dynamic scoring and attack path analysis | Ask for a quote |
+| Cortex Cloud (Palo Alto) | Estates standardised on Palo Alto | Performance-optimised agent for runtime | SmartScore, exposure and production behaviour | Ask for a quote |
+| Defender for Cloud | Azure-centred estates | Agentless connectors for AWS and GCP; Defender for Endpoint for servers | Secure score; attack paths in the paid Defender CSPM plan | Published; foundational CSPM is free |
+| CrowdStrike Falcon Cloud Security | Teams already running the Falcon sensor | Agent and agentless | Adversary intelligence and graph context | Ask for a quote |
+| Tenable Cloud Security | Tenable vulnerability management customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
+| SentinelOne Singularity Cloud Security | SentinelOne endpoint customers | Not stated on the page we read; ask | "Verified, exploitable risk" | Ask for a quote |
+| Sysdig Secure | Container and Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
+| Lacework FortiCNAPP (Fortinet) | Fortinet network estates | Not stated on the page we read; ask | Attack path visualisation | Ask for a quote |
+| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | Published on our [pricing page](/pricing), with a free plan |
+
+## Why teams look for a Wiz alternative
+
+People search for Wiz alternatives for ordinary reasons. A renewal quote landed. Google completed its acquisition of Wiz in March 2026, and some buyers with a cloud-neutrality policy want to re-check their vendor mix; Google has said Wiz will keep supporting other clouds. A second or third cloud arrived. The security team wants a ranking the finance team can read. Someone decided that runtime blocking matters, or that nothing more should be installed on workloads.
+
+None of those is a verdict on Wiz, which is on nearly every cloud security shortlist for good reason. They are questions, and the honest way to answer them is to put the same questions to every platform on the list, including Wiz and including us.
 
 ## First, be clear what you would be replacing
 
-Wiz describes its platform on its own site as "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime." On prioritisation it promises "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited." On deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", and "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection." Source: wiz.io/platform, accessed 15 September 2026.
+Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime." On prioritisation it promises "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited." On deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", and "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection." Source: wiz.io/platform, re-checked 7 October 2026. Wiz does not publish list prices; its pricing page describes packages called Wiz One and Wiz Go plus à la carte options, quoted on request (wiz.io/pricing, 7 October 2026).
 
-Two things in that description matter for a shortlist. The ranking unit is a prioritised list of combined risks, and runtime coverage comes from a sensor. Neither is a weakness. They are design choices, and the alternatives below make different ones. Your evaluation should decide which choices fit your estate, not which vendor has the better adjectives.
+Two things in that description matter for a shortlist. The ranking unit is a prioritised list of combined risks, and runtime coverage comes from a sensor. Neither is a weakness. They are design choices, and the alternatives below make different ones.
 
 ## How this list was built
 
 - Each vendor is quoted from its own public page, verbatim, with the address and the date. If the page changes, the quote is out of date, not wrong, and we will fix it when told.
-- Nothing here says what any product cannot do. We did not test them, and a page asserting a competitor's gap is out of date within a quarter. If a capability matters to you, ask that vendor to demonstrate it live.
-- No ranking. The alternatives are listed in alphabetical order, with our own entry last.
+- Nothing here says what any product cannot do. We did not test them. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you, not a gap.
+- No ranking. Alternatives are listed alphabetically, with our own entry last.
 - Corrections go to hello@onamsecurity.com and are applied, not argued with.
 
-## Six alternatives to Wiz
+## Eight alternatives to Wiz
 
 ### 1. CrowdStrike Falcon Cloud Security
 
-In its own words, Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform." On prioritisation: CrowdStrike "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." On deployment it describes "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
+In its own words, Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform." On prioritisation, it "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." On deployment it describes "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
 
-**Where it plainly fits, in our view:** organisations already running the Falcon sensor on endpoints, where cloud runtime protection extends an agent the operations team knows.
-
-**What to ask them:** what agentless visibility alone covers on a workload with no sensor, and how a posture finding is ranked when no adversary intelligence applies to it.
+- **Best for, in our view:** organisations already running the Falcon sensor on endpoints, where cloud runtime protection extends an agent the operations team knows.
+- **Trade-off to check:** which protections need the sensor deployed, and what a workload without it receives.
+- **Ask them:** how a posture finding is ranked when no adversary intelligence applies to it.
 
 ### 2. Cortex Cloud (Palo Alto Networks)
 
-If your shortlist says Prisma Cloud, check which product name is on the quote you receive. The Cortex Cloud page describes it as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
+If your shortlist says Prisma Cloud, check which product name is on the quote. The Cortex Cloud page describes it as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
 
-**Where it plainly fits, in our view:** estates already standardised on Palo Alto, where one commercial relationship covers network, endpoint and cloud, and procurement is simpler for it.
-
-**What to ask them:** which workloads the agent must be deployed to, who owns that rollout, and what a workload without the agent receives.
+- **Best for, in our view:** estates standardised on Palo Alto, where one commercial relationship covers network, endpoint and cloud.
+- **Trade-off to check:** which workloads the agent must reach, and who owns that rollout.
+- **Ask them:** what a workload without the agent receives, and how existing Prisma Cloud contracts map to Cortex Cloud.
 
 ### 3. Lacework FortiCNAPP (Fortinet)
 
-Fortinet's page says "FortiCNAPP provides unmatched visibility and context to simplify securing everything from code to cloud", and on attack paths: "Quickly visualize complex relationships between entities, risks, and threats to gain deeper insight into potential attack paths." The page names AWS, Azure, Google Cloud and private clouds. It does not state the deployment model on that page, so ask. Source: fortinet.com/products/forticnapp, accessed 15 September 2026.
+Fortinet's page says "FortiCNAPP provides unmatched visibility and context to simplify securing everything from code to cloud", and on attack paths: "Quickly visualize complex relationships between entities, risks, and threats to gain deeper insight into potential attack paths." The page names AWS, Azure, Google Cloud and private clouds. Source: fortinet.com/products/forticnapp, accessed 15 September 2026.
 
-**Where it plainly fits, in our view:** Fortinet estates that want cloud posture from the vendor already in the network.
-
-**What to ask them:** agent or agentless per workload type, and what unit the ranking is denominated in.
+- **Best for, in our view:** Fortinet estates that want cloud posture from the vendor already in the network.
+- **Trade-off to check:** the deployment model is not stated on that page, so confirm agent or agentless per workload type.
+- **Ask them:** what unit the ranking is denominated in.
 
 ### 4. Microsoft Defender for Cloud
 
-Microsoft's documentation describes Defender for Cloud as "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle", with three components: cloud security posture management, DevSecOps and cloud workload protection. Posture is summarised by Secure score, which will "Summarize your security posture based on the security recommendations." For other clouds: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection", with connectors for AWS and GCP. Attack path analysis is listed under the paid Defender CSPM plan, and server protection comes "through Microsoft Defender for Endpoint." Source: learn.microsoft.com, Defender for Cloud overview, accessed 14 September 2026.
+Microsoft describes Defender for Cloud as "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle." Posture is summarised by Secure score, which will "Summarize your security posture based on the security recommendations." For other clouds: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection", with connectors for AWS and GCP. Server protection comes "through Microsoft Defender for Endpoint." Source: learn.microsoft.com, Defender for Cloud overview, accessed 14 September 2026.
 
-**Where it plainly fits, in our view:** Azure-centred estates, where it is frequently already licensed and the native integration depth is hard for any third party to match.
-
-**What to ask them:** which capabilities sit in the free foundational tier and which need the Defender CSPM plan, and how AWS and GCP resources are treated relative to Azure ones.
+- **Best for, in our view:** Azure-centred estates, where it is frequently already licensed and native integration depth is hard for any third party to match.
+- **Trade-off to check:** foundational CSPM is free, while attack path analysis and the cloud security graph sit in the paid Defender CSPM plan, which Microsoft prices publicly per billable resource (azure.microsoft.com, Defender for Cloud pricing, 7 October 2026).
+- **Ask them:** how AWS and GCP resources are treated relative to Azure ones.
 
 ### 5. Orca Security
 
-Orca's page says "Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." Prioritisation is described as "Dynamic scoring and attack path analysis." Deployment is "Agentless scanning across every workload" through SideScanning, with "Runtime observability and protection" from the Orca Sensor. Source: orca.security/platform, accessed 15 September 2026.
+Orca's page says "Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." Prioritisation is "Dynamic scoring & attack path analysis." Deployment is "Agentless scanning across every workload" through SideScanning, with "Runtime observability & protection" from the Orca Sensor. Source: orca.security/platform, re-checked 7 October 2026.
 
-**Where it plainly fits, in our view:** the closest architectural neighbour to Wiz on this list, agentless first with an optional sensor for runtime, for teams that want that shape from a different vendor.
+- **Best for, in our view:** the closest architectural neighbour to Wiz on this list, agentless first with an optional runtime sensor, for teams that want that shape from a different vendor.
+- **Trade-off to check:** what the sensor adds over SideScanning, and on which workloads you would need it.
+- **Ask them:** how a finding on one cloud is ranked against a finding on another. For a direct Wiz vs Orca evaluation, use our [POC question list](/resources/blog/wiz-vs-orca-poc-questions).
 
-**What to ask them:** how a finding on one cloud is ranked against a finding on another, and what the sensor adds that agentless scanning does not.
+### 6. SentinelOne Singularity Cloud Security
 
-### 6. Onam Security (that is us)
+SentinelOne's page says Singularity Cloud Security will "Unify posture, runtime, and data protection into a single platform", and on prioritisation: "Verified, exploitable risk replaces theoretical findings. Fix what actually matters, early, before it reaches production." Source: sentinelone.com/platform/cloud-security, accessed 7 October 2026.
 
-We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account, with no agent on your workloads. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths, so the top of the queue is a figure a board can weigh, not only a severity label. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. Our figures come from our published fact set, which is the same source every page on this site quotes.
+- **Best for, in our view:** organisations already running SentinelOne on endpoints.
+- **Trade-off to check:** the page we read does not state the deployment model, so ask which parts need an agent.
+- **Ask them:** how "verified" is established for a finding, and whether you can see that evidence.
 
-**The honest gap:** we have no public reference customers yet, and we have no live runtime enforcement. There is no Onam sensor, which also means read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy that from someone on this list who sells it. If proven enterprise scale is your first filter, that filter does not select us today.
+### 7. Sysdig Secure
 
-**What to ask us:** the same seven questions as everyone else. Our answers are on the record on the [Onam vs Wiz](/compare/onam-vs-wiz) page.
+Sysdig calls itself "The real-time cloud defense platform for teams who will not compromise on security." On prioritisation: "Sysdig prioritizes risk by combining runtime insights with cloud context to focus your team on what's truly exploitable." On deployment: "Our agentless approach delivers comprehensive visibility into your cloud security posture, complemented by a scalable, performant agent." Source: sysdig.com/platform/secure, accessed 7 October 2026.
 
-## The seven questions to put to all of them
+- **Best for, in our view:** container and Kubernetes-heavy teams that want runtime insight to drive prioritisation.
+- **Trade-off to check:** which prioritisation signals depend on the agent being deployed.
+- **Ask them:** what the ranking looks like for accounts where the agent is not running.
 
-These are criteria, not claims. Every platform above will answer them differently, and the answers are what your shortlist should be scored on.
+### 8. Tenable Cloud Security
+
+Tenable positions the product to "Prevent cloud breaches and reduce cloud risk by closing gaps that misconfigurations, risky entitlements, and vulnerabilities create across multi-cloud and hybrid environments." On prioritisation: "Identify toxic combinations of risk first, with clear attack path visualizations and remediation workflows most likely to result in material damage." It "integrates with all major cloud providers (AWS, Azure, GCP)", and in-account scanning is available as an add-on where "the data never leaves the environment." Source: tenable.com/products/tenable-cloud-security, accessed 15 September 2026.
+
+- **Best for, in our view:** organisations already using Tenable for vulnerability management who want cloud posture in the same exposure view.
+- **Trade-off to check:** which scanning mode is in the base product and which is the add-on.
+- **Ask them:** how cloud findings rank against on-premises vulnerabilities in one queue.
+
+### And Onam Security (that is us)
+
+We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
+
+- **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from someone above who sells it.
+- **Ask us:** the same questions as everyone else. Our answers are on the record on the [Onam vs Wiz](/compare/onam-vs-wiz) page.
+
+## How to choose a Wiz alternative
+
+Start from your situation, not the feature grid:
+
+- **You are Azure-first and already pay for Microsoft security.** Price Defender CSPM before anything else; it may already be part of what you own.
+- **You run CrowdStrike, SentinelOne or Palo Alto on endpoints and network.** Their cloud products extend an agent and a console your team already operates. Test the cloud posture side as hard as the runtime side.
+- **You want Wiz's architecture from a different vendor.** Put Orca against Wiz in the same accounts, in the same two weeks.
+- **Containers and Kubernetes are most of your estate and runtime matters most.** Shortlist the runtime-first platforms, such as Sysdig.
+- **You run more than the big three clouds, or the board wants risk in money.** That is the case we built Onam for; test us against the incumbent.
+
+Then score every finalist on the same seven questions:
 
 | Question | Why it separates platforms |
 | --- | --- |
 | How many clouds get first-class treatment? | Every vendor says multi-cloud. Ask for the per-cloud rule breakdown, not the headline. |
 | Is the analysis cross-cloud, or per-cloud silos side by side? | A path that crosses a cloud boundary is invisible to anything that analyses each cloud separately. |
-| Agentless, and what does onboarding grant? | Deployment friction predicts coverage. Whatever needs a rollout will not reach the whole estate. |
-| What unit is the ranking denominated in? | A score ranks findings against each other. A dollar figure ranks them against everything else you fund. |
+| What does onboarding grant, and what needs an agent? | Deployment friction predicts coverage. Whatever needs a rollout will not reach the whole estate. |
+| What unit is the ranking denominated in? | A score ranks findings against each other. A money figure ranks them against everything else you fund. |
 | Does it connect findings across engines? | The chain that reaches data is usually four ordinary findings in a row. |
 | Is compliance evidence continuous or point-in-time? | Point-in-time evidence means you are audit-ready one day a quarter. |
-| Does coverage span code to runtime? | A fix in the console that the Terraform re-creates on the next deploy is not a fix. |
+| Does coverage span code to runtime? | A console fix that the Terraform re-creates on the next deploy is not a fix. |
 
-## How to run this shortlist in an afternoon
+## Run the shortlist as a two-week POC
 
-Pick two vendors from the list plus the incumbent. Give each read-only access to one non-production account that you know has real problems. Then compare three things: what each platform ranks first, what unit that ranking is expressed in, and how many of the top findings are the same problem seen from different angles. That exercise takes an afternoon, costs nothing, and tells you more than any comparison page, including this one.
+Pick two vendors plus the incumbent. Give each read-only access to the same non-production accounts that you know have real problems. Compare what each ranks first, what unit that ranking is expressed in, and how many of the top findings are the same problem seen from different angles. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set of questions, grouped by week.
 
 If you want to include us, [request a scan](/request-demo) and we will run it against one account. If the attack paths we surface are noise, tell us. That is more useful to us than a signature.
 
+## Frequently asked questions
+
+### What are the best Wiz alternatives in 2026?
+
+The platforms most often compared with Wiz are Orca Security, Palo Alto Networks Cortex Cloud, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Tenable Cloud Security, SentinelOne Singularity Cloud Security, Sysdig Secure and Lacework FortiCNAPP. "Best" depends on your clouds, your existing security vendor and whether you need runtime blocking; run the same POC against two or three of them.
+
+### Who are Wiz's main competitors?
+
+In cloud security posture and CNAPP, Wiz most often competes with Orca Security, Palo Alto Networks, Microsoft, CrowdStrike, Tenable, SentinelOne, Sysdig, Fortinet and Check Point, plus newer platforms such as Onam.
+
+### What is the difference between Wiz and Orca?
+
+On their own pages, both describe agentless scanning with an optional runtime sensor (the Wiz Sensor and the Orca Sensor) and attack-path-based prioritisation. The differences that matter show up in your own accounts, so test both side by side; see [Wiz vs Orca: what to ask in a POC](/resources/blog/wiz-vs-orca-poc-questions).
+
+### Is there a free alternative to Wiz?
+
+Microsoft's foundational CSPM tier in Defender for Cloud is free, open-source scanners such as Prowler cover posture checks for the main clouds, and Onam has a free plan for one cloud account. None of these is a like-for-like replacement for a full CNAPP, so compare what each covers.
+
+### How much does Wiz cost?
+
+Wiz does not publish list prices. Its pricing page describes the Wiz One and Wiz Go packages plus à la carte options, priced by quote. Ask every vendor the same question: what unit the price grows with, and what is an add-on.
+
+### Is Wiz owned by Google?
+
+Yes. Google completed its acquisition of Wiz in March 2026. Google has said Wiz will continue to support other clouds, including AWS, Azure and Oracle Cloud.
+
 ## Corrections
 
-Last verified 15 September 2026. Every statement about another vendor above is a quotation from that vendor's own public page on the date shown. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 7 October 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
-*Read next: [What to ask in a cloud security POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), the seven questions in full, and the [head-to-head comparison pages](/compare).*
+*Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and [what a CNAPP is](/learn/cnapp).*
 `,
   },
   {
     slug: "best-cspm-tools",
-    title: "The best CSPM tools in 2026: an honest shortlist, and we are on it",
+    title: "Best CSPM tools in 2026: 9 compared, with a buyer's checklist",
     category: "Buyer's Guide",
     excerpt:
-      "Best CSPM tools in 2026: seven worth shortlisting, each in its vendor's own words with a link and date, plus the five things that now separate them.",
+      "Best CSPM tools in 2026 compared: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable and more. Who each fits, deployment, how to choose.",
     author: "anup-yadav",
     date: "September 15, 2026",
-    readTime: "9 min",
+    readTime: "12 min",
     body: `
-Onam Security wrote this list, and Onam is on it. That is the first thing to know. The second is that every other tool below is described in its vendor's own published words, with the page and the date, and nobody is scored. A "best tools" list written by a vendor is only worth reading if it is honest about both of those things, so here they are up front.
+*Updated 7 October 2026. Onam Security wrote this list, and Onam is on it.* That is the first thing to know. The second is that every other tool below is described in its vendor's own published words, with the page and the date, and nobody is scored. A "best tools" list written by a vendor is only worth reading if it is honest about both of those things.
+
+## The short answer
+
+The CSPM tools most worth shortlisting in 2026 are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Almost all of them are now sold as CNAPPs, platforms where posture management is one engine among several. The right one depends on your clouds, your existing security vendor, whether you need runtime blocking, and how you want risk ranked.
 
 ## What a CSPM tool is, in one paragraph
 
-Cloud security posture management checks the configuration of your cloud estate against rules, continuously, and tells you where it is wrong: the public bucket, the role with wildcard permissions, the database with no encryption, the security group open to the world. In 2026 almost every CSPM tool is sold as part of a wider platform, usually labelled a CNAPP, and the posture engine is one of several on it. A longer explanation is on our [What is CSPM](/learn/cspm) page. What follows assumes you know roughly what you are buying and want to know which tools to shortlist.
+Cloud security posture management checks the configuration of your cloud estate against rules, continuously, and tells you where it is wrong: the public bucket, the role with wildcard permissions, the database with no encryption, the security group open to the world. A longer explanation is on our [What is CSPM](/learn/cspm) page, and how CSPM sits inside a wider platform is on [What is CNAPP](/learn/cnapp).
 
-## What separates CSPM tools now
+## The best CSPM tools at a glance
 
-Every tool on this list finds misconfigurations. That stopped being a differentiator years ago. Five things still separate them, and they are what the shortlist should be scored on.
+Deployment and ranking are what each vendor's own page says, on the date read. "Best fit" is our view. Pricing says only what is public.
+
+| Tool | Best fit, in our view | Deployment, as described | Ranking, as described | Public pricing |
+| --- | --- | --- | --- | --- |
+| Cortex Cloud | Palo Alto estates | Performance-optimised agent for runtime | SmartScore, exposure and production behaviour | Ask for a quote |
+| Falcon Cloud Security | Falcon endpoint customers | Agent and agentless | Adversary intelligence and graph context | Ask for a quote |
+| Defender for Cloud | Azure-centred estates | Agentless connectors for AWS and GCP; Defender for Endpoint for servers | Secure score; attack paths in the paid Defender CSPM plan | Published; foundational CSPM is free |
+| Orca Security | Agentless-first teams | Agentless SideScanning; optional Orca Sensor | Dynamic scoring and attack path analysis | Ask for a quote |
+| Singularity Cloud Security | SentinelOne endpoint customers | Not stated on the page we read | "Verified, exploitable risk" | Ask for a quote |
+| Sysdig Secure | Container and Kubernetes-heavy teams | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
+| Tenable Cloud Security | Tenable VM customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
+| Wiz | Almost any shortlist; the category reference point | API connection; Wiz Sensor for runtime | "Prioritized issues of toxic combinations" | Packages quoted on request |
+| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | Published on our [pricing page](/pricing), with a free plan |
+
+## How to evaluate CSPM tools: five criteria that still separate them
+
+Every tool on this list finds misconfigurations. That stopped being a differentiator years ago. Five things still separate them.
 
 1. **Depth per cloud.** The headline rule count hides whether your third cloud gets the same engine as your first. Ask for the per-cloud breakdown.
-2. **One graph or several silos.** A path that starts in one cloud and ends in another is invisible to a tool that analyses each cloud on its own.
-3. **Deployment.** Agentless means the whole estate can be connected. Anything that needs a rollout reaches part of it.
-4. **The ranking unit.** Severity labels rank findings against each other. Business impact, ideally in money, ranks them against everything else the company could fund.
+2. **One graph or several silos.** A path that starts in one cloud and ends in another is invisible to a tool that analyses each cloud on its own. See [cloud attack paths](/learn/cloud-attack-path).
+3. **Deployment.** What onboarding grants, and which features need an agent or sensor. Anything that needs a rollout reaches part of the estate.
+4. **The ranking unit.** Severity labels rank findings against each other. Business impact, ideally in money, ranks them against everything else the company could fund. See [cloud risk quantification](/learn/cloud-risk-quantification).
 5. **Continuous compliance evidence.** Evidence generated when someone clicks export is evidence for one day a quarter.
 
 ## How this list was built
 
-Vendors' own public pages, quoted verbatim, with the address and the date read. No claims about what any product cannot do, because we did not test them and a page asserting a competitor's gap rots within a quarter. No ranking order: alphabetical, with our own entry last. Corrections to hello@onamsecurity.com.
+Vendors' own public pages, quoted verbatim, with the address and the date read. No claims about what any product cannot do, because we did not test them. "Check" lines are design choices stated on the vendor's own page that you should confirm fit you. Alphabetical order, with our own entry last. Corrections to hello@onamsecurity.com.
 
-## The seven CSPM tools worth shortlisting in 2026
+## The CSPM tools worth shortlisting in 2026
 
 ### 1. Cortex Cloud (Palo Alto Networks)
 
-Palo Alto describes Cortex Cloud as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." If you were quoted Prisma Cloud, ask which product name applies. Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
+Palo Alto describes Cortex Cloud as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
 
-**In our view it fits** estates already on Palo Alto for network and endpoint, where one relationship covers cloud too.
+- **Best for:** estates already on Palo Alto for network and endpoint.
+- **Check:** which workloads the agent must reach. If you were quoted Prisma Cloud, ask which product name applies.
 
 ### 2. CrowdStrike Falcon Cloud Security
 
-CrowdStrike's page says Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform", and that it "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Deployment is "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
+CrowdStrike says Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform", and that it "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Deployment is "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
 
-**In our view it fits** organisations already running the Falcon sensor on endpoints.
+- **Best for:** organisations already running the Falcon sensor on endpoints.
+- **Check:** which protections need the sensor, and what posture-only accounts receive.
 
 ### 3. Microsoft Defender for Cloud
 
-Microsoft's documentation describes it as "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle", with cloud security posture management as one of three core components. Secure score will "Summarize your security posture based on the security recommendations." For AWS and GCP: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection." Attack path analysis and the cloud security graph are listed under the paid Defender CSPM plan. Source: learn.microsoft.com, Defender for Cloud overview, accessed 14 September 2026.
+Microsoft's documentation describes it as "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle", with cloud security posture management as one of three core components. Secure score will "Summarize your security posture based on the security recommendations." For AWS and GCP: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection." Source: learn.microsoft.com, Defender for Cloud overview, accessed 14 September 2026.
 
-**In our view it fits** Azure-centred estates, where it is often already licensed.
+- **Best for:** Azure-centred estates, where it is often already licensed.
+- **Check:** foundational CSPM is free; attack path analysis and the cloud security graph are in the paid Defender CSPM plan, which Microsoft prices publicly per billable resource (azure.microsoft.com, Defender for Cloud pricing, 7 October 2026).
 
 ### 4. Orca Security
 
-"Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." Prioritisation: "Dynamic scoring and attack path analysis." Deployment: "Agentless scanning across every workload" through SideScanning, with an optional Orca Sensor for "Runtime observability and protection." Source: orca.security/platform, accessed 15 September 2026.
+"Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." Prioritisation: "Dynamic scoring & attack path analysis." Deployment: "Agentless scanning across every workload" through SideScanning, with an optional Orca Sensor for "Runtime observability & protection." Source: orca.security/platform, re-checked 7 October 2026.
 
-**In our view it fits** teams that want agentless-first posture with a runtime sensor available when they need it.
+- **Best for:** teams that want agentless-first posture with a runtime sensor available when they need it.
+- **Check:** what the sensor adds over SideScanning for your workloads.
 
-### 5. Tenable Cloud Security (Tenable One Cloud Exposure)
+### 5. SentinelOne Singularity Cloud Security
+
+SentinelOne's page says the platform will "Unify posture, runtime, and data protection into a single platform", and "Verified, exploitable risk replaces theoretical findings. Fix what actually matters, early, before it reaches production." Source: sentinelone.com/platform/cloud-security, accessed 7 October 2026.
+
+- **Best for:** organisations already on SentinelOne for endpoints.
+- **Check:** the deployment model is not stated on that page; ask which parts need an agent.
+
+### 6. Sysdig Secure
+
+"The real-time cloud defense platform for teams who will not compromise on security." On prioritisation: "Sysdig prioritizes risk by combining runtime insights with cloud context to focus your team on what's truly exploitable." On deployment: "Our agentless approach delivers comprehensive visibility into your cloud security posture, complemented by a scalable, performant agent." Source: sysdig.com/platform/secure, accessed 7 October 2026.
+
+- **Best for:** container and Kubernetes-heavy teams that want runtime insight to drive prioritisation.
+- **Check:** which prioritisation signals depend on the agent.
+
+### 7. Tenable Cloud Security
 
 Tenable's page positions the product to "Prevent cloud breaches and reduce cloud risk by closing gaps that misconfigurations, risky entitlements, and vulnerabilities create across multi-cloud and hybrid environments." Prioritisation: "Identify toxic combinations of risk first, with clear attack path visualizations and remediation workflows most likely to result in material damage." It "integrates with all major cloud providers (AWS, Azure, GCP)", and in-account scanning is available as an add-on where "the data never leaves the environment." Source: tenable.com/products/tenable-cloud-security, accessed 15 September 2026.
 
-**In our view it fits** organisations already using Tenable for vulnerability management who want cloud posture in the same exposure view.
+- **Best for:** organisations already using Tenable for vulnerability management.
+- **Check:** which scanning mode is base product and which is the add-on.
 
-### 6. Wiz
+### 8. Wiz
 
-Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime", promising "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited." Deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", with "Runtime protection from the Wiz Sensor." Source: wiz.io/platform, accessed 15 September 2026.
+Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime", promising "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited." Deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", with "Runtime protection from the Wiz Sensor." Source: wiz.io/platform, re-checked 7 October 2026. Google completed its acquisition of Wiz in March 2026.
 
-**In our view it fits** almost any shortlist. It set the reference point for agentless, graph-based cloud security, and the category largely follows its shape. Our own [Onam vs Wiz](/compare/onam-vs-wiz) page says where it is stronger than us.
+- **Best for:** almost any shortlist. It set the reference point for agentless, graph-based cloud security, and the category largely follows its shape. Our [Onam vs Wiz](/compare/onam-vs-wiz) page says where it is stronger than us.
+- **Check:** which capabilities sit in the Wiz One and Wiz Go packages and which are à la carte (wiz.io/pricing). Looking at other options? See [Wiz alternatives in 2026](/resources/blog/wiz-alternatives).
 
-### 7. Onam Security (that is us)
+### 9. Onam Security (that is us)
 
-Facts, not adjectives. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account, with no agent on your workloads. One posture engine covers seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, of which 9,853 are CSPM posture rules. Engines write into one security graph, so a path can cross a cloud boundary. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths, with the inputs shown next to the figure. Compliance is recomputed on every scan against 78 frameworks. SaaS posture covers 8 platforms. Every number traces to our published fact set.
+Facts, not adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. One posture engine covers seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, of which 9,853 are CSPM posture rules. Engines write into one security graph, so a path can cross a cloud boundary. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths, with the inputs shown next to the figure. Compliance is recomputed on every scan against 78 frameworks. SaaS posture covers 8 platforms. Every number traces to our published fact set.
 
-**The honest gap:** we have no public reference customers yet, and no live runtime enforcement. There is no Onam sensor, so read-only scanning cannot see inside a running process. If inline blocking is a requirement, one of the six above sells it and we do not.
+- **Best for:** estates running OCI, Alibaba Cloud or IBM Cloud alongside the big three, and teams that need risk in money for a board.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is a requirement, one of the tools above sells it and we do not.
 
-## The shortlist at a glance
+## How to choose a CSPM tool
 
-Each cell below is what the vendor's own page says, on the date read. Blank means the page does not say, and you should ask.
+Match the shortlist to your situation first:
 
-| Tool | Ranking unit, as described | Deployment, as described | Read on |
-| --- | --- | --- | --- |
-| Cortex Cloud | SmartScore, real-world exposure and production behaviour | performance-optimized agent | 15 Sep 2026 |
-| Falcon Cloud Security | adversary intelligence and graph-based context | agent and agentless | 15 Sep 2026 |
-| Defender for Cloud | Secure score; attack paths in the Defender CSPM plan | agentless connectors; Defender for Endpoint for servers | 14 Sep 2026 |
-| Orca Security | dynamic scoring and attack path analysis | agentless SideScanning; optional Orca Sensor | 15 Sep 2026 |
-| Tenable Cloud Security | toxic combinations, attack path visualisations | integrates with AWS, Azure, GCP; in-account scanning add-on | 15 Sep 2026 |
-| Wiz | "prioritized issues of toxic combinations" | API connection; Wiz Sensor for runtime | 15 Sep 2026 |
-| Onam Security | FAIR-style loss estimate per finding, raised on attack paths | read-only posture roles; agentless workload scanning in your account; no sensor | our fact set |
+| If this is you | Start your shortlist with |
+| --- | --- |
+| Azure-first, already paying for Microsoft security | Defender for Cloud, then one independent platform to compare |
+| Standardised on Palo Alto, CrowdStrike, SentinelOne or Tenable | That vendor's cloud product, plus one independent platform |
+| You want an agentless-first platform from an independent vendor | Wiz and Orca, side by side |
+| Containers and Kubernetes dominate, runtime matters most | A runtime-first platform such as Sysdig, plus one posture-first platform |
+| You run OCI, Alibaba Cloud or IBM Cloud, or need risk in money | Include Onam and ask every vendor to demo those clouds |
+| Small team, tight budget | Start with a free tier (Defender foundational CSPM, open-source Prowler, or Onam's free plan) before buying |
 
-## How to choose in an afternoon
+Then run a two-week proof of concept. Connect three tools to the same non-production accounts you know have real problems, and compare what each ranks first, in what unit, and how many of the top findings are the same problem viewed from different angles. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) gives you the questions to ask in each week.
 
-Do not choose from this table. Pick three tools, connect each to one non-production account you know has real problems, and compare what each ranks first, in what unit, and how many of the top findings are the same problem viewed from different angles. That is the whole evaluation, and it beats every analyst grid and every vendor list, including this one.
+If you want Onam in that three, [request a scan](/request-demo). If the paths we surface are noise, say so.
 
-If you want Onam in that three, [request a scan](/request-demo). If the paths we surface are noise, say so. We would rather hear it than win a deal we should not.
+## Frequently asked questions
+
+### What is the best CSPM tool in 2026?
+
+There is no single best tool for every estate. Wiz, Orca Security, Microsoft Defender for Cloud, Cortex Cloud, CrowdStrike Falcon Cloud Security, Tenable Cloud Security, SentinelOne and Sysdig are the most commonly shortlisted. Pick by your clouds, your existing security vendor and whether you need runtime protection, then prove it in a POC on your own accounts.
+
+### What is the difference between CSPM and CNAPP?
+
+CSPM checks cloud configuration against rules. A CNAPP bundles CSPM with workload protection, identity (CIEM), data security, code scanning and often runtime detection on one platform. Most tools on this list are sold as CNAPPs. More on [what a CNAPP is](/learn/cnapp).
+
+### Agentless or agent-based CSPM: which is better?
+
+Posture management itself works through cloud provider APIs and needs no agent. Agents or sensors add runtime visibility and blocking inside running workloads. Most vendors now offer both; the question is which features you lose on workloads where the agent is not deployed.
+
+### Which CSPM tool is best for multi-cloud?
+
+Every vendor says multi-cloud. Ask for the per-cloud rule breakdown, a live demo on your second and third clouds, and whether attack paths can cross from one cloud to another.
+
+### Are there free CSPM tools?
+
+Yes. Microsoft's foundational CSPM tier in Defender for Cloud is free, Prowler is an open-source posture scanner, and Onam has a free plan for one cloud account. Free tiers usually stop short of attack paths and full compliance coverage, so compare what is included.
+
+### How long does a CSPM deployment take?
+
+Connecting an account through a read-only role is usually quick for any of these tools; reaching your whole estate takes as long as your change process for granting that role across every account. Measure time to a complete inventory in your own POC rather than relying on vendor claims.
 
 ## Corrections
 
-Last verified 15 September 2026. Every statement about another vendor is a quotation from that vendor's public page on the date shown. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 7 October 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
-*Read next: [Wiz alternatives in 2026](/resources/blog/wiz-alternatives), the [comparison pages](/compare), and [how agentless scanning works](/platform/agentless).*
+*Read next: [Wiz alternatives in 2026](/resources/blog/wiz-alternatives), the [comparison pages](/compare), and [What is CSPM](/learn/cspm).*
 `,
   },
   {
     slug: "onam-vs-wiz-orca-prisma-cloud",
-    title: "What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam",
+    title: "Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC",
     category: "Buyer's Guide",
     excerpt:
-      "Running a cloud security POC against Wiz, Orca or Prisma Cloud? Seven questions that separate the platforms, Onam's answers, and a scoring checklist.",
+      "Wiz vs Orca vs Prisma Cloud (now Cortex Cloud) in 2026: the 7 POC questions that separate them, a copyable scorecard, and where Onam fits and falls short.",
     author: "anup-yadav",
     date: "July 20, 2026",
     readTime: "9 min",
     body: `
 Most cloud security proofs of concept are run badly — not because the buyer is careless, but because every platform demos well. Point any of them at a messy AWS account and findings appear. That is table stakes, and a POC that only proves it tells you nothing about which tool to buy.
 
-The seven questions below are the ones worth asking *during* the trial, while you still have hands on the product and a vendor engineer on the call. Each one is answerable inside a two-week POC, and each separates platforms that look identical in a demo.
+The seven questions below are the ones worth asking *during* the trial, while you still have hands on the product and a vendor engineer on the call. Each one is answerable inside a two-week POC, and each separates platforms that look identical in a demo. For the full week-by-week list of 30 questions, including setup, accuracy and cost, see [Wiz vs Orca POC: 30 questions to ask in any CNAPP trial](/resources/blog/wiz-vs-orca-poc-questions).
 
 If you're evaluating cloud security platforms in 2026, your shortlist probably reads: Wiz, Orca Security, Palo Alto Networks' Prisma Cloud (check whether your quote says Cortex Cloud) — and maybe us. We describe nobody else's product here; for that, read each vendor's own pages, or our [Wiz alternatives](/resources/blog/wiz-alternatives) post, which quotes them with sources and dates. And if a vendor tells you their competitors are bad products, stop trusting that vendor.
 

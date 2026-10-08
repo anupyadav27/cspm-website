@@ -110,6 +110,7 @@ CSPM was the first category to exist, which is why the terms are often used loos
 - **CSPM** — configuration posture.
 - **[CWPP](/learn/cwpp)** — the workloads themselves.
 - **[CIEM](/learn/ciem)** — identity and effective permissions.
+- **[KSPM](/learn/kspm)** — the configuration inside Kubernetes clusters.
 - **[DSPM](/learn/dspm)** — the data and its exposure.
 - **[CNAPP](/learn/cnapp)** — the umbrella that runs all of the above on one data model.
 
@@ -154,6 +155,8 @@ Buying these as four products from four vendors reproduces the problem they were
     related: [
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
       { label: "Onam CSPM", href: "/platform/cspm" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
@@ -193,6 +196,7 @@ CNAPP is the response: put every signal on one data model so the chain is comput
 | [CSPM](/learn/cspm) | Is the infrastructure configured correctly? |
 | [CWPP](/learn/cwpp) | Are the running workloads hardened and patched? |
 | [CIEM](/learn/ciem) | Who can actually do what, and do they still need it? |
+| [KSPM](/learn/kspm) | Are the Kubernetes clusters configured safely? |
 | [DSPM](/learn/dspm) | Where is the sensitive data and who can reach it? |
 | [Attack path analysis](/learn/cloud-attack-path) | Which combinations actually reach something valuable? |
 | Runtime detection (CDR) | Is something happening right now? |
@@ -245,6 +249,8 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
     related: [
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
       { label: "Onam CNAPP", href: "/platform/cnapp" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
@@ -256,26 +262,38 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
     slug: "cwpp",
     author: "nishchal-gupta",
     question: "What is CWPP (Cloud Workload Protection Platform)?",
-    title: "What is CWPP? Cloud Workload Protection Explained",
+    title: "What is CWPP? Cloud Workload Protection and CSPM vs CWPP",
     excerpt:
-      "CWPP secures workloads themselves (VMs, containers, serverless, hosts), not the cloud config around them. How it works, agent vs agentless, CWPP vs CSPM.",
+      "What is CWPP? A cloud workload protection platform secures VMs, containers and serverless from the inside. CSPM vs CWPP compared in one table, plus CNAPP.",
     term: "Cloud Workload Protection Platform",
     answer:
-      "A Cloud Workload Protection Platform (CWPP) secures the compute workloads running in a cloud environment — virtual machines, containers, serverless functions and managed hosts — by inspecting what is installed and running inside them, rather than how the surrounding cloud infrastructure is configured.",
-    readTime: "6 min",
+      "A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.",
+    readTime: "9 min",
     body: `
+## CWPP at a glance
+
+| Question | Answer |
+| --- | --- |
+| What does CWPP stand for? | Cloud Workload Protection Platform |
+| What does it protect? | Virtual machines, containers, Kubernetes nodes, serverless functions and managed hosts |
+| What does it check? | Vulnerable packages, OS hardening, container and serverless settings, secrets on disk, runtime behaviour |
+| How is it deployed? | An agent on each workload, agentless snapshot scanning, or a mix of both |
+| How is it different from CSPM? | CSPM checks cloud configuration around the workload; CWPP checks inside it |
+| Where does it fit? | One component of a [CNAPP](/learn/cnapp), next to [CSPM](/learn/cspm), [CIEM](/learn/ciem) and [KSPM](/learn/kspm) |
+
 ## The gap CWPP fills
 
 [CSPM](/learn/cspm) looks at a virtual machine and sees a resource: its security group, its IAM role, whether its volume is encrypted. All of that can be correct while the machine itself is indefensible — running a three-year-old kernel, an unpatched OpenSSL, an SSH key baked into the base image, and a service listening on a port nobody documented.
 
-Configuration is the door. The workload is the room. CWPP is the only category that opens the room.
+Configuration is the door. The workload is the room. CWPP is the category that opens the room.
 
 ## What counts as a workload
 
 CWPP is deliberately broad, because "compute" stopped meaning "server" a long time ago:
 
-- **Virtual machines** — EC2, Azure VMs, GCE, OCI Compute
-- **Containers** — images in registries and containers actually running in EKS, AKS, GKE, OKE, ACK
+- **Virtual machines** — EC2, Azure VMs, Compute Engine, OCI Compute
+- **Containers** — images in registries and containers actually running in EKS, AKS, GKE, OKE, ACK or self-managed Kubernetes
+- **Kubernetes nodes** — the hosts underneath the pods, with their own OS, kubelet and packages
 - **Serverless** — Lambda, Azure Functions, Cloud Functions, including runtime versions and execution roles
 - **Managed hosts** — anything the provider runs on your behalf where you still own the configuration inside
 
@@ -285,56 +303,116 @@ A tool that covers containers but not serverless is not a CWPP; it is container 
 
 | Area | Examples |
 | --- | --- |
-| Vulnerabilities | Installed packages matched against CVE feeds, with exploitability context |
+| Vulnerabilities | Installed packages matched against CVE feeds, with exploitability context such as EPSS or known-exploited status |
 | OS hardening | CIS benchmarks for Ubuntu, RHEL, SUSE, Debian, CentOS |
 | Container posture | Privileged containers, hostPath mounts, running as root, stale images |
 | Serverless posture | End-of-support runtimes, over-permissive execution roles, secrets in environment variables |
 | Secrets on disk | Credentials, private keys and tokens sitting in the filesystem |
-| Runtime behaviour | Process, file and network activity, where the vendor supports it |
+| Runtime behaviour | Process, file and network activity, where the product supports it |
+
+## How CWPP works
+
+1. **Discover** every workload through the cloud provider APIs, so nothing depends on someone remembering to register it.
+2. **Assess** what is inside — by agent, by scanning a snapshot of the disk, or by scanning images in the registry and pipeline.
+3. **Harden** against OS and container benchmarks.
+4. **Prioritise** with context: a critical CVE on an internet-facing VM with an admin role matters more than the same CVE on an isolated batch host.
+5. **Protect at runtime** where needed — detecting, and in agent-based products sometimes blocking, suspicious processes and connections.
+6. **Shift left** by scanning images before deploy, so fewer vulnerable workloads reach production.
+
+## CSPM vs CWPP
+
+| | CSPM | CWPP |
+| --- | --- | --- |
+| Protects | Cloud infrastructure configuration | The workloads running on it |
+| Question it answers | Is the cloud configured safely? | Is this workload vulnerable, hardened, or under attack? |
+| Data source | Cloud provider APIs | Workload disks, images, and runtime telemetry |
+| Typical findings | Public bucket, open security group, logging off, unencrypted database | Unpatched OpenSSL, root container, SSH key on disk, end-of-support Lambda runtime |
+| When it acts | Mostly before an attack — fixing exposure | Before and during — fixing vulnerabilities and detecting runtime activity |
+| Deployment | Read-only API access, no software on workloads | Agent, snapshot scanning, or both |
+
+**Do you need both?** Yes, for most cloud estates. CSPM without CWPP misses the vulnerable software inside a well-configured VM; CWPP without CSPM misses the public storage bucket no workload touches. The useful question is not which one, but whether their findings are correlated — an exploitable CVE (CWPP) on a VM that is internet-facing (CSPM) with an over-privileged role ([CIEM](/learn/ciem)) is one priority, not three unrelated tickets. That correlation is what a [CNAPP](/learn/cnapp) is for.
+
+## CWPP vs CNAPP
+
+CWPP is a component; CNAPP is the platform that contains it. A CNAPP combines CSPM, CWPP, CIEM, KSPM and usually data security and attack path analysis on one data model, so findings from each can be read together. Buying CWPP as a separate product is still common where a team already has strong posture tooling, but the findings then live in a second console. See [What is CNAPP?](/learn/cnapp).
+
+## CWPP vs EDR
+
+EDR (endpoint detection and response) was built for long-lived endpoints and servers, with an agent watching processes on each machine. CWPP was built for cloud workloads, many of which are short-lived containers or serverless functions where an endpoint agent does not fit, and it adds cloud context — which role the workload runs as, whether it is exposed. On long-lived cloud VMs the two overlap, and many organisations run both.
+
+## CWPP vs KSPM and container security
+
+- **[KSPM](/learn/kspm)** checks how Kubernetes clusters are configured — RBAC, pod security, network policy, admission control.
+- **Container security** is the container-specific slice: images, registries, Kubernetes configuration and admission policy.
+- **CWPP** is the umbrella for what runs inside every compute form factor, including the VMs and serverless functions that are not containers at all.
 
 ## Agent vs agentless
 
-This is the decision that determines whether a CWPP rollout succeeds.
+This is the decision that most often determines whether a CWPP rollout succeeds.
 
-**Agent-based** installs software on every workload. It gives continuous runtime telemetry — process execution, syscalls, live network connections — which snapshot scanning cannot replicate. The cost is real: a package to distribute, a version to maintain, a rollout plan, an exception list for machines that break, and a recurring negotiation with the platform team. Coverage commonly plateaus well short of 100%, and the uncovered remainder is usually the legacy estate that most needs scanning.
+**Agent-based** installs software on every workload. It gives continuous runtime telemetry — process execution, syscalls, live network connections — which snapshot scanning cannot replicate. The cost is real: a package to distribute, a version to maintain, a rollout plan, an exception list for machines that break, and a recurring negotiation with the platform team. Coverage commonly stalls short of every workload, and the uncovered remainder is often the legacy estate that most needs scanning.
 
-**Agentless** takes a point-in-time snapshot of the workload's volume and analyses it out-of-band. Coverage does not depend on rolling software out to each machine, and the scan puts no load on the workload itself. The trade-off is that it is point-in-time: it will not show you a process that spawned and exited between scans.
+**Agentless** takes a point-in-time snapshot of the workload's volume and analyses it out-of-band. Coverage does not depend on rolling software out to each machine, and the scan puts no load on the workload itself. The trade-off is that it is point-in-time: it will not show you a process that spawned and exited between scans, and it cannot block anything.
 
-Most mature programmes use agentless as the coverage baseline and add runtime detection from cloud-native audit and flow logs, reserving agents for the small set of workloads that genuinely need live process telemetry.
+Many programmes use snapshot scanning as the coverage baseline, add detection from cloud-native audit and flow logs, and reserve agents for the workloads that genuinely need live process telemetry or prevention. More on the trade-off in [What is agentless cloud security?](/learn/agentless-cloud-security)
 
-## CWPP vs CSPM vs container security
+## CWPP best practices
 
-- **CSPM** — the cloud configuration around the workload.
-- **CWPP** — everything inside the workload, across every compute form factor.
-- **Container security** — the container-specific slice: images, registries, Kubernetes RBAC, admission control. It is a subset of CWPP, not a synonym.
+1. **Inventory first.** You cannot protect a workload you have not discovered; drive coverage from the cloud API, not from a list of hosts.
+2. **Prioritise by exploitability and exposure,** not by CVSS score alone.
+3. **Scan images in the pipeline and the registry,** so fixes happen in the build, not on running containers.
+4. **Retire end-of-support runtimes** — old OS images and Lambda runtimes stop receiving security fixes.
+5. **Keep secrets off disk and out of environment variables;** use the provider's secrets manager.
+6. **Correlate with posture and identity findings** so one exploitable workload is ranked by what it can reach.
 
-## Next steps
+## How Onam approaches workload protection
 
-- [How Onam implements CWPP](/platform/cwpp) — VMs, containers, serverless and hosts, agentlessly
-- [What is agentless cloud security?](/learn/agentless-cloud-security)
+Onam evaluates workloads as part of the same platform as its cloud posture, identity and data security checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,508 rule definitions are tagged to the container and Kubernetes domain and 219 to compute workloads. One honest limit: a rule catalog describes configuration and package risk; it is not by itself a runtime prevention agent.
+
+- [How Onam approaches CWPP](/platform/cwpp)
+- [What is KSPM?](/learn/kspm)
 - [What is CNAPP?](/learn/cnapp)
 `,
     faqs: [
       {
-        q: "What does CWPP stand for?",
-        a: "CWPP stands for Cloud Workload Protection Platform — security for the compute workloads themselves (virtual machines, containers, serverless functions and hosts), as distinct from the cloud infrastructure configuration around them.",
+        q: "What is CWPP?",
+        a: "CWPP (Cloud Workload Protection Platform) is security tooling that protects compute workloads in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions — by finding vulnerabilities, hardening gaps and secrets inside them and, where supported, detecting malicious runtime behaviour.",
       },
       {
-        q: "What is the difference between CWPP and CSPM?",
-        a: "CSPM inspects cloud configuration — security groups, IAM policies, encryption settings. CWPP inspects what is actually installed and running inside the workload — packages, vulnerabilities, OS hardening, secrets on disk. A workload can pass every CSPM check and still be trivially exploitable.",
+        q: "What does CWPP stand for?",
+        a: "CWPP stands for Cloud Workload Protection Platform — security for the compute workloads themselves, as distinct from the cloud infrastructure configuration around them. (Outside security, CWPP also means a Community Wildfire Protection Plan.)",
+      },
+      {
+        q: "What is the difference between CSPM and CWPP?",
+        a: "CSPM inspects cloud configuration — security groups, IAM policies, storage access, encryption settings — through the provider's APIs. CWPP inspects what is installed and running inside the workload — packages, vulnerabilities, OS hardening, secrets on disk, runtime activity. A workload can pass every CSPM check and still be trivially exploitable.",
+      },
+      {
+        q: "Do I need both CSPM and CWPP?",
+        a: "For most cloud estates, yes. They see different risks: CSPM finds exposure in the cloud configuration, CWPP finds weaknesses inside workloads. The value multiplies when their findings are correlated, which is why both are usually bought together as part of a CNAPP.",
+      },
+      {
+        q: "Is CWPP part of CNAPP?",
+        a: "Yes. A cloud-native application protection platform (CNAPP) combines CWPP with CSPM, CIEM, KSPM and usually data security and attack path analysis, so workload, configuration and identity findings sit on one data model.",
+      },
+      {
+        q: "What is the difference between CWPP and EDR?",
+        a: "EDR was designed for long-lived endpoints and servers, using an agent on each machine. CWPP is designed for cloud workloads, including short-lived containers and serverless functions, and adds cloud context such as the workload's identity and exposure. On cloud VMs they overlap.",
       },
       {
         q: "Does CWPP require an agent?",
-        a: "Not necessarily. Agentless CWPP uses point-in-time volume snapshots analysed out-of-band, giving complete coverage with no software on the workload. Agents add continuous runtime telemetry but historically stall short of full coverage because every workload needs the agent installed and maintained.",
+        a: "Not necessarily. Agentless CWPP scans point-in-time snapshots of workload volumes out-of-band, with no software on the workload. Agents add continuous runtime telemetry and can block activity, but every workload needs the agent installed and maintained.",
       },
       {
         q: "Is container security the same as CWPP?",
-        a: "No. Container security covers images, registries, Kubernetes RBAC and admission policy. CWPP is the umbrella across every compute form factor, including the virtual machines and serverless functions that are not containers at all.",
+        a: "No. Container security covers images, registries, Kubernetes configuration and admission policy. CWPP is the umbrella across every compute form factor, including the virtual machines and serverless functions that are not containers at all.",
       },
     ],
     related: [
-      { label: "What is agentless cloud security?", href: "/learn/agentless-cloud-security" },
+      { label: "What is CSPM?", href: "/learn/cspm" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "What is CIEM?", href: "/learn/ciem" },
+      { label: "What is agentless cloud security?", href: "/learn/agentless-cloud-security" },
       { label: "Onam CWPP", href: "/platform/cwpp" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
@@ -347,19 +425,30 @@ Most mature programmes use agentless as the coverage baseline and add runtime de
     slug: "ciem",
     author: "poonam-yadav",
     question: "What is CIEM (Cloud Infrastructure Entitlement Management)?",
-    title: "What is CIEM? Cloud Entitlement Management Explained",
+    title: "What is CIEM? Cloud Entitlement Management and CSPM vs CIEM",
     excerpt:
-      "CIEM resolves what cloud identities can really do after role chaining and SCPs, and compares it with what they used. Why policy review falls short.",
+      "What is CIEM? It finds what cloud identities can really do after role chains and SCPs, versus what they use. CSPM vs CIEM compared, and why you need both.",
     term: "Cloud Infrastructure Entitlement Management",
     answer:
-      "Cloud Infrastructure Entitlement Management (CIEM) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved, then compares that against permissions actually used.",
-    readTime: "6 min",
+      "CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity actually used, to remove excess access and enforce least privilege.",
+    readTime: "8 min",
     body: `
+## CIEM at a glance
+
+| Question | Answer |
+| --- | --- |
+| What does CIEM stand for? | Cloud Infrastructure Entitlement Management (pronounced "kim") |
+| What does it analyse? | Effective permissions of users, roles, service accounts and machine identities |
+| What does it find? | Unused admin access, privilege escalation paths, risky cross-account trust, stale credentials |
+| What does it read? | IAM policies and trust relationships, plus cloud audit logs for actual usage |
+| How is it different from CSPM? | CSPM checks how resources are configured; CIEM checks who can act on them |
+| Where does it fit? | One component of a [CNAPP](/learn/cnapp), next to [CSPM](/learn/cspm), [CWPP](/learn/cwpp) and [KSPM](/learn/kspm) |
+
 ## Why reading policies is not enough
 
 Ask most teams who can delete the production database and you will get a confident answer that is wrong. Not because anyone is careless, but because cloud permissions do not resolve the way people read them.
 
-A single effective permission can be the product of an identity policy, a resource policy, a permissions boundary, a service control policy, a session policy, and two or three role assumptions in between. Any one of those can grant or deny. Reading the attached policy on a role tells you almost nothing about what that role can reach.
+A single effective permission can be the product of an identity policy, a resource policy, a permissions boundary, a service control policy, a session policy, and two or three role assumptions in between. Any one of those can grant or deny. Reading the attached policy on a role tells you very little about what that role can reach.
 
 CIEM computes the answer instead of reading it.
 
@@ -382,8 +471,22 @@ In most estates that gap is large, because permissions are added when something 
 - Cross-account trust relationships nobody remembers creating
 - Service accounts with human-grade permissions
 - Stale credentials and access keys that outlived the person or workload
-- Privilege escalation paths — permission sets that let an identity grant itself more
+- Privilege escalation paths — permission sets that let an identity grant itself more, such as \`iam:PassRole\` to an admin role
 - Federation hops where an identity provider account unlocks cloud access
+- Kubernetes ServiceAccounts bound to cluster-admin, or able to read Secrets and exec into pods — the cluster side of the same problem, covered in [What is KSPM?](/learn/kspm)
+
+## CSPM vs CIEM
+
+| | CSPM | CIEM |
+| --- | --- | --- |
+| Focus | Resource configuration | Identities and their permissions |
+| Question it answers | Is this resource configured safely? | Who can do what, and do they still need it? |
+| Data it reads | Resource settings from cloud provider APIs | IAM policies, trust relationships, SCPs, boundaries, plus audit logs for usage |
+| Typical findings | Public bucket, open security group, encryption off, logging disabled | Unused admin rights, escalation paths, risky cross-account trust, stale keys |
+| How it judges a policy | Checks the policy document against rules, e.g. "no wildcard actions" | Resolves the effective result of every policy together, then compares it with real usage |
+| Typical fix | Change a setting, usually in infrastructure as code | Remove or narrow permissions; right-size roles to what was used |
+
+**Why you need both.** Most cloud breaches need two things: something reachable and something it can do once reached. CSPM finds the first — the exposed resource. CIEM finds the second — the permissions that turn one foothold into wider access. A public VM (CSPM) whose instance role can assume an admin role in another account (CIEM) is one attack path; seen in two separate tools, it is two medium findings that nobody connects. That is why both usually run inside a [CNAPP](/learn/cnapp) with [attack path analysis](/learn/cloud-attack-path) on top.
 
 ## CIEM vs IAM
 
@@ -391,11 +494,28 @@ IAM is the cloud provider's system for defining identities and policies. It is t
 
 Native IAM tooling shows you what a policy says. CIEM shows you what it does.
 
+## CIEM vs PAM and IGA
+
+- **PAM** (privileged access management) controls and brokers access to privileged accounts, with vaulting and session recording. It is a control.
+- **IGA** (identity governance and administration) manages the joiner-mover-leaver lifecycle and access certifications, mostly for human users and business applications.
+- **CIEM** analyses the entitlements already granted inside cloud platforms — including machine identities that PAM and IGA rarely see — and finds the excess and the escalation paths.
+
+## CIEM best practices
+
+1. **Start with unused administrative access.** It is the largest risk reduction for the least disruption.
+2. **Resolve trust policies, not just permission policies.** Who can assume a role matters as much as what the role can do.
+3. **Treat machine identities as first-class.** Service accounts and workload roles usually outnumber people and are reviewed far less.
+4. **Right-size from observed usage** over a long enough window to include monthly and quarterly jobs.
+5. **Rotate or remove long-lived keys** in favour of short-lived, federated credentials.
+6. **Review continuously,** because permissions drift every time something breaks and someone grants more.
+
 ## Where CIEM fits
 
-CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-attack-path), because identity is how attackers move. A vulnerability gets an attacker onto one machine; entitlements determine whether that is a contained incident or a full compromise. That is why identity findings and posture findings need to sit on the same graph rather than in separate tools.
+CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-attack-path), because identity is how attackers move. A vulnerability ([CWPP](/learn/cwpp)) gets an attacker onto one machine; entitlements determine whether that is a contained incident or a full compromise. That is why identity findings and posture findings need to sit on the same graph rather than in separate tools.
 
-## Next steps
+## How Onam approaches entitlements
+
+Onam evaluates identity alongside configuration in the same platform, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,459 rule definitions are tagged to the IAM domain. One honest limit: usage-based right-sizing depends on the audit logs you keep — permissions used outside the retained window look unused.
 
 - [How Onam implements CIEM](/platform/ciem) — effective permissions, escalation paths and access reviews
 - [What is a cloud attack path?](/learn/cloud-attack-path)
@@ -403,8 +523,20 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
 `,
     faqs: [
       {
+        q: "What is CIEM?",
+        a: "CIEM (Cloud Infrastructure Entitlement Management) works out what every cloud identity — users, roles, service accounts — can actually do once all policies, role chains and guardrails are resolved, compares that with what it actually used, and flags the excess so it can be removed.",
+      },
+      {
         q: "What does CIEM stand for?",
         a: "CIEM stands for Cloud Infrastructure Entitlement Management. It is pronounced 'kim'. CIEM resolves and analyses the effective permissions of every identity in a cloud environment.",
+      },
+      {
+        q: "What is the difference between CSPM and CIEM?",
+        a: "CSPM checks how cloud resources are configured — public buckets, open security groups, encryption and logging. CIEM checks who can act on those resources — the effective permissions of every identity, compared with what they actually use. CSPM finds the exposed door; CIEM finds how far someone can go once through it.",
+      },
+      {
+        q: "Do I need both CSPM and CIEM?",
+        a: "Yes, for most cloud estates. Misconfigurations and excessive permissions combine into attack paths, and neither tool sees the other half. Running both on one data model, usually as part of a CNAPP, lets a finding be judged by what it leads to.",
       },
       {
         q: "What is the difference between CIEM and IAM?",
@@ -420,8 +552,10 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
       },
     ],
     related: [
-      { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "What is CSPM?", href: "/learn/cspm" },
+      { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
+      { label: "What is CNAPP?", href: "/learn/cnapp" },
+      { label: "What is KSPM?", href: "/learn/kspm" },
       { label: "Onam CIEM", href: "/platform/ciem" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
@@ -955,14 +1089,25 @@ Choke-point remediation follows the same discipline as any high-severity work, t
     slug: "kspm",
     author: "poonam-yadav",
     question: "What is KSPM (Kubernetes Security Posture Management)?",
-    title: "What is KSPM? Kubernetes Security Posture Explained",
+    title: "What is KSPM? Kubernetes Security Posture Management Guide",
     excerpt:
-      "KSPM checks Kubernetes clusters for misconfiguration, unsafe RBAC and workload risk. What it catches that CSPM misses, and how it differs from CWPP.",
+      "What is KSPM? Kubernetes security posture management checks clusters for risky RBAC, pod settings and missing network policy. KSPM vs CSPM, CIS, checklist.",
     term: "Kubernetes Security Posture Management",
     answer:
-      "Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.",
-    readTime: "8 min",
+      "KSPM (Kubernetes Security Posture Management) is the continuous assessment of Kubernetes clusters for misconfigurations and risky permissions. It reads cluster state through the Kubernetes API and checks RBAC, pod security settings, network policies, secrets and control-plane configuration against baselines such as the CIS Kubernetes Benchmark, then reports what is wrong and how to fix it.",
+    readTime: "11 min",
     body: `
+## KSPM at a glance
+
+| Question | Answer |
+| --- | --- |
+| What does KSPM stand for? | Kubernetes Security Posture Management |
+| What does it check? | RBAC, pod security context, network policy, secrets handling, admission control, control-plane and node configuration |
+| How does it see the cluster? | Through the Kubernetes API with a read-only credential, plus node configuration where a benchmark asks for it |
+| What does it measure against? | CIS Kubernetes Benchmark, CIS EKS / AKS / GKE benchmarks, NSA/CISA Kubernetes Hardening Guidance, Pod Security Standards |
+| What does it not do? | Detect a live attack inside a running pod — that is runtime protection ([CWPP](/learn/cwpp)) |
+| Where does it fit? | One component of a [CNAPP](/learn/cnapp), next to [CSPM](/learn/cspm), [CWPP](/learn/cwpp) and [CIEM](/learn/ciem) |
+
 ## Why Kubernetes needs its own posture management
 
 A cloud posture tool reads the cloud provider's API. It can tell you an EKS cluster exists, which VPC it sits in, and whether its endpoint is public. It cannot tell you that a ServiceAccount inside that cluster is bound to cluster-admin, that a pod runs as UID 0 with the host filesystem mounted, or that no NetworkPolicy exists so every pod can reach every other pod.
@@ -971,28 +1116,68 @@ Those objects live **inside** the cluster, behind the Kubernetes API — a diffe
 
 That gap is where KSPM sits. It is not CSPM applied to Kubernetes; it is a separate evaluation against a separate API.
 
-## What KSPM actually checks
+## How KSPM works
+
+1. **Connect.** A read-only identity in the cluster — typically a ServiceAccount whose role allows \`get\`, \`list\` and \`watch\` on the objects being assessed.
+2. **Inventory.** Enumerate namespaces, workloads (Deployments, DaemonSets, StatefulSets, Jobs, Pods), RBAC objects, Services and Ingresses, NetworkPolicies and admission webhooks.
+3. **Evaluate.** Test every object against a baseline — CIS, Pod Security Standards, or your own policy.
+4. **Prioritise.** Rank findings by context: is the workload exposed, what can its ServiceAccount reach, does it run privileged?
+5. **Remediate.** Fix the manifest or Helm chart at source, not the live object, or the next deploy reverts the fix.
+6. **Prevent and repeat.** Add admission policy so the same violation cannot be deployed again, and re-evaluate continuously — clusters change with every deploy.
+
+## KSPM checklist: what KSPM checks
 
 | Area | Typical findings |
 | --- | --- |
-| RBAC | ClusterRoleBindings granting cluster-admin, wildcard verbs, service accounts with escalate or bind |
-| Workload context | Privileged containers, hostPID and hostNetwork, root UID, writable root filesystem, missing seccomp |
-| Network | No default-deny NetworkPolicy, services exposed via LoadBalancer without restriction |
-| Secrets | Secrets mounted as environment variables, unencrypted etcd, tokens auto-mounted where unused |
-| Admission and supply chain | No admission control, unsigned images, images from untrusted registries, \`:latest\` tags |
-| Control plane | Anonymous auth enabled, insecure kubelet ports, audit logging off |
+| RBAC | ClusterRoleBindings granting cluster-admin, wildcard verbs or resources, subjects with \`escalate\`, \`bind\` or \`impersonate\`, broad \`get secrets\` or \`create pods/exec\` |
+| Workload security context | Privileged containers, hostPID, hostIPC and hostNetwork, running as root, writable root filesystem, added Linux capabilities, missing seccomp profile |
+| Network | No default-deny NetworkPolicy, Services exposed via LoadBalancer or NodePort without restriction, dashboards reachable from outside |
+| Secrets | Secrets in environment variables, Secrets not encrypted at rest in etcd, ServiceAccount tokens auto-mounted where unused |
+| Admission and supply chain | No admission control, Pod Security Admission not enforced, images from untrusted registries, \`:latest\` tags, unsigned images |
+| Control plane and nodes | Anonymous auth enabled, kubelet read-only port open, audit logging off, outdated Kubernetes version |
+| Resource hygiene | No CPU or memory limits, workloads in the \`default\` namespace, missing liveness and readiness probes |
 
-The CIS Kubernetes Benchmark is the usual baseline, and most of these map to it directly.
+## KSPM vs CSPM
 
-## KSPM vs container scanning vs CWPP
+| | KSPM | CSPM |
+| --- | --- | --- |
+| API it reads | Kubernetes API server | Cloud provider API |
+| Sees a cluster as | Hundreds of objects — pods, roles, bindings, policies | One resource — an EKS, AKS or GKE cluster |
+| Typical findings | cluster-admin bindings, privileged pods, no NetworkPolicy | Public cluster endpoint, control-plane logging off, over-broad node IAM role, no envelope encryption for Secrets |
+| Usual baseline | CIS Kubernetes Benchmark, Pod Security Standards | CIS AWS / Azure / GCP Foundations Benchmarks |
+| Who usually fixes it | Platform and application teams, in manifests and Helm charts | Cloud and infrastructure teams, in Terraform or the console |
+
+Managed Kubernetes settings straddle both. The CIS EKS, AKS and GKE benchmarks exist for exactly that reason: they cover the cloud-side cluster settings and the in-cluster policies together, and drop the control-plane checks the provider now owns. You need both views — a cluster can be perfectly configured at the cloud layer and unsafe inside. See [What is CSPM?](/learn/cspm) for the cloud side.
+
+## KSPM vs CWPP vs container image scanning
 
 These three get used interchangeably and are not the same thing.
 
 - **Container image scanning** looks at the image: which packages it contains and which have known CVEs. It answers *is this artefact vulnerable?*
 - **KSPM** looks at the cluster: how workloads are configured, who can do what, what can talk to what. It answers *is this cluster configured safely?*
-- **CWPP** looks at the running workload: process behaviour, file integrity, runtime detection. It answers *is something happening right now?*
+- **[CWPP](/learn/cwpp)** looks at the running workload: vulnerabilities inside it, process behaviour, runtime detection. It answers *is this workload exploitable, and is something happening right now?*
 
 A vulnerable image (scanning) running as root (KSPM) that starts a reverse shell (CWPP) is one incident described by three tools. Treating any one of them as the whole picture is the common mistake.
+
+## CIS Kubernetes Benchmark, NSA/CISA hardening and Pod Security Standards
+
+**CIS Kubernetes Benchmark.** Published by the Center for Internet Security, it is the baseline auditors recognise. Its recommendations are grouped into control-plane components, etcd, control-plane configuration, worker nodes, and policies (RBAC, Pod Security, network policy, Secrets). For managed services, use the CIS EKS, AKS or GKE benchmark instead — the provider runs the control plane, so those versions keep the checks you can still act on.
+
+**NSA/CISA Kubernetes Hardening Guidance.** Published jointly by the US National Security Agency and the Cybersecurity and Infrastructure Security Agency. Its themes map cleanly onto KSPM: scan containers and pods for vulnerabilities and misconfiguration, run them with least privilege, separate networks with network policy, use strong authentication and authorisation, enable audit logging, and review configuration regularly.
+
+**Pod Security Standards.** Kubernetes' own three-level policy — Privileged, Baseline and Restricted — enforced by the built-in Pod Security Admission controller through namespace labels. Most clusters should aim for Baseline everywhere and Restricted for application namespaces.
+
+**NIST SP 800-190** (Application Container Security Guide) is a common addition for regulated environments once the CIS baseline is clean.
+
+## Admission control: from finding problems to preventing them
+
+KSPM reports what is already running. Admission control decides what is allowed to run. A mature programme uses both: KSPM finds the existing violations, and admission policy stops new ones from being deployed.
+
+- **Pod Security Admission** — built in, enforces the Pod Security Standards per namespace, with \`enforce\`, \`audit\` and \`warn\` modes.
+- **ValidatingAdmissionPolicy** — built-in policies written in CEL, without running a webhook.
+- **Policy engines** — Kyverno and OPA Gatekeeper, for policies the built-ins cannot express, such as allowed registries or required labels.
+
+Roll new policies out in \`audit\` or \`warn\` first, fix what they report, then switch to \`enforce\`. A good KSPM check is simply: *does this cluster have admission control at all, and is it enforcing or only auditing?*
 
 ## Why RBAC is the part that matters most
 
@@ -1000,34 +1185,104 @@ Image CVEs get the attention because there is a number attached to them. But the
 
 The chain is short and well-worn: a pod is compromised through the application, its ServiceAccount token is auto-mounted at a known path, that token is bound to a role with broad verbs, and the attacker now speaks to the API server with those permissions. Nothing in that sequence requires a CVE.
 
-This is why KSPM findings should be read as a graph rather than a list. *Which subjects can reach which resources, and what does that let them do next?* is a more useful question than *how many High findings do we have?*
+This is why KSPM findings should be read as a graph rather than a list. *Which subjects can reach which resources, and what does that let them do next?* is a more useful question than *how many High findings do we have?* Kubernetes RBAC is an entitlement problem — the same question [CIEM](/learn/ciem) answers for cloud IAM.
+
+## KSPM examples: three findings and their fixes
+
+**1. The default ServiceAccount is bound to cluster-admin.** Every pod in the namespace that does not name a ServiceAccount inherits full control of the cluster. Fix: bind a namespaced Role with only the verbs the workload uses, and stop mounting the token where it is not needed.
+
+\`\`\`yaml
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: default
+  namespace: payments
+automountServiceAccountToken: false
+\`\`\`
+
+**2. A pod runs privileged with the host filesystem mounted.** A container escape becomes a node compromise. Fix: drop privilege in the security context and enforce the Restricted Pod Security Standard on the namespace.
+
+\`\`\`yaml
+securityContext:
+  runAsNonRoot: true
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop: ["ALL"]
+  seccompProfile:
+    type: RuntimeDefault
+\`\`\`
+
+**3. A namespace has no NetworkPolicy.** Every pod can reach every other pod in the cluster. Fix: apply a default-deny policy, then allow only the flows the application needs.
+
+\`\`\`yaml
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny
+  namespace: payments
+spec:
+  podSelector: {}
+  policyTypes: ["Ingress", "Egress"]
+\`\`\`
 
 ## Where KSPM fits with cloud posture
 
-A Kubernetes cluster is not an island. It runs on cloud infrastructure, its nodes have instance roles, and its workloads assume cloud identities through mechanisms like IRSA or Workload Identity.
+A Kubernetes cluster is not an island. It runs on cloud infrastructure, its nodes have instance roles, and its workloads assume cloud identities through mechanisms like IRSA, EKS Pod Identity or GKE Workload Identity.
 
-The interesting failures cross that boundary in both directions: a pod that assumes a node role which can read a production bucket; a cloud IAM policy that grants access to the cluster's control plane. Evaluating cluster posture and cloud posture separately produces two correct reports that both miss the path between them.
+The interesting failures cross that boundary in both directions: a pod that assumes a node role which can read a production bucket; a cloud IAM policy that grants access to the cluster's control plane. Evaluating cluster posture and cloud posture separately produces two correct reports that both miss the path between them. That is the argument for running KSPM inside a [CNAPP](/learn/cnapp) rather than as a separate tool, and for [attack path analysis](/learn/cloud-attack-path) across both layers.
 
-## Getting started
+## KSPM best practices
 
-1. Connect the cluster read-only — a kubeconfig or service account with \`get\`, \`list\` and \`watch\`. No agent is required for posture evaluation.
-2. Baseline against CIS Kubernetes first. It is well understood, it is what auditors ask about, and it produces a finite list.
-3. Fix RBAC before image CVEs. It is less satisfying and it removes more real risk.
-4. Add a default-deny NetworkPolicy. Most clusters have none, and it is the single change that most reduces lateral movement.
-5. Re-evaluate continuously. Clusters change hourly; a quarterly audit describes a cluster that no longer exists.
+1. **Connect read-only.** Posture assessment needs \`get\`, \`list\` and \`watch\`, not write access.
+2. **Baseline against CIS first.** It is well understood, it is what auditors ask about, and it produces a finite list. Use the managed-service variant for EKS, AKS and GKE.
+3. **Fix RBAC before image CVEs.** It is less satisfying and it removes more real risk.
+4. **Add a default-deny NetworkPolicy.** Many clusters have none, and it is the single change that most reduces lateral movement.
+5. **Fix at source.** Change the manifest, Helm chart or Kustomize overlay; patching the live object is undone by the next deploy.
+6. **Turn findings into admission policy.** Every class of finding you fix twice should become a rule that blocks it.
+7. **Re-evaluate continuously.** Clusters change with every deploy; a quarterly audit describes a cluster that no longer exists.
+
+## KSPM tools
+
+Open-source tools cover parts of the job well: **kube-bench** runs the CIS Kubernetes Benchmark checks on nodes, **Kubescape** (a CNCF project) scans clusters and manifests against CIS and NSA/CISA controls, and **Polaris** checks workload configuration best practices. **Kyverno** and **OPA Gatekeeper** handle the admission side.
+
+Commercial KSPM is usually delivered as part of a CNAPP. When you compare options, ask: does it cover your managed and self-managed distributions, does it show RBAC as reachable paths rather than a list, does it connect a pod's identity to the cloud permissions it can assume, and does it re-evaluate continuously?
+
+## How Onam approaches Kubernetes posture
+
+Onam treats Kubernetes as one of the seven environments its posture engine covers, alongside AWS, Azure, GCP, OCI, Alibaba Cloud and IBM Cloud. 824 of its 9,853 CSPM posture rules are Kubernetes rules, evaluated with the same finding format as the cloud rules, so a cluster finding and the cloud finding it connects to are read in one place. One honest limit: posture rules evaluate configuration — they do not, on their own, detect an attack in progress inside a pod.
+
+- [Onam Container & Kubernetes Security](/platform/container-security)
+- [Onam on Kubernetes](/solutions/kubernetes)
 `,
     faqs: [
       {
-        q: "Is KSPM different from CSPM?",
-        a: "Yes. CSPM reads the cloud provider's API and sees the cluster as one resource. KSPM reads the Kubernetes API and sees the objects inside it — RBAC bindings, pod security context, network policy, admission control. A cluster can be perfectly configured at the cloud layer and unsafe inside.",
+        q: "What is KSPM?",
+        a: "KSPM (Kubernetes Security Posture Management) continuously checks Kubernetes clusters for misconfigurations and risky permissions — RBAC bindings, pod security settings, network policies, secrets handling and control-plane configuration — against baselines such as the CIS Kubernetes Benchmark, and reports what to fix.",
+      },
+      {
+        q: "What is the difference between KSPM and CSPM?",
+        a: "CSPM reads the cloud provider's API and sees a Kubernetes cluster as one resource — its endpoint, logging and node roles. KSPM reads the Kubernetes API and sees the objects inside it — RBAC bindings, pod security context, network policy, admission control. A cluster can be perfectly configured at the cloud layer and unsafe inside, so you need both.",
+      },
+      {
+        q: "What is the difference between KSPM and CWPP?",
+        a: "KSPM checks how the cluster and its workloads are configured. CWPP protects the workloads themselves — vulnerabilities inside them and, where supported, runtime behaviour such as unexpected processes. KSPM answers 'is this cluster configured safely?'; CWPP answers 'is this workload exploitable, or under attack?'",
+      },
+      {
+        q: "Is KSPM part of CNAPP?",
+        a: "Yes. KSPM is usually delivered as one component of a cloud-native application protection platform (CNAPP), alongside CSPM, CWPP and CIEM, so cluster findings can be correlated with the cloud configuration and identities around them.",
       },
       {
         q: "Does KSPM require an agent in the cluster?",
-        a: "Posture evaluation does not. Cluster state is readable through the Kubernetes API with a read-only credential. Runtime detection — process behaviour, file integrity, syscall monitoring — is a different capability and does typically need something running in the cluster.",
+        a: "Assessing Kubernetes objects does not — they are readable through the Kubernetes API with a read-only credential. Node-level checks in the CIS benchmark, such as kubelet file permissions, need access to the node itself. Runtime detection is a different capability and typically needs something running in the cluster.",
+      },
+      {
+        q: "What is the CIS Kubernetes Benchmark?",
+        a: "A set of secure-configuration recommendations for Kubernetes published by the Center for Internet Security, covering control-plane components, etcd, worker nodes and policies such as RBAC, Pod Security and network policy. Separate CIS benchmarks exist for EKS, AKS and GKE, where the provider manages the control plane.",
       },
       {
         q: "What baseline should KSPM measure against?",
-        a: "The CIS Kubernetes Benchmark is the standard starting point and the one auditors recognise. Pod Security Standards, NSA/CISA Kubernetes hardening guidance and NIST SP 800-190 are common additions once the CIS baseline is clean.",
+        a: "Start with the CIS Kubernetes Benchmark, or the CIS EKS, AKS or GKE variant for managed clusters. Pod Security Standards, the NSA/CISA Kubernetes Hardening Guidance and NIST SP 800-190 are common additions once the CIS baseline is clean.",
       },
       {
         q: "Which KSPM finding should be fixed first?",
@@ -1035,7 +1290,9 @@ The interesting failures cross that boundary in both directions: a pod that assu
       },
     ],
     related: [
+      { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is CWPP?", href: "/learn/cwpp" },
+      { label: "What is CIEM?", href: "/learn/ciem" },
       { label: "What is CNAPP?", href: "/learn/cnapp" },
       { label: "What is a cloud attack path?", href: "/learn/cloud-attack-path" },
       { label: "Onam Container & Kubernetes Security", href: "/platform/container-security" },

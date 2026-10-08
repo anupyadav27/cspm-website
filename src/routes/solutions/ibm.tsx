@@ -6,9 +6,8 @@ import { seo } from "@/lib/seo";
 export const Route = createFileRoute("/solutions/ibm")({
   head: () =>
     seo({
-      title: "IBM Cloud Security — VPC, Network & Posture Management — Onam",
-      description:
-        "IBM Cloud security posture management: VPC, security groups, Cloud Internet Services, IKS, OpenShift, Object Storage, Db2 and IAM, mapped to CIS.",
+      title: "IBM Cloud Security: Network & Posture Management (CSPM) — Onam",
+      description: ibmData.metaDescription ?? ibmData.sub,
       path: "/solutions/ibm",
       image: "/og/solutions-ibm.png",
     }),

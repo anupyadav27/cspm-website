@@ -9,9 +9,8 @@ export const Route = createFileRoute("/solutions/government")({
       // "fedramp conmon tools / software / platform" — 15 query variants, ~660 impressions a
       // month, every one landing on this page (Search Console, 2026-09-14). The page already
       // did continuous monitoring; the title and description now say so in the words used.
-      title: "FedRAMP Continuous Monitoring (ConMon) Software for Government — Onam",
-      description:
-        "FedRAMP continuous monitoring (ConMon) support: evidence against NIST 800-53, NIST 800-171 and FedRAMP Moderate and High, re-checked on every scan, with PDF and CSV export.",
+      title: "FedRAMP Continuous Monitoring (ConMon) Tools & Evidence — Onam",
+      description: governmentData.metaDescription ?? governmentData.sub,
       path: "/solutions/government",
     }),
   component: () => <IndustrySolutionTemplate data={governmentData} />,

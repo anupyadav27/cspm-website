@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>Wiz vs Orca POC: 30 questions to ask in any CNAPP trial</title>
+      <link>https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions</guid>
+      <description>Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.</description>
+      <category>Buyer's Guide</category>
+      <pubDate>Tue, 06 Oct 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
       <title>DSPM implementation checklist: a practical rollout for cloud data</title>
       <link>https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</guid>
@@ -55,26 +63,26 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Wiz alternatives in 2026: an honest shortlist, including us</title>
+      <title>Wiz alternatives in 2026: 8 cloud security platforms compared</title>
       <link>https://www.onamsecurity.com/resources/blog/wiz-alternatives</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/wiz-alternatives</guid>
-      <description>Wiz alternatives in 2026: six cloud security platforms in their vendors' own published words, with links and dates, plus Onam. No scores.</description>
+      <description>Wiz alternatives in 2026 compared: Orca, Cortex Cloud, Defender for Cloud, CrowdStrike, Tenable, Sysdig and more. Who each fits, how it deploys, pricing.</description>
       <category>Buyer's Guide</category>
       <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>The best CSPM tools in 2026: an honest shortlist, and we are on it</title>
+      <title>Best CSPM tools in 2026: 9 compared, with a buyer's checklist</title>
       <link>https://www.onamsecurity.com/resources/blog/best-cspm-tools</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/best-cspm-tools</guid>
-      <description>Best CSPM tools in 2026: seven worth shortlisting, each in its vendor's own words with a link and date, plus the five things that now separate them.</description>
+      <description>Best CSPM tools in 2026 compared: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable and more. Who each fits, deployment, how to choose.</description>
       <category>Buyer's Guide</category>
       <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>What to ask in a cloud security POC: 7 questions for Wiz, Orca, Prisma Cloud and Onam</title>
+      <title>Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC</title>
       <link>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</guid>
-      <description>Running a cloud security POC against Wiz, Orca or Prisma Cloud? Seven questions that separate the platforms, Onam's answers, and a scoring checklist.</description>
+      <description>Wiz vs Orca vs Prisma Cloud (now Cortex Cloud) in 2026: the 7 POC questions that separate them, a copyable scorecard, and where Onam fits and falls short.</description>
       <category>Buyer's Guide</category>
       <pubDate>Sun, 19 Jul 2026 18:30:00 GMT</pubDate>
     </item>
@@ -186,7 +194,7 @@
       <title>What is CWPP (Cloud Workload Protection Platform)?</title>
       <link>https://www.onamsecurity.com/learn/cwpp</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cwpp</guid>
-      <description>A Cloud Workload Protection Platform (CWPP) secures the compute workloads running in a cloud environment — virtual machines, containers, serverless functions and managed hosts — by inspecting what is installed and running inside them, rather than how the surrounding cloud infrastructure is configured.</description>
+      <description>A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -194,7 +202,7 @@
       <title>What is CIEM (Cloud Infrastructure Entitlement Management)?</title>
       <link>https://www.onamsecurity.com/learn/ciem</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/ciem</guid>
-      <description>Cloud Infrastructure Entitlement Management (CIEM) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved, then compares that against permissions actually used.</description>
+      <description>CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity actually used, to remove excess access and enforce least privilege.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -250,7 +258,7 @@
       <title>What is KSPM (Kubernetes Security Posture Management)?</title>
       <link>https://www.onamsecurity.com/learn/kspm</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/kspm</guid>
-      <description>Kubernetes Security Posture Management (KSPM) is the continuous evaluation of Kubernetes clusters against security baselines — RBAC bindings, pod security context, network policy, admission control and secrets handling. It reads cluster state through the Kubernetes API and reports which objects violate policy, why it matters, and how to correct it.</description>
+      <description>KSPM (Kubernetes Security Posture Management) is the continuous assessment of Kubernetes clusters for misconfigurations and risky permissions. It reads cluster state through the Kubernetes API and checks RBAC, pod security settings, network policies, secrets and control-plane configuration against baselines such as the CIS Kubernetes Benchmark, then reports what is wrong and how to fix it.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
