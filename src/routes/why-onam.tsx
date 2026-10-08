@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { VideoSection } from "@/components/site/VideoEmbed";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
 import { ArrowRight, Check, FileSearch, Layers, Lock, Power, Unplug } from "lucide-react";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -141,6 +142,12 @@ function WhyOnam() {
       </Section>
 
       <Differentiator />
+
+      <VideoSection
+        video="whichAlert"
+        title="Which alert do you fix first?"
+        lead="When four tools disagree about the same cloud, one graph decides what matters most."
+      />
 
       <Section tone="surface">
         <Container>

@@ -13,5 +13,5 @@ export const Route = createFileRoute("/platform/compliance")({
       path: "/platform/compliance",
       image: "/og/platform-compliance.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="compliance" />,
 });

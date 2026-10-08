@@ -14,5 +14,5 @@ export const Route = createFileRoute("/platform/cspm")({
       path: "/platform/cspm",
       image: "/og/platform-cspm.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="cspm" />,
 });

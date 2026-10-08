@@ -14,5 +14,5 @@ export const Route = createFileRoute("/platform/cnapp")({
       path: "/platform/cnapp",
       image: "/og/platform-cnapp.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="cnapp" />,
 });

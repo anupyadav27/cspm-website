@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { OpsBand } from "@/components/site/ops/OpsBand";
+import { VideoSection } from "@/components/site/VideoEmbed";
 import { DemoVideos } from "@/components/site/DemoVideos";
 import { SecuritySpotlight } from "@/components/site/home/PlatformHero";
 import { SuiteStrip } from "@/components/site/home/ProductSuite";
@@ -44,6 +45,7 @@ function SecurityProductPage() {
     <SiteLayout>
       <SecuritySpotlight asHero />
       <OutcomeStrip />
+      <VideoSection video="overview" title="Onam Security in two minutes" />
       <CloudBar />
       <HowItWorks />
       <ProductDemo />

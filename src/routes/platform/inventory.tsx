@@ -13,5 +13,5 @@ export const Route = createFileRoute("/platform/inventory")({
         "Cloud asset inventory across seven clouds and 549 services, normalised into one resource model with the relationship graph attack paths run on.",
       path: "/platform/inventory",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="estate" />,
 });

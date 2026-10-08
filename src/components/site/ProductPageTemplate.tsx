@@ -7,6 +7,8 @@ import { Backdrop } from "@/components/site/system";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
+import { VideoSection } from "@/components/site/VideoEmbed";
+import type { VideoKey } from "@/data/videos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
 import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, SERVICES, fmt } from "@/lib/product-facts";
@@ -385,12 +387,22 @@ function CtaAndRelated({ data }: { data: ProductPageData }) {
   );
 }
 
-export function ProductPageTemplate({ data, extra }: { data: ProductPageData; extra?: ReactNode }) {
+export function ProductPageTemplate({
+  data,
+  extra,
+  video,
+}: {
+  data: ProductPageData;
+  extra?: ReactNode;
+  /** Short Q&A video (click-to-play) shown after "Why it matters". */
+  video?: VideoKey;
+}) {
   return (
     <SiteLayout>
       <Hero data={data} />
       <StickyNav data={data} />
       <WhyItMatters data={data} />
+      {video && <VideoSection video={video} title={`${data.label} in two minutes`} />}
       <HowItWorks data={data} />
       <WhatYouGet data={data} />
       {!data.hideDemo && (

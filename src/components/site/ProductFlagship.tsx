@@ -35,6 +35,8 @@ import type { FlagshipData } from "@/components/site/flagship/types";
 import { getSuite } from "@/data/product-suite";
 import { OPS_AGENTS, OPS_STATUS } from "@/data/operations";
 import { faqJsonLd } from "@/lib/seo";
+import { VideoSection } from "@/components/site/VideoEmbed";
+import type { VideoKey } from "@/data/videos";
 import { cn } from "@/lib/utils";
 
 /**
@@ -55,7 +57,7 @@ function splitBullet(b: string): { title: string; desc: string } {
   return i === -1 ? { title: b, desc: "" } : { title: b.slice(0, i), desc: b.slice(i + 3) };
 }
 
-export function ProductFlagship({ data }: { data: FlagshipData }) {
+export function ProductFlagship({ data, video }: { data: FlagshipData; video?: VideoKey }) {
   const suite = getSuite(data.key);
   const modules = suite.groups.flatMap((g) => g.items);
   const docsFor = (m: string) => modules.find((x) => x.title === m)?.href;
@@ -66,6 +68,7 @@ export function ProductFlagship({ data }: { data: FlagshipData }) {
       <Hero data={data} />
       <ProofStrip data={data} />
       <Problem data={data} />
+      {video && <VideoSection video={video} title={`${suite.name} in two minutes`} />}
 
       {/* 4 · Modules */}
       <Section id="modules">

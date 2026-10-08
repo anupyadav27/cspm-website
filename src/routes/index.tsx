@@ -1,5 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
+import { VideoSection } from "@/components/site/VideoEmbed";
+import { PLAYLISTS, playlistUrl } from "@/data/videos";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { seo, SITE_URL } from "@/lib/seo";
@@ -35,6 +37,18 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
+      <VideoSection
+        video="pitch"
+        eyebrow="Overview"
+        title="See it in two minutes"
+        lead="What Onam is and how the products fit together, in one short video."
+      >
+        <div className="mt-6 flex justify-center">
+          <BrandButton href={playlistUrl(PLAYLISTS.startHere)} variant="secondary">
+            All Q&amp;A videos →
+          </BrandButton>
+        </div>
+      </VideoSection>
       <PlatformLayers />
       <ProductSuite />
       <AIOpsSpotlight />

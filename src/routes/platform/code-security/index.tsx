@@ -13,5 +13,5 @@ export const Route = createFileRoute("/platform/code-security/")({
       description: data.metaDescription ?? data.sub,
       path: "/platform/code-security",
     }),
-  component: () => <ProductPageTemplate data={data} extra={<CodeSecurityOverviewExtra />} />,
+  component: () => <ProductPageTemplate data={data} video="codeSecurity" extra={<CodeSecurityOverviewExtra />} />,
 });

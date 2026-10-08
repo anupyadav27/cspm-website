@@ -13,5 +13,5 @@ export const Route = createFileRoute("/estate")({
       path: "/estate",
       image: "/og/estate.png",
     }),
-  component: () => <ProductFlagship data={data} />,
+  component: () => <ProductFlagship data={data} video="estate" />,
 });

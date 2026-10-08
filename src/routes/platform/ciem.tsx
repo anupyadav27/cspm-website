@@ -14,5 +14,5 @@ export const Route = createFileRoute("/platform/ciem")({
       path: "/platform/ciem",
       image: "/og/platform-ciem.png",
     }),
-  component: () => <ProductPageTemplate data={data} extra={<CiemExtra />} />,
+  component: () => <ProductPageTemplate data={data} video="ciem" extra={<CiemExtra />} />,
 });

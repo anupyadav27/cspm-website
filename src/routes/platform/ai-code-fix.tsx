@@ -13,5 +13,5 @@ export const Route = createFileRoute("/platform/ai-code-fix")({
         "Onam Security AI Code Fix rewrites files flagged by a code scan and pushes the fix to a separate branch for review. Nothing merges or deploys itself.",
       path: "/platform/ai-code-fix",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="codeSecurity" />,
 });

@@ -25,7 +25,7 @@ export const Route = createFileRoute("/platform/data-security")({
       path: "/platform/data-security",
       image: "/og/platform-data-security.png",
     }),
-  component: () => <ProductPageTemplate data={data} extra={<DspmDeepDive />} />,
+  component: () => <ProductPageTemplate data={data} video="dspm" extra={<DspmDeepDive />} />,
 });
 
 const eyebrow =

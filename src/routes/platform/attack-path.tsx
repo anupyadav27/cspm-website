@@ -13,5 +13,5 @@ export const Route = createFileRoute("/platform/attack-path")({
       path: "/platform/attack-path",
       image: "/og/platform-attack-path.png",
     }),
-  component: () => <ProductPageTemplate data={data} />,
+  component: () => <ProductPageTemplate data={data} video="attackPath" />,
 });

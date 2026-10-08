@@ -1,4 +1,5 @@
 import { HeroIllustration } from "@/components/site/HeroIllustration";
+import { VideoSection } from "@/components/site/VideoEmbed";
 import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
@@ -103,6 +104,12 @@ function AiOperationsPage() {
       <Hero />
       <TodaySection />
       <ProblemSection />
+      <VideoSection
+        video="operations"
+        eyebrow="Watch · Early access"
+        title="Onam AIOps in two minutes"
+        lead="Onam AIOps is in early access, enabled per organisation by invitation."
+      />
       <WorkspaceSection />
       <AgentsSection />
       <OrchestratorSection />

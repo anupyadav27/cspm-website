@@ -18,5 +18,5 @@ export const Route = createFileRoute("/disaster-recovery")({
       path: "/disaster-recovery",
       image: "/og/drm.png",
     }),
-  component: () => <ProductFlagship data={data} />,
+  component: () => <ProductFlagship data={data} video="drm" />,
 });

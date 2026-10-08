@@ -13,5 +13,5 @@ export const Route = createFileRoute("/finops")({
       path: "/finops",
       image: "/og/finops.png",
     }),
-  component: () => <ProductFlagship data={data} />,
+  component: () => <ProductFlagship data={data} video="finops" />,
 });
