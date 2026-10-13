@@ -195,6 +195,8 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ### Onam Security
 - [Overview](https://www.onamsecurity.com/docs/security/overview)
+- [Capability matrix](https://www.onamsecurity.com/docs/security/capability-matrix)
+- [Features by capability](https://www.onamsecurity.com/docs/security/features-by-capability)
 
 ### Security features
 - [CNAPP — posture score](https://www.onamsecurity.com/docs/features/cnapp)
