@@ -77,7 +77,11 @@ export const DOC_SECTIONS: DocSection[] = [
   {
     heading: "Onam Security",
     product: "security",
-    items: [{ title: "Overview", slug: "security/overview" }],
+    items: [
+      { title: "Overview", slug: "security/overview" },
+      { title: "Capability matrix", slug: "security/capability-matrix" },
+      { title: "Features by capability", slug: "security/features-by-capability" },
+    ],
   },
   {
     heading: "Security features",
