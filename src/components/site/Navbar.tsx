@@ -44,7 +44,7 @@ const resourceGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "Case studies", href: "/case-studies", desc: "How teams use Onam" },
       { title: "Compare", href: "/compare", desc: "Onam Security side by side with others" },
       { title: "Plans & pricing", href: "/pricing", desc: "Onam Security plans; other products per organisation" },
-      { title: "Cloud marketplaces", href: "/why-onam#marketplaces", desc: "AWS, Azure and Google Cloud listings" },
+      { title: "Cloud marketplaces", href: "/why-onam#marketplaces", desc: "Live on Microsoft Marketplace; AWS and Google Cloud next" },
     ],
   },
 ];
