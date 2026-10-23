@@ -19,7 +19,7 @@
     <rect x="244" y="60" width="200" height="70" fill="#FFFFFF" stroke="#FECACA" rx="8"/>
     <text x="258" y="80" letter-spacing="0.8" fill="#B91C1C">SECURITY ISSUES</text>
     <text x="258" y="112" font-size="24" font-weight="700" fill="#B91C1C">6</text>
-    <text x="300" y="112" font-size="8">confirmed — taint &amp; AST rules</text>
+    <text x="300" y="112" font-size="8">confirmed — data-flow &amp; structure rules</text>
     <rect x="458" y="60" width="200" height="70" fill="#FFFFFF" stroke="#FDE68A" rx="8"/>
     <text x="472" y="80" letter-spacing="0.8" fill="#B45309">HOTSPOTS TO REVIEW</text>
     <text x="472" y="112" font-size="24" font-weight="700" fill="#B45309">41</text>

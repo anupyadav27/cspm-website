@@ -50,7 +50,7 @@ The platform runs **29 engines**, each a dedicated microservice responsible for 
 | CDR / Behavioral Analysis | Domain | Audit-log threat detection across all 7 providers (L1 / L2 / L3 tiers) |
 | CWPP | Domain | Cloud workload protection posture |
 | CNAPP | Domain | Unified CNAPP posture aggregation |
-| SecOps / AppSec | Code | SAST across 7 languages, DAST, SCA / SBOM, semgrep-based scanning |
+| SecOps / AppSec | Code | SAST across 9 languages on Onam's own engine, DAST, SCA / SBOM |
 | Technology Engine | Technology | 34 self-hosted technologies in 9 categories (databases, OS, network devices, web servers, and more) |
 | Remediation / Fix | Intelligence | AI-generated source-code fixes, SAST fixes, threat narratives |
 | Chat | Intelligence | The AI assistant built into the Onam console |
@@ -163,7 +163,7 @@ You don't enable domains individually. Once a cloud account is connected, every 
 | **Vulnerability Management** | Which CVEs are exploitable in my live workloads? | NVD · EPSS · CISA KEV · OSV · SBOM · DAST |
 | **AI Security** | Are my AI/ML services safe? | Bedrock · SageMaker · Azure OpenAI · Vertex |
 | **Attack Path & CDR** | How would an attacker move through my environment? Are there active threats? | Neo4j graph traversal · per-hop MITRE ATT&CK · L1/L2/L3 detection |
-| **SecOps (SAST/DAST/SCA/IaC)** | Are vulnerabilities entering my code before deploy? | SAST in 7 languages · DAST · SCA/SBOM · IaC scanning |
+| **SecOps (SAST/DAST/SCA/IaC)** | Are vulnerabilities entering my code before deploy? | SAST in 9 languages · DAST · SCA/SBOM · IaC scanning |
 | **Compliance** | What's my pass rate against my framework obligations? | 78 frameworks incl. CIS, NIST, PCI-DSS, HIPAA, ISO 27001, SOC 2, GDPR, FedRAMP |
 
 **The unified posture score** is a weighted roll-up across all pillars, normalized to 0–100. Each pillar contributes proportionally to its severity-weighted findings — fixing a single Critical finding moves the score more than fixing ten Low findings.

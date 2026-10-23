@@ -24,7 +24,7 @@ Onam Code Security scans the things that build your applications: source code, d
 
 | Scanner | What it reads | What it produces |
 | --- | --- | --- |
-| [Static analysis (SAST)](/docs/code-security/sast) | Source files in Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby | Security issues (proven by taint or AST rules) and hotspots to review (pattern matches) |
+| [Static analysis (SAST)](/docs/code-security/sast) | Source files in Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby, plus GitHub Actions workflows, Terraform, npm config and HTML templates | Security issues (from data-flow and code-structure rules) and hotspots to review (pattern matches) |
 | [Secret detection](/docs/code-security/secrets) | Every file in the clone | Hard-coded credentials, keys and tokens |
 | [IaC checks](/docs/code-security/iac) | Terraform, YAML (Kubernetes, CloudFormation), JSON and Dockerfiles | Misconfigurations in templates and images |
 | [Dependencies and SBOM (SCA)](/docs/code-security/sca-sbom) | Manifests and lockfiles, or an uploaded SBOM | Vulnerable packages with a 0–10 risk score, and a CycloneDX 1.5 SBOM |
@@ -151,7 +151,7 @@ The home page has six tabs: **Overview**, **Alerts**, **Scan History**, **SAST**
 
 A scan opens on four numbers: **Total Findings**, **Security Issues**, **Hotspots to Review** and **Languages**. Below them are a severity chart, the most-triggered rules, and two panels:
 
-- **Security Findings** — results from taint and AST rules. These are the findings to work first. Severity is whatever the rule asserts.
+- **Security Findings** — results from data-flow and code-structure rules. These are the findings to work first. Severity is whatever the rule asserts.
 - **Hotspots to Review** — results from pattern rules. They are capped at medium (low if the rule has not been reviewed) and need a person to confirm them. They are not counted as alerts.
 
 Each row shows severity, rule, file and line, message, language and status. Selecting a finding opens its detail: the rule's explanation and recommendation, a code example where the rule has one, and an **AI fix prompt** you can copy into an assistant.
@@ -176,7 +176,7 @@ An SBOM view shows total components, vulnerable packages, total CVEs and license
 
 | Source | Shown as | Severity |
 | --- | --- | --- |
-| Curated taint rule, community rule | Security issue | As the rule asserts — can be critical |
+| Onam data-flow or code-structure rule | Security issue | As the rule asserts — can be critical |
 | Reviewed pattern rule | Hotspot to review | Medium at most |
 | Unreviewed pattern rule | Hotspot to review | Low at most |
 | Dependency advisory | Vulnerable package | Risk level from the 0–10 composite score |
@@ -193,37 +193,43 @@ An SBOM view shows total components, vulnerable packages, total CVEs and license
     title: "Static analysis (SAST)",
     breadcrumb: "Code Security / SAST",
     body: `
-Onam's static analysis runs on the open-source Semgrep engine with three rule sources, and grades every result by how much its rule can prove.
+Application code is scanned by Onam's own static analysis engine. It reads each file into a syntax tree and runs three kinds of rules, all written and maintained by Onam, then grades every result by how much its rule can prove. No third-party rule packs are used.
 
-![Three rule sources, two kinds of result](/diagrams/code-sec-sast-tiers.svg)
+![Three kinds of rule, two kinds of result](/diagrams/code-sec-sast-tiers.svg)
 
 ## Languages
 
-| Language | File extensions | Curated taint rules | Pattern rules |
-| --- | --- | --- | --- |
-| Python | \`.py\` | Yes | — |
-| JavaScript | \`.js\` \`.mjs\` \`.jsx\` | Yes | Yes |
-| TypeScript | \`.ts\` \`.tsx\` | Yes (shared with JavaScript) | Yes |
-| Java | \`.java\` | Yes | Yes |
-| C# | \`.cs\` | Yes | Yes |
-| Go | \`.go\` | Yes | Yes |
-| Ruby | \`.rb\` | Yes | — |
-| C | \`.c\` \`.h\` | — | Yes |
-| C++ | \`.cpp\` \`.cxx\` \`.cc\` \`.hpp\` \`.hxx\` | — | Yes |
+| Language | File extensions | Data-flow rules | Code-structure rules | Pattern rules |
+| --- | --- | --- | --- | --- |
+| Python | \`.py\` | Yes | Yes | — |
+| JavaScript | \`.js\` \`.mjs\` \`.jsx\` | Yes | Yes | Yes |
+| TypeScript | \`.ts\` \`.tsx\` | Yes (shared with JavaScript) | Yes | Yes |
+| Java | \`.java\` | Yes | Yes | Yes |
+| C# | \`.cs\` | Yes | Yes | Yes |
+| Go | \`.go\` | Yes | Yes | Yes |
+| Ruby | \`.rb\` | Yes | Yes | — |
+| C | \`.c\` \`.h\` | — | Yes | Yes |
+| C++ | \`.cpp\` \`.cxx\` \`.cc\` \`.hpp\` \`.hxx\` | — | Yes | Yes |
 
-Community security packs apply across all of them. PHP, Kotlin, Rust, Swift and Scala are not analysed today.
+The same scan also checks files that are not application code: GitHub Actions workflows (script injection, unpinned actions, risky triggers), Terraform (public network exposure, old TLS, credentials written in the file, encryption switched off), npm and yarn config, and HTML templates (unescaped output, unquoted attributes, scripts loaded without an integrity check). Terraform is also checked by the separate [IaC checks](/docs/code-security/iac).
 
-## The three rule sources
+PHP, Kotlin, Rust, Swift and Scala are not analysed today.
 
-1. **Community security packs** — OWASP Top 10, a general security audit, secrets and Node.js, pulled from the Semgrep registry. General-purpose packs that mix security with code style are deliberately not used.
-2. **Onam curated taint rules** — hand-written rules that follow untrusted input (a request parameter, a header, a file) to a dangerous sink (a query, a shell, a file path, an outbound request). Each carries its own CWE, OWASP category and severity, and has tests in the rule repository.
-3. **Onam reviewed pattern rules** — broader pattern rules, each triaged by hand into security, code-quality, accessibility or not-applicable. Only the security ones run; the rest are dropped before a scan.
+## The three kinds of rule
+
+1. **Data-flow rules** — follow untrusted input (a request parameter, a header, a file) to a dangerous call (a query, a shell, a file path, an outbound request), and stay quiet when the value passes through a sanitiser first. They follow the value **within a single function**: input that enters in one function and reaches the dangerous call in another is not traced. Data-flow rules exist for Python, JavaScript/TypeScript, Java, C#, Go and Ruby.
+2. **Code-structure rules** — match the shape of the code in its syntax tree rather than its text: a security setting switched off, a weak algorithm, a call that is unsafe whatever its input. Because they understand the code, comments and strings do not trigger them.
+3. **Reviewed pattern rules** — broader text patterns, each triaged by hand into security, code-quality, accessibility or not-applicable. Only the security ones run; the rest are dropped before a scan.
+
+Every rule carries its own CWE, OWASP category and severity, and has test files that show what it must and must not report.
+
+Secret patterns and the checks on GitHub Actions workflows, Terraform, npm config and HTML templates are Onam rules too. They are listed as security issues when the file itself shows the problem (a literal key, a setting switched off), and as hotspots when the risk depends on where a value comes from.
 
 ## Severity follows evidence
 
 | Result from | Listed as | Severity cap |
 | --- | --- | --- |
-| Community or curated rule | Security issue | None — the rule's own severity |
+| Data-flow or code-structure rule | Security issue | None — the rule's own severity |
 | Pattern rule triaged as security | Hotspot to review | Medium |
 | Pattern rule not yet triaged | Hotspot to review | Low |
 
@@ -249,7 +255,17 @@ Before scanning, the clone is pruned of \`node_modules\`, \`vendor\`, build outp
 
 - Analysis is per scan of one branch. There is no incremental or changed-files-only mode.
 - Custom rules cannot be added from the console.
-- If the community packs cannot be loaded for a scan, the scan still runs with Onam's own rules and is flagged as having reduced coverage.
+- Data-flow analysis works within a single function. A flaw where untrusted input enters in one function and reaches a dangerous call in another is not traced; where a code-structure or pattern rule matches the call itself, it is still reported.
+
+## Engine change in October 2026
+
+Static analysis moved from the open-source Semgrep engine, with community rule packs, to Onam's own engine and Onam's own rules. The first scan of each repository after the switch can show a different set of findings from the scan before it:
+
+- **Some findings disappear.** Results that only the community packs produced are gone. Onam wrote its own rules for the issues those packs were finding, so most come back under a new rule name.
+- **Some findings are new.** The new rules for secrets, GitHub Actions workflows, Terraform, npm config and HTML templates find things the old setup did not.
+- **Some findings move between lists.** A few results change rule name, severity or list (security issue or hotspot) because the new rule can prove more, or less, than the old one.
+
+Nothing you need to do: each scan already produces a fresh list, so there is no old status to carry over. Compare the first scan after the switch against the one before it, not against the trend line.
 `,
   },
   {
@@ -261,10 +277,7 @@ Secret detection runs in the same pass as [static analysis](/docs/code-security/
 
 ## What it looks for
 
-Two sources run together:
-
-- **The community secrets pack** from the Semgrep registry.
-- **Onam's own secret patterns**, which work on any file type:
+Onam's own secret patterns run over every file type. They include:
 
 | Pattern | Typical form |
 | --- | --- |
@@ -555,7 +568,7 @@ The full documentation now lives in the **Code Security** section:
 
 ## In one paragraph
 
-Static analysis runs community security packs, Onam-curated taint rules and Onam-reviewed pattern rules, and keeps proven **security issues** apart from **hotspots to review**, which are capped at medium. Dependency analysis parses manifests and lockfiles natively, matches OSV and NVD advisories, and scores each one 0–10 from CVSS, EPSS, CISA KEV and fix availability. Dynamic testing discovers and attacks the endpoints of a running app you are authorised to test. AI Code Fix rewrites files flagged by static analysis onto a separate branch; nothing merges itself. There is no CI plugin today — pipelines call the API.
+Static analysis runs on Onam's own engine with Onam's data-flow, code-structure and reviewed pattern rules, and keeps proven **security issues** apart from **hotspots to review**, which are capped at medium. Dependency analysis parses manifests and lockfiles natively, matches OSV and NVD advisories, and scores each one 0–10 from CVSS, EPSS, CISA KEV and fix availability. Dynamic testing discovers and attacks the endpoints of a running app you are authorised to test. AI Code Fix rewrites files flagged by static analysis onto a separate branch; nothing merges itself. There is no CI plugin today — pipelines call the API.
 
 ![How a code scan flows, from repository to reviewed fix](/diagrams/code-sec-pipeline.svg)
 `,

@@ -39,7 +39,7 @@ const scanners: ScannerCard[] = [
   {
     icon: Bug,
     title: "Static analysis (SAST)",
-    body: "Community packs, curated taint rules and reviewed pattern rules. Proven flaws and hotspots in separate lists.",
+    body: "Onam's own engine: data-flow, code-structure and reviewed pattern rules. Proven flaws and hotspots in separate lists.",
     href: "/platform/code-security/sast",
     cta: "How SAST works",
   },

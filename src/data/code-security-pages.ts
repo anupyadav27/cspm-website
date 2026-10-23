@@ -38,9 +38,9 @@ export const codeSecuritySubPages: Record<CodeSecuritySubPage["slug"], CodeSecur
     docsHref: "/docs/code-security/sast",
     diagram: {
       src: "/diagrams/code-sec-sast-tiers.svg",
-      alt: "Three rule sources — community security packs, curated taint rules and reviewed pattern rules — produce two lists: security issues and hotspots to review",
+      alt: "Three kinds of Onam rule — data-flow, code-structure and reviewed pattern rules — produce two lists: security issues and hotspots to review",
       caption:
-        "Three rule sources, two kinds of result. Only rules that can show a flaw produce a security issue.",
+        "Three kinds of rule, two kinds of result. Only rules that can show a flaw produce a security issue.",
     },
     illustration: {
       src: "/diagrams/ui-code-sec-scan-detail.svg",
@@ -65,22 +65,22 @@ export const codeSecuritySubPages: Record<CodeSecuritySubPage["slug"], CodeSecur
       question: "Which findings in this scan are real, and which only look suspicious?",
       headline: "Static analysis that tells you what it can prove — and what it cannot.",
       metaDescription:
-        "SAST for Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby: taint-confirmed issues kept apart from hotspots, with CWE and OWASP on each.",
-      sub: "Onam's static analysis runs community security packs, curated taint rules and reviewed pattern rules over your source, then splits the result: security issues it can show, and hotspots a person needs to confirm. Secret detection runs in the same pass.",
+        "SAST for Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby on Onam's own engine: proven issues kept apart from hotspots, with CWE and OWASP on each.",
+      sub: "Onam's own static analysis engine runs data-flow, code-structure and reviewed pattern rules over your source, then splits the result: security issues it can show, and hotspots a person needs to confirm. Secret detection runs in the same pass.",
       painPoint:
         "A pattern rule flags every call to eval, every string that looks like SQL, every file that mentions a password. Some of those are real. Most are not, and the scanner cannot tell which, so it calls all of them high. The developer opens the report, sees the noise, and closes it — along with the one finding that was a genuine injection path from a request parameter to a database query.",
       mechanism: [
         "The scanner makes a shallow clone of the branch you chose and skips what is not your code: dependency and vendor folders, build output, minified files and anything over half a megabyte.",
-        "Files are routed by extension. Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby go to static analysis on the open-source Semgrep engine; Terraform, YAML, JSON and Dockerfiles go to the IaC checker in the same job.",
-        "Three rule sources run together. Community security packs cover the OWASP Top 10, a general security audit, secrets and Node.js. Onam-curated taint rules follow untrusted input to a dangerous sink in Python, JavaScript/TypeScript, Java, C#, Go and Ruby. Onam-reviewed pattern rules add breadth, each one triaged by hand — rules judged code-quality or accessibility are dropped, not shown.",
-        "Severity follows evidence. Taint and AST findings keep the severity their rule asserts. A pattern match is capped at medium, or low if its rule has not been reviewed, and is listed as a hotspot rather than a security issue. Several pattern rules firing on the same line are collapsed into one.",
-        "Secret detection runs in the same pass: the community secrets pack plus Onam's own patterns for cloud keys, private-key blocks, GitHub, Slack and Stripe tokens, Google credentials, hard-coded JWTs and generic secret assignments.",
+        "Files are routed by extension. Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby go to Onam's own static analysis engine; Terraform, YAML, JSON and Dockerfiles go to the IaC checker in the same job. GitHub Actions workflows, Terraform, npm config and HTML templates also get Onam's static analysis rules.",
+        "Three kinds of rule run together, all written by Onam; no third-party rule packs are used. Data-flow rules follow untrusted input to a dangerous call within a single function, in Python, JavaScript/TypeScript, Java, C#, Go and Ruby. Code-structure rules match the shape of the code rather than its text, in all nine languages. Reviewed pattern rules add breadth, each one triaged by hand — rules judged code-quality or accessibility are dropped, not shown.",
+        "Severity follows evidence. Data-flow and code-structure findings keep the severity their rule asserts. A pattern match is capped at medium, or low if its rule has not been reviewed, and is listed as a hotspot rather than a security issue. Several pattern rules firing on the same line are collapsed into one.",
+        "Secret detection runs in the same pass, with Onam's own patterns for cloud keys, private-key blocks, GitHub, Slack and Stripe tokens, Google credentials, hard-coded JWTs and generic secret assignments.",
         "Each finding is stored with its file, line, rule, message, CWE, OWASP category, confidence and a short code snippet, and appears in the scan view, the project view and the platform-wide alerts list.",
       ],
       whatYouGet: [
         "Two lists, not one — Security issues you can act on now, Hotspots to review when you have time",
         "Severity you can trust — pattern matches can never be rated high or critical",
-        "Taint rules where they matter most — Python, JavaScript/TypeScript, Java, C#, Go and Ruby",
+        "Data-flow rules where they matter most — Python, JavaScript/TypeScript, Java, C#, Go and Ruby, traced within each function",
         "CWE and OWASP mapping — on every finding where the rule records them",
         "Secrets in the same scan — cloud keys, private keys, SaaS tokens and hard-coded credentials",
         "Less noise by design — vendored code, build output and minified files are not scanned",
@@ -91,7 +91,7 @@ export const codeSecuritySubPages: Record<CodeSecuritySubPage["slug"], CodeSecur
       faqs: [
         {
           q: "Which languages are covered, and how deeply?",
-          a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Python, JavaScript/TypeScript, Java, C#, Go and Ruby have Onam-curated taint rules in addition to community and pattern rules. C and C++ are covered by community and pattern rules only, so more of their results land in the hotspot list. Other languages, such as PHP, Kotlin, Rust, Swift and Scala, are not analysed today.",
+          a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Python, JavaScript/TypeScript, Java, C#, Go and Ruby have data-flow rules as well as code-structure rules; data flow is traced within a single function, not across functions. C and C++ have code-structure and pattern rules but no data-flow rules, so more of their results land in the hotspot list. Other languages, such as PHP, Kotlin, Rust, Swift and Scala, are not analysed today.",
         },
         {
           q: "Why are hotspots capped at medium?",

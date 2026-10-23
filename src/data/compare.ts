@@ -248,7 +248,7 @@ export const COMPETITORS: Competitor[] = [
       },
       {
         q: "How does it decide which code findings are real?",
-        onam: "By what each rule can prove. Findings from taint and AST rules are listed as security issues with their own severity; pattern-rule matches are listed separately as hotspots to review and capped at medium, so they cannot bury a proven flaw.",
+        onam: "By what each rule can prove. Findings from data-flow and code-structure rules are listed as security issues with their own severity; pattern-rule matches are listed separately as hotspots to review and capped at medium, so they cannot bury a proven flaw.",
       },
       {
         q: "Are IaC templates judged by the same rules as the running cloud?",

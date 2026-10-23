@@ -519,7 +519,7 @@ Static analysis, live-app testing, library checks and infrastructure-template ch
 
 | Feature | Detail |
 | --- | --- |
-| Confirmed issues kept apart from hotspots | taint-backed findings first, pattern matches in a separate review list capped at medium |
+| Confirmed issues kept apart from hotspots | data-flow and code-structure findings first, pattern matches in a separate review list capped at medium |
 | CWE and OWASP on every code finding | with the file, line and rule that produced it |
 | Language coverage | Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby |
 | Dependency risk beyond CVSS | a 0–10 score built from CVSS, EPSS, CISA KEV and whether a fixed version exists |
