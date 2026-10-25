@@ -158,7 +158,7 @@ Unified code security platform with SAST, DAST, SCA, and IaC scanning.
 
 **What's new:**
 
-- SAST: semgrep-based static analysis across 7 languages
+- SAST: static analysis across 9 languages
 - DAST: 479 active test payloads across 12 vulnerability classes
 - SCA: full dependency graph with CVE + EPSS + KEV enrichment
 - IaC: Terraform, CloudFormation, Helm, Kubernetes manifests, ARM templates, Bicep, Pulumi

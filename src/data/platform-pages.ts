@@ -56,14 +56,14 @@ export const platformPages: Record<string, ProductPageData> = {
       "The first scan of a mature repository returns a wall of findings, and most of them are pattern matches nobody can act on without reading the code. The one real injection flaw is in there somewhere, ranked next to a hundred hotspots with the same severity. The dependency report is no better: sorted by CVSS, it puts a theoretical 9.8 above a medium-rated bug that attackers are exploiting this week. The team triages for a day, fixes nothing important, and stops opening the report.",
     mechanism: [
       "You give Onam a repository's HTTPS address and a branch — GitHub, GitLab or Bitbucket — and, if you want dynamic testing, the URL of a running app you are authorised to test. Each scan runs as its own isolated job against a shallow clone of that branch, and the clone is deleted when the scan ends.",
-      "Static analysis runs on the open-source Semgrep engine with three rule sources: community security packs (OWASP Top 10, security audit, secrets, Node.js), Onam-curated taint rules that follow untrusted input to a dangerous call, and Onam-reviewed pattern rules. Pattern rules that were judged code-quality rather than security are dropped before a scan runs.",
-      "Every result is graded by how much the rule can prove. Taint and AST matches become Security issues and keep the severity the rule asserts; pattern matches become Hotspots to review, capped at medium, so they can never outrank a confirmed flaw. Each finding carries the file, line, rule, CWE and OWASP category.",
+      "Static analysis runs on Onam's own engine with three kinds of Onam rules: data-flow rules that follow untrusted input to a dangerous call within a single function, code-structure rules that match the shape of the code, and reviewed pattern rules. No third-party rule packs are used. Pattern rules that were judged code-quality rather than security are dropped before a scan runs.",
+      "Every result is graded by how much the rule can prove. Data-flow and code-structure matches become Security issues and keep the severity the rule asserts; pattern matches become Hotspots to review, capped at medium, so they can never outrank a confirmed flaw. Each finding carries the file, line, rule, CWE and OWASP category.",
       "Dependency analysis reads manifests and lockfiles itself, matches each component against OSV and NVD advisories, adds EPSS exploit probability and CISA KEV membership, and turns them into a single 0–10 risk score. The same pass produces a CycloneDX 1.5 SBOM for the repository.",
       "IaC templates and Dockerfiles in the same clone are checked in the same scan, and secret rules run over every file. If you gave a target URL, dynamic testing discovers the app's endpoints and sends rate-limited test payloads at them.",
       "Results land in the Code Security console — projects, alerts, scan history, per-scanner tabs and trend reports — and static and dynamic scan results also feed the AppSec pillar of the platform's CNAPP posture score, next to your cloud posture.",
     ],
     whatYouGet: [
-      "Confirmed issues kept apart from hotspots — taint-backed findings first, pattern matches in a separate review list capped at medium",
+      "Confirmed issues kept apart from hotspots — data-flow and code-structure findings first, pattern matches in a separate review list capped at medium",
       "CWE and OWASP on every code finding — with the file, line and rule that produced it",
       "Coverage for mainstream languages — Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby",
       "Dependency risk beyond CVSS — a 0–10 score built from CVSS, EPSS, CISA KEV and whether a fixed version exists",
@@ -76,7 +76,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "Which languages does static analysis cover?",
-        a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Depth varies by language: Python, JavaScript/TypeScript, Java, C#, Go and Ruby have Onam-curated taint rules as well as community and pattern rules; C and C++ rely on community and pattern rules, so expect more of their results in the hotspot list. Other languages are not analysed today.",
+        a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Depth varies by language: Python, JavaScript/TypeScript, Java, C#, Go and Ruby have data-flow rules (traced within a single function) as well as code-structure rules; C and C++ have code-structure and pattern rules but no data-flow rules, so expect more of their results in the hotspot list. Other languages are not analysed today.",
       },
       {
         q: "What is the difference between a security issue and a hotspot?",
@@ -690,12 +690,12 @@ export const platformPages: Record<string, ProductPageData> = {
     question: "Are my AI workloads introducing security risks I haven't thought about?",
     headline: "Your AI services have a security surface of their own. Most CSPM rules don't check it.",
     metaDescription:
-      "AI security posture for SageMaker models, Bedrock endpoints, training pipelines and inference workloads, a surface standard CSPM rules miss.",
-    sub: "SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks their configuration, deepest on AWS today.",
+      "AI security posture on AWS, Azure and Google Cloud: SageMaker and Bedrock, Azure OpenAI and Azure Machine Learning, Vertex AI. A surface standard CSPM rules miss.",
+    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud: AI services have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks their configuration on AWS, Azure and Google Cloud.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM doesn't have a rule for it — AI security is the shadow IT nobody is watching.",
     mechanism: [
-      "Onam enumerates AI-specific resources — SageMaker endpoints, notebooks, training jobs, Bedrock invocations, model artifacts — via read-only APIs.",
+      "Onam finds AI-specific resources through read-only APIs: on AWS, SageMaker endpoints, notebooks, training jobs, Bedrock and model artifacts; on Azure, Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces; on Google Cloud, Vertex AI endpoints, datasets and Workbench instances.",
       "Each resource is evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events.",
       "On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
       "Findings integrate with the identity, network, and data engines, so an over-permissive endpoint reachable from the internet ranks alongside the equivalent web-app risk.",
@@ -707,14 +707,17 @@ export const platformPages: Record<string, ProductPageData> = {
       "Training job isolation (VPC + security groups)",
       "Model artifact encryption at rest",
       "Shadow AI detection (AWS, from audit logs)",
+      "Azure AI services and Azure OpenAI — public access, key-based sign-in, logging",
+      "Azure Machine Learning workspace network isolation",
+      "Vertex AI endpoints, datasets and Workbench instances — public access, encryption keys, logging",
       "SageMaker Studio network isolation",
       "ML service role scoping",
       "Logging and monitoring for inference and training",
     ],
     faqs: [
       {
-        q: "Which AWS AI services are covered today?",
-        a: "SageMaker (endpoints, notebooks, Studio, training jobs, models, feature store), Bedrock (models, provisioned throughput, agents, knowledge bases), Comprehend, Textract, Rekognition, and Kendra. Coverage expands as new services and features ship.",
+        q: "Which AI services are covered today?",
+        a: "AWS: SageMaker (endpoints, notebooks, Studio, training jobs, models, feature store), Bedrock (models, provisioned throughput, agents, knowledge bases), Comprehend, Textract, Rekognition, and Kendra. Azure: Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. AI services on other clouds are not checked yet.",
       },
       {
         q: "Why does AI security need a separate engine if I already have CSPM?",
@@ -722,7 +725,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What about Azure and Google Cloud AI services?",
-        a: "AWS has the deepest coverage today. Early checks exist for Azure Machine Learning and Cognitive Services and for Google Cloud AI services; coverage is still growing and follows customer demand.",
+        a: "Both are covered, proven on live Azure and Google Cloud accounts in October 2026. On Azure, Onam checks Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces: public network access, key-based sign-in, logging, managed identity and customer-managed keys. On Google Cloud, it checks Vertex AI endpoints, datasets and Workbench instances: public access, customer-managed keys, request logging, public IPs and default service accounts. AWS has the longest list of services, and shadow AI detection from audit logs is AWS only.",
       },
       {
         q: "Do AI security findings appear in compliance reports?",

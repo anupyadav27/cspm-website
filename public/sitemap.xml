@@ -110,7 +110,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/code-security/sast</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/code-security/sca-sbom</loc>
@@ -334,11 +334,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/security/capability-matrix</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/security/features-by-capability</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/cnapp</loc>
@@ -378,7 +378,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/secops</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/network-security</loc>
@@ -450,7 +450,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/overview</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/connect-repository</loc>
@@ -462,15 +462,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/reading-results</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/sast</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/secrets</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/iac</loc>
@@ -522,7 +522,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/architecture/overview</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/architecture/scanning</loc>
@@ -682,7 +682,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cspm</loc>
@@ -830,7 +830,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-snyk</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-cyera</loc>

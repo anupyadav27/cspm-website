@@ -1,30 +1,30 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 400" width="920" height="400" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
   <title id="t">How Onam SAST separates confirmed issues from hotspots</title>
-  <desc id="d">Three rule sources run over the cloned source: community security packs, Onam-curated taint rules and Onam-reviewed pattern rules. Pattern rules marked as code quality are dropped. Taint and AST matches become security issues with their own severity; pattern matches become hotspots to review with severity capped at medium. Duplicate hotspots on the same line are collapsed.</desc>
+  <desc id="d">Onam's own engine runs three kinds of Onam rule over the cloned source: data-flow rules, code-structure rules and reviewed pattern rules. Pattern rules marked as code quality are dropped. Data-flow and code-structure matches become security issues with their own severity; pattern matches become hotspots to review with severity capped at medium. Duplicate hotspots on the same line are collapsed.</desc>
   <rect width="920" height="400" fill="#F8FAFC" rx="10"/>
-  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">STATIC ANALYSIS — THREE RULE SOURCES, TWO KINDS OF RESULT</text>
+  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">STATIC ANALYSIS — THREE KINDS OF RULE, TWO KINDS OF RESULT</text>
   <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
 
   <!-- sources -->
   <rect x="16" y="48" width="270" height="320" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="151" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. RULE SOURCES</text>
-  <text x="151" y="82" text-anchor="middle" font-size="8" fill="#64748B">All run on the open-source Semgrep engine</text>
+  <text x="151" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. ONAM RULES</text>
+  <text x="151" y="82" text-anchor="middle" font-size="8" fill="#64748B">All run on Onam's own engine · no third-party packs</text>
   <line x1="26" y1="90" x2="276" y2="90" stroke="#CBD5E1" stroke-width="1"/>
 
   <rect x="30" y="102" width="242" height="76" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
-  <text x="151" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Community security packs</text>
-  <text x="151" y="142" text-anchor="middle" font-size="9" fill="#64748B">OWASP Top 10 · security audit</text>
-  <text x="151" y="156" text-anchor="middle" font-size="9" fill="#64748B">secrets · Node.js</text>
-  <text x="151" y="170" text-anchor="middle" font-size="9" fill="#64748B">General-purpose quality packs not used</text>
+  <text x="151" y="124" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Data-flow rules</text>
+  <text x="151" y="142" text-anchor="middle" font-size="9" fill="#64748B">Untrusted input → dangerous call</text>
+  <text x="151" y="156" text-anchor="middle" font-size="9" fill="#64748B">Python · JS/TS · Java · C# · Go · Ruby</text>
+  <text x="151" y="170" text-anchor="middle" font-size="9" fill="#64748B">Traced within a single function</text>
 
   <rect x="30" y="188" width="242" height="76" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
-  <text x="151" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Onam curated taint rules</text>
-  <text x="151" y="228" text-anchor="middle" font-size="9" fill="#64748B">Source → sink data flow</text>
-  <text x="151" y="242" text-anchor="middle" font-size="9" fill="#64748B">Python · JS/TS · Java · C# · Go · Ruby</text>
-  <text x="151" y="256" text-anchor="middle" font-size="9" fill="#64748B">plus generic secret patterns</text>
+  <text x="151" y="210" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Code-structure rules</text>
+  <text x="151" y="228" text-anchor="middle" font-size="9" fill="#64748B">Match the shape of the code</text>
+  <text x="151" y="242" text-anchor="middle" font-size="9" fill="#64748B">All nine languages</text>
+  <text x="151" y="256" text-anchor="middle" font-size="9" fill="#64748B">Comments and strings do not trigger them</text>
 
   <rect x="30" y="274" width="242" height="76" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="8"/>
-  <text x="151" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Onam reviewed pattern rules</text>
+  <text x="151" y="296" text-anchor="middle" font-size="11" font-weight="700" fill="#1E40AF">Reviewed pattern rules</text>
   <text x="151" y="314" text-anchor="middle" font-size="9" fill="#64748B">Each rule triaged by hand:</text>
   <text x="151" y="328" text-anchor="middle" font-size="9" fill="#64748B">security kept · code-quality and</text>
   <text x="151" y="342" text-anchor="middle" font-size="9" fill="#64748B">accessibility rules dropped</text>
@@ -64,7 +64,7 @@
 
   <rect x="648" y="102" width="242" height="112" fill="#FEF2F2" stroke="#FECACA" stroke-width="1.5" rx="8"/>
   <text x="769" y="126" text-anchor="middle" font-size="12" font-weight="700" fill="#B91C1C">Security issues</text>
-  <text x="769" y="146" text-anchor="middle" font-size="9" fill="#475569">From taint and AST rules</text>
+  <text x="769" y="146" text-anchor="middle" font-size="9" fill="#475569">From data-flow and structure rules</text>
   <text x="769" y="160" text-anchor="middle" font-size="9" fill="#475569">Keep the severity the rule asserts</text>
   <text x="769" y="174" text-anchor="middle" font-size="9" fill="#475569">File · line · rule · CWE · OWASP</text>
   <text x="769" y="196" text-anchor="middle" font-size="9" font-weight="700" fill="#B91C1C">Work these first</text>
