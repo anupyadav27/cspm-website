@@ -47,7 +47,7 @@
     <mxCell id="28" value="Container Sec&lt;br&gt;K8s/EKS/ECS" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=10;align=center;" vertex="1" parent="1">
       <mxGeometry x="340" y="240" width="130" height="55" as="geometry" />
     </mxCell>
-    <mxCell id="29" value="AI Security&lt;br&gt;SageMaker/Bedrock" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=10;align=center;" vertex="1" parent="1">
+    <mxCell id="29" value="AI Security&lt;br&gt;AWS · Azure · Google Cloud" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=10;align=center;" vertex="1" parent="1">
       <mxGeometry x="480" y="240" width="130" height="55" as="geometry" />
     </mxCell>
     <mxCell id="30" value="Technology&lt;br&gt;5,025 rules" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#EFF6FF;strokeColor=#3B82F6;strokeWidth=1.5;fontSize=10;align=center;" vertex="1" parent="1">

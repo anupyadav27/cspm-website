@@ -152,7 +152,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 8 platforms; 433 CIS rules across 6 of them | GitHub and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Risk checks for AI and machine-learning services such as SageMaker and Bedrock. | Available | AWS AI services (SageMaker, Bedrock) | Checks cover AWS AI services only. |
+| [AI Security](/platform/ai-security) | Risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI. | Available | AI services on AWS, Azure and Google Cloud | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is AWS only. AI services on other clouds are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
 | [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 78 frameworks | Controls with no automated check are marked for manual review. |
@@ -563,7 +563,7 @@ Posture checks for business SaaS platforms. Available with limits. [Product page
 
 ### AI Security
 
-Risk checks for AI and machine-learning services such as SageMaker and Bedrock. Available. [Product page](/platform/ai-security).
+Risk checks for AI and machine-learning services on AWS, Azure and Google Cloud. Available. [Product page](/platform/ai-security).
 
 | Feature | Detail |
 | --- | --- |
@@ -571,10 +571,15 @@ Risk checks for AI and machine-learning services such as SageMaker and Bedrock. 
 | Bedrock model invocation audit | — |
 | Training job isolation | VPC and security groups |
 | Model artifact encryption at rest | — |
-| Shadow AI detection | AWS, from audit logs |
+| Shadow AI detection | AWS only, from audit logs |
 | SageMaker Studio network isolation | — |
 | ML service role scoping | — |
 | Logging and monitoring | for inference and training |
+| Azure AI services and Azure OpenAI accounts | public network access, key-based sign-in, diagnostic logs, managed identity, outbound access, customer-managed keys |
+| Azure Machine Learning workspaces | public access, managed network, customer-managed keys |
+| Vertex AI endpoints | public access (no VPC or Private Service Connect), customer-managed keys, request logging |
+| Vertex AI datasets | customer-managed keys, classification label |
+| Vertex AI Workbench instances | public IP, default service account, Secure Boot |
 
 ### AI Assistant
 

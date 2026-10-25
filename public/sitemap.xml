@@ -334,11 +334,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/security/capability-matrix</loc>
-    <lastmod>2026-10-13</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/security/features-by-capability</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/features/cnapp</loc>
@@ -466,7 +466,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/sast</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-10-25</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/code-security/secrets</loc>

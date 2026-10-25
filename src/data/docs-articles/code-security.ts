@@ -259,11 +259,11 @@ Before scanning, the clone is pruned of \`node_modules\`, \`vendor\`, build outp
 
 ## Engine change in October 2026
 
-Static analysis moved from the open-source Semgrep engine, with community rule packs, to Onam's own engine and Onam's own rules. The first scan of each repository after the switch can show a different set of findings from the scan before it:
+Static analysis moved from the open-source Semgrep engine, with community rule packs, to Onam's own engine and Onam's own rules. Onam's engine has been the default for every language since 25 October 2026. Rule names did not change: existing findings keep the rule name they had. The first scan of each repository after the switch can still show a different number of findings from the scan before it:
 
-- **Some findings disappear.** Results that only the community packs produced are gone. Onam wrote its own rules for the issues those packs were finding, so most come back under a new rule name.
-- **Some findings are new.** The new rules for secrets, GitHub Actions workflows, Terraform, npm config and HTML templates find things the old setup did not.
-- **Some findings move between lists.** A few results change rule name, severity or list (security issue or hotspot) because the new rule can prove more, or less, than the old one.
+- **Some findings disappear.** The old community rule packs are switched off, so results that only those packs produced are gone.
+- **Some findings are new.** 145 new Onam rules, including rules for secrets, GitHub Actions workflows, Terraform, npm config and HTML templates, find things the old setup did not.
+- **A few findings change severity or list.** A result can move between security issue and hotspot when Onam's engine can prove more, or less, than the old one.
 
 Nothing you need to do: each scan already produces a fresh list, so there is no old status to carry over. Compare the first scan after the switch against the one before it, not against the trend line.
 `,

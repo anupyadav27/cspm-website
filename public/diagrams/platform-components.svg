@@ -111,7 +111,7 @@
 
   <rect x="556" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
   <text x="636" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AI Security</text>
-  <text x="636" y="401" text-anchor="middle" font-size="9"  fill="#64748B">SageMaker · Bedrock</text>
+  <text x="636" y="401" text-anchor="middle" font-size="9"  fill="#64748B">AWS · Azure · Google Cloud</text>
 
   <rect x="732" y="370" width="160" height="38" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
   <text x="812" y="386" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Encryption</text>

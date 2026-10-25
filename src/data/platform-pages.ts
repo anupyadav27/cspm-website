@@ -690,12 +690,12 @@ export const platformPages: Record<string, ProductPageData> = {
     question: "Are my AI workloads introducing security risks I haven't thought about?",
     headline: "Your AI services have a security surface of their own. Most CSPM rules don't check it.",
     metaDescription:
-      "AI security posture for SageMaker models, Bedrock endpoints, training pipelines and inference workloads, a surface standard CSPM rules miss.",
-    sub: "SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks their configuration, deepest on AWS today.",
+      "AI security posture on AWS, Azure and Google Cloud: SageMaker and Bedrock, Azure OpenAI and Azure Machine Learning, Vertex AI. A surface standard CSPM rules miss.",
+    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud: AI services have a distinct security surface — misconfigured by default and invisible to standard CSPM rules. Onam checks their configuration on AWS, Azure and Google Cloud.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM doesn't have a rule for it — AI security is the shadow IT nobody is watching.",
     mechanism: [
-      "Onam enumerates AI-specific resources — SageMaker endpoints, notebooks, training jobs, Bedrock invocations, model artifacts — via read-only APIs.",
+      "Onam finds AI-specific resources through read-only APIs: on AWS, SageMaker endpoints, notebooks, training jobs, Bedrock and model artifacts; on Azure, Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces; on Google Cloud, Vertex AI endpoints, datasets and Workbench instances.",
       "Each resource is evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events.",
       "On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
       "Findings integrate with the identity, network, and data engines, so an over-permissive endpoint reachable from the internet ranks alongside the equivalent web-app risk.",
@@ -707,14 +707,17 @@ export const platformPages: Record<string, ProductPageData> = {
       "Training job isolation (VPC + security groups)",
       "Model artifact encryption at rest",
       "Shadow AI detection (AWS, from audit logs)",
+      "Azure AI services and Azure OpenAI — public access, key-based sign-in, logging",
+      "Azure Machine Learning workspace network isolation",
+      "Vertex AI endpoints, datasets and Workbench instances — public access, encryption keys, logging",
       "SageMaker Studio network isolation",
       "ML service role scoping",
       "Logging and monitoring for inference and training",
     ],
     faqs: [
       {
-        q: "Which AWS AI services are covered today?",
-        a: "SageMaker (endpoints, notebooks, Studio, training jobs, models, feature store), Bedrock (models, provisioned throughput, agents, knowledge bases), Comprehend, Textract, Rekognition, and Kendra. Coverage expands as new services and features ship.",
+        q: "Which AI services are covered today?",
+        a: "AWS: SageMaker (endpoints, notebooks, Studio, training jobs, models, feature store), Bedrock (models, provisioned throughput, agents, knowledge bases), Comprehend, Textract, Rekognition, and Kendra. Azure: Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. AI services on other clouds are not checked yet.",
       },
       {
         q: "Why does AI security need a separate engine if I already have CSPM?",
@@ -722,7 +725,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What about Azure and Google Cloud AI services?",
-        a: "AWS has the deepest coverage today. Early checks exist for Azure Machine Learning and Cognitive Services and for Google Cloud AI services; coverage is still growing and follows customer demand.",
+        a: "Both are covered, proven on live Azure and Google Cloud accounts in October 2026. On Azure, Onam checks Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces: public network access, key-based sign-in, logging, managed identity and customer-managed keys. On Google Cloud, it checks Vertex AI endpoints, datasets and Workbench instances: public access, customer-managed keys, request logging, public IPs and default service accounts. AWS has the longest list of services, and shadow AI detection from audit logs is AWS only.",
       },
       {
         q: "Do AI security findings appear in compliance reports?",

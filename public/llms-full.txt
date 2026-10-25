@@ -95,7 +95,7 @@ the right choice. Onam has no public reference customers.
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to MITRE ATT&CK for Cloud — so when something unusual happens, your team already knows the technique, the likely next move, and how to respond.
 - [Network Security](https://www.onamsecurity.com/platform/network-security): Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path — from VPC isolation to WAF coverage and flow log monitoring — and shows…
 - [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Onam's DSPM inventories every data store across your clouds, labels it from metadata, and joins it to exposure, identity, encryption and lineage — so a sensitive store is never…
-- [AI Security](https://www.onamsecurity.com/platform/ai-security): SageMaker models, Bedrock endpoints, training pipelines, and inference workloads have a distinct security surface — misconfigured by default and invisible to standard CSPM rules.…
+- [AI Security](https://www.onamsecurity.com/platform/ai-security): SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud: AI services have a distinct security surface — misconfigured by default…
 - [Container & Kubernetes Security (KSPM)](https://www.onamsecurity.com/platform/container-security): Kubernetes Security Posture Management (KSPM) and container security in one place — covers your full container estate — image vulnerabilities, Kubernetes RBAC, network policies,…
 - [Vulnerability Management](https://www.onamsecurity.com/platform/vulnerability): EPSS probability, network reachability, and CISA KEV status combined — so you fix the CVEs most likely to be exploited in your specific environment, not just the highest CVSS…
 - [AI Code Fix](https://www.onamsecurity.com/platform/ai-code-fix): AI Code Fix takes the findings from a completed code scan, rewrites each affected source file with a large language model, and commits the result to a separate branch for your…
@@ -2488,7 +2488,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 8 platforms; 433 CIS rules across 6 of them | GitHub and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Risk checks for AI and machine-learning services such as SageMaker and Bedrock. | Available | AWS AI services (SageMaker, Bedrock) | Checks cover AWS AI services only. |
+| [AI Security](/platform/ai-security) | Risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI. | Available | AI services on AWS, Azure and Google Cloud | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is AWS only. AI services on other clouds are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
 | [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 78 frameworks | Controls with no automated check are marked for manual review. |
@@ -2898,7 +2898,7 @@ Posture checks for business SaaS platforms. Available with limits. [Product page
 
 ### AI Security
 
-Risk checks for AI and machine-learning services such as SageMaker and Bedrock. Available. [Product page](/platform/ai-security).
+Risk checks for AI and machine-learning services on AWS, Azure and Google Cloud. Available. [Product page](/platform/ai-security).
 
 | Feature | Detail |
 | --- | --- |
@@ -2906,10 +2906,15 @@ Risk checks for AI and machine-learning services such as SageMaker and Bedrock. 
 | Bedrock model invocation audit | — |
 | Training job isolation | VPC and security groups |
 | Model artifact encryption at rest | — |
-| Shadow AI detection | AWS, from audit logs |
+| Shadow AI detection | AWS only, from audit logs |
 | SageMaker Studio network isolation | — |
 | ML service role scoping | — |
 | Logging and monitoring | for inference and training |
+| Azure AI services and Azure OpenAI accounts | public network access, key-based sign-in, diagnostic logs, managed identity, outbound access, customer-managed keys |
+| Azure Machine Learning workspaces | public access, managed network, customer-managed keys |
+| Vertex AI endpoints | public access (no VPC or Private Service Connect), customer-managed keys, request logging |
+| Vertex AI datasets | customer-managed keys, classification label |
+| Vertex AI Workbench instances | public IP, default service account, Secure Boot |
 
 ### AI Assistant
 
@@ -5174,11 +5179,11 @@ Before scanning, the clone is pruned of `node_modules`, `vendor`, build output, 
 
 ## Engine change in October 2026
 
-Static analysis moved from the open-source Semgrep engine, with community rule packs, to Onam's own engine and Onam's own rules. The first scan of each repository after the switch can show a different set of findings from the scan before it:
+Static analysis moved from the open-source Semgrep engine, with community rule packs, to Onam's own engine and Onam's own rules. Onam's engine has been the default for every language since 25 October 2026. Rule names did not change: existing findings keep the rule name they had. The first scan of each repository after the switch can still show a different number of findings from the scan before it:
 
-- **Some findings disappear.** Results that only the community packs produced are gone. Onam wrote its own rules for the issues those packs were finding, so most come back under a new rule name.
-- **Some findings are new.** The new rules for secrets, GitHub Actions workflows, Terraform, npm config and HTML templates find things the old setup did not.
-- **Some findings move between lists.** A few results change rule name, severity or list (security issue or hotspot) because the new rule can prove more, or less, than the old one.
+- **Some findings disappear.** The old community rule packs are switched off, so results that only those packs produced are gone.
+- **Some findings are new.** 145 new Onam rules, including rules for secrets, GitHub Actions workflows, Terraform, npm config and HTML templates, find things the old setup did not.
+- **A few findings change severity or list.** A result can move between security issue and hotspot when Onam's engine can prove more, or less, than the old one.
 
 Nothing you need to do: each scan already produces a fresh list, so there is no old status to carry over. Compare the first scan after the switch against the one before it, not against the trend line.
 
