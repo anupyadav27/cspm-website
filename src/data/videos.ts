@@ -95,11 +95,11 @@ export const VIDEOS = {
     playlist: PLAYLISTS.cloudSecurity,
   },
   codeSecurity: {
-    id: "YW1faBYuOqU",
+    id: "sj_DK_xJqrA",
     title: "DevSecOps: find hardcoded secrets with SAST, fix them with AI Code Fix | Onam Code Security",
     description:
       "A short Q&A on DevSecOps: finding hardcoded secrets with static analysis (SAST) and fixing them on a reviewable branch with AI Code Fix.",
-    uploadDate: "2026-10-06T19:01:51-07:00",
+    uploadDate: "2026-10-25T12:40:08Z",
     playlist: PLAYLISTS.cloudSecurity,
   },
   whichAlert: {
