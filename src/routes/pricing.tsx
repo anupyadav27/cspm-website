@@ -17,7 +17,7 @@ export const Route = createFileRoute("/pricing")({
     seo({
       title: "Pricing — Onam",
       description:
-        "Pricing for the Onam platform. Onam Security has Free, Pro and Enterprise plans. Onam Estate, FinOps and DRM are stand-alone products granted per organisation — contact sales. Onam AIOps is in early access by invitation.",
+        "Pricing for the Onam platform. Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation — contact sales. Onam AIOps is in early access by invitation.",
       path: "/pricing",
       image: "/og/pricing.png",
     }),
@@ -37,29 +37,27 @@ type Tier = {
 
 const tiers: Tier[] = [
   {
-    name: "Free",
+    name: "Audit scan",
     price: "$0",
-    priceSub: "forever",
-    blurb: "Connect one account and start finding misconfigurations — no time limit, no credit card.",
+    priceSub: "one time, no commitment",
+    blurb: "Before you decide: we scan one cloud account with read-only posture scanning and walk you through what we find.",
     features: [
-      "1 cloud account",
-      "Up to 500 resources",
-      "Core CSPM rules (Critical & High)",
-      "CIS benchmark coverage",
-      "30-day finding history",
-      "Community support",
+      "1 cloud account, scanned once",
+      "Every risk ranked, each with its fix",
+      "Findings mapped to compliance frameworks",
+      "A report you keep",
+      "45-minute readout with our team",
     ],
-    notIncluded: ["CIEM & threat detection", "Compliance report export", "Team access & SSO"],
-    cta: { label: "Start free", to: "/request-demo" },
+    notIncluded: ["Continuous monitoring", "Team access & SSO", "Workload, identity and data engines"],
+    cta: { label: "Request an audit scan", to: "/request-demo" },
   },
   {
-    name: "Pro",
-    price: "$22",
-    priceSub: "per resource / month",
-    blurb: "Every security layer. Unlimited accounts. Platform fee plus $22 per resource, billed monthly.",
+    name: "Onam Security",
+    price: "Annual",
+    priceSub: "priced per cloud account",
+    blurb: "Every security layer across seven clouds, priced per connected cloud account and billed annually. Buy direct, through a partner, or on Microsoft Marketplace.",
     features: [
-      "Unlimited cloud accounts",
-      "$22 / resource / month, pay-as-you-go",
+      "Priced per connected cloud account",
       `All ${ENGINES} engines — CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM`,
       `All ${FRAMEWORKS} compliance frameworks`,
       "CIEM & identity attack paths",
@@ -71,19 +69,19 @@ const tiers: Tier[] = [
       "AI assistant & per-finding remediation",
       "1-year finding history",
       "Email & Slack notifications",
-      "REST API access",
+      "Reports & exports — CSV, JSON, PDF",
       "Email support",
     ],
-    cta: { label: "Start 14-day free trial", to: "/request-demo" },
+    cta: { label: "Get a quote", to: "/company/contact" },
     highlight: true,
   },
   {
-    name: "Enterprise",
+    name: "Enterprise & partners",
     price: "Custom",
     priceSub: "annual contract",
-    blurb: "For regulated organisations that need agreed service levels, custom frameworks, and dedicated support.",
+    blurb: "For regulated organisations and for security service providers who run Onam for their own clients.",
     features: [
-      "Everything in Pro",
+      "Everything in Onam Security",
       "Multi-tenant organisation support",
       "Custom compliance framework builder",
       "SSO / SAML 2.0",
@@ -101,34 +99,37 @@ const tiers: Tier[] = [
 ];
 
 const comparison: { label: string; free: string; pro: string; ent: string }[] = [
-  { label: "Cloud accounts", free: "1", pro: "Unlimited", ent: "Unlimited + multi-tenant" },
-  { label: "Resources scanned", free: "Up to 500", pro: "Pay-as-you-go", ent: "Custom" },
-  { label: "Security engines", free: "Core CSPM", pro: `All ${ENGINES} engines`, ent: `All ${ENGINES} engines · custom rules` },
+  { label: "Cloud accounts", free: "1, scanned once", pro: "Priced per account", ent: "Per account + multi-tenant" },
+  { label: "Resources scanned", free: "All in the account", pro: "All", ent: "All" },
+  { label: "Security engines", free: "Posture (CSPM)", pro: `All ${ENGINES} engines`, ent: `All ${ENGINES} engines · custom rules` },
   { label: "SaaS security (SSPM)", free: "—", pro: "All 8 platforms", ent: "All 8 + custom connectors" },
   { label: "Agentless workload scanning", free: "—", pro: "Included", ent: "Included · custom schedules" },
-  { label: "Compliance frameworks", free: "CIS", pro: `All ${FRAMEWORKS} frameworks`, ent: `All ${FRAMEWORKS} + custom builder` },
-  { label: "Finding history", free: "30 days", pro: "1 year", ent: "Custom retention" },
-  { label: "Notifications", free: "—", pro: "Email + Slack", ent: "Email, Slack, webhooks, SIEM" },
-  { label: "API access", free: "—", pro: "REST", ent: "REST + Terraform provider" },
+  { label: "Compliance frameworks", free: "Mapped in the report", pro: `All ${FRAMEWORKS} frameworks`, ent: `All ${FRAMEWORKS} + custom builder` },
+  { label: "Finding history", free: "The report you keep", pro: "1 year", ent: "Custom retention" },
+  { label: "Notifications", free: "—", pro: "Email + Slack", ent: "Email, Slack, PagerDuty, webhooks" },
+  { label: "Reports & exports", free: "Report", pro: "CSV, JSON, PDF", ent: "CSV, JSON, PDF + webhooks" },
   { label: "SSO / SAML 2.0", free: "—", pro: "—", ent: "Included" },
   { label: "RBAC", free: "—", pro: "Basic", ent: "Custom roles" },
-  { label: "Support", free: "Community", pro: "Email", ent: "Priority + CSM" },
+  { label: "Support", free: "Readout with our team", pro: "Email", ent: "Priority + CSM" },
   { label: "Service levels", free: "—", pro: "—", ent: "Agreed in your contract" },
   { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS or on-prem" },
 ];
 
 const faqs = [
   {
-    q: "How does the $22 / resource / month pricing work?",
-    a: "A resource is any billable cloud object we scan — an EC2 instance, an S3 bucket, a Lambda, an IAM user, a Kubernetes pod, and so on. You pay per active resource at the end of each billing period. No overage penalties.",
+    q: "How is Onam Security priced?",
+    a: "As an annual subscription priced per connected cloud account. Tell us how many accounts you run and on which clouds, and we send a quote. You can buy direct, through an Onam partner, or as a private offer on Microsoft Marketplace.",
   },
-  { q: "Is there really no credit card required for Free?", a: "None. Connect one account, get findings, keep the plan indefinitely." },
-  { q: "Can we switch between Pro and Enterprise mid-contract?", a: "Yes. Pro is month-to-month; upgrading to Enterprise moves you onto an annual contract, with service levels agreed in that contract." },
-  { q: "Do you offer a nonprofit or academic discount?", a: "Yes — contact sales. Verified nonprofits and academic institutions receive a discount on Pro and Enterprise." },
-  { q: "How is usage measured for billing?", a: "Onam samples resource counts daily and averages them across the billing period. You are never charged for a resource that no longer exists." },
   {
-    q: "Are Onam Estate, Onam FinOps and Onam DRM included in Pro or Enterprise?",
-    a: "No. Each is a separate product enabled per organisation, not features of a security tier — so upgrading your security plan does not turn them on, and buying one of them does not require a security plan. Talk to sales about any of them.",
+    q: "What does the free audit scan include?",
+    a: "We connect to one cloud account through read-only posture scanning, run the checks once and walk you through the results in a 45-minute readout: every risk ranked, each with its fix, mapped to compliance frameworks. You keep the report. There is no charge and no commitment.",
+  },
+  { q: "Can we add cloud accounts during the year?", a: "Yes. Tell us and we update your quote for the accounts you add." },
+  { q: "Do you offer a nonprofit or academic discount?", a: "Yes — contact sales. Verified nonprofits and academic institutions receive a discount." },
+  { q: "Can we buy through our existing security or cloud partner?", a: "Often, yes. Onam works with security service providers and cloud partners who resell or run Onam for their clients. Ask us, or ask your partner." },
+  {
+    q: "Are Onam Estate, Onam FinOps and Onam DRM included in Onam Security?",
+    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription — so buying Onam Security does not turn them on, and buying one of them does not require Onam Security. Talk to sales about any of them.",
   },
   {
     q: "Can we buy Onam FinOps without Onam Security?",
@@ -221,8 +222,9 @@ function PricingPage() {
             Four products. Buy the ones you need.
           </h1>
           <p className="mt-5 text-lg text-[#475569]">
-            Onam Security has published plans and a free tier, no credit card required. Onam Estate, FinOps and DRM
-            are stand-alone products granted per organisation. Onam AIOps is in early access.
+            Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan
+            before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation.
+            Onam AIOps is in early access.
           </p>
           <nav aria-label="Jump to a product" className="mt-8 flex flex-wrap justify-center gap-2">
             {[
@@ -374,8 +376,8 @@ function PricingPage() {
               <thead>
                 <tr className="bg-[#F8FAFC] border-b border-[#E5E9F0]">
                   <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Feature</th>
-                  <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Free</th>
-                  <th className="text-left font-display font-bold text-[#2563EB] px-5 py-4">Pro</th>
+                  <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Audit scan</th>
+                  <th className="text-left font-display font-bold text-[#2563EB] px-5 py-4">Onam Security</th>
                   <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Enterprise</th>
                 </tr>
               </thead>

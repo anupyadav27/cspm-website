@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.onamsecurity.com/</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/case-studies</loc>
@@ -26,7 +26,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/terms</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare</loc>
@@ -182,7 +182,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/pricing</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/request-demo</loc>
@@ -674,7 +674,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/integration-catalog</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/reference/rbac-and-sso</loc>
@@ -862,11 +862,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</loc>
@@ -886,11 +886,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-alternatives</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/best-cspm-tools</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-28</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>

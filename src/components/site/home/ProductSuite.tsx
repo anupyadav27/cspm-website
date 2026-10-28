@@ -392,7 +392,7 @@ export function OneFoundation() {
     },
     {
       t: "Buy what you need",
-      b: "Onam Security comes in Free, Pro and Enterprise. Estate, FinOps and DRM are added per organisation.",
+      b: "Onam Security is an annual subscription priced per cloud account. Estate, FinOps and DRM are added per organisation.",
     },
   ];
   return (

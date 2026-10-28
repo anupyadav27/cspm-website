@@ -642,8 +642,8 @@ The catalog is grouped into six categories. Teams typically connect 3–5 on fir
 
 | Integration | Status | What it does |
 | --- | --- | --- |
-| Jira | Available | Auto-create issues for critical/high findings; sync status back to the platform |
-| ServiceNow | Available | Create incidents for findings; bidirectional status sync |
+| Jira | Available | Open a Jira issue from a finding. Automatic creation and status sync: coming soon |
+| ServiceNow | Available | Open a ServiceNow record from a finding. Automatic creation and status sync: coming soon |
 | Azure DevOps | Coming soon | Create work items for security findings |
 | Linear | Coming soon | Create Linear issues for code security findings |
 | GitHub Issues | Coming soon | Create issues linked to SecOps findings |
@@ -653,18 +653,18 @@ The catalog is grouped into six categories. Teams typically connect 3–5 on fir
 | Integration | Status | What it does |
 | --- | --- | --- |
 | Slack | Available | Send finding alerts to channels; per-severity routing |
-| Microsoft Teams | Available | Send alerts to Teams channels |
-| PagerDuty | Available | Page on-call for critical findings; auto-resolve when fixed |
-| OpsGenie | Available | Create OpsGenie alerts for critical findings |
-| Email / SMTP | Available | Daily or weekly digest; real-time critical alerts |
+| Microsoft Teams | Coming soon | Send alerts to Teams channels |
+| PagerDuty | Available | Page on-call for critical findings |
+| OpsGenie | Coming soon | Create OpsGenie alerts for critical findings |
+| Email | Available | Finding alerts by email |
 
 ### SIEM and observability
 
 | Integration | Status | What it does |
 | --- | --- | --- |
-| Splunk | Available | Stream findings and scan events to Splunk HEC |
-| Azure Sentinel | Available | Forward findings as Sentinel custom logs |
-| AWS Security Hub | Available | Push findings in ASFF format to Security Hub |
+| Splunk | Coming soon | Stream findings and scan events to Splunk HEC |
+| Azure Sentinel | Coming soon | Forward findings as Sentinel custom logs |
+| AWS Security Hub | Coming soon | Push findings in ASFF format to Security Hub |
 | Datadog | Coming soon | Stream findings as Datadog events |
 | Sumo Logic | Coming soon | Stream findings to a Sumo Logic HTTP source |
 | IBM QRadar | Coming soon | Push findings via QRadar syslog/CEF |
@@ -674,8 +674,8 @@ The catalog is grouped into six categories. Teams typically connect 3–5 on fir
 | Integration | Status | What it does |
 | --- | --- | --- |
 | Generic Webhook | Available | POST findings to any HTTP endpoint |
-| GitHub Actions | Available | Scan IaC and code repos in CI; fail PRs on new critical findings |
-| GitLab CI | Available | Same as GitHub Actions for GitLab pipelines |
+| GitHub Actions | Coming soon | Scan IaC and code repos in CI; fail PRs on new critical findings |
+| GitLab CI | Coming soon | Same as GitHub Actions for GitLab pipelines |
 | Cortex XSOAR | Coming soon | Trigger XSOAR playbooks from findings |
 | Torq | Coming soon | Trigger Torq workflows from findings |
 | Tines | Coming soon | Trigger Tines stories from findings |
@@ -687,17 +687,7 @@ The catalog is grouped into six categories. Teams typically connect 3–5 on fir
 
 ## Jira setup
 
-The Jira integration is the most-used integration on the platform. It auto-creates Jira issues for findings that match your filters and bidirectionally syncs status — closing the Jira issue acknowledges the finding, and re-opening the Jira issue re-opens the finding.
-
-![Jira auto-create flow — critical finding triggers a Jira issue, the team remediates, a scan verifies, the finding auto-closes](/diagrams/ref-int-jira-flow.svg)
-
-Reading the flow left to right:
-
-1. **Critical finding detected** — for example, an S3 bucket with public access containing PII.
-2. **Auto-create rule** — the integration filter decides whether to create an issue (Critical only, Critical + High, or all findings).
-3. **Jira issue created** — populated with summary, description, priority, labels, and an Onam deep link.
-4. **Team remediates** — standard Jira workflow; move to Done when the cloud config is fixed.
-5. **Auto-close** — the next scan verifies the fix and resolves the finding, which also marks the Jira issue done if it isn't already.
+The Jira integration opens a Jira issue from a finding, filled with the finding detail, the affected resource, the fix and a console link. Automatic creation by severity and two-way status sync are coming soon; today an issue is opened from the finding.
 
 Setup steps:
 
@@ -711,7 +701,6 @@ Setup steps:
 | Project key | Which Jira project to create issues in |
 | Issue type | Bug, Task, or Story — Bug or a custom Security type recommended |
 | Severity mapping | Critical to Priority Highest, High to High, and so on |
-| Auto-create threshold | Critical only · Critical + High · All findings |
 
 Jira issue fields populated automatically:
 

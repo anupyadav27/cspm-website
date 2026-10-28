@@ -263,7 +263,7 @@ Classification is metadata-based: Onam labels each store PII, PHI, PCI, financia
 
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
-If you want to see what this looks like on your own accounts, a [14-day trial](/request-demo) is the quickest way to find out.
+If you want to see what this looks like on your own accounts, a [free one-time audit scan](/request-demo) is the quickest way to find out.
 `,
   },
   {
@@ -363,7 +363,7 @@ Data lineage is part of [Onam's Data Security engine](/platform/data-security), 
 
 Each store in a chain carries its own DSPM checks — encryption, public access, logging, lifecycle — and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
-To see the chains in your own environment, [request a demo](/request-demo) or start a 14-day trial.
+To see the chains in your own environment, [request a demo](/request-demo) or a free one-time audit scan.
 `,
   },
   {
@@ -783,7 +783,7 @@ Each cell in the deployment and ranking columns is what the vendor's own page sa
 | SentinelOne Singularity Cloud Security | SentinelOne endpoint customers | Not stated on the page we read; ask | "Verified, exploitable risk" | Ask for a quote |
 | Sysdig Secure | Container and Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Lacework FortiCNAPP (Fortinet) | Fortinet network estates | Not stated on the page we read; ask | Attack path visualisation | Ask for a quote |
-| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | Published on our [pricing page](/pricing), with a free plan |
+| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | Annual per cloud account; free one-time audit scan ([pricing](/pricing)) |
 
 ## Why teams look for a Wiz alternative
 
@@ -973,7 +973,7 @@ Deployment and ranking are what each vendor's own page says, on the date read. "
 | Sysdig Secure | Container and Kubernetes-heavy teams | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Tenable Cloud Security | Tenable VM customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
 | Wiz | Almost any shortlist; the category reference point | API connection; Wiz Sensor for runtime | "Prioritized issues of toxic combinations" | Packages quoted on request |
-| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | Published on our [pricing page](/pricing), with a free plan |
+| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | Annual per cloud account; free one-time audit scan ([pricing](/pricing)) |
 
 ## How to evaluate CSPM tools: five criteria that still separate them
 
@@ -1065,7 +1065,7 @@ Match the shortlist to your situation first:
 | You want an agentless-first platform from an independent vendor | Wiz and Orca, side by side |
 | Containers and Kubernetes dominate, runtime matters most | A runtime-first platform such as Sysdig, plus one posture-first platform |
 | You run OCI, Alibaba Cloud or IBM Cloud, or need risk in money | Include Onam and ask every vendor to demo those clouds |
-| Small team, tight budget | Start with a free tier (Defender foundational CSPM, open-source Prowler, or Onam's free plan) before buying |
+| Small team, tight budget | Start with a free option (Defender foundational CSPM, open-source Prowler, or Onam's free one-time audit scan) before buying |
 
 Then run a two-week proof of concept. Connect three tools to the same non-production accounts you know have real problems, and compare what each ranks first, in what unit, and how many of the top findings are the same problem viewed from different angles. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) gives you the questions to ask in each week.
 
@@ -1091,7 +1091,7 @@ Every vendor says multi-cloud. Ask for the per-cloud rule breakdown, a live demo
 
 ### Are there free CSPM tools?
 
-Yes. Microsoft's foundational CSPM tier in Defender for Cloud is free, Prowler is an open-source posture scanner, and Onam has a free plan for one cloud account. Free tiers usually stop short of attack paths and full compliance coverage, so compare what is included.
+Yes. Microsoft's foundational CSPM tier in Defender for Cloud is free, Prowler is an open-source posture scanner, and Onam offers a free one-time audit scan of one cloud account. Free options usually stop short of attack paths and full compliance coverage, so compare what is included.
 
 ### How long does a CSPM deployment take?
 

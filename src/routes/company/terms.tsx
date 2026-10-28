@@ -40,7 +40,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          Access to the Service is offered under Free, Pro, and Enterprise plans. Fees, resource-count pricing, and billing terms for each plan are as published on our pricing page or in an executed order form. Unless otherwise agreed in writing, Pro plans are billed monthly and Enterprise plans are billed annually in advance.
+          Access to the Service is offered as an annual subscription priced per connected cloud account, and as a one-time audit scan at no charge. Fees and billing terms are as set out in an executed order form or a marketplace private offer. Unless otherwise agreed in writing, subscriptions are billed annually in advance.
         </p>
         <p className="mt-2">
           You are responsible for keeping billing information current. Non-payment may result in suspension or termination of the Service.
