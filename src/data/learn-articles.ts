@@ -51,7 +51,7 @@ export type LearnArticle = {
 export const LEARN_ARTICLES: LearnArticle[] = [
   {
     slug: "cspm",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is CSPM (Cloud Security Posture Management)?",
     title: "What is CSPM? Cloud Security Posture Management Explained",
     excerpt:
@@ -167,7 +167,7 @@ Buying these as four products from four vendors reproduces the problem they were
 
   {
     slug: "cnapp",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is CNAPP (Cloud-Native Application Protection Platform)?",
     title: "What is CNAPP? Cloud-Native Application Protection Explained",
     excerpt:
@@ -260,7 +260,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
 
   {
     slug: "cwpp",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is CWPP (Cloud Workload Protection Platform)?",
     title: "What is CWPP? Cloud Workload Protection and CSPM vs CWPP",
     excerpt:
@@ -833,7 +833,7 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
 
   {
     slug: "cloud-attack-path",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is attack path analysis?",
     title: "What is Attack Path Analysis? Attack Path Mapping in Cloud",
     excerpt:
@@ -997,7 +997,7 @@ Onam keeps the signals attack path analysis joins in one platform across AWS, Az
 
   {
     slug: "agentless-cloud-security",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is agentless cloud security?",
     title: "What is Agentless Cloud Security? Agentless vs Agent-Based",
     excerpt:
@@ -1168,7 +1168,7 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
   },
   {
     slug: "choke-point",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     question: "What is a choke point in cloud security?",
     title: "What is a Choke Point? Attack Path Choke Points Explained",
     excerpt:

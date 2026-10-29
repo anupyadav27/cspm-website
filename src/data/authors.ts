@@ -15,7 +15,7 @@
  */
 import { SITE_URL } from "../lib/seo";
 
-export type AuthorSlug = "anup-yadav" | "poonam-yadav" | "nishchal-gupta" | "ajay-chaudhary";
+export type AuthorSlug = "anup-yadav" | "poonam-yadav" | "ajay-chaudhary";
 
 export type Author = {
   slug: AuthorSlug;
@@ -36,31 +36,30 @@ export const AUTHORS: Author[] = [
   {
     slug: "anup-yadav",
     name: "Anup Yadav",
-    role: "CEO & Co-founder",
+    role: "Founder & CEO",
     initials: "AY",
     color: "#2563EB",
     metaDescription:
       "Anup Yadav: 15+ years in cloud security and infrastructure, former security architect at a fintech scale-up, led incident response across AWS and Azure.",
     bio: "15+ years in cloud security and infrastructure. Former security architect at a scale-up fintech and enterprise SaaS. Led incident response across AWS and Azure multi-cloud.",
-    topics: ["Cloud risk quantification", "Buyer's guides", "Compliance"],
+    topics: [
+      "Cloud risk quantification",
+      "Buyer's guides",
+      "Compliance",
+      "Security graph and attack paths",
+      "Agentless architecture",
+      "Threat detection",
+    ],
   },
   {
     slug: "poonam-yadav",
     name: "Poonam Yadav",
-    role: "Co-founder & Head of Engineering",
+    role: "Head of Engineering",
     initials: "PY",
     color: "#05A052",
     metaDescription:
-      "Poonam Yadav, Co-founder and Head of Engineering at Onam Security, writes about CIEM, Kubernetes security, and data and code security.",
+      "Poonam Yadav, Head of Engineering at Onam Security, writes about CIEM, Kubernetes security, and data and code security.",
     topics: ["Identity and entitlements (CIEM)", "Kubernetes security", "Data and code security"],
-  },
-  {
-    slug: "nishchal-gupta",
-    name: "Nishchal Gupta",
-    role: "Head of Sales",
-    initials: "NG",
-    color: "#7C3AED",
-    topics: ["Security graph and attack paths", "Agentless architecture", "Threat detection"],
   },
   {
     slug: "ajay-chaudhary",
@@ -85,7 +84,9 @@ export function getAuthor(slug: string): Author | undefined {
  * it to the canonical slug rather than letting it 404 and lose the entity's history.
  */
 export const RENAMED_SLUGS: Record<string, AuthorSlug> = {
-  "nischal-gupta": "nishchal-gupta",
+  "nischal-gupta": "anup-yadav",
+  // Team page removed 2026-10-29 at the owner's request; his articles moved to the founder.
+  "nishchal-gupta": "anup-yadav",
 };
 
 /** The author page URL — the canonical identity every article's schema points at. */

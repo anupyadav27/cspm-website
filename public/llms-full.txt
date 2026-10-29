@@ -339,9 +339,8 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Pricing](https://www.onamsecurity.com/pricing)
 - [Request a demo](https://www.onamsecurity.com/request-demo)
 - [About](https://www.onamsecurity.com/company/about)
-- [Anup Yadav, CEO & Co-founder](https://www.onamsecurity.com/company/team/anup-yadav)
-- [Poonam Yadav, Co-founder & Head of Engineering](https://www.onamsecurity.com/company/team/poonam-yadav)
-- [Nishchal Gupta, Head of Sales](https://www.onamsecurity.com/company/team/nishchal-gupta)
+- [Anup Yadav, Founder & CEO](https://www.onamsecurity.com/company/team/anup-yadav)
+- [Poonam Yadav, Head of Engineering](https://www.onamsecurity.com/company/team/poonam-yadav)
 - [Ajay Chaudhary, COO](https://www.onamsecurity.com/company/team/ajay-chaudhary)
 - [Contact](https://www.onamsecurity.com/company/contact)
 - [Trust Center](https://www.onamsecurity.com/trust): how Onam connects to your clouds, what it stores, encryption, sub-processors, vulnerability disclosure.

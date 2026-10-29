@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/about</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/careers</loc>
@@ -686,15 +686,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cspm</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cnapp</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cwpp</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/ciem</loc>
@@ -710,11 +710,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-attack-path</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/agentless-cloud-security</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-risk-quantification</loc>
@@ -722,7 +722,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/choke-point</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/kspm</loc>
@@ -842,19 +842,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/team/anup-yadav</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/team/poonam-yadav</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/company/team/nishchal-gupta</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/team/ajay-chaudhary</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions</loc>
@@ -898,11 +894,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</loc>
@@ -910,11 +906,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/attack-path-4000-to-3</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk</loc>
@@ -926,7 +922,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/epss-over-cvss</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/why-cloud-iam-permissions-are-never-used</loc>
@@ -938,6 +934,6 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/agentless-cloud-security-architecture</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-29</lastmod>
   </url>
 </urlset>

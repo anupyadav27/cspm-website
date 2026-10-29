@@ -1193,7 +1193,7 @@ The honest way to decide is the checklist above. Run it against all four of us. 
     category: "CDR",
     excerpt:
       "Cloud threat detection needs three levels: rules for single suspicious events, correlation across several events, and statistical behaviour baselines.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "July 15, 2026",
     readTime: "10 min",
     body: `
@@ -1270,7 +1270,7 @@ To see the three levels against your own audit logs, [book a demo](/request-demo
     category: "CSPM",
     excerpt:
       "Five AWS misconfigurations that commonly show up on a first scan: what they are, why they persist, and how to fix them fast.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "July 10, 2026",
     readTime: "6 min",
     body: `
@@ -1376,7 +1376,7 @@ You need both. IAM Security keeps the door from being obviously open. CIEM makes
     category: "Engineering",
     excerpt:
       "AI-powered cloud remediation: fix prompts that name the resource, AI code fixes on a review branch, and attack-path stories that explain why a fix matters.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "June 30, 2026",
     readTime: "6 min",
     body: `
@@ -1435,7 +1435,7 @@ What remains is review, approval and change management — timelines bounded by 
     category: "Attack Path",
     excerpt:
       "CSPM tools surface hundreds of misconfigurations. The ones behind breaches chain together; attack path analysis shows which chains are dangerous.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "June 24, 2026",
     readTime: "11 min",
     body: `
@@ -1654,7 +1654,7 @@ Review RBAC as effective access per subject, not as a list of roles. For each se
     category: "Vulnerability",
     excerpt:
       "CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "June 3, 2026",
     readTime: "5 min",
     body: `
@@ -1855,7 +1855,7 @@ Walk through the privilege escalation techniques first. Then defense evasion. Th
     category: "Engineering",
     excerpt:
       "Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.",
-    author: "nishchal-gupta",
+    author: "anup-yadav",
     date: "May 6, 2026",
     readTime: "10 min",
     body: `
