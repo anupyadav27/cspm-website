@@ -40,8 +40,8 @@ export const AUTHORS: Author[] = [
     initials: "AY",
     color: "#2563EB",
     metaDescription:
-      "Anup Yadav: 15+ years in cloud security and infrastructure, former security architect at a fintech scale-up, led incident response across AWS and Azure.",
-    bio: "15+ years in cloud security and infrastructure. Former security architect at a scale-up fintech and enterprise SaaS. Led incident response across AWS and Azure multi-cloud.",
+      "Anup Yadav: 20 years in cloud security at HCL, Ericsson, Indiabulls and NTT; former fintech security architect; founder and CEO of Onam Security.",
+    bio: "20 years in cloud security and infrastructure at HCL, Ericsson, Indiabulls and NTT. Former fintech security architect. Led incident response across AWS and Azure multi-cloud.",
     topics: [
       "Cloud risk quantification",
       "Buyer's guides",
