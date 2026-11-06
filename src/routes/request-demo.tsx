@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { CheckCircle2, MessageSquare, Timer, Users, Cloud, CalendarCheck } from "lucide-react";
+import { CheckCircle2, MessageSquare, Timer, Users, Cloud, CalendarCheck } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ProductDemo } from "@/components/site/DemoVideos";
 import { Backdrop, IconTile } from "@/components/site/system";

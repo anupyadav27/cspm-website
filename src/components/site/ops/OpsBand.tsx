@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, FileSearch, ListChecks, Lock } from "lucide-react";
+import { ArrowRight, FileSearch, ListChecks, Lock } from "@/components/site/icons";
 import { StatusBadge } from "./OpsUi";
 
 /**

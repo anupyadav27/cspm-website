@@ -1,5 +1,5 @@
 import { useId } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 
 /**
@@ -80,7 +80,8 @@ export function Backdrop({
   tone = "light",
   color = "#2563EB",
   pattern = "graph",
-  icon: Icon,
+  // The oversized faint icon watermark was removed with the colour blobs; the prop stays so callers compile.
+  icon: _icon,
   className,
 }: {
   tone?: "light" | "night";
@@ -98,14 +99,6 @@ export function Backdrop({
       {night ? (
         <>
           <div className="absolute inset-0 bg-night" />
-          <div
-            className="absolute -top-48 -right-40 h-[640px] w-[860px] rounded-full blur-[150px]"
-            style={{ background: color, opacity: 0.28 }}
-          />
-          <div
-            className="absolute -bottom-56 -left-40 h-[520px] w-[640px] rounded-full blur-[150px]"
-            style={{ background: "#2563EB", opacity: 0.14 }}
-          />
         </>
       ) : (
         <>
@@ -114,10 +107,6 @@ export function Backdrop({
             style={{
               background: `linear-gradient(180deg, color-mix(in srgb, ${color} 7%, #FFFFFF) 0%, #FFFFFF 85%)`,
             }}
-          />
-          <div
-            className="absolute -top-40 -right-32 h-[520px] w-[720px] rounded-full blur-[140px]"
-            style={{ background: color, opacity: 0.16 }}
           />
         </>
       )}
@@ -133,13 +122,6 @@ export function Backdrop({
         <Pattern kind={pattern} id={id} stroke={night ? "#FFFFFF" : color} opacity={night ? 0.09 : 0.16} />
       </div>
 
-      {Icon && (
-        <Icon
-          className="absolute -right-10 top-1/2 hidden h-[420px] w-[420px] -translate-y-1/2 rotate-[-8deg] md:block"
-          style={{ color: night ? "#FFFFFF" : color, opacity: night ? 0.05 : 0.07 }}
-          strokeWidth={0.9}
-        />
-      )}
 
       <div
         className="absolute inset-x-0 bottom-0 h-16"

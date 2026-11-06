@@ -1,4 +1,4 @@
-import { ArrowUpRight, Clock, Handshake, ShoppingBag } from "lucide-react";
+import { ArrowUpRight, Clock, Handshake, ShoppingBag } from "@/components/site/icons";
 import { MARKETPLACES, anyMarketplaceLive, liveMarketplaces } from "@/data/marketplaces";
 import { Container, Section, SectionHeading } from "@/components/site/system";
 import { cn } from "@/lib/utils";

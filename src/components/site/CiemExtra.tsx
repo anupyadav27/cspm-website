@@ -11,7 +11,7 @@ import {
   ShieldAlert,
   Users,
   type LucideIcon,
-} from "lucide-react";
+} from "@/components/site/icons";
 
 /**
  * Extra sections for /platform/ciem. Every statement here was checked against the
@@ -83,7 +83,7 @@ const coverage: { row: string; marks: Mark[] }[] = [
 ];
 
 const eyebrow =
-  "inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]";
+  "inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]";
 const cardCls =
   "bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]";
 

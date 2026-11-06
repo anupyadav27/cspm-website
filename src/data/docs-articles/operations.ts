@@ -416,7 +416,7 @@ Onam AIOps is designed on the assumption that a model can be fooled. The control
 
 ## Tenant isolation at every layer
 
-Your data never crosses to another customer — in a query, a cache, an agent’s memory, the context assembled for a model, a model call, an event, or a log line. Each layer is isolated and tested on its own, because one mechanism covering everything is one bug away from a breach. Identity and organisation come only from the platform gateway, never from a request body.
+Your data is kept apart from every other tenant’s in queries, caches, agent memory, the context assembled for a model, model calls, events and log lines. Isolation is enforced at each of these layers rather than by one mechanism, and cross-tenant tests check that nothing from one tenant appears for another. Identity and organisation come only from the platform gateway, never from a request body.
 
 ## Zero-trust agents
 

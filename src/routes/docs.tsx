@@ -2,7 +2,7 @@ import { createFileRoute, Outlet, Link, useRouterState } from "@tanstack/react-r
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { DOC_SECTIONS, docGroups, type DocProduct } from "@/data/docs";
 import { SUITE } from "@/data/product-suite";
-import { Search } from "lucide-react";
+import { Search } from "@/components/site/icons";
 import { useState } from "react";
 
 const DESCRIPTION =

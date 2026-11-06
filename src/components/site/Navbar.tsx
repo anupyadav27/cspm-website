@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 import { Logo } from "./Logo";
 import { SUITE, AIOPS_COLOR, type SuiteKey, type SuiteProduct } from "@/data/product-suite";

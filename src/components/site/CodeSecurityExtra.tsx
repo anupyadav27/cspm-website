@@ -9,8 +9,8 @@ import {
   Wand2,
   Check,
   Minus,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+} from "@/components/site/icons";
+import type { LucideIcon } from "@/components/site/icons";
 
 const DOCS_OVERVIEW: string = "/docs/code-security/overview";
 
@@ -18,7 +18,7 @@ type Figure = { src: string; alt: string; caption: string };
 
 function Eyebrow({ children }: { children: string }) {
   return (
-    <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+    <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
       {children}
     </div>
   );
@@ -137,7 +137,7 @@ export function CodeSecurityOverviewExtra() {
               <Link
                 key={s.title}
                 to={s.href}
-                className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all flex flex-col"
+                className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all flex flex-col"
               >
                 <div className="w-10 h-10 rounded-xl grid place-items-center bg-[#EFF4FF]">
                   <s.icon className="w-5 h-5 text-[#2563EB]" />

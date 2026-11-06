@@ -9,7 +9,7 @@ import {
   Route as RouteIcon,
   Users,
   X,
-} from "lucide-react";
+} from "@/components/site/icons";
 import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
 import { DataSecurityFamily } from "@/components/site/DataSecurityFamily";
 import { platformPages } from "@/data/platform-pages";
@@ -29,7 +29,7 @@ export const Route = createFileRoute("/platform/data-security")({
 });
 
 const eyebrow =
-  "inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]";
+  "inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]";
 
 const reach = [
   {
@@ -356,7 +356,7 @@ function DspmDeepDive() {
                 key={d.slug}
                 to="/docs/$"
                 params={{ _splat: d.slug }}
-                className="group bg-white border border-[#E5E9F0] rounded-2xl p-5 hover:shadow-[0_12px_28px_rgba(16,24,40,.08)] hover:-translate-y-0.5 transition-all"
+                className="group bg-white border border-[#E5E9F0] rounded-2xl p-5 hover:shadow-[0_12px_28px_rgba(16,24,40,.08)] transition-all"
               >
                 <div className="font-display font-bold text-[#0B1220] group-hover:text-[#2563EB] transition flex items-center justify-between gap-2">
                   {d.title}

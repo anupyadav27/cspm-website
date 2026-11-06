@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { BLOG_POSTS } from "@/data/blog-posts";
-import { ArrowRight, Cloud, ShieldCheck, Layers, BadgeCheck, BookOpen, Library } from "lucide-react";
+import { ArrowRight, Cloud, ShieldCheck, Layers, BadgeCheck, BookOpen, Library } from "@/components/site/icons";
 import { seo } from "@/lib/seo";
 import { ResourceSignup } from "@/components/site/ResourceSignup";
 import { Backdrop } from "@/components/site/system";
@@ -12,7 +12,7 @@ export const Route = createFileRoute("/resources/")({
     seo({
       title: "Resources — Onam",
       description:
-        "Guides, documentation and technical references for cloud, security, FinOps and SRE teams — across Onam Estate, Security, FinOps, DRM and AIOps.",
+        "Guides, documentation and technical references for cloud, security, FinOps and SRE teams, covering Onam Estate, Security, FinOps, DRM and AIOps.",
       path: "/resources",
       image: "/og/resources.png",
     }),
@@ -62,13 +62,13 @@ const categories: Category[] = [
   },
   {
     title: "Onam Security engines",
-    desc: "Deep-dives on each security engine — what it checks, how it works, and how to read results.",
+    desc: "Deep-dives on each security engine: what it checks, how it works, and how to read results.",
     color: "#0891B2",
     bg: "#ECFEFF",
     Icon: ShieldCheck,
     links: [
       { label: "CSPM", to: "/docs/features/cspm" },
-      { label: "CIEM — Identity & Entitlements", to: "/docs/features/ciem" },
+      { label: "CIEM: Identity & Entitlements", to: "/docs/features/ciem" },
       { label: "Vulnerability Management", to: "/docs/features/vulnerability-management" },
       { label: "Container Security", to: "/docs/features/container-security" },
       { label: "Attack Path", to: "/docs/features/attack-path" },
@@ -130,7 +130,7 @@ const LIBRARY: { title: string; items: { label: string; href: string; internal?:
     // now 301 to them (src/routes/compare/*[.]html.tsx).
     title: "How Onam Security compares",
     items: [
-      { label: "All comparisons — the seven questions", href: "/compare", internal: true },
+      { label: "All comparisons: the seven questions", href: "/compare", internal: true },
       { label: "Onam vs Wiz", href: "/compare/onam-vs-wiz", internal: true },
       { label: "Onam vs Orca Security", href: "/compare/onam-vs-orca", internal: true },
       { label: "Onam vs Prisma Cloud (Palo Alto)", href: "/compare/onam-vs-prisma-cloud", internal: true },
@@ -181,10 +181,10 @@ function Page() {
         >
           <div className="text-xs uppercase tracking-widest font-semibold text-[#9FC0FF] mb-3">Interactive · New</div>
           <h2 className="text-white font-display font-black text-2xl md:text-[32px] leading-[1.1] tracking-tight">
-            Four hops. Three tools blind. One breach.
+            Walk through one attack path, step by step.
           </h2>
           <p className="mt-3 text-[#CFE0FF] max-w-2xl">
-            Walk one real attack path — from a forgotten instance to your crown-jewel data — and watch a single fix break the whole chain. An animated, self-guided walkthrough.
+            Follow an attack path from a forgotten instance to sensitive data, and see how a single fix breaks the whole chain. An animated, self-guided walkthrough.
           </p>
           <span className="mt-5 inline-flex items-center gap-2 font-semibold text-white">
             Open the interactive deck
@@ -198,7 +198,7 @@ function Page() {
         <h2 className="font-display font-extrabold text-2xl md:text-3xl text-[#0B1220]">Whitepapers, brochures &amp; tools</h2>
         <p className="mt-2 text-[#475569] max-w-2xl">
           Technical whitepapers, the capabilities brochure, illustrative calculators, and short
-          explainer videos — free to download and share.
+          explainer videos, all free to download and share.
         </p>
         <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
           {LIBRARY.map((g) => (

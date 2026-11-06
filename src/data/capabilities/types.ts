@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/components/site/icons";
 import type { OpsStatus } from "@/data/operations";
 
 /**

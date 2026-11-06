@@ -4,7 +4,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { getDocArticle, DOC_SECTIONS, DOC_PRODUCT_LABEL, allDocSlugs } from "@/data/docs";
 import { seo, descriptionFromMarkdown, SITE_URL } from "@/lib/seo";
 import { extractHeadings, slugifyHeading } from "@/components/site/Prose";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from "@/components/site/icons";
 
 export const Route = createFileRoute("/docs/$")({
   loader: ({ params }) => {

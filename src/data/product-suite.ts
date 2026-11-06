@@ -1,4 +1,4 @@
-import { Bot, type LucideIcon } from "lucide-react";
+import { Bot, type LucideIcon } from "@/components/site/icons";
 import { SERVICES, FRAMEWORKS } from "@/lib/product-facts";
 import { PRODUCTS, type ProductSummary } from "@/data/products";
 import { OPS_STATUS, type OpsStatus } from "@/data/operations";
@@ -195,7 +195,7 @@ export const SUITE: SuiteProduct[] = [
     stage: "1 · Discover",
     image: "/images/products/estate.svg",
     imageAlt:
-      "Illustration: cloud resources on one platform, joined by relationship lines into a single asset graph.",
+      "Drawing of the Onam Estate inventory: a table of cloud resources with type, account and how many other resources each one links to.",
     docs: "/docs/estate/overview",
     groups: [
       {
@@ -225,9 +225,9 @@ export const SUITE: SuiteProduct[] = [
     ...pick("security"),
     short: "Security",
     stage: "2 · Secure",
-    image: "/images/products/security.svg",
+    image: "/screenshots/screenshot-dashboard.png",
     imageAlt:
-      "Illustration: a shield over a protected database, with an attack route to it cut at one point.",
+      "The Onam Security overview screen in the console, with sample data.",
     docs: "/docs/security/overview",
     groups: SECURITY_GROUPS,
     agent: {
@@ -241,7 +241,7 @@ export const SUITE: SuiteProduct[] = [
     short: "FinOps",
     stage: "3 · Optimise",
     image: "/images/products/finops.svg",
-    imageAlt: "Illustration: daily cost bars beside a stack of coins and an ownership tag.",
+    imageAlt: "Drawing of the Onam FinOps cost view: daily cost bars, the month's forecast range and spend by owner, including untagged spend.",
     docs: "/docs/finops/overview",
     groups: [
       {
@@ -285,9 +285,9 @@ export const SUITE: SuiteProduct[] = [
     ...pick("drm"),
     short: "DRM",
     stage: "4 · Recover",
-    image: "/images/products/drm.svg",
+    image: "/screenshots/console/drm-overview.webp",
     imageAlt:
-      "Illustration: two cloud regions with a replication link between them and a recovery clock.",
+      "The Onam DRM overview screen in the console, with demo tenant data.",
     docs: "/docs/drm/overview",
     groups: [
       {
@@ -337,7 +337,7 @@ export const SUITE: SuiteProduct[] = [
       "AI agents that investigate across the platform with evidence on every claim, and propose changes a person approves. Nothing changes your cloud without that approval.",
     image: "/images/products/aiops.svg",
     imageAlt:
-      "Illustration: specialist AI agents connected to one approval point where a person signs off.",
+      "Drawing of the Onam AIOps approvals queue: changes proposed by agents, the evidence behind each, and whether a person approved it.",
     docs: "/docs/operations/overview",
     groups: [
       {

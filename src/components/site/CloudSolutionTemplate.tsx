@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, CheckCircle2, Cloud, Container as ContainerIcon, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowRight, CheckCircle2, Cloud, Container as ContainerIcon, ShieldCheck, type LucideIcon } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo } from "@/components/site/DemoVideos";
@@ -98,7 +98,7 @@ function Services({ data }: { data: CloudSolutionData }) {
     <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Coverage
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -128,7 +128,7 @@ function Frameworks({ data }: { data: CloudSolutionData }) {
       <div className="max-w-7xl mx-auto px-6">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           <div>
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
               Compliance
             </div>
             <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
@@ -154,7 +154,7 @@ function SetupSteps({ data }: { data: CloudSolutionData }) {
     <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Onboarding
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Connect in 3 steps</h2>
@@ -179,7 +179,7 @@ function Features({ data }: { data: CloudSolutionData }) {
     <section className="bg-white border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Differentiators
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -190,7 +190,7 @@ function Features({ data }: { data: CloudSolutionData }) {
           {data.features.map((f) => {
             const Icon = f.icon;
             return (
-              <div key={f.title} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
+              <div key={f.title} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all">
                 <div
                   className="w-12 h-12 rounded-xl grid place-items-center"
                   style={{
@@ -221,7 +221,7 @@ function Faqs({ faqs }: { faqs: CloudFaq[] }) {
       />
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             FAQ
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Questions we get a lot</h2>
@@ -290,7 +290,7 @@ function RelatedReading({ items, cloudName }: { items: CloudRelated[]; cloudName
         <div className="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {items.map((r) => (
             <Link key={r.href} to={r.href} className="group">
-              <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
+              <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all">
                 <div className="font-display font-bold text-[#0B1220] text-[15px] group-hover:text-[#2563EB]">
                   {r.label}
                 </div>

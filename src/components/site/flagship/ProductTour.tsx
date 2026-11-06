@@ -1,7 +1,7 @@
 import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Check } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+import { ArrowRight, Check } from "@/components/site/icons";
+import type { LucideIcon } from "@/components/site/icons";
 import { BrowserFrame, Figure, IconTile } from "@/components/site/system";
 import { cn } from "@/lib/utils";
 import type { TourStop } from "./types";

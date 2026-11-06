@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, Database, HardDrive, Lock } from "lucide-react";
+import { ArrowRight, Database, HardDrive, Lock } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 
 /**
@@ -61,7 +61,7 @@ export function DataSecurityFamily({ current }: { current: Key }) {
     <section id="data-family" className="py-20 border-b border-[#E5E9F0] bg-[#F7F9FC]">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Three pages, one data picture
           </div>
           <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">

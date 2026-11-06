@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
-import { ChevronRight, Linkedin, UserRound } from "lucide-react";
+import { ChevronRight, Linkedin, UserRound } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { AUTHORS, getAuthor, personJsonLd, authorUrl, RENAMED_SLUGS, type Author } from "@/data/authors";

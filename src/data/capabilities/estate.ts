@@ -1,4 +1,4 @@
-import { Boxes, Network, Workflow } from "lucide-react";
+import { Boxes, Network, Workflow } from "@/components/site/icons";
 import { CLOUDS } from "@/lib/product-facts";
 import type { Capability } from "./types";
 
@@ -30,7 +30,7 @@ export const capabilities: Capability[] = [
     metaDescription:
       "Every cloud resource the discovery pipeline has found, across every account and region, with its state and the time it was last confirmed to exist.",
     question: "What do we run, where, and in which account?",
-    lead: "The Inventory view lists every resource Onam Estate's discovery has found, across every connected account and region — each with the time discovery last confirmed it exists.",
+    lead: "The Inventory view lists every resource Onam Estate's discovery has found, across every connected account and region, each with the time discovery last confirmed it exists.",
     problem:
       "Someone asks how many production databases we run, and in which accounts. We get three answers: one from the CMDB, one from Terraform state, one from the billing export. The CMDB was last reconciled by hand, the state file only covers what went through the pipeline, and nobody can say which list is right. The gap between them is where forgotten infrastructure lives.",
     whatYouSee: [
@@ -52,7 +52,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: `All ${CLOUDS} supported clouds`,
-        body: "AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes — from the platform's shared discovery.",
+        body: "AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, from the platform's shared discovery.",
       },
       {
         title: "Quick on very large estates",
@@ -80,7 +80,7 @@ export const capabilities: Capability[] = [
     limits: [
       {
         title: "It does not show cost",
-        body: "Estate answers what exists and how it is connected, not what a resource costs. Spend, owners, forecasts, budgets and savings are Onam FinOps, a separate product built on your billing data.",
+        body: "Estate answers what exists and how it is connected. It does not say what a resource costs. Spend, owners, forecasts, budgets and savings are Onam FinOps, a separate product built on your billing data.",
       },
       {
         title: "It does not raise security findings",
@@ -88,17 +88,17 @@ export const capabilities: Capability[] = [
       },
       {
         title: "As current as the last run",
-        body: "The list reflects the last completed discovery run, not a real-time feed. Last-seen times and the run history show how fresh it is.",
+        body: "The list reflects the last completed discovery run. It is not a real-time feed. Last-seen times and the run history show how fresh it is.",
       },
     ],
     agent: {
       ...ASSET_AGENT,
-      line: "Answers what exists, how it is connected and who owns it — over the resolved estate, never by re-scanning. In early access, it reads the Onam Security inventory today.",
+      line: "Answers what exists, how it is connected and who owns it, working over the resolved estate and never by re-scanning. In early access, it reads the Onam Security inventory today.",
     },
     faqs: [
       {
         q: "What does \"last seen\" tell me?",
-        a: "When discovery last confirmed the resource exists. A resource that stops appearing does not silently vanish from the list; its last-seen time ages, which is how decommissioned-but-not-really infrastructure becomes visible.",
+        a: "When discovery last confirmed the resource exists. A resource that stops appearing does not silently vanish from the list; its last-seen time ages, which is how half-decommissioned infrastructure becomes visible.",
       },
       {
         q: "A whole account's last-seen times are ageing together. Was it decommissioned?",
@@ -106,15 +106,15 @@ export const capabilities: Capability[] = [
       },
       {
         q: "Which clouds does the inventory cover?",
-        a: `All ${CLOUDS} clouds Onam supports — AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes — because it comes from the platform's shared discovery.`,
+        a: `All ${CLOUDS} clouds Onam supports (AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes), because it comes from the platform's shared discovery.`,
       },
       {
         q: "Can I see what each resource costs?",
-        a: "Not in Estate. Estate answers what exists and how it is connected. For cost — what you spent, who owns it, forecast, budgets, anomalies and savings — see Onam FinOps, a separate product built on your billing data.",
+        a: "Not in Estate. Estate answers what exists and how it is connected. For cost (what you spent, who owns it, forecast, budgets, anomalies and savings) see Onam FinOps, a separate product built on your billing data.",
       },
       {
         q: "How is this different from the inventory inside Onam Security?",
-        a: "It is the same discovery, sold as its own product. Onam Security's inventory answers security questions; Onam Estate is the estate of record — what exists, how it is connected, and when it was last seen. Organisations entitled to both get one inventory feeding both.",
+        a: "It is the same discovery, sold as its own product. Onam Security's inventory answers security questions; Onam Estate is the estate of record: what exists, how it is connected, and when it was last seen. Organisations entitled to both get one inventory feeding both.",
       },
     ],
     docs: "/docs/estate/inventory",
@@ -133,7 +133,7 @@ export const capabilities: Capability[] = [
     question: "How is this account wired together, and what reaches outside it?",
     lead: "The Architecture view summarises one account's topology: what it holds, how the pieces connect, and which relationships cross the account boundary. It draws AWS accounts today.",
     problem:
-      "We have a diagram of how an account is supposed to look. It was drawn for a design review and has not been touched since. What we need to know is what the account actually holds and what it really connects to — the peering, the cross-account trust, the shared service — because that is what decides whether it is isolated, whatever the diagram says.",
+      "We have a diagram of how an account is supposed to look. It was drawn for a design review and has not been touched since. What we need to know is what the account holds and what it connects to (the peering, the cross-account trust, the shared service), because that is what decides whether it is isolated, whatever the diagram says.",
     whatYouSee: [
       {
         title: "Assets",
@@ -145,7 +145,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Containment edges",
-        body: "\"Lives inside\" relationships — a subnet in a VPC, a container in a task.",
+        body: "\"Lives inside\" relationships, such as a subnet in a VPC or a container in a task.",
       },
       {
         title: "External edges",
@@ -167,7 +167,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Build the scene",
-        body: "The discovery pipeline builds a scene for the account — what the view renders from.",
+        body: "The discovery pipeline builds a scene for the account, and the view renders from it.",
       },
       {
         title: "Render the view",
@@ -185,7 +185,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "It does not judge the topology",
-        body: "It shows how the account is connected. It does not evaluate posture or raise findings about it — that is Onam Security.",
+        body: "It shows how the account is connected. It does not evaluate posture or raise findings about it. That is Onam Security.",
       },
     ],
     agent: {
@@ -199,11 +199,11 @@ export const capabilities: Capability[] = [
       },
       {
         q: "Why read external edges first?",
-        a: "They are the account's actual connection to everything outside it — the peering, the cross-account trust, the shared service. An account with very few external edges is genuinely isolated; one with many is not, whatever the architecture diagram says.",
+        a: "They are the account's connections to everything outside it: the peering, the cross-account trust, the shared service. An account with very few external edges is isolated; one with many is not, whatever the architecture diagram says.",
       },
       {
         q: "What is the difference between an edge and a containment edge?",
-        a: "Edges are all recorded relationships between the account's assets. Containment edges are the \"lives inside\" subset — a subnet in a VPC, a container in a task. External edges are the ones that cross the account boundary.",
+        a: "Edges are all recorded relationships between the account's assets. Containment edges are the \"lives inside\" subset, such as a subnet in a VPC or a container in a task. External edges are the ones that cross the account boundary.",
       },
       {
         q: "Why does an account show no diagram?",
@@ -222,11 +222,11 @@ export const capabilities: Capability[] = [
     icon: Workflow,
     seoTitle: "Read-only cloud discovery pipeline — Onam Estate",
     metaDescription:
-      "Every discovery run over your cloud accounts and regions, with its trigger, status, start and completion — so a stale inventory shows as stale.",
+      "Every discovery run over your cloud accounts and regions, with its trigger, status, start and completion, so a stale inventory shows as stale.",
     question: "Is our inventory current, and did the last run finish?",
-    lead: "The Pipeline view is the run history for discovery: every pass over your accounts and regions, what triggered it and how it ended. Discovery is read-only — nothing is installed and nothing is modified.",
+    lead: "The Pipeline view is the run history for discovery: every pass over your accounts and regions, what triggered it and how it ended. Discovery is read-only. Nothing is installed and nothing is modified.",
     problem:
-      "Someone asks whether a resource is really gone. The honest answer depends on whether the last discovery run over that account actually finished. A failed or partial run leaves an inventory that looks complete and is not, and without the run history nobody can tell the difference. An inventory without provenance is a claim.",
+      "Someone asks whether a resource is gone. The honest answer depends on whether the last discovery run over that account finished. A failed or partial run leaves an inventory that looks complete and is not, and without the run history nobody can tell the difference. An inventory without provenance is a claim.",
     whatYouSee: [
       {
         title: "Run",
@@ -234,7 +234,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Trigger",
-        body: "What started it — the schedule, onboarding, or a manual request.",
+        body: "What started it: the schedule, onboarding, or a manual request.",
       },
       {
         title: "Status",
@@ -273,7 +273,7 @@ export const capabilities: Capability[] = [
         body: "Discovery reads. It installs nothing on a workload and changes nothing in your environment.",
       },
       {
-        title: "Scope follows entitlement, not settings",
+        title: "Scope follows entitlement",
         body: "Estate alone runs discovery on its own; Estate with Onam Security runs the full pipeline. There is nothing to configure.",
       },
       {
@@ -283,7 +283,7 @@ export const capabilities: Capability[] = [
     ],
     agent: {
       ...ASSET_AGENT,
-      line: "Answers questions over the resolved estate, never by re-scanning — it works from what discovery recorded. In early access, it reads the Onam Security inventory today.",
+      line: "Answers questions over the resolved estate, never by re-scanning. It works from what discovery recorded. In early access, it reads the Onam Security inventory today.",
     },
     faqs: [
       {
@@ -296,11 +296,11 @@ export const capabilities: Capability[] = [
       },
       {
         q: "If I have Onam Security too, do I connect my accounts twice?",
-        a: "No. Estate and Onam Security share one discovery pass. An organisation entitled to both runs the full pipeline once, and both products read the same output — so there are not two inventories that disagree.",
+        a: "No. Estate and Onam Security share one discovery pass. An organisation entitled to both runs the full pipeline once, and both products read the same output, so there are never two inventories that disagree.",
       },
       {
         q: "Why is the run history its own view?",
-        a: "Because whether a resource is really gone depends on whether the last run over that account finished. Putting run status on its own page means a stale picture is visible as a stale picture.",
+        a: "Because whether a resource is gone depends on whether the last run over that account finished. Putting run status on its own page means a stale picture is visible as a stale picture.",
       },
     ],
     docs: "/docs/estate/pipeline",

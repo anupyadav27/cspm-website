@@ -83,7 +83,7 @@ Two weeks is enough for everything below. A POC that needs longer is usually mis
 ## Week 2, day 5: compliance, cost and exit
 
 26. **Which frameworks are mapped, and is evidence continuous?** Ask whether framework scores update as infrastructure changes or only when a report is exported.
-27. **What does an auditor actually receive?** Export a report for one framework and ask your auditor whether it is usable.
+27. **What will an auditor receive?** Export a report for one framework and ask your auditor whether it is usable.
 28. **What unit does the price grow with?** Workloads, resources, accounts or spend, and what happens to the bill when your estate doubles.
 29. **What is in the base package and what is an add-on?** Get it in writing against the features you used in the POC.
 30. **How do I get my data out?** API access, bulk export, and what happens to your data when the contract ends.
@@ -117,7 +117,7 @@ None of these proves a product is wrong for you, but each deserves a direct ques
 
 ## Where Onam fits (our section)
 
-If you include us, these are our answers, stated so you can check them. Posture scanning connects through read-only cloud roles you can read before you run them; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, including OCI, Alibaba Cloud and IBM Cloud, and we publish the per-cloud counts. Findings sit on one graph, so a path can cross clouds, and each finding carries a FAIR-style loss estimate with its inputs shown. Compliance is recomputed on every scan against 78 frameworks.
+If you include us, these are our answers, stated so you can check them. Posture scanning connects through read-only cloud roles you can read before you run them; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, including OCI, Alibaba Cloud and IBM Cloud, and we publish the per-cloud counts. All findings share a single security graph, so a path can cross clouds, and each finding carries a FAIR-style loss estimate with its inputs shown. Compliance is recomputed on every scan against 78 frameworks.
 
 The honest limit: we have no public reference customers yet and no runtime enforcement. If inline blocking is one of your success criteria, we will not meet it. Our answers to the seven questions that matter most are in [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and the head-to-heads are on the [Onam vs Wiz](/compare/onam-vs-wiz) and [Onam vs Orca](/compare/onam-vs-orca) pages.
 
@@ -203,7 +203,7 @@ Cover object storage, managed relational databases, NoSQL stores, warehouses, da
 
 Checklist for this step:
 
-- Every cloud account and subscription is connected, not just production.
+- Every cloud account and subscription is connected, including the ones outside production.
 - Every region is covered, including ones you do not think you use.
 - Each store has an owner, even if the first owner is "unknown, needs triage".
 
@@ -222,7 +222,7 @@ This is the step most programmes skip, and it is the one that matters most. For 
 - Is it reachable from the internet, directly or through a public endpoint?
 - Are there cross-account or external principals in that list?
 
-Access is rarely granted on the store itself. It comes through role policies, group memberships and trust relationships, so this step needs identity analysis, not just a resource check.
+Access is rarely granted on the store itself. It comes through role policies, group memberships and trust relationships, so this step needs identity analysis as well as a resource check.
 
 ### 5. Check the basic controls on every sensitive store
 
@@ -235,7 +235,7 @@ For each sensitive store, verify:
 - Retention and lifecycle rules match your data retention policy.
 - The store is in a region your residency commitments allow.
 
-### 6. Prioritise by exposure, not by count
+### 6. Prioritise sensitive stores by exposure
 
 You will find more issues than you can fix in a sprint. Rank them by combining sensitivity, reachability and identity:
 
@@ -246,7 +246,7 @@ You will find more issues than you can fix in a sprint. Rank them by combining s
 
 ### 7. Make it continuous
 
-A one-off DSPM assessment is out of date within weeks. Set a cadence for re-classification, alert on new stores and on permission changes to sensitive ones, and track the trend, not just the current count.
+A one-off DSPM assessment is out of date within weeks. Set a cadence for re-classification, alert on new stores and on permission changes to sensitive ones, and track the trend as well as the current count.
 
 ## Common mistakes
 
@@ -257,7 +257,7 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 ## How Onam approaches it
 
-[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles — object storage, managed databases and warehouses, streams and Kubernetes secrets — plus self-hosted databases, including Snowflake, that you onboard.
+[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles. That covers object storage, managed databases and warehouses, streams and Kubernetes secrets, plus self-hosted databases, including Snowflake, that you onboard.
 
 Classification is metadata-based: Onam labels each store PII, PHI, PCI, financial or confidential from its name, description, tags and schema, without reading the contents. Because the labels come from names and tags, the reason is readable in the store's own metadata, and a missing label is fixed with a tag.
 
@@ -293,7 +293,7 @@ The questions change from "is this bucket encrypted?" to:
 
 ## Why pipelines create exposure
 
-Pipelines are built for correctness and speed, not for consistent controls. The common causes:
+Pipelines are built for correctness and speed. Consistent controls come second. The common causes:
 
 - **Intermediate stores.** Staging buckets, temporary tables and export folders are created for one job and configured with whatever defaults applied.
 - **Different owners per hop.** The application team owns the source, the data engineering team owns the transforms, the analytics team owns the destination. Each secures its own piece.
@@ -314,7 +314,7 @@ The gap is the join. The data team knows the flow. The security team knows the c
 
 ### Map the flows that carry sensitive data
 
-- Start from the stores you have classified as sensitive, not from every pipeline.
+- Start from the stores you have classified as sensitive rather than from every pipeline.
 - For each, list the downstream destinations: replicas, exports, warehouse tables, lake partitions, caches, and SaaS destinations.
 - Include scheduled jobs, event-driven functions and manual export processes. Manual exports are the ones most often forgotten.
 
@@ -335,13 +335,13 @@ For each hop on a sensitive route:
 - Flag any hop that moves data into another account, another cloud, or another region.
 - Flag any hop that writes to a store with no owner.
 
-### Grade the route, not just the resources
+### Grade the data route as well as the resources
 
 Give each route a single risk grade based on its weakest hop. A route with four strong hops and one weak one is a weak route. Ranking by route rather than by store also cuts duplicate work: one finding about one flow, instead of separate tickets for each store it touches.
 
 ### Fix at the point of creation
 
-Most weak hops are created by pipeline code or infrastructure templates. Fix the job definition or the template that creates the staging location, not just the instance of it you found today, or it will be recreated on the next run.
+Most weak hops are created by pipeline code or infrastructure templates. Fix the job definition or the template that creates the staging location as well as the instance of it you found today, or it will be recreated on the next run.
 
 ### Re-check after every pipeline change
 
@@ -359,9 +359,9 @@ Every resource passes a basic encryption check. The route still has a problem: t
 
 ## How Onam approaches it
 
-Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam links the relationships your cloud's configuration already records — replication, backup, ETL writes, streaming, export and import — into chains that start at the original source and follow each path up to eight hops. Every hop that crosses a region or an account is flagged, because those are the moments a copy leaves the controls on the original.
+Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam links the relationships your cloud's configuration already records (replication, backup, ETL writes, streaming, export and import) into chains that start at the original source and follow each path up to eight hops. Every hop that crosses a region or an account is flagged, because those are the moments a copy leaves the controls on the original.
 
-Each store in a chain carries its own DSPM checks — encryption, public access, logging, lifecycle — and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
+Each store in a chain carries its own DSPM checks (encryption, public access, logging, lifecycle) and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
 To see the chains in your own environment, [request a demo](/request-demo) or a free one-time audit scan.
 `,
@@ -401,7 +401,7 @@ Scanning can run in three places, and mature teams use all three:
 
 1. **In the editor or pre-commit**, so the engineer sees the issue while writing the code.
 2. **In the pull request**, so the reviewer sees it and the pipeline can gate on it.
-3. **Against the plan**, so what is checked is what will actually change, including values from variables and modules.
+3. **Against the plan**, so what is checked is what will change, including values from variables and modules.
 
 ## How teams handle it today
 
@@ -423,7 +423,7 @@ The usual starting point is a standalone IaC scanner added to CI. It helps, but 
 
 - One policy set for code and for runtime, so a pass in CI means the same thing as a pass in production.
 - Every rule has a clear explanation and an example of the compliant configuration.
-- Exceptions are recorded with a reason and an expiry, not by deleting the rule.
+- Exceptions are recorded with a reason and an expiry. Nobody deletes the rule to get past it.
 
 ### Gating
 
@@ -453,7 +453,7 @@ The first full scan of a mature codebase is usually discouraging. Some practical
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) checks Terraform, Kubernetes manifests, CloudFormation templates and Dockerfiles in a repository as part of every scan, alongside static analysis, dependency analysis and secret detection. The IaC checks use their own rule set, separate from the rules the runtime posture engine applies to deployed resources, and Onam does not yet trace a runtime finding back to the template line that created it — so the discipline described above, fixing in code rather than the console, is still yours to enforce.
+[Onam's Code Security engine](/platform/code-security) checks Terraform, Kubernetes manifests, CloudFormation templates and Dockerfiles in a repository as part of every scan, alongside static analysis, dependency analysis and secret detection. The IaC checks use their own rule set, separate from the rules the runtime posture engine applies to deployed resources, and Onam does not yet trace a runtime finding back to the template line that created it. The discipline described above, fixing in code rather than the console, is still yours to enforce.
 
 On gating, Onam has no CI plugin today: a scan reports, and a pipeline that wants a gate calls the scan API and decides for itself ([CI usage](/docs/code-security/ci)). For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
 
@@ -528,7 +528,7 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ### Add context to dependency findings
 
-- Prefer reachability over presence: is the vulnerable function actually called by your code?
+- Prefer reachability over presence: does your code call the vulnerable function at all?
 - Consider exploitation signals such as EPSS and the CISA Known Exploited Vulnerabilities list alongside CVSS.
 - Consider runtime context: is the workload that ships this package internet-reachable, and what identity does it run as?
 
@@ -536,7 +536,7 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 - Allow a finding to be marked as a false positive or accepted risk, with a reason and an approver.
 - Give exceptions an expiry date so they are reviewed.
-- Keep exceptions visible to the security team, not hidden.
+- Keep exceptions visible to the security team.
 
 ### Keep it fast
 
@@ -550,7 +550,7 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC checks and secret detection into the same platform as its cloud posture. Static analysis keeps proven security issues apart from pattern-match hotspots, and dependency findings are ranked by EPSS and CISA KEV as well as CVSS — two ways of keeping a gate from firing on noise.
+[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC checks and secret detection into the same platform as its cloud posture. Static analysis keeps proven security issues apart from pattern-match hotspots, and dependency findings are ranked by EPSS and CISA KEV as well as CVSS. Both help keep a gate from firing on noise.
 
 On gating, Onam is deliberately conservative: a scan reports its findings and nothing fails on its own. Onam has no CI plugin today; a pipeline step calls the scan API, reads the findings and decides ([CI usage](/docs/code-security/ci)). Scans cover the whole branch rather than only new findings, so the practical route to the delta-gating pattern described above is to start in report-only mode, work the backlog down, and turn your gate on once the baseline is small.
 
@@ -578,7 +578,7 @@ AI code-fix tools promise to close that gap by drafting the change. They can hel
 The barriers are rarely about whether a finding is real. They are about effort and context:
 
 - **The fix needs the whole file.** A SQL injection on one line may need a change to how a query helper is called, an import, or a parameter list elsewhere in the file.
-- **The developer is not the author.** Findings land on whoever owns the repository now, not whoever wrote the code.
+- **The developer is not the author.** Findings land on whoever owns the repository now, who may never have seen the code.
 - **Guidance is generic.** "Use parameterised queries" is correct and still leaves the actual change to be worked out for this codebase, in this language, with this library.
 - **Many findings, one file.** A legacy file can carry several findings at once, and fixing them one by one produces conflicting changes.
 
@@ -594,7 +594,7 @@ What AI should not do is decide on its own that a change is correct and ship it.
 
 ## Design principles for safe AI code fixes
 
-### The output is a proposal, not a merge
+### Treat the AI fix as a proposal for review
 
 The fix should arrive as a branch or a diff that goes through your normal review and CI process. Nothing should merge or deploy itself.
 
@@ -660,14 +660,14 @@ The Git token needed to push the branch is passed per request in a header, and i
     body: `
 Once a quarter, someone exports a list of users and their roles, splits it by team, and emails each manager a spreadsheet with a column headed "Still needed? Y/N". Most rows come back "Y". Some do not come back at all. The spreadsheet is filed as audit evidence, and the access stays exactly as it was.
 
-That is the typical cloud access review. It satisfies an auditor's checkbox and changes very little. This post covers why, and a checklist for a review that actually removes access that should not exist.
+That is the typical cloud access review. It satisfies an auditor's checkbox and changes very little. This post covers why, and a checklist for a review that removes access that should not exist.
 
 ## Why cloud access reviews are harder than they look
 
 Access reviews were designed for applications with a handful of roles and a list of human users. Cloud accounts break that model in several ways:
 
 - **Most identities are not people.** Service accounts, function execution roles, instance profiles, pod identities and managed identities often outnumber human users, and none of them has a manager to ask.
-- **Attached is not effective.** What an identity can actually do depends on its policies, group memberships, permission boundaries, organisation-level guardrails and the roles it can assume. A reviewer looking at the attached policy names sees only part of it.
+- **Attached is not effective.** What an identity can do depends on its policies, group memberships, permission boundaries, organisation-level guardrails and the roles it can assume. A reviewer looking at the attached policy names sees only part of it.
 - **Access crosses accounts.** A role in one account may be assumable from another, or by an external party. That access does not appear in the target account's user list at all.
 - **Reviewers lack evidence.** Asking "is this still needed?" without showing whether the access has been used invites a reflexive yes.
 - **Nothing tracks the outcome.** A "no" in a spreadsheet does not remove anything. Someone has to turn it into a change, and that step is often lost.
@@ -678,7 +678,7 @@ For each identity in scope, the reviewer should be able to see:
 
 1. Who or what is this identity, and who owns it?
 2. What can it effectively do, after all policies and role chains are resolved?
-3. What has it actually used recently?
+3. What has it used recently?
 4. Can it reach admin-level permissions, directly or through a chain of roles?
 5. Can anyone outside this account or organisation use it?
 6. Has it been active at all?
@@ -690,7 +690,7 @@ With those answers on the page, most decisions become obvious.
 ### Before the review: set scope and ownership
 
 - Include every cloud account and subscription, not only production.
-- Include non-human identities explicitly. They need an owning team, not a manager.
+- Include non-human identities explicitly. Give each one an owning team, since there is no line manager to ask.
 - Assign an owner to every identity. Identities with no identifiable owner are a finding in their own right.
 - Define the usage window you will use as evidence, and confirm the activity logs that cover it are enabled.
 
@@ -706,12 +706,12 @@ You cannot review everything with the same care. Put these at the top:
 
 ### During the review: give reviewers evidence
 
-- Show effective permissions, not policy names.
+- Show effective permissions rather than policy names.
 - Show recent usage next to granted permissions, so the gap is visible.
 - Show why the identity was flagged, if it was.
 - Offer concrete outcomes rather than yes or no: keep, reduce to a suggested policy, remove, or defer with a reason.
 
-### Record decisions as states, not answers
+### Record access decisions as states
 
 Each identity should end the review in a clear state, for example:
 
@@ -726,7 +726,7 @@ States make the review measurable. You can see what was decided, what is outstan
 
 - Turn every "needs remediation" decision into a change in IAM, ideally a reduced policy based on observed usage rather than a manual edit.
 - Remove zombie identities and stale keys, after confirming nothing depends on them.
-- Re-check after the change, so the review evidence reflects what is actually in place.
+- Re-check after the change, so the review evidence reflects what is in place now.
 - Keep the review record, with decisions and reasons, as audit evidence.
 
 ### Between reviews: keep it continuous
@@ -746,7 +746,7 @@ States make the review measurable. You can see what was decided, what is outstan
 
 [Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory, walking policies, group memberships, conditions, explicit denies and cross-account trust. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity, a high-risk unused list and a 0–100 risk score; a suggested right-sized policy is in development, so today the replacement policy is built from the used actions. Machine identities such as Lambda execution roles, instance profiles, CI/CD roles over OIDC and EKS service accounts are classified and analysed alongside users. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today.
 
-For review, Onam lists shadow admins, zombie identities, stale keys, external principals that can assume privileged roles, and MFA coverage for privileged identities. Escalation paths are searched on the identity graph and cross-checked against Onam's cloud detection and response, so a path that has actually been used is separated from one that is only reachable. Database CIEM extends this to grants inside managed databases.
+For review, Onam lists shadow admins, zombie identities, stale keys, external principals that can assume privileged roles, and MFA coverage for privileged identities. Escalation paths are searched on the identity graph and cross-checked against Onam's cloud detection and response, so a path that has been used is kept apart from one that is only reachable. Database CIEM extends this to grants inside managed databases.
 
 Access reviews in Onam are an attestation and remediation workflow: every identity carries a state (pending, needs remediation, reviewed or deferred), and the finding that triggered the review stays attached, so the reviewer can see why it was flagged.
 
@@ -802,7 +802,7 @@ Two things in that description matter for a shortlist. The ranking unit is a pri
 - Each vendor is quoted from its own public page, verbatim, with the address and the date. If the page changes, the quote is out of date, not wrong, and we will fix it when told.
 - Nothing here says what any product cannot do. We did not test them. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you, not a gap.
 - No ranking. Alternatives are listed alphabetically, with our own entry last.
-- Corrections go to hello@onamsecurity.com and are applied, not argued with.
+- Corrections go to hello@onamsecurity.com and we apply them.
 
 ## Eight alternatives to Wiz
 
@@ -872,7 +872,7 @@ Tenable positions the product to "Prevent cloud breaches and reduce cloud risk b
 
 ### And Onam Security (that is us)
 
-We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
+We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
 
 - **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
 - **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from someone above who sells it.
@@ -880,7 +880,7 @@ We are the newest company on this list, so here are the facts rather than the ad
 
 ## How to choose a Wiz alternative
 
-Start from your situation, not the feature grid:
+Start from your own situation before looking at the feature grid:
 
 - **You are Azure-first and already pay for Microsoft security.** Price Defender CSPM before anything else; it may already be part of what you own.
 - **You run CrowdStrike, SentinelOne or Palo Alto on endpoints and network.** Their cloud products extend an agent and a console your team already operates. Test the cloud posture side as hard as the runtime side.
@@ -980,7 +980,7 @@ Deployment and ranking are what each vendor's own page says, on the date read. "
 Every tool on this list finds misconfigurations. That stopped being a differentiator years ago. Five things still separate them.
 
 1. **Depth per cloud.** The headline rule count hides whether your third cloud gets the same engine as your first. Ask for the per-cloud breakdown.
-2. **One graph or several silos.** A path that starts in one cloud and ends in another is invisible to a tool that analyses each cloud on its own. See [cloud attack paths](/learn/cloud-attack-path).
+2. **A single graph or several silos.** A path that starts in one cloud and ends in another is invisible to a tool that analyses each cloud on its own. See [cloud attack paths](/learn/cloud-attack-path).
 3. **Deployment.** What onboarding grants, and which features need an agent or sensor. Anything that needs a rollout reaches part of the estate.
 4. **The ranking unit.** Severity labels rank findings against each other. Business impact, ideally in money, ranks them against everything else the company could fund. See [cloud risk quantification](/learn/cloud-risk-quantification).
 5. **Continuous compliance evidence.** Evidence generated when someone clicks export is evidence for one day a quarter.
@@ -1049,7 +1049,7 @@ Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platfor
 
 ### 9. Onam Security (that is us)
 
-Facts, not adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. One posture engine covers seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, of which 9,853 are CSPM posture rules. Engines write into one security graph, so a path can cross a cloud boundary. Each finding gets a FAIR-style loss estimate — FAIR being The Open Group's risk analysis standard — raised for findings on attack paths, with the inputs shown next to the figure. Compliance is recomputed on every scan against 78 frameworks. SaaS posture covers 8 platforms. Every number traces to our published fact set.
+Here are the facts. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. One posture engine covers seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, of which 9,853 are CSPM posture rules. Engines write into one security graph, so a path can cross a cloud boundary. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths, with the inputs shown next to the figure. Compliance is recomputed on every scan against 78 frameworks. SaaS posture covers 8 platforms. Every number traces to our published fact set.
 
 - **Best for:** estates running OCI, Alibaba Cloud or IBM Cloud alongside the big three, and teams that need risk in money for a board.
 - **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is a requirement, one of the tools above sells it and we do not.
@@ -1114,64 +1114,64 @@ Last updated 7 October 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 Oc
     date: "July 20, 2026",
     readTime: "9 min",
     body: `
-Most cloud security proofs of concept are run badly — not because the buyer is careless, but because every platform demos well. Point any of them at a messy AWS account and findings appear. That is table stakes, and a POC that only proves it tells you nothing about which tool to buy.
+Most cloud security proofs of concept are run badly. The buyer is rarely careless; the trouble is that every platform demos well. Point any of them at a messy AWS account and findings appear. That is table stakes, and a POC that only proves it tells you nothing about which tool to buy.
 
 The seven questions below are the ones worth asking *during* the trial, while you still have hands on the product and a vendor engineer on the call. Each one is answerable inside a two-week POC, and each separates platforms that look identical in a demo. For the full week-by-week list of 30 questions, including setup, accuracy and cost, see [Wiz vs Orca POC: 30 questions to ask in any CNAPP trial](/resources/blog/wiz-vs-orca-poc-questions).
 
-If you're evaluating cloud security platforms in 2026, your shortlist probably reads: Wiz, Orca Security, Palo Alto Networks' Prisma Cloud (check whether your quote says Cortex Cloud) — and maybe us. We describe nobody else's product here; for that, read each vendor's own pages, or our [Wiz alternatives](/resources/blog/wiz-alternatives) post, which quotes them with sources and dates. And if a vendor tells you their competitors are bad products, stop trusting that vendor.
+If you're evaluating cloud security platforms in 2026, your shortlist probably reads: Wiz, Orca Security, Palo Alto Networks' Prisma Cloud (check whether your quote says Cortex Cloud), and maybe us. We describe nobody else's product here; for that, read each vendor's own pages, or our [Wiz alternatives](/resources/blog/wiz-alternatives) post, which quotes them with sources and dates. And if a vendor tells you their competitors are bad products, stop trusting that vendor.
 
-So this is not that post. Instead, here are the seven questions we believe actually separate cloud security platforms — the ones that predict whether the tool still works for you two years in. We'll give you Onam's answer to each, on the record. Then run the same checklist against every vendor on your shortlist and compare answers side by side.
+So this is not that post. Instead, here are the seven questions we think separate cloud security platforms. They are the ones that predict whether the tool still works for you two years in. We give Onam's answer to each, on the record. Then run the same checklist against every vendor on your shortlist and compare the answers side by side.
 
 ## The seven questions that separate platforms
 
 ### 1. How many clouds get *first-class* treatment?
 
-Every platform says "multi-cloud." The question is which clouds get the full engine depth and which get a check-the-box connector. If you run anything on Oracle Cloud (OCI), Alibaba Cloud, or IBM Cloud — common in finance, manufacturing, and Asia-Pacific enterprises — ask each vendor to demo *those* clouds, not AWS.
+Every platform says "multi-cloud." The question is which clouds get the full engine depth and which get a check-the-box connector. If you run anything on Oracle Cloud (OCI), Alibaba Cloud or IBM Cloud, which is common in finance, manufacturing and Asia-Pacific enterprises, ask each vendor to demo *those* clouds as well as AWS.
 
-**Onam's answer:** posture rules on all 7 clouds — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes — through one rule engine and one compliance mapping, and we publish the per-cloud rule counts rather than only the total. Depth is not identical everywhere: some identity analysis, such as unused-permission and shadow-admin detection, is AWS-only today, and our docs say which.
+**Onam's answer:** posture rules on all 7 clouds (AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes) through one rule engine and one compliance mapping, and we publish the per-cloud rule counts rather than only the total. Depth is not identical everywhere: some identity analysis, such as unused-permission and shadow-admin detection, is AWS-only today, and our docs say which.
 
 ### 2. Is the analysis cross-cloud, or per-cloud silos side by side?
 
 Real attack paths cross boundaries: an exposed GCP service account key that can assume a role into your AWS production account is invisible to any tool that analyses each cloud separately. A dashboard that *displays* seven clouds is not the same as a graph that *correlates* them.
 
-**Onam's answer:** one graph across all clouds, fed by posture, identity, network, data and threat-detection evidence. Attack-path entry points include other clouds, and federation between clouds is modelled as an edge, so a path can cross a provider boundary.
+**Onam's answer:** a single graph across all clouds, fed by posture, identity, network, data and threat-detection evidence. Attack-path entry points include other clouds, and federation between clouds is modelled as an edge, so a path can cross a provider boundary.
 
-### 3. Agentless — and what does onboarding take?
+### 3. Is it agentless, and what does onboarding take?
 
 Deployment friction predicts coverage: if connecting an account takes a change-management ticket, half your estate never gets connected. Ask for the exact onboarding steps and every permission each one grants.
 
-**Onam's answer:** no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template run in your own account, so every permission is readable first. For AWS we store no secret — Onam assumes your role; where a cloud needs a stored credential, it is kept in AWS Secrets Manager, encrypted with AWS KMS.
+**Onam's answer:** no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template run in your own account, so every permission is readable first. For AWS we store no secret, because Onam assumes your role. Where a cloud needs a stored credential, it is kept in AWS Secrets Manager, encrypted with AWS KMS.
 
-### 4. How does it prioritise — severity labels or business impact?
+### 4. How does it prioritise findings: severity labels or business impact?
 
 An alert firehose with 4,000 "critical" findings is operationally identical to no prioritisation at all. Ask *how* the platform decides what's first, and whether that reasoning is explainable to your CFO.
 
-**Onam's answer:** a FAIR-style loss estimate for each finding — a minimum, likely and maximum figure computed from exploit likelihood (EPSS), exposure, records at risk, data sensitivity, asset value and applicable regulations, and raised for findings on attack paths. The inputs are shown next to the figure, so the top of the queue is explainable in business terms, not just CVSS arithmetic.
+**Onam's answer:** a FAIR-style loss estimate for each finding. It is a minimum, likely and maximum figure computed from exploit likelihood (EPSS), exposure, records at risk, data sensitivity, asset value and applicable regulations, and it is raised for findings on attack paths. The inputs are shown next to the figure, so you can explain the top of the queue in business terms rather than CVSS arithmetic.
 
 ### 5. Does it connect findings across engines?
 
-A public subnet is medium. An over-privileged identity is medium. A workload with a critical CVE is high. The same three on one attack path is a breach waiting to happen. Connecting them is the whole point of a unified platform — ask each vendor to show it live.
+A public subnet is medium. An over-privileged identity is medium. A workload with a critical CVE is high. The same three on one attack path is a breach waiting to happen. Connecting them is the point of a unified platform, so ask each vendor to show it live.
 
-**Onam's answer:** attack paths are built from evidence across posture, identity, network, data and threat detection on one graph; only edges confirmed by that evidence are walked, and a high-EPSS vulnerability on a node raises the path's score.
+**Onam's answer:** attack paths are built from evidence across posture, identity, network, data and threat detection in the same graph. Only edges confirmed by that evidence are walked, and a high-EPSS vulnerability on a node raises the path's score.
 
 ### 6. Is compliance evidence continuous or point-in-time?
 
 If evidence is generated when you click "export report," you are audit-ready one day per quarter. Ask whether framework mappings update as infrastructure changes.
 
-**Onam's answer:** 78 frameworks — CIS benchmarks for each cloud, NIST 800-53, ISO 27001:2022, PCI DSS, HIPAA, SOC 2 and more — recomputed from the latest findings on every scan, with evidence per control. One finding maps to every framework it affects; auditors get PDF, CSV or Excel exports, not screenshots.
+**Onam's answer:** 78 frameworks, recomputed from the latest findings on every scan, with evidence per control. They include CIS benchmarks for each cloud, NIST 800-53, ISO 27001:2022, PCI DSS, HIPAA and SOC 2. One finding maps to every framework it affects, and auditors get PDF, CSV or Excel exports instead of screenshots.
 
 ### 7. Does coverage span code to runtime?
 
 Fixing a misconfiguration in the console while the Terraform that created it stays broken means the finding comes back on the next deploy. Ask whether the platform sees IaC, code, and runtime as one pipeline.
 
-**Onam's answer:** Code Security scans repositories for SAST, secrets, IaC and dependency issues, and DAST tests a running application when you give it a URL. Code findings are reported on their own today rather than traced to the cloud resource they deploy, so ask every vendor to show that link live rather than take it on trust — including us.
+**Onam's answer:** Code Security scans repositories for SAST, secrets, IaC and dependency issues, and DAST tests a running application when you give it a URL. Code findings are reported on their own today rather than traced to the cloud resource they deploy, so ask every vendor to show that link live rather than take it on trust. That includes us.
 
 ## The checklist, in one table
 
 | Evaluation criterion | Ask every vendor | Onam's answer |
 | --- | --- | --- |
 | Cloud coverage | Which clouds are first-class? Demo OCI/Alibaba/IBM. | Posture rules on all 7 clouds, counts published per cloud |
-| Cross-cloud analysis | One graph or per-cloud silos? | One graph; paths can cross clouds |
+| Cross-cloud analysis | A single graph or per-cloud silos? | A single graph; paths can cross clouds |
 | Deployment | Agents? What does onboarding grant? | No host agents; read-only posture roles, workload scanning in your account |
 | Prioritisation | How is "what's first" decided? | FAIR-style loss estimate per finding, raised on attack paths |
 | Cross-engine paths | Cross-engine evidence, live demo | Paths built from confirmed evidence across engines |
@@ -1180,7 +1180,7 @@ Fixing a misconfiguration in the console while the Terraform that created it sta
 
 ## Our bet, stated plainly
 
-Onam's bet is that cloud security is increasingly decided by **posture coverage on every cloud you run**, including OCI, Alibaba Cloud and IBM Cloud, **one graph instead of separate modules**, and **prioritisation a CFO can read**. That's what we built. We are a young company with no public reference customers yet, and no runtime sensor; if either is your first filter, weigh it.
+Onam's bet is that cloud security is increasingly decided by **posture coverage on every cloud you run**, including OCI, Alibaba Cloud and IBM Cloud, **a single graph instead of separate modules**, and **prioritisation a CFO can read**. That's what we built. We are a young company with no public reference customers yet, and we have no runtime sensor. If either is your first filter, weigh it.
 
 The honest way to decide is the checklist above. Run it against all four of us. We'll take our chances.
 
@@ -1199,7 +1199,7 @@ The honest way to decide is the checklist above. Run it against all four of us. 
     body: `
 AWS GuardDuty is a good product. It detects known malicious IP addresses, known cryptocurrency mining domains, known port scanning patterns, and a catalogue of documented attack signatures. If an attacker uses infrastructure that has appeared in threat feeds, GuardDuty will catch it.
 
-The problem is that sophisticated attackers do not use infrastructure that appears in threat feeds. They use compromised legitimate accounts, new cloud instances with clean IP addresses, and legitimate cloud services as their command-and-control channel. They operate slowly enough to avoid rate-based anomaly rules. They escalate privileges incrementally — one permission at a time — over days or weeks.
+The problem is that sophisticated attackers do not use infrastructure that appears in threat feeds. They use compromised legitimate accounts, new cloud instances with clean IP addresses, and legitimate cloud services as their command-and-control channel. They operate slowly enough to avoid rate-based anomaly rules. They escalate privileges in small steps, one permission at a time, over days or weeks.
 
 Rule-based detection catches what you already know to look for. The question is how to catch what you do not.
 
@@ -1210,14 +1210,14 @@ Onam's CDR (Cloud Detection and Response) engine reads the audit logs your cloud
 | Level | Approach | What it catches |
 | --- | --- | --- |
 | L1 | Detection rules over single events | Actions suspicious on their own: disabling logging, creating access keys for another user, known-bad indicators |
-| L2 | Correlation scenarios across several events | Ordered steps by one actor within a time window — the shape of an attack no single event shows |
+| L2 | Correlation scenarios across several events | Ordered steps by one actor within a time window: the shape of an attack that no single event shows |
 | L3 | Statistical behaviour baselines | An identity or account departing from its own recent history, even when no rule names the action |
 
-**L1 — single-event rules.** The same idea as a cloud's built-in threat service, applied across seven clouds' audit logs — CloudTrail, Azure Activity Log, Google Cloud Audit Logs, OCI Audit, Alibaba Cloud ActionTrail, IBM Cloud Activity Tracker and Kubernetes audit logs — with one alert schema. Detections are mapped to MITRE ATT&CK techniques, so each alert says which phase of an attack it represents.
+**L1: single-event rules.** This is the same idea as a cloud's built-in threat service, applied across seven clouds' audit logs with one alert schema. The logs are CloudTrail, Azure Activity Log, Google Cloud Audit Logs, OCI Audit, Alibaba Cloud ActionTrail, IBM Cloud Activity Tracker and Kubernetes audit logs. Detections are mapped to MITRE ATT&CK techniques, so each alert says which phase of an attack it represents.
 
-**L2 — correlation scenarios.** L2 reads the L1 findings for each actor and resource and matches them against scenarios: an ordered list of steps that must all occur within a time window. A role lookup, then an AssumeRole, then a new role created by a deployment stack is three ordinary events to L1. To L2 it is one scenario. On top of the scenarios, a sequence detector looks for four attack shapes in every supported cloud's own vocabulary: data exfiltration, identity pivot, secrets staging and compute hijack.
+**L2: correlation scenarios.** L2 reads the L1 findings for each actor and resource and matches them against scenarios: an ordered list of steps that must all occur within a time window. A role lookup, then an AssumeRole, then a new role created by a deployment stack is three ordinary events to L1. To L2 it is one scenario. On top of the scenarios, a sequence detector looks for four attack shapes in every supported cloud's own vocabulary: data exfiltration, identity pivot, secrets staging and compute hijack.
 
-**L3 — behaviour baselines.** L3 keeps daily statistics per identity and per account — for example session counts, superuser counts and admin role grants — and compares today's value with the mean and spread of the recent window. A value well above that range, or activity where there was none before, raises a finding. It is statistics, not a black box: each L3 finding carries the metric, today's value, the historical mean and how far it departed.
+**L3: behaviour baselines.** L3 keeps daily statistics per identity and per account, such as session counts, superuser counts and admin role grants. It compares today's value with the mean and spread of the recent window. A value well above that range, or activity where there was none before, raises a finding. There is no black box here. Each L3 finding carries the metric, today's value, the historical mean and how far it departed.
 
 ![The CDR alert view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
 
@@ -1225,9 +1225,9 @@ Onam's CDR (Cloud Detection and Response) engine reads the audit logs your cloud
 
 The canonical example of what single-event rules cannot detect is incremental privilege escalation. Here is a pattern that shows up in published cloud intrusion write-ups.
 
-**Day 1.** The attacker gains access to a developer's AWS credentials — through phishing, or an access key committed to a public repository. The developer's account can read from S3 buckets and invoke Lambda functions. The attacker reads the environment: lists resources, describes IAM policies, maps the account structure. All of these are legitimate API operations. No threat-intelligence indicator fires.
+**Day 1.** The attacker gains access to a developer's AWS credentials, through phishing or an access key committed to a public repository. The developer's account can read from S3 buckets and invoke Lambda functions. The attacker reads the environment: lists resources, describes IAM policies, maps the account structure. All of these are legitimate API operations. No threat-intelligence indicator fires.
 
-**Day 3.** The attacker notices that the developer's role has \`iam:ListRolePolicies\` and uses it to map roles with elevated permissions. They find a CI/CD role that can deploy CloudFormation stacks, and call \`sts:AssumeRole\` to take it on — a call the developer legitimately makes for manual deployments.
+**Day 3.** The attacker notices that the developer's role has \`iam:ListRolePolicies\` and uses it to map roles with elevated permissions. They find a CI/CD role that can deploy CloudFormation stacks, and call \`sts:AssumeRole\` to take it on. The developer makes that same call legitimately for manual deployments.
 
 **Day 7.** Using the CI/CD role, the attacker deploys a stack that creates a new IAM role with administrator access. The deployment looks like ordinary CI/CD activity.
 
@@ -1235,7 +1235,7 @@ At no point did a single event look malicious on its own. What gives the attack 
 
 ## What a baseline needs
 
-A baseline is only as good as its history. L3 compares each metric against a recent window of daily values and only judges a metric once enough days of history exist, so a brand-new identity or account is not flagged simply for having no past. The thresholds are set per baseline in the rule files — two or three standard deviations above the mean — rather than hidden inside a model.
+A baseline is only as good as its history. L3 compares each metric against a recent window of daily values and only judges a metric once enough days of history exist, so a brand-new identity or account is not flagged simply for having no past. The thresholds are set per baseline in the rule files, at two or three standard deviations above the mean, rather than hidden inside a model.
 
 ## MITRE ATT&CK mapping in CDR context
 
@@ -1243,23 +1243,23 @@ CDR detections are mapped to MITRE ATT&CK techniques. That matters for two reaso
 
 First, it puts the alert in attack-chain context. A single unusual API call from a new IP is low severity in isolation. The same identity showing Valid Accounts (T1078.004) followed by Cloud Infrastructure Discovery (T1580) tells a story, and the ATT&CK tagging makes that visible in the timeline without manual analysis.
 
-Second, it connects detections to posture. Every detection is joined to posture and identity context from the Onam graph, so an alert on a role assumption arrives next to what that role can reach — and a confirmed exfiltration sequence is written back to the resource's security posture, where attack-path analysis can see it.
+Second, it connects detections to posture. Every detection is joined to posture and identity context from the Onam graph, so an alert on a role assumption arrives next to what that role can reach. A confirmed exfiltration sequence is also written back to the resource's security posture, where attack-path analysis can see it.
 
 ## Multi-cloud coverage
 
-An attacker who compromises one cloud's identity may use it to reach another — for example a secret in one provider's secrets manager that holds another provider's credentials. Onam applies the same three levels and the same four sequence shapes to every supported cloud's audit logs, in that cloud's own service vocabulary, and federation between clouds is modelled in the identity graph that attack paths walk. Each detection still belongs to the cloud whose log produced it; the graph is where the clouds meet.
+An attacker who compromises one cloud's identity may use it to reach another, for example through a secret in one provider's secrets manager that holds another provider's credentials. Onam applies the same three levels and the same four sequence shapes to every supported cloud's audit logs, in that cloud's own service vocabulary, and federation between clouds is modelled in the identity graph that attack paths walk. Each detection still belongs to the cloud whose log produced it; the graph is where the clouds meet.
 
 ## What to expect in the first weeks
 
 The first weeks of CDR are about tuning out operational noise.
 
-**First scans.** L1 rules start producing findings as soon as logs are read. The most common early findings are not active threats — they are configuration patterns that look like threats: instances making repeated metadata calls, functions calling APIs across regions, CI/CD pipelines creating IAM roles during provisioning.
+**First scans.** L1 rules start producing findings as soon as logs are read. The most common early findings are configuration patterns that look like threats, rather than active threats: instances making repeated metadata calls, functions calling APIs across regions, CI/CD pipelines creating IAM roles during provisioning.
 
-**Tuning.** Review the L1 noise and suppress legitimate patterns with a reason and an expiry date — suppression should not be permanent for a cloud detection rule. Aim for an alert volume a person can review every day.
+**Tuning.** Review the L1 noise and suppress legitimate patterns with a reason and an expiry date. Suppressing a cloud detection rule should not be permanent. Aim for an alert volume a person can review every day.
 
 **Once history exists.** L3 baselines begin judging metrics once enough daily history has built up. The first L3 findings typically flag maintenance windows, pipelines that run at unusual hours and identities with legitimate but irregular usage. Each needs a decision: suppress with a reason and expiry, investigate, or escalate.
 
-> CDR is not a "set it and forget it" product. It needs sustained analyst attention to tune and investigate. The return is coverage of attacker behaviour that single-event rules cannot see.
+> CDR needs sustained analyst attention to tune and investigate. In return you cover attacker behaviour that single-event rules cannot see.
 
 To see the three levels against your own audit logs, [book a demo](/request-demo).
 `,
@@ -1276,11 +1276,11 @@ To see the three levels against your own audit logs, [book a demo](/request-demo
     body: `
 ## Why the same five keep showing up
 
-Cloud teams move fast, and defaults rarely favor the defender. Five misconfigurations come up again and again in AWS security reviews — often in accounts operated by teams that consider themselves mature. Each one is easy to introduce, easy to miss, and each one can quietly widen the blast radius of a routine credential leak into a full compromise.
+Cloud teams move fast, and defaults rarely favour the defender. Five misconfigurations come up again and again in AWS security reviews, often in accounts run by teams that consider themselves mature. Each is easy to introduce and easy to miss. Any of them can turn a routine credential leak into a full compromise.
 
 ## 1. S3 buckets exposed via bucket policies (not ACLs)
 
-Everyone knows to block public ACLs. Fewer teams audit **bucket policies** that grant \`s3:GetObject\` to \`Principal: "*"\`. The AWS console labels these buckets "Public" only when the policy resource is the bucket itself — not when it's \`arn:aws:s3:::acme-corp-uploads/public/*\`.
+Everyone knows to block public ACLs. Fewer teams audit **bucket policies** that grant \`s3:GetObject\` to \`Principal: "*"\`. The AWS console labels these buckets "Public" only when the policy resource is the bucket itself. It does not when the resource is \`arn:aws:s3:::acme-corp-uploads/public/*\`.
 
 - Enable **Block Public Access** at the account level.
 - Alert on any new bucket policy statement whose principal is \`*\` or whose condition allows broad IPs.
@@ -1296,21 +1296,21 @@ It is common to find \`AdministratorAccess\` on instance profiles that only need
 
 ## 3. Public RDS snapshots
 
-RDS snapshot sharing is a per-snapshot ACL — flipping it to "public" makes the entire database available to any AWS account. Teams do this to move data between environments and forget to revert.
+RDS snapshot sharing is a per-snapshot ACL. Flipping it to "public" makes the entire database available to any AWS account. Teams do this to move data between environments and forget to revert.
 
 ## 4. Security groups with 0.0.0.0/0 on non-web ports
 
-SSH (22), RDP (3389), database ports, and \`ANY\`-protocol rules facing the internet remain a classic initial-access route. Many are legacy — a rule opened for a demo years ago on an account no one owns anymore.
+SSH (22), RDP (3389), database ports, and \`ANY\`-protocol rules facing the internet remain a classic initial-access route. Many are legacy: a rule opened for a demo years ago on an account no one owns any more.
 
 ## 5. CloudTrail gaps
 
 CloudTrail is either not enabled in every region, not covering S3 data events, or writing to a bucket in the same account with no MFA delete. Any attacker with account-level access rewinds the tape.
 
-## What "fix it fast" actually looks like
+## How to prioritise fixing AWS misconfigurations
 
-Prioritization matters more than volume. Onam raises findings that sit on an attack path from an internet-exposed resource to a crown jewel such as a data store or key — so the SSH-open bastion in front of an admin IAM role comes before the internal-only bucket policy.
+Prioritisation matters more than volume. Onam raises findings that sit on an attack path from an internet-exposed resource to a high-value target such as a data store or key. So the SSH-open bastion in front of an admin IAM role comes before the internal-only bucket policy.
 
-If you're onboarding a new AWS org, check for all five on the first scan. Finding some of them is not a failure of your team — it's the shape of AWS defaults.
+If you're onboarding a new AWS organisation, check for all five on the first scan. Finding some of them says more about AWS defaults than about your team.
 `,
   },
   {
@@ -1323,11 +1323,11 @@ If you're onboarding a new AWS org, check for all five on the first scan. Findin
     date: "July 3, 2026",
     readTime: "5 min",
     body: `
-## Two acronyms, one confused market
+## CIEM and IAM Security are often confused
 
-Vendors — us included — throw "IAM Security" and "CIEM" around interchangeably. In practice they answer different questions, and mature security programs run both.
+Vendors, us included, use "IAM Security" and "CIEM" interchangeably. In practice they answer different questions, and mature security programmes run both.
 
-## IAM Security answers: is this identity configured safely?
+## IAM Security checks whether an identity is configured safely
 
 IAM Security is about the **static shape** of your identity plane:
 
@@ -1336,11 +1336,11 @@ IAM Security is about the **static shape** of your identity plane:
 - Are there inline policies with \`Action: "*"\` and \`Resource: "*"\`?
 - Are service accounts stored in plaintext anywhere in your repos?
 
-It's essentially a posture check against identity best practices. Every CSPM does some of this. Good ones do a lot of it.
+It's a posture check against identity best practice. Every CSPM does some of this. Good ones do a lot of it.
 
-## CIEM answers: what could this identity actually do?
+## CIEM works out what an identity could do
 
-CIEM starts where IAM Security stops. It reconciles **who has which entitlements**, **what those entitlements evaluate to** given every trust policy, permission boundary, and SCP in the chain, and — most importantly — **what was actually used** over a recent activity window.
+CIEM starts where IAM Security stops. It reconciles **who has which entitlements** and **what those entitlements evaluate to**, given every trust policy, permission boundary and SCP in the chain. Most importantly, it checks **what was used** over a recent activity window.
 
 The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output looks more like this (illustrative examples):
 
@@ -1348,22 +1348,22 @@ The output isn't "this user has AdministratorAccess." Every scanner will tell yo
 - \`OnamReadOnly\` in account \`****4821\` is assumable by 17 principals in 6 other accounts through a chain of two roles.
 - The CI service account \`build-runner\` has never called most of the actions it was granted when it was created.
 
-That third bullet is where CIEM stops being interesting and starts being urgent. **Unused entitlements are usually where over-privilege hides.**
+The third bullet is the urgent one. **Unused entitlements are usually where over-privilege hides.**
 
 ## Where the two overlap
 
-- Detecting IAM users without MFA — IAM Security.
-- Detecting an IAM user without MFA whose permissions include \`iam:PassRole\` on an admin role — that's CIEM. IAM Security tells you the user is unsafe. CIEM tells you what it will cost when the user is compromised.
+- Detecting IAM users without MFA is IAM Security.
+- Detecting an IAM user without MFA whose permissions include \`iam:PassRole\` on an admin role is CIEM. IAM Security tells you the user is unsafe. CIEM tells you what it will cost when the user is compromised.
 
 ## The rule we use internally
 
-If the finding can be answered by looking at one resource in isolation, it's IAM Security. If it requires stitching together identity, trust, and behavior across accounts, it's CIEM.
+If the finding can be answered by looking at one resource in isolation, it's IAM Security. If it requires stitching together identity, trust and behaviour across accounts, it's CIEM.
 
 You need both. IAM Security keeps the door from being obviously open. CIEM makes sure that if it opens, the blast radius is bounded.
 
 ## Frequently asked: the CIEM vs IAM difference
 
-**What is the difference between CIEM and IAM?** IAM is the cloud provider's own identity service: it is where roles, policies and permissions are defined and granted. CIEM sits on top of it and answers a question IAM does not: what can each identity actually do once role chaining, permission boundaries, SCPs and resource policies are all resolved, and how much of that has it ever used.
+**What is the difference between CIEM and IAM?** IAM is the cloud provider's own identity service: it is where roles, policies and permissions are defined and granted. CIEM sits on top of it and answers a question IAM does not: what can each identity do once role chaining, permission boundaries, SCPs and resource policies are all resolved, and how much of that has it ever used.
 
 **Is CIEM a replacement for IAM?** No. Every cloud account still runs on its provider's IAM. CIEM audits what IAM has granted, finds the entitlements nobody uses, and turns the gap between granted and used into least-privilege changes you can apply back in IAM.
 
@@ -1380,9 +1380,9 @@ You need both. IAM Security keeps the door from being obviously open. CIEM makes
     date: "June 30, 2026",
     readTime: "6 min",
     body: `
-Security tools got better at finding things. The bottleneck was never finding — it was fixing. A security team that surfaces hundreds of findings a week and has engineering time to fix a few dozen will always have a growing backlog, however well tuned the detection is.
+Security tools got better at finding things. The bottleneck was always fixing. A security team that surfaces hundreds of findings a week and has engineering time to fix a few dozen will always have a growing backlog, however well tuned the detection is.
 
-AI-assisted remediation goes at that bottleneck. Not by reducing finding volume — the findings are real and need fixing — but by shortening the work between "identified" and "resolved" for each one.
+AI-assisted remediation goes at that bottleneck. It does not reduce the number of findings, which are real and need fixing. It shortens the work between "identified" and "resolved" for each one.
 
 ## Why generic LLM suggestions fail
 
@@ -1390,19 +1390,19 @@ The obvious approach is to pipe findings into a general-purpose LLM and ask it t
 
 Consider a finding: "Lambda function \`payment-processor-prod\` has a role with \`s3:GetObject\` on \`*\`." A generic LLM will suggest: "Restrict the IAM role to only the specific S3 bucket the function needs to access." Technically correct. But which bucket? What is the ARN? Are there multiple buckets? Is the function deployed by Terraform, CloudFormation, or CDK? Is the role shared with other functions?
 
-A useful fix starts from context the platform already holds: the resource, its account and region, the rule that failed and the rule's remediation guidance. In Onam, every finding carries an AI fix prompt built from that context — it names the resource and your cloud's tooling — which you paste into an assistant to draft the CLI command, Terraform change or console steps, then review before applying.
+A useful fix starts from context the platform already holds: the resource, its account and region, the rule that failed and the rule's remediation guidance. In Onam, every finding carries an AI fix prompt built from that context. It names the resource and your cloud's tooling. You paste it into an assistant to draft the CLI command, Terraform change or console steps, then review the draft before applying it.
 
 ![AI-assisted remediation in the Onam platform](/diagrams/p-ai-security.svg)
 
 ## AI Code Fix: corrected source files on a fix branch
 
-AI Code Fix works on the findings from a completed SAST scan of a repository — source files flagged by static analysis. It does not write tests, generate infrastructure-as-code patches or fix DAST results; those have no source file to rewrite.
+AI Code Fix works on the findings from a completed SAST scan of a repository, meaning source files flagged by static analysis. It does not write tests, generate infrastructure-as-code patches or fix DAST results, because those have no source file to rewrite.
 
 | Step | What happens |
 | --- | --- |
 | Select | You choose the scan and which severities to fix. Findings your team marked as false positives are left out. |
 | Group | Findings are grouped by file, so every issue in one file is fixed in a single pass. |
-| Ground | A large language model receives the whole file, every finding in it, and the rule's guidance — the recommendation and a safe example in the same language where one exists. |
+| Ground | A large language model receives the whole file, every finding in it, and the rule's guidance: the recommendation, plus a safe example in the same language where one exists. |
 | Constrain | The model is told to fix only the listed issues and keep indentation, names and style unchanged. |
 | Hand over | Corrected files are committed to a new fix branch and pushed for review. Nothing merges and nothing deploys on its own. |
 
@@ -1412,21 +1412,21 @@ For a hardcoded database password, the fix branch carries the same file with the
 
 The third piece addresses a different bottleneck: communication.
 
-Attack path analysis produces a graph — nodes and edges, resource IDs, MITRE technique codes. That is precise for a security engineer and hard going for a CISO preparing a board update or a GRC team answering an auditor.
+Attack path analysis produces a graph of nodes and edges, resource IDs and MITRE technique codes. That is precise for a security engineer and hard going for a CISO preparing a board update or a GRC team answering an auditor.
 
-In Onam, each attack path opens as a step-by-step story: where the path starts, each hop with its MITRE ATT&CK tactic and technique, the data store or key it ends at, and a remediation step for each hop. The choke point — the resource that appears in the most paths — is marked, with the number of paths that fixing it would block. The story and the graph are drawn from the same path data, so they stay in sync.
+In Onam, each attack path opens as a step-by-step story: where the path starts, each hop with its MITRE ATT&CK tactic and technique, the data store or key it ends at, and a remediation step for each hop. The choke point, meaning the resource that appears in the most paths, is marked with the number of paths that fixing it would block. The story and the graph are drawn from the same path data, so they stay in sync.
 
 ## Data handling
 
-AI Code Fix sends the full content of each affected file — and only files with findings — to the language model that writes the fix. The Git token it uses needs read access and permission to push a branch, and it is not stored. Every run is audit-logged: who asked, for which scan and which repository. The AI fix prompt on a posture finding is text you copy into the assistant of your choice, so you decide where it goes.
+AI Code Fix sends the full content of each affected file to the language model that writes the fix. Only files with findings are sent. The Git token it uses needs read access and permission to push a branch, and it is not stored. Every run is audit-logged: who asked, for which scan and which repository. The AI fix prompt on a posture finding is text you copy into the assistant of your choice, so you decide where it goes.
 
 ## Making AI remediation part of the workflow
 
-The most common mistake in AI remediation rollout is treating it as a replacement for security engineering judgment. It is not. Every generated fix requires review before deployment. The model sees the file, the finding and the rule's guidance — it does not understand your team's operational constraints, your change management process, or the business reasons a particular configuration might be intentional.
+The most common mistake in AI remediation rollout is treating it as a replacement for security engineering judgment. It is not. Every generated fix requires review before deployment. The model sees the file, the finding and the rule's guidance. It does not understand your team's operational constraints, your change management process, or the business reasons a particular configuration might be intentional.
 
-> The right workflow is: AI drafts, an engineer reviews, an engineer approves, your pipeline deploys. The AI shortens the drafting. It does not replace the judgment — and it should not.
+> The right workflow is: AI drafts, an engineer reviews, an engineer approves, your pipeline deploys. The AI shortens the drafting. It should not replace the judgement.
 
-What remains is review, approval and change management — timelines bounded by process rather than by how long it takes someone to write the change.
+What remains is review, approval and change management. Those timelines are set by your process rather than by how long it takes someone to write the change.
 `,
   },
   {
@@ -1441,13 +1441,13 @@ What remains is review, approval and change management — timelines bounded by 
     body: `
 A busy cloud estate carries hundreds of open posture findings at any given time. Security teams triage by severity, work through the Critical queue, and ship patches. Three months later, the finding count is roughly the same. The board asks why the environment is still at risk.
 
-The answer is that severity scores do not tell you which findings actually lead to breaches. They tell you how bad an individual misconfiguration is in isolation. But attackers do not exploit individual misconfigurations in isolation — they chain them together.
+Severity scores do not tell you which findings lead to breaches. They tell you how bad one misconfiguration is on its own. Attackers rarely exploit misconfigurations one at a time. They chain them.
 
 > The finding that causes a breach is rarely the most severe finding on your list. It is the one that connects to five other findings in a path that reaches your most critical assets.
 
-## What an attack path actually is
+## What an attack path is
 
-An attack path is a sequence of exploitation steps that an attacker could take to move from an initial foothold to a target resource. Each step in the path exploits a specific misconfiguration or vulnerability. No single step requires extraordinary attacker capability — each one is a logical consequence of the previous.
+An attack path is a sequence of exploitation steps that an attacker could take to move from an initial foothold to a target resource. Each step in the path exploits a specific misconfiguration or vulnerability. No single step needs unusual skill. Each one follows from the one before.
 
 A typical AWS attack path might look like this:
 
@@ -1457,70 +1457,70 @@ A typical AWS attack path might look like this:
 4. Using \`iam:PassRole\`, the attacker creates a new Lambda function and assigns the deployment role, giving them pipeline-level permissions.
 5. The deployment role has \`s3:GetObject\` on the S3 bucket where customer PII exports are staged for the data warehouse ETL pipeline.
 
-At step one, the attacker is an anonymous internet user. At step five, they are reading customer PII. None of the individual misconfigurations — IMDSv1 enabled, overly permissive execution role, unscoped PassRole — are rated Critical in isolation. Together, they form a breach.
+At step one, the attacker is an anonymous internet user. At step five, they are reading customer PII. None of the individual misconfigurations (IMDSv1 enabled, an overly permissive execution role, an unscoped PassRole) is rated Critical on its own. Together, they form a breach.
 
 ![The attack path view in the Onam console (demo account)](/screenshots/screenshot-attack-path.png)
 
-## Chained findings: when 2 + 2 = 10
+## How chained findings combine into higher risk
 
 Some findings, in combination, produce a risk far larger than the sum of their individual severity scores.
 
-A concrete example: suppose you have an EC2 instance that is internet-facing (a High finding) running a web application with a known CVE in its web framework (a Medium finding). Neither finding is marked Critical. But the CVE provides remote code execution, and the internet-facing exposure means the instance can be reached directly. The combination is Critical — a direct RCE entry point with no network controls in between.
+A concrete example: suppose you have an EC2 instance that is internet-facing (a High finding) running a web application with a known CVE in its web framework (a Medium finding). Neither finding is marked Critical. But the CVE provides remote code execution, and the internet-facing exposure means the instance can be reached directly. The combination is Critical: a direct RCE entry point with no network controls in between.
 
-Add one more element: suppose the instance profile grants \`ec2:DescribeInstances\` and \`ssm:SendCommand\` across the entire account. Now the attacker who exploited the CVE can run commands on every EC2 instance in the account. Three Medium/High findings. One account-wide compromise.
+Add one more element: suppose the instance profile grants \`ec2:DescribeInstances\` and \`ssm:SendCommand\` across the entire account. Now the attacker who exploited the CVE can run commands on every EC2 instance in the account. Three Medium or High findings add up to an account-wide compromise.
 
 ## Crown jewel path analysis
 
-Not all attack paths matter equally. A path that reaches a development environment with synthetic test data is not the same as a path that reaches your production payment processor or customer data lake. Crown jewel path analysis focuses on the resources you care most about — your crown jewels — and on every path that leads to them.
+Not all attack paths matter equally. A path that reaches a development environment with synthetic test data is not the same as a path that reaches your production payment processor or customer data lake. Crown jewel path analysis focuses on the resources you care most about and on every path that leads to them.
 
-In Onam, crown jewels are the resources a path can end at — data stores such as S3, RDS and DynamoDB, encryption keys, admin roles and similar high-value targets — and the data classification labels from data security posture (taken from names, tags and schema) raise the impact of paths that reach sensitive stores.
+In Onam, these are the resources a path can end at: data stores such as S3, RDS and DynamoDB, encryption keys, admin roles and similar high-value targets. Data classification labels from data security posture (taken from names, tags and schema) raise the impact of paths that reach sensitive stores.
 
 The result is a list of paths ranked by likelihood and impact, so the path to the customer data lake outranks the path to a test bucket.
 
 ## How Onam implements attack path analysis
 
-Onam's attack path engine is built on a property graph. Every cloud resource — EC2 instances, IAM roles, S3 buckets, Lambda functions, security groups, VPCs, subnets, load balancers — is represented as a node. Relationships between resources are represented as typed edges.
+Onam's attack path engine is built on a property graph. Every cloud resource is a node: EC2 instances, IAM roles, S3 buckets, Lambda functions, security groups, VPCs, subnets and load balancers. Relationships between resources are represented as typed edges.
 
-Edges are derived from posture, identity, network, data and threat-detection evidence — for example an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, or a key that encrypts a store. Each edge is marked confirmed, blocked or a gap, and only confirmed edges are walked.
+Edges are derived from posture, identity, network, data and threat-detection evidence. Examples include an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, or a key that encrypts a store. Each edge is marked confirmed, blocked or a gap, and only confirmed edges are walked.
 
-Attack path discovery runs a breadth-first search across this graph, starting from entry points — the internet, admin identities, other identities, CI/CD, third parties and other clouds — and walking to every reachable crown jewel. Each path is scored on:
+Attack path discovery runs a breadth-first search across this graph, starting from entry points (the internet, admin identities, other identities, CI/CD, third parties and other clouds) and walking to every reachable high-value target. Each path is scored on:
 
-- Likelihood, which starts from the entry point and decays with every hop — shorter paths score higher.
-- Exploitability — a node with a high-EPSS vulnerability raises the path's likelihood.
+- Likelihood, which starts from the entry point and decays with every hop, so shorter paths score higher.
+- Exploitability. A node with a high-EPSS vulnerability raises the path's likelihood.
 - Impact of the target, raised by its data classification.
-- Confirmed controls — a WAF in front of the target or MFA on the entry point lowers the score.
+- Confirmed controls. A WAF in front of the target or MFA on the entry point lowers the score.
 
-![A privilege escalation chain modeled as a graph of identities and permissions](/diagrams/feat-ciem-privesc-chain.svg)
+![A privilege escalation chain modelled as a graph of identities and permissions](/diagrams/feat-ciem-privesc-chain.svg)
 
 ## MITRE ATT&CK tagging on every path step
 
-Each step in an attack path is tagged with the MITRE ATT&CK technique it represents. This does two things: it grounds the abstract graph traversal in threat intelligence that security teams and CISOs recognize, and it gives security teams and auditors a shared, published vocabulary for what each step of a path does.
+Each step in an attack path is tagged with the MITRE ATT&CK technique it represents. This does two things. It grounds the abstract graph traversal in threat intelligence that security teams and CISOs recognise, and it gives security teams and auditors a shared, published vocabulary for what each step of a path does.
 
 A path step that exploits IMDSv1 to steal credentials is tagged T1552.005 (Unsecured Credentials: Cloud Instance Metadata API). A step that uses \`iam:PassRole\` for privilege escalation is tagged T1548.005. A step that exfiltrates data from S3 is tagged T1530.
 
 This tagging means that when you present an attack path finding to an engineering team, you can say: "This is a five-step privilege escalation path from an internet-exposed Lambda to your production database, using T1078 to T1548 to T1530. Here are the three changes that break the path at step two."
 
-## What to fix first: breaking the chain vs. hardening the target
+## What to fix first on an attack path: break the chain or harden the target
 
-When you have an identified attack path, you have two remediation strategies. You can harden the target — make the crown jewel harder to access — or you can break the chain: remove a link in the path so the attacker cannot traverse it.
+When you have an identified attack path, you have two remediation strategies. You can harden the target so it is harder to reach, or you can break the chain by removing a link the attacker needs.
 
-Breaking the chain is almost always the right answer. Hardening the target is valuable — encryption, access logging, strict IAM policies on the database itself — but it does not eliminate the path. If the chain is intact, a sufficiently motivated attacker will find a way to the end.
+Breaking the chain is almost always the right answer. Hardening the target (encryption, access logging, strict IAM policies on the database itself) is valuable, but it does not eliminate the path. If the chain is intact, a sufficiently motivated attacker will find a way to the end.
 
 Finding the optimal break point means identifying the link that:
 
-- Has the lowest remediation cost — a one-line IAM policy change beats a network re-architecture.
-- Blocks the most paths simultaneously — a single overly permissive role may appear in a dozen paths.
+- Has the lowest remediation cost. A one-line IAM policy change beats a network re-architecture.
+- Blocks the most paths at once. A single overly permissive role may appear in a dozen paths.
 - Has no compensating control already in place.
 
-> Onam's path analysis marks the choke point — the resource that appears in the most paths — and shows how many paths fixing it would block.
+> Onam's path analysis marks the choke point (the resource that appears in the most paths) and shows how many paths fixing it would block.
 
 ## Making the case to engineering
 
-The practical challenge in attack path remediation is not technical — it is organisational. A Medium severity finding does not motivate an engineering team to drop their sprint work. An attack path that demonstrates a five-step route from the internet to production customer data does.
+The practical challenge in attack path remediation is organisational more than technical. A Medium severity finding does not motivate an engineering team to drop their sprint work. An attack path that demonstrates a five-step route from the internet to production customer data does.
 
-Attack path visualisations exist precisely for this reason. When you can show an engineer an interactive graph where each node is a resource they recognise and each edge is a permission they can verify in the AWS console, the remediation priority becomes self-evident. You are not asking them to trust a risk score. You are showing them the exact sequence an attacker would follow.
+That is what attack path visualisations are for. Show an engineer an interactive graph where each node is a resource they recognise and each edge is a permission they can check in the AWS console, and the priority is obvious. You are showing them the exact sequence an attacker would follow instead of asking them to trust a risk score.
 
-This is why attack path analysis is not a CSPM feature — it is a communication tool. It translates the abstract language of cloud misconfiguration into the concrete language of "here is how you get breached, here is what to change."
+So attack path analysis works as a communication tool as much as a CSPM feature. It turns cloud misconfiguration into plain statements: here is how you get breached, and here is what to change.
 `,
   },
   {
@@ -1533,13 +1533,13 @@ This is why attack path analysis is not a CSPM feature — it is a communication
     date: "June 17, 2026",
     readTime: "9 min",
     body: `
-Every cloud security tool produces a list of findings ranked by CVSS score. Critical findings go to the top of the queue; engineers fix them in order. This approach has an intuitive appeal — surely the highest-severity vulnerability is the most urgent.
+Every cloud security tool produces a list of findings ranked by CVSS score. Critical findings go to the top of the queue; engineers fix them in order. The approach feels right. Surely the highest-severity vulnerability is the most urgent.
 
 The problem is that CVSS measures the exploitability and impact of a vulnerability in isolation. It does not know whether your environment has compensating controls. It does not know whether the vulnerable resource is a developer's test server or your payment processing API. It does not know whether you process ten thousand transactions per day or ten million. Two organisations with identical CVSS scores can face risks that differ by three orders of magnitude.
 
-FAIR — Factor Analysis of Information Risk, published by The Open Group as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards — is the framework that fills this gap. It does not replace CVSS. It uses it as one input in a model that produces what your board actually cares about: the dollar value of your attack surface.
+FAIR (Factor Analysis of Information Risk) fills this gap. The Open Group publishes it as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards. FAIR does not replace CVSS. It uses CVSS as one input in a model that produces the figure your board cares about: the dollar value of your attack surface.
 
-## The developer server vs. the payment processor
+## CVSS example: a developer server and a payment processor
 
 Consider two findings, both rated CVSS 9.1 (Critical):
 
@@ -1550,17 +1550,17 @@ CVSS says these are equivalent. Any security engineer knows they are not. FAIR m
 
 ## FAIR fundamentals: frequency times magnitude
 
-FAIR models risk as the product of two variables: Loss Event Frequency — how often will a loss event occur? — and Loss Magnitude — how much will it cost when it does?
+FAIR models risk as the product of two variables. Loss Event Frequency is how often a loss event will occur. Loss Magnitude is how much it will cost when it does.
 
 Loss Event Frequency has two components:
 
-- **Threat Event Frequency** — how often will a threat actor attempt to exploit this?
-- **Vulnerability** — when a threat actor attempts exploitation, what is the probability of success?
+- **Threat Event Frequency:** how often will a threat actor try to exploit this?
+- **Vulnerability:** when a threat actor tries, what is the probability of success?
 
 Loss Magnitude breaks down into primary and secondary losses:
 
-- **Primary losses** — incident response costs, forensics, data recovery, business downtime.
-- **Secondary losses** — regulatory fines, legal liability, reputation damage, customer churn.
+- **Primary losses:** incident response costs, forensics, data recovery, business downtime.
+- **Secondary losses:** regulatory fines, legal liability, reputation damage, customer churn.
 
 In a full FAIR analysis each variable is expressed as a range, and simulation produces a distribution of annualised loss exposure rather than a single point estimate. That makes uncertainty explicit rather than hiding it behind a precise-looking score.
 
@@ -1570,27 +1570,27 @@ The traditional objection to FAIR is that it needs too many manual inputs to sca
 
 **Loss event frequency from EPSS and exposure.** FIRST's Exploit Prediction Scoring System (EPSS) gives the probability that a CVE will be exploited in the next 30 days. Onam multiplies it by an exposure factor: a publicly reachable resource counts fully, an internal one at a fraction. Findings that sit on an attack path have their exposure raised, and more so when they appear on several paths.
 
-**Loss magnitude from records, sensitivity and asset value.** Primary loss starts from the number of records at risk and a per-record cost for your industry, then is scaled by the data's sensitivity (restricted, confidential, internal or public) and by the value of the asset — a crown jewel such as an encryption key, an admin role or a data warehouse weighs far more than an ordinary resource. You can replace the default record count, per-record cost and sensitivity weights with your own figures, so the estimate reflects your business rather than an industry average.
+**Loss magnitude from records, sensitivity and asset value.** Primary loss starts from the number of records at risk and a per-record cost for your industry, then is scaled by the data's sensitivity (restricted, confidential, internal or public) and by the value of the asset. A high-value asset such as an encryption key, an admin role or a data warehouse weighs far more than an ordinary resource. You can replace the default record count, per-record cost and sensitivity weights with your own figures, so the estimate reflects your business rather than an industry average.
 
 ![Risk quantification in the Onam console (demo account)](/screenshots/screenshot-risk.png)
 
 ## Regulatory exposure
 
-Secondary losses from regulation are often larger than the incident itself. When a finding's region and data class bring a regulation into play — GDPR, HIPAA, PCI DSS, CCPA, SOX and others — Onam does two things. It applies a regulatory weight to the loss magnitude, taking the single highest applicable weight rather than stacking them, so one finding is not double-counted. And it estimates a separate regulatory fine range from each regulation's published penalty structure, using the record count and annual revenue you configure. GDPR, for example, allows fines of up to €20 million or 4% of worldwide annual turnover, whichever is higher (Regulation (EU) 2016/679, Article 83(5)).
+Secondary losses from regulation are often larger than the incident itself. When a finding's region and data class bring a regulation into play, such as GDPR, HIPAA, PCI DSS, CCPA or SOX, Onam does two things. It applies a regulatory weight to the loss magnitude, taking the single highest applicable weight rather than stacking them, so one finding is not double-counted. And it estimates a separate regulatory fine range from each regulation's published penalty structure, using the record count and annual revenue you configure. GDPR, for example, allows fines of up to €20 million or 4% of worldwide annual turnover, whichever is higher (Regulation (EU) 2016/679, Article 83(5)).
 
 ## From a finding list to a ranked queue
 
 Each finding gets a minimum, likely and maximum loss estimate, a risk tier, the regulations that apply and the MITRE ATT&CK techniques involved, with the calculation inputs shown alongside. Instead of forty Critical findings and eighty High findings sorted by CVSS, you get a list ordered by estimated loss.
 
-> This reordering often surprises security teams. The highest-loss finding is not always the highest-CVSS finding. It can be a Medium-severity misconfiguration — an RDS instance missing encryption at rest, a bucket open to another account — on a resource that holds sensitive data and never reached the top of a severity-sorted queue.
+> This reordering often surprises security teams. The highest-loss finding is not always the highest-CVSS finding. It can be a Medium-severity misconfiguration, such as an RDS instance missing encryption at rest or a bucket open to another account, on a resource that holds sensitive data and never reached the top of a severity-sorted queue.
 
 ## Making the business case to engineering management
 
-Security teams have historically struggled to translate findings into language that resonates with engineering managers and financial stakeholders. "We have a Critical finding" does not answer the question an engineering manager is actually asking: "What is the cost of not fixing this right now compared to shipping the feature we have committed to?"
+Security teams have historically struggled to translate findings into language that resonates with engineering managers and financial stakeholders. "We have a Critical finding" does not answer the question an engineering manager is asking: "What is the cost of not fixing this right now compared to shipping the feature we have committed to?"
 
 FAIR makes this conversation tractable. "This finding puts an estimated range of loss on a customer data store, most of it regulatory. The fix is a small IAM policy change." That is a conversation an engineering manager can act on.
 
-The goal of FAIR is not to produce a precise dollar figure — the uncertainty ranges in the model make that clear. It is to produce a defensible, data-grounded estimate that turns security prioritisation from an argument about severity scores into a business decision with quantified stakes.
+FAIR does not aim at a precise dollar figure, and the uncertainty ranges in the model make that plain. The aim is a defensible estimate grounded in data. With it, prioritisation stops being an argument about severity scores and becomes a business decision with the stakes written down.
 `,
   },
   {
@@ -1623,9 +1623,9 @@ Subjects such as \`system:authenticated\` (every authenticated identity) or \`sy
 
 **Audit:** treat any wildcard outside the built-in \`cluster-admin\` role as a finding until proven necessary.
 
-## 4. "Can create pods" is not a small permission
+## 4. Pod creation rights that reach the node
 
-A subject that can create pods in a namespace can run a pod that mounts the node's filesystem through a \`hostPath\` volume, runs privileged, or uses any service account in that namespace — and so inherits that service account's permissions. Unless Pod Security admission (or an equivalent policy) blocks privileged and host-path pods in that namespace, "create pods" is a path to the node and from there, often, to the cluster.
+A subject that can create pods in a namespace can run a pod that mounts the node's filesystem through a \`hostPath\` volume, runs privileged, or uses any service account in that namespace, and so inherits that service account's permissions. Unless Pod Security admission (or an equivalent policy) blocks privileged and host-path pods in that namespace, "create pods" is a path to the node and from there, often, to the cluster.
 
 **Audit:** list who can create pods, deployments, jobs and other workload controllers, and confirm the namespace enforces the restricted or baseline Pod Security standard.
 
@@ -1643,7 +1643,7 @@ ClusterRoles with an \`aggregationRule\` collect the rules of every ClusterRole 
 
 ## A habit that catches most of this
 
-Review RBAC as effective access per subject, not as a list of roles. For each service account and group, ask what it can do across the whole cluster once every binding is counted. The six patterns above are the usual reasons the answer is "more than anyone intended".
+Review RBAC as effective access per subject rather than as a list of roles. For each service account and group, ask what it can do across the whole cluster once every binding is counted. The six patterns above are the usual reasons the answer is "more than anyone intended".
 
 [Onam's container security](/platform/container-security) checks Kubernetes clusters against posture rules, including RBAC and Pod Security settings, alongside the cloud accounts the clusters run in.
 `,
@@ -1658,7 +1658,7 @@ Review RBAC as effective access per subject, not as a list of roles. For each se
     date: "June 3, 2026",
     readTime: "5 min",
     body: `
-Every vulnerability scanner sorts by CVSS, and every team that has worked a CVSS-sorted queue knows the problem: there are far more "critical" and "high" CVEs than anyone can patch, and the score does not say which of them attackers are actually using.
+Every vulnerability scanner sorts by CVSS, and every team that has worked a CVSS-sorted queue knows the problem: there are far more "critical" and "high" CVEs than anyone can patch, and the score does not say which of them attackers are using.
 
 ## What CVSS measures, and what it does not
 
@@ -1666,7 +1666,7 @@ CVSS, maintained by FIRST, describes the technical severity of a vulnerability: 
 
 ## What EPSS adds
 
-The Exploit Prediction Scoring System, also published by FIRST, estimates the probability that a CVE will be exploited in the wild in the next 30 days. It is a number between 0 and 1, updated daily, built from observed exploitation activity and the characteristics of each CVE. Two CVEs with the same CVSS score can have very different EPSS scores, and that difference is the point.
+The Exploit Prediction Scoring System, also published by FIRST, estimates the probability that a CVE will be exploited in the wild in the next 30 days. It is a number between 0 and 1, updated daily, built from observed exploitation activity and the characteristics of each CVE. Two CVEs with the same CVSS score can have very different EPSS scores, and that difference is what you prioritise on.
 
 ## What KEV adds
 
@@ -1698,41 +1698,41 @@ Onam carries EPSS and KEV on vulnerability findings alongside CVSS. Dependency f
     date: "May 28, 2026",
     readTime: "8 min",
     body: `
-Every cloud security team has the same conversation at some point: "We have too many IAM policies to audit manually." What they rarely say out loud is that the vast majority of the permissions in those policies have never been used once.
+Every cloud security team has the same conversation at some point: "We have too many IAM policies to audit manually." What they rarely say out loud is that most of the permissions in those policies have never been used once.
 
-We are not going to put a percentage on it: a figure without a published sample behind it is marketing, not data. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. It is not a failure of individual teams — it is the natural consequence of how cloud IAM actually works in practice.
+We are not going to put a percentage on it, because a figure without a published sample behind it is marketing. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. That is less a failure of individual teams than a consequence of how cloud IAM works in practice.
 
-![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
+![Illustrative IAM Security view, stylised, with demo data](/screenshots/screenshot-iam.png)
 
 ## How permissions accumulate
 
-Cloud IAM permissions grow through three mechanisms, none of which are intentionally malicious.
+Cloud IAM permissions grow in three ways, none of them malicious.
 
-**Copy-paste onboarding.** When a new service account or role is needed quickly, engineers copy an existing role and modify it. The source role has permissions that were useful once — a temporary migration, a debugging session, a feature that was later removed. Those permissions carry forward into every derivative role.
+**Copy-paste onboarding.** When a new service account or role is needed quickly, engineers copy an existing role and modify it. The source role has permissions that were useful once, for a temporary migration, a debugging session or a feature that was later removed. Those permissions carry forward into every derivative role.
 
-**Managed policy breadth.** AWS managed policies like \`AmazonS3FullAccess\` and \`AmazonEC2FullAccess\` cover entire service surfaces. A Lambda function that only reads from one S3 bucket gets full S3 permissions because attaching a managed policy is three clicks and writing a custom policy is forty minutes. The path of least resistance is also the path of least privilege violation.
+**Managed policy breadth.** AWS managed policies like \`AmazonS3FullAccess\` and \`AmazonEC2FullAccess\` cover entire service surfaces. A Lambda function that only reads from one S3 bucket gets full S3 permissions because attaching a managed policy is three clicks and writing a custom policy is forty minutes. The easy route is also the one that breaks least privilege.
 
 **Permission creep without cleanup.** Role permissions accumulate as features get added. Nobody removes permissions when features are deprecated. A role that started with five specific permissions in 2022 has thirty by 2026, and the engineers who added the original five have moved to other teams.
 
 ## Why unused permissions matter
 
-An unused permission is not harmless. It is a door that does not need to exist. From an attacker's perspective, the difference between a compromised Lambda execution role that can only read from one S3 bucket and one that has full S3 access is the difference between a minor incident and a data breach.
+An unused permission is a door that does not need to exist. From an attacker's perspective, the difference between a compromised Lambda execution role that can only read from one S3 bucket and one that has full S3 access is the difference between a minor incident and a data breach.
 
-Consider the MITRE ATT&CK technique T1078.004 (Valid Cloud Accounts). When an attacker compromises a service account — through a misconfigured endpoint, a leaked credential in source code, or a supply chain attack — they inherit exactly the permissions that account holds. If that account has permissions it never uses, the attacker has capabilities the account's legitimate owners never intended to grant.
+Consider the MITRE ATT&CK technique T1078.004 (Valid Cloud Accounts). When an attacker compromises a service account, whether through a misconfigured endpoint, a credential leaked in source code or a supply chain attack, they inherit exactly the permissions that account holds. If that account has permissions it never uses, the attacker has capabilities the account's legitimate owners never intended to grant.
 
-The SolarWinds attack demonstrated this at scale: compromised service accounts with broad cloud permissions allowed lateral movement that would have been impossible with properly scoped access. Every permission that exists but is not needed is a pivot point that should not exist.
+The SolarWinds attack showed this at scale: once attackers held accounts with broad cloud permissions, they could move far beyond the systems they first reached. Tighter scoping would have limited how far they got. Every permission that exists but is not needed is a pivot point that should not exist.
 
 ## How CIEM measures the gap
 
-CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap — the difference between what an identity is permitted to do and what it actually does. Here is how Onam does it today.
+CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing the least-privilege gap: the difference between what an identity is permitted to do and what it does. Here is how Onam does it today.
 
-**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can actually do. Group membership adds permissions; explicit denies elsewhere remove them; conditions decide whether a grant applies at all; Service Control Policies (SCPs) at the organization level can block what an identity policy allows. Onam copies group policies onto members, classifies every condition by whether an attacker could satisfy it, nets out explicit denies and checks SCP deny statements. Permission boundaries and resource-based policies add further layers that Onam does not yet fold into the result — [the docs](/docs/ciem/effective-permissions) list exactly what is and is not modelled.
+**1. Effective permission resolution.** Attached policies alone do not tell you what a principal can do. Group membership adds permissions. Explicit denies elsewhere remove them. Conditions decide whether a grant applies at all, and Service Control Policies (SCPs) at the organisation level can block what an identity policy allows. Onam copies group policies onto members, classifies every condition by whether an attacker could satisfy it, nets out explicit denies and checks SCP deny statements. Permission boundaries and resource-based policies add further layers that Onam does not yet fold into the result. [The docs](/docs/ciem/effective-permissions) list exactly what is and is not modelled.
 
-![How Onam resolves effective permissions on AWS — statements, groups, conditions, denies and SCPs](/diagrams/ciem-effective-access.svg)
+![How Onam resolves effective permissions on AWS: statements, groups, conditions, denies and SCPs](/diagrams/ciem-effective-access.svg)
 
-**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones — \`iam:PassRole\`, \`iam:CreatePolicyVersion\`, \`s3:PutBucketPolicy\`, \`kms:ScheduleKeyDeletion\` and similar — are listed separately. Onam does this for AWS today.
+**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones are listed separately. These include \`iam:PassRole\`, \`iam:CreatePolicyVersion\`, \`s3:PutBucketPolicy\` and \`kms:ScheduleKeyDeletion\`. Onam does this for AWS today.
 
-**3. A concrete change, not an abstract one.** The unused list — especially the high-risk unused actions — tells engineers exactly what to remove, and the used list is the starting point for a replacement policy. That is a change someone can review, rather than a vague "reduce permissions" ticket.
+**3. A concrete change to review.** The unused list, especially the high-risk unused actions, tells engineers exactly what to remove, and the used list is the starting point for a replacement policy. That is a change someone can review, rather than a vague "reduce permissions" ticket.
 
 ## Where the gap is usually widest
 
@@ -1745,17 +1745,17 @@ Some identity types accumulate unused permissions faster than others:
 
 ## What to do about it
 
-The goal is not to achieve zero unused permissions immediately. That would require rewriting every IAM policy in your account simultaneously, which is operationally infeasible and will break things. Instead:
+Do not aim for zero unused permissions straight away. That would mean rewriting every IAM policy in your account at once, which is not workable and will break things. Instead:
 
-**Start with the highest-risk identities.** Shadow admins — identities that can reach admin-level access without holding an admin role — are the highest priority. A service account that can assume a role that can assume another role with \`iam:*\` permissions is a three-hop privilege escalation path. CIEM surfaces these chains; fix them first.
+**Start with the highest-risk identities.** Shadow admins come first. These are identities that can reach admin-level access without holding an admin role. A service account that can assume a role that can assume another role with \`iam:*\` permissions is a three-hop privilege escalation path. CIEM surfaces these chains; fix them first.
 
 **Enforce for new identities.** The easiest permission to remediate is one that was never granted. Add a review gate to your IAM policy creation process that requires justification for any permission a similar role has not needed. This does not fix existing debt, but it stops new debt from accumulating.
 
-**Automate the analysis, not the removal.** Let tooling compute the gap continuously, but do not remove permissions automatically — have a human review each change for operational correctness first. What looks unused over a few weeks may be used on a quarterly or annual cycle.
+**Automate the analysis and keep removal manual.** Let tooling compute the gap continuously, but do not remove permissions automatically. Have a person check each change for operational correctness first. What looks unused over a few weeks may be used on a quarterly or annual cycle.
 
 > The cost of a false-positive access removal is a production incident. Measure automatically, remove carefully.
 
-Over-provisioning is not a problem you fix in a sprint. It is a long-running hygiene practice, and the right tool makes continuous progress measurable instead of invisible.
+You will not fix over-provisioning in a sprint. It is a long-running hygiene practice, and good tooling lets you see and measure the progress.
 `,
   },
   {
@@ -1770,7 +1770,7 @@ Over-provisioning is not a problem you fix in a sprint. It is a long-running hyg
     body: `
 MITRE ATT&CK for Cloud is a framework that catalogues the tactics, techniques, and procedures (TTPs) that adversaries use to attack cloud environments. It is maintained by MITRE, built from publicly reported adversary behaviour, and updated as new cloud attack techniques are observed in the wild.
 
-Most discussions of MITRE ATT&CK treat it as an abstract threat intelligence reference. This post is about something more practical: how individual ATT&CK techniques translate into specific cloud misconfigurations that a CSPM tool can detect and score — and what that means for how you should read your posture score.
+Most discussions of MITRE ATT&CK treat it as an abstract threat intelligence reference. This post is more practical. It shows how individual ATT&CK techniques translate into specific cloud misconfigurations that a CSPM tool can detect and score, and what that means for how you read your posture score.
 
 ## How ATT&CK for Cloud is structured
 
@@ -1792,24 +1792,24 @@ The ATT&CK Cloud matrix covers IaaS, SaaS, Office Suite and Identity Provider pl
 
 ## Misconfigurations as enablers
 
-Here is the key insight: most ATT&CK techniques require a precondition — a misconfiguration, gap, or overly permissive setting that the attacker can exploit. CSPM rules are, in effect, precondition detectors. When your posture score flags a finding, it is identifying a configuration that makes a specific technique easier to execute.
+Most ATT&CK techniques need a precondition: a misconfiguration, gap or overly permissive setting that the attacker can exploit. CSPM rules are, in effect, precondition detectors. When your posture score flags a finding, it is identifying a configuration that makes a specific technique easier to execute.
 
 ![Findings tagged with ATT&CK techniques in the Onam console (demo account)](/screenshots/screenshot-findings.png)
 
-Let us walk through specific examples.
+Here are some specific examples.
 
-### T1078.004 — Valid Cloud Accounts (Initial Access)
+### T1078.004: Valid Cloud Accounts (Initial Access)
 
-This technique covers attackers using legitimately issued cloud credentials — obtained through phishing, credential stuffing, or exposure in source code — to access cloud resources. The CSPM rules that map to T1078.004:
+This technique covers attackers using legitimately issued cloud credentials to access cloud resources. The credentials might come from phishing, credential stuffing or exposure in source code. The CSPM rules that map to T1078.004:
 
-- IAM access keys not rotated in 90+ days — stale credentials increase the exposure window.
-- MFA not enforced on IAM users with console access — reduces the attacker's cost to exploit a credential.
+- IAM access keys not rotated in 90+ days. Stale credentials widen the exposure window.
+- MFA not enforced on IAM users with console access, which makes a stolen credential cheaper to use.
 - Long-lived GCP service account keys or Azure service principal secrets not rotated.
-- EC2 instance metadata service (IMDSv1) accessible without authentication — credential theft via SSRF.
+- EC2 instance metadata service (IMDSv1) accessible without authentication, which allows credential theft via SSRF.
 
 When your posture score degrades on any of these rules, it means T1078.004 is now easier to execute against your environment.
 
-### T1548.005 — Temporary Elevated Cloud Access (Privilege Escalation)
+### T1548.005: Temporary Elevated Cloud Access (Privilege Escalation)
 
 Attackers with limited initial access use misconfigured IAM role assumption chains to escalate privileges to administrator level. The CSPM rules that map to T1548.005:
 
@@ -1818,35 +1818,35 @@ Attackers with limited initial access use misconfigured IAM role assumption chai
 - Lambda functions with execution roles that include \`iam:CreatePolicyVersion\`.
 - Cross-account trust relationships with external accounts without external ID requirements.
 
-### T1562.008 — Disable Cloud Logs (Defense Evasion)
+### T1562.008: Disable Cloud Logs (Defense Evasion)
 
 Before exfiltrating data or moving laterally, sophisticated attackers disable or tamper with logging to reduce the chance of detection. The CSPM rules that map to T1562.008:
 
-- CloudTrail not enabled in all regions — gaps that create blind spots.
-- CloudTrail log file validation not enabled — logs can be tampered with undetected.
-- S3 buckets holding CloudTrail logs without MFA delete protection — an attacker can delete evidence.
-- GuardDuty not enabled — the primary anomaly detection layer is disabled.
+- CloudTrail not enabled in all regions, leaving blind spots.
+- CloudTrail log file validation not enabled, so logs can be tampered with undetected.
+- S3 buckets holding CloudTrail logs without MFA delete protection. An attacker can delete the evidence.
+- GuardDuty not enabled, which switches off the main anomaly detection layer.
 
-### T1530 — Data from Cloud Storage (Collection)
+### T1530: Data from Cloud Storage (Collection)
 
-Attackers access cloud object storage that holds sensitive data — customer PII, source code, secrets, financial records. The CSPM rules that map to T1530:
+Attackers access cloud object storage that holds sensitive data such as customer PII, source code, secrets or financial records. The CSPM rules that map to T1530:
 
-- S3 buckets with public read access — no authentication required.
-- S3 buckets without server-side encryption — data accessible in plain text if the bucket policy is bypassed.
-- S3 access logging disabled — collection activity leaves no trace.
+- S3 buckets with public read access, so no authentication is needed.
+- S3 buckets without server-side encryption. Data is readable in plain text if the bucket policy is bypassed.
+- S3 access logging disabled, so collection leaves no trace.
 - Overly permissive IAM policies that grant \`s3:GetObject\` on \`*\` resources.
 
 ## How posture score maps to technique coverage
 
-Each Onam posture rule carries the MITRE ATT&CK tactics and techniques it relates to. So a posture score below 100 does not only mean some rules are failing — it means there is a specific set of ATT&CK techniques whose preconditions are currently satisfied in your environment.
+Each Onam posture rule carries the MITRE ATT&CK tactics and techniques it relates to. So a posture score below 100 means more than some failing rules. It points to a specific set of ATT&CK techniques whose preconditions are currently met in your environment.
 
-> This framing changes how you should prioritise remediation. A rule failure that maps to T1562.008 (Disable Cloud Logs) or T1078.004 (Valid Cloud Accounts) should be treated more urgently than one mapping to a technique that requires prior compromise of a privileged identity. The first set is accessible with minimal prior access; the second requires steps the attacker has not yet taken.
+> This framing changes how you should prioritise remediation. A rule failure that maps to T1562.008 (Disable Cloud Logs) or T1078.004 (Valid Cloud Accounts) should be treated more urgently than one mapping to a technique that requires prior compromise of a privileged identity. The first set needs very little prior access. The second needs steps the attacker has not yet taken.
 
 ## Putting it into practice
 
-The practical application of ATT&CK for Cloud is not to implement every mitigation in the matrix simultaneously. It is to use the technique-to-misconfiguration mapping to answer: "If an attacker is already in my environment with basic credentials, which techniques can they execute today?"
+You do not need to implement every mitigation in the matrix at once. Use the technique-to-misconfiguration mapping to answer one question: "If an attacker is already in my environment with basic credentials, which techniques can they execute today?"
 
-Walk through the privilege escalation techniques first. Then defense evasion. Then collection and exfiltration. Fix the rules that open the door to these techniques, and your posture score becomes a leading indicator of how hard your environment is to attack — not just a compliance checkbox.
+Walk through the privilege escalation techniques first. Then defense evasion. Then collection and exfiltration. Fix the rules that open the door to these techniques, and your posture score becomes a leading indicator of how hard your environment is to attack. It stops being only a compliance checkbox.
 `,
   },
   {
@@ -1861,15 +1861,15 @@ Walk through the privilege escalation techniques first. Then defense evasion. Th
     body: `
 The most common question we get from security engineers evaluating Onam is some variation of: "How can you possibly check thousands of rules across dozens of cloud services without installing anything?"
 
-It is a reasonable question, and "agentless" means different things in different products. This post explains exactly how Onam's agentless architecture works across all seven supported clouds — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes — and where its limits are.
+It is a reasonable question, and "agentless" means different things in different products. This post explains how Onam's agentless architecture works across all seven supported clouds (AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes), and where its limits are.
 
-## The core principle: cloud control planes are APIs
+## How agentless scanning reads cloud control plane APIs
 
-Everything in a cloud environment has a configuration state. That state is stored and served by the cloud provider's control plane — the management layer that sits above your actual workloads. AWS, Azure, GCP, and the other clouds expose this configuration state through read-only APIs.
+Everything in a cloud environment has a configuration state. The cloud provider's control plane stores and serves it. That is the management layer that sits above your workloads. AWS, Azure, GCP, and the other clouds expose this configuration state through read-only APIs.
 
 An S3 bucket's public access settings, encryption configuration, and lifecycle policy are all returned by \`GetBucketAcl\`, \`GetBucketEncryption\`, and \`GetBucketLifecycleConfiguration\`. A security group's inbound rules are returned by \`DescribeSecurityGroups\`. An IAM user's MFA status is returned by \`GetLoginProfile\` and \`ListMFADevices\`.
 
-Nearly every security configuration that matters can be read from these control plane APIs. That is the foundation of agentless CSPM: Onam's posture scanning connects with a read-only IAM role, service principal, or service account — no agent on your workloads.
+Nearly every security configuration that matters can be read from these control plane APIs. That is the foundation of agentless CSPM: Onam's posture scanning connects with a read-only IAM role, service principal or service account, with no agent on your workloads.
 
 ![Onam's agentless architecture: read-only API access to each cloud control plane](/diagrams/arch-overview.svg)
 
@@ -1879,7 +1879,7 @@ Before we can check rules, we need to know what resources exist. The discovery p
 
 For AWS, this means calling the List/Describe APIs for each service category in each region across every account: \`DescribeInstances\` for EC2, \`ListBuckets\` for S3, \`DescribeDBInstances\` for RDS, \`ListFunctions\` for Lambda, and so on across dozens of service categories. For an account with a couple of thousand resources across five regions, this generates a few hundred API calls.
 
-Discovery output is normalised into a unified resource schema — a standard representation that captures the resource type, region, account, ARN, and all configuration attributes relevant to security evaluation. This normalised schema is what the rule evaluation engine operates against.
+Discovery output is normalised into a unified resource schema. This is a standard representation that captures the resource type, region, account, ARN, and all configuration attributes relevant to security evaluation. This normalised schema is what the rule evaluation engine operates against.
 
 ![The scan pipeline: discovery, normalisation, rule evaluation, and correlation](/diagrams/arch-scan-pipeline.svg)
 
@@ -1889,42 +1889,42 @@ Each rule in Onam's library is a declarative check against one or more attribute
 
 A rule like "S3 buckets must have server-side encryption enabled" evaluates the \`encryption.rules[0].apply_server_side_encryption_by_default.sse_algorithm\` attribute in the normalised S3 bucket schema. If the attribute is present and set to AES256 or aws:kms, the rule passes. If it is absent or set to NONE, it fails.
 
-Rules are authored in YAML — a human-readable format that non-engineers can review. Each rule specifies:
+Rules are written in YAML, a readable format that non-engineers can review. Each rule specifies:
 
 - The resource type it applies to.
 - The condition expression that determines PASS or FAIL.
 - The severity (Critical, High, Medium, Low), the rationale and references, and compliance framework mappings.
 - The MITRE ATT&CK tactics and techniques it relates to, and written remediation guidance.
 
-This YAML-first approach means adding a new rule for a new cloud service does not require changes to the core evaluation engine — just a new YAML file with the right schema.
+This YAML-first approach means adding a new rule for a new cloud service does not require changes to the core evaluation engine. It needs only a new YAML file with the right schema.
 
-## Network topology requires cross-resource correlation
+## Network exposure needs cross-resource correlation
 
-Simple single-resource checks — is this bucket encrypted? is MFA enabled for this user? — can be evaluated purely from the resource's own configuration. But effective network exposure — whether a resource is actually reachable from the internet — requires correlating multiple resources.
+Simple single-resource checks (is this bucket encrypted, is MFA enabled for this user) can be evaluated from the resource's own configuration alone. Effective network exposure is different. Working out whether a resource can be reached from the internet means correlating several resources.
 
 Determining whether an EC2 instance is internet-accessible requires knowing: is it in a public subnet? Does its subnet's route table have a route to an internet gateway? Do the NACLs on that subnet allow inbound traffic on the relevant port? Does the security group allow inbound traffic from 0.0.0.0/0? Is there a load balancer in front of it?
 
-This is why network security analysis runs as a separate phase after discovery, with access to the full normalised resource graph. The graph allows us to traverse VPC, subnet, route table, and internet gateway relationships and compute effective exposure rather than just checking individual resource configurations.
+This is why network security analysis runs as a separate phase after discovery, with access to the full normalised resource graph. The graph allows us to traverse VPC, subnet, route table, and internet gateway relationships and compute effective exposure instead of checking each resource configuration on its own.
 
 ## Where agentless has limits
 
 Agentless works for everything that lives in the cloud control plane. It does not work for everything, and it is worth being precise about the boundaries.
 
-**OS-level vulnerability scanning** requires enumerating installed packages and kernel versions — information that is not exposed by cloud APIs. Onam's agentless workload scanning handles this by reading snapshots of instance volumes inside your own account, which means it deploys scanning resources there with the permissions they need. For hosts where you want package-level depth from the machine itself, an optional host agent is available.
+**OS-level vulnerability scanning** requires enumerating installed packages and kernel versions. Cloud APIs do not expose that information. Onam's agentless workload scanning handles this by reading snapshots of instance volumes inside your own account, which means it deploys scanning resources there with the permissions they need. For hosts where you want package-level depth from the machine itself, an optional host agent is available.
 
-**Runtime workload behavior** — what processes are running, what network connections are active, what system calls a container is making — requires a sensor running on the host. Onam does not have one. Rule evaluation covers the configuration surface; cloud audit logs cover the control-plane activity; live runtime behaviour is a different layer.
+**Runtime workload behaviour** needs a sensor on the host: which processes are running, which network connections are open, which system calls a container makes. Onam does not have one. Rule evaluation covers the configuration surface and cloud audit logs cover control-plane activity. Live runtime behaviour is a different layer.
 
-**Data plane access patterns** — reading the actual contents of S3 objects, database rows, or file system data — is not something Onam does. Data classification is based on metadata signals: naming patterns, tags, schema metadata, and resource configuration. This is sufficient for most DSPM use cases, but it will not detect sensitive data stored in an unexpectedly named bucket.
+**Data plane access patterns** are out of scope too. Onam does not read the contents of S3 objects, database rows or file system data. Data classification is based on metadata signals: naming patterns, tags, schema metadata, and resource configuration. This is sufficient for most DSPM use cases, but it will not detect sensitive data stored in an unexpectedly named bucket.
 
 ## Why agentless matters for security teams
 
-The operational argument for agentless is usually framed around deployment complexity: no agents to install, no software versions to manage, no compatibility issues with operating systems. That is true, but there is a more important argument.
+The operational argument for agentless is usually framed around deployment complexity: no agents to install, no software versions to manage, no compatibility issues with operating systems. That is true, but there is a stronger argument.
 
 Agents expand your attack surface. An agent running on every instance in your fleet is a piece of software with elevated privileges that needs to be patched, monitored and secured, and if it has a vulnerability, every host it runs on is exposed.
 
-Agentless does not mean footprint-free, and it is worth being exact. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Nothing runs on your hosts, but the workload scanner's resources do live in your account, with the permissions that onboarding template grants — every one of which you can read before you run it.
+Agentless does not mean footprint-free, and it is worth being exact. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Nothing runs on your hosts, but the workload scanner's resources do live in your account, with the permissions that onboarding template grants. You can read every one of them before you run it.
 
-For organisations in regulated environments — healthcare, financial services, government — that precision matters: the question is what a tool adds to your system boundary, and the answer should be a list you can review, not a slogan.
+For organisations in regulated sectors such as healthcare, financial services and government, that precision matters. The question is what a tool adds to your system boundary, and the answer should be a list you can review.
 
 To see the scan pipeline against one of your own accounts, [book a demo](/request-demo).
 `,

@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, GraduationCap } from "lucide-react";
+import { ArrowRight, GraduationCap } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { LEARN_ARTICLES, LEARN_PRODUCT_LABEL, learnProduct, type LearnProduct } from "@/data/learn-articles";
@@ -10,7 +10,7 @@ import { Backdrop } from "@/components/site/system";
 const COMPARISON: { acronym: string; expands: string; scope: string; slug: string }[] = [
   { acronym: "CSPM", expands: "Cloud Security Posture Management", scope: "Is the cloud infrastructure configured correctly?", slug: "cspm" },
   { acronym: "CWPP", expands: "Cloud Workload Protection Platform", scope: "Are the running workloads patched and hardened?", slug: "cwpp" },
-  { acronym: "CIEM", expands: "Cloud Infrastructure Entitlement Management", scope: "Who can actually do what, and do they still need it?", slug: "ciem" },
+  { acronym: "CIEM", expands: "Cloud Infrastructure Entitlement Management", scope: "Who can do what, and do they still need it?", slug: "ciem" },
   { acronym: "DSPM", expands: "Data Security Posture Management", scope: "Where is the sensitive data and who can reach it?", slug: "dspm" },
   { acronym: "SSPM", expands: "SaaS Security Posture Management", scope: "Are M365, Workspace, GitHub and Snowflake locked down?", slug: "sspm" },
   { acronym: "CNAPP", expands: "Cloud-Native Application Protection Platform", scope: "All of the above, correlated on one data model.", slug: "cnapp" },
@@ -18,8 +18,8 @@ const COMPARISON: { acronym: string; expands: string; scope: string; slug: strin
 
 /** Glossary groups, in platform lifecycle order, with the product page each one leads to. */
 const GROUPS: { product: LearnProduct; lead: string; href: string; cta: string }[] = [
-  { product: "platform", lead: "Knowing what you run — the inventory every other discipline starts from.", href: "/estate", cta: "Onam Estate" },
-  { product: "security", lead: "Posture, identity, data, workloads and code — and how the categories overlap.", href: "/platform", cta: "Onam Security" },
+  { product: "platform", lead: "Knowing what you run: the inventory every other discipline starts from.", href: "/estate", cta: "Onam Estate" },
+  { product: "security", lead: "Posture, identity, data, workloads and code, and how the categories overlap.", href: "/platform", cta: "Onam Security" },
   { product: "finops", lead: "Who spends what, who owns it, and how cloud cost is managed as a practice.", href: "/finops", cta: "Onam FinOps" },
   { product: "drm", lead: "Recovery objectives, recovery strategies, and what makes a plan hold up.", href: "/disaster-recovery", cta: "Onam DRM" },
   { product: "aiops", lead: "AI agents in operations, and how people stay in control of them.", href: "/platform/ai-operations", cta: "Onam AIOps" },
@@ -59,16 +59,16 @@ function LearnIndex() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="dots" icon={GraduationCap} />
         <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Learn
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-4xl md:text-6xl tracking-tight leading-[1.05]">
             Cloud platform terms, <span className="gradient-text">explained.</span>
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            Asset inventory, security posture, FinOps, disaster recovery and AI agents in operations — each with its
+            Asset inventory, security posture, FinOps, disaster recovery and AI agents in operations each have their
             own vocabulary and plenty of overlapping marketing. These are vendor-neutral explanations of what each
-            term actually covers, and what it does not.
+            term covers, and what it does not.
           </p>
         </div>
       </section>
@@ -134,7 +134,7 @@ function LearnIndex() {
                 <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
                   {articles.map((a) => (
                     <Link key={a.slug} to="/learn/$slug" params={{ slug: a.slug }} className="group">
-                      <div className="h-full bg-white border border-line rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all flex flex-col">
+                      <div className="h-full bg-white border border-line rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all flex flex-col">
                         <h4 className="font-display font-bold text-ink text-lg leading-snug group-hover:text-brand-500">
                           {a.question}
                         </h4>
@@ -157,11 +157,11 @@ function LearnIndex() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="gradient-border rounded-3xl p-10 md:p-14 text-center">
             <h2 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              Stop reading. <span className="gradient-text">See your own cloud.</span>
+              See it on <span className="gradient-text">your own cloud.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-lg mx-auto">
               Estate, Security, FinOps and DRM run on one Onam platform, with AIOps agents across them. Connect a
-              read-only role once and see your own cloud.
+              read-only role once to get started.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>

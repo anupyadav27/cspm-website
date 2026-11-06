@@ -1,13 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import {
-  Shield, Cloud, ArrowRight, Play, Check, X, CheckCircle2,
-  Lock, Eye, Network, Database, Cpu, Boxes, Bug, Code2, Bot,
-  ScrollText, DollarSign, Activity, Layers, GitBranch, Server, AlertTriangle,
-  TrendingUp, Search, ShieldAlert, Users2, Fingerprint, FileCheck,
-  LayoutDashboard, Plug, ListChecks, GitFork, KeyRound, Radio,
-  ShieldCheck, ScanLine, HardDrive,
-  ShieldHalf, Blocks, Webhook, Package, Sparkles, Wrench, ArrowDown, ExternalLink,
-} from "lucide-react";
+  Cloud, ArrowRight, Check, X, CheckCircle2, Lock, Network, Database, Boxes, DollarSign,
+  Server, AlertTriangle, Search, Users2, FileCheck, LayoutDashboard, Plug, ListChecks,
+  GitFork, KeyRound, Radio, ShieldCheck, ScanLine, HardDrive, Package,
+} from "@/components/site/icons";
 import { useState, type ReactNode, type ComponentType } from "react";
 import { RULE_CATALOG_TOTAL, CLOUDS, SERVICES, FRAMEWORKS, ENGINES, SAAS_PLATFORMS, fmt } from "@/lib/product-facts";
 import { SITE_URL } from "@/lib/seo";
@@ -29,31 +25,31 @@ import { cn } from "@/lib/utils";
 export const SECURITY_FAQ = [
   {
     q: "What is Onam Security?",
-    a: "Onam Security is the security product of the Onam platform. It finds and prioritises risk across posture, identity (CIEM), data, workloads, code, attack paths and threat detection, maps every finding to the compliance frameworks it affects, and works on the same inventory Onam Estate keeps current — so a cloud account is connected once for every Onam product.",
+    a: "Onam Security is the security product of the Onam platform. It finds and prioritises risk across posture, identity (CIEM), data, workloads, code, attack paths and threat detection, maps every finding to the compliance frameworks it affects, and works on the same inventory Onam Estate keeps current. A cloud account is connected once for every Onam product.",
   },
   {
     q: "What is cloud security posture management (CSPM)?",
-    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations — public storage buckets, open security groups, unencrypted databases, over-permissive IAM — and tells you exactly how to fix them. Onam runs 9,853 CSPM posture rules continuously across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so misconfigurations surface the day they're introduced, not at the next audit.",
+    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations such as public storage buckets, open security groups, unencrypted databases and over-permissive IAM, and tells you how to fix them. Onam runs 9,853 CSPM posture rules on every scan across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so a misconfiguration shows up at the next scan rather than at the next audit.",
   },
   {
     q: "Which cloud providers does Onam Security support?",
-    a: "Onam supports all 7 major clouds from a single console: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, and Kubernetes — with the same rules, attack-path analysis, and compliance mapping on every one.",
+    a: "Onam supports all 7 major clouds from a single console: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud and Kubernetes. The same rules, attack-path analysis and compliance mapping apply on each one.",
   },
   {
     q: "How is Onam different from native cloud tools or single-layer CSPM products?",
-    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and every security layer — posture, identity (CIEM), attack paths, threat detection, data, code, and compliance — on one graph. That's what enables cross-cloud attack-path analysis and FAIR-style dollar loss estimates per finding instead of an alert firehose.",
+    a: "Native cloud tools cover one cloud, and point products cover one security layer. Onam puts all 7 clouds and these security layers on one graph: posture, identity (CIEM), attack paths, threat detection, data, code and compliance. Because they share it, Onam can trace attack paths across clouds and give each finding a FAIR-style dollar loss estimate.",
   },
   {
     q: "Is Onam agentless, and how long does deployment take?",
-    a: "Yes — no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template you run in your own account, so you can read every permission first. For AWS, Onam assumes your role and stores no secret; where a cloud needs a stored credential (for example OCI or Alibaba Cloud), it is kept in AWS Secrets Manager, encrypted with AWS KMS.",
+    a: "Yes. There are no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template you run in your own account, so you can read every permission first. For AWS, Onam assumes your role and stores no secret; where a cloud needs a stored credential (for example OCI or Alibaba Cloud), it is kept in AWS Secrets Manager, encrypted with AWS KMS.",
   },
   {
     q: "Which compliance frameworks does Onam cover?",
-    a: "78 frameworks with continuous evidence, including CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, and SOC 2. One finding maps to every framework it affects, and audit evidence exports in one click.",
+    a: `${FRAMEWORKS} frameworks with evidence refreshed on every scan, including CIS (AWS, Azure, GCP), NIST 800-53, ISO 27001, PCI-DSS v4, HIPAA, and SOC 2. One finding maps to every framework it affects, and audit evidence exports in one click.`,
   },
   {
     q: "Does Onam include CIEM, threat detection, and code security as well as CSPM?",
-    a: "Yes. CSPM is one layer of the platform: 30-day behavioral CIEM for identity risk, cloud threat detection and response, vulnerability management, data security, and code-to-runtime coverage with SAST, DAST, SCA, and IaC scanning — all correlated on the same graph.",
+    a: "Yes. CSPM is one layer of the platform: 30-day behavioral CIEM for identity risk, cloud threat detection and response, vulnerability management, data security, and code-to-runtime coverage with SAST, DAST, SCA and IaC scanning. Findings from all of them are linked to each other.",
   },
 ];
 
@@ -67,12 +63,12 @@ export const SECURITY_JSONLD = [
     operatingSystem: "Cloud (SaaS)",
     url: `${SITE_URL}/platform`,
     description:
-      "Onam Security: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths, threat detection, code security and compliance on one security graph across seven clouds.",
+      "Onam Security: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths, threat detection, code security and compliance across seven clouds.",
     featureList: [
-      "CSPM — 9,853 posture rules evaluated continuously",
-      "CIEM — 30-day behavioral identity risk analysis",
-      "Cross-cloud attack path analysis on one graph",
-      "Compliance — 78 frameworks with evidence per control (CIS, NIST 800-53, ISO 27001, PCI DSS, HIPAA, SOC 2)",
+      "CSPM: 9,853 posture rules evaluated on every scan",
+      "CIEM: 30-day behavioral identity risk analysis",
+      "Cross-cloud attack path analysis",
+      "Compliance: 78 frameworks with evidence per control (CIS, NIST 800-53, ISO 27001, PCI DSS, HIPAA, SOC 2)",
       "FAIR-style dollar loss estimates per finding",
       "Code + runtime coverage: SAST, DAST, SCA, IaC scanning",
       "Onboarding with a template you run in your own account",
@@ -92,7 +88,7 @@ export const SECURITY_JSONLD = [
 
 export function FAQSection({
   items = SECURITY_FAQ,
-  subtitle = "Onam Security's coverage, deployment, and how it compares — answered straight.",
+  subtitle = "Coverage, deployment and how Onam Security compares with other tools.",
 }: { items?: { q: string; a: string }[]; subtitle?: string }) {
   return (
     <section className="py-24 border-b border-[#E5E9F0] bg-[#F8FAFC]">
@@ -133,7 +129,7 @@ export function OutcomeStrip() {
   const items = [
     { value: fmt(RULE_CATALOG_TOTAL), label: "security rules" },
     { value: fmt(SERVICES), label: "cloud services covered" },
-    { value: String(CLOUDS), label: "clouds, one graph" },
+    { value: String(CLOUDS), label: "clouds covered" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ];
   return (
@@ -165,7 +161,7 @@ export function CloudBar() {
     <section className="py-16 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6 text-center">
         <div className="text-xs uppercase tracking-widest text-[#64748B] font-semibold">
-          Works across every cloud you run
+          Supported clouds
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
           {clouds.map((c) => (
@@ -188,9 +184,9 @@ export function HowItWorks() {
   const steps = [
     { icon: Lock, title: "Connect your cloud",
       body: "Connect with a template you run in your own account. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. No agents, no code changes." },
-    { icon: Search, title: "We scan everything — including what you forgot about",
-      body: `Enumerates every resource across ${fmt(SERVICES)} cloud services, checks each against ${fmt(RULE_CATALOG_TOTAL)} rules across every security layer.` },
-    { icon: FileCheck, title: "You get a prioritised list, not a wall of alerts",
+    { icon: Search, title: "We scan the account, including resources you forgot about",
+      body: `Onam lists the resources across ${fmt(SERVICES)} cloud services and checks each one against ${fmt(RULE_CATALOG_TOTAL)} rules.` },
+    { icon: FileCheck, title: "You get a ranked list of findings",
       body: "Critical findings first. Each finding says what it is, why it matters, which compliance frameworks it affects, the fix guidance for its rule, and an AI fix prompt that drafts the CLI command, Terraform change or console steps." },
   ];
   return (
@@ -199,27 +195,17 @@ export function HowItWorks() {
         <SectionHeader
           eyebrow="How it works"
           title="How does Onam Security work?"
-          subtitle="Simple enough to explain in 3 steps. Deep enough to find what others miss."
+          subtitle="Three steps: connect a read-only role, we scan, and you get a ranked list."
         />
-        <div className="mt-14 grid md:grid-cols-3 gap-6">
-          {steps.map((s, i) => {
-            const Icon = s.icon;
-            return (
-              <div key={s.title}
-                className="relative rounded-2xl bg-white border border-[#E5E9F0] p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-1 transition-all duration-300"
-              >
-                <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-xl bg-[#EFF4FF] grid place-items-center text-[#2563EB]">
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div className="font-display font-black text-4xl text-[#E2E8F0] leading-none">0{i + 1}</div>
-                </div>
-                <h3 className="mt-5 font-display font-bold text-xl text-[#0B1220] tracking-tight">{s.title}</h3>
-                <p className="mt-3 text-[#475569] leading-relaxed text-sm">{s.body}</p>
-              </div>
-            );
-          })}
-        </div>
+        <ol className="mt-12 grid md:grid-cols-3 gap-x-10 gap-y-8 border-t border-[#E5E9F0] pt-8">
+          {steps.map((s, i) => (
+            <li key={s.title}>
+              <div className="font-mono text-sm text-[#64748B]">Step {i + 1}</div>
+              <h3 className="mt-2 font-display font-bold text-xl text-[#0B1220] tracking-tight">{s.title}</h3>
+              <p className="mt-3 text-[#475569] leading-relaxed">{s.body}</p>
+            </li>
+          ))}
+        </ol>
       </div>
     </section>
   );
@@ -275,7 +261,7 @@ export function ProductDemo() {
   const tabs: Tab[] = [
     {
       key: "overview", label: "Overview", icon: LayoutDashboard,
-      caption: "Single pane of glass — risk score, engine status, compliance posture and top criticals at a glance.",
+      caption: "The overview: risk score, engine status, compliance posture and the top critical findings.",
       badge: { sev: "high", text: "Risk score 68" },
       view: ViewOverview,
     },
@@ -287,55 +273,55 @@ export function ProductDemo() {
     },
     {
       key: "findings", label: "Findings", icon: ListChecks,
-      caption: "847 prioritised findings — sorted by real risk, not noise. One click to remediation.",
+      caption: "847 findings, sorted by risk. One click takes you to the fix.",
       badge: { sev: "critical", text: "12 critical" },
       view: ViewFindings,
     },
     {
       key: "attack-path", label: "Attack Path", icon: GitFork,
       caption: "Follow every privilege escalation chain. Click any node to see the MITRE ATT&CK technique and fix.",
-      badge: { sev: "critical", text: "3 paths to crown jewels" },
+      badge: { sev: "critical", text: "3 paths to production data" },
       view: ViewAttackPath,
     },
     {
       key: "iam", label: "IAM", icon: KeyRound,
-      caption: "189 identities scanned — 47 overprivileged, 3 admin wildcards, root MFA missing.",
+      caption: "189 identities scanned: 47 overprivileged, 3 admin wildcards, root MFA missing.",
       badge: { sev: "high", text: "47 overprivileged" },
       view: ViewIAM,
     },
     {
       key: "network", label: "Network", icon: Network,
-      caption: "VPC topology map, security group violations, internet-exposed resources — all from one agentless scan.",
+      caption: "VPC topology map, security group violations and internet-exposed resources, all from one agentless scan.",
       badge: { sev: "critical", text: "7 internet-exposed" },
       view: ViewNetwork,
     },
     {
       key: "detection", label: "Detection", icon: Radio,
-      caption: "2.3M CloudTrail + VPC Flow events processed. MITRE ATT&CK mapped alerts, streamed in real time.",
-      badge: { sev: "critical", text: "4 critical · live" },
+      caption: "2.3M CloudTrail and VPC Flow events processed per scan, with alerts mapped to MITRE ATT&CK.",
+      badge: { sev: "critical", text: "4 critical" },
       view: ViewDetection,
     },
     {
       key: "container", label: "Container", icon: Boxes,
-      caption: "EKS CVE findings with EPSS scores, K8s RBAC violations, runtime security events — all in one view.",
+      caption: "EKS CVE findings with EPSS scores, K8s RBAC violations and runtime security events in one view.",
       badge: { sev: "critical", text: "3 CVEs with active exploits" },
       view: ViewContainer,
     },
     {
       key: "compliance", label: "Compliance", icon: ShieldCheck,
-      caption: `CIS · NIST · SOC 2 · HIPAA · PCI-DSS · ISO 27001 — scored live. One finding maps to every framework it affects, across ${FRAMEWORKS}.`,
+      caption: `CIS, NIST, SOC 2, HIPAA, PCI-DSS and ISO 27001, scored on each scan. One finding maps to every framework it affects, across ${FRAMEWORKS}.`,
       badge: { sev: "medium", text: `${FRAMEWORKS} frameworks` },
       view: ViewCompliance,
     },
     {
       key: "data", label: "Data Security", icon: HardDrive,
-      caption: "847K PII records classified across S3. Public buckets with SSN and credit card data surfaced immediately.",
+      caption: "847K PII records classified across S3. Public buckets holding SSN and credit card data are flagged.",
       badge: { sev: "critical", text: "3 public buckets with PII" },
       view: ViewData,
     },
     {
       key: "risk", label: "Risk & FAIR", icon: DollarSign,
-      caption: "FAIR-style loss estimate per finding — low, likely and high — raised when the finding sits on an attack path.",
+      caption: "FAIR-style loss estimate per finding (low, likely and high), raised when the finding sits on an attack path.",
       badge: { sev: "medium", text: "Low · likely · high" },
       view: ViewRisk,
     },
@@ -350,9 +336,9 @@ export function ProductDemo() {
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="See the platform"
-          title="One console. Every cloud. Every risk."
-          subtitle="Eleven views into the same graph — from onboarding to attack paths, findings, compliance and dollar loss estimates. Illustrative screens; figures are examples, not customer data."
-          gradientWords="Every risk."
+          title="Eleven screens from the console"
+          subtitle="From onboarding to attack paths, findings, compliance and dollar loss estimates. These are illustrative screens with example figures, not customer data."
+          gradientWords="the console"
         />
 
         {/* min-w-0 on the panel, for the same reason as HeroMock: a grid item will
@@ -547,7 +533,7 @@ function ViewOnboarding() {
     { n: 1, t: "Choose your cloud", d: "AWS · Azure · GCP · OCI · AliCloud · Kubernetes", done: true },
     { n: 2, t: "Deploy read-only role", d: "One-click CloudFormation, Terraform or CLI script", done: true },
     { n: 3, t: "Verify connection", d: "Onam checks 24 required permissions, warns on drift", done: true },
-    { n: 4, t: "First scan", d: "every security layer runs in parallel — first findings in < 5 min", done: false },
+    { n: 4, t: "First scan", d: "Every security engine runs in parallel", done: false },
   ];
   return (
     <div className="grid md:grid-cols-[1.2fr_1fr] gap-4">
@@ -668,7 +654,7 @@ function ViewAttackPath() {
     { x: 700, y: 210, icon: Database, label: "prod-postgres (crown jewel)", sev: "critical" },
   ];
   return (
-    <Panel title="3 attack paths reach crown jewels"
+    <Panel title="3 attack paths reach production data"
            right={<SevChip sev="critical">MITRE T1078 → T1068 → T1552 → T1552.001</SevChip>}>
       <div className="relative h-[380px] w-full overflow-hidden rounded-lg bg-[#F8FAFC] border border-[#E5E9F0]">
         <svg className="absolute inset-0 w-full h-full" viewBox="0 0 800 400" preserveAspectRatio="none">
@@ -695,7 +681,7 @@ function ViewAttackPath() {
           );
         })}
         <div className="absolute bottom-3 right-3 bg-white rounded-lg px-3 py-2 text-xs text-[#334155] border border-[#E5E9F0] shadow-sm">
-          <span className="text-[#E32D25] font-bold">3 attack paths</span> reach crown jewels
+          <span className="text-[#E32D25] font-bold">3 attack paths</span> reach prod-postgres
         </div>
       </div>
     </Panel>
@@ -808,22 +794,22 @@ function ViewNetwork() {
 /* --------- 7. Detection --------- */
 function ViewDetection() {
   const alerts = [
-    { t: "12s ago", tech: "T1078.004 · Valid Cloud Accounts", d: "Root user API call from Tor exit node — us-east-1", sev: "critical" as Sev },
-    { t: "1m 04s", tech: "T1580 · Cloud Infrastructure Discovery", d: "iam::ListUsers × 214 from ci-deploy in 90s", sev: "high" as Sev },
-    { t: "3m 22s", tech: "T1537 · Transfer to Cloud Account", d: "s3 cross-account copy · unknown destination account", sev: "critical" as Sev },
-    { t: "7m 11s", tech: "T1098 · Account Manipulation", d: "New access key created for 'root' user", sev: "critical" as Sev },
-    { t: "11m", tech: "T1526 · Cloud Service Discovery", d: "Unusual GetCallerIdentity burst from EC2 i-0a1b2c", sev: "medium" as Sev },
+    { t: "02:14", tech: "T1078.004 · Valid Cloud Accounts", d: "Root user API call from Tor exit node — us-east-1", sev: "critical" as Sev },
+    { t: "02:09", tech: "T1580 · Cloud Infrastructure Discovery", d: "iam::ListUsers × 214 from ci-deploy in 90s", sev: "high" as Sev },
+    { t: "01:52", tech: "T1537 · Transfer to Cloud Account", d: "s3 cross-account copy · unknown destination account", sev: "critical" as Sev },
+    { t: "01:47", tech: "T1098 · Account Manipulation", d: "New access key created for 'root' user", sev: "critical" as Sev },
+    { t: "01:31", tech: "T1526 · Cloud Service Discovery", d: "Unusual GetCallerIdentity burst from EC2 i-0a1b2c", sev: "medium" as Sev },
   ];
   return (
     <div className="grid md:grid-cols-4 gap-4">
-      <StatTile label="Events / 24h" value="2.3M" sev="info" />
+      <StatTile label="Events read this scan" value="2.3M" sev="info" />
       <StatTile label="Alerts" value="18" sev="high" />
-      <StatTile label="Critical" value="4" sev="critical" hint="live now" />
+      <StatTile label="Critical" value="4" sev="critical" hint="this scan" />
       <StatTile label="MITRE techniques" value="9" sev="medium" />
 
       <div className="md:col-span-4">
-        <Panel title="Alert stream"
-               right={<span className="text-[11px] text-[#047857] font-semibold flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#05A052] animate-pulse" /> Live · CloudTrail + VPC Flow</span>}>
+        <Panel title="Detections from the latest scan"
+               right={<span className="text-[11px] text-[#047857] font-semibold flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" /> CloudTrail + VPC Flow Logs</span>}>
           {alerts.map((a, i) => (
             <div key={i} className="flex items-start gap-3 py-2.5 border-b border-[#E5E9F0] last:border-0">
               <div className="w-14 shrink-0 text-[11px] text-[#64748B] font-mono pt-0.5">{a.t}</div>
@@ -928,7 +914,7 @@ function ViewCompliance() {
             }} />
           </div>
           <div className="mt-3 flex items-center justify-between text-[11px] text-[#64748B]">
-            <span>Continuous evidence</span>
+            <span>Evidence from the latest scan</span>
             <span>{Math.round(f.p * 3.2)} / {320} controls</span>
           </div>
         </div>
@@ -1056,64 +1042,91 @@ function ViewRisk() {
   );
 }
 
-/* ============================ PLATFORM PILLARS ============================ */
+/* ============================ PLATFORM PILLARS ============================
+ * A grouped list, not an icon-card grid: 25 cards with an icon each read as a template,
+ * and a buyer scanning for one engine finds it faster in a list grouped by what it checks.
+ */
 export function PlatformPillars() {
-  const pillars = [
-    { icon: ShieldHalf, title: "CNAPP", q: "What's our posture, in one number?", metric: "7 pillars · one score", to: "/platform/cnapp", color: "#4F46E5" },
-    { icon: Shield, title: "CSPM", q: "What's misconfigured across every cloud?", metric: "9,853 posture rules", to: "/platform/cspm", color: "#2563EB" },
-    { icon: Fingerprint, title: "CIEM", q: "Which identities are quietly over-privileged?", metric: "30-day behavioral baselines", to: "/platform/ciem", color: "#F2AF04" },
-    { icon: Eye, title: "IAM Security", q: "Who has access to what?", metric: "Policies · users · roles", to: "/platform/iam", color: "#0284C7" },
-    { icon: Package, title: "Asset Inventory", q: "What do we actually run?", metric: "549 services · 7 clouds", to: "/platform/inventory", color: "#0891B2" },
-    { icon: GitBranch, title: "Attack Path", q: "Which risks actually reach crown jewels?", metric: "Cross-cloud graph analysis", to: "/platform/attack-path", color: "#E32D25" },
-    { icon: Activity, title: "CDR Detection", q: "Behavioral threats across layers?", metric: "L1 · L2 · L3 detection", to: "/platform/cdr", color: "#EF4444" },
-    { icon: ShieldAlert, title: "Threat Detection", q: "Are we being attacked right now?", metric: "MITRE ATT&CK-mapped", to: "/platform/threat-detection", color: "#DB2777" },
-    { icon: DollarSign, title: "Risk Quantification", q: "What's this exposure worth in dollars?", metric: "FAIR-style estimates", to: "/platform/risk", color: "#05A052" },
-    { icon: Database, title: "DSPM — Data Security", q: "Where does sensitive data really live?", metric: "1,321 data protection rules", to: "/platform/data-security", color: "#7C3AED" },
-    { icon: HardDrive, title: "Database Security", q: "Are our databases hardened?", metric: "1,364 CIS engine benchmarks", to: "/platform/database-security", color: "#B45309" },
-    { icon: KeyRound, title: "Encryption & Keys", q: "Who can decrypt our data?", metric: "502 key management rules", to: "/platform/encryption", color: "#CA8A04" },
-    { icon: Network, title: "Network Security", q: "Where is my perimeter actually leaking?", metric: "7-layer topology analysis", to: "/platform/network-security", color: "#0EA5E9" },
-    { icon: Webhook, title: "API Security", q: "Which APIs are open to the world?", metric: "241 API posture rules", to: "/platform/api-security", color: "#DB2777" },
-    { icon: Server, title: "CWPP — Workloads", q: "Are running workloads hardened?", metric: "VMs · containers · serverless", to: "/platform/cwpp", color: "#059669" },
-    { icon: ScanLine, title: "Agentless Scanning", q: "How do we scan without agents?", metric: "Snapshot-based · zero install", to: "/platform/agentless", color: "#06B6D4" },
-    { icon: Boxes, title: "Container Security", q: "Are our clusters and images safe?", metric: "EKS · ECS · image scanning", to: "/platform/container-security", color: "#3B82F6" },
-    { icon: Bug, title: "Vulnerability Mgmt", q: "Which CVEs actually matter to us?", metric: "Contextual, not CVSS-only", to: "/platform/vulnerability", color: "#EA580C" },
-    { icon: Code2, title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/code-security", color: "#0891B2" },
-    { icon: Blocks, title: "SaaS Security (SSPM)", q: "Is M365 and Workspace locked down?", metric: "433 CIS SaaS rules", to: "/platform/saas-security", color: "#8B5CF6" },
-    { icon: Bot, title: "AI Security", q: "Are my AI services safe on AWS, Azure and Google Cloud?", metric: "AI/ML risk detection", to: "/platform/ai-security", color: "#A855F7" },
-    { icon: Sparkles, title: "AI Assistant", q: "Can I just ask what's exposed?", metric: "13 domain specialists", to: "/platform/ai-assistant", color: "#7C3AED" },
-    { icon: Wrench, title: "Remediation", q: "How does this actually get fixed?", metric: "Every finding ships its fix", to: "/platform/remediation", color: "#10B981" },
-    { icon: ScrollText, title: "Compliance", q: "Are we audit-ready — today?", metric: "78 frameworks", to: "/platform/compliance", color: "#059669" },
-    { icon: Layers, title: "Technology Engine", q: "What is actually running here?", metric: "34 technologies", to: "/platform/technology", color: "#65A30D" },
+  const groups: { heading: string; items: { title: string; q: string; metric: string; to: string }[] }[] = [
+    {
+      heading: "Posture, identity and network",
+      items: [
+        { title: "CNAPP", q: "What's our posture, in one number?", metric: "7 pillars · one score", to: "/platform/cnapp" },
+        { title: "CSPM", q: "What's misconfigured, cloud by cloud?", metric: "9,853 posture rules", to: "/platform/cspm" },
+        { title: "CIEM", q: "Which identities are quietly over-privileged?", metric: "30-day behavioral baselines", to: "/platform/ciem" },
+        { title: "IAM Security", q: "Who has access to what?", metric: "Policies · users · roles", to: "/platform/iam" },
+        { title: "Asset Inventory", q: "What do we run, and where?", metric: "549 services · 7 clouds", to: "/platform/inventory" },
+        { title: "Network Security", q: "Where is the network open to the internet?", metric: "7-layer topology analysis", to: "/platform/network-security" },
+        { title: "API Security", q: "Which APIs are open to the world?", metric: "241 API posture rules", to: "/platform/api-security" },
+      ],
+    },
+    {
+      heading: "Data",
+      items: [
+        { title: "DSPM (Data Security)", q: "Where is our sensitive data stored?", metric: "1,321 data protection rules", to: "/platform/data-security" },
+        { title: "Database Security", q: "Are our databases hardened?", metric: "1,364 CIS engine benchmarks", to: "/platform/database-security" },
+        { title: "Encryption & Keys", q: "Who can decrypt our data?", metric: "502 key management rules", to: "/platform/encryption" },
+      ],
+    },
+    {
+      heading: "Workloads, code and SaaS",
+      items: [
+        { title: "CWPP (Workloads)", q: "Are running workloads hardened?", metric: "VMs · containers · serverless", to: "/platform/cwpp" },
+        { title: "Agentless Scanning", q: "How do we scan without agents?", metric: "Snapshot-based · zero install", to: "/platform/agentless" },
+        { title: "Container Security", q: "Are our clusters and images safe?", metric: "EKS · ECS · image scanning", to: "/platform/container-security" },
+        { title: "Vulnerability Mgmt", q: "Which CVEs matter for us?", metric: "Contextual, not CVSS-only", to: "/platform/vulnerability" },
+        { title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/code-security" },
+        { title: "SaaS Security (SSPM)", q: "Are M365 and Workspace locked down?", metric: "433 CIS SaaS rules", to: "/platform/saas-security" },
+        { title: "AI Security", q: "Are my AI services safe on AWS, Azure and Google Cloud?", metric: "AI/ML risk detection", to: "/platform/ai-security" },
+        { title: "Technology Engine", q: "What software is running here?", metric: "34 technologies", to: "/platform/technology" },
+      ],
+    },
+    {
+      heading: "Threats and risk",
+      items: [
+        { title: "Attack Path", q: "Which risks lead to sensitive data?", metric: "Cross-cloud graph analysis", to: "/platform/attack-path" },
+        { title: "CDR Detection", q: "Which behaviour across layers looks like an attack?", metric: "L1 · L2 · L3 detection", to: "/platform/cdr" },
+        { title: "Threat Detection", q: "What suspicious activity is in our cloud logs?", metric: "MITRE ATT&CK-mapped", to: "/platform/threat-detection" },
+        { title: "Risk Quantification", q: "What's this exposure worth in dollars?", metric: "FAIR-style estimates", to: "/platform/risk" },
+      ],
+    },
+    {
+      heading: "Fixing it and proving it",
+      items: [
+        { title: "AI Assistant", q: "Can I ask in plain English what's exposed?", metric: "13 domain specialists", to: "/platform/ai-assistant" },
+        { title: "Remediation", q: "How does each finding get fixed?", metric: "Fix guidance per finding", to: "/platform/remediation" },
+        { title: "Compliance", q: "Are we ready for the next audit?", metric: "78 frameworks", to: "/platform/compliance" },
+      ],
+    },
   ];
   return (
     <section className="py-24 border-b border-[#E5E9F0] bg-[#F7F9FC]">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader
           eyebrow="Inside Onam Security"
-          title="Every security layer on one graph"
-          subtitle="CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are engines inside Onam Security, not separate tools — 29 of them running in parallel on the same data model, so findings talk to each other."
-          gradientWords="one graph"
+          title="The engines, grouped by what they check"
+          subtitle="CNAPP, CSPM, CIEM, DSPM, CWPP and SSPM are engines inside Onam Security, not separate tools. 29 of them run in parallel on the same data model, so their findings can be linked."
+          gradientWords="what they check"
         />
-        <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          {pillars.map((p) => {
-            const I = p.icon;
-            return (
-              <Link key={p.title} to={p.to} className="group">
-                <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 hover:border-[#CBD5E1] transition-all">
-                  <div className="w-10 h-10 rounded-lg grid place-items-center"
-                       style={{ backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)` }}>
-                    <I className="w-5 h-5" style={{ color: p.color }} />
-                  </div>
-                  <h3 className="mt-4 font-display font-bold text-[#0B1220] text-lg">{p.title}</h3>
-                  <p className="mt-2 text-sm text-[#475569] leading-relaxed">{p.q}</p>
-                  <div className="mt-4 flex items-center justify-between pt-4 border-t border-[#E5E9F0]">
-                    <span className="text-xs font-mono text-[#2563EB]">{p.metric}</span>
-                    <ArrowRight className="w-4 h-4 text-[#94A3B8] group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition" />
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+        <div className="mt-14 grid md:grid-cols-2 gap-x-10 gap-y-10">
+          {groups.map((g) => (
+            <div key={g.heading} className="min-w-0">
+              <h3 className="text-[11px] uppercase tracking-widest font-bold text-[#64748B]">{g.heading}</h3>
+              <ul className="mt-3 divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
+                {g.items.map((p) => (
+                  <li key={p.title}>
+                    <Link to={p.to} className="group flex items-start justify-between gap-4 py-3">
+                      <span className="min-w-0">
+                        <span className="block font-semibold text-[#0B1220] group-hover:text-[#2563EB] transition">{p.title}</span>
+                        <span className="block text-sm text-[#475569]">{p.q}</span>
+                      </span>
+                      <span className="shrink-0 text-right text-xs font-mono text-[#2563EB] pt-0.5">{p.metric}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -1134,9 +1147,9 @@ export function StatsSection() {
   // the same kind fixed in the strip above.
   const stats = [
     { v: fmt(RULE_CATALOG_TOTAL), label: "security rules", sub: "Across posture, network, data, code, identity", accent: "#2563EB" },
-    { v: fmt(SERVICES), label: "cloud services covered", sub: "Enumerated continuously across every connected account", accent: "#E32D25" },
+    { v: fmt(SERVICES), label: "cloud services covered", sub: "Listed in every connected account", accent: "#E32D25" },
     { v: String(FRAMEWORKS), label: "compliance frameworks", sub: "CIS · NIST · ISO 27001 · PCI-DSS · HIPAA · SOC 2 · more", accent: "#05A052" },
-    { v: String(ENGINES), label: "detection & analysis engines", sub: "One graph, one data model", accent: "#F2AF04" },
+    { v: String(ENGINES), label: "detection & analysis engines", sub: "All on the same data model", accent: "#F2AF04" },
     { v: String(CLOUDS), label: "cloud providers", sub: "AWS · Azure · GCP · OCI · AliCloud · IBM · Kubernetes", accent: "#7C3AED" },
     { v: String(SAAS_PLATFORMS), label: "SaaS platforms", sub: "M365 · Workspace · GitHub · GitLab · Snowflake · Okta · more", accent: "#0EA5E9" },
   ];
@@ -1149,7 +1162,7 @@ export function StatsSection() {
             coverage figures, so the subtitle now says that — and says where they
             come from, which is the more useful claim to a buyer anyway. */}
         <SectionHeader eyebrow="By the numbers" title="Depth you can measure"
-                       subtitle="Platform coverage, counted — every figure below is a cleared number from our product fact sheet, not an estimate." />
+                       subtitle="Each figure below comes from our product fact sheet. None of them is an estimate." />
         <div className="mt-16 grid grid-cols-2 lg:grid-cols-3 gap-6">
           {stats.map((s) => (
             <div key={s.label} className="bg-white rounded-2xl p-6 border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)]">
@@ -1177,7 +1190,7 @@ export function ComplianceSection() {
     <section className="py-24 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader eyebrow="Compliance" title="Ready for your next audit"
-                       subtitle="Continuous evidence across 78 frameworks — export in one click, no auditor screenshots."
+                       subtitle="Evidence for 78 frameworks, kept up to date with each scan and exported in one click."
                        gradientWords="next audit" />
         <div className="mt-12 flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
           {frameworks.map((f) => (
@@ -1192,48 +1205,12 @@ export function ComplianceSection() {
   );
 }
 
-/* ============================ WHY NOW ============================ */
-export function WhyNow() {
-  const items = [
-    { icon: Cloud, title: "Attack surface is growing 40% YoY", body: "Every new microservice, S3 bucket, and IAM role is a new door. Manual reviews can't keep up.", color: "#2563EB", tint: "#EFF4FF" },
-    { icon: Fingerprint, title: "Identity sprawl is the new perimeter", body: "Every service, pipeline and integration adds roles and trust. Few teams can say what each one can actually reach.", color: "#F2AF04", tint: "#FEF6E0" },
-    { icon: Layers, title: "Multi-cloud complexity is the norm", body: "The average enterprise runs 3+ clouds. Native tools only see their own turf.", color: "#7C3AED", tint: "#F3E8FF" },
-    { icon: AlertTriangle, title: "Breach costs hit $4.88M on average", body: "IBM 2024 report. Cloud breaches cost 15% more than on-prem — and take 88 more days to detect.", color: "#E32D25", tint: "#FDECEA" },
-  ];
-  return (
-    <section className="py-24 border-b border-[#E5E9F0] bg-[#F7F9FC]">
-      <div className="max-w-7xl mx-auto px-6">
-        <SectionHeader eyebrow="Why now" title="Cloud security is at an inflection point"
-                       subtitle="The controls that worked in 2020 don't work in 2026." />
-        <div className="mt-14 grid sm:grid-cols-2 gap-6">
-          {items.map((i) => {
-            const I = i.icon;
-            return (
-              <div key={i.title} className="bg-white rounded-2xl border border-[#E5E9F0] p-6 shadow-[0_1px_2px_rgba(16,24,40,.04)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all">
-                <div className="flex gap-5">
-                  <div className="w-11 h-11 rounded-xl grid place-items-center shrink-0" style={{ backgroundColor: i.tint }}>
-                    <I className="w-5 h-5" style={{ color: i.color }} />
-                  </div>
-                  <div>
-                    <h3 className="font-display font-bold text-[#0B1220] text-lg">{i.title}</h3>
-                    <p className="mt-2 text-sm text-[#475569] leading-relaxed">{i.body}</p>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ============================ DIFFERENTIATOR ============================ */
 export function Differentiator() {
   const rows: { area: string; alts: [string, string, string]; onam: string }[] = [
-    { area: "Coverage", alts: ["One cloud only", "One security layer", "Point-in-time"], onam: "All 7 clouds · every security layer · continuous" },
+    { area: "Coverage", alts: ["One cloud only", "One security layer", "Point-in-time"], onam: "All 7 clouds · posture to runtime · on every scheduled scan" },
     { area: "Attack paths", alts: ["Not covered", "Not covered", "Manual"], onam: "Cross-cloud graph analysis" },
-    { area: "Compliance", alts: ["Per-provider", "Manual mapping", "Point-in-time"], onam: "78 frameworks · continuous evidence" },
+    { area: "Compliance", alts: ["Per-provider", "Manual mapping", "Point-in-time"], onam: `${FRAMEWORKS} frameworks · evidence on every scan` },
     { area: "Identity", alts: ["Basic policies", "None", "Interview-based"], onam: "30-day behavioral CIEM" },
     { area: "Prioritisation", alts: ["Alert firehose", "CVSS-only", "Report handoff"], onam: "FAIR-style loss estimate per finding" },
     { area: "Code + Runtime", alts: ["Runtime only", "One or the other", "Neither"], onam: "SAST · DAST · SCA · IaC · runtime" },
@@ -1242,7 +1219,7 @@ export function Differentiator() {
     <section className="py-24 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader eyebrow="Why Onam Security" title="Onam Security vs. the alternatives"
-                       subtitle="Where other approaches stop, Onam Security keeps going — because everything is on one graph."
+                       subtitle="How Onam Security compares with native cloud tools, single-layer products and manual audits."
                        gradientWords="the alternatives" />
         <div className="mt-14 overflow-x-auto">
           <div className="min-w-[860px] bg-white rounded-2xl border border-[#E5E9F0] overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,.04)]">
@@ -1313,24 +1290,23 @@ export function FinalCTA() {
     <section className="py-24 bg-white">
       <div className="max-w-5xl mx-auto px-6">
         <div className="gradient-border rounded-3xl p-10 md:p-16 text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
-            Ready when you are
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+            Free audit scan
           </div>
           <h2 className="mt-5 font-display font-black text-4xl md:text-5xl text-[#0B1220] tracking-tight">
-            See what is exposed —{" "}
-            <span className="gradient-text">and what to fix first.</span>
+            Book a scan of one account and{" "}
+            <span className="gradient-text">see what to fix first.</span>
           </h2>
           <p className="mt-5 text-lg text-[#475569] max-w-2xl mx-auto">
-            Connect a read-only role for posture scanning. Your first findings arrive with the first
-            scan, ranked by the route an attacker would actually take.
+            We scan one cloud account once through a read-only role, at no charge. You get the
+            findings ranked by the route an attacker would take, and a 45-minute readout with our
+            team.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BrandButton to="/request-demo" search={{ product: "security" }} size="lg">Request demo →</BrandButton>
+            <BrandButton to="/request-demo" search={{ product: "security" }} size="lg">Book the audit scan →</BrandButton>
             <BrandButton to="/company/contact" size="lg" variant="secondary">Talk to us</BrandButton>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#64748B]">
-            <span>No credit card required</span>
-            <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
             <span>Read-only posture scanning</span>
             <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
             <span>Delete access anytime</span>

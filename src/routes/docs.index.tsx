@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Cloud, BookOpen } from "lucide-react";
+import { ArrowRight, Cloud, BookOpen } from "@/components/site/icons";
 import { BrandButton } from "@/components/site/BrandButton";
 import { Backdrop, Card, IconTile, StatusChip } from "@/components/site/system";
 import { SUITE, type SuiteKey } from "@/data/product-suite";

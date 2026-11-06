@@ -1,9 +1,8 @@
-import { type LucideIcon, AlertTriangle, ArrowRight, CheckCircle2, ChevronRight, Sparkles } from "lucide-react";
+import { type LucideIcon, AlertTriangle, ArrowRight, ChevronRight } from "@/components/site/icons";
 import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
-import { Backdrop } from "@/components/site/system";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
@@ -72,12 +71,6 @@ const defaultStats = [
   { v: String(FRAMEWORKS), l: "compliance frameworks" },
 ];
 
-const defaultRisk = {
-  title: "The risk of not knowing",
-  body: "If it is not surfaced today, it is exposed today. Attackers do not wait for your quarterly review — and neither do auditors.",
-  tagline: "Re-checked on every scan, not once a quarter",
-};
-
 const anchors = [
   { id: "why-it-matters", label: "Why it matters" },
   { id: "how-it-works", label: "How it works" },
@@ -98,30 +91,14 @@ function splitBullet(b: string): { title: string; desc: string } {
   return { title: b.slice(0, idx).trim(), desc: b.slice(idx + sep.length).trim() };
 }
 
-function IconTile({ Icon, color, size = "lg" }: { Icon: LucideIcon; color: string; size?: "lg" | "sm" }) {
-  const dim = size === "lg" ? "w-16 h-16" : "w-10 h-10";
-  const iconSize = size === "lg" ? "w-7 h-7" : "w-5 h-5";
-  return (
-    <div
-      className={cn(dim, "rounded-2xl grid place-items-center")}
-      style={{
-        backgroundColor: `color-mix(in srgb, ${color} 12%, #FFFFFF)`,
-        boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${color} 22%, transparent)`,
-      }}
-    >
-      <Icon className={iconSize} style={{ color }} strokeWidth={2} />
-    </div>
-  );
-}
-
 function Hero({ data }: { data: ProductPageData }) {
   const ctx = useEngineContext(data);
   return (
     <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-      <Backdrop tone="light" color={data.iconColor} pattern="graph" icon={data.icon} />
-      <div className="relative max-w-4xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20 text-center animate-slide-up">
+      
+      <div className="relative max-w-6xl mx-auto px-6 pt-24 pb-16 md:pt-28 md:pb-20">
         {ctx.isEngine && (
-          <nav aria-label="Breadcrumb" className="-mt-12 mb-10 flex justify-center">
+          <nav aria-label="Breadcrumb" className="-mt-12 mb-10 flex">
             <ol className="flex items-center gap-1.5 text-sm text-muted-500">
               <li>
                 <Link to="/platform" className="font-medium hover:text-brand-500 transition">
@@ -137,30 +114,26 @@ function Hero({ data }: { data: ProductPageData }) {
             </ol>
           </nav>
         )}
-        <div className="flex justify-center">
-          <IconTile Icon={data.icon} color={data.iconColor} />
-        </div>
-        <div className="mt-6 inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#F1F5F9] text-[#334155] border border-[#E5E9F0]">
-          {data.label}
-        </div>
-        <p className="mt-6 text-[#2563EB] text-lg font-semibold tracking-tight">{data.question}</p>
-        <h1 className="mt-3 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-6xl tracking-tight leading-[1.05]">
+        <div className="max-w-3xl">
+        <p className="text-[15px] font-semibold text-[#1D4ED8]">{data.question}</p>
+        <h1 className="mt-3 font-display font-bold text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.1]">
           {data.headline}
         </h1>
-        <p className="mt-6 text-lg text-[#475569] leading-relaxed max-w-2xl mx-auto">{data.sub}</p>
-        <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
+        <p className="mt-6 text-lg text-[#475569] leading-relaxed">{data.sub}</p>
+        </div>
+        <div className="mt-9 flex flex-wrap items-center gap-3">
           <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg">See it in my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
           <BrandButton to={ctx.docsHref} size="lg" variant="secondary">Read the docs</BrandButton>
         </div>
 
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-4">
+        <dl className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-6 border-t border-[#E5E9F0] pt-6">
           {(data.stats ?? defaultStats).map((s) => (
-            <div key={s.l} className="bg-white border border-[#E5E9F0] rounded-xl px-4 py-4 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-              <div className="text-xl md:text-2xl font-display font-black text-[#0B1220]">{s.v}</div>
-              <div className="text-[11px] uppercase tracking-widest text-[#64748B] mt-1">{s.l}</div>
+            <div key={s.l} className="pr-6">
+              <dt className="order-2 text-sm text-[#64748B] mt-1">{s.l}</dt>
+              <dd className="text-2xl font-display font-bold text-[#0B1220]">{s.v}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
       {data.heroImage && (
         <div className="relative px-6 pb-16">
@@ -189,20 +162,20 @@ function StickyNav({ data }: { data: ProductPageData }) {
 
 function WhyItMatters({ data }: { data: ProductPageData }) {
   const [first, ...rest] = data.painPoint.split(/(?<=[.!?])\s+/);
-  const risk = data.risk ?? defaultRisk;
+  const risk = data.risk;
   return (
     <section id="why-it-matters" className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-24">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-5 gap-10">
-        <div className="lg:col-span-3">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+        <div className={risk ? "lg:col-span-3" : "lg:col-span-5 max-w-3xl"}>
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Why this matters
           </div>
-          <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl leading-tight tracking-tight">
+          <h2 className="mt-2 font-display font-bold text-[#0B1220] text-2xl md:text-3xl leading-tight tracking-tight">
             {first}
           </h2>
           <p className="mt-5 text-[#475569] leading-relaxed text-base">{rest.join(" ")}</p>
         </div>
-        <div className="lg:col-span-2">
+        {risk && <div className="lg:col-span-2">
           <div className="h-full bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]">
             <div className="flex items-start gap-4">
               <div className="w-11 h-11 rounded-xl grid place-items-center shrink-0 bg-[#FDECEA]">
@@ -214,14 +187,11 @@ function WhyItMatters({ data }: { data: ProductPageData }) {
               </div>
             </div>
             <div className="mt-6 pt-5 border-t border-[#E5E9F0] flex items-center gap-2 text-xs text-[#475569]">
-              <span className="relative flex w-2 h-2">
-                <span className="absolute inline-flex w-full h-full rounded-full bg-[#E32D25] opacity-70 animate-ping" />
-                <span className="relative inline-flex w-2 h-2 rounded-full bg-[#E32D25]" />
-              </span>
+              <span className="inline-flex w-2 h-2 rounded-full bg-[#E32D25]" />
               <span className="font-medium">{risk.tagline}</span>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     </section>
   );
@@ -230,20 +200,20 @@ function WhyItMatters({ data }: { data: ProductPageData }) {
 function HowItWorks({ data }: { data: ProductPageData }) {
   return (
     <section id="how-it-works" className="py-24 border-b border-[#E5E9F0] bg-white">
-      <div className="max-w-4xl mx-auto px-6 text-center">
-        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
-          How does it actually work?
+      <div className="max-w-4xl mx-auto px-6">
+        <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+          How it works
         </div>
-        <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-4xl md:text-5xl tracking-tight">
-          The mechanism, <span className="gradient-text">not the marketing</span>
+        <h2 className="mt-2 font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
+          How {data.label} works
         </h2>
       </div>
-      <div className="mt-14 max-w-4xl mx-auto px-6">
-        <ol className="space-y-4">
+      <div className="mt-10 max-w-4xl mx-auto px-6">
+        <ol className="divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
           {data.mechanism.map((step, i) => (
-            <li key={i} className="bg-white border border-[#E5E9F0] rounded-xl p-5 flex gap-4 items-start shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-              <div className="w-9 h-9 shrink-0 rounded-full grid place-items-center bg-[#2563EB] text-white font-display font-black text-sm">
-                {i + 1}
+            <li key={i} className="py-5 flex gap-5 items-start">
+              <div className="w-6 shrink-0 pt-1.5 font-mono text-sm text-[#64748B]">
+                {String(i + 1).padStart(2, "0")}
               </div>
               <p className="text-[#334155] leading-relaxed pt-1.5">{step}</p>
             </li>
@@ -258,12 +228,12 @@ function WhatYouGet({ data }: { data: ProductPageData }) {
   return (
     <section id="what-you-get" className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-24">
       <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
-            What do you actually get?
+        <div className="max-w-5xl mx-auto">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+            What you get
           </div>
-          <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-4xl md:text-5xl tracking-tight">
-            Specific outputs, <span className="gradient-text">measurable outcomes</span>
+          <h2 className="mt-2 font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
+            What you see in the console
           </h2>
         </div>
 
@@ -277,24 +247,17 @@ function WhatYouGet({ data }: { data: ProductPageData }) {
           </div>
         )}
 
-        <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <dl className="mt-12 max-w-5xl mx-auto bg-white border border-[#E5E9F0] rounded-2xl divide-y divide-[#E5E9F0]">
           {data.whatYouGet.map((b) => {
             const { title, desc } = splitBullet(b);
             return (
-              <div key={b} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
-                <div className="flex items-start gap-3">
-                  <div className="w-9 h-9 rounded-lg grid place-items-center bg-[#EFF4FF] shrink-0">
-                    <CheckCircle2 className="w-4 h-4 text-[#2563EB]" />
-                  </div>
-                  <div>
-                    <div className="font-display font-bold text-[#0B1220] leading-snug">{title}</div>
-                    {desc && <div className="mt-1.5 text-sm text-[#475569] leading-relaxed">{desc}</div>}
-                  </div>
-                </div>
+              <div key={b} className="grid md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] gap-1 md:gap-8 px-6 py-5">
+                <dt className="font-display font-bold text-[#0B1220] leading-snug">{title}</dt>
+                <dd className="text-sm text-[#475569] leading-relaxed">{desc}</dd>
               </div>
             );
           })}
-        </div>
+        </dl>
       </div>
     </section>
   );
@@ -310,10 +273,10 @@ function Faqs({ data }: { data: ProductPageData }) {
       />
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             FAQ
           </div>
-          <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-4xl md:text-5xl tracking-tight">
+          <h2 className="mt-2 font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
             Questions we get a lot
           </h2>
         </div>
@@ -354,14 +317,14 @@ function CtaAndRelated({ data }: { data: ProductPageData }) {
     <section className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-[1.4fr_1fr] gap-8">
         <div className="gradient-border rounded-3xl p-10 md:p-12">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
-            <Sparkles className="w-3.5 h-3.5" /> Ready to see it live
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+            Next step
           </div>
-          <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Ready to see <span className="gradient-text">{data.label}</span> {data.ctaWhere ?? "in your cloud"}?
+          <h2 className="mt-2 font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
+            See {data.label} {data.ctaWhere ?? "on your own cloud"}
           </h2>
           <p className="mt-4 text-[#475569] max-w-lg">
-            {data.ctaLine ?? "Connect a read-only role in three minutes. Your first findings surface in under five."}
+            {data.ctaLine ?? "Book a 30-minute demo. We walk through it on sample data, or on one of your accounts if you want to connect it."}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg">Book a live demo →</BrandButton>

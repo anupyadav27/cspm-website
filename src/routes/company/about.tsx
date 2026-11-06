@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ShieldCheck, Layers, MessageSquareHeart, Zap, User, Compass } from "lucide-react";
+import { Compass } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { seo, SITE_URL } from "@/lib/seo";
@@ -19,11 +19,19 @@ export const Route = createFileRoute("/company/about")({
   component: AboutPage,
 });
 
-const values = [
-  { icon: ShieldCheck, iconColor: "#2563EB", title: "Practitioners first", body: "Built by people who've run incident response, threat hunts, and cloud architecture reviews — not by a marketing team that later hired engineers." },
-  { icon: Layers, iconColor: "#F2AF04", title: "Depth over surface area", body: `In Onam Security, ${fmt(RULE_CATALOG_TOTAL)} rules go deep into each service. Across every product, we would rather cover something completely than list it.` },
-  { icon: MessageSquareHeart, iconColor: "#05A052", title: "Honest with customers", body: "If Onam isn't right for your environment, we'll tell you on the first call. Every product page says what it does not do, and anything not yet offered is labelled as such." },
-  { icon: Zap, iconColor: "#E32D25", title: "Speed without shortcuts", body: "Fast scans and accuracy are not a trade-off. We invested years in the graph and the rule engine so you don't have to choose." },
+const principles = [
+  {
+    title: "We say what each product does not do.",
+    body: "Every product page has a section for it, and anything not yet offered is labelled. If Onam is the wrong fit for your environment, we would rather tell you on the first call.",
+  },
+  {
+    title: "We go deep on fewer things.",
+    body: `Onam Security has ${fmt(RULE_CATALOG_TOTAL)} rules because each cloud service gets checked properly. We would rather cover a service completely than add it to a list.`,
+  },
+  {
+    title: "A person approves every change.",
+    body: "Scans read your configuration. The AI agents in Onam AIOps (early access) can propose a fix, but nothing changes in your cloud until someone on your team approves it.",
+  },
 ];
 
 const stats = [
@@ -60,8 +68,8 @@ function AboutPage() {
             One discovery of your cloud, answering the questions every team asks of it.
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-3xl mx-auto leading-relaxed">
-            Security, finance and the people responsible for recovery all ask questions of the same cloud — and each
-            used to buy a separate tool that discovered it again, and disagreed with the others. Onam discovers your
+            Security, finance and the people responsible for recovery all ask questions of the same cloud. Each used
+            to buy a separate tool that discovered it again and disagreed with the others. Onam discovers your
             cloud once and answers all of them: what you run, whether it is secure, what it costs, and whether it
             would come back after a failure.
           </p>
@@ -84,8 +92,8 @@ function AboutPage() {
                 recovery wanted to know which applications depended on them, and whether they would come back.
               </p>
               <p>
-                So Onam became a platform of four products on one discovery — Onam Estate, Onam Security, Onam FinOps
-                and Onam DRM — with Onam AIOps, in early access, adding AI agents that investigate across them and
+                So Onam became four products on one discovery (Onam Estate, Onam Security, Onam FinOps and Onam DRM),
+                with Onam AIOps, in early access, adding AI agents that investigate across them and
                 leave every change to a person. Each product is sold on its own; together they share one login, one
                 console and one inventory, so your cloud accounts are connected once.
               </p>
@@ -108,31 +116,20 @@ function AboutPage() {
       </Section>
 
       <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Values</div>
-            <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">What we optimise for</h2>
-          </div>
-          <div className="mt-12 grid md:grid-cols-2 gap-5">
-            {values.map((v) => {
-              const Icon = v.icon;
-              return (
-                <div key={v.title} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]">
-                  <div
-                    className="w-12 h-12 rounded-xl grid place-items-center"
-                    style={{
-                      backgroundColor: `color-mix(in srgb, ${v.iconColor} 12%, #FFFFFF)`,
-                      boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${v.iconColor} 22%, transparent)`,
-                    }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: v.iconColor }} />
-                  </div>
-                  <h3 className="mt-5 font-display font-bold text-[#0B1220] text-lg">{v.title}</h3>
-                  <p className="mt-2 text-sm text-[#475569] leading-relaxed">{v.body}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">How we work</h2>
+          <p className="mt-4 text-[#475569] leading-relaxed">
+            Onam is a small company. Anup Yadav founded it after 20 years at HCL, Ericsson, Indiabulls and NTT,
+            including work as a fintech security architect. Three things we hold ourselves to:
+          </p>
+          <ol className="mt-8 space-y-6 list-decimal pl-5 marker:font-bold marker:text-[#0B1220]">
+            {principles.map((v) => (
+              <li key={v.title} className="pl-2">
+                <div className="font-display font-bold text-[#0B1220]">{v.title}</div>
+                <p className="mt-1 text-[#475569] leading-relaxed">{v.body}</p>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
@@ -150,7 +147,7 @@ function AboutPage() {
       <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Team</div>
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">Team</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">The people behind Onam</h2>
           </div>
           <div className="mt-12 grid md:grid-cols-2 gap-6">
@@ -182,11 +179,8 @@ function AboutPage() {
       <section className="bg-white py-20">
         <div className="max-w-5xl mx-auto px-6">
           <div className="rounded-3xl border border-[#DBE7FE] bg-gradient-to-br from-[#EFF4FF] to-white p-10 md:p-14 text-center">
-            <div className="inline-flex w-12 h-12 rounded-xl bg-[#2563EB] text-white items-center justify-center">
-              <User className="w-6 h-6" />
-            </div>
-            <h2 className="mt-5 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              Come see the platform we built.
+            <h2 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
+              Book a demo
             </h2>
             <p className="mt-4 text-[#475569] max-w-xl mx-auto">45 minutes with someone who knows the product you pick, using your own cloud if you want.</p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server, Briefcase } from "lucide-react";
+import { ArrowRight, Info, ShoppingCart, Sparkles, Landmark, Gamepad2, Server, Briefcase } from "@/components/site/icons";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
 

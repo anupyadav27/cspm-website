@@ -58,14 +58,14 @@ export const LEARN_ARTICLES: LearnArticle[] = [
       "CSPM (cloud security posture management) checks cloud infrastructure for misconfigurations and compliance drift: how it works, what it misses, vs CNAPP.",
     term: "Cloud Security Posture Management",
     answer:
-      "Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.",
+      "Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to check resources such as storage buckets, databases, security groups and IAM roles against a rule set, then reports what is misconfigured and how to fix it.",
     readTime: "7 min",
     body: `
 ## Why CSPM exists
 
 Cloud breaches are rarely sophisticated. The overwhelming majority start with something mundane: a storage bucket left public, a database reachable from the internet, a security group opened to 0.0.0.0/0 during a debugging session, an IAM role that accumulated permissions nobody removed.
 
-None of this is caused by careless engineers. It is caused by scale and speed. A single team can create hundreds of cloud resources in a week, each with dozens of configuration options and defaults that were never designed to be secure — they were designed to work. Manual review cannot keep pace, and annual audits find problems roughly 360 days too late.
+None of this is caused by careless engineers. It is caused by scale and speed. A single team can create hundreds of cloud resources in a week, each with dozens of configuration options and defaults that were designed to work rather than to be secure. Manual review cannot keep pace, and annual audits find problems roughly 360 days too late.
 
 CSPM automates that review and runs it continuously.
 
@@ -73,10 +73,10 @@ CSPM automates that review and runs it continuously.
 
 Every CSPM tool follows the same four steps:
 
-1. **Connect** — a read-only credential is granted in the cloud account: an IAM role on AWS, a service principal on Azure, a service account on GCP. No agent is installed.
-2. **Discover** — the tool enumerates every resource across every region and account through the provider's APIs, building an inventory.
-3. **Evaluate** — each resource is checked against a rule catalog. Rules are deterministic and binary: a bucket either blocks public access or it does not.
-4. **Report and remediate** — failures become findings, ranked by severity, mapped to the compliance frameworks they violate, and paired with remediation steps.
+1. **Connect**: a read-only credential is granted in the cloud account: an IAM role on AWS, a service principal on Azure, a service account on GCP. No agent is installed.
+2. **Discover.** The tool enumerates every resource across every region and account through the provider's APIs, building an inventory.
+3. **Evaluate.** Each resource is checked against a rule catalogue. Rules are deterministic and binary: a bucket either blocks public access or it does not.
+4. **Report and remediate.** Failures become findings, ranked by severity, mapped to the compliance frameworks they violate, and paired with remediation steps.
 
 The critical word is *continuous*. A scan that runs quarterly is an audit. CSPM re-evaluates as infrastructure changes, so a misconfiguration introduced on Tuesday surfaces on Tuesday.
 
@@ -96,39 +96,39 @@ The critical word is *continuous*. A scan that runs quarterly is an audit. CSPM 
 This is where most evaluations go wrong. CSPM reads *configuration*. It does not see:
 
 - **What is running inside a workload.** An EC2 instance can be perfectly configured and still run an unpatched OpenSSL. That is [CWPP](/learn/cwpp).
-- **What the data actually is.** CSPM sees an encrypted bucket, not that it holds 800,000 customer records. That is [DSPM](/learn/dspm).
-- **Effective permissions.** CSPM reads a policy document; it does not resolve what a principal can actually do after role chaining, SCPs and permission boundaries. That is [CIEM](/learn/ciem).
+- **What the data is.** CSPM sees an encrypted bucket. It does not see that the bucket holds 800,000 customer records. That is [DSPM](/learn/dspm).
+- **Effective permissions.** CSPM reads a policy document; it does not resolve what a principal can do after role chaining, SCPs and permission boundaries. That is [CIEM](/learn/ciem).
 - **Behaviour.** A valid credential used at 3am from a new country is not a misconfiguration. That is cloud detection and response.
 - **Chains.** CSPM produces a list. It does not tell you that finding #47 plus finding #212 equals a path from the internet to your database. That is [attack path analysis](/learn/cloud-attack-path).
 
-A CSPM tool that reports 4,000 findings with no chaining hands you a spreadsheet, not a priority.
+A CSPM tool that reports 4,000 findings with no chaining hands you a spreadsheet. It does not tell you what to do first.
 
 ## CSPM vs CNAPP vs CWPP vs CIEM
 
-CSPM was the first category to exist, which is why the terms are often used loosely. The relationship is nesting, not competition:
+CSPM was the first category to exist, which is why the terms are often used loosely. The categories nest inside one another:
 
-- **CSPM** — configuration posture.
-- **[CWPP](/learn/cwpp)** — the workloads themselves.
-- **[CIEM](/learn/ciem)** — identity and effective permissions.
-- **[KSPM](/learn/kspm)** — the configuration inside Kubernetes clusters.
-- **[DSPM](/learn/dspm)** — the data and its exposure.
-- **[CNAPP](/learn/cnapp)** — the umbrella that runs all of the above on one data model.
+- **CSPM:** configuration posture.
+- **[CWPP](/learn/cwpp):** the workloads themselves.
+- **[CIEM](/learn/ciem):** identity and effective permissions.
+- **[KSPM](/learn/kspm):** the configuration inside Kubernetes clusters.
+- **[DSPM](/learn/dspm):** the data and its exposure.
+- **[CNAPP](/learn/cnapp):** the umbrella that runs all of the above on a shared data model.
 
 Buying these as four products from four vendors reproduces the problem they were meant to solve: four consoles, four severity scales, and no correlation between them.
 
 ## What to look for in a CSPM tool
 
-- **Rule depth per cloud, not cloud count.** "Supports 6 clouds" often means full depth on two and a token integration on the rest. Ask for the rule count per provider.
+- **Rule depth per cloud.** The number of clouds matters less. "Supports 6 clouds" often means full depth on two and a token integration on the rest. Ask for the rule count per provider.
 - **Agentless.** If it needs an agent for posture, coverage will stall at whatever percentage the platform team tolerates.
-- **Remediation, not just detection.** A finding without a specific fix for that specific resource is a ticket nobody actions.
+- **Remediation as well as detection.** A finding without a specific fix for that specific resource is a ticket nobody actions.
 - **Framework mapping.** One finding should update every framework it affects at once.
 - **Correlation with identity and data context.** Severity alone is a poor proxy for risk.
 
 ## Next steps
 
-- [How Onam implements CSPM](/platform/cspm) — 9,853 posture rules across seven clouds
-- [What is CNAPP?](/learn/cnapp) — the umbrella category
-- [What is a cloud attack path?](/learn/cloud-attack-path) — why finding lists are not priorities
+- [How Onam implements CSPM](/platform/cspm): 9,853 posture rules across seven clouds
+- [What is CNAPP?](/learn/cnapp): the umbrella category
+- [What is a cloud attack path?](/learn/cloud-attack-path): why a list of findings is not a priority order
 `,
     faqs: [
       {
@@ -145,7 +145,7 @@ Buying these as four products from four vendors reproduces the problem they were
       },
       {
         q: "Is CSPM the same as a compliance tool?",
-        a: "They overlap but are not the same. CSPM detects misconfigurations regardless of whether a framework mentions them; a compliance tool reports pass rates against specific control catalogs. Most CSPM tools map findings to frameworks like CIS, NIST and PCI-DSS, which is how one scan produces evidence for many frameworks at once.",
+        a: "They overlap but are not the same. CSPM detects misconfigurations regardless of whether a framework mentions them; a compliance tool reports pass rates against specific control catalogues. Most CSPM tools map findings to frameworks like CIS, NIST and PCI-DSS, which is how one scan produces evidence for many frameworks at once.",
       },
       {
         q: "How often should CSPM scans run?",
@@ -161,7 +161,7 @@ Buying these as four products from four vendors reproduces the problem they were
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
       { label: "The best CSPM tools in 2026, an honest shortlist", href: "/resources/blog/best-cspm-tools" },
-      { label: "The 5 AWS misconfigurations we find in 90% of first scans", href: "/resources/blog/aws-misconfigurations-first-scan" },
+      { label: "5 AWS misconfigurations that commonly show up on a first scan", href: "/resources/blog/aws-misconfigurations-first-scan" },
     ],
   },
 
@@ -174,12 +174,12 @@ Buying these as four products from four vendors reproduces the problem they were
       "CNAPP unifies CSPM, CWPP, CIEM and DSPM on one data model instead of four consoles. What the category means and how to spot a bundle of acquisitions.",
     term: "Cloud-Native Application Protection Platform",
     answer:
-      "A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on one shared data model — so risks that span those domains are correlated rather than reported separately.",
+      "A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on a shared data model. Risks that span those domains are correlated instead of being reported separately.",
     readTime: "7 min",
     body: `
-## Why the category exists
+## Why the CNAPP category exists
 
-By around 2021 a typical cloud security stack had four or five tools: a posture scanner, a workload scanner, an identity analyser, a data classifier, and something watching logs. Each was competent. Together they were close to useless for answering the only question that matters — *what should we fix first?*
+By around 2021 a typical cloud security stack had four or five tools: a posture scanner, a workload scanner, an identity analyser, a data classifier, and something watching logs. Each was competent. Together they were close to useless for answering the question that matters most: *what should we fix first?*
 
 The reason is that risk in cloud environments is almost never contained within one tool's domain. A real incident looks like this:
 
@@ -195,28 +195,28 @@ CNAPP is the response: put every signal on one data model so the chain is comput
 | --- | --- |
 | [CSPM](/learn/cspm) | Is the infrastructure configured correctly? |
 | [CWPP](/learn/cwpp) | Are the running workloads hardened and patched? |
-| [CIEM](/learn/ciem) | Who can actually do what, and do they still need it? |
+| [CIEM](/learn/ciem) | Who can do what, and do they still need it? |
 | [KSPM](/learn/kspm) | Are the Kubernetes clusters configured safely? |
 | [DSPM](/learn/dspm) | Where is the sensitive data and who can reach it? |
-| [Attack path analysis](/learn/cloud-attack-path) | Which combinations actually reach something valuable? |
+| [Attack path analysis](/learn/cloud-attack-path) | Which combinations reach something valuable? |
 | Runtime detection (CDR) | Is something happening right now? |
 | Code security (SAST/DAST/SCA/IaC) | Are we shipping the problem in the first place? |
 
 Increasingly [SSPM](/learn/sspm) belongs here too, since the identity that compromises a SaaS tenant is usually the same identity that federates into the cloud account.
 
-## Real CNAPP vs. a bundle
+## How to tell a unified CNAPP from a bundle
 
-Many products marketed as CNAPP are several acquisitions behind one login page. The distinction is not marketing pedantry — it determines whether you get correlation or just consolidated billing. Tests that separate the two:
+Many products marketed as CNAPP are several acquisitions behind one login page. This is more than pedantry about labels. It decides whether you get correlation or only a single invoice. Tests that separate the two:
 
 1. **One severity scale?** If the posture module says "high" and the vulnerability module says "7.5" and nothing reconciles them, the data models are separate.
 2. **Does a finding in module A change the ranking in module B?** In a real CNAPP, a bucket holding PII raises the priority of the IAM finding that grants access to it. In a bundle, they never speak.
 3. **Is there one asset inventory?** If each module discovers resources independently, you will find the same instance counted differently in two places.
-4. **Can it show a path, not a list?** Chaining across domains is only possible on a shared graph.
+4. **Can it show a path instead of a list?** Chaining across domains is only possible on a shared graph.
 5. **One onboarding?** If enabling the data module requires a second set of credentials and a second scan, it is a separate product.
 
 ## The posture score problem
 
-Most CNAPPs produce a single score. Treat it carefully. A score is useful for trend ("are we improving?") and useless for action ("what do I do Monday?"). A good implementation lets the score decompose all the way down — score to pillar to finding to resource to remediation. A score that cannot be decomposed is a vanity metric.
+Most CNAPPs produce a single score. Treat it carefully. A score is useful for trend ("are we improving?") and useless for action ("what do I do Monday?"). A good implementation lets the score break down all the way: score to pillar to finding to resource to remediation. A score that cannot be decomposed is a vanity metric.
 
 ## Does CNAPP replace everything else?
 
@@ -224,7 +224,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
 
 ## Next steps
 
-- [How Onam implements CNAPP](/platform/cnapp) — seven scored pillars on one graph
+- [How Onam implements CNAPP](/platform/cnapp): seven scored pillars on a single graph
 - [What is CSPM?](/learn/cspm)
 - [What is a cloud attack path?](/learn/cloud-attack-path)
 `,
@@ -243,7 +243,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
       },
       {
         q: "Is CNAPP agentless?",
-        a: "The posture, identity and data components are agentless everywhere. Workload coverage varies by vendor — some require an agent, others use snapshot-based agentless scanning that analyses a point-in-time copy of the volume without running anything on the workload.",
+        a: "The posture, identity and data components are agentless everywhere. Workload coverage varies by vendor. Some require an agent; others use snapshot-based agentless scanning that analyses a point-in-time copy of the volume without running anything on the workload.",
       },
     ],
     related: [
@@ -267,7 +267,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
       "What is CWPP? A cloud workload protection platform secures VMs, containers and serverless from the inside. CSPM vs CWPP compared in one table, plus CNAPP.",
     term: "Cloud Workload Protection Platform",
     answer:
-      "A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.",
+      "A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud: virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.",
     readTime: "9 min",
     body: `
 ## CWPP at a glance
@@ -283,7 +283,7 @@ No. CNAPP does not replace a SIEM, an EDR on employee laptops, or your identity 
 
 ## The gap CWPP fills
 
-[CSPM](/learn/cspm) looks at a virtual machine and sees a resource: its security group, its IAM role, whether its volume is encrypted. All of that can be correct while the machine itself is indefensible — running a three-year-old kernel, an unpatched OpenSSL, an SSH key baked into the base image, and a service listening on a port nobody documented.
+[CSPM](/learn/cspm) looks at a virtual machine and sees a resource: its security group, its IAM role, whether its volume is encrypted. All of that can be correct while the machine itself is indefensible. It may be running a three-year-old kernel, an unpatched OpenSSL, an SSH key baked into the base image, and a service listening on a port nobody documented.
 
 Configuration is the door. The workload is the room. CWPP is the category that opens the room.
 
@@ -291,11 +291,11 @@ Configuration is the door. The workload is the room. CWPP is the category that o
 
 CWPP is deliberately broad, because "compute" stopped meaning "server" a long time ago:
 
-- **Virtual machines** — EC2, Azure VMs, Compute Engine, OCI Compute
-- **Containers** — images in registries and containers actually running in EKS, AKS, GKE, OKE, ACK or self-managed Kubernetes
-- **Kubernetes nodes** — the hosts underneath the pods, with their own OS, kubelet and packages
-- **Serverless** — Lambda, Azure Functions, Cloud Functions, including runtime versions and execution roles
-- **Managed hosts** — anything the provider runs on your behalf where you still own the configuration inside
+- **Virtual machines**: EC2, Azure VMs, Compute Engine, OCI Compute
+- **Containers**: images in registries and containers running in EKS, AKS, GKE, OKE, ACK or self-managed Kubernetes
+- **Kubernetes nodes**: the hosts underneath the pods, with their own OS, kubelet and packages
+- **Serverless**: Lambda, Azure Functions, Cloud Functions, including runtime versions and execution roles
+- **Managed hosts**: anything the provider runs on your behalf where you still own the configuration inside
 
 A tool that covers containers but not serverless is not a CWPP; it is container security.
 
@@ -313,10 +313,10 @@ A tool that covers containers but not serverless is not a CWPP; it is container 
 ## How CWPP works
 
 1. **Discover** every workload through the cloud provider APIs, so nothing depends on someone remembering to register it.
-2. **Assess** what is inside — by agent, by scanning a snapshot of the disk, or by scanning images in the registry and pipeline.
+2. **Assess** what is inside, either by agent, by scanning a snapshot of the disk, or by scanning images in the registry and pipeline.
 3. **Harden** against OS and container benchmarks.
 4. **Prioritise** with context: a critical CVE on an internet-facing VM with an admin role matters more than the same CVE on an isolated batch host.
-5. **Protect at runtime** where needed — detecting, and in agent-based products sometimes blocking, suspicious processes and connections.
+5. **Protect at runtime** where needed. This means detecting suspicious processes and connections, and in agent-based products sometimes blocking them.
 6. **Shift left** by scanning images before deploy, so fewer vulnerable workloads reach production.
 
 ## CSPM vs CWPP
@@ -327,10 +327,10 @@ A tool that covers containers but not serverless is not a CWPP; it is container 
 | Question it answers | Is the cloud configured safely? | Is this workload vulnerable, hardened, or under attack? |
 | Data source | Cloud provider APIs | Workload disks, images, and runtime telemetry |
 | Typical findings | Public bucket, open security group, logging off, unencrypted database | Unpatched OpenSSL, root container, SSH key on disk, end-of-support Lambda runtime |
-| When it acts | Mostly before an attack — fixing exposure | Before and during — fixing vulnerabilities and detecting runtime activity |
+| When it acts | Mostly before an attack, by fixing exposure | Before and during, by fixing vulnerabilities and detecting runtime activity |
 | Deployment | Read-only API access, no software on workloads | Agent, snapshot scanning, or both |
 
-**Do you need both?** Yes, for most cloud estates. CSPM without CWPP misses the vulnerable software inside a well-configured VM; CWPP without CSPM misses the public storage bucket no workload touches. The useful question is not which one, but whether their findings are correlated — an exploitable CVE (CWPP) on a VM that is internet-facing (CSPM) with an over-privileged role ([CIEM](/learn/ciem)) is one priority, not three unrelated tickets. That correlation is what a [CNAPP](/learn/cnapp) is for.
+**Do you need both?** Yes, for most cloud estates. CSPM without CWPP misses the vulnerable software inside a well-configured VM; CWPP without CSPM misses the public storage bucket no workload touches. The useful question is whether their findings are correlated. An exploitable CVE (CWPP) on a VM that is internet-facing (CSPM) with an over-privileged role ([CIEM](/learn/ciem)) is one priority, not three unrelated tickets. That correlation is what a [CNAPP](/learn/cnapp) is for.
 
 ## CWPP vs CNAPP
 
@@ -338,11 +338,11 @@ CWPP is a component; CNAPP is the platform that contains it. A CNAPP combines CS
 
 ## CWPP vs EDR
 
-EDR (endpoint detection and response) was built for long-lived endpoints and servers, with an agent watching processes on each machine. CWPP was built for cloud workloads, many of which are short-lived containers or serverless functions where an endpoint agent does not fit, and it adds cloud context — which role the workload runs as, whether it is exposed. On long-lived cloud VMs the two overlap, and many organisations run both.
+EDR (endpoint detection and response) was built for long-lived endpoints and servers, with an agent watching processes on each machine. CWPP was built for cloud workloads, many of which are short-lived containers or serverless functions where an endpoint agent does not fit, and it adds cloud context, such as which role the workload runs as and whether it is exposed. On long-lived cloud VMs the two overlap, and many organisations run both.
 
 ## CWPP vs KSPM and container security
 
-- **[KSPM](/learn/kspm)** checks how Kubernetes clusters are configured — RBAC, pod security, network policy, admission control.
+- **[KSPM](/learn/kspm)** checks how Kubernetes clusters are configured: RBAC, pod security, network policy and admission control.
 - **Container security** is the container-specific slice: images, registries, Kubernetes configuration and admission policy.
 - **CWPP** is the umbrella for what runs inside every compute form factor, including the VMs and serverless functions that are not containers at all.
 
@@ -350,7 +350,7 @@ EDR (endpoint detection and response) was built for long-lived endpoints and ser
 
 This is the decision that most often determines whether a CWPP rollout succeeds.
 
-**Agent-based** installs software on every workload. It gives continuous runtime telemetry — process execution, syscalls, live network connections — which snapshot scanning cannot replicate. The cost is real: a package to distribute, a version to maintain, a rollout plan, an exception list for machines that break, and a recurring negotiation with the platform team. Coverage commonly stalls short of every workload, and the uncovered remainder is often the legacy estate that most needs scanning.
+**Agent-based** installs software on every workload. It gives continuous runtime telemetry (process execution, syscalls, live network connections) that snapshot scanning cannot replicate. The cost is real: a package to distribute, a version to maintain, a rollout plan, an exception list for machines that break, and a recurring negotiation with the platform team. Coverage commonly stalls short of every workload, and the uncovered remainder is often the legacy estate that most needs scanning.
 
 **Agentless** takes a point-in-time snapshot of the workload's volume and analyses it out-of-band. Coverage does not depend on rolling software out to each machine, and the scan puts no load on the workload itself. The trade-off is that it is point-in-time: it will not show you a process that spawned and exited between scans, and it cannot block anything.
 
@@ -358,16 +358,16 @@ Many programmes use snapshot scanning as the coverage baseline, add detection fr
 
 ## CWPP best practices
 
-1. **Inventory first.** You cannot protect a workload you have not discovered; drive coverage from the cloud API, not from a list of hosts.
+1. **Inventory first.** You cannot protect a workload you have not discovered; drive coverage from the cloud API rather than a list of hosts.
 2. **Prioritise by exploitability and exposure,** not by CVSS score alone.
-3. **Scan images in the pipeline and the registry,** so fixes happen in the build, not on running containers.
-4. **Retire end-of-support runtimes** — old OS images and Lambda runtimes stop receiving security fixes.
+3. **Scan images in the pipeline and the registry,** so fixes happen in the build instead of on running containers.
+4. **Retire end-of-support runtimes**: old OS images and Lambda runtimes stop receiving security fixes.
 5. **Keep secrets off disk and out of environment variables;** use the provider's secrets manager.
 6. **Correlate with posture and identity findings** so one exploitable workload is ranked by what it can reach.
 
 ## How Onam approaches workload protection
 
-Onam evaluates workloads as part of the same platform as its cloud posture, identity and data security checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,508 rule definitions are tagged to the container and Kubernetes domain and 219 to compute workloads. One honest limit: a rule catalog describes configuration and package risk; it is not by itself a runtime prevention agent.
+Onam evaluates workloads as part of the same platform as its cloud posture, identity and data security checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalogue, 1,508 rule definitions are tagged to the container and Kubernetes domain and 219 to compute workloads. One honest limit: a rule catalogue describes configuration and package risk; it is not by itself a runtime prevention agent.
 
 - [How Onam approaches CWPP](/platform/cwpp)
 - [What is KSPM?](/learn/kspm)
@@ -376,15 +376,15 @@ Onam evaluates workloads as part of the same platform as its cloud posture, iden
     faqs: [
       {
         q: "What is CWPP?",
-        a: "CWPP (Cloud Workload Protection Platform) is security tooling that protects compute workloads in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions — by finding vulnerabilities, hardening gaps and secrets inside them and, where supported, detecting malicious runtime behaviour.",
+        a: "CWPP (Cloud Workload Protection Platform) is security tooling that protects compute workloads in the cloud, such as virtual machines, containers, Kubernetes nodes and serverless functions. It works by finding vulnerabilities, hardening gaps and secrets inside them and, where supported, detecting malicious runtime behaviour.",
       },
       {
         q: "What does CWPP stand for?",
-        a: "CWPP stands for Cloud Workload Protection Platform — security for the compute workloads themselves, as distinct from the cloud infrastructure configuration around them. (Outside security, CWPP also means a Community Wildfire Protection Plan.)",
+        a: "CWPP stands for Cloud Workload Protection Platform: security for the compute workloads themselves, as distinct from the cloud infrastructure configuration around them. (Outside security, CWPP also means a Community Wildfire Protection Plan.)",
       },
       {
         q: "What is the difference between CSPM and CWPP?",
-        a: "CSPM inspects cloud configuration — security groups, IAM policies, storage access, encryption settings — through the provider's APIs. CWPP inspects what is installed and running inside the workload — packages, vulnerabilities, OS hardening, secrets on disk, runtime activity. A workload can pass every CSPM check and still be trivially exploitable.",
+        a: "CSPM inspects cloud configuration (security groups, IAM policies, storage access, encryption settings) through the provider's APIs. CWPP inspects what is installed and running inside the workload: packages, vulnerabilities, OS hardening, secrets on disk and runtime activity. A workload can pass every CSPM check and still be trivially exploitable.",
       },
       {
         q: "Do I need both CSPM and CWPP?",
@@ -430,7 +430,7 @@ Onam evaluates workloads as part of the same platform as its cloud posture, iden
       "What is CIEM? It finds what cloud identities can really do after role chains and SCPs, versus what they use. CSPM vs CIEM compared, and why you need both.",
     term: "Cloud Infrastructure Entitlement Management",
     answer:
-      "CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity actually used, to remove excess access and enforce least privilege.",
+      "CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment (human users, service accounts and machine identities) after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity used, to remove excess access and enforce least privilege.",
     readTime: "8 min",
     body: `
 ## CIEM at a glance
@@ -456,13 +456,13 @@ CIEM computes the answer instead of reading it.
 
 **1. What can this identity actually do?**
 
-Full resolution across the identity graph — including transitive access. If role A can assume role B, and role B can read the production bucket, then role A can read the production bucket. This is where cross-account trust chains and federation hops matter, and where most privilege escalation actually lives.
+Full resolution across the identity graph, including transitive access. If role A can assume role B, and role B can read the production bucket, then role A can read the production bucket. This is where cross-account trust chains and federation hops matter, and where most privilege escalation happens.
 
-**2. What did it actually do?**
+**2. What has it used?**
 
 Effective permissions are compared against real usage from cloud audit logs, typically over a 90-day window. The gap between granted and used is the excess.
 
-In most estates that gap is large, because permissions are added when something breaks and rarely removed when it stops. Every unused permission is attack surface with no operational benefit — a door that exists solely because someone attached a broad policy on a Friday and nothing ever removed it.
+In most estates that gap is large, because permissions are added when something breaks and rarely removed when it stops. Every unused permission is attack surface with no operational benefit. It is a door that exists only because someone attached a broad policy on a Friday and nothing ever removed it.
 
 ## What CIEM finds
 
@@ -471,9 +471,9 @@ In most estates that gap is large, because permissions are added when something 
 - Cross-account trust relationships nobody remembers creating
 - Service accounts with human-grade permissions
 - Stale credentials and access keys that outlived the person or workload
-- Privilege escalation paths — permission sets that let an identity grant itself more, such as \`iam:PassRole\` to an admin role
+- Privilege escalation paths: permission sets that let an identity grant itself more, such as \`iam:PassRole\` to an admin role
 - Federation hops where an identity provider account unlocks cloud access
-- Kubernetes ServiceAccounts bound to cluster-admin, or able to read Secrets and exec into pods — the cluster side of the same problem, covered in [What is KSPM?](/learn/kspm)
+- Kubernetes ServiceAccounts bound to cluster-admin, or able to read Secrets and exec into pods. This is the cluster side of the same problem, covered in [What is KSPM?](/learn/kspm)
 
 ## CSPM vs CIEM
 
@@ -486,11 +486,11 @@ In most estates that gap is large, because permissions are added when something 
 | How it judges a policy | Checks the policy document against rules, e.g. "no wildcard actions" | Resolves the effective result of every policy together, then compares it with real usage |
 | Typical fix | Change a setting, usually in infrastructure as code | Remove or narrow permissions; right-size roles to what was used |
 
-**Why you need both.** Most cloud breaches need two things: something reachable and something it can do once reached. CSPM finds the first — the exposed resource. CIEM finds the second — the permissions that turn one foothold into wider access. A public VM (CSPM) whose instance role can assume an admin role in another account (CIEM) is one attack path; seen in two separate tools, it is two medium findings that nobody connects. That is why both usually run inside a [CNAPP](/learn/cnapp) with [attack path analysis](/learn/cloud-attack-path) on top.
+**Why you need both.** Most cloud breaches need two things: something reachable and something it can do once reached. CSPM finds the first: the exposed resource. CIEM finds the second: the permissions that turn one foothold into wider access. A public VM (CSPM) whose instance role can assume an admin role in another account (CIEM) is one attack path; seen in two separate tools, it is two medium findings that nobody connects. That is why both usually run inside a [CNAPP](/learn/cnapp) with [attack path analysis](/learn/cloud-attack-path) on top.
 
 ## CIEM vs IAM
 
-IAM is the cloud provider's system for defining identities and policies. It is the mechanism. CIEM is the analysis layer on top: it does not create permissions, it works out what the permissions you already created actually mean in aggregate, and which of them are unnecessary.
+IAM is the cloud provider's system for defining identities and policies. It is the mechanism. CIEM is the analysis layer on top: it does not create permissions, it works out what the permissions you already created mean in aggregate, and which of them are unnecessary.
 
 Native IAM tooling shows you what a policy says. CIEM shows you what it does.
 
@@ -498,12 +498,12 @@ Native IAM tooling shows you what a policy says. CIEM shows you what it does.
 
 - **PAM** (privileged access management) controls and brokers access to privileged accounts, with vaulting and session recording. It is a control.
 - **IGA** (identity governance and administration) manages the joiner-mover-leaver lifecycle and access certifications, mostly for human users and business applications.
-- **CIEM** analyses the entitlements already granted inside cloud platforms — including machine identities that PAM and IGA rarely see — and finds the excess and the escalation paths.
+- **CIEM** analyses the entitlements already granted inside cloud platforms, including machine identities that PAM and IGA rarely see. It finds the excess and the escalation paths.
 
 ## CIEM best practices
 
 1. **Start with unused administrative access.** It is the largest risk reduction for the least disruption.
-2. **Resolve trust policies, not just permission policies.** Who can assume a role matters as much as what the role can do.
+2. **Resolve trust policies as well as permission policies.** Who can assume a role matters as much as what the role can do.
 3. **Treat machine identities as first-class.** Service accounts and workload roles usually outnumber people and are reviewed far less.
 4. **Right-size from observed usage** over a long enough window to include monthly and quarterly jobs.
 5. **Rotate or remove long-lived keys** in favour of short-lived, federated credentials.
@@ -515,16 +515,16 @@ CIEM is one of the highest-value inputs to [attack path analysis](/learn/cloud-a
 
 ## How Onam approaches entitlements
 
-Onam evaluates identity alongside configuration in the same platform, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,459 rule definitions are tagged to the IAM domain. One honest limit: usage-based right-sizing depends on the audit logs you keep — permissions used outside the retained window look unused.
+Onam evaluates identity alongside configuration in the same platform, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalogue, 1,459 rule definitions are tagged to the IAM domain. One honest limit: usage-based right-sizing depends on the audit logs you keep. Permissions used outside the retained window look unused.
 
-- [How Onam implements CIEM](/platform/ciem) — effective permissions, escalation paths and access reviews
+- [How Onam implements CIEM](/platform/ciem): effective permissions, escalation paths and access reviews
 - [What is a cloud attack path?](/learn/cloud-attack-path)
 - [What is CNAPP?](/learn/cnapp)
 `,
     faqs: [
       {
         q: "What is CIEM?",
-        a: "CIEM (Cloud Infrastructure Entitlement Management) works out what every cloud identity — users, roles, service accounts — can actually do once all policies, role chains and guardrails are resolved, compares that with what it actually used, and flags the excess so it can be removed.",
+        a: "CIEM (Cloud Infrastructure Entitlement Management) works out what every cloud identity (users, roles, service accounts) can do once all policies, role chains and guardrails are resolved. It compares that with what the identity used and flags the excess so it can be removed.",
       },
       {
         q: "What does CIEM stand for?",
@@ -532,7 +532,7 @@ Onam evaluates identity alongside configuration in the same platform, across AWS
       },
       {
         q: "What is the difference between CSPM and CIEM?",
-        a: "CSPM checks how cloud resources are configured — public buckets, open security groups, encryption and logging. CIEM checks who can act on those resources — the effective permissions of every identity, compared with what they actually use. CSPM finds the exposed door; CIEM finds how far someone can go once through it.",
+        a: "CSPM checks how cloud resources are configured: public buckets, open security groups, encryption and logging. CIEM checks who can act on those resources, meaning the effective permissions of every identity compared with what each one uses. CSPM finds the exposed door; CIEM finds how far someone can go once through it.",
       },
       {
         q: "Do I need both CSPM and CIEM?",
@@ -540,7 +540,7 @@ Onam evaluates identity alongside configuration in the same platform, across AWS
       },
       {
         q: "What is the difference between CIEM and IAM?",
-        a: "IAM is the cloud provider's mechanism for defining identities and attaching policies. CIEM is an analysis layer that computes what those policies actually permit once role chains, service control policies and permission boundaries are resolved, and compares that against what was actually used.",
+        a: "IAM is the cloud provider's mechanism for defining identities and attaching policies. CIEM is an analysis layer that computes what those policies permit once role chains, service control policies and permission boundaries are resolved, and compares that against what was used.",
       },
       {
         q: "What is the difference between CIEM and PAM?",
@@ -548,7 +548,7 @@ Onam evaluates identity alongside configuration in the same platform, across AWS
       },
       {
         q: "How does CIEM know which permissions are unused?",
-        a: "By reading cloud audit logs — CloudTrail, Azure Activity Log, GCP Cloud Audit Logs — over a rolling window, usually 90 days, and comparing the actions actually taken against the full set the identity is entitled to take.",
+        a: "By reading cloud audit logs (CloudTrail, Azure Activity Log, GCP Cloud Audit Logs) over a rolling window, usually 90 days, and comparing the actions taken against the full set the identity is entitled to take.",
       },
     ],
     related: [
@@ -581,10 +581,10 @@ Onam evaluates identity alongside configuration in the same platform, across AWS
 | Question | Answer |
 | --- | --- |
 | What does DSPM stand for? | Data Security Posture Management (sometimes mistyped "DPSM") |
-| What does it look at? | The data itself — object storage, managed databases, warehouses, data lakes, file shares, backups and snapshots |
+| What does it look at? | The data itself: object storage, managed databases, warehouses, data lakes, file shares, backups and snapshots |
 | What does it produce? | An inventory of data stores, a sensitivity label for each, and the identities and network paths that can reach them |
 | What does it classify? | PII, PHI, cardholder data, credentials and secrets, intellectual property |
-| What does it not do? | Block data leaving in real time — that is DLP |
+| What does it not do? | Block data leaving in real time. That is DLP |
 | Where does it fit? | Alongside [CSPM](/learn/cspm), [CIEM](/learn/ciem) and [CWPP](/learn/cwpp), usually inside a [CNAPP](/learn/cnapp) |
 
 ## DSPM meaning: the problem it solves
@@ -597,10 +597,10 @@ Copies nobody tracks are often called **shadow data**: snapshots kept after a mi
 
 ## How DSPM works
 
-1. **Discover** every data store across accounts, subscriptions and projects — including the ones not in any inventory. A [cloud asset inventory](/learn/cloud-asset-inventory) is the starting point.
+1. **Discover** every data store across accounts, subscriptions and projects, including the ones not in any inventory. A [cloud asset inventory](/learn/cloud-asset-inventory) is the starting point.
 2. **Classify** what each store holds, by content sampling, by metadata, or both.
 3. **Map access** by joining each store to the identity graph: which users, roles, service accounts and third parties can read or write it, directly or through role assumption.
-4. **Assess exposure** by adding network reachability and encryption context — is the store public, is the key usable by everyone in the account, is a copy sitting in a less-protected region?
+4. **Assess exposure** by adding network reachability and encryption context. Is the store public? Is the key usable by everyone in the account, Is a copy sitting in a less-protected region?
 5. **Prioritise and remediate** by sensitivity multiplied by exposure, not by the severity of the configuration rule alone.
 6. **Monitor continuously**, because new datasets and new permissions appear every day.
 
@@ -608,9 +608,9 @@ Copies nobody tracks are often called **shadow data**: snapshots kept after a mi
 
 DSPM tools split into two approaches, and the difference matters for procurement and privacy review.
 
-**Content-based** classification reads samples of the data and pattern-matches on it — national ID formats, card numbers that pass a Luhn check, email addresses. It is the more precise method and the more invasive one: it needs read access to real records, and the scanning may run outside your environment.
+**Content-based** classification reads samples of the data and pattern-matches on it: national ID formats, card numbers that pass a Luhn check, email addresses. It is the more precise method and the more invasive one: it needs read access to real records, and the scanning may run outside your environment.
 
-**Metadata-based** classification infers sensitivity from resource names, tags, schemas and column names, storage class and configuration. A table with columns \`ssn\` and \`date_of_birth\`, or a bucket named \`customer-pii-exports\`, is a confident label without reading a row. It is less precise on ambiguous stores, but it never touches the underlying data — often the deciding factor in regulated environments.
+**Metadata-based** classification infers sensitivity from resource names, tags, schemas and column names, storage class and configuration. A table with columns \`ssn\` and \`date_of_birth\`, or a bucket named \`customer-pii-exports\`, is a confident label without reading a row. It is less precise on ambiguous stores, but it never touches the underlying data. That is often the deciding factor in regulated environments.
 
 Ask any DSPM vendor which one it uses, where the scanning runs, and whether sampled data leaves your account.
 
@@ -628,25 +628,25 @@ The two are complementary. CSPM tells you a bucket is public; DSPM tells you whe
 
 ## DSPM vs DLP
 
-- **DLP (data loss prevention)** watches data **in motion** — email, uploads, endpoints, web traffic — and blocks it leaving through channels it should not.
-- **DSPM** assesses data **at rest** — where it is stored, how sensitive it is, and who can reach it.
+- **DLP (data loss prevention)** watches data **in motion** (email, uploads, endpoints, web traffic) and blocks it leaving through channels it should not.
+- **DSPM** assesses data **at rest**: where it is stored, how sensitive it is, and who can reach it.
 
 DLP is a control at the boundary; DSPM is an assessment of the estate. DSPM findings make DLP policy sharper, because you know which data deserves the strictest rules.
 
 ## DSPM vs data governance and DSPM vs CIEM
 
-**Data governance** decides who *should* own and use data — catalogues, stewardship, retention policy. DSPM checks what is actually true in the cloud: whether the copies, permissions and exposure match that intent.
+**Data governance** decides who *should* own and use data, through catalogues, stewardship and retention policy. DSPM checks what is true in the cloud: whether the copies, permissions and exposure match that intent.
 
 **[CIEM](/learn/ciem)** maps effective permissions for every identity. DSPM uses that map from the data's side: not "what can this role do?" but "who can read this table?". The two answers should come from the same identity graph, or they will disagree.
 
 ## DSPM use cases
 
-- **Find shadow data** — forgotten snapshots, test copies of production, abandoned exports.
-- **Prove compliance scope** — GDPR Article 30 records of processing, HIPAA safeguards for PHI, PCI DSS Requirement 3 for stored account data. You cannot scope an audit for data you have not found.
-- **Prioritise cloud findings** — raise the priority of any misconfiguration on a store that holds sensitive data.
-- **Reduce access** — remove read access to sensitive stores from identities that never use it.
-- **Govern AI and analytics data** — know which training sets, vector stores and notebooks hold personal data before they are shared.
-- **Respond to incidents** — when a credential leaks, answer "what sensitive data could it read?" before the investigation stalls.
+- **Find shadow data**: forgotten snapshots, test copies of production, abandoned exports.
+- **Prove compliance scope**: GDPR Article 30 records of processing, HIPAA safeguards for PHI, PCI DSS Requirement 3 for stored account data. You cannot scope an audit for data you have not found.
+- **Prioritise cloud findings**: raise the priority of any misconfiguration on a store that holds sensitive data.
+- **Reduce access**: remove read access to sensitive stores from identities that never use it.
+- **Govern AI and analytics data**: know which training sets, vector stores and notebooks hold personal data before they are shared.
+- **Respond to incidents**: when a credential leaks, answer "what sensitive data could it read?" before the investigation stalls.
 
 ## DSPM examples: three findings and their fixes
 
@@ -670,25 +670,25 @@ DLP is a control at the boundary; DSPM is an assessment of the estate. DSPM find
 
 ## Why "encrypted at rest" is a weak answer
 
-Encryption at rest protects against one threat: someone obtaining the physical storage medium. It does nothing about the likelier case — a legitimate credential reading the data through the API exactly as designed. DSPM asks the better questions: what is in this store, who can decrypt it, and is any path to it reachable from outside? That last question is [attack path analysis](/learn/cloud-attack-path), with the data store as the target.
+Encryption at rest protects against one threat: someone obtaining the physical storage medium. It does nothing about the likelier case: a legitimate credential reading the data through the API exactly as designed. DSPM asks the better questions: what is in this store, who can decrypt it, and is any path to it reachable from outside? That last question is [attack path analysis](/learn/cloud-attack-path), with the data store as the target.
 
 ## DSPM best practices
 
-1. **Start with discovery, not classification.** You cannot classify stores you have not found; include backups, snapshots and every account.
+1. **Start with discovery.** Classification comes second. You cannot classify stores you have not found; include backups, snapshots and every account.
 2. **Agree the sensitivity labels first.** Four or five labels that map to your regulations beat thirty nobody applies.
 3. **Decide how classification may touch data.** Settle content versus metadata scanning with privacy and legal before rollout.
-4. **Join data to identity.** A sensitivity label without an access map tells you what to worry about, not what to fix.
+4. **Join data to identity.** A sensitivity label without an access map tells you what to worry about. It does not tell you what to fix.
 5. **Prioritise by sensitivity times exposure.** A public store of public data is low; a private store of PII readable by an internet-facing role is high.
 6. **Delete before you protect.** The cheapest secure copy of data is the one that no longer exists.
 7. **Re-scan continuously.** New datasets and new grants appear with every deploy and every analyst query.
 
 ## DSPM tools: what to ask
 
-DSPM is sold as a standalone product and as part of a CNAPP. When you compare options, ask: which stores and clouds it covers (including warehouses and SaaS data platforms); whether it classifies by content, metadata or both, and where scanning runs; whether it shows effective access through role assumption, not just direct grants; and whether data findings appear next to the cloud and identity findings that create the exposure.
+DSPM is sold as a standalone product and as part of a CNAPP. When you compare options, ask: which stores and clouds it covers (including warehouses and SaaS data platforms); whether it classifies by content, metadata or both, and where scanning runs; whether it shows effective access through role assumption as well as direct grants; and whether data findings appear next to the cloud and identity findings that create the exposure.
 
 ## How Onam approaches data security posture
 
-Onam evaluates data stores in the same platform as its cloud posture and identity checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalog, 1,321 rule definitions are tagged to the data protection domain, 310 to storage and databases, and 502 to secrets and key management; Snowflake is one of its eight SaaS connectors, with 39 CIS SaaS rules. One honest limit: configuration rules tell you how a store is protected, not how many sensitive records sit inside it.
+Onam evaluates data stores in the same platform as its cloud posture and identity checks, across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. In its rule catalogue, 1,321 rule definitions are tagged to the data protection domain, 310 to storage and databases, and 502 to secrets and key management; Snowflake is one of its eight SaaS connectors, with 39 CIS SaaS rules. One honest limit: configuration rules tell you how a store is protected, not how many sensitive records sit inside it.
 
 - [Onam Data Security (DSPM)](/platform/data-security)
 - [Onam Database Security](/platform/database-security)
@@ -700,7 +700,7 @@ Onam evaluates data stores in the same platform as its cloud posture and identit
       },
       {
         q: "What does DSPM mean in security?",
-        a: "In security, DSPM means Data Security Posture Management — a data-centric approach that starts from where sensitive data lives rather than from how infrastructure is configured. It is sometimes mistyped as DPSM.",
+        a: "In security, DSPM means Data Security Posture Management, a data-centric approach that starts from where sensitive data lives rather than from how infrastructure is configured. It is sometimes mistyped as DPSM.",
       },
       {
         q: "What is the difference between DSPM and CSPM?",
@@ -708,7 +708,7 @@ Onam evaluates data stores in the same platform as its cloud posture and identit
       },
       {
         q: "What is the difference between DSPM and DLP?",
-        a: "DLP monitors data in motion and blocks it leaving through unauthorised channels. DSPM assesses data at rest — where it is, how sensitive it is, and which identities and network paths can reach it. DLP is a boundary control; DSPM is an assessment of the estate.",
+        a: "DLP monitors data in motion and blocks it leaving through unauthorised channels. DSPM assesses data at rest: where it is, how sensitive it is, and which identities and network paths can reach it. DLP is a boundary control; DSPM is an assessment of the estate.",
       },
       {
         q: "Does DSPM read my actual data?",
@@ -716,11 +716,11 @@ Onam evaluates data stores in the same platform as its cloud posture and identit
       },
       {
         q: "Why is DSPM needed if data is already encrypted?",
-        a: "Encryption at rest protects against theft of the storage medium, not against a legitimate credential reading the data through the API. If every principal in the account can use the key, encryption adds little. DSPM answers who can actually decrypt and read the data.",
+        a: "Encryption at rest protects against theft of the storage medium, not against a legitimate credential reading the data through the API. If every principal in the account can use the key, encryption adds little. DSPM answers who can decrypt and read the data.",
       },
       {
         q: "What is shadow data?",
-        a: "Copies of sensitive data that nobody is tracking — snapshots left after a migration, test environments loaded with production records, exports left in storage after a one-off analysis. Finding shadow data is one of the main reasons teams adopt DSPM.",
+        a: "Copies of sensitive data that nobody is tracking. Examples are snapshots left after a migration, test environments loaded with production records, exports left in storage after a one-off analysis. Finding shadow data is one of the main reasons teams adopt DSPM.",
       },
       {
         q: "Is DSPM part of CNAPP?",
@@ -749,10 +749,10 @@ Onam evaluates data stores in the same platform as its cloud posture and identit
       "SSPM secures the SaaS platforms you run on (Microsoft 365, Google Workspace, GitHub, Snowflake) that cloud CSPM never scans. What it covers and why.",
     term: "SaaS Security Posture Management",
     answer:
-      "SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications — such as Microsoft 365, Google Workspace, GitHub and Snowflake — detecting misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.",
+      "SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications such as Microsoft 365, Google Workspace, GitHub and Snowflake. It detects misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.",
     readTime: "6 min",
     body: `
-## The blind spot
+## The SaaS security blind spot
 
 A cloud security platform will tell you an S3 bucket is public. It will say nothing about:
 
@@ -773,7 +773,7 @@ These are not edge cases. They are among the most commonly exploited footholds i
 
 **Audit gaps.** When audit logging is disabled or retention is set too low, incident response becomes guesswork. These settings are invisible to infrastructure tooling and are rarely reviewed after initial setup.
 
-**Sprawl without procurement.** SaaS is adopted by teams, not by IT. The platform holding your most sensitive customer data may have been signed up for with a corporate card.
+**Sprawl without procurement.** SaaS is adopted by teams, often without IT. The platform holding your most sensitive customer data may have been signed up for with a corporate card.
 
 ## What SSPM checks
 
@@ -788,34 +788,34 @@ These are not edge cases. They are among the most commonly exploited footholds i
 
 ## How SSPM connects
 
-Through each platform's official API using read-only, scoped application permissions — Microsoft Graph, Google Admin SDK, GitHub and GitLab app tokens, Snowflake key-pair authentication. There is no agent and no browser extension. A well-built connector requests directory, audit and configuration scopes only, and never message or document contents.
+Through each platform's official API using read-only, scoped application permissions: Microsoft Graph, Google Admin SDK, GitHub and GitLab app tokens, Snowflake key-pair authentication. There is no agent and no browser extension. A well-built connector requests directory, audit and configuration scopes only, and never message or document contents.
 
 ## SSPM vs CSPM vs CIEM
 
-- **[CSPM](/learn/cspm)** — cloud infrastructure configuration
-- **SSPM** — SaaS application configuration and identity
-- **[CIEM](/learn/ciem)** — effective permissions inside cloud providers
+- **[CSPM](/learn/cspm)**: cloud infrastructure configuration
+- **SSPM**: SaaS application configuration and identity
+- **[CIEM](/learn/ciem)**: effective permissions inside cloud providers
 
 They meet at the identity provider. A SaaS compromise becomes a cloud compromise at the federation hop, which is exactly why keeping SSPM findings in a separate console from cloud findings defeats the purpose.
 
 ## Next steps
 
-- [How Onam implements SSPM](/platform/saas-security) — 8 platforms, 433 CIS SaaS rules
+- [How Onam implements SSPM](/platform/saas-security): 8 platforms, 433 CIS SaaS rules
 - [What is CIEM?](/learn/ciem)
 - [What is CNAPP?](/learn/cnapp)
 `,
     faqs: [
       {
         q: "What does SSPM stand for?",
-        a: "SSPM stands for SaaS Security Posture Management — continuous assessment of the configuration and identity posture of SaaS applications such as Microsoft 365, Google Workspace, GitHub, Okta and Snowflake.",
+        a: "SSPM stands for SaaS Security Posture Management: continuous assessment of the configuration and identity posture of SaaS applications such as Microsoft 365, Google Workspace, GitHub, Okta and Snowflake.",
       },
       {
         q: "What is the difference between SSPM and CSPM?",
-        a: "CSPM scans cloud infrastructure — compute, storage, networking, IAM inside AWS, Azure or GCP. SSPM scans the SaaS applications running on top of that infrastructure. A CSPM tool will never see a SharePoint sharing setting or a Microsoft 365 admin without MFA.",
+        a: "CSPM scans cloud infrastructure: compute, storage, networking and IAM inside AWS, Azure or GCP. SSPM scans the SaaS applications running on top of that infrastructure. A CSPM tool will never see a SharePoint sharing setting or a Microsoft 365 admin without MFA.",
       },
       {
         q: "What permissions does an SSPM tool need?",
-        a: "Read-only application permissions scoped to directory, audit and configuration data — for example Microsoft Graph Directory.Read.All and AuditLog.Read.All. A properly built connector never requests write scopes and never reads message or document contents.",
+        a: "Read-only application permissions scoped to directory, audit and configuration data, for example Microsoft Graph Directory.Read.All and AuditLog.Read.All. A properly built connector never requests write scopes and never reads message or document contents.",
       },
       {
         q: "Is SSPM the same as CASB?",
@@ -850,11 +850,11 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
 | What is an attack path? | One route from an entry point to a valuable target, made of several linked weaknesses |
 | What does analysis produce? | The routes that reach critical assets, ranked, plus the choke points many routes share |
 | What data does it need? | Cloud configuration, identities and permissions, network reachability, vulnerabilities, data sensitivity |
-| How is it modelled? | As a graph — resources and identities are nodes, permissions and network routes are edges |
-| What does it not do? | Prove that an attacker has used a path — that is detection and response |
+| How is it modelled? | As a graph. Resources and identities are nodes, permissions and network routes are edges |
+| What does it not do? | Prove that an attacker has used a path. That is detection and response |
 | Related terms | Attack path mapping, attack path management, attack graph, choke point |
 
-## Why finding lists fail
+## Why a list of findings is not enough
 
 A typical cloud environment produces thousands of findings. Ranked by severity, the top of the list fills with criticals on resources nobody can reach, while the finding that matters sits far down marked "medium".
 
@@ -863,17 +863,17 @@ Severity is a property of a finding in isolation. Risk is a property of a findin
 - A critical CVE on an isolated development instance with no data and no network path is close to harmless.
 - A medium-severity IMDSv1 setting on an internet-facing instance whose role can read the customer database is the whole breach.
 
-The second is what an attacker uses. Seeing it requires knowing four things at once — exposure, identity, permissions and data — which usually live in four different tools.
+The second is what an attacker uses. Seeing it requires knowing four things at once: exposure, identity, permissions and data. These usually live in four different tools.
 
-## Attack path example: four findings, one breach
+## Attack path example: four findings that form a route to data
 
-> **Entry** — an EC2 instance is reachable from the internet on port 443.
-> **Hop 1** — the instance allows IMDSv1, so a server-side request forgery bug returns its role credentials.
-> **Hop 2** — that role can assume a second, more privileged role.
-> **Hop 3** — the second role has \`s3:GetObject\` on a production bucket.
-> **Target** — the bucket holds customer records classified as personal data.
+> **Entry:** an EC2 instance is reachable from the internet on port 443.
+> **Hop 1:** the instance allows IMDSv1, so a server-side request forgery bug returns its role credentials.
+> **Hop 2:** that role can assume a second, more privileged role.
+> **Hop 3:** the second role has \`s3:GetObject\` on a production bucket.
+> **Target:** the bucket holds customer records classified as personal data.
 
-Individually: one medium, one low, two informational findings. Together: a complete route to customer data. Breaking any single hop breaks the path — enforcing IMDSv2 is a one-line change:
+Individually: one medium, one low, two informational findings. Together: a complete route to customer data. Breaking any single hop breaks the path. Enforcing IMDSv2 is a one-line change:
 
 \`\`\`hcl
 metadata_options {
@@ -881,22 +881,22 @@ metadata_options {
 }
 \`\`\`
 
-A second common shape is identity-only: a CI/CD role with \`iam:PassRole\` and \`lambda:CreateFunction\` can create a function that runs as an administrator role — privilege escalation without touching a single vulnerable package. That is why identity is the backbone of most cloud paths; see [What is CIEM?](/learn/ciem).
+A second common shape is identity-only: a CI/CD role with \`iam:PassRole\` and \`lambda:CreateFunction\` can create a function that runs as an administrator role. That is privilege escalation without touching a single vulnerable package. That is why identity is the backbone of most cloud paths; see [What is CIEM?](/learn/ciem).
 
 ## How attack path analysis works
 
-1. **Build a graph** — resources, identities, network routes and data stores as nodes; permissions, trust relationships and reachability as edges.
-2. **Mark entry points** — anything reachable from the internet, from a partner account, or from a lower-trust boundary.
-3. **Mark targets** — crown jewels, ideally defined by data classification ([DSPM](/learn/dspm)) rather than by hand.
-4. **Traverse** — find every route from entry to target, respecting real permission semantics, including transitive role assumption and resource policies.
-5. **Rank** — by target value, path length, exploitability of each hop, and how many paths share a node.
-6. **Map to MITRE ATT&CK** — label each hop with a technique so detection engineers can check coverage and run tabletop exercises.
+1. **Build a graph**: resources, identities, network routes and data stores as nodes; permissions, trust relationships and reachability as edges.
+2. **Mark entry points**: anything reachable from the internet, from a partner account, or from a lower-trust boundary.
+3. **Mark targets**: your most valuable assets, ideally defined by data classification ([DSPM](/learn/dspm)) rather than by hand.
+4. **Traverse**: find every route from entry to target, respecting real permission semantics, including transitive role assumption and resource policies.
+5. **Rank**: by target value, path length, exploitability of each hop, and how many paths share a node.
+6. **Map to MITRE ATT&CK**: label each hop with a technique so detection engineers can check coverage and run tabletop exercises.
 
 ## Attack path analysis vs attack path mapping vs attack path management
 
 - **Attack path mapping** is the visual part: drawing the routes from entry to target so people can see them. Often done in a red-team or consulting engagement.
 - **Attack path analysis** is the computation behind it: finding every route in the graph and ranking them by what they reach and how exploitable each hop is.
-- **Attack path management** is the continuous programme: discover, analyse, prioritise, fix the highest-leverage hops, then re-validate that the path is gone — repeated as the environment changes.
+- **Attack path management** is the continuous programme: discover, analyse, prioritise, fix the hops that close the most paths, then re-validate that the path is gone. The cycle repeats as the environment changes.
 
 Analysis done once is a snapshot. Cloud environments change with every deploy, so useful attack path work is continuous.
 
@@ -905,7 +905,7 @@ Analysis done once is a snapshot. Cloud environments change with every deploy, s
 | | Attack path analysis | Attack surface management (ASM) |
 | --- | --- | --- |
 | Question | What can an attacker reach after getting in? | What can an attacker see and touch from outside? |
-| Scope | Inside the environment — identities, permissions, internal networks, data | The external perimeter — domains, IPs, exposed services, certificates |
+| Scope | Inside the environment: identities, permissions, internal networks, data | The external perimeter: domains, IPs, exposed services, certificates |
 | Output | Ranked routes to critical assets, and choke points | An inventory of exposed assets and their weaknesses |
 | Relationship | Uses ASM's exposed assets as entry points | Stops at the edge |
 
@@ -915,17 +915,17 @@ They work together: ASM finds the doors, attack path analysis shows where each d
 
 - An **attack graph** models every possible route across an environment at once.
 - An **attack path** is one route through that graph, from entry to target.
-- An **attack tree** breaks a single attacker goal into sub-goals and steps — a planning tool rather than a map of your environment.
+- An **attack tree** breaks a single attacker goal into sub-goals and steps. It is a planning tool rather than a map of your environment.
 
 ## Choke points: where to fix first
 
-Once paths are computed, most environments show heavy convergence: many distinct paths routing through a handful of nodes — an over-permissive role attached to many services, or a single peered network.
+Once paths are computed, most environments show heavy convergence: many distinct paths routing through a handful of nodes, such as an over-permissive role attached to many services or a single peered network.
 
-A [choke point](/learn/choke-point) is a node that appears in a disproportionate number of paths. Fixing one can remove more risk than closing many individual findings, which turns an unbounded backlog into a short, ordered list of high-leverage fixes. Pair it with [cloud risk quantification](/learn/cloud-risk-quantification) when you need to explain the priority in business terms.
+A [choke point](/learn/choke-point) is a node that appears in a disproportionate number of paths. Fixing one can remove more risk than closing many individual findings, which turns an unbounded backlog into a short, ordered list of fixes that each close many paths. Pair it with [cloud risk quantification](/learn/cloud-risk-quantification) when you need to explain the priority in business terms.
 
 ## Attack path analysis in cloud vs on-premises
 
-On-premises, attack path analysis grew up around Active Directory — tools such as BloodHound map how a low-privileged account can reach Domain Admin through group memberships, sessions and ACLs. In the cloud the edges are different: IAM policies, role trust, resource policies, security groups, Kubernetes RBAC and workload identities. The method is the same; the graph has to be built from cloud APIs. Kubernetes adds its own layer — see [What is KSPM?](/learn/kspm) — and running workloads add vulnerabilities — see [What is CWPP?](/learn/cwpp).
+On-premises, attack path analysis grew up around Active Directory. Tools such as BloodHound map how a low-privileged account can reach Domain Admin through group memberships, sessions and ACLs. In the cloud the edges are different: IAM policies, role trust, resource policies, security groups, Kubernetes RBAC and workload identities. The method is the same; the graph has to be built from cloud APIs. Kubernetes adds its own layer (see [What is KSPM?](/learn/kspm)), and running workloads add vulnerabilities (see [What is CWPP?](/learn/cwpp)).
 
 ## Attack path vs on-path attack
 
@@ -933,17 +933,17 @@ The terms look alike and are unrelated. An **on-path attack** (the newer name fo
 
 ## Attack path analysis best practices
 
-1. **Define crown jewels by data, not by guesswork.** Classification tells you which targets matter.
-2. **Model identity in full.** Include role assumption, resource policies and workload identities — most cloud paths are identity paths.
+1. **Define high-value targets by data.** Classification tells you which targets matter, so nobody has to guess.
+2. **Model identity in full.** Include role assumption, resource policies and workload identities. Most cloud paths are identity paths.
 3. **Fix choke points first.** One shared role or one network route can sit on many paths.
-4. **Break the cheapest hop.** You do not need to fix every link — one broken link closes the path.
-5. **Re-validate after each fix.** Confirm the path is gone, not just that the finding is marked resolved.
+4. **Break the cheapest hop.** You do not need to fix every link. One broken link closes the path.
+5. **Re-validate after each fix.** Confirm the path is gone. A finding marked resolved is not proof.
 6. **Run it continuously.** A quarterly path review describes an environment that no longer exists.
 7. **Map hops to MITRE ATT&CK** so detection covers the paths you cannot close yet.
 
 ## How Onam approaches attack path analysis
 
-Onam keeps the signals attack path analysis joins in one platform across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes: 9,853 CSPM posture rules, and in its rule catalog 1,459 rule definitions tagged to IAM, 1,166 to network and 1,321 to data protection. One honest limit: a path computed from configuration shows that a route is possible; it is not evidence that anyone has used it.
+Onam keeps the signals attack path analysis joins in one platform across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes: 9,853 CSPM posture rules, and in its rule catalogue 1,459 rule definitions tagged to IAM, 1,166 to network and 1,321 to data protection. One honest limit: a path computed from configuration shows that a route is possible; it is not evidence that anyone has used it.
 
 - [Onam Attack Path](/platform/attack-path)
 - [What is CNAPP?](/learn/cnapp)
@@ -959,15 +959,15 @@ Onam keeps the signals attack path analysis joins in one platform across AWS, Az
       },
       {
         q: "What is attack path management?",
-        a: "Attack path management is the continuous practice of discovering, analysing, prioritising and removing attack paths as the environment changes, then re-validating that each fixed path is actually gone.",
+        a: "Attack path management is the continuous practice of discovering, analysing, prioritising and removing attack paths as the environment changes, then re-validating that each fixed path is gone.",
       },
       {
         q: "What is the difference between attack path analysis and attack surface management?",
-        a: "Attack surface management inventories what is exposed from outside — domains, IPs, services. Attack path analysis shows what an attacker can reach after getting in, through identities, permissions and internal networks. ASM finds the doors; attack path analysis shows where they lead.",
+        a: "Attack surface management inventories what is exposed from outside: domains, IPs and services. Attack path analysis shows what an attacker can reach after getting in, through identities, permissions and internal networks. ASM finds the doors; attack path analysis shows where they lead.",
       },
       {
         q: "What is a cloud attack path?",
-        a: "A chain of individually low- or medium-severity cloud findings — for example an exposed instance, an over-permissive role and a readable bucket — that together create a route from the internet to sensitive data. Each link is minor; the chain is critical.",
+        a: "A chain of individually low- or medium-severity cloud findings (for example an exposed instance, an over-permissive role and a readable bucket) that together create a route from the internet to sensitive data. Each link is minor; the chain is critical.",
       },
       {
         q: "What is a choke point in attack path analysis?",
@@ -1011,18 +1011,18 @@ Onam keeps the signals attack path analysis joins in one platform across AWS, Az
 
 Agent rollouts are where security programmes stall. Every agent needs a package, a supported-platform matrix, a rollout plan, an exception list for the machines it breaks, a version upgrade treadmill, and a renewed argument with the platform team every quarter.
 
-Six months in, a typical programme sits at partial coverage — and the uncovered remainder is disproportionately the legacy estate that most needs scanning. Worse, nobody can say with confidence which systems are uncovered, so the security posture report describes a subset of reality while reading like the whole.
+Six months in, a typical programme sits at partial coverage. The uncovered remainder is disproportionately the legacy estate that most needs scanning. Worse, nobody can say with confidence which systems are uncovered, so the security posture report describes a subset of reality while reading like the whole.
 
 Agentless inverts this. Coverage does not wait for a rollout, because nothing is installed on the workloads themselves.
 
 ## How agentless workload scanning works
 
-Configuration assessment is straightforward — read the provider's APIs. Workload inspection is the interesting part:
+Configuration assessment is straightforward: read the provider's APIs. Workload inspection is the interesting part:
 
 1. The platform enumerates the volumes attached to each workload. Reading configuration needs only read-only access; creating and analysing snapshots needs more, which is why the scanning resources usually run in the customer's own account.
 2. A **snapshot** is created using the cloud provider's native snapshot primitive.
-3. A short-lived scan worker mounts and analyses the snapshot — **inside the customer's own account**, orchestrated by native services such as AWS Step Functions, Azure Logic Apps or GCP Workflows.
-4. Structured results — package inventory, configuration signals, findings — are relayed out. Raw disk contents never leave the environment.
+3. A short-lived scan worker mounts and analyses the snapshot **inside the customer's own account**, orchestrated by native services such as AWS Step Functions, Azure Logic Apps or GCP Workflows.
+4. Structured results (package inventory, configuration signals, findings) are relayed out. Raw disk contents never leave the environment.
 5. The snapshot is deleted, and a reconciler sweeps orphaned artefacts so a failed scan cannot leave storage accruing cost.
 
 A well-built scanner throttles concurrent snapshots per cloud so scanning does not compete with production for quota or IOPS.
@@ -1030,8 +1030,8 @@ A well-built scanner throttles concurrent snapshots per cloud so scanning does n
 ## What agentless sees
 
 - Complete package and OS inventory from the real installed software, not a manifest
-- Vulnerabilities matched against what is actually present
-- Host configuration — users, keys, services, hardening state
+- Vulnerabilities matched against what is present on disk
+- Host configuration: users, keys, services, hardening state
 - Secrets and credentials sitting on disk
 - Malware and known-bad artefacts at rest
 
@@ -1043,9 +1043,9 @@ Honest limitations matter here, because vendors routinely gloss over them:
 - **In-memory-only activity.** Fileless techniques that never touch disk leave no snapshot artefact.
 - **Real-time blocking.** Agentless observes; it does not intercept a syscall and stop it.
 
-Much of the first gap is covered without agents by reading cloud-native audit and flow logs — CloudTrail, VPC Flow Logs, Azure Activity Log — which yields behavioural detection on the control plane and network without touching the workload. What genuinely requires an agent is host-level runtime prevention.
+Much of the first gap is covered without agents by reading cloud-native audit and flow logs such as CloudTrail, VPC Flow Logs and Azure Activity Log. That yields behavioural detection on the control plane and network without touching the workload. What genuinely requires an agent is host-level runtime prevention.
 
-## Choosing
+## Choosing between agentless and agent-based scanning
 
 | | Agentless | Agent-based |
 | --- | --- | --- |
@@ -1075,7 +1075,7 @@ Most mature programmes use agentless as the universal baseline, add log-based de
       },
       {
         q: "Does agentless scanning send my data to the vendor?",
-        a: "It should not. In a well-designed implementation, snapshot analysis runs inside your own cloud account and only structured findings — package lists, configuration signals, finding records — are transmitted. Raw disk images and file contents never leave your environment. This is worth verifying explicitly during evaluation.",
+        a: "It should not. In a well-designed implementation, snapshot analysis runs inside your own cloud account and only structured findings (package lists, configuration signals, finding records) are transmitted. Raw disk images and file contents never leave your environment. This is worth verifying explicitly during evaluation.",
       },
       {
         q: "Does snapshot scanning increase cloud costs?",
@@ -1101,46 +1101,46 @@ Most mature programmes use agentless as the universal baseline, add log-based de
       "Cloud risk quantification expresses security exposure as a probable dollar loss, not a severity score. How the FAIR model works and what inputs it needs.",
     term: "Cloud risk quantification",
     answer:
-      "Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.",
+      "Cloud risk quantification is the practice of expressing security risk as a financial figure, a probable dollar loss, rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.",
     readTime: "6 min",
     body: `
 ## Why a severity score is not enough
 
-Most cloud security tools rank risk with a label — critical, high, medium — or a proprietary number between 0 and 100. Both are useful for triage inside one tool, and both fall apart the moment someone senior asks the only question that matters to a business: *how much?*
+Most cloud security tools rank risk with a label (critical, high, medium) or a proprietary number between 0 and 100. Both help with triage inside one tool. Both fall apart when someone senior asks the question a business cares about most: *how much?*
 
 A severity score cannot be added to a risk register that speaks in currency, cannot be compared against the cost of the control that would fix it, and cannot be taken to a board or an insurer. Risk quantification exists to answer "how much" in the same units the rest of the business already uses: money.
 
 ## The FAIR model in one line
 
-FAIR — Factor Analysis of Information Risk, published by The Open Group as the O-RT and O-RA standards — is an open standard for quantifying risk in financial terms. At its core it is a single relationship:
+FAIR (Factor Analysis of Information Risk, published by The Open Group as the O-RT and O-RA standards) is an open standard for quantifying risk in financial terms. At its core it is a single relationship:
 
 > **Risk = Loss Event Frequency × Loss Magnitude**
 
-Loss Event Frequency is how often a damaging event is expected in a year. Loss Magnitude is what one such event would cost. Multiply them and you get an **Annualized Loss Expectancy (ALE)** — a dollar figure per year of exposure. The power of FAIR is that each factor decomposes into smaller inputs you can actually estimate and inspect, rather than a black-box score.
+Loss Event Frequency is how often a damaging event is expected in a year. Loss Magnitude is what one such event would cost. Multiply them and you get an **Annualized Loss Expectancy (ALE)**: a dollar figure per year of exposure. The strength of FAIR is that each factor breaks down into smaller inputs you can estimate and inspect, rather than a black-box score.
 
-## The inputs — named and defensible
+## The FAIR inputs, named and defensible
 
-A quantified figure is only as credible as the numbers behind it. A defensible model uses inputs that can be pointed at, not invented:
+A quantified figure is only as credible as the numbers behind it. A defensible model uses inputs that can be pointed at rather than invented:
 
-- **Per-record cost** — an external benchmark such as the IBM *Cost of a Data Breach* report, which publishes average cost per breached record by industry.
-- **Data sensitivity** — a multiplier reflecting how regulated or confidential the exposed data is (restricted data carries far more loss than public data).
-- **Regulatory exposure** — a multiplier for the strictest applicable regime (for example GDPR), where fines and notification costs are material.
-- **Blast radius** — how much a given weakness can actually reach, which is where a security graph and attack-path analysis feed the model: a finding on a path to a large sensitive store is worth more than the same finding in isolation.
+- **Per-record cost**: an external benchmark such as the IBM *Cost of a Data Breach* report, which publishes average cost per breached record by industry.
+- **Data sensitivity**: a multiplier reflecting how regulated or confidential the exposed data is (restricted data carries far more loss than public data).
+- **Regulatory exposure**: a multiplier for the strictest applicable regime (for example GDPR), where fines and notification costs are material.
+- **Blast radius**: how much a given weakness can reach, which is where a security graph and attack-path analysis feed the model: a finding on a path to a large sensitive store is worth more than the same finding in isolation.
 
 Because every magnitude figure traces back to a published cost times transparent multipliers, an auditor or a skeptical executive can follow the arithmetic.
 
-## Why a dollar beats a score
+## Why a dollar figure is more useful than a risk score
 
-A dollar figure travels where a score cannot. It slots directly into an enterprise risk register, frames a board conversation, and informs cyber-insurance decisions. It also changes prioritization: once every exposure carries a price, the work queue re-sorts around *dollars of risk removed per fix* — which is rarely the same order as raw severity.
+A dollar figure travels where a score cannot. It slots directly into an enterprise risk register, frames a board conversation, and informs cyber-insurance decisions. It also changes prioritisation: once every exposure carries a price, the work queue re-sorts around *dollars of risk removed per fix*, which is rarely the same order as raw severity.
 
 ## What quantified risk does and does not promise
 
-Quantification produces a defensible estimate, not a prophecy. Its value is in relative prioritization and in giving leadership a currency-denominated view — not in predicting the exact cost of a future breach. Any specific figure shown in a demo or a model is illustrative until it is computed against real, named inputs for a real environment. Stated honestly, that is a strength: an estimate whose inputs are visible can be challenged and refined, which is exactly how a credible risk number should behave.
+Quantification produces a defensible estimate. It is not a prophecy. Its value is in relative prioritisation and in giving leadership a currency-denominated view. It does not predict the exact cost of a future breach. Any specific figure shown in a demo or a model is illustrative until it is computed against real, named inputs for a real environment. Stated honestly, that is a strength: an estimate whose inputs are visible can be challenged and refined, which is exactly how a credible risk number should behave.
 
 ## Next steps
 
 - [How Onam applies FAIR-style risk estimates](/platform/risk)
-- [What is a cloud attack path?](/learn/cloud-attack-path) — how blast radius is computed
+- [What is a cloud attack path?](/learn/cloud-attack-path): how blast radius is computed
 - [What is a choke point?](/learn/choke-point)
 `,
     faqs: [
@@ -1150,11 +1150,11 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
       },
       {
         q: "How is cloud risk measured in dollars?",
-        a: "By estimating how often a loss event would occur and how much it would cost, then multiplying the two. Magnitude typically draws on external per-record breach costs, adjusted by data sensitivity, regulatory exposure and how much the weakness can actually reach.",
+        a: "By estimating how often a loss event would occur and how much it would cost, then multiplying the two. Magnitude typically draws on external per-record breach costs, adjusted by data sensitivity, regulatory exposure and how much the weakness can reach.",
       },
       {
         q: "Is quantified cloud risk accurate?",
-        a: "It is a defensible estimate, not a prediction of an exact future loss. Its value is in prioritizing consistently and in giving leadership a currency figure they can act on. Because the inputs are named and external, the estimate can be challenged and refined over time.",
+        a: "It is a defensible estimate, not a prediction of an exact future loss. Its value is in prioritising consistently and in giving leadership a currency figure they can act on. Because the inputs are named and external, the estimate can be challenged and refined over time.",
       },
     ],
     related: [
@@ -1175,12 +1175,12 @@ Quantification produces a defensible estimate, not a prophecy. Its value is in r
       "A choke point is one resource on many attack paths, so fixing it severs the most routes at once. How choke points are found and how they shrink a backlog.",
     term: "Attack path choke point",
     answer:
-      "A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.",
+      "A choke point is a single resource, often an over-privileged identity or a shared network node, that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.",
     readTime: "5 min",
     body: `
-## From an endless backlog to a few bottlenecks
+## How attack paths converge on a few choke points
 
-Compute every route an attacker could take from an entry point to a valuable asset and a pattern almost always appears: hundreds of distinct paths do not spread evenly across the environment — they converge. A handful of nodes show up again and again, because so much of the cloud depends on them. That over-permissive role attached to a dozen services. That one peered network. That shared secret.
+Compute every route an attacker could take from an entry point to a valuable asset and a pattern almost always appears: hundreds of distinct paths do not spread evenly across the environment. They converge. A handful of nodes show up again and again, because so much of the cloud depends on them. That over-permissive role attached to a dozen services. That one peered network. That shared secret.
 
 Those high-convergence nodes are choke points, and they are the most useful output of attack-path analysis, because they turn an unbounded list of findings into a short, ordered list of fixes.
 
@@ -1188,22 +1188,22 @@ Those high-convergence nodes are choke points, and they are the most useful outp
 
 A choke point is not defined by its own severity. A role that looks unremarkable in a findings list can be the single most important thing to fix if a large share of attack paths route through it. Two properties matter:
 
-- **Convergence** — how many distinct paths pass through the node.
-- **Position** — whether it sits between many entry points and many crown jewels, rather than at a dead end.
+- **Convergence**: how many distinct paths pass through the node.
+- **Position**: whether it sits between many entry points and many high-value targets, rather than at a dead end.
 
 A critical finding on a resource that reaches nothing is not a choke point. A medium finding that every path depends on is.
 
-## Why it is the highest-leverage fix
+## Why fixing a choke point removes the most risk
 
-Fixing findings one at a time treats symptoms. Fixing a choke point cuts the routes themselves. Remediating a single over-privileged role can invalidate dozens of paths simultaneously — more risk removed in one change than in a hundred isolated closures. This is the difference between working *down* a backlog and working *through* it: the same remediation budget, spent where it severs the most exposure.
+Fixing findings one at a time treats symptoms. Fixing a choke point cuts the routes themselves. Remediating a single over-privileged role can invalidate dozens of paths at once. That removes more risk in one change than in a hundred isolated closures. This is the difference between working *down* a backlog and working *through* it: the same remediation budget, spent where it severs the most exposure.
 
 ## How choke points are ranked
 
-Once paths are computed, each node is scored by how many paths it appears on, weighted by the value of the targets those paths reach and by how exploitable the surrounding hops are. The top few nodes — often the "Top 5" — are surfaced first, so a team knows exactly where Monday's effort should go.
+Once paths are computed, each node is scored by how many paths it appears on, weighted by the value of the targets those paths reach and by how exploitable the surrounding hops are. The top few nodes (often the "Top 5") are surfaced first, so a team knows exactly where Monday's effort should go.
 
 ## Fixing them, and confirming the fix
 
-Choke-point remediation follows the same discipline as any high-severity work, typically on windows such as Critical within 7 days, High within 30, and Medium within 90. The difference is leverage: because the fix removes many paths at once, its verification is visible — on the next scan, the paths that depended on it are gone, and the finding auto-resolves when the resource passes.
+Choke-point remediation follows the same discipline as any high-severity work, typically on windows such as Critical within 7 days, High within 30, and Medium within 90. The difference is leverage: because the fix removes many paths at once, its verification is visible. On the next scan, the paths that depended on it are gone, and the finding auto-resolves when the resource passes.
 
 ## Next steps
 
@@ -1214,7 +1214,7 @@ Choke-point remediation follows the same discipline as any high-severity work, t
     faqs: [
       {
         q: "What is a choke point in an attack path?",
-        a: "A single resource that appears on many distinct attack paths at once. Because so many routes depend on it, fixing that one node severs more paths — and removes more risk — than closing many isolated findings.",
+        a: "A single resource that appears on many distinct attack paths at once. Because so many routes depend on it, fixing that one node severs more paths, and removes more risk, than closing many isolated findings.",
       },
       {
         q: "How do you find choke points?",
@@ -1254,25 +1254,25 @@ Choke-point remediation follows the same discipline as any high-severity work, t
 | What does it check? | RBAC, pod security context, network policy, secrets handling, admission control, control-plane and node configuration |
 | How does it see the cluster? | Through the Kubernetes API with a read-only credential, plus node configuration where a benchmark asks for it |
 | What does it measure against? | CIS Kubernetes Benchmark, CIS EKS / AKS / GKE benchmarks, NSA/CISA Kubernetes Hardening Guidance, Pod Security Standards |
-| What does it not do? | Detect a live attack inside a running pod — that is runtime protection ([CWPP](/learn/cwpp)) |
+| What does it not do? | Detect a live attack inside a running pod. That is runtime protection ([CWPP](/learn/cwpp)) |
 | Where does it fit? | One component of a [CNAPP](/learn/cnapp), next to [CSPM](/learn/cspm), [CWPP](/learn/cwpp) and [CIEM](/learn/ciem) |
 
 ## Why Kubernetes needs its own posture management
 
 A cloud posture tool reads the cloud provider's API. It can tell you an EKS cluster exists, which VPC it sits in, and whether its endpoint is public. It cannot tell you that a ServiceAccount inside that cluster is bound to cluster-admin, that a pod runs as UID 0 with the host filesystem mounted, or that no NetworkPolicy exists so every pod can reach every other pod.
 
-Those objects live **inside** the cluster, behind the Kubernetes API — a different control plane with its own authentication, its own object model and its own failure modes. The cloud provider does not see them, so cloud posture management does not either.
+Those objects live **inside** the cluster, behind the Kubernetes API. That is a different control plane with its own authentication, its own object model and its own failure modes. The cloud provider does not see them, so cloud posture management does not either.
 
 That gap is where KSPM sits. It is not CSPM applied to Kubernetes; it is a separate evaluation against a separate API.
 
 ## How KSPM works
 
-1. **Connect.** A read-only identity in the cluster — typically a ServiceAccount whose role allows \`get\`, \`list\` and \`watch\` on the objects being assessed.
+1. **Connect.** A read-only identity in the cluster, typically a ServiceAccount whose role allows \`get\`, \`list\` and \`watch\` on the objects being assessed.
 2. **Inventory.** Enumerate namespaces, workloads (Deployments, DaemonSets, StatefulSets, Jobs, Pods), RBAC objects, Services and Ingresses, NetworkPolicies and admission webhooks.
-3. **Evaluate.** Test every object against a baseline — CIS, Pod Security Standards, or your own policy.
+3. **Evaluate.** Test every object against a baseline: CIS, Pod Security Standards or your own policy.
 4. **Prioritise.** Rank findings by context: is the workload exposed, what can its ServiceAccount reach, does it run privileged?
-5. **Remediate.** Fix the manifest or Helm chart at source, not the live object, or the next deploy reverts the fix.
-6. **Prevent and repeat.** Add admission policy so the same violation cannot be deployed again, and re-evaluate continuously — clusters change with every deploy.
+5. **Remediate.** Fix the manifest or Helm chart at source. If you fix the live object, the next deploy reverts it.
+6. **Prevent and repeat.** Add admission policy so the same violation cannot be deployed again, and re-evaluate continuously, because clusters change with every deploy.
 
 ## KSPM checklist: what KSPM checks
 
@@ -1291,12 +1291,12 @@ That gap is where KSPM sits. It is not CSPM applied to Kubernetes; it is a separ
 | | KSPM | CSPM |
 | --- | --- | --- |
 | API it reads | Kubernetes API server | Cloud provider API |
-| Sees a cluster as | Hundreds of objects — pods, roles, bindings, policies | One resource — an EKS, AKS or GKE cluster |
+| Sees a cluster as | Hundreds of objects: pods, roles, bindings, policies | One resource: an EKS, AKS or GKE cluster |
 | Typical findings | cluster-admin bindings, privileged pods, no NetworkPolicy | Public cluster endpoint, control-plane logging off, over-broad node IAM role, no envelope encryption for Secrets |
 | Usual baseline | CIS Kubernetes Benchmark, Pod Security Standards | CIS AWS / Azure / GCP Foundations Benchmarks |
 | Who usually fixes it | Platform and application teams, in manifests and Helm charts | Cloud and infrastructure teams, in Terraform or the console |
 
-Managed Kubernetes settings straddle both. The CIS EKS, AKS and GKE benchmarks exist for exactly that reason: they cover the cloud-side cluster settings and the in-cluster policies together, and drop the control-plane checks the provider now owns. You need both views — a cluster can be perfectly configured at the cloud layer and unsafe inside. See [What is CSPM?](/learn/cspm) for the cloud side.
+Managed Kubernetes settings straddle both. The CIS EKS, AKS and GKE benchmarks exist for exactly that reason: they cover the cloud-side cluster settings and the in-cluster policies together, and drop the control-plane checks the provider now owns. You need both views. A cluster can be perfectly configured at the cloud layer and unsafe inside. See [What is CSPM?](/learn/cspm) for the cloud side.
 
 ## KSPM vs CWPP vs container image scanning
 
@@ -1310,11 +1310,11 @@ A vulnerable image (scanning) running as root (KSPM) that starts a reverse shell
 
 ## CIS Kubernetes Benchmark, NSA/CISA hardening and Pod Security Standards
 
-**CIS Kubernetes Benchmark.** Published by the Center for Internet Security, it is the baseline auditors recognise. Its recommendations are grouped into control-plane components, etcd, control-plane configuration, worker nodes, and policies (RBAC, Pod Security, network policy, Secrets). For managed services, use the CIS EKS, AKS or GKE benchmark instead — the provider runs the control plane, so those versions keep the checks you can still act on.
+**CIS Kubernetes Benchmark.** Published by the Center for Internet Security, it is the baseline auditors recognise. Its recommendations are grouped into control-plane components, etcd, control-plane configuration, worker nodes, and policies (RBAC, Pod Security, network policy, Secrets). For managed services, use the CIS EKS, AKS or GKE benchmark instead. The provider runs the control plane, so those versions keep the checks you can still act on.
 
 **NSA/CISA Kubernetes Hardening Guidance.** Published jointly by the US National Security Agency and the Cybersecurity and Infrastructure Security Agency. Its themes map cleanly onto KSPM: scan containers and pods for vulnerabilities and misconfiguration, run them with least privilege, separate networks with network policy, use strong authentication and authorisation, enable audit logging, and review configuration regularly.
 
-**Pod Security Standards.** Kubernetes' own three-level policy — Privileged, Baseline and Restricted — enforced by the built-in Pod Security Admission controller through namespace labels. Most clusters should aim for Baseline everywhere and Restricted for application namespaces.
+**Pod Security Standards.** Kubernetes' own three-level policy (Privileged, Baseline and Restricted), enforced by the built-in Pod Security Admission controller through namespace labels. Most clusters should aim for Baseline everywhere and Restricted for application namespaces.
 
 **NIST SP 800-190** (Application Container Security Guide) is a common addition for regulated environments once the CIS baseline is clean.
 
@@ -1322,9 +1322,9 @@ A vulnerable image (scanning) running as root (KSPM) that starts a reverse shell
 
 KSPM reports what is already running. Admission control decides what is allowed to run. A mature programme uses both: KSPM finds the existing violations, and admission policy stops new ones from being deployed.
 
-- **Pod Security Admission** — built in, enforces the Pod Security Standards per namespace, with \`enforce\`, \`audit\` and \`warn\` modes.
-- **ValidatingAdmissionPolicy** — built-in policies written in CEL, without running a webhook.
-- **Policy engines** — Kyverno and OPA Gatekeeper, for policies the built-ins cannot express, such as allowed registries or required labels.
+- **Pod Security Admission**: built in, enforces the Pod Security Standards per namespace, with \`enforce\`, \`audit\` and \`warn\` modes.
+- **ValidatingAdmissionPolicy**: built-in policies written in CEL, without running a webhook.
+- **Policy engines**: Kyverno and OPA Gatekeeper, for policies the built-ins cannot express, such as allowed registries or required labels.
 
 Roll new policies out in \`audit\` or \`warn\` first, fix what they report, then switch to \`enforce\`. A good KSPM check is simply: *does this cluster have admission control at all, and is it enforcing or only auditing?*
 
@@ -1334,7 +1334,7 @@ Image CVEs get the attention because there is a number attached to them. But the
 
 The chain is short and well-worn: a pod is compromised through the application, its ServiceAccount token is auto-mounted at a known path, that token is bound to a role with broad verbs, and the attacker now speaks to the API server with those permissions. Nothing in that sequence requires a CVE.
 
-This is why KSPM findings should be read as a graph rather than a list. *Which subjects can reach which resources, and what does that let them do next?* is a more useful question than *how many High findings do we have?* Kubernetes RBAC is an entitlement problem — the same question [CIEM](/learn/ciem) answers for cloud IAM.
+This is why KSPM findings should be read as a graph rather than a list. *Which subjects can reach which resources, and what does that let them do next?* is a more useful question than *how many High findings do we have?* Kubernetes RBAC is an entitlement problem. It is the same question [CIEM](/learn/ciem) answers for cloud IAM.
 
 ## KSPM examples: three findings and their fixes
 
@@ -1399,7 +1399,7 @@ Commercial KSPM is usually delivered as part of a CNAPP. When you compare option
 
 ## How Onam approaches Kubernetes posture
 
-Onam treats Kubernetes as one of the seven environments its posture engine covers, alongside AWS, Azure, GCP, OCI, Alibaba Cloud and IBM Cloud. 824 of its 9,853 CSPM posture rules are Kubernetes rules, evaluated with the same finding format as the cloud rules, so a cluster finding and the cloud finding it connects to are read in one place. One honest limit: posture rules evaluate configuration — they do not, on their own, detect an attack in progress inside a pod.
+Onam treats Kubernetes as one of the seven environments its posture engine covers, alongside AWS, Azure, GCP, OCI, Alibaba Cloud and IBM Cloud. 824 of its 9,853 CSPM posture rules are Kubernetes rules, evaluated with the same finding format as the cloud rules, so a cluster finding and the cloud finding it connects to are read in one place. One honest limit: posture rules evaluate configuration. They do not, on their own, detect an attack in progress inside a pod.
 
 - [Onam Container & Kubernetes Security](/platform/container-security)
 - [Onam on Kubernetes](/solutions/kubernetes)
@@ -1407,15 +1407,15 @@ Onam treats Kubernetes as one of the seven environments its posture engine cover
     faqs: [
       {
         q: "What is KSPM?",
-        a: "KSPM (Kubernetes Security Posture Management) continuously checks Kubernetes clusters for misconfigurations and risky permissions — RBAC bindings, pod security settings, network policies, secrets handling and control-plane configuration — against baselines such as the CIS Kubernetes Benchmark, and reports what to fix.",
+        a: "KSPM (Kubernetes Security Posture Management) continuously checks Kubernetes clusters for misconfigurations and risky permissions (RBAC bindings, pod security settings, network policies, secrets handling and control-plane configuration) against baselines such as the CIS Kubernetes Benchmark, and reports what to fix.",
       },
       {
         q: "What is the difference between KSPM and CSPM?",
-        a: "CSPM reads the cloud provider's API and sees a Kubernetes cluster as one resource — its endpoint, logging and node roles. KSPM reads the Kubernetes API and sees the objects inside it — RBAC bindings, pod security context, network policy, admission control. A cluster can be perfectly configured at the cloud layer and unsafe inside, so you need both.",
+        a: "CSPM reads the cloud provider's API and sees a Kubernetes cluster as one resource: its endpoint, logging and node roles. KSPM reads the Kubernetes API and sees the objects inside it: RBAC bindings, pod security context, network policy, admission control. A cluster can be perfectly configured at the cloud layer and unsafe inside, so you need both.",
       },
       {
         q: "What is the difference between KSPM and CWPP?",
-        a: "KSPM checks how the cluster and its workloads are configured. CWPP protects the workloads themselves — vulnerabilities inside them and, where supported, runtime behaviour such as unexpected processes. KSPM answers 'is this cluster configured safely?'; CWPP answers 'is this workload exploitable, or under attack?'",
+        a: "KSPM checks how the cluster and its workloads are configured. CWPP protects the workloads themselves: vulnerabilities inside them and, where supported, runtime behaviour such as unexpected processes. KSPM answers 'is this cluster configured safely?'; CWPP answers 'is this workload exploitable, or under attack?'",
       },
       {
         q: "Is KSPM part of CNAPP?",
@@ -1423,7 +1423,7 @@ Onam treats Kubernetes as one of the seven environments its posture engine cover
       },
       {
         q: "Does KSPM require an agent in the cluster?",
-        a: "Assessing Kubernetes objects does not — they are readable through the Kubernetes API with a read-only credential. Node-level checks in the CIS benchmark, such as kubelet file permissions, need access to the node itself. Runtime detection is a different capability and typically needs something running in the cluster.",
+        a: "Assessing Kubernetes objects does not. They are readable through the Kubernetes API with a read-only credential. Node-level checks in the CIS benchmark, such as kubelet file permissions, need access to the node itself. Runtime detection is a different capability and typically needs something running in the cluster.",
       },
       {
         q: "What is the CIS Kubernetes Benchmark?",
@@ -1458,7 +1458,7 @@ Onam treats Kubernetes as one of the seven environments its posture engine cover
       "What is code security? How SAST, SCA, DAST, IaC scanning and secret detection fit together, what security as code means, and how to gate a pipeline.",
     term: "Code Security",
     answer:
-      "Code security is the practice of finding and fixing security defects in everything that builds a system — application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration — before it is deployed. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.",
+      "Code security is the practice of finding and fixing security defects in everything that builds a system before it is deployed. That covers application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.",
     readTime: "11 min",
     body: `
 ## Code security at a glance
@@ -1468,8 +1468,8 @@ Onam treats Kubernetes as one of the seven environments its posture engine cover
 | What does it cover? | Your source code, third-party dependencies, IaC templates, container images, CI/CD configuration |
 | Main techniques | SAST, SCA, IaC scanning, secret detection, plus DAST against the running app |
 | When does it run? | IDE and pre-commit, pull request, build, and before deploy |
-| What does it not do? | Prove a finding is exploitable in production — that needs runtime and cloud context |
-| Related practice | Security as code — writing security policy itself as versioned, testable code |
+| What does it not do? | Prove a finding is exploitable in production. That needs runtime and cloud context |
+| Related practice | Security as code: writing security policy itself as versioned, testable code |
 | Where does it fit? | The "code" layer of a [CNAPP](/learn/cnapp), feeding [CSPM](/learn/cspm), [KSPM](/learn/kspm) and [CWPP](/learn/cwpp) |
 
 ## What code security covers
@@ -1486,35 +1486,35 @@ Most of what runs in production was not written by your team. A typical service 
 | Main weakness | False positives where it cannot prove a path is unreachable | Reports a vulnerable package whether or not the vulnerable function is called | Only sees what is in the template, not changes made in the console |
 | Typical open-source tools | Semgrep, CodeQL | OWASP Dependency-Check, Trivy, Grype | Checkov, Trivy (formerly tfsec), KICS |
 
-**DAST — dynamic application security testing** — is the fourth technique. It exercises the running application from outside, so it finds what is genuinely reachable, including configuration and deployment problems no static tool sees, but only on paths it manages to reach.
+**DAST (dynamic application security testing)** is the fourth technique. It exercises the running application from outside, so it finds what is genuinely reachable, including configuration and deployment problems no static tool sees, but only on paths it manages to reach.
 
 **Secret detection** cuts across all of them: credentials in source, in commit history, in image layers, in pipeline variables and in committed state files. Tools such as Gitleaks and TruffleHog run as pre-commit hooks and in CI. See [What is cloud secrets management?](/learn/secrets-management).
 
-**SBOM** — a software bill of materials, in SPDX or CycloneDX format — is the inventory SCA produces. Keep one per build, so "which running services contain this package?" is a query rather than a project.
+An **SBOM** (software bill of materials, in SPDX or CycloneDX format) is the inventory SCA produces. Keep one per build, so "which running services contain this package?" is a query rather than a project.
 
 ## What is IaC scanning?
 
 IaC scanning evaluates infrastructure-as-code against security policy before anything is created. It is the earliest point to catch a cloud misconfiguration: the template that *will* create a public bucket, rather than the public bucket.
 
-Scan in two places. The **template** in the pull request catches the mistake when it is cheap to fix. The **plan** (\`terraform plan\` output) catches what the template resolves to once variables and modules are filled in — a module default can open a port that the template never mentions.
+Scan in two places. The **template** in the pull request catches the mistake when it is cheap to fix. The **plan** (\`terraform plan\` output) catches what the template resolves to once variables and modules are filled in. A module default can open a port that the template never mentions.
 
 ## What is security as code?
 
 **Security as code** means writing security policies, controls and tests as versioned code that runs automatically, instead of as documents and manual reviews. Examples: an OPA or Kyverno policy that rejects privileged pods; a Checkov custom rule that blocks unencrypted databases; a pipeline step that fails on a leaked credential.
 
-The difference from code security is direction. **Code security** scans code for defects. **Security as code** turns security rules themselves into code — reviewed in pull requests, tested, and enforced by the pipeline. Mature teams do both: the scanners are the checks, and security as code is how the policy those checks enforce is written down and versioned.
+The difference from code security is direction. **Code security** scans code for defects. **Security as code** turns security rules themselves into code that is reviewed in pull requests, tested, and enforced by the pipeline. Mature teams do both: the scanners are the checks, and security as code is how the policy those checks enforce is written down and versioned.
 
-## Why fixing it in the console makes it come back
+## Why console fixes come back after the next deploy
 
-A posture tool reports a storage bucket with public access. An engineer opens the cloud console, unchecks the box and marks the finding resolved. The next \`terraform apply\` recreates the bucket exactly as the template describes it — public — because the template was never changed.
+A posture tool reports a storage bucket with public access. An engineer opens the cloud console, unchecks the box and marks the finding resolved. The next \`terraform apply\` recreates the bucket exactly as the template describes it. It is public again, because the template was never changed.
 
 The finding returns, gets re-triaged, gets fixed in the console again. Everyone is working; nothing is improving.
 
-**The fix has to land where the resource is defined.** That means knowing which template, repository and line produced a given running resource — connecting the code side to the runtime side rather than running two programmes that never meet.
+**The fix has to land where the resource is defined.** That means knowing which template, repository and line produced a given running resource. That connects the code side to the runtime side rather than running two programmes that never meet.
 
 ## Code security examples: three findings and their fixes
 
-**1. IaC — a bucket created without a public-access block.** The scanner flags the template in the pull request. Fix in the template, not the console:
+**1. IaC: a bucket created without a public-access block.** The scanner flags the template in the pull request. Make the fix in the template rather than the console:
 
 \`\`\`hcl
 resource "aws_s3_bucket_public_access_block" "exports" {
@@ -1526,22 +1526,22 @@ resource "aws_s3_bucket_public_access_block" "exports" {
 }
 \`\`\`
 
-**2. SAST — SQL built from user input.** The analyser traces a request parameter into a query string. Fix: use a parameterised query.
+**2. SAST: SQL built from user input.** The analyser traces a request parameter into a query string. Fix: use a parameterised query.
 
 \`\`\`python
 # Before: cursor.execute(f"SELECT * FROM orders WHERE id = {order_id}")
 cursor.execute("SELECT * FROM orders WHERE id = %s", (order_id,))
 \`\`\`
 
-**3. Secret detection — a cloud access key in a config file.** Deleting the line is not enough; the key is in commit history. Fix: revoke and rotate the key first, then remove it from history, then move the value to a secrets manager and block the pattern with a pre-commit hook.
+**3. Secret detection: a cloud access key in a config file.** Deleting the line is not enough; the key is in commit history. Fix: revoke and rotate the key first, then remove it from history, then move the value to a secrets manager and block the pattern with a pre-commit hook.
 
-## Reachability is what makes the numbers usable
+## Reachability: which code security findings matter
 
 A dependency scan on a mature service can return hundreds of findings. Fixing them in CVSS order sounds reasonable and wastes most of the effort, because severity describes the vulnerability, not your exposure to it. Three questions change the order:
 
 1. **Is the vulnerable function called?** A critical CVE in a code path the application never executes is not a critical risk to that application.
 2. **Is the workload reachable?** The same container behind an internal service and behind an internet-facing load balancer carries very different risk.
-3. **What can it reach next?** A vulnerable workload with a read-only role is contained. The same workload with a role that can assume other roles is an entry point — see [attack path analysis](/learn/cloud-attack-path) and [CIEM](/learn/ciem).
+3. **What can it reach next?** A vulnerable workload with a read-only role is contained. The same workload with a role that can assume other roles is an entry point. See [attack path analysis](/learn/cloud-attack-path) and [CIEM](/learn/ciem).
 
 None of those can be answered from the code alone, which is why code findings become useful when they are joined to runtime and cloud context.
 
@@ -1553,23 +1553,23 @@ None of those can be answered from the code alone, which is why code findings be
 | Pull request | SAST on the diff, SCA on changed dependencies, IaC policy | New Critical or High findings on changed code |
 | Build | Image scan, SBOM generation | Base images with known critical CVEs |
 | Pre-deploy | IaC policy against the plan | Plans that would violate posture policy |
-| Runtime | Posture, reachability, drift | Nothing — it reports; blocking here breaks production |
+| Runtime | Posture, reachability, drift | Nothing. It reports, because blocking here breaks production |
 
 The rule that keeps this survivable: **gate on the delta, not the backlog.** A pipeline that fails on every pre-existing finding gets switched off. One that fails only on newly introduced findings holds the line while the backlog is worked separately.
 
 ## Code security best practices
 
 1. **Detect secrets before code leaves the laptop**, not after it reaches the default branch.
-2. **Prioritise SCA by reachability**, not by CVSS alone.
+2. **Prioritise SCA by reachability** as well as CVSS.
 3. **Scan IaC against the plan**, so misconfigurations are prevented rather than reported.
 4. **Fix at source.** Every runtime finding should trace back to the template and repository that produced it.
 5. **Write policy as code.** Version it, review it and test it like any other code.
-6. **Protect the pipeline itself.** Branch protection, least-privilege CI tokens and short-lived cloud credentials through OIDC — the pipeline holds the keys to production.
+6. **Protect the pipeline itself.** Branch protection, least-privilege CI tokens and short-lived cloud credentials through OIDC. The pipeline holds the keys to production.
 7. **Keep one inventory across code and cloud**, so a new CVE can be traced to running workloads in one query.
 
 ## How Onam approaches code security
 
-Onam's cleared figures in this area cover the platforms code lives on and the cloud it deploys to. GitHub and GitLab are two of its eight SaaS posture connectors, with 122 CIS rules for GitLab; in its cloud rule catalog, 502 rule definitions are tagged to secrets and key management and 241 to application and API. One honest limit: GitHub has posture checks but no CIS rule pack yet.
+Onam's cleared figures in this area cover the platforms code lives on and the cloud it deploys to. GitHub and GitLab are two of its eight SaaS posture connectors, with 122 CIS rules for GitLab; in its cloud rule catalogue, 502 rule definitions are tagged to secrets and key management and 241 to application and API. One honest limit: GitHub has posture checks but no CIS rule pack yet.
 
 - [Onam Code Security](/platform/code-security)
 - [Onam SaaS Security (GitHub, GitLab)](/platform/saas-security)
@@ -1577,7 +1577,7 @@ Onam's cleared figures in this area cover the platforms code lives on and the cl
     faqs: [
       {
         q: "What is code security?",
-        a: "Code security is finding and fixing security defects in everything that builds a system — source code, open-source dependencies, infrastructure-as-code, container images and pipeline configuration — before deployment, using SAST, SCA, IaC scanning and secret detection on every change.",
+        a: "Code security is finding and fixing security defects in everything that builds a system (source code, open-source dependencies, infrastructure-as-code, container images and pipeline configuration) before deployment, using SAST, SCA, IaC scanning and secret detection on every change.",
       },
       {
         q: "What is the difference between SAST, SCA and IaC scanning?",
@@ -1589,11 +1589,11 @@ Onam's cleared figures in this area cover the platforms code lives on and the cl
       },
       {
         q: "What is security as code?",
-        a: "Security as code is writing security policies, controls and tests as versioned code that runs automatically in the pipeline — for example an admission policy that rejects privileged pods, or a rule that blocks unencrypted databases — instead of relying on documents and manual review.",
+        a: "Security as code is writing security policies, controls and tests as versioned code that runs automatically in the pipeline. Examples are an admission policy that rejects privileged pods, or a rule that blocks unencrypted databases. It replaces documents and manual review.",
       },
       {
         q: "What is IaC scanning?",
-        a: "IaC scanning evaluates infrastructure-as-code — Terraform, CloudFormation, Bicep, Helm charts and Kubernetes manifests — against security policy before resources are created, so misconfigurations such as public storage or open security groups are caught in the pull request.",
+        a: "IaC scanning evaluates infrastructure-as-code (Terraform, CloudFormation, Bicep, Helm charts and Kubernetes manifests) against security policy before resources are created, so misconfigurations such as public storage or open security groups are caught in the pull request.",
       },
       {
         q: "Why do cloud misconfigurations come back after being fixed?",
@@ -1605,7 +1605,7 @@ Onam's cleared figures in this area cover the platforms code lives on and the cl
       },
       {
         q: "What is reachability analysis in dependency scanning?",
-        a: "Determining whether the vulnerable function in a dependency is actually invoked by your application, and whether the workload is exposed. It turns a long dependency report into a short list you can act on.",
+        a: "Determining whether the vulnerable function in a dependency is invoked by your application, and whether the workload is exposed. It turns a long dependency report into a short list you can act on.",
       },
     ],
     related: [
@@ -1628,18 +1628,18 @@ Onam's cleared figures in this area cover the platforms code lives on and the cl
       "Cloud secrets management: how credentials, keys and tokens are stored, accessed, rotated and audited, why hardcoded secrets persist, and where KMS fits.",
     term: "Cloud Secrets Management",
     answer:
-      "Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.",
+      "Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials such as API keys, database passwords, tokens and certificates, so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.",
     readTime: "7 min",
     body: `
-## The problem is distribution, not storage
+## Secrets distribution is the hard part
 
-Nearly every team has a secrets store. Very few have a secrets *problem* that the store alone solves, because the hard part was never where to keep a secret — it was how an application gets one at the moment it needs it, without a human pasting it somewhere first.
+Nearly every team has a secrets store. Very few have a secrets *problem* that the store alone solves, because the hard part was never where to keep a secret. It was how an application gets one at the moment it needs it, without a human pasting it somewhere first.
 
 That gap is where secrets end up in places they should not be: an environment variable in a task definition, a Kubernetes Secret mounted as plaintext, a CI variable, a Terraform state file, a Slack message from 2023, a commit from a Friday afternoon.
 
 Each of those is a copy. A secret with copies cannot be rotated, because nobody knows how many there are.
 
-## What actually goes wrong
+## How cloud secrets leak
 
 | Failure | Why it happens | What it enables |
 | --- | --- | --- |
@@ -1658,15 +1658,15 @@ They get conflated because the same vendors sell both.
 
 **Secrets management** deals with credential values: storing them, handing them to workloads, rotating them and recording who fetched what. The question is *which identity may read this value right now?*
 
-They meet at encryption at rest — a secrets store encrypts its contents with a key from KMS — but a well-run KMS does not stop a database password appearing in a container image.
+They meet at encryption at rest, since a secrets store encrypts its contents with a key from KMS. But a well-run KMS does not stop a database password appearing in a container image.
 
-## The rotation problem, honestly
+## Why secret rotation is hard
 
 Rotation is where most programmes stall, and the reason is mechanical rather than cultural: rotating a secret means every consumer must pick up the new value without an outage, and most consumers read their secret exactly once at startup.
 
 The approaches that work in practice all remove the long-lived secret rather than rotating it faster:
 
-- **Workload identity.** The workload authenticates as itself — an instance role, IRSA, Workload Identity, a federated OIDC token — and receives short-lived credentials. There is no static secret to leak.
+- **Workload identity.** The workload authenticates as itself (an instance role, IRSA, Workload Identity, a federated OIDC token) and receives short-lived credentials. There is no static secret to leak.
 - **Dynamic secrets.** The store creates a credential on request with a short lease and revokes it after.
 - **Dual-secret rotation.** Two valid credentials at a time, so the new one is deployed before the old one is revoked.
 
@@ -1674,19 +1674,19 @@ Everything else is scheduling pain around a design that assumed secrets are perm
 
 ## What good looks like
 
-1. **No secret in source, ever** — enforced by a pre-commit hook and a repository scan, not by review.
+1. **No secret in source, ever**: enforced by a pre-commit hook and a repository scan, not by review.
 2. **One store per environment**, with access granted to identities rather than people.
 3. **Short-lived by default.** Workload identity where the platform supports it; leases where it does not.
 4. **Every access audited**, with alerts on access from an unexpected identity or region.
 5. **Scoped keys.** One key per data domain, so one compromise does not decrypt the estate.
-6. **Detection in the pipeline and at rest** — scanning repositories, images, IaC, CI configuration and cloud resource metadata, because that is where copies actually accumulate.
+6. **Detection in the pipeline and at rest**: scanning repositories, images, IaC, CI configuration and cloud resource metadata, because that is where copies accumulate.
 
 The last point is the one most often missed: a secrets programme that only inspects the secrets store is auditing the one place secrets are handled correctly.
 `,
     faqs: [
       {
         q: "What is the difference between secrets management and key management?",
-        a: "Key management (KMS) controls cryptographic keys and who may encrypt or decrypt with them. Secrets management stores and distributes credential values — passwords, API keys, tokens — to the workloads that need them. A secrets store usually uses KMS to encrypt itself, but they answer different questions.",
+        a: "Key management (KMS) controls cryptographic keys and who may encrypt or decrypt with them. Secrets management stores and distributes credential values (passwords, API keys, tokens) to the workloads that need them. A secrets store usually uses KMS to encrypt itself, but they answer different questions.",
       },
       {
         q: "Why are hardcoded secrets still so common?",
@@ -1698,7 +1698,7 @@ The last point is the one most often missed: a secrets programme that only inspe
       },
       {
         q: "Where do leaked cloud secrets usually come from?",
-        a: "Copies rather than the store itself — source control, container image layers, CI variables, Terraform state, environment variables and log output. Any secrets programme that only inspects the vault is inspecting the one place things are done correctly.",
+        a: "Copies rather than the store itself: source control, container image layers, CI variables, Terraform state, environment variables and log output. Any secrets programme that only inspects the vault is inspecting the one place things are done correctly.",
       },
     ],
     related: [
@@ -1719,33 +1719,33 @@ The last point is the one most often missed: a secrets programme that only inspe
       "A cloud asset inventory is a continuously discovered list of every cloud resource and how they connect: how it differs from a CMDB, and what to include.",
     term: "Cloud Asset Inventory",
     answer:
-      "A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts — compute, storage, databases, networks, identities and managed services — with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs, not by manual entry.",
+      "A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts (compute, storage, databases, networks, identities and managed services) with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs rather than by manual entry.",
     readTime: "6 min",
     body: `
 ## Why a cloud asset inventory matters
 
-Every other cloud discipline starts with the same question: *what do we actually run?* Security cannot protect a database nobody knows exists. Finance cannot allocate the cost of a cluster with no owner. A recovery plan cannot bring back a dependency it never listed.
+Every other cloud discipline starts with the same question: *what do we run?* Security cannot protect a database nobody knows exists. Finance cannot allocate the cost of a cluster with no owner. A recovery plan cannot bring back a dependency it never listed.
 
-In a data centre the answer changed slowly — servers arrived on a loading dock. In the cloud, a resource is one API call away, and so is its disappearance. Inventories that were accurate on Monday are wrong by Friday unless something keeps them current.
+In a data centre the answer changed slowly. Servers arrived on a loading dock. In the cloud, a resource is one API call away, and so is its disappearance. Inventories that were accurate on Monday are wrong by Friday unless something keeps them current.
 
 That is why the major control frameworks put inventory first. Asset inventory is the opening control in the **CIS Critical Security Controls**, and *Asset Management* is the first category of the *Identify* function in the **NIST Cybersecurity Framework**.
 
 ## How is a cloud asset inventory built?
 
-A modern inventory is discovered, not declared:
+A modern inventory is discovered by the tooling rather than declared by people:
 
-1. **Connect** — a read-only credential in each cloud account, subscription or project.
-2. **Enumerate** — call the provider's APIs across every region and service to list what exists.
-3. **Normalise** — give every resource a stable identity, type, account, region, state and tags, so the same resource is not counted twice under different names.
-4. **Relate** — record the relationships between resources: what runs inside what, what attaches to what, what can reach what.
-5. **Repeat** — re-run on a schedule or on change events, and record when each resource was **last seen** so deleted resources drop out instead of lingering.
+1. **Connect**: a read-only credential in each cloud account, subscription or project.
+2. **Enumerate**: call the provider's APIs across every region and service to list what exists.
+3. **Normalise**: give every resource a stable identity, type, account, region, state and tags, so the same resource is not counted twice under different names.
+4. **Relate**: record the relationships between resources: what runs inside what, what attaches to what, what can reach what.
+5. **Repeat**: re-run on a schedule or on change events, and record when each resource was **last seen** so deleted resources drop out instead of lingering.
 
 ## What should a cloud asset inventory include?
 
 | Field | Why it matters |
 | --- | --- |
 | Provider, account, region | Where the resource lives and who is billed for it |
-| Type and service | What it is — a VM, a bucket, a managed database, a role |
+| Type and service | What it is: a VM, a bucket, a managed database, a role |
 | State and last seen | Whether it still exists, and how current the record is |
 | Tags and owner | Who is responsible for it |
 | Relationships | What it depends on and what depends on it |
@@ -1755,24 +1755,24 @@ A modern inventory is discovered, not declared:
 
 A configuration management database (CMDB) is the system of record for IT services and their configuration items, usually maintained through change processes and reconciliation. A cloud asset inventory is the **discovered** truth of what the provider says exists right now.
 
-They are complementary, not competing. The common failure is treating a CMDB populated by hand or by periodic import as if it were current. In the cloud, the CMDB is most useful when it is fed from discovery, not reconciled against it once a quarter.
+They complement each other. The common failure is treating a CMDB populated by hand or by periodic import as if it were current. In the cloud, the CMDB is most useful when it is fed from discovery, not reconciled against it once a quarter.
 
 ## Why relationships matter as much as the list
 
-A flat list answers "how many databases do we have?". It does not answer "what breaks if this subnet goes away?", "which roles can read this bucket?" or "which application pays for this volume?". Those questions are about **edges**, not rows — which is why mature inventories store resources as a graph.
+A flat list answers "how many databases do we have?". It does not answer "what breaks if this subnet goes away?", "which roles can read this bucket?" or "which application pays for this volume?". Those questions are about **edges** between resources, which is why mature inventories store resources as a graph.
 
 ## Common gaps
 
 - **Shadow resources** created outside the provisioning pipeline, which never appear in infrastructure-as-code state.
-- **Orphaned resources** — unattached volumes, old snapshots, idle load balancers — that outlive the workload they served.
+- **Orphaned resources**: unattached volumes, old snapshots, idle load balancers that outlive the workload they served.
 - **Unowned resources** with no tag or account mapping, which nobody will patch, pay for or recover.
 - **Stale records** that stay in the inventory after the resource is deleted, because nothing checks when it was last seen.
 
 ## Next steps
 
-- [How Onam Estate builds the estate of record](/estate) — continuous discovery and relationships across your connected clouds
-- [What is CSPM?](/learn/cspm) — what security does with the inventory
-- [What is cloud cost allocation?](/learn/cloud-cost-allocation) — what finance does with it
+- [How Onam Estate builds the estate of record](/estate): continuous discovery and relationships across your connected clouds
+- [What is CSPM?](/learn/cspm): what security does with the inventory
+- [What is cloud cost allocation?](/learn/cloud-cost-allocation): what finance does with it
 `,
     faqs: [
       {
@@ -1785,10 +1785,10 @@ A flat list answers "how many databases do we have?". It does not answer "what b
       },
       {
         q: "Does a cloud asset inventory need agents?",
-        a: "No. Cloud resources are described by the provider's control-plane APIs, so a read-only credential is enough to enumerate them. Agents are only needed to see inside a workload — installed packages, running processes — which is a different question from what exists.",
+        a: "No. Cloud resources are described by the provider's control-plane APIs, so a read-only credential is enough to enumerate them. Agents are only needed to see inside a workload (installed packages, running processes), which is a different question from what exists.",
       },
       {
-        q: "Why do asset inventories need relationships, not just a list?",
+        q: "Why do asset inventories need relationships as well as a list?",
         a: "Because most real questions are about connections: what an application depends on, what can reach a database, which team pays for a volume. A list of resources cannot answer those; a graph of resources and the edges between them can.",
       },
     ],
@@ -1814,7 +1814,7 @@ A flat list answers "how many databases do we have?". It does not answer "what b
     body: `
 ## Why FinOps exists
 
-On-premises infrastructure was bought up front, through a procurement process, a few times a year. Cloud infrastructure is bought by the minute, by engineers, through an API. The people who create cost are no longer the people who approve it — and the bill arrives after the money is spent.
+On-premises infrastructure was bought up front, through a procurement process, a few times a year. Cloud infrastructure is bought by the minute, by engineers, through an API. The people who create cost are no longer the people who approve it. And the bill arrives after the money is spent.
 
 Traditional finance controls do not fit that model. Blocking spend slows engineering down; ignoring it produces a surprise at month end. FinOps is the discipline that sits between the two: give the people creating cost the information to make good decisions, and give finance a reliable view of where the money goes.
 
@@ -1824,18 +1824,18 @@ The term and its framework are stewarded by the **FinOps Foundation**, a project
 
 The FinOps Foundation describes a repeating lifecycle of three phases:
 
-1. **Inform** — make cost visible and attributable: who spent what, on which service, for which product. Allocation, showback and forecasting live here.
-2. **Optimise** — reduce waste and improve rates: rightsizing, removing idle resources, scheduling non-production environments, and commitment discounts such as reserved capacity and savings plans.
-3. **Operate** — make it routine: budgets, policies, anomaly alerts, and decisions taken as part of normal engineering and planning cycles.
+1. **Inform**: make cost visible and attributable: who spent what, on which service, for which product. Allocation, showback and forecasting live here.
+2. **Optimise**: reduce waste and improve rates: rightsizing, removing idle resources, scheduling non-production environments, and commitment discounts such as reserved capacity and savings plans.
+3. **Operate**: make it routine: budgets, policies, anomaly alerts, and decisions taken as part of normal engineering and planning cycles.
 
 Teams cycle through all three continuously, and different parts of the organisation can be at different stages at once.
 
-## What does a FinOps practice actually do?
+## What does a FinOps practice do?
 
 | Activity | The question it answers |
 | --- | --- |
 | Cost allocation | Who owns this spend? |
-| Showback and chargeback | Does each team see — or pay for — what it uses? |
+| Showback and chargeback | Does each team see, or pay for, what it uses? |
 | Forecasting and budgets | What will we spend, and are we on track? |
 | Anomaly detection | Did something change that nobody intended? |
 | Rate optimisation | Are we paying the best available price for steady usage? |
@@ -1855,9 +1855,9 @@ One of the first things a FinOps team learns is that "what did we spend?" has mo
 
 ## Next steps
 
-- [What is cloud cost allocation?](/learn/cloud-cost-allocation) — showback, chargeback and tagging
-- [How Onam FinOps works](/finops) — reconciled billing data, ownership and savings
-- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — knowing what you pay for
+- [What is cloud cost allocation?](/learn/cloud-cost-allocation): showback, chargeback and tagging
+- [How Onam FinOps works](/finops): reconciled billing data, ownership and savings
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory): knowing what you pay for
 `,
     faqs: [
       {
@@ -1866,7 +1866,7 @@ One of the first things a FinOps team learns is that "what did we spend?" has mo
       },
       {
         q: "Who is responsible for FinOps in an organisation?",
-        a: "Usually a small central FinOps team that sets standards, owns the data and tooling, and negotiates commitments — working with engineering teams who own the workloads and act on recommendations, and finance teams who own budgets and forecasting. Accountability for each cost sits with the team that creates it.",
+        a: "Usually a small central FinOps team that sets standards, owns the data and tooling, and negotiates commitments. It works with engineering teams who own the workloads and act on recommendations, and finance teams who own budgets and forecasting. Accountability for each cost sits with the team that creates it.",
       },
       {
         q: "Is FinOps only about reducing cloud costs?",
@@ -1907,26 +1907,26 @@ Allocation turns "we spent more on compute this month" into "the payments team's
 
 Most organisations combine three mechanisms, from coarsest to finest:
 
-1. **Account structure** — separate accounts, subscriptions or projects per team, product or environment. Anything inside an account inherits its owner. This is the most reliable mechanism because it does not depend on anyone remembering a tag.
-2. **Tags and labels** — key-value metadata on each resource, such as \`team\`, \`product\`, \`environment\` and \`cost-centre\`. Tags allow finer splits inside shared accounts.
-3. **Allocation rules** — logic applied after the fact to costs that neither of the above can attribute, such as shared platforms, support charges and commitment discounts.
+1. **Account structure**: separate accounts, subscriptions or projects per team, product or environment. Anything inside an account inherits its owner. This is the most reliable mechanism because it does not depend on anyone remembering a tag.
+2. **Tags and labels**: key-value metadata on each resource, such as \`team\`, \`product\`, \`environment\` and \`cost-centre\`. Tags allow finer splits inside shared accounts.
+3. **Allocation rules**: logic applied after the fact to costs that neither of the above can attribute, such as shared platforms, support charges and commitment discounts.
 
 ## What makes a good tagging strategy?
 
 - **A short, mandatory set of keys.** Three to five required tags that every resource must carry beat thirty optional ones.
 - **Controlled values.** \`prod\`, \`Prod\` and \`production\` are three different owners to a report. Publish the allowed values.
 - **Enforcement at creation.** Tag policies, infrastructure-as-code checks or provisioning guardrails stop untagged resources being created, which is far cheaper than fixing them later.
-- **Not every cost can be tagged.** Some charges — data transfer, support, some marketplace fees — carry no resource tags at all, so tagging alone never reaches full coverage.
+- **Not every cost can be tagged.** Some charges, such as data transfer, support and some marketplace fees, carry no resource tags at all, so tagging alone never reaches full coverage.
 - **Measure coverage.** Report the share of spend that is allocated, and treat the unallocated remainder as a number to drive down rather than a rounding error.
 
 ## How are shared costs split?
 
-Shared platforms — a Kubernetes cluster, a central network, a logging pipeline — serve many teams at once. Common approaches:
+Shared platforms such as a Kubernetes cluster, a central network or a logging pipeline serve many teams at once. Common approaches:
 
 | Method | How it works | Good for |
 | --- | --- | --- |
 | Even split | Divide equally among consumers | Small, roughly equal consumers |
-| Proportional | Split by a usage driver — CPU requested, bytes ingested, requests served | Platforms with measurable consumption |
+| Proportional | Split by a usage driver: CPU requested, bytes ingested, requests served | Platforms with measurable consumption |
 | Fixed ratio | Agreed percentages, reviewed periodically | Costs with no reliable driver |
 | Central | Keep it in a platform budget, unallocated | Costs no team can influence |
 
@@ -1941,9 +1941,9 @@ Moving to chargeback before allocation is trusted tends to produce disputes abou
 
 ## Next steps
 
-- [What is FinOps?](/learn/finops) — the practice cost allocation belongs to
-- [How Onam FinOps attributes ownership](/finops) — with attribution coverage stated, not assumed
-- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the resource list allocation is built on
+- [What is FinOps?](/learn/finops): the practice cost allocation belongs to
+- [How Onam FinOps attributes ownership](/finops): with attribution coverage stated, not assumed
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory): the resource list allocation is built on
 `,
     faqs: [
       {
@@ -1952,7 +1952,7 @@ Moving to chargeback before allocation is trusted tends to produce disputes abou
       },
       {
         q: "Can tags alone allocate all cloud costs?",
-        a: "No. Some charges carry no resource tags — data transfer, support fees, some marketplace and commitment charges — and shared platforms serve many teams at once. Account structure and allocation rules are needed alongside tags to reach full coverage.",
+        a: "No. Some charges carry no resource tags (data transfer, support fees, some marketplace and commitment charges), and shared platforms serve many teams at once. Account structure and allocation rules are needed alongside tags to reach full coverage.",
       },
       {
         q: "How do you allocate Kubernetes costs?",
@@ -1980,21 +1980,21 @@ Moving to chargeback before allocation is trusted tends to produce disputes abou
       "RTO is how long a system can be down; RPO is how much data you can afford to lose. How each is set, measured, and what drives it in the cloud.",
     term: "RTO and RPO",
     answer:
-      "Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost — how far back the restored copy may be. RTO is about downtime; RPO is about data loss.",
+      "Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost: how far back the restored copy may be. RTO is about downtime; RPO is about data loss.",
     readTime: "6 min",
     body: `
 ## RTO and RPO in one example
 
 An order database fails at 14:00. The last usable copy is from 13:45, and the service is back at 15:30.
 
-- The **recovery point** was 13:45 — fifteen minutes of orders were lost. If the RPO was 30 minutes, it was met.
+- The **recovery point** was 13:45, so fifteen minutes of orders were lost. If the RPO was 30 minutes, it was met.
 - The **recovery time** was 90 minutes. If the RTO was one hour, it was missed.
 
 The two objectives are independent. A system can lose no data and still be down for a day, or come back in minutes with an hour of data missing.
 
 ## How are RTO and RPO set?
 
-They are **business decisions**, not technical ones. A business impact analysis asks, for each application, what an hour of downtime costs and what losing an hour of data costs — in revenue, regulatory exposure, customer harm and reputation. The answers set the targets.
+They are **business decisions** more than technical ones. A business impact analysis asks, for each application, what an hour of downtime costs and what losing an hour of data costs in revenue, regulatory exposure, customer harm and reputation. The answers set the targets.
 
 Targets usually come in tiers: a handful of critical applications with tight objectives, more with moderate ones, and the rest recoverable within a day or longer. Tiering matters because tighter objectives cost more to meet.
 
@@ -2002,9 +2002,9 @@ Targets usually come in tiers: a handful of critical applications with tight obj
 
 RPO is set by **how often a copy is made** and **how far behind it runs**:
 
-- **Periodic backups and snapshots** — the worst-case data loss is roughly the interval between them, plus the time to complete one.
-- **Asynchronous replication** — data loss is the replication lag at the moment of failure, which varies with load.
-- **Synchronous replication** — writes are acknowledged only once both copies have them, so data loss can approach zero, at the cost of latency and distance limits.
+- **Periodic backups and snapshots**: the worst-case data loss is roughly the interval between them, plus the time to complete one.
+- **Asynchronous replication**: data loss is the replication lag at the moment of failure, which varies with load.
+- **Synchronous replication**: writes are acknowledged only once both copies have them, so data loss can approach zero, at the cost of latency and distance limits.
 
 ## What drives RTO?
 
@@ -2013,13 +2013,13 @@ RTO is set by **everything that has to happen before users are served again**:
 1. Detecting the failure and deciding to recover.
 2. Provisioning or activating infrastructure in the recovery location.
 3. Restoring or promoting data.
-4. Starting services **in dependency order** — the database before the application, the application before the load balancer.
+4. Starting services **in dependency order**: the database before the application, the application before the load balancer.
 5. Redirecting traffic, including DNS changes and their time to live.
-6. Verifying that the application actually works.
+6. Verifying that the application works.
 
-Steps that can run in parallel reduce the total; the longest chain of steps that must run one after another — the critical path — sets it.
+Steps that can run in parallel reduce the total; the longest chain of steps that must run one after another (the critical path) sets it.
 
-## Required, predicted and actual
+## Required, predicted and actual RTO and RPO
 
 A useful discipline is to keep three numbers apart for each application:
 
@@ -2029,17 +2029,17 @@ A useful discipline is to keep three numbers apart for each application:
 | **Predicted** | What the current design and protection should achieve |
 | **Actual** | What a test or real recovery measured |
 
-Plans fail when these are blurred — when the required number is quoted as if it had been measured, or a prediction is never checked against a test.
+Plans fail when these are blurred: when the required number is quoted as if it had been measured, or a prediction is never checked against a test.
 
 ## RTO and RPO vs MTD
 
-**Maximum tolerable downtime (MTD)** — also called maximum tolerable period of disruption — is the point beyond which the business suffers unacceptable or irreversible harm. RTO must sit inside it, with enough margin to verify the recovery and resume normal operation.
+**Maximum tolerable downtime (MTD)**, also called maximum tolerable period of disruption, is the point beyond which the business suffers unacceptable or irreversible harm. RTO must sit inside it, with enough margin to verify the recovery and resume normal operation.
 
 ## Next steps
 
-- [What is cloud disaster recovery?](/learn/cloud-disaster-recovery) — the strategies that deliver different RTOs and RPOs
-- [How Onam DRM predicts RTO and RPO](/disaster-recovery) — against the targets you set
-- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — knowing what has to recover
+- [What is cloud disaster recovery?](/learn/cloud-disaster-recovery): the strategies that deliver different RTOs and RPOs
+- [How Onam DRM predicts RTO and RPO](/disaster-recovery): against the targets you set
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory): knowing what has to recover
 `,
     faqs: [
       {
@@ -2052,7 +2052,7 @@ Plans fail when these are blurred — when the required number is quoted as if i
       },
       {
         q: "Which is more important, RTO or RPO?",
-        a: "Neither in general — it depends on the application. A payments ledger may tolerate some downtime but no data loss, so its RPO is tight. A public website may tolerate losing recent content but not long outages, so its RTO is tight. Each application needs both set deliberately.",
+        a: "Neither in general. It depends on the application. A payments ledger may tolerate some downtime but no data loss, so its RPO is tight. A public website may tolerate losing recent content but not long outages, so its RTO is tight. Each application needs both set deliberately.",
       },
       {
         q: "Can RPO be zero?",
@@ -2080,18 +2080,18 @@ Plans fail when these are blurred — when the required number is quoted as if i
       "Cloud disaster recovery restores applications and data after a major failure: backup and restore, pilot light, warm standby, multi-site, how to choose.",
     term: "Cloud Disaster Recovery",
     answer:
-      "Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption — a regional outage, data corruption, deletion or a cyberattack — using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.",
+      "Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption (a regional outage, data corruption, deletion or a cyberattack) using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.",
     readTime: "8 min",
     body: `
 ## Disaster recovery vs high availability
 
 High availability keeps a service running through **small, expected failures**: an instance dies, a disk fails, an availability zone goes dark. It is designed into the architecture and usually works automatically.
 
-Disaster recovery handles **large or unusual failures** that high availability does not cover: a whole region unavailable, data deleted or encrypted by an attacker, a bad change replicated everywhere at once. Replication alone is not disaster recovery — a corrupted table replicates as faithfully as a good one. That is why point-in-time copies, isolated from the primary, remain part of every serious plan.
+Disaster recovery handles **large or unusual failures** that high availability does not cover: a whole region unavailable, data deleted or encrypted by an attacker, a bad change replicated everywhere at once. Replication alone is not disaster recovery. A corrupted table replicates as faithfully as a good one. That is why point-in-time copies, isolated from the primary, remain part of every serious plan.
 
 ## What are the cloud disaster recovery strategies?
 
-Four strategies are commonly described — including in cloud providers' own disaster recovery guidance. They trade cost against recovery time and data loss:
+Four strategies are commonly described, including in cloud providers' own disaster recovery guidance. They trade cost against recovery time and data loss:
 
 | Strategy | What runs in the recovery region | Typical RTO / RPO | Relative cost |
 | --- | --- | --- | --- |
@@ -2100,11 +2100,11 @@ Four strategies are commonly described — including in cloud providers' own dis
 | **Warm standby** | A complete, scaled-down copy of the environment, running | Minutes | Medium |
 | **Multi-site active/active** | A full copy serving live traffic in more than one region | Near zero | Highest |
 
-The figures are orders of magnitude, not guarantees. Actual recovery time depends on the application, its data volume and the procedure — which is why it has to be tested.
+The figures are orders of magnitude and carry no promise. Real recovery time depends on the application, its data volume and the procedure, which is why it has to be tested.
 
 ### Backup and restore
 
-Data is backed up — ideally to another region and account — and infrastructure is defined as code so it can be recreated. After a disaster, the environment is rebuilt and data restored. Cheapest to run; slowest to recover.
+Data is backed up, ideally to another region and account, and infrastructure is defined as code so it can be recreated. After a disaster, the environment is rebuilt and data restored. Cheapest to run; slowest to recover.
 
 ### Pilot light
 
@@ -2120,26 +2120,26 @@ Two or more regions serve production traffic simultaneously. Losing one means th
 
 ## How to choose a strategy
 
-Start from the business targets, not the technology. A [business impact analysis](/learn/rto-vs-rpo) gives each application a required RTO and RPO; the strategy is the cheapest one that meets them. Most organisations use several at once — active/active for a few critical services, backup and restore for most internal systems.
+Start from the business targets rather than the technology. A [business impact analysis](/learn/rto-vs-rpo) gives each application a required RTO and RPO; the strategy is the cheapest one that meets them. Most organisations use several at once: active/active for a few critical services, backup and restore for most internal systems.
 
 ## What makes a disaster recovery plan work?
 
-1. **A complete inventory** of what each application depends on — the database, the queue, the secrets, the DNS records, the identity provider.
+1. **A complete inventory** of what each application depends on: the database, the queue, the secrets, the DNS records, the identity provider.
 2. **A recovery order** that follows those dependencies.
-3. **Protection that matches the targets** — backup frequency and replication that can actually deliver the RPO.
-4. **Isolation** — copies in a separate account or with immutability, so an attacker or a mistake cannot delete the primary and the backup together.
-5. **Testing** — regular drills that measure real recovery time and data loss against the targets.
-6. **Drift control** — a check that the environment still matches the plan, because a new database added without a replica quietly breaks it.
+3. **Protection that matches the targets**: backup frequency and replication that can deliver the RPO.
+4. **Isolation**: copies in a separate account or with immutability, so an attacker or a mistake cannot delete the primary and the backup together.
+5. **Testing**: regular drills that measure real recovery time and data loss against the targets.
+6. **Drift control**: a check that the environment still matches the plan, because a new database added without a replica quietly breaks it.
 
 ## Regulation
 
-Disaster recovery is increasingly a regulatory expectation, not only good practice. Financial-sector rules such as the EU's Digital Operational Resilience Act (DORA) expect tested ICT business continuity and recovery arrangements, and healthcare rules such as the HIPAA Security Rule require a contingency plan including data backup and disaster recovery procedures.
+Disaster recovery is increasingly a regulatory expectation as well as good practice. Financial-sector rules such as the EU's Digital Operational Resilience Act (DORA) expect tested ICT business continuity and recovery arrangements, and healthcare rules such as the HIPAA Security Rule require a contingency plan including data backup and disaster recovery procedures.
 
 ## Next steps
 
-- [What is the difference between RTO and RPO?](/learn/rto-vs-rpo) — the two targets every strategy is measured against
-- [How Onam DRM maps recovery readiness](/disaster-recovery) — dependencies, protection, predicted RTO/RPO and drift
-- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the starting point of every recovery plan
+- [What is the difference between RTO and RPO?](/learn/rto-vs-rpo): the two targets every strategy is measured against
+- [How Onam DRM maps recovery readiness](/disaster-recovery): dependencies, protection, predicted RTO/RPO and drift
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory): the starting point of every recovery plan
 `,
     faqs: [
       {
@@ -2160,7 +2160,7 @@ Disaster recovery is increasingly a regulatory expectation, not only good practi
       },
       {
         q: "What is drift in disaster recovery?",
-        a: "Drift is any change to the environment since the recovery plan was approved that the plan does not reflect — a new resource without protection, a dependency that moved, a changed recovery site. Undetected drift is how a plan that was correct when signed becomes wrong without anyone editing it.",
+        a: "Drift is any change to the environment since the recovery plan was approved that the plan does not reflect, such as a new resource without protection, a dependency that moved, a changed recovery site. Undetected drift is how a plan that was correct when signed becomes wrong without anyone editing it.",
       },
     ],
     related: [
@@ -2180,14 +2180,14 @@ Disaster recovery is increasingly a regulatory expectation, not only good practi
       "Agentic AIOps uses AI agents that investigate and propose cloud operations changes, with a person approving each action: how it works and stays safe.",
     term: "Agentic AIOps",
     answer:
-      "Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work — investigating an incident, gathering evidence, proposing a fix — using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.",
+      "Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work (investigating an incident, gathering evidence, proposing a fix) using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.",
     readTime: "7 min",
     body: `
 ## From AIOps to agentic AIOps
 
-**AIOps** — a term coined by the analyst firm Gartner — describes applying machine learning and analytics to operations data: correlating alerts, detecting anomalies, reducing noise. It tells an operator *what* is happening faster.
+**AIOps**, a term coined by the analyst firm Gartner, describes applying machine learning and analytics to operations data: correlating alerts, detecting anomalies, reducing noise. It tells an operator *what* is happening faster.
 
-**Agentic AIOps** goes a step further. An AI agent, usually built on a large language model, is given a goal ("why did checkout latency rise?"), a set of tools (query the inventory, read the logs, check recent changes) and permission boundaries. It plans the steps, calls the tools, reasons about the results and reports back — or proposes an action.
+**Agentic AIOps** goes a step further. An AI agent, usually built on a large language model, is given a goal ("why did checkout latency rise?"), a set of tools (query the inventory, read the logs, check recent changes) and permission boundaries. It plans the steps, calls the tools, reasons about the results, then reports back or proposes an action.
 
 The difference is between a dashboard that highlights an anomaly and an assistant that investigates it.
 
@@ -2198,12 +2198,12 @@ The difference is between a dashboard that highlights an anomaly and an assistan
 | Investigation | Gathers configuration, metrics, logs and recent changes across systems and summarises what it finds |
 | Inventory questions | Answers "what do we run, where, and who owns it?" from live data |
 | Security triage | Explains a finding, checks whether it is reachable or exploitable, and groups related issues |
-| Change proposals | Drafts a fix — a configuration change, a pull request, a runbook — for a person to review |
+| Change proposals | Drafts a fix (a configuration change, a pull request, a runbook) for a person to review |
 | Reporting | Produces summaries and evidence for audits or reviews |
 
 ## Why human-in-the-loop approval matters
 
-An agent that can only read is low risk. An agent that can change production is a new kind of privileged identity — one that can be wrong with confidence, or be manipulated through the data it reads.
+An agent that can only read is low risk. An agent that can change production is a new kind of privileged identity. It can be wrong with confidence, or be manipulated through the data it reads.
 
 **Human-in-the-loop** design keeps a person in the decision: the agent investigates and proposes, and a named human approves before anything changes. Good implementations make the decision easy to make well:
 
@@ -2215,11 +2215,11 @@ An agent that can only read is low risk. An agent that can change production is 
 
 A useful way to think about agent authority is as a ladder an organisation climbs deliberately:
 
-1. **Answer** — read-only questions and explanations.
-2. **Investigate** — multi-step, read-only analysis with evidence.
-3. **Propose** — draft changes for a person to approve.
-4. **Act with approval** — execute a change after explicit approval.
-5. **Act within policy** — execute pre-approved, low-risk changes on its own, inside strict limits.
+1. **Answer**: read-only questions and explanations.
+2. **Investigate**: multi-step, read-only analysis with evidence.
+3. **Propose**: draft changes for a person to approve.
+4. **Act with approval**: execute a change after explicit approval.
+5. **Act within policy**: execute pre-approved, low-risk changes on its own, inside strict limits.
 
 Most organisations should start at the bottom and move up one level at a time, per environment and per kind of change.
 
@@ -2234,14 +2234,14 @@ Most organisations should start at the bottom and move up one level at a time, p
 
 ## Next steps
 
-- [How Onam AIOps works](/platform/ai-operations) — agents that investigate with evidence and propose; a person approves
-- [What is a cloud asset inventory?](/learn/cloud-asset-inventory) — the data agents reason over
-- [What is a cloud attack path?](/learn/cloud-attack-path) — the kind of security question agents help triage
+- [How Onam AIOps works](/platform/ai-operations): agents that investigate with evidence and propose; a person approves
+- [What is a cloud asset inventory?](/learn/cloud-asset-inventory): the data agents reason over
+- [What is a cloud attack path?](/learn/cloud-attack-path): the kind of security question agents help triage
 `,
     faqs: [
       {
         q: "What is the difference between AIOps and agentic AIOps?",
-        a: "AIOps applies machine learning to operations data to correlate alerts and detect anomalies. Agentic AIOps adds AI agents that plan and carry out multi-step tasks with tools — investigating an issue, gathering evidence, proposing a fix — rather than only surfacing signals for a person to investigate.",
+        a: "AIOps applies machine learning to operations data to correlate alerts and detect anomalies. Agentic AIOps adds AI agents that plan and carry out multi-step tasks with tools, such as investigating an issue, gathering evidence or proposing a fix, rather than only surfacing signals for a person to investigate.",
       },
       {
         q: "What does human-in-the-loop mean for AI agents?",
@@ -2253,7 +2253,7 @@ Most organisations should start at the bottom and move up one level at a time, p
       },
       {
         q: "What is prompt injection in AIOps?",
-        a: "Prompt injection is when text in the data an agent reads — a log line, a ticket, a resource tag — contains instructions that try to change the agent's behaviour. Agents in operations read a lot of untrusted text, so their permissions and approval steps must assume some of it is hostile.",
+        a: "Prompt injection is when text in the data an agent reads (a log line, a ticket, a resource tag) contains instructions that try to change the agent's behaviour. Agents in operations read a lot of untrusted text, so their permissions and approval steps must assume some of it is hostile.",
       },
     ],
     related: [

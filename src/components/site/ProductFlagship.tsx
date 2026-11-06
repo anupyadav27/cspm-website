@@ -11,8 +11,8 @@ import {
   ChevronRight,
   Minus,
   Plus,
-} from "lucide-react";
-import type { LucideIcon } from "lucide-react";
+} from "@/components/site/icons";
+import type { LucideIcon } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import {
   Backdrop,
@@ -53,8 +53,8 @@ import { cn } from "@/lib/utils";
 const textTone = (c: string) => `color-mix(in srgb, ${c} 72%, var(--color-ink))`;
 
 function splitBullet(b: string): { title: string; desc: string } {
-  const i = b.indexOf(" — ");
-  return i === -1 ? { title: b, desc: "" } : { title: b.slice(0, i), desc: b.slice(i + 3) };
+  const m = / — |: /.exec(b);
+  return m ? { title: b.slice(0, m.index), desc: b.slice(m.index + m[0].length) } : { title: b, desc: "" };
 }
 
 export function ProductFlagship({ data, video }: { data: FlagshipData; video?: VideoKey }) {
@@ -140,8 +140,8 @@ export function ProductFlagship({ data, video }: { data: FlagshipData; video?: V
           <SectionHeading
             eyebrow="How it works"
             eyebrowColor={textTone(suite.color)}
-            title="The mechanism, step by step"
-            lead={`What ${suite.name} actually does, in the order it does it.`}
+            title={`${suite.name}, step by step`}
+            lead={`What ${suite.name} does, in the order it does it.`}
           />
           <div className="mt-14">
             <StepsDiagram
@@ -434,7 +434,7 @@ function WhatYouGet({ data }: { data: FlagshipData }) {
         <SectionHeading
           eyebrow="What you get"
           eyebrowColor={textTone(suite.color)}
-          title="Specific outputs, not a dashboard of promises"
+          title="What you see in the console"
         />
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {data.page.whatYouGet.map((b) => {
@@ -461,14 +461,14 @@ function WhatYouGet({ data }: { data: FlagshipData }) {
   );
 }
 
-/* --------------------------- 9 · Limits, said plainly --------------------------- */
+/* --------------------------- 9 · Limits --------------------------- */
 function Limits({ data }: { data: FlagshipData }) {
   const suite = getSuite(data.key);
   return (
     <Section id="limits">
       <Container>
         <SectionHeading
-          eyebrow="Limits, said plainly"
+          eyebrow="Limits"
           eyebrowColor={textTone(suite.color)}
           title={`What ${suite.name} does not do`}
           lead="Knowing where a product stops is part of deciding whether to buy it."

@@ -1,5 +1,5 @@
 import { createFileRoute, Link, Outlet, useMatches } from "@tanstack/react-router";
-import { Newspaper } from "lucide-react";
+import { Newspaper } from "@/components/site/icons";
 import { getAuthor } from "@/data/authors";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BLOG_POSTS, BLOG_CATEGORIES } from "@/data/blog-posts";

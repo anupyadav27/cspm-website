@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { CheckCircle2, Mail, ShieldAlert, Lock, MessageSquare } from "lucide-react";
+import { CheckCircle2, Mail, ShieldAlert, Lock, MessageSquare } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
@@ -28,9 +28,9 @@ const reasons = [
 ];
 
 const inboxes = [
-  { icon: Mail, iconColor: "#2563EB", label: "General", email: "hello@onam.security", note: "For everything else." },
-  { icon: ShieldAlert, iconColor: "#E32D25", label: "Security disclosure", email: "security@onam.security", note: "Report a vulnerability — see our disclosure policy." },
-  { icon: Lock, iconColor: "#05A052", label: "Privacy", email: "privacy@onam.security", note: "Data subject requests and privacy questions." },
+  { icon: Mail, iconColor: "#2563EB", label: "General", email: "hello@onamsecurity.com", note: "For everything else." },
+  { icon: ShieldAlert, iconColor: "#E32D25", label: "Security disclosure", email: "security@onamsecurity.com", note: "Report a vulnerability — see our disclosure policy." },
+  { icon: Lock, iconColor: "#05A052", label: "Privacy", email: "hello@onamsecurity.com", note: "Data subject requests and privacy questions." },
 ];
 
 function ContactPage() {

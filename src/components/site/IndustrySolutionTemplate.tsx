@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Building2, CheckCircle2, HeartPulse, Landmark, ShieldCheck, type LucideIcon } from "lucide-react";
+import { ArrowRight, Building2, CheckCircle2, HeartPulse, Landmark, ShieldCheck, type LucideIcon } from "@/components/site/icons";
 import { Backdrop } from "@/components/site/system";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -77,7 +77,7 @@ function UseCases({ data }: { data: IndustrySolutionData }) {
     <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Use cases
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -114,7 +114,7 @@ function Regulations({ data }: { data: IndustrySolutionData }) {
     <section className="bg-white border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Compliance
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -146,11 +146,11 @@ function WhyChoose({ data }: { data: IndustrySolutionData }) {
     <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             Why Onam
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Why {data.industryName.toLowerCase()} teams choose Onam
+            Why Onam fits {data.industryName.toLowerCase()}
           </h2>
         </div>
         <div className="mt-12 grid md:grid-cols-2 gap-4">
@@ -181,7 +181,7 @@ function Faqs({ faqs }: { faqs: IndustryFaq[] }) {
       />
       <div className="max-w-3xl mx-auto px-6">
         <div className="text-center">
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
             FAQ
           </div>
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Questions we get a lot</h2>
@@ -224,7 +224,7 @@ function CTA({ data }: { data: IndustrySolutionData }) {
           </h2>
           <p className="mt-4 text-[#475569] max-w-xl mx-auto">
             Security evidence mapped to your frameworks, one inventory of what you run, cost you can attribute, and a
-            recovery plan you can check — on one platform.
+            recovery plan you can check, all in one platform.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <BrandButton to="/request-demo" size="lg">Book a demo →</BrandButton>
@@ -256,7 +256,7 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
         eyebrow="See it live"
         title="Evidence, in the Onam Security console."
         gradientWords="Onam Security console."
-        subtitle="An animated walkthrough of Onam console views with demo-account data — compliance scores, FAIR-style risk estimates and data classification."
+        subtitle="An animated walkthrough of Onam console views with demo-account data: compliance scores, FAIR-style risk estimates and data classification."
       />
       <Faqs faqs={data.faqs} />
       <CTA data={data} />

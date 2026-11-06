@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Boxes, GitFork, Bug, Activity, CheckSquare, Shield,
   Users, Eye, Database, FileText, CloudUpload, ShieldCheck, Cloud, Gauge,
   Box, Share2,
-} from "lucide-react";
+} from "@/components/site/icons";
 
 /**
  * ProductDemo — an animated, ILLUSTRATIVE walkthrough of the Onam Security console.

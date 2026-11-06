@@ -1,4 +1,4 @@
-import { BarChart3, History, PiggyBank, TrendingUp, Users } from "lucide-react";
+import { BarChart3, History, PiggyBank, TrendingUp, Users } from "@/components/site/icons";
 import type { Capability } from "./types";
 
 /**
@@ -19,7 +19,7 @@ export const capabilities: Capability[] = [
     icon: BarChart3,
     seoTitle: "Cloud cost explorer — Onam FinOps",
     metaDescription:
-      "See cloud spend by day, with billed and effective cost side by side, and trace every period-over-period change to what actually moved.",
+      "See cloud spend by day, with billed and effective cost side by side, and trace every period-over-period change to what moved.",
     question: "Why did our cloud bill go up, and what moved?",
     lead: "Onam FinOps shows spend as a daily series and ranks what changed since the last period. You see billed and effective cost side by side, so the number matches the invoice and the reality.",
     problem:
@@ -27,11 +27,11 @@ export const capabilities: Capability[] = [
     whatYouSee: [
       {
         title: "Daily cost series",
-        body: "Spend by day, the level at which cost questions can actually be answered. Not just that spend rose — that it rose on a specific day.",
+        body: "Spend by day, the level at which cost questions can be answered. You see the day spend rose, as well as the total.",
       },
       {
         title: "Ranked movers",
-        body: "Period-over-period movement along a dimension you choose, listed by contribution. A list of what changed, not a single percentage.",
+        body: "Period-over-period movement along a dimension you choose, listed by contribution, so you get a list of what changed instead of a single percentage.",
       },
       {
         title: "Billed and effective cost",
@@ -81,7 +81,7 @@ export const capabilities: Capability[] = [
     faqs: [
       {
         q: "What is the difference between billed cost and effective cost?",
-        a: "Billed cost is what the provider invoiced in the period. Effective cost spreads commitments and amortised charges across the periods they actually cover. Billed cost reconciles to the invoice; effective cost shows what each period really consumed. Onam FinOps reports both.",
+        a: "Billed cost is what the provider invoiced in the period. Effective cost spreads commitments and amortised charges across the periods they cover. Billed cost reconciles to the invoice; effective cost shows what each period consumed. Onam FinOps reports both.",
       },
       {
         q: "Why daily rather than monthly?",
@@ -108,7 +108,7 @@ export const capabilities: Capability[] = [
     icon: Users,
     seoTitle: "Cloud cost ownership and attribution — Onam FinOps",
     metaDescription:
-      "Attribute cloud cost to owners and cost centres. Onam FinOps states attribution coverage and the unattributed amount, so the gap is measured, not hidden.",
+      "Attribute cloud cost to owners and cost centres. Onam FinOps states attribution coverage and the unattributed amount, so the gap is measured and visible.",
     question: "Who owns this cloud spend?",
     lead: "Onam FinOps attributes cost to owners and cost centres with rules you control. It tells you how much of the bill it could attribute, and shows the amount it could not.",
     problem:
@@ -160,7 +160,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "It does not move money",
-        body: "Showback and chargeback statements say what each cost centre is responsible for. FinOps does not move money between ledgers, issue internal invoices or enforce anything. It gives your finance process the figures, not the process.",
+        body: "Showback and chargeback statements say what each cost centre is responsible for. FinOps does not move money between ledgers, issue internal invoices or enforce anything. It gives your finance process the figures.",
       },
     ],
     faqs: [
@@ -191,13 +191,13 @@ export const capabilities: Capability[] = [
     metaDescription:
       "Forecast cloud spend as a low, expected and high figure, track budgets against forecast and actuals, and catch anomalies in the daily cost series.",
     question: "What will we spend, and are we going over budget?",
-    lead: "Onam FinOps forecasts spend as a range, not a single line. Budgets are tracked against the forecast as well as actuals, and anomalies are found in the daily series.",
+    lead: "Onam FinOps forecasts spend as a range with low, expected and high figures. Budgets are tracked against the forecast as well as actuals, and anomalies are found in the daily series.",
     problem:
       "Our forecast is one line, and it is wrong every month, so nobody reads it any more. We find out about a budget overrun after it has happened. A spike that started and was fixed inside a week never shows up in the monthly numbers, so we cannot tell whether it was real or what it cost.",
     whatYouSee: [
       {
         title: "A forecast range",
-        body: "A low, an expected and a high figure. A period that lands outside the band is a genuine signal, not routine noise.",
+        body: "A low, an expected and a high figure. A period that lands outside the band is worth looking at.",
       },
       {
         title: "Budgets against forecast",
@@ -205,11 +205,11 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Budgets against actuals",
-        body: "Budgets compared with what has actually been spent so far.",
+        body: "Budgets compared with what has been spent so far.",
       },
       {
         title: "Anomalies in the daily series",
-        body: "Unusual spend detected day by day, not against monthly totals, so short spikes are not averaged away.",
+        body: "Unusual spend detected day by day instead of against monthly totals, so short spikes are not averaged away.",
       },
     ],
     steps: [
@@ -236,7 +236,7 @@ export const capabilities: Capability[] = [
         body: "Detection needs enough daily history to have a baseline. A newly connected account produces few useful anomalies until the series has a shape.",
       },
       {
-        title: "A forecast is a range, not a promise",
+        title: "Why the forecast is a range",
         body: "The band says what the forecast knows. Spend can still land outside it, and when it does, that is worth looking at.",
       },
     ],
@@ -249,7 +249,7 @@ export const capabilities: Capability[] = [
     faqs: [
       {
         q: "Why three forecast figures instead of one?",
-        a: "A single line is false precision. It is wrong every month, and a forecast that is always wrong stops being read. A low, expected and high band shows what the forecast actually knows.",
+        a: "A single line is false precision. It is wrong every month, and a forecast that is always wrong stops being read. A low, expected and high band shows how much the forecast knows.",
       },
       {
         q: "Why compare budgets with the forecast?",
@@ -277,18 +277,18 @@ export const capabilities: Capability[] = [
     seoTitle: "Cloud cost savings recommendations — Onam FinOps",
     metaDescription:
       "Cost-reduction recommendations with an accept or dismiss decision on each. The headline is an upper bound, and nothing is changed in your account.",
-    question: "What can we stop spending — and who decided?",
-    lead: "Onam FinOps holds cost-reduction recommendations, each with a recorded decision. The headline figure is labelled as an upper bound, not a promise.",
+    question: "What can we stop spending, and who decided?",
+    lead: "Onam FinOps holds cost-reduction recommendations, each with a recorded decision. The headline figure is labelled as an upper bound.",
     problem:
       "We get savings recommendations as a long list. Everyone reads it and agrees, and nothing happens, because no item has an owner or an outcome. The headline savings number is so optimistic that we have learned to ignore it. And we will not let a cost tool resize production on its own.",
     whatYouSee: [
       {
         title: "Recommendations with a state",
-        body: "Each recommendation is accepted or dismissed, and the decision is recorded. A saving has an outcome, not just a row.",
+        body: "Each recommendation is accepted or dismissed, and the decision is recorded. Every saving ends with an outcome.",
       },
       {
         title: "A portfolio upper bound",
-        body: "The most the open recommendations could save if every one were accepted and realised — labelled as a bound, not a projection.",
+        body: "The most the open recommendations could save if every one were accepted and realised. It is labelled as a bound.",
       },
       {
         title: "A record for change management",
@@ -320,13 +320,13 @@ export const capabilities: Capability[] = [
       },
       {
         title: "The headline is a ceiling",
-        body: "The upper bound assumes every open recommendation is accepted and realised. Treat it as the most you could save, not what you will save.",
+        body: "The upper bound assumes every open recommendation is accepted and realised. Treat it as the most you could save.",
       },
     ],
     agent: {
       name: "FinOps Agent",
       status: "roadmap",
-      line: "On the roadmap: the FinOps Agent is designed to check dependencies and recovery protection before calling anything safe to remove — read and recommend only.",
+      line: "On the roadmap: the FinOps Agent is designed to check dependencies and recovery protection before calling anything safe to remove. It will read and recommend only.",
       href: FINOPS_AGENT_HREF,
     },
     faqs: [
@@ -359,7 +359,7 @@ export const capabilities: Capability[] = [
     icon: History,
     seoTitle: "Reconciled cloud billing and run history — Onam FinOps",
     metaDescription:
-      "Every ingestion run recorded, a reconciliation state on every period, and billed and effective cost side by side — so you know when a figure is final.",
+      "Every ingestion run recorded, a reconciliation state on every period, and billed and effective cost side by side, so you know when a figure is final.",
     question: "Can we trust this month's cloud cost figure yet?",
     lead: "Onam FinOps records every ingestion run and shows the reconciliation state of every period. You can see whether a number is settled before you quote it.",
     problem:
@@ -367,7 +367,7 @@ export const capabilities: Capability[] = [
     whatYouSee: [
       {
         title: "Run history",
-        body: "Each run records what it ingested, when, and how it ended — the provenance behind every figure.",
+        body: "Each run records what it ingested, when, and how it ended. That is the provenance behind every figure.",
       },
       {
         title: "Reconciliation state per period",

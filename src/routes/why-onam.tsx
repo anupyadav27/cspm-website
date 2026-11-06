@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { VideoSection } from "@/components/site/VideoEmbed";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
-import { ArrowRight, Check, FileSearch, Layers, Lock, Power, Unplug } from "lucide-react";
+import { ArrowRight, Check, FileSearch, Layers, Lock, Power, Unplug } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { CLOUDS } from "@/lib/product-facts";
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/why-onam")({
     seo({
       title: "Why Onam — one platform instead of five tools",
       description:
-        "Why teams choose Onam: one inventory for security, cost and recovery, AI agents that need a person's approval, and read-only access to your cloud.",
+        "Why Onam: one inventory for security, cost and recovery, AI agents that need a person's approval, and read-only access to your cloud.",
       path: "/why-onam",
       image: "/og/home.png",
     }),
@@ -35,7 +35,7 @@ const PROBLEMS = [
   {
     icon: Unplug,
     pain: "Five tools, five inventories",
-    detail: "The security tool, the cost tool, the CMDB and the DR runbook each keep their own list of what exists — and they disagree.",
+    detail: "The security tool, the cost tool, the CMDB and the DR runbook each keep their own list of what exists, and the lists disagree.",
     answer: "Onam Estate keeps one inventory, and every Onam product reads it. A cloud account is connected once.",
   },
   {
@@ -91,7 +91,7 @@ function WhyOnam() {
           <SectionHeading
             eyebrow="The problem"
             title="Separate tools leave the hard part to your team."
-            lead="Each tool answers its own question well. The work is in joining the answers — and that is the part nobody owns."
+            lead="Each tool answers its own question well. The work is in joining the answers, and nobody owns that part."
           />
           <div className="mt-12 grid gap-4 md:grid-cols-3">
             {PROBLEMS.map((p) => (
@@ -116,7 +116,7 @@ function WhyOnam() {
           <div className="grid gap-10 lg:grid-cols-[1.1fr_1fr] lg:items-center">
             <SectionHeading
               eyebrow="AI you can audit"
-              title="Agents that show their work — and wait for a person."
+              title="Every agent answer has evidence, and every change waits for a person."
               lead="Every Onam AIOps answer links to the query and scan behind it. Every proposed change shows its diff and rollback, and waits in an approval centre. Autonomy is capped per organisation and can be stopped."
             />
             <Card className="p-6">
@@ -146,7 +146,7 @@ function WhyOnam() {
       <VideoSection
         video="whichAlert"
         title="Which alert do you fix first?"
-        lead="When four tools disagree about the same cloud, one graph decides what matters most."
+        lead="When four tools disagree about the same cloud, Onam ranks the alerts against a single inventory of what you run."
       />
 
       <Section tone="surface">
@@ -154,7 +154,7 @@ function WhyOnam() {
           <SectionHeading
             eyebrow="Side by side"
             title="How Onam Security compares"
-            lead="Detailed, sourced comparisons with the tools buyers most often evaluate alongside us."
+            lead="Sourced comparisons with four widely used cloud security tools."
           />
           <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {COMPARE.map((c) => (
@@ -184,7 +184,7 @@ function WhyOnam() {
             See it on your own cloud.
           </h2>
           <p className="mt-4 text-lg text-body">
-            A working session with someone who knows the product you pick — not a slide deck.
+            A working session with someone who knows the product you pick. No slide deck.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button to="/request-demo" size="lg">

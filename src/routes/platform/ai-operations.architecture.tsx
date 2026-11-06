@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowLeft, ArrowRight } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { DiagramFigure, OpsSection, StatusBadge } from "@/components/site/ops/OpsUi";
@@ -112,7 +112,7 @@ const CONTROL: { name: string; does: string; never: string }[] = [
 const VOCAB: [string, string][] = [
   [
     "Agent",
-    "A specialist with a declared purpose, level, skills, tools and permissions — a versioned definition, not a prompt.",
+    "A specialist with a declared purpose, level, skills, tools and permissions, kept as a versioned definition rather than a prompt.",
   ],
   [
     "Skill",
@@ -132,7 +132,7 @@ const VOCAB: [string, string][] = [
   ],
   [
     "Task",
-    "One unit of work with a lifecycle, an owner and a result — visible in the task centre.",
+    "One unit of work with a lifecycle, an owner and a result, visible in the task centre.",
   ],
   [
     "Workflow",
@@ -146,7 +146,7 @@ const VOCAB: [string, string][] = [
     "Approval",
     "A recorded human decision authorising one specific change at one specific version.",
   ],
-  ["Evidence", "The data behind a claim — query, rows, scan and time — retained and addressable."],
+  ["Evidence", "The data behind a claim (query, rows, scan and time), retained and addressable."],
   [
     "Memory",
     "What an agent keeps between turns, deliberately narrow. It never holds an estate fact or a secret.",
@@ -156,11 +156,11 @@ const VOCAB: [string, string][] = [
 const ACTIONS: [string, string, string][] = [
   ["read", "Retrieve existing data", "Any agent"],
   ["analyse", "Compute over retrieved data", "Any agent"],
-  ["recommend", "Produce a proposal", "Any agent — applying it needs approval"],
+  ["recommend", "Produce a proposal", "Any agent; applying it needs approval"],
   ["simulate", "Dry-run with no side effect", "Any agent"],
   ["execute · modify", "Apply or alter a change", "L3 actor only, per risk class"],
   ["delete", "Remove a resource", "L3 actor only, always high or critical"],
-  ["approve", "Authorise an action", "Never an agent — people only"],
+  ["approve", "Authorise an action", "Never an agent, people only"],
 ];
 
 function ArchitecturePage() {
@@ -182,7 +182,7 @@ function ArchitecturePage() {
             <StatusBadge status="early" />
           </div>
           <h1 className="mt-5 max-w-4xl font-display text-4xl font-black leading-[1.06] tracking-tight text-[#0B1220] md:text-[56px]">
-            Every arrow is a <span className="gradient-text">control point</span>, not a pipe.
+            Where a person approves, and <span className="gradient-text">where the agents stop</span>.
           </h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-[#475569]">
             Onam AIOps is a governed agent platform built above the products that already know
@@ -215,7 +215,7 @@ function ArchitecturePage() {
         intro={
           <p>
             A request descends one block at a time and never skips one. Beside every block runs a
-            control plane — governance, policy, approval and audit — that is in the call path rather
+            control plane (governance, policy, approval and audit) that is in the call path rather
             than advisory: each can refuse, and a refusal stops the request. Below the capability
             block the path forks three ways: reading the estate, executing an approved change, and
             calling a model. Only the execution fork can change anything.
@@ -274,7 +274,7 @@ function ArchitecturePage() {
       <OpsSection
         id="estate"
         eyebrow="Cloud Estate Intelligence"
-        title="Agents reason over resolved truth — they do not rediscover your cloud"
+        title="Agents work from the products’ resolved data instead of rediscovering your cloud"
         intro={
           <p>
             The products already scan your cloud. Cloud Estate Intelligence is a read-only layer
@@ -289,7 +289,7 @@ function ArchitecturePage() {
           {[
             [
               "Read through contracts",
-              "It reads published, read-only views of each product’s data — never a product’s own tables — under a role that can only select.",
+              "It reads published, read-only views of each product’s data (never a product’s own tables) under a role that can only select.",
             ],
             [
               "One identity per resource",
@@ -323,12 +323,12 @@ function ArchitecturePage() {
               {(
                 [
                   [
-                    "Onam Security — inventory, assets, findings",
+                    "Onam Security: inventory, assets, findings",
                     "What exists and what is wrong with it",
                     "early",
                   ],
                   [
-                    "Onam Security — relationships, exposure, attack paths, compliance results",
+                    "Onam Security: relationships, exposure, attack paths, compliance results",
                     "How it connects, what is reachable, which controls hold",
                     "development",
                   ],
@@ -418,7 +418,7 @@ function ArchitecturePage() {
         title="An agent cannot exceed the person it acts for"
         intro={
           <p>
-            A permission is a tuple — agent, organisation, accounts, resource class, tool, action —
+            A permission is a tuple (agent, organisation, accounts, resource class, tool, action),
             and the effective permission is the intersection of what the agent is granted, what you
             are allowed to do, your organisation’s policy and the scope of the conversation. An
             agent acting for a read-only viewer can do no more than that viewer.
@@ -478,8 +478,8 @@ function ArchitecturePage() {
         </div>
         <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[#475569]">
           An agent’s level is fixed in its definition. Promotion is a governance event that needs
-          re-certification — scope review, security review including the prompt-injection test
-          corpus, an evaluation suite, and documentation of its limits — never a runtime decision.
+          re-certification: scope review, security review including the prompt-injection test
+          corpus, an evaluation suite, and documentation of its limits. It is never a runtime decision.
         </p>
       </OpsSection>
 
@@ -520,7 +520,7 @@ function ArchitecturePage() {
           </p>
           <ul className="mt-4 grid gap-2 text-[14px] text-[#334155] md:grid-cols-2 [&>*]:min-w-0">
             {[
-              "Its own isolated namespace — the only place holding a write credential",
+              "Its own isolated namespace, the only place holding a write credential",
               "Network egress default-deny, allowlisted to the endpoints the action declares",
               "Short-lived role scoped to the target account and operation",
               "One action per container, an ephemeral filesystem, a hard time limit",
@@ -539,7 +539,7 @@ function ArchitecturePage() {
       <OpsSection
         id="deployment"
         eyebrow="Where it runs"
-        title="A new surface on the existing platform, not a new silo"
+        title="A new surface on the existing platform"
         intro={
           <p>
             Onam AIOps runs as its own service group on the Onam platform, behind the same
@@ -552,7 +552,7 @@ function ArchitecturePage() {
       >
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-5 [&>*]:min-w-0">
           {[
-            "Never touches a product database directly — all estate reads go through Cloud Estate Intelligence",
+            "Never touches a product database directly. All estate reads go through Cloud Estate Intelligence",
             "Nothing reaches a customer cloud except through the tool gateway and the sandbox",
             "No component holds a model SDK; inference goes through the model gateway",
             "Identity and tenant come only from the platform gateway",

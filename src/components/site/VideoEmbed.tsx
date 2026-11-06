@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from "react";
-import { Play } from "lucide-react";
+import { Play } from "@/components/site/icons";
 import { Container, Section, SectionHeading } from "@/components/site/system";
 import { SITE_URL } from "@/lib/seo";
 import { playlistUrl, VIDEOS, type Video, type VideoKey } from "@/data/videos";

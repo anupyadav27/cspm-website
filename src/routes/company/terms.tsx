@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText } from "lucide-react";
+import { FileText } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
@@ -116,7 +116,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <p>
         Questions about these Terms can be sent to{" "}
-        <a href="mailto:hello@onam.security" className="text-[#2563EB] font-semibold hover:underline">hello@onam.security</a>.
+        <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.
       </p>
     ),
   },

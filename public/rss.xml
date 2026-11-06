@@ -178,7 +178,7 @@
       <title>What is CSPM (Cloud Security Posture Management)?</title>
       <link>https://www.onamsecurity.com/learn/cspm</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cspm</guid>
-      <description>Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to evaluate resources — storage buckets, databases, security groups, IAM roles — against a rule set, then reports what is misconfigured and how to fix it.</description>
+      <description>Cloud Security Posture Management (CSPM) is the continuous, automated inspection of cloud infrastructure configuration for misconfigurations, policy violations and compliance drift. It reads cloud provider APIs to check resources such as storage buckets, databases, security groups and IAM roles against a rule set, then reports what is misconfigured and how to fix it.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -186,7 +186,7 @@
       <title>What is CNAPP (Cloud-Native Application Protection Platform)?</title>
       <link>https://www.onamsecurity.com/learn/cnapp</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cnapp</guid>
-      <description>A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on one shared data model — so risks that span those domains are correlated rather than reported separately.</description>
+      <description>A Cloud-Native Application Protection Platform (CNAPP) is a single platform that combines cloud posture management, workload protection, identity entitlement analysis, data security and runtime threat detection on a shared data model. Risks that span those domains are correlated instead of being reported separately.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -194,7 +194,7 @@
       <title>What is CWPP (Cloud Workload Protection Platform)?</title>
       <link>https://www.onamsecurity.com/learn/cwpp</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cwpp</guid>
-      <description>A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud — virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.</description>
+      <description>A Cloud Workload Protection Platform (CWPP) is security tooling that protects the compute workloads running in the cloud: virtual machines, containers, Kubernetes nodes and serverless functions. It finds vulnerabilities, hardening gaps and exposed secrets inside each workload and, where supported, detects malicious runtime behaviour. CSPM checks the cloud configuration around a workload; CWPP checks the workload itself.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -202,7 +202,7 @@
       <title>What is CIEM (Cloud Infrastructure Entitlement Management)?</title>
       <link>https://www.onamsecurity.com/learn/ciem</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/ciem</guid>
-      <description>CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment — human users, service accounts and machine identities — after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity actually used, to remove excess access and enforce least privilege.</description>
+      <description>CIEM (Cloud Infrastructure Entitlement Management) determines the effective permissions of every identity in a cloud environment (human users, service accounts and machine identities) after policies, role chains, service control policies and permission boundaries are resolved. It then compares those permissions against what each identity used, to remove excess access and enforce least privilege.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -218,7 +218,7 @@
       <title>What is SSPM (SaaS Security Posture Management)?</title>
       <link>https://www.onamsecurity.com/learn/sspm</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/sspm</guid>
-      <description>SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications — such as Microsoft 365, Google Workspace, GitHub and Snowflake — detecting misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.</description>
+      <description>SaaS Security Posture Management (SSPM) continuously assesses the configuration and identity posture of SaaS applications such as Microsoft 365, Google Workspace, GitHub and Snowflake. It detects misconfigured sharing settings, unprotected admin accounts, excessive permissions and disabled audit logging.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -242,7 +242,7 @@
       <title>What is cloud risk quantification?</title>
       <link>https://www.onamsecurity.com/learn/cloud-risk-quantification</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-risk-quantification</guid>
-      <description>Cloud risk quantification is the practice of expressing security risk as a financial figure — a probable dollar loss — rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.</description>
+      <description>Cloud risk quantification is the practice of expressing security risk as a financial figure, a probable dollar loss, rather than a severity label or a proprietary score. It commonly uses the FAIR model (Factor Analysis of Information Risk), which combines how often a loss event is likely to occur with how much that event would cost.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -250,7 +250,7 @@
       <title>What is a choke point in cloud security?</title>
       <link>https://www.onamsecurity.com/learn/choke-point</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/choke-point</guid>
-      <description>A choke point is a single resource — often an over-privileged identity or a shared network node — that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.</description>
+      <description>A choke point is a single resource, often an over-privileged identity or a shared network node, that appears on a large number of distinct attack paths. Because so many routes pass through it, remediating one choke point removes more risk than fixing many isolated findings, which makes it the highest-leverage fix in a cloud environment.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -266,7 +266,7 @@
       <title>What is code security?</title>
       <link>https://www.onamsecurity.com/learn/code-security</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/code-security</guid>
-      <description>Code security is the practice of finding and fixing security defects in everything that builds a system — application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration — before it is deployed. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.</description>
+      <description>Code security is the practice of finding and fixing security defects in everything that builds a system before it is deployed. That covers application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -274,7 +274,7 @@
       <title>What is cloud secrets management?</title>
       <link>https://www.onamsecurity.com/learn/secrets-management</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/secrets-management</guid>
-      <description>Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials — API keys, database passwords, tokens and certificates — so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.</description>
+      <description>Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials such as API keys, database passwords, tokens and certificates, so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -282,7 +282,7 @@
       <title>What is a cloud asset inventory?</title>
       <link>https://www.onamsecurity.com/learn/cloud-asset-inventory</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-asset-inventory</guid>
-      <description>A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts — compute, storage, databases, networks, identities and managed services — with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs, not by manual entry.</description>
+      <description>A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts (compute, storage, databases, networks, identities and managed services) with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs rather than by manual entry.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -306,7 +306,7 @@
       <title>What is the difference between RTO and RPO?</title>
       <link>https://www.onamsecurity.com/learn/rto-vs-rpo</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/rto-vs-rpo</guid>
-      <description>Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost — how far back the restored copy may be. RTO is about downtime; RPO is about data loss.</description>
+      <description>Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost: how far back the restored copy may be. RTO is about downtime; RPO is about data loss.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -314,7 +314,7 @@
       <title>What is cloud disaster recovery?</title>
       <link>https://www.onamsecurity.com/learn/cloud-disaster-recovery</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-disaster-recovery</guid>
-      <description>Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption — a regional outage, data corruption, deletion or a cyberattack — using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.</description>
+      <description>Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption (a regional outage, data corruption, deletion or a cyberattack) using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>
@@ -322,7 +322,7 @@
       <title>What is agentic AIOps?</title>
       <link>https://www.onamsecurity.com/learn/agentic-aiops</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/agentic-aiops</guid>
-      <description>Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work — investigating an incident, gathering evidence, proposing a fix — using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.</description>
+      <description>Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work (investigating an incident, gathering evidence, proposing a fix) using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>

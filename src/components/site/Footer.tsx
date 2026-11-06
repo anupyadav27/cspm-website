@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { MarketplaceLine } from "@/components/site/MarketplaceStrip";
 import { Logo } from "./Logo";
-import { Youtube, Twitter, Linkedin, Github, type LucideIcon } from "lucide-react";
+import { Youtube, Twitter, Linkedin, Github, type LucideIcon } from "@/components/site/icons";
 
 /** Official brand profiles. Mirrored in the Organization `sameAs` array. */
 const SOCIALS: { label: string; href: string; icon: LucideIcon }[] = [

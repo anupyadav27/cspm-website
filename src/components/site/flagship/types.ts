@@ -1,4 +1,4 @@
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/components/site/icons";
 import type { ProductPageData } from "@/components/site/ProductPageTemplate";
 
 /** A real console capture, cropped of session chrome. Never a hand-made mock. */

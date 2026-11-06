@@ -13,7 +13,7 @@ export const GlassCard = forwardRef<
       className={cn(
         "bg-white border border-[#E5E9F0] rounded-2xl p-6",
         "shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]",
-        hover && "transition-all duration-300 hover:-translate-y-0.5 hover:border-[#CBD5E1] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]",
+        hover && "transition-all duration-300 hover:border-[#CBD5E1] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]",
         gradientBorder && "gradient-border",
         className,
       )}

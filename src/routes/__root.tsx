@@ -25,7 +25,7 @@ const STRUCTURED_DATA = [
     url: SITE_URL,
     logo: `${SITE_URL}/logo-512.png`,
     description:
-      "One end-to-end cloud platform: asset intelligence (Onam Estate), cloud security (Onam Security: CSPM, CIEM, DSPM, code security, attack paths, CDR), cost (Onam FinOps) and disaster recovery (Onam DRM) across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AIOps agents in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
+      "Cloud software with four products: asset intelligence (Onam Estate), cloud security (Onam Security: CSPM, CIEM, DSPM, code security, attack paths, CDR), cost (Onam FinOps) and disaster recovery (Onam DRM) across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AIOps agents in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
     slogan: "From assets to a secure, optimised and resilient cloud.",
     knowsAbout: [
       "Cloud Security Posture Management (CSPM)",
@@ -172,7 +172,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Sans:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap",
       },
     ],
     // Consent-free providers only (Plausible). GA4 is cookie-setting, so it is

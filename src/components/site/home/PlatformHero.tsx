@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowRight, Bot, ExternalLink, Play, Shield, ShieldHalf } from "lucide-react";
+import { ArrowDown, ArrowRight, Bot, ExternalLink, Play, Shield, ShieldHalf } from "@/components/site/icons";
 import type { ComponentType, CSSProperties } from "react";
 import { BrandButton } from "@/components/site/BrandButton";
 import { Backdrop } from "@/components/site/system";
 import { CLOUDS } from "@/lib/product-facts";
 import { cn } from "@/lib/utils";
 import { PRODUCTS } from "@/data/products";
+import { SUITE } from "@/data/product-suite";
 
 /**
  * Homepage top: the end-to-end hero, the reviewed platform diagram with the five-card
@@ -35,20 +36,28 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-72 bg-[linear-gradient(180deg,transparent_0%,#0B1220_62%)]" aria-hidden />
 
       <div className="relative max-w-5xl mx-auto px-6 pt-14 md:pt-20 pb-28 md:pb-36 text-center animate-slide-up">
-        <div className="inline-flex flex-wrap items-center justify-center gap-x-2 gap-y-1 px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-semibold tracking-wider bg-white/[0.06] border border-white/10">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-          <span className="text-[#9FB0CC] uppercase">Estate · Security · FinOps · DRM · AIOps</span>
-        </div>
+        <ul className="inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-[#C7D2E4]">
+          {SUITE.map((p) => {
+            const Icon = p.icon;
+            return (
+              <li key={p.key} className="inline-flex items-center gap-1.5">
+                <Icon className="w-[18px] h-[18px]" style={{ color: `color-mix(in srgb, ${p.color} 55%, #FFFFFF)` }} />
+                {p.short}
+              </li>
+            );
+          })}
+        </ul>
 
         <h1 className="mt-6 font-display font-black text-white text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[68px] tracking-tight md:leading-[1.02] text-balance">
-          From assets to a secure, optimised and{" "}
-          <span className="text-[#4D8DFF]">resilient cloud.</span>
+          See what you run in the cloud, what is exposed, what it costs and{" "}
+          <span className="text-[#4D8DFF]">how it recovers.</span>
         </h1>
 
         <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-2xl mx-auto text-pretty">
-          Onam finds everything you run across {CLOUDS} clouds, secures it, explains what it costs
-          and plans how it comes back after an outage — one platform, one inventory, one console. AI
-          agents work across it in early access, and a person approves every change they propose.
+          Onam is cloud software with four products: Estate, Security, FinOps and DRM. They share
+          one inventory of your accounts across {CLOUDS} clouds, and you connect each account once.
+          AI agents work across them in early access, and a person approves every change they
+          propose.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -116,7 +125,7 @@ const STRIP: StripItem[] = [
     href: "/platform/ai-operations",
     icon: Bot,
     color: "#4F46E5",
-    line: "AI agents investigate with evidence and propose changes — a person approves each one.",
+    line: "AI agents investigate with evidence and propose changes. A person approves each one.",
     badge: "Early access",
   },
 ];
@@ -163,12 +172,11 @@ export function PlatformOverview() {
             One platform, four products
           </div>
           <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Each stage builds on <span className="gradient-text">the one before it.</span>
+            Start with one product and <span className="gradient-text">add the others later.</span>
           </h2>
           <p className="mt-4 text-[#475569] leading-relaxed">
-            Your cloud accounts are connected once. Every product reads the same inventory, runs in
-            the same console behind the same login, and is granted per organisation — start with the
-            one you need and add the rest when you are ready.
+            You connect your cloud accounts once. Every product reads the same inventory, runs in the
+            same console behind the same login, and is granted per organisation.
           </p>
         </div>
 
@@ -178,7 +186,7 @@ export function PlatformOverview() {
             return (
               <li key={p.key} className="min-w-0">
                 <Link to={p.href} className="group block h-full">
-                  <div className="h-full flex flex-col bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_16px_36px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all">
+                  <div className="h-full flex flex-col bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_16px_36px_rgba(16,24,40,.10)] transition-all">
                     <div className="flex items-center justify-between gap-2">
                       <div
                         className="w-10 h-10 rounded-xl grid place-items-center shrink-0"
@@ -237,14 +245,14 @@ export function SecuritySpotlight({ asHero = false }: { asHero?: boolean } = {})
             <span className="text-[#9FB0CC] uppercase">Onam Security</span>
           </div>
           <Heading className="mt-6 font-display font-black text-white text-4xl md:text-5xl tracking-tight leading-[1.05] text-balance">
-            Is your cloud secure, or does it just{" "}
-            <span className="text-[#4D8DFF]">feel that way?</span>
+            Find the misconfigurations and identity risks that{" "}
+            <span className="text-[#4D8DFF]">lead to your data.</span>
           </Heading>
           <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-xl">
-            Onam Security maps every misconfiguration, identity risk, and attack path across all{" "}
-            {CLOUDS} clouds into one graph — then prices the route an attacker would actually take.
-            CSPM, CIEM, DSPM, code security, attack paths and detection, on the inventory Onam
-            Estate keeps current.
+            Onam Security links misconfigurations, identity risks and attack paths across{" "}
+            {CLOUDS} clouds, then puts an estimated cost on the route an attacker would take. It
+            covers CSPM, CIEM, DSPM, code security, attack paths and detection, using the inventory
+            Onam Estate keeps current.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <BrandButton
@@ -295,7 +303,7 @@ function HeroMock() {
       n: 1,
       kind: "EC2 instance",
       id: "i-0abc1234def",
-      note: "IMDSv1 enabled — credentials readable from the instance",
+      note: "IMDSv1 enabled, so credentials are readable from the instance",
       tag: "T1552.005",
       dot: "#4D8DFF",
       role: "Entry point",
@@ -304,7 +312,7 @@ function HeroMock() {
       n: 2,
       kind: "IAM role",
       id: "OpsAdminRole",
-      note: "iam:PassRole:* — escalates to any role in the account",
+      note: "iam:PassRole:* lets it escalate to any role in the account",
       tag: "T1078.004",
       dot: "#FBBF24",
       role: "Privilege gained",
@@ -329,7 +337,7 @@ function HeroMock() {
           <div className="flex items-center gap-2 min-w-0">
             <Shield className="w-4 h-4 shrink-0 text-[#4D8DFF]" />
             <span className="text-sm font-semibold text-white truncate">
-              Attack path to crown jewel
+              Attack path to customer data
             </span>
           </div>
           <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FF6B63]/15 text-[#FF6B63]">
@@ -413,7 +421,7 @@ function HeroMock() {
             <div className="inline-flex items-center gap-2 rounded-lg border border-[#34D399]/30 bg-[#34D399]/10 px-2.5 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
               <span className="text-[11px] font-semibold text-[#34D399]">
-                Disable IMDSv1 — cuts all 3 paths
+                Disable IMDSv1: cuts all 3 paths
               </span>
             </div>
           </div>
@@ -423,7 +431,7 @@ function HeroMock() {
       {/* Required by the marketing guardrails: demo-tenant numbers are
           illustrations and are never presented as customer outcomes. */}
       <p className="mt-3 text-[11px] text-[#7C8CA8] text-center">
-        Illustrative — demo tenant. FAIR-based range, not a customer result.
+        Illustrative, from a demo tenant. FAIR-based range, not a customer result.
       </p>
     </div>
   );

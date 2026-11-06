@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { MapPin, ArrowRight, Compass, HeartHandshake, Rocket } from "lucide-react";
+import { MapPin, ArrowRight, Rocket } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
@@ -9,7 +9,7 @@ export const Route = createFileRoute("/company/careers")({
     seo({
       title: "Careers — Onam",
       description:
-        "We're a small, senior team building the cloud platform we always wanted — asset inventory, security, cost and disaster recovery on one discovery.",
+        "Open roles at Onam, a small company building cloud software for asset inventory, security, cost and disaster recovery.",
       path: "/company/careers",
     }),
   component: CareersPage,
@@ -22,11 +22,6 @@ const roles = [
   { title: "Developer Advocate", team: "DevRel", location: "Remote", blurb: "Write the docs, code the demos, ship the workshops. Be a bridge between practitioners and product." },
 ];
 
-const howWeWork = [
-  { icon: Compass, iconColor: "#2563EB", title: "Remote-first, async by default", body: "We optimise for deep work. Time-zone overlap, not calendar collisions." },
-  { icon: HeartHandshake, iconColor: "#05A052", title: "Senior, small, and kind", body: "No junior gauntlet. No bro-ology. Everyone here has been the person on-call at 2am." },
-  { icon: Rocket, iconColor: "#F2AF04", title: "Ship weekly, review honestly", body: "Small changes, fast feedback, clear ownership. No 'design review by committee'." },
-];
 
 function CareersPage() {
   return (
@@ -36,10 +31,12 @@ function CareersPage() {
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Careers</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
-            Build the cloud platform we always wanted.
+            Work on Onam
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            We're a small, senior team of security engineers, detection researchers, and platform builders, working on four products — Onam Estate, Security, FinOps and DRM — and the AI agents across them. If you've spent a career being frustrated by cloud tooling — come fix it with us.
+            Onam is a small company led by its founder, Anup Yadav, with Poonam Yadav as Head of Engineering. We build
+            four products (Onam Estate, Security, FinOps and DRM) and the AI agents that work across them. Most of
+            the work is remote.
           </p>
         </div>
       </section>
@@ -48,10 +45,10 @@ function CareersPage() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-end justify-between gap-4 flex-wrap">
             <div>
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Open roles</div>
-              <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Where we're hiring</h2>
+              <h2 className="font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Roles we hire for</h2>
+              <p className="mt-3 text-[#475569] max-w-2xl">We hire a few people at a time. If one of these fits you, write to us and say what you would want to work on.</p>
             </div>
-            <p className="text-sm text-[#64748B]">Don't see your role? Email <a href="mailto:careers@onam.security" className="text-[#2563EB] font-semibold hover:underline">careers@onam.security</a>.</p>
+            <p className="text-sm text-[#64748B]">Don't see your role? Email <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.</p>
           </div>
           <div className="mt-10 space-y-3">
             {roles.map((r) => (
@@ -67,7 +64,7 @@ function CareersPage() {
                   </div>
                 </div>
                 <a
-                  href={`mailto:careers@onam.security?subject=Application%3A%20${encodeURIComponent(r.title)}`}
+                  href={`mailto:hello@onamsecurity.com?subject=Application%3A%20${encodeURIComponent(r.title)}`}
                   className="shrink-0 inline-flex items-center gap-1.5 rounded-[10px] px-4 py-2.5 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition"
                 >
                   Apply <ArrowRight className="w-4 h-4" />
@@ -81,11 +78,11 @@ function CareersPage() {
       <section className="bg-[#F7F9FC] py-16 border-y border-[#E3E8F0]">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">Before you apply</div>
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">Before you apply</div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Read the engineering briefing first</h2>
             <p className="mt-4 text-[#5C6B84] text-lg leading-relaxed">
-              The same deck we use internally — what the system actually is, what you would
-              work on, and the problem we have not solved yet. It names an unsolved data-quality
+              The same deck we use internally: what the system is, what you would work on,
+              and the problem we have not solved yet. It names an unsolved data-quality
               problem and the fact that we ship no runtime agent, because you would find both in
               week one anyway.
             </p>
@@ -104,31 +101,13 @@ function CareersPage() {
       </section>
 
       <section className="bg-white py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">How we work</div>
-            <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">The team, in three lines</h2>
-          </div>
-          <div className="mt-12 grid md:grid-cols-3 gap-5">
-            {howWeWork.map((v) => {
-              const Icon = v.icon;
-              return (
-                <div key={v.title} className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]">
-                  <div
-                    className="w-11 h-11 rounded-xl grid place-items-center"
-                    style={{
-                      backgroundColor: `color-mix(in srgb, ${v.iconColor} 12%, #FFFFFF)`,
-                      boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${v.iconColor} 22%, transparent)`,
-                    }}
-                  >
-                    <Icon className="w-5 h-5" style={{ color: v.iconColor }} />
-                  </div>
-                  <h3 className="mt-5 font-display font-bold text-[#0B1220]">{v.title}</h3>
-                  <p className="mt-2 text-sm text-[#475569] leading-relaxed">{v.body}</p>
-                </div>
-              );
-            })}
-          </div>
+        <div className="max-w-3xl mx-auto px-6">
+          <h2 className="font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">How we work</h2>
+          <p className="mt-4 text-[#475569] leading-relaxed">
+            We work remotely and mostly in writing, so you get long stretches without meetings. Changes are small and
+            reviewed by someone else before they ship. You will own a piece of the product end to end, and you will
+            talk to the founder directly.
+          </p>
         </div>
       </section>
     </SiteLayout>

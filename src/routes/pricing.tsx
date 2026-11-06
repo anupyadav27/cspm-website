@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
-import { Check, X, HelpCircle, Sparkles, ArrowRight, Scale } from "lucide-react";
+import { Check, X, HelpCircle, Sparkles, ArrowRight, Scale } from "@/components/site/icons";
 import { useState } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -17,7 +17,7 @@ export const Route = createFileRoute("/pricing")({
     seo({
       title: "Pricing — Onam",
       description:
-        "Pricing for the Onam platform. Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation — contact sales. Onam AIOps is in early access by invitation.",
+        "Pricing for the Onam platform. Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation; contact sales for those. Onam AIOps is in early access by invitation.",
       path: "/pricing",
       image: "/og/pricing.png",
     }),
@@ -43,9 +43,8 @@ const tiers: Tier[] = [
     blurb: "Before you decide: we scan one cloud account with read-only posture scanning and walk you through what we find.",
     features: [
       "1 cloud account, scanned once",
-      "Every risk ranked, each with its fix",
-      "Findings mapped to compliance frameworks",
-      "A report you keep",
+      "Findings ranked by risk, each with its fix and the compliance frameworks it affects",
+      "A report of the findings to keep",
       "45-minute readout with our team",
     ],
     notIncluded: ["Continuous monitoring", "Team access & SSO", "Workload, identity and data engines"],
@@ -55,21 +54,21 @@ const tiers: Tier[] = [
     name: "Onam Security",
     price: "Annual",
     priceSub: "priced per cloud account",
-    blurb: "Every security layer across seven clouds, priced per connected cloud account and billed annually. Buy direct, through a partner, or on Microsoft Marketplace.",
+    blurb: "All Onam Security engines across seven clouds, priced per connected cloud account and billed annually. Buy direct, through a partner, or on Microsoft Marketplace.",
     features: [
       "Priced per connected cloud account",
-      `All ${ENGINES} engines — CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM`,
+      `All ${ENGINES} engines: CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM`,
       `All ${FRAMEWORKS} compliance frameworks`,
       "CIEM & identity attack paths",
-      "Agentless workload scanning — no agents to deploy",
-      "SaaS security — M365, Workspace, GitHub, Snowflake",
-      "Threat detection — MITRE ATT&CK mapped",
+      "Agentless workload scanning (no agents to deploy)",
+      "SaaS security: M365, Workspace, GitHub, Snowflake",
+      "Threat detection mapped to MITRE ATT&CK",
       "Network, API, database & encryption posture",
       "Vulnerability management with EPSS scoring",
       "AI assistant & per-finding remediation",
       "1-year finding history",
       "Email & Slack notifications",
-      "Reports & exports — CSV, JSON, PDF",
+      "Reports & exports in CSV, JSON and PDF",
       "Email support",
     ],
     cta: { label: "Get a quote", to: "/company/contact" },
@@ -86,12 +85,12 @@ const tiers: Tier[] = [
       "Custom compliance framework builder",
       "SSO / SAML 2.0",
       "RBAC with custom roles",
-      "Dedicated security engineer",
-      "On-premises deployment option",
+      "Dedicated security engineer (on request)",
+      "On-premises deployment (on request)",
       "Custom data retention",
       "Service levels agreed in your contract",
       "Priority support",
-      "Quarterly posture review",
+      "Quarterly posture review (on request)",
       "Custom contract & invoicing",
     ],
     cta: { label: "Contact sales", to: "/company/contact" },
@@ -112,7 +111,7 @@ const comparison: { label: string; free: string; pro: string; ent: string }[] = 
   { label: "RBAC", free: "—", pro: "Basic", ent: "Custom roles" },
   { label: "Support", free: "Readout with our team", pro: "Email", ent: "Priority + CSM" },
   { label: "Service levels", free: "—", pro: "—", ent: "Agreed in your contract" },
-  { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS or on-prem" },
+  { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS (on-prem on request)" },
 ];
 
 const faqs = [
@@ -122,14 +121,14 @@ const faqs = [
   },
   {
     q: "What does the free audit scan include?",
-    a: "We connect to one cloud account through read-only posture scanning, run the checks once and walk you through the results in a 45-minute readout: every risk ranked, each with its fix, mapped to compliance frameworks. You keep the report. There is no charge and no commitment.",
+    a: "We connect to one cloud account through read-only posture scanning, run the checks once and walk you through the results in a 45-minute readout. Each finding is ranked by risk and comes with its fix and the compliance frameworks it affects. You keep the report. There is no charge and no commitment.",
   },
   { q: "Can we add cloud accounts during the year?", a: "Yes. Tell us and we update your quote for the accounts you add." },
-  { q: "Do you offer a nonprofit or academic discount?", a: "Yes — contact sales. Verified nonprofits and academic institutions receive a discount." },
+  { q: "Do you offer a nonprofit or academic discount?", a: "Yes. Contact sales. Verified nonprofits and academic institutions receive a discount." },
   { q: "Can we buy through our existing security or cloud partner?", a: "Often, yes. Onam works with security service providers and cloud partners who resell or run Onam for their clients. Ask us, or ask your partner." },
   {
     q: "Are Onam Estate, Onam FinOps and Onam DRM included in Onam Security?",
-    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription — so buying Onam Security does not turn them on, and buying one of them does not require Onam Security. Talk to sales about any of them.",
+    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription. Buying Onam Security does not turn them on, and buying one of them does not require Onam Security. Talk to sales about any of them.",
   },
   {
     q: "Can we buy Onam FinOps without Onam Security?",
@@ -137,7 +136,7 @@ const faqs = [
   },
   {
     q: "How do we get Onam AIOps?",
-    a: "Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to \"propose\" — agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.",
+    a: "Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to \"propose\": agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.",
   },
 ];
 
@@ -219,7 +218,7 @@ function PricingPage() {
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
           <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Pricing</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.05]">
-            Four products. Buy the ones you need.
+            Pricing for each Onam product
           </h1>
           <p className="mt-5 text-lg text-[#475569]">
             Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan
@@ -278,7 +277,7 @@ function PricingPage() {
               </div>
             </div>
             <p className="mt-3 text-sm text-[#475569] max-w-2xl leading-relaxed">
-              Each is its own product, granted per organisation — not a tier or feature of Onam Security. None of
+              Each is its own product, granted per organisation. It is not a tier or feature of Onam Security. None of
               them requires a security plan, and upgrading a security plan does not turn them on. If you run more
               than one product, they share one login, one console and one discovery, so your cloud accounts are
               connected once. No price is published yet; talk to us.
@@ -360,7 +359,7 @@ function PricingPage() {
       <section className="bg-[#F7F9FC] border-y border-[#E5E9F0] py-20">
         <div className="max-w-6xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
               Compare plans
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -403,7 +402,7 @@ function PricingPage() {
         />
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
               <HelpCircle className="w-3.5 h-3.5" /> Pricing FAQ
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">

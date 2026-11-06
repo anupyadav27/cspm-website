@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { AlertTriangle, GitBranch, TrendingUp, Star, ArrowRight, ChevronRight, Workflow } from "lucide-react";
+import { AlertTriangle, GitBranch, TrendingUp, Star, ArrowRight, ChevronRight, Workflow } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { SCENARIOS, type Scenario } from "@/data/scenarios";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/resources/scenarios")({
     seo({
       title: "Industry Scenarios — The Attack Path, Priced, By Sector — Onam Security",
       description:
-        "Illustrative cloud attack-path scenarios for five sectors: the route to a crown jewel, the choke point that cuts it, and the exposure priced in dollars.",
+        "Illustrative cloud attack-path scenarios for five sectors: the route to a high-value asset, the choke point that cuts it, and the exposure priced in dollars.",
       path: "/resources/scenarios",
     }),
   component: ScenariosPage,
@@ -103,15 +103,15 @@ function ScenariosPage() {
             Illustrative scenarios
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.06]">
-            The attack path, priced — by sector.
+            The attack path, priced by sector.
           </h1>
           <p className="mt-5 text-lg text-[#475569] leading-relaxed">
-            Five industry archetypes showing the same story in each: the route to a crown jewel, the
+            Five industry archetypes showing the same story in each: the route to a high-value asset, the
             single choke point that cuts it, and the board-ready dollar figure.
           </p>
           <p className="mt-5 text-sm text-[#64748B] leading-relaxed border-l-2 border-[#E5E9F0] pl-4">
             These are <strong className="text-[#0B1220] font-semibold">illustrative archetypes, not customers</strong>.
-            The paths and figures show how the platform reasons about sector-specific risk — they are
+            The paths and figures show how the platform reasons about sector-specific risk. They are
             not reported outcomes from named engagements.
           </p>
         </div>
@@ -159,10 +159,10 @@ function ScenariosPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="gradient-border rounded-3xl p-10 md:p-14 text-center">
             <h2 className="font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              Your sector. Your path. <span className="gradient-text">Your number.</span>
+              Get the estimate for <span className="gradient-text">your own estate.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-xl mx-auto leading-relaxed">
-              These are archetypes. Connect one account and Onam surfaces your actual attack paths, choke
+              These are archetypes. Connect one account and Onam surfaces your own attack paths, choke
               points and a risk estimate for each finding.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">

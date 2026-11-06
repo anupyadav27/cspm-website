@@ -5,7 +5,7 @@ import { Prose } from "@/components/site/Prose";
 import { BLOG_POSTS, getPost, type BlogPost } from "@/data/blog-posts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { getAuthor, personJsonLd } from "@/data/authors";
-import { ChevronRight, Newspaper } from "lucide-react";
+import { ChevronRight, Newspaper } from "@/components/site/icons";
 import { Backdrop } from "@/components/site/system";
 
 function articleJsonLd(p: BlogPost) {

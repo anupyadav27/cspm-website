@@ -1,5 +1,5 @@
 import { useRouterState } from "@tanstack/react-router";
-import { Download, Maximize2 } from "lucide-react";
+import { Download, Maximize2 } from "@/components/site/icons";
 import { Container, Section, SectionHeading } from "@/components/site/system";
 
 /**

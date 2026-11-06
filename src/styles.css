@@ -13,7 +13,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-display: "IBM Plex Sans", "Inter", sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
@@ -90,7 +90,7 @@
 }
 
 :root {
-  --radius: 0.875rem;
+  --radius: 0.5rem;
   --background: #FFFFFF;
   --foreground: #0B1220;
   --card: #FFFFFF;
@@ -124,22 +124,17 @@
   }
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     color: #0B1220;
   }
 }
 
-/* One hue, with depth — not a sweep across three.
-   This ran #2563EB -> #05A052, so the emphasised phrase in the hero passed
-   through blue, teal and green in four words. Three hues in one breath reads
-   consumer; the category leaders hold a single accent and let type and density
-   do the work. Green is still the product's OK/success signal, which is exactly
-   why it should not also be decoration in a headline. */
+/* Headings used to colour their second half with a blue gradient. That
+   half-gradient heading is a stock template look, so the class now leaves the
+   text in the heading's own colour. Kept as a no-op so existing markup still
+   compiles. */
 @utility gradient-text {
-  background-image: linear-gradient(90deg, #2563EB 0%, #1E40AF 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  color: inherit;
 }
 
 /* Legacy "glass" utility is now a light enterprise card so any component
@@ -147,14 +142,13 @@
 @utility glass {
   background: #FFFFFF;
   border: 1px solid #E5E9F0;
-  border-radius: 14px;
+  border-radius: 8px;
   box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
   transition: box-shadow .3s ease, transform .3s ease, border-color .3s ease;
 }
 
 @utility glass-hover {
   &:hover {
-    transform: translateY(-2px);
     border-color: #CBD5E1;
     box-shadow: 0 12px 28px rgba(16,24,40,.10);
   }
@@ -163,7 +157,7 @@
 @utility glass-strong {
   background: #FFFFFF;
   border: 1px solid #E5E9F0;
-  border-radius: 16px;
+  border-radius: 10px;
   box-shadow: 0 12px 32px rgba(16,24,40,.08);
 }
 
@@ -171,19 +165,11 @@
   position: relative;
   background: #FFFFFF;
   border: 1px solid #E5E9F0;
-  box-shadow: 0 12px 32px rgba(37,99,235,.10);
-  &::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 16px; bottom: 16px;
-    width: 3px;
-    background: linear-gradient(180deg, #2563EB 0%, #05A052 100%);
-    border-radius: 3px;
-  }
+  box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
 }
 
 @utility brand-glow {
-  box-shadow: 0 8px 24px -8px rgba(37,99,235,.35);
+  box-shadow: 0 1px 2px rgba(16,24,40,.08);
 }
 
 @utility dot-grid {
@@ -194,11 +180,10 @@
 @utility card-lift {
   background: #FFFFFF;
   border: 1px solid #E5E9F0;
-  border-radius: 14px;
+  border-radius: 8px;
   box-shadow: 0 1px 2px rgba(16,24,40,.04), 0 1px 3px rgba(16,24,40,.06);
   transition: all .25s ease;
   &:hover {
-    transform: translateY(-2px);
     border-color: #CBD5E1;
     box-shadow: 0 12px 28px rgba(16,24,40,.10);
   }

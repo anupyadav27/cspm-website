@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { ArrowRight, BookOpen, Check, FileSearch, ListChecks, Lock, Power } from "lucide-react";
+import { ArrowRight, BookOpen, Check } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 import {
   SUITE,
@@ -16,8 +16,8 @@ import { StatusBadge } from "@/components/site/ops/OpsUi";
  * Platform homepage sections built on src/data/product-suite.ts, plus SuiteStrip,
  * which every product page uses to show where it sits in the platform.
  *
- * Product illustrations are public/images/products/*.svg (scripts/generate-product-art.mjs):
- * one isometric template, so the five read as a set.
+ * Product pictures: real console screenshots where we have them (Security, DRM), and flat
+ * console-style drawings in public/images/products/*.svg for the rest (3 Nov 2026).
  */
 
 function IconTile({ p, size = "md" }: { p: SuiteProduct; size?: "sm" | "md" }) {
@@ -51,15 +51,15 @@ export function ProductSuite() {
     <section id="products" className="py-24 bg-white border-b border-[#E5E9F0] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-3xl">
-          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#2563EB]">
+          <div className="text-sm font-semibold text-[#1D4ED8]">
             The products
           </div>
           <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.08] text-balance">
-            Four products, one inventory — and AI agents across all of them.
+            Four products that share one inventory. AI agents work across them in early access.
           </h2>
           <p className="mt-4 text-lg text-[#475569] leading-relaxed">
-            Each product answers one question a team already asks. Buy the one you need today; the
-            others work from the same discovery the day you add them.
+            Each product answers a question a team already asks. Buy the one you need now. The
+            others use the same discovery when you add them.
           </p>
         </div>
 
@@ -228,9 +228,11 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
             width={640}
             height={420}
             loading="lazy"
-            className="w-full h-full object-cover"
+            className={cn("w-full h-full", p.image.endsWith(".svg") ? "object-contain bg-[#F7F9FC]" : "object-cover object-left-top")}
           />
-          <p className="absolute bottom-3 right-4 text-[11px] text-[#64748B]">Illustrative</p>
+          <p className="absolute bottom-3 right-4 rounded bg-white/90 px-1.5 text-[11px] text-[#64748B]">
+            {p.image.endsWith(".svg") ? "Drawing, sample data" : "Console screenshot, sample data"}
+          </p>
         </div>
       </div>
     </div>
@@ -249,8 +251,6 @@ export function AIOpsSpotlight() {
 
   return (
     <section className="relative overflow-hidden bg-[#0B1220] border-b border-[#1E293B]">
-      <div className="pointer-events-none absolute -top-48 right-[-10%] w-[760px] h-[560px] rounded-full bg-[#4F46E5]/25 blur-[160px]" />
-      <div className="pointer-events-none absolute bottom-[-30%] left-[-10%] w-[560px] h-[460px] rounded-full bg-[#2563EB]/15 blur-[150px]" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 py-20 md:py-24">
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
           <div className="min-w-0">
@@ -266,43 +266,29 @@ export function AIOpsSpotlight() {
             </h2>
             <p className="mt-5 text-lg text-[#CBD5E1] leading-relaxed max-w-xl">{ai.blurb}</p>
 
-            <ul className="mt-8 grid sm:grid-cols-2 gap-3">
+            <ol className="mt-8 space-y-3 list-decimal pl-5 marker:text-[#A5B4FC] marker:font-semibold text-[15px] text-[#CBD5E1] leading-relaxed max-w-xl">
               {(
                 [
                   [
-                    ListChecks,
-                    "A plan you can see",
-                    "Which agent does what, in which order — before it runs.",
+                    "You see the plan first.",
+                    "Which agent does what, and in which order, before anything runs.",
+                  ],
+                  ["Numbers come with evidence.", "Each one links to the query and scan behind it."],
+                  [
+                    "A person approves each change.",
+                    "You see the diff and the rollback first, and the approval covers only that change.",
                   ],
                   [
-                    FileSearch,
-                    "Evidence on every claim",
-                    "Each number links to the query and scan behind it.",
-                  ],
-                  [
-                    Lock,
-                    "A person approves every change",
-                    "Diff first, rollback shown, bound to that exact change.",
-                  ],
-                  [
-                    Power,
-                    "A kill switch and a ceiling",
-                    "Autonomy is capped per organisation and can be stopped.",
+                    "It can be stopped.",
+                    "Autonomy is capped per organisation, and there is a kill switch.",
                   ],
                 ] as const
-              ).map(([Icon, t, b]) => (
-                <li
-                  key={t}
-                  className="flex gap-3 rounded-2xl border border-[#1E293B] bg-[#111A2E] p-4"
-                >
-                  <Icon className="mt-0.5 h-5 w-5 shrink-0 text-[#A5B4FC]" />
-                  <div>
-                    <div className="font-semibold text-white text-[15px]">{t}</div>
-                    <div className="mt-0.5 text-[13.5px] text-[#94A3B8]">{b}</div>
-                  </div>
+              ).map(([t, b]) => (
+                <li key={t} className="pl-1">
+                  <span className="font-semibold text-white">{t}</span> {b}
                 </li>
               ))}
-            </ul>
+            </ol>
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -399,11 +385,11 @@ export function OneFoundation() {
     <section className="py-24 bg-[#F7F9FC] border-b border-[#E5E9F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-3xl">
-          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#2563EB]">
+          <div className="text-sm font-semibold text-[#1D4ED8]">
             One platform
           </div>
           <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.08] text-balance">
-            Built once, underneath every product.
+            What the four products share.
           </h2>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -433,11 +419,12 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
             The rest of the platform
           </div>
           <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-3xl tracking-tight">
-            {getSuite(current).name} is one part of one platform.
+            {getSuite(current).name} works alongside the other Onam products.
           </h2>
           <p className="mt-3 text-[#475569]">
             Estate finds what you run, Security protects it, FinOps explains what it costs and DRM
-            plans how it comes back — with Onam AIOps agents across them, on the same discovery.
+            plans how it comes back after an outage. Onam AIOps agents work across all of them, on
+            the same discovery.
           </p>
         </div>
         <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
@@ -455,7 +442,7 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
                     "h-full bg-white border rounded-2xl overflow-hidden transition-all",
                     here
                       ? "border-[#C7D7FE] shadow-[0_0_0_3px_rgba(37,99,235,.08)]"
-                      : "border-[#E5E9F0] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5",
+                      : "border-[#E5E9F0] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]",
                   )}
                 >
                   <img

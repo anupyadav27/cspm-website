@@ -1,4 +1,4 @@
-import { AppWindow, GitCompareArrows, ListOrdered, ShieldCheck, Timer } from "lucide-react";
+import { AppWindow, GitCompareArrows, ListOrdered, ShieldCheck, Timer } from "@/components/site/icons";
 import type { Capability } from "./types";
 
 /**
@@ -10,7 +10,7 @@ import type { Capability } from "./types";
  * The figures visible in them are seeded demo data and are never quoted in the copy.
  */
 
-const CAPTION = "Onam DRM console — demo tenant data.";
+const CAPTION = "Onam DRM console. Demo tenant data.";
 const shot = (file: string, path: string, alt: string, label?: string) => ({
   src: `/screenshots/console/drm-${file}.webp`,
   url: `app.onamsecurity.com/drm${path}`,
@@ -24,7 +24,7 @@ const DR_AGENT_HREF = "/docs/operations/agents/dr-agent";
 
 const LIMIT_NO_RECOVERY = {
   title: "It does not execute a recovery",
-  body: "DRM plans, predicts and records. It does not fail anything over or start a recovery in your environment — your own tools and runbooks do that.",
+  body: "DRM plans, predicts and records. It does not fail anything over or start a recovery in your environment. Your own tools and runbooks do that.",
 };
 const LIMIT_NO_TESTS = {
   title: "It does not run DR tests",
@@ -32,7 +32,7 @@ const LIMIT_NO_TESTS = {
 };
 const LIMIT_NO_CONNECTORS = {
   title: "It has no connectors to backup products",
-  body: "Protection is read from cloud configuration and reported as discovered, not protected. Configuration shows a mechanism is set up — not that last night's job succeeded or that a restore works.",
+  body: "Protection is read from cloud configuration and reported as discovered. Configuration shows a mechanism is set up. It does not show that last night's job succeeded or that a restore works.",
 };
 const LIMIT_BLANK = {
   title: "It does not guess a figure it cannot derive",
@@ -47,15 +47,15 @@ export const capabilities: Capability[] = [
     icon: AppWindow,
     seoTitle: "Applications & Dependencies for Disaster Recovery | Onam DRM",
     metaDescription:
-      "Onam DRM proposes applications from your tags and classifies every dependency by what it means for recovery — order, protection or shared failure domain.",
-    question: "Which applications do we actually recover, and what does each one depend on?",
-    lead: "You recover an application, not a volume. Onam DRM proposes your applications from the tags you already use and classifies every dependency between their parts by what it means for recovery.",
+      "Onam DRM proposes applications from your tags and classifies every dependency by what it means for recovery: order, protection or shared failure domain.",
+    question: "Which applications do we recover, and what does each one depend on?",
+    lead: "Recovery happens application by application. Onam DRM proposes your applications from the tags you already use and classifies every dependency between their parts by what it means for recovery.",
     problem:
-      "The recovery plan names applications, but nobody can say with confidence which databases, queues and storage each one really uses today. The list was drawn up by hand for an audit, and every new resource since has been added to the estate without being added to the plan. When the outage comes, the first hour goes on working out what belongs to what.",
+      "The recovery plan names applications, but nobody can say with confidence which databases, queues and storage each one uses today. The list was drawn up by hand for an audit, and every new resource since has been added to the estate without being added to the plan. When the outage comes, the first hour goes on working out what belongs to what.",
     whatYouSee: [
       {
         title: "Applications proposed from your tags",
-        body: "An application tag, a CloudFormation stack, a Helm release or a Kubernetes cluster — each proposed application shows the tag it came from and a confidence in what that tag means.",
+        body: "An application tag, a CloudFormation stack, a Helm release or a Kubernetes cluster. Each proposed application shows the tag it came from and a confidence in what that tag means.",
       },
       {
         title: "Components that recover together",
@@ -67,7 +67,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Gaps kept visible",
-        body: "Resources that could not be grouped are shown as plainly as those that could, and a dependency DRM could not resolve stays on the graph as unresolved instead of being dropped.",
+        body: "Resources that could not be grouped are shown alongside those that could, and a dependency DRM could not resolve stays on the graph as unresolved instead of being dropped.",
       },
       {
         title: "Placement the provider states",
@@ -81,7 +81,7 @@ export const capabilities: Capability[] = [
     steps: [
       {
         title: "Start from the platform inventory",
-        body: "DRM reads the Onam platform's cloud inventory — the same discovery Onam Estate reads — so your accounts are connected once and DRM runs no scan of its own.",
+        body: "DRM reads the Onam platform's cloud inventory (the same discovery Onam Estate reads), so your accounts are connected once and DRM runs no scan of its own.",
       },
       {
         title: "Propose applications from tags",
@@ -106,7 +106,7 @@ export const capabilities: Capability[] = [
     limits: [
       {
         title: "Grouping is only as good as your tags",
-        body: "Applications are proposed from tags. An estate where only compute is tagged will produce applications that contain only compute, with databases or storage left ungrouped — tagging what an application uses is the most direct fix.",
+        body: "Applications are proposed from tags. An estate where only compute is tagged will produce applications that contain only compute, with databases or storage left ungrouped. Tagging what an application uses is the most direct fix.",
       },
       LIMIT_NO_RECOVERY,
     ],
@@ -117,7 +117,7 @@ export const capabilities: Capability[] = [
       },
       {
         q: "What if our tags are incomplete?",
-        a: "DRM proposes what the tags support and shows ungrouped resources plainly, as a gap to look at rather than something hidden. Tagging the databases and storage an application uses is the most direct way to improve what DRM proposes.",
+        a: "DRM proposes what the tags support and shows ungrouped resources openly, as a gap to look at rather than something hidden. Tagging the databases and storage an application uses is the most direct way to improve what DRM proposes.",
       },
       {
         q: "Why are dependencies split into three kinds?",
@@ -139,9 +139,9 @@ export const capabilities: Capability[] = [
     icon: ShieldCheck,
     seoTitle: "Backup & Replication Coverage from Cloud Configuration | Onam DRM",
     metaDescription:
-      "Onam DRM reads backup, snapshot and replication from cloud configuration, per resource and per application — reported as discovered, never as protected.",
-    question: "What does our cloud configuration say is actually backed up or replicated?",
-    lead: "Onam DRM reads backup plans, snapshots, replicas and replication from your cloud configuration and reports each one as discovered — never as protected or tested, because those are statements a person makes.",
+      "Onam DRM reads backup, snapshot and replication from cloud configuration, per resource and per application, and reports it as discovered, never as protected.",
+    question: "What does our cloud configuration say is backed up or replicated?",
+    lead: "Onam DRM reads backup plans, snapshots, replicas and replication from your cloud configuration and reports each one as discovered. It never reports protected or tested, because those are statements a person makes.",
     problem:
       "Everyone assumes the important databases are backed up and replicated. Some are; some had their replica removed in a cost review; some were created after the backup policy was written. The only list of what is protected is a spreadsheet that was right when it was made. A protection report that overstates is worse than none, because it is the one people will trust during an outage.",
     whatYouSee: [
@@ -159,11 +159,11 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Per application, pairing by pairing",
-        body: "A resource used by two applications gets one pairing for each — the same replica can be critical to one and incidental to another, and approving it for one is not approving it for the other.",
+        body: "A resource used by two applications gets one pairing for each. The same replica can be critical to one and incidental to another, and approving it for one is not approving it for the other.",
       },
       {
         title: "Coverage by resource type",
-        body: "Protection broken down by resource type, counted over resources so a type with no protection record at all still appears. Gaps in the model are shown as gaps, not as a score of zero.",
+        body: "Protection broken down by resource type, counted over resources so a type with no protection record at all still appears. Gaps in the model are shown as gaps instead of a score of zero.",
       },
     ],
     steps: [
@@ -195,7 +195,7 @@ export const capabilities: Capability[] = [
       LIMIT_NO_CONNECTORS,
       {
         title: "It cannot see inside a server",
-        body: "DRM reads the cloud provider's control plane. A database dump or backup job scheduled inside a virtual machine is invisible to it, so a resource with no visible mechanism is a question for its owner, not a verdict.",
+        body: "DRM reads the cloud provider's control plane. A database dump or backup job scheduled inside a virtual machine is invisible to it, so a resource with no visible mechanism is a question for its owner rather than a verdict.",
       },
     ],
     agent: {
@@ -207,7 +207,7 @@ export const capabilities: Capability[] = [
     faqs: [
       {
         q: "Does DRM connect to our backup product?",
-        a: "No. There are no connectors to backup products. DRM reads protection from cloud configuration, which shows that a mechanism is configured — not the job history of a third-party backup tool.",
+        a: "No. There are no connectors to backup products. DRM reads protection from cloud configuration, which shows that a mechanism is configured. It does not show the job history of a third-party backup tool.",
       },
       {
         q: "Why does DRM say 'discovered' rather than 'protected'?",
@@ -215,11 +215,11 @@ export const capabilities: Capability[] = [
       },
       {
         q: "A resource shows no protection, but we know it is backed up. Why?",
-        a: "It may be protected by something DRM cannot see — for example a backup job scheduled inside a virtual machine, or a third-party backup product. Treat it as a question for the resource's owner rather than a verdict.",
+        a: "It may be protected by something DRM cannot see, for example a backup job scheduled inside a virtual machine, or a third-party backup product. Treat it as a question for the resource's owner rather than a verdict.",
       },
       {
         q: "Does DRM change any backup or replication settings?",
-        a: "No. It reads configuration and inventory only. Approvals, baselines and pairings are records inside DRM, not changes to your cloud accounts.",
+        a: "No. It reads configuration and inventory only. Approvals, baselines and pairings are records inside DRM. Nothing changes in your cloud accounts.",
       },
     ],
     docs: "/docs/drm/protection",
@@ -233,11 +233,11 @@ export const capabilities: Capability[] = [
     icon: ListOrdered,
     seoTitle: "Recovery Plans, Critical Path & Readiness | Onam DRM",
     metaDescription:
-      "Onam DRM composes recovery plans from approved items — ordered steps, parallel groups and the critical path — and rates readiness against your RTO and RPO.",
-    question: "In what order does each application come back — and is that fast enough?",
+      "Onam DRM composes recovery plans from approved items (ordered steps, parallel groups and the critical path) and rates readiness against your RTO and RPO.",
+    question: "In what order does each application come back, and is that fast enough?",
     lead: "Onam DRM composes each application's recovery plan from approved applications, dependencies and protection: ordered steps, the steps that can run at the same time, and the critical path that sets how long it should take.",
     problem:
-      "The runbook lists a start-up order someone wrote down years ago. Since then services have moved, new dependencies have appeared and nobody has re-checked the sequence. The plan says the application comes back in an hour, but nobody can show where that hour comes from — or which step will hold everything else up.",
+      "The runbook lists a start-up order someone wrote down years ago. Since then services have moved, new dependencies have appeared and nobody has re-checked the sequence. The plan says the application comes back in an hour, but nobody can show where that hour comes from, or which step will hold everything else up.",
     whatYouSee: [
       {
         title: "Ordered steps",
@@ -245,7 +245,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Parallel groups and the critical path",
-        body: "Steps that can run at the same time are grouped, and the critical path — the longest chain that must run one after another — is shown against the fully serial time.",
+        body: "Steps that can run at the same time are grouped, and the critical path (the longest chain that must run one after another) is shown against the fully serial time.",
       },
       {
         title: "Where each step's position came from",
@@ -297,7 +297,7 @@ export const capabilities: Capability[] = [
       },
       {
         q: "How is the predicted recovery time calculated?",
-        a: "It is the critical path through the approved plan. Steps that run in parallel cost the longest of them, not the sum, and a step nobody has timed keeps its default duration so it never drops off the path.",
+        a: "It is the critical path through the approved plan. Steps that run in parallel cost the longest of them rather than the sum, and a step nobody has timed keeps its default duration so it never drops off the path.",
       },
       {
         q: "What does 'placed by convention' mean on a step?",
@@ -320,10 +320,10 @@ export const capabilities: Capability[] = [
     seoTitle: "Predicted RTO & RPO and DR Drill Records | Onam DRM",
     metaDescription:
       "Onam DRM keeps required, predicted and actual RTO and RPO apart, explains each prediction, and records drills against the figure promised at planning.",
-    question: "Could we recover in time — and how do we know the number is right?",
-    lead: "Onam DRM keeps three kinds of recovery figure apart — the targets you require, the figures it predicts from the approved plan, and the actual results of drills you record — because mixing them is how a plan looks better than it is.",
+    question: "Could we recover in time, and how do we know the number is right?",
+    lead: "Onam DRM keeps three kinds of recovery figure apart: the targets you require, the figures it predicts from the approved plan, and the results of drills you record. Mixing them is how a plan looks better than it is.",
     problem:
-      "The recovery time in the business continuity plan was agreed in a meeting, and it has been quoted ever since as if it were measured. Nobody can say whether the current architecture would meet it, and the last drill result was compared with whatever the plan said on the day of the report, not what was promised beforehand.",
+      "The recovery time in the business continuity plan was agreed in a meeting, and it has been quoted ever since as if it were measured. Nobody can say whether the current architecture would meet it, and the last drill result was compared with whatever the plan said on the day of the report instead of what was promised beforehand.",
     whatYouSee: [
       {
         title: "Required, predicted and actual, side by side",
@@ -339,7 +339,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Breaches and blanks",
-        body: "Applications breaching RTO or RPO, those within both, and those whose figures cannot be calculated yet — with the reason, such as no approved plan or no replication link.",
+        body: "Applications breaching RTO or RPO, those within both, and those whose figures cannot be calculated yet, with the reason, such as no approved plan or no replication link.",
       },
       {
         title: "Drill records",
@@ -361,7 +361,7 @@ export const capabilities: Capability[] = [
       },
       {
         title: "Run it with your own tools, then record it",
-        body: "The person who ran the drill enters the measured results, and DRM compares them with the prediction captured at planning — not with whatever the model says today.",
+        body: "The person who ran the drill enters the measured results, and DRM compares them with the prediction captured at planning, never with whatever the model says today.",
       },
     ],
     screenshots: [
@@ -396,7 +396,7 @@ export const capabilities: Capability[] = [
       },
       {
         q: "Does DRM run the drill?",
-        a: "No. You run the drill with your own tools and runbooks. DRM records it — planned, running, completed — and compares the measured result with the prediction captured when the drill was planned.",
+        a: "No. You run the drill with your own tools and runbooks. DRM records it as planned, running or completed, and compares the measured result with the prediction captured when the drill was planned.",
       },
       {
         q: "Can a calculated figure change the target we set?",
@@ -414,15 +414,15 @@ export const capabilities: Capability[] = [
     icon: GitCompareArrows,
     seoTitle: "DR Baselines & Drift from Approved Recovery Model | Onam DRM",
     metaDescription:
-      "Onam DRM freezes your approved recovery model as a baseline and measures drift against it — not scan against scan — ranked by consequence for recovery.",
+      "Onam DRM freezes your approved recovery model as a baseline and measures drift against it (never scan against scan), ranked by consequence for recovery.",
     question: "Has anything changed since we signed off the recovery plan?",
-    lead: "Onam DRM freezes each approved recovery model as a baseline and measures drift against it, so you see every difference from what you signed off — ranked by what it does to recoverability.",
+    lead: "Onam DRM freezes each approved recovery model as a baseline and measures drift against it, so you see every difference from what you signed off, ranked by what it does to recoverability.",
     problem:
-      "The recovery plan was approved for last year's audit. Since then a team added a database without a replica, another tightened a target, and a dependency moved. A change feed that compares each scan with the previous one quietly accepts all of it: a change on Tuesday looks normal by Wednesday. The question an auditor asks is different — has anything changed since the plan was approved?",
+      "The recovery plan was approved for last year's audit. Since then a team added a database without a replica, another tightened a target, and a dependency moved. A change feed that compares each scan with the previous one quietly accepts all of it: a change on Tuesday looks normal by Wednesday. The question an auditor asks is different: has anything changed since the plan was approved?",
     whatYouSee: [
       {
         title: "Drift against the approved baseline",
-        body: "Every difference between the active baseline and the current state — never between last week's scan and this one.",
+        body: "Every difference between the active baseline and the current state, never between last week's scan and this one.",
       },
       {
         title: "Ranked by consequence",
@@ -437,7 +437,7 @@ export const capabilities: Capability[] = [
         body: "A difference stays open until someone resolves it, rather than disappearing when the next scan treats it as normal.",
       },
       {
-        title: "Structure, not noise",
+        title: "What a baseline holds",
         body: "Baselines hold components, dependencies, protection pairings, plan steps and required targets. Live readings such as replication lag are deliberately left out of the baseline.",
       },
       {
@@ -487,7 +487,7 @@ export const capabilities: Capability[] = [
     faqs: [
       {
         q: "Why compare against a baseline rather than the previous scan?",
-        a: "Comparing each scan with the last one ratifies drift silently — a change made on Tuesday looks normal by Wednesday. Comparing against the baseline you signed off answers the question an auditor asks: has anything changed since the plan was approved?",
+        a: "Comparing each scan with the last one ratifies drift silently. A change made on Tuesday looks normal by Wednesday. Comparing against the baseline you signed off answers the question an auditor asks: has anything changed since the plan was approved?",
       },
       {
         q: "What goes into a baseline?",

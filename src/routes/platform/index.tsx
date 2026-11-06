@@ -19,7 +19,6 @@ import {
   SECURITY_JSONLD,
   StatsSection,
   TrustBar,
-  WhyNow,
 } from "@/components/site/security/SecurityHome";
 
 /**
@@ -54,7 +53,6 @@ function SecurityProductPage() {
       <OpsBand />
       <StatsSection />
       <ComplianceSection />
-      <WhyNow />
       <Differentiator />
       <TrustBar />
       <FAQSection />

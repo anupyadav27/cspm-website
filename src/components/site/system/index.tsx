@@ -1,5 +1,5 @@
 import type { CSSProperties, ElementType, ReactNode } from "react";
-import type { LucideIcon } from "lucide-react";
+import type { LucideIcon } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 
 /**
@@ -64,7 +64,7 @@ export function Container({
   );
 }
 
-/** The small uppercase label above a heading. */
+/** The small label above a heading. */
 export function Eyebrow({
   children,
   color,
@@ -79,7 +79,7 @@ export function Eyebrow({
   return (
     <div
       className={cn(
-        "text-xs uppercase tracking-[0.12em] font-semibold",
+        "text-sm font-semibold",
         onNight ? "text-on-night-muted" : "text-brand-500",
         className,
       )}
@@ -121,7 +121,7 @@ export function SectionHeading({
       )}
       <Tag
         className={cn(
-          "mt-3 font-display font-extrabold tracking-tight text-balance text-3xl md:text-[40px] leading-[1.1]",
+          "mt-2 font-display font-bold tracking-tight text-balance text-3xl md:text-[38px] leading-[1.15]",
           onNight ? "text-white" : "text-ink",
         )}
       >
@@ -188,7 +188,7 @@ export function Card({
       className={cn(
         "rounded-2xl border border-line bg-white shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]",
         interactive &&
-          "transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]",
+          "transition hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]",
         className,
       )}
     >

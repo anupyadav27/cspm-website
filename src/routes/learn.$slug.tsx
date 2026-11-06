@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { BookOpenText, ChevronRight } from "lucide-react";
+import { BookOpenText, ChevronRight } from "@/components/site/icons";
 import { Backdrop } from "@/components/site/system";
 import { getSuite } from "@/data/product-suite";
 import { SiteLayout } from "@/components/site/SiteLayout";

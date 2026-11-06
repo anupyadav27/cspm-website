@@ -1,4 +1,4 @@
-import { Network, KeyRound, Eye, Layers, GitBranch, ShieldCheck, Globe2, Server, Cpu, Boxes } from "lucide-react";
+import { Network, KeyRound, Eye, Layers, GitBranch, ShieldCheck, Globe2, Server, Cpu, Boxes } from "@/components/site/icons";
 import type { CloudSolutionData, CloudRelated } from "@/components/site/CloudSolutionTemplate";
 import { CLOUDS, FRAMEWORKS } from "@/lib/product-facts";
 
@@ -16,12 +16,12 @@ const CLOUD_RELATED_BASE: CloudRelated[] = [
   {
     label: "What is CSPM?",
     href: "/learn/cspm",
-    blurb: "Cloud security posture management explained — what it catches, and what it cannot.",
+    blurb: "Cloud security posture management explained: what it catches, and what it cannot.",
   },
   {
     label: "What is a cloud attack path?",
     href: "/learn/cloud-attack-path",
-    blurb: "Why a list of findings is not a priority, and how chains reach crown jewels.",
+    blurb: "Why a list of findings is not a priority, and how chains reach high-value assets.",
   },
   {
     label: "Attack Path Analysis",
@@ -29,14 +29,14 @@ const CLOUD_RELATED_BASE: CloudRelated[] = [
     blurb: "Attack paths and choke points computed across your whole estate.",
   },
   {
-    label: "CIEM — identity risk",
+    label: "CIEM: identity risk",
     href: "/platform/ciem",
     blurb: "Effective permissions after role chains, SCPs and permission boundaries.",
   },
   {
-    label: "Compliance — 78 frameworks",
+    label: `Compliance: ${FRAMEWORKS} frameworks`,
     href: "/platform/compliance",
-    blurb: "CIS, NIST, ISO 27001, PCI-DSS and more, scored continuously.",
+    blurb: "CIS, NIST, ISO 27001, PCI-DSS and more, scored on every scan.",
   },
   {
     label: "Workload scanning",
@@ -49,11 +49,11 @@ export const awsData: CloudSolutionData = {
   breadcrumb: "Solutions · Amazon Web Services",
   cloudName: "AWS",
   related: [
-    { label: "CWPP — workload protection", href: "/platform/cwpp", blurb: "EC2, EKS, ECS and Lambda workloads, scanned without agents." },
+    { label: "CWPP: workload protection", href: "/platform/cwpp", blurb: "EC2, EKS, ECS and Lambda workloads, scanned without agents." },
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Stop AWS misconfigurations before attackers find them first",
-  sub: "AWS's breadth — 200+ services across global regions — creates a sprawling attack surface that traditional tools cannot keep pace with. Onam continuously monitors every IAM policy, S3 bucket, security group, and Lambda configuration across all your AWS accounts with 800+ purpose-built rules.",
+  sub: "Onam checks every IAM policy, S3 bucket, security group and Lambda configuration across all your AWS accounts, using 2,018 posture rules written for AWS. With 200+ AWS services across global regions, that is a lot of configuration to keep track of by hand.",
   docsHref: "/docs/onboarding/aws",
   stats: [
     { value: "2,018", label: "posture rules on AWS" },
@@ -89,7 +89,7 @@ export const awsData: CloudSolutionData = {
   setupSteps: [
     {
       title: "Create a read-only IAM role",
-      body: "Use our CloudFormation template — one click, read-only, no destructive permissions. The role trusts Onam's AWS account with an external ID unique to your tenant.",
+      body: "Use our CloudFormation template: one click, read-only, no destructive permissions. The role trusts Onam's AWS account with an external ID unique to your tenant.",
     },
     {
       title: "Paste the Role ARN into Onam",
@@ -106,19 +106,19 @@ export const awsData: CloudSolutionData = {
       icon: Layers,
       iconColor: "#F2AF04",
       title: "Organizations-aware multi-account scanning",
-      body: "Onboard the AWS Organization once and every member account — current and future — is scanned automatically. SCPs, delegated admins, and OU structure are respected as first-class data.",
+      body: "Onboard the AWS Organization once and every member account, current and future, is scanned automatically. SCPs, delegated admins, and OU structure are respected as first-class data.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "IAM effective-permission graph",
-      body: "Onam resolves Service Control Policies, permission boundaries, identity policies, and resource policies into a single effective-access graph. See what a principal can actually do — not just what a policy says.",
+      body: "Onam resolves Service Control Policies, permission boundaries, identity policies, and resource policies into a single effective-access graph. See what a principal can do, as well as what each policy says.",
     },
     {
       icon: Globe2,
       iconColor: "#05A052",
       title: "S3 public-exposure chain analysis",
-      body: "Every bucket is evaluated end-to-end: bucket policy, ACL, Block Public Access settings, and CloudFront origin. If any hop makes it reachable from the internet, Onam flags the full chain — not just the bucket.",
+      body: "Every bucket is evaluated end-to-end: bucket policy, ACL, Block Public Access settings, and CloudFront origin. If any hop makes it reachable from the internet, Onam flags the full chain as well as the bucket.",
     },
   ],
   faqs: [
@@ -136,11 +136,11 @@ export const awsData: CloudSolutionData = {
     },
     {
       q: "Do I need to install agents or change my network?",
-      a: "No agents and no network changes. Posture scanning is AWS API calls from Onam's control plane using STS AssumeRole — no VPC peering, no PrivateLink, no security-group changes. Agentless workload scanning, if you enable it, runs inside your account through resources the onboarding template creates.",
+      a: "No agents and no network changes. Posture scanning is AWS API calls from Onam's control plane using STS AssumeRole, with no VPC peering, no PrivateLink, no security-group changes. Agentless workload scanning, if you enable it, runs inside your account through resources the onboarding template creates.",
     },
     {
       q: "Which frameworks do you map AWS findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS AWS Foundations Benchmark (several versions) and the CIS AWS service benchmarks, NIST 800-53, PCI DSS, SOC 2, and FedRAMP Moderate and High. Custom rules can carry their own framework mappings for internal standards.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS AWS Foundations Benchmark (several versions) and the CIS AWS service benchmarks, NIST 800-53, PCI DSS, SOC 2, and FedRAMP Moderate and High. Custom rules can carry their own framework mappings for internal standards.`,
     },
   ],
 };
@@ -155,7 +155,7 @@ export const azureData: CloudSolutionData = {
   headline: "Azure CSPM across every subscription, from Entra ID to NSG rules",
   metaDescription:
     "Azure CSPM: 1,926 posture rules across 95 Azure services, mapped to CIS Microsoft Azure Foundations 5.0, NIST 800-53 and ISO 27001, for every subscription.",
-  sub: "Azure cloud security posture management has to follow Azure's hierarchy — management groups, subscriptions and resource groups — or it misses the subscription nobody remembered. Onam scans the scope you grant, from Entra ID conditional access and Defender for Cloud plan settings to NSG rules and Key Vault configuration, and re-checks every resource on every scan.",
+  sub: "Azure cloud security posture management has to follow Azure's hierarchy (management groups, subscriptions and resource groups) or it misses the subscription nobody remembered. Onam scans the scope you grant, from Entra ID conditional access and Defender for Cloud plan settings to NSG rules and Key Vault configuration, and re-checks every resource on every scan.",
   docsHref: "/docs/onboarding/azure",
   stats: [
     { value: "1,926", label: "posture rules on Azure" },
@@ -199,7 +199,7 @@ export const azureData: CloudSolutionData = {
     },
     {
       title: "Findings from the first scan",
-      body: "Onam authenticates via workload identity federation — no client secrets to rotate — and scans every subscription, region, and Entra ID tenant in scope.",
+      body: "Onam authenticates via workload identity federation (no client secrets to rotate) and scans every subscription, region, and Entra ID tenant in scope.",
     },
   ],
   featuresHeading: "What makes Onam different on Azure",
@@ -208,33 +208,33 @@ export const azureData: CloudSolutionData = {
       icon: Layers,
       iconColor: "#F2AF04",
       title: "Management-group hierarchy traversal",
-      body: "Onboard at the root management group and Onam scans every descendant subscription — inherited policies, Azure Policy assignments, and lock hierarchies included. No missed subscriptions.",
+      body: "Onboard at the root management group and Onam scans every descendant subscription, inherited policies, Azure Policy assignments, and lock hierarchies included. No missed subscriptions.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "Entra ID conditional access analysis",
-      body: "Onam parses every conditional access policy, named location, and identity-protection rule. It surfaces gaps — MFA-exempted accounts, legacy-auth allowances, and privileged roles without CA coverage.",
+      body: "Onam parses every conditional access policy, named location, and identity-protection rule. It surfaces gaps such as MFA-exempted accounts, legacy-auth allowances, and privileged roles without CA coverage.",
     },
     {
       icon: Network,
       iconColor: "#05A052",
       title: "NIC-level network exposure mapping",
-      body: "NSG effective-rules resolution across subnet and NIC scopes, application security groups, and Azure Firewall policy — evaluated together so you see the actual path an attacker can take.",
+      body: "NSG effective-rules resolution across subnet and NIC scopes, application security groups, and Azure Firewall policy, evaluated together so you see the path an attacker can take.",
     },
   ],
   faqs: [
     {
       q: "How does Onam authenticate to Azure?",
-      a: "Via workload identity federation — no long-lived client secrets. Onam's service principal is granted Reader and Security Reader at the management-group scope, and every API call is signed with a short-lived federated token.",
+      a: "Via workload identity federation, with no long-lived client secrets. Onam's service principal is granted Reader and Security Reader at the management-group scope, and every API call is signed with a short-lived federated token.",
     },
     {
       q: "Does Onam support multiple Entra ID tenants?",
-      a: "Yes. Enterprise customers commonly run multiple tenants for M&A, sovereignty, or partner isolation. Each tenant is onboarded independently and correlated in a single Onam workspace.",
+      a: "Yes. Organisations often run several tenants for M&A, sovereignty or partner isolation. Each tenant is onboarded independently and correlated in a single Onam workspace.",
     },
     {
       q: "Which management-group scope should I onboard?",
-      a: "The Tenant Root Group for full coverage. If you have a dedicated 'Security' management group, that also works — Onam scans every subscription beneath the scope you grant.",
+      a: "The Tenant Root Group for full coverage. If you have a dedicated 'Security' management group, that also works. Onam scans every subscription beneath the scope you grant.",
     },
     {
       q: "How are Azure Policy exemptions handled?",
@@ -242,15 +242,15 @@ export const azureData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map Azure findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS Microsoft Azure Foundations Benchmark (several versions, up to 5.0) and the CIS Azure compute, database, storage and AKS benchmarks, ISO 27001:2022, NIST 800-53, GDPR and SOC 2. Custom rules can carry their own framework mappings.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Microsoft Azure Foundations Benchmark (several versions, up to 5.0) and the CIS Azure compute, database, storage and AKS benchmarks, ISO 27001:2022, NIST 800-53, GDPR and SOC 2. Custom rules can carry their own framework mappings.`,
     },
     {
       q: "Does Onam map the Microsoft cloud security benchmark (MCSB)?",
-      a: "No. MCSB is not among the frameworks Onam maps today. Azure findings map to the CIS Microsoft Azure benchmarks, NIST 800-53, ISO 27001:2022, SOC 2 and GDPR instead — the frameworks most audits of Azure estates are reported against.",
+      a: "No. MCSB is not among the frameworks Onam maps today. Azure findings map to the CIS Microsoft Azure benchmarks, NIST 800-53, ISO 27001:2022, SOC 2 and GDPR instead.",
     },
     {
       q: "How is Onam different from Defender for Cloud CSPM?",
-      a: "Defender for Cloud is Microsoft's own posture tool for Azure. Onam evaluates Azure with the same rule model, compliance mapping and attack-path graph it uses for AWS, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, and it also checks Defender itself — for example whether Defender plans are enabled on the subscriptions you scan.",
+      a: "Defender for Cloud is Microsoft's own posture tool for Azure. Onam evaluates Azure with the same rule model, compliance mapping and attack-path graph it uses for AWS, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, and it also checks Defender itself, for example whether Defender plans are enabled on the subscriptions you scan.",
     },
     {
       q: "What does an Azure CSPM check cover?",
@@ -269,7 +269,7 @@ export const gcpData: CloudSolutionData = {
   headline: "Secure GCP projects at scale without slowing down engineering",
   metaDescription:
     "GCP security posture management: Onam audits every project, from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
-  sub: "GCP gives engineering teams enormous flexibility and security teams enormous blind spots. Onam continuously audits every project from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
+  sub: "In GCP, IAM bindings inherit down the organisation, folder and project tree, and any engineer can create a new project. Onam audits every project, from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   docsHref: "/docs/onboarding/gcp",
   stats: [
     { value: "1,322", label: "posture rules on GCP" },
@@ -301,7 +301,7 @@ export const gcpData: CloudSolutionData = {
     },
     {
       title: "Grant org-level read access",
-      body: "One binding at the organization node inherits down through every folder and project. New projects — created by any engineer, at any time — are covered automatically.",
+      body: "One binding at the organization node inherits down through every folder and project. New projects, created by any engineer at any time, are covered automatically.",
     },
     {
       title: "Findings from the first scan",
@@ -326,7 +326,7 @@ export const gcpData: CloudSolutionData = {
       icon: Boxes,
       iconColor: "#05A052",
       title: "GKE cluster & VPC firewall depth",
-      body: "Autopilot and standard clusters are audited against CIS GKE — control plane, workload identity, PodSecurity, and network policies — alongside the VPC firewall rules that actually reach them.",
+      body: "Autopilot and standard clusters are audited against CIS GKE (control plane, workload identity, PodSecurity and network policies) alongside the VPC firewall rules that reach them.",
     },
   ],
   faqs: [
@@ -344,11 +344,11 @@ export const gcpData: CloudSolutionData = {
     },
     {
       q: "How does Onam handle IAM Conditions?",
-      a: "Conditional bindings — time-based, request-attribute-based, resource-attribute-based — are parsed and reflected in the effective-access graph, so you never mistake a scoped grant for a global one.",
+      a: "Conditional bindings (time-based, request-attribute-based, resource-attribute-based) are parsed and reflected in the effective-access graph, so you never mistake a scoped grant for a global one.",
     },
     {
       q: "Which frameworks do you map GCP findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS GCP Foundation Benchmark, CIS GKE, NIST 800-53, ISO 27001:2022 and SOC 2. Custom rules can carry their own framework mappings.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS GCP Foundation Benchmark, CIS GKE, NIST 800-53, ISO 27001:2022 and SOC 2. Custom rules can carry their own framework mappings.`,
     },
   ],
 };
@@ -363,7 +363,7 @@ export const ociData: CloudSolutionData = {
   headline: "OCI security posture management across every compartment",
   metaDescription:
     "OCI CSPM: 2,059 posture rules across 61 Oracle Cloud services, mapped to the CIS OCI Benchmark 3.0 and CIS OKE. Read-only onboarding, every compartment.",
-  sub: "Oracle Cloud security posture management lives or dies on the compartment tree: a policy statement written three levels up decides who can touch a bucket at the bottom. Onam walks every compartment, evaluates IAM policy statements against that tree, and re-checks Compute, OKE, Object Storage, Autonomous Database, VCN and Vault configuration on every scan — mapped to the CIS Oracle Cloud Infrastructure Benchmark.",
+  sub: "Oracle Cloud security posture management lives or dies on the compartment tree: a policy statement written three levels up decides who can touch a bucket at the bottom. Onam walks every compartment, evaluates IAM policy statements against that tree, and re-checks Compute, OKE, Object Storage, Autonomous Database, VCN and Vault configuration on every scan, mapped to the CIS Oracle Cloud Infrastructure Benchmark.",
   docsHref: "/docs/onboarding/oci",
   stats: [
     { value: "2,059", label: "posture rules on OCI" },
@@ -406,7 +406,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       title: "Findings from the first scan",
-      body: "Onam walks every compartment recursively — including nested and dynamic groups — and returns findings mapped to CIS OCI.",
+      body: "Onam walks every compartment recursively, including nested and dynamic groups, and returns findings mapped to CIS OCI.",
     },
   ],
   featuresHeading: "What makes Onam different on OCI",
@@ -415,19 +415,19 @@ export const ociData: CloudSolutionData = {
       icon: Layers,
       iconColor: "#F2AF04",
       title: "Full compartment-tree traversal",
-      body: "Onam parses every parent, child, and cross-tenancy policy statement in Oracle's policy language and evaluates them against the compartment tree — including matching conditions and where clauses.",
+      body: "Onam parses every parent, child, and cross-tenancy policy statement in Oracle's policy language and evaluates them against the compartment tree, including matching conditions and where clauses.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "Autonomous Database posture",
-      body: "Data Safe risk levels, private-endpoint enforcement, wallet rotation, and access-control list drift — audited continuously alongside your Autonomous DB workloads.",
+      body: "Data Safe risk levels, private-endpoint enforcement, wallet rotation, and access-control list drift, audited continuously alongside your Autonomous DB workloads.",
     },
     {
       icon: Network,
       iconColor: "#05A052",
       title: "VCN + Security List analysis",
-      body: "VCN topology, security lists, network security groups, and route tables are combined into one exposure graph so overly-permissive rules are surfaced with the resources they actually reach.",
+      body: "VCN topology, security lists, network security groups, and route tables are combined into one exposure graph so overly-permissive rules are surfaced with the resources they reach.",
     },
   ],
   faqs: [
@@ -441,7 +441,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       q: "How is Onam different from OCI Cloud Guard?",
-      a: "Cloud Guard is Oracle's own posture service for OCI. Onam evaluates OCI with the same rule model, compliance mapping and attack-path graph it uses for your other clouds, and it checks Cloud Guard itself — for example whether it is enabled and its targets configured — so a gap in native monitoring is a finding too.",
+      a: "Cloud Guard is Oracle's own posture service for OCI. Onam evaluates OCI with the same rule model, compliance mapping and attack-path graph it uses for your other clouds, and it checks Cloud Guard itself (for example whether it is enabled and its targets configured), so a gap in native monitoring is a finding too.",
     },
     {
       q: "Which CIS OCI Benchmark version does Onam use?",
@@ -453,7 +453,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map OCI findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS Oracle Cloud Infrastructure Benchmark, CIS OKE, NIST 800-53, FedRAMP Moderate and High, ISO 27001:2022 and SOC 2.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Oracle Cloud Infrastructure Benchmark, CIS OKE, NIST 800-53, FedRAMP Moderate and High, ISO 27001:2022 and SOC 2.`,
     },
   ],
 };
@@ -467,8 +467,8 @@ export const alicloudData: CloudSolutionData = {
   ],
   headline: "Alibaba Cloud CSPM, region by region, alongside your other clouds",
   metaDescription:
-    "Alibaba Cloud CSPM: 1,151 posture rules across 68 services — RAM, OSS, ECS, ACK, RDS, VPC — mapped to CIS Alibaba Cloud and CIS ACK.",
-  sub: "Alibaba Cloud often runs alongside AWS and Azure, in China and international regions alike. Onam brings the same rule-driven posture coverage to it — RAM policies, OSS buckets, RDS instances and VPC configurations — evaluated by the same engine as your other clouds.",
+    "Alibaba Cloud CSPM: 1,151 posture rules across 68 services (RAM, OSS, ECS, ACK, RDS, VPC), mapped to CIS Alibaba Cloud and CIS ACK.",
+  sub: "Alibaba Cloud often runs alongside AWS and Azure, in China and international regions alike. Onam brings the same rule-driven posture coverage to it: RAM policies, OSS buckets, RDS instances and VPC configurations, evaluated by the same engine as your other clouds.",
   docsHref: "/docs/onboarding/alicloud",
   stats: [
     { value: "1,151", label: "posture rules on Alibaba Cloud" },
@@ -510,7 +510,7 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       title: "Findings from the first scan",
-      body: "Onam scans China and international regions — Hangzhou, Shanghai, Beijing, Shenzhen, Hong Kong, Singapore, Sydney, Kuala Lumpur, Tokyo, Frankfurt and the US — and returns prioritized findings mapped to your frameworks.",
+      body: "Onam scans China and international regions (Hangzhou, Shanghai, Beijing, Shenzhen, Hong Kong, Singapore, Sydney, Kuala Lumpur, Tokyo, Frankfurt and the US) and returns prioritized findings mapped to your frameworks.",
     },
   ],
   featuresHeading: "What makes Onam different on Alibaba Cloud",
@@ -545,7 +545,7 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       q: "Are China regions handled differently?",
-      a: "No. China regions are scanned with the same rules and the same read-only RAM user as international regions. Onam itself is hosted in a region you choose — US, Europe, India or others — to meet your compliance requirements.",
+      a: "No. China regions are scanned with the same rules and the same read-only RAM user as international regions. Onam itself is hosted in a region you choose (US, Europe, India or others) to meet your compliance requirements.",
     },
     {
       q: "Do you require agents?",
@@ -553,11 +553,11 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map Alibaba Cloud findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS Alibaba Cloud Foundation Benchmark (including 2.0), CIS ACK, NIST 800-53, ISO 27001:2022 and SOC 2.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Alibaba Cloud Foundation Benchmark (including 2.0), CIS ACK, NIST 800-53, ISO 27001:2022 and SOC 2.`,
     },
     {
       q: "How is Onam different from Alibaba Cloud Security Center's CSPM?",
-      a: "Security Center is Alibaba Cloud's own posture service. Onam evaluates Alibaba Cloud with the same rule model, compliance mapping and attack-path graph it uses for AWS, Azure, GCP, OCI, IBM Cloud and Kubernetes — useful when Alibaba Cloud is one of several clouds and you want one prioritized list, not one per provider.",
+      a: "Security Center is Alibaba Cloud's own posture service. Onam evaluates Alibaba Cloud with the same rule model, compliance mapping and attack-path graph it uses for AWS, Azure, GCP, OCI, IBM Cloud and Kubernetes. That helps when Alibaba Cloud is one of several clouds and you want one prioritised list instead of one per provider.",
     },
     {
       q: "What does Alibaba Cloud CSPM cover in Onam?",
@@ -575,8 +575,8 @@ export const ibmData: CloudSolutionData = {
   ],
   headline: "IBM Cloud security posture, from VPC network rules to IAM",
   metaDescription:
-    "IBM Cloud security posture: 553 posture rules across 63 services — VPC security groups, network ACLs, flow logs, IAM, COS, IKS — mapped to CIS IBM Cloud.",
-  sub: "IBM Cloud security starts with the network: security groups, network ACLs, floating IPs and public gateways decide what the internet can reach. Onam checks those alongside IAM access groups and trusted profiles, Cloud Object Storage, Key Protect, IKS and OpenShift clusters — read-only, re-checked on every scan, and mapped to CIS IBM Cloud and NIST 800-53.",
+    "IBM Cloud security posture: 553 posture rules across 63 services (VPC security groups, network ACLs, flow logs, IAM, COS, IKS), mapped to CIS IBM Cloud.",
+  sub: "IBM Cloud security starts with the network: security groups, network ACLs, floating IPs and public gateways decide what the internet can reach. Onam checks those alongside IAM access groups and trusted profiles, Cloud Object Storage, Key Protect, IKS and OpenShift clusters. Every check is read-only, repeated on every scan, and mapped to CIS IBM Cloud and NIST 800-53.",
   docsHref: "/docs/onboarding/ibm",
   stats: [
     { value: "553", label: "posture rules on IBM Cloud" },
@@ -611,7 +611,7 @@ export const ibmData: CloudSolutionData = {
   setupSteps: [
     {
       title: "Create a trusted profile for Onam",
-      body: "Provision a trusted profile scoped to the enterprise or account, with Viewer and Reader access on all services. No API keys to manage — federated identity signs every call.",
+      body: "Provision a trusted profile scoped to the enterprise or account, with Viewer and Reader access on all services. No API keys to manage: federated identity signs every call.",
     },
     {
       title: "Grant enterprise-wide read access",
@@ -619,7 +619,7 @@ export const ibmData: CloudSolutionData = {
     },
     {
       title: "Findings from the first scan",
-      body: "Onam scans every region — classic and VPC — and returns findings mapped to CIS IBM Cloud and the other frameworks you track.",
+      body: "Onam scans every region, classic and VPC, and returns findings mapped to CIS IBM Cloud and the other frameworks you track.",
     },
   ],
   featuresHeading: "What makes Onam different on IBM Cloud",
@@ -628,19 +628,19 @@ export const ibmData: CloudSolutionData = {
       icon: Layers,
       iconColor: "#F2AF04",
       title: "Enterprise & account-group traversal",
-      body: "Onboard once at the enterprise root. Onam discovers every account group, account, and resource group — respecting IAM inheritance and enterprise-managed policies.",
+      body: "Onboard once at the enterprise root. Onam discovers every account group, account, and resource group, respecting IAM inheritance and enterprise-managed policies.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "Access-group & policy graph",
-      body: "IAM policies, access-group memberships, and trusted-profile claim rules are combined into one effective-access graph — so federated principals are audited end to end.",
+      body: "IAM policies, access-group memberships, and trusted-profile claim rules are combined into one effective-access graph, so federated principals are audited end to end.",
     },
     {
       icon: Network,
       iconColor: "#E32D25",
       title: "IBM Cloud network security checks",
-      body: "Security groups with unrestricted inbound SSH or RDP, default security groups that allow traffic, network ACLs without default deny, VPCs without flow logs, instances with public IPs, public load balancers and HTTP listeners — plus activity events when a security group or ACL rule changes.",
+      body: "Security groups with unrestricted inbound SSH or RDP, default security groups that allow traffic, network ACLs without default deny, VPCs without flow logs, instances with public IPs, public load balancers and HTTP listeners, plus activity events when a security group or ACL rule changes.",
     },
     {
       icon: ShieldCheck,
@@ -656,11 +656,11 @@ export const ibmData: CloudSolutionData = {
     },
     {
       q: "Do you support IBM Cloud enterprises with multiple accounts?",
-      a: "Yes. Onboard at the enterprise level and Onam scans every account group and child account continuously — including accounts added after onboarding.",
+      a: "Yes. Onboard at the enterprise level and Onam scans every account group and child account continuously, including accounts added after onboarding.",
     },
     {
       q: "Can Onam audit Red Hat OpenShift on IBM Cloud?",
-      a: "Yes. ROKS clusters are audited alongside IKS with CIS Kubernetes and OpenShift-specific rules — RBAC, SCCs, image policies, and network policies.",
+      a: "Yes. ROKS clusters are audited alongside IKS with CIS Kubernetes and OpenShift-specific rules: RBAC, SCCs, image policies, and network policies.",
     },
     {
       q: "What IBM Cloud network security checks does Onam run?",
@@ -668,7 +668,7 @@ export const ibmData: CloudSolutionData = {
     },
     {
       q: "Does Onam map the IBM Cloud Framework for Financial Services?",
-      a: "No. It is not among the frameworks Onam maps today. IBM Cloud findings map to CIS IBM Cloud, NIST 800-53 — which that framework draws on — FedRAMP Moderate and High, ISO 27001:2022, SOC 2 and GDPR.",
+      a: "No. It is not among the frameworks Onam maps today. IBM Cloud findings map to CIS IBM Cloud, NIST 800-53 (which that framework draws on), FedRAMP Moderate and High, ISO 27001:2022, SOC 2 and GDPR.",
     },
     {
       q: "How is Onam different from IBM Security and Compliance Center?",
@@ -676,7 +676,7 @@ export const ibmData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map IBM Cloud findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS IBM Cloud Foundations Benchmark, NIST 800-53, FedRAMP Moderate and High, ISO 27001:2022, SOC 2 and GDPR.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS IBM Cloud Foundations Benchmark, NIST 800-53, FedRAMP Moderate and High, ISO 27001:2022, SOC 2 and GDPR.`,
     },
   ],
 };
@@ -685,13 +685,13 @@ export const kubernetesData: CloudSolutionData = {
   breadcrumb: "Solutions · Kubernetes",
   cloudName: "Kubernetes",
   related: [
-    { label: "CWPP — workload protection", href: "/platform/cwpp", blurb: "Cluster workloads across every distribution, agentlessly." },
+    { label: "CWPP: workload protection", href: "/platform/cwpp", blurb: "Cluster workloads across every distribution, agentlessly." },
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Production Kubernetes security that goes beyond CIS benchmarks",
   metaDescription:
     "Kubernetes security posture: find privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin, with no sidecar or daemonset.",
-  sub: "Kubernetes misconfigurations — privileged pods, exposed dashboards, RBAC bindings that grant cluster-admin — are a leading cause of container-based breaches. Onam audits every cluster object without deploying a sidecar or daemonset.",
+  sub: "Privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin are the Kubernetes misconfigurations that open a cluster to attack. Onam audits every cluster object without deploying a sidecar or daemonset.",
   docsHref: "/docs/onboarding/kubernetes",
   stats: [
     { value: "824", label: "posture rules on Kubernetes" },
@@ -702,7 +702,7 @@ export const kubernetesData: CloudSolutionData = {
   services: [
     "Deployments, StatefulSets & DaemonSets",
     "Pods & PodSecurity Standards",
-    "RBAC — Roles & ClusterRoles",
+    "RBAC Roles & ClusterRoles",
     "ServiceAccounts & Bindings",
     "NetworkPolicies",
     "Ingress & Services",
@@ -725,15 +725,15 @@ export const kubernetesData: CloudSolutionData = {
   setupSteps: [
     {
       title: "Grant read-only cluster access",
-      body: "Apply the Onam ClusterRole manifest — one kubectl apply. It grants get, list, and watch on every resource, and nothing else. No exec, no port-forward, no impersonation.",
+      body: "Apply the Onam ClusterRole manifest with one kubectl apply. It grants get, list, and watch on every resource, and nothing else. No exec, no port-forward, no impersonation.",
     },
     {
       title: "Bind to Onam's service account",
-      body: "Federated OIDC binding to Onam's service account — no long-lived kubeconfig files exchanged. For self-managed clusters, the token is stored in AWS Secrets Manager, encrypted with AWS KMS.",
+      body: "Federated OIDC binding to Onam's service account, so no long-lived kubeconfig files exchanged. For self-managed clusters, the token is stored in AWS Secrets Manager, encrypted with AWS KMS.",
     },
     {
       title: "Findings from the first scan",
-      body: "Onam watches the API server for drift and audits workloads against CIS Kubernetes and image-supply-chain rules — no runtime agent required.",
+      body: "Onam watches the API server for drift and audits workloads against CIS Kubernetes and image-supply-chain rules. No runtime agent is required.",
     },
   ],
   featuresHeading: "What makes Onam different on Kubernetes",
@@ -741,14 +741,14 @@ export const kubernetesData: CloudSolutionData = {
     {
       icon: Cpu,
       iconColor: "#F2AF04",
-      title: "Beyond CIS — real attack paths",
-      body: "Privileged pods on nodes that reach the metadata service, service accounts with cluster-admin bindings, and NetworkPolicy gaps are correlated into concrete attack paths — not disconnected findings.",
+      title: "Beyond CIS: attack paths",
+      body: "Privileged pods on nodes that reach the metadata service, service accounts with cluster-admin bindings, and NetworkPolicy gaps are joined into concrete attack paths instead of being left as separate findings.",
     },
     {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "RBAC effective-permission graph",
-      body: "Every RoleBinding, ClusterRoleBinding, and ServiceAccount is resolved into what a pod can actually do — including cross-namespace escalation via aggregation rules and impersonation verbs.",
+      body: "Every RoleBinding, ClusterRoleBinding, and ServiceAccount is resolved into what a pod can do, including cross-namespace escalation via aggregation rules and impersonation verbs.",
     },
     {
       icon: Boxes,
@@ -760,11 +760,11 @@ export const kubernetesData: CloudSolutionData = {
   faqs: [
     {
       q: "Do I need to install an agent or daemonset in my cluster?",
-      a: "No agents. Onam talks to the Kubernetes API server as a read-only ServiceAccount — no sidecar, no daemonset, no eBPF probes.",
+      a: "No agents. Onam talks to the Kubernetes API server as a read-only ServiceAccount, with no sidecar, no daemonset, no eBPF probes.",
     },
     {
       q: "Which Kubernetes distributions do you support?",
-      a: "EKS, AKS, GKE (including Autopilot), Red Hat OpenShift, Rancher-managed clusters, and self-hosted kubeadm clusters — same rules, same depth.",
+      a: "EKS, AKS, GKE (including Autopilot), Red Hat OpenShift, Rancher-managed clusters, and self-hosted kubeadm clusters, all with the same rules.",
     },
     {
       q: "How does Onam get access to a private cluster?",
@@ -776,7 +776,7 @@ export const kubernetesData: CloudSolutionData = {
     },
     {
       q: "Which frameworks do you map Kubernetes findings to?",
-      a: "Among the 78 frameworks Onam maps: CIS Kubernetes Benchmark, CIS EKS / AKS / GKE / OKE, CIS OpenShift, PCI DSS and SOC 2.",
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Kubernetes Benchmark, CIS EKS / AKS / GKE / OKE, CIS OpenShift, PCI DSS and SOC 2.`,
     },
   ],
 };

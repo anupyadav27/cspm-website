@@ -9,7 +9,7 @@ import {
   Coins,
   Layers,
   ClipboardCheck,
-} from "lucide-react";
+} from "@/components/site/icons";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
 

@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Calculator, TrendingDown, LockOpen } from "lucide-react";
+import { ArrowRight, Calculator, TrendingDown, LockOpen } from "@/components/site/icons";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
 

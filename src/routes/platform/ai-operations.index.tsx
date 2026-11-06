@@ -12,7 +12,7 @@ import {
   ShieldCheck,
   Users,
   X,
-} from "lucide-react";
+} from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { SuiteStrip } from "@/components/site/home/ProductSuite";
 import { BrandButton } from "@/components/site/BrandButton";
@@ -149,7 +149,7 @@ function Hero() {
               <StatusBadge status="early" />
             </div>
             <h1 className="mt-6 font-display text-4xl font-black leading-[1.05] tracking-tight text-white text-balance md:text-5xl lg:text-[52px]">
-              Specialist AI agents that investigate your cloud — and{" "}
+              Specialist AI agents that investigate your cloud and{" "}
               <span style={{ color: AIOPS_ON_NIGHT }}>change nothing without your approval.</span>
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-on-night-muted text-pretty">
@@ -170,9 +170,11 @@ function Hero() {
           <div className="min-w-0 [&_figure]:mt-0 [&_figure]:max-w-none [&_img]:border-white/10 [&_img]:shadow-[0_32px_80px_rgba(0,0,0,.55)] [&_figcaption]:text-left [&_figcaption]:text-on-night-muted">
             <HeroIllustration
               image={{
-                src: "/images/heroes/ai-operations.webp",
-                alt: "Illustration: a person works with eight specialist AI agents; every proposed change passes through an approval gate before it reaches the cloud environment below.",
-                caption: "Illustration of the design. Some agents are in early access or on the roadmap — see availability below. No change reaches your cloud without approval.",
+                src: "/overviews/onam-aiops-overview.webp",
+                width: 1536,
+                height: 1024,
+                alt: "Onam AIOps overview sheet: the specialist AI agents, what each one investigates, and the approval gate every proposed change passes through before it reaches your cloud.",
+                caption: "Product overview. Some agents are in early access or on the roadmap (see availability below). No change reaches your cloud without approval.",
               }}
             />
           </div>
@@ -221,7 +223,7 @@ function TodaySection() {
   return (
     <OpsSection
       id="today"
-      eyebrow="Status, stated plainly"
+      eyebrow="Status"
       title="What you can use today, and what is still coming"
       intro={
         <p>
@@ -266,11 +268,11 @@ function ProblemSection() {
     <OpsSection
       id="problem"
       eyebrow="The problem"
-      title="The answer exists. It is spread across four consoles."
+      title="The answer is spread across four consoles."
       intro={
         <p>
-          A real question about a cloud estate — “which internet-exposed production assets hold
-          regulated data, what do they cost, and would we get them back if the region went down?” —
+          Take a real question about a cloud estate: “which internet-exposed production assets hold
+          regulated data, what do they cost, and would we get them back if the region went down?” It
           touches security, inventory, cost and recovery. Each lives in its own console. Today a
           senior engineer opens all four, exports four spreadsheets and joins them by resource ID by
           hand.
@@ -285,9 +287,9 @@ function ProblemSection() {
           <ul className="mt-4 space-y-3 text-[15px] text-[#7F1D1D]">
             {[
               "Four consoles, four exports, one spreadsheet join",
-              "Half a day to a week of a senior engineer’s time",
+              "Skilled work that ties up a senior engineer",
               "Stale the moment it is finished",
-              "No evidence anyone can audit — a screenshot at best",
+              "No evidence anyone can audit, a screenshot at best",
               "The fix happens out of band, unlogged",
             ].map((t) => (
               <li key={t} className="flex gap-2.5">
@@ -304,7 +306,7 @@ function ProblemSection() {
           <ul className="mt-4 space-y-3 text-[15px] text-[#14532D]">
             {[
               "Ask once; the orchestrator plans the steps across agents",
-              "Each agent narrows the previous one’s result — nothing re-discovers the estate",
+              "Each agent narrows the previous one’s result, and nothing re-discovers the estate",
               "Every number cites the query, rows and scan time behind it",
               "Disagreements between agents reach you, never silently resolved",
               "Changes are proposed with a diff and a rollback, and a person decides",
@@ -330,7 +332,7 @@ function WorkspaceSection() {
     <OpsSection
       id="workspace"
       eyebrow="The agent workspace"
-      title="Shaped like team chat. Behaves like an operations console."
+      title="A team-chat layout with the controls of an operations console"
       intro={
         <p>
           The workspace looks familiar because chat is already in your muscle memory. But chat alone
@@ -349,11 +351,11 @@ function WorkspaceSection() {
           [
             ListChecks,
             "The plan is visible before it runs",
-            "A multi-step request shows its steps first, so you can stop it before it works — not only after.",
+            "A multi-step request shows its steps first, so you can stop it before it starts.",
           ],
           [
             ShieldCheck,
-            "Actions look like changes, not messages",
+            "Actions arrive as changes to review",
             "A proposed change is a distinct card: bordered, diff first, with explicit decision buttons.",
           ],
         ].map(([Icon, title, body]) => {
@@ -407,9 +409,9 @@ function AgentsSection() {
       title="Eight specialists, each with a declared job and a declared limit"
       intro={
         <p>
-          Each agent is a versioned definition, not a prompt: its purpose, level, skills, tools and
+          Each agent is a versioned definition rather than a prompt: its purpose, level, skills, tools and
           permissions are data that can be reviewed. An agent invokes skills; skills invoke tools;
-          only tools touch anything outside the platform. Automation works in two modes — a planner
+          only tools touch anything outside the platform. Automation works in two modes: a planner
           that proposes and an actor that may execute only from an approval.
         </p>
       }
@@ -464,7 +466,7 @@ function AgentsSection() {
         ))}
       </div>
       <p className="mt-6 text-[14px] text-[#475569]">
-        Full definitions — skills, tools, permissions and known limits for every agent — are in the{" "}
+        Full definitions (skills, tools, permissions and known limits for every agent) are in the{" "}
         <Link
           to="/docs/$"
           params={{ _splat: "operations/agents" }}
@@ -483,11 +485,11 @@ function OrchestratorSection() {
     <OpsSection
       id="orchestrator"
       eyebrow="The orchestrator"
-      title="It routes the work. It never answers on its own."
+      title="The orchestrator routes the work and never answers on its own."
       intro={
         <p>
           The orchestrator turns a request into a plan: it detects the intent, picks the agents,
-          orders the steps — in parallel where nothing depends on anything else — passes each step
+          orders the steps (in parallel where nothing depends on anything else), passes each step
           the previous step’s result, and joins the answers. It has no access to estate data itself,
           so it cannot answer a question unaudited.
         </p>
@@ -551,12 +553,12 @@ function ApprovalSection() {
     <OpsSection
       id="approvals"
       eyebrow="Approval and governance"
-      title="The approval gate is the product, not a setting"
+      title="No setting lets an agent skip the approval gate"
       intro={
         <p>
           There is no autonomy level, tenant setting or flag that lets an agent change your cloud
-          without a recorded human approval. Risk is assigned by policy — never by the agent — and
-          can only be raised automatically, never lowered: production targets, crown-jewel paths,
+          without a recorded human approval. Risk is assigned by policy, never by the agent, and
+          can only be raised automatically, never lowered: production targets, paths to high-value assets,
           regulated data, missing rollback and bulk changes all push a change up a class.
         </p>
       }
@@ -564,7 +566,7 @@ function ApprovalSection() {
       <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr] [&>*]:min-w-0">
         <IllustrativeFrame
           title="Approval centre"
-          caption="The approval card leads with the exact change, then blast radius, reason and rollback — the approver’s first question answered before it is asked."
+          caption="The approval card leads with the exact change, then blast radius, reason and rollback, so the approver sees what will change before anything else."
         >
           <ApprovalMock />
         </IllustrativeFrame>
@@ -593,10 +595,10 @@ function ApprovalSection() {
           </div>
           <ul className="mt-5 space-y-2.5 text-[14px] text-[#334155]">
             {[
-              "An approval binds to the change’s hash — approving one change cannot authorise another.",
+              "An approval binds to the change’s hash, so approving one change cannot authorise another.",
               "The target is re-read just before execution; if it drifted, the approval is superseded.",
               "Approvals expire. Critical changes need two distinct people.",
-              "Agents can never hold approval authority — the database refuses to record it.",
+              "Agents can never hold approval authority. The database refuses to record it.",
               "Review time is measured, so rubber-stamping becomes visible to admins.",
             ].map((t) => (
               <li key={t} className="flex gap-2.5">
@@ -623,7 +625,7 @@ function EvidenceSection() {
     <OpsSection
       id="evidence"
       eyebrow="Evidence and audit trail"
-      title="A claim without evidence is a defect"
+      title="Every claim links to its evidence"
       intro={
         <p>
           Every factual claim an agent makes carries the skill, the tool, the query, the rows and
@@ -643,7 +645,7 @@ function EvidenceSection() {
         </IllustrativeFrame>
         <IllustrativeFrame
           title="Activity · audit trail"
-          caption="Who did what, when and why — people and agents alike — with a check that the chain is intact."
+          caption="Who did what, when and why, for people and agents alike, with a check that the chain is intact."
         >
           <AuditMock />
         </IllustrativeFrame>
@@ -657,7 +659,7 @@ function SecuritySection() {
     {
       icon: Users,
       title: "Tenant isolation at every layer",
-      body: "Your data never crosses to another customer — not in a query, cache, memory, model call, event or log line. Each layer is isolated and tested on its own, so one bug is not one breach.",
+      body: "Your data never crosses to another customer in a query, cache, memory, model call, event or log line. Each layer is isolated and tested on its own, so a bug in one layer does not on its own open your data to anyone else.",
     },
     {
       icon: Lock,
@@ -739,7 +741,7 @@ function UseCasesSection() {
     <OpsSection
       id="use-cases"
       eyebrow="What you can do with it"
-      title="Questions your team asks every week"
+      title="Questions it can answer"
       intro={
         <p>
           Each use case shows the agents involved, what you get back, and whether a person must
@@ -797,7 +799,7 @@ function FinalCta() {
       <div className="mx-auto max-w-4xl px-4 sm:px-6">
         <div className="gradient-border rounded-3xl p-8 text-center md:p-14">
           <h2 className="font-display text-3xl font-black tracking-tight text-[#0B1220] md:text-4xl">
-            Work alongside agents that <span className="gradient-text">show their working.</span>
+            Request <span className="gradient-text">early access.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[#475569]">
             Early access is by invitation and starts on AWS with your Onam Security data. Agents

@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { ArrowRight, Scale } from "lucide-react";
+import { ArrowRight, Scale } from "@/components/site/icons";
 import { seo } from "@/lib/seo";
 import { COMPETITORS, QUESTIONS, VERIFIED_ON } from "@/data/compare";
 import { Backdrop } from "@/components/site/system";

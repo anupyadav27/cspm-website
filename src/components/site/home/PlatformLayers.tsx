@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { ArrowDown, ExternalLink } from "@/components/site/icons";
 import { getSuite, AIOPS_COLOR, type SuiteKey } from "@/data/product-suite";
 import { StatusBadge } from "@/components/site/ops/OpsUi";
 import { IconTile } from "@/components/site/system";
@@ -31,36 +31,33 @@ const ACT: { key: SuiteKey; does: string[] }[] = [
   {
     key: "security",
     does: [
-      "Posture, identity, data and code",
-      "Attack paths to crown jewels",
-      "Compliance evidence per control",
+      "Posture, identity, data and code risks",
+      "Attack paths to sensitive data",
+      "Compliance evidence for each control",
     ],
   },
   {
     key: "finops",
     does: [
-      "Billed and effective cost",
-      "Ownership and attribution",
-      "Forecast, budgets and savings",
+      "Billed and effective cost, broken down by owner",
+      "Forecasts, budgets and savings",
     ],
   },
   {
     key: "drm",
     does: [
-      "Applications and dependencies",
-      "Predicted RTO and RPO",
-      "Drift from the approved plan",
+      "Applications and what they depend on",
+      "Predicted RTO and RPO, and drift from the approved recovery plan",
     ],
   },
 ];
 
-// The outcomes the reviewed diagram names, verbatim.
+// What each team gets out of it, in plain words (the diagram's outcome pills, made concrete).
 const OUTCOMES = [
-  "Reduced risk",
-  "Lower cloud costs",
-  "Recovery readiness",
-  "Audit readiness",
-  "One view for every team",
+  "Which risks to fix first",
+  "Where the cloud bill goes",
+  "How long recovery would take",
+  "Evidence for auditors",
 ];
 
 function Down() {
@@ -106,14 +103,15 @@ export function PlatformLayers() {
           <Link
             to={estate.href}
             className="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl px-5 py-4 text-white transition hover:brightness-110"
-            style={{ background: `linear-gradient(90deg, ${estate.color}, #4F46E5)` }}
+            style={{ background: estate.color }}
           >
             <span className="text-xs uppercase tracking-[0.12em] font-semibold text-white/80">
               {estate.stage}
             </span>
             <span className="font-display font-extrabold text-lg">Onam Estate</span>
             <span className="text-[15px] text-white/90">
-              One inventory every product reads — discover, map, keep current.
+              Finds what you run, maps how it connects and keeps the list current. Every product
+              reads it.
             </span>
           </Link>
           <Down />
@@ -126,7 +124,7 @@ export function PlatformLayers() {
                 <Link
                   key={key}
                   to={p.href}
-                  className="group rounded-2xl border border-line bg-white p-5 transition hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]"
+                  className="group rounded-2xl border border-line bg-white p-5 transition hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]"
                   style={{ borderTop: `3px solid ${p.color}` }}
                 >
                   <div className="flex items-center gap-3">
@@ -168,8 +166,8 @@ export function PlatformLayers() {
             </span>
             <StatusBadge status="early" />
             <span className="text-[15px] text-ink-2">
-              AI agents across every layer — they investigate with evidence; a person approves every
-              change.
+              AI agents that investigate with evidence and propose changes. A person approves each
+              one.
             </span>
           </Link>
           <Down />

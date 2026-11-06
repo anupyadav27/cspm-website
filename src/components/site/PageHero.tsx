@@ -25,10 +25,9 @@ export function PageHero({
   return (
     <section className="relative overflow-hidden bg-white border-b border-[#E5E9F0]">
       <div className="absolute inset-0 dot-grid opacity-60" />
-      <div className="absolute -top-40 right-0 w-[700px] h-[500px] rounded-full bg-[#2563EB]/10 blur-[140px] pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-6 pt-24 pb-20 text-center">
         {eyebrow && (
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-semibold uppercase tracking-widest mb-6 bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+          <div className="mb-4 text-sm font-semibold text-[#1D4ED8]">
             {eyebrow}
           </div>
         )}

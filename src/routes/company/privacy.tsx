@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { FileText } from "lucide-react";
+import { FileText } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
@@ -87,7 +87,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     title: "Sub-processors",
     body: (
       <>
-        <p>Onam uses a small number of sub-processors to operate the service. Current sub-processors include cloud infrastructure providers, email delivery, identity providers used to sign in to Onam, and — for visitors to this website who consent to analytics — Google (Google Analytics 4). A current list is available on request from <a href="mailto:privacy@onam.security" className="text-[#2563EB] font-semibold hover:underline">privacy@onam.security</a>.</p>
+        <p>Onam uses a small number of sub-processors to operate the service. Current sub-processors include cloud infrastructure providers, email delivery, identity providers used to sign in to Onam, and — for visitors to this website who consent to analytics — Google (Google Analytics 4). A current list is available on request from <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.</p>
       </>
     ),
   },
@@ -105,7 +105,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     title: "Your rights",
     body: (
       <>
-        <p>Depending on your jurisdiction, you may have the right to access, correct, delete, port, or restrict processing of your personal data. To exercise any of these rights, email <a href="mailto:privacy@onam.security" className="text-[#2563EB] font-semibold hover:underline">privacy@onam.security</a>. We will respond within the timelines required by applicable law.</p>
+        <p>Depending on your jurisdiction, you may have the right to access, correct, delete, port, or restrict processing of your personal data. To exercise any of these rights, email <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>. We will respond within the timelines required by applicable law.</p>
       </>
     ),
   },
@@ -127,7 +127,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <p>
         Questions about this policy or your data can be sent to{" "}
-        <a href="mailto:privacy@onam.security" className="text-[#2563EB] font-semibold hover:underline">privacy@onam.security</a>.
+        <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.
       </p>
     ),
   },

@@ -9,7 +9,7 @@ import {
   ChevronRight,
   Minus,
   Plus,
-} from "lucide-react";
+} from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import {
   Backdrop,
@@ -97,7 +97,7 @@ export function CapabilityPage({ cap }: { cap: Capability }) {
           <SectionHeading
             eyebrow="How it works"
             eyebrowColor={textTone(suite.color)}
-            title="The mechanism, step by step"
+            title={`${cap.name}, step by step`}
             lead={`What ${cap.name} does, in the order it does it.`}
           />
           <div className="mt-14">
@@ -243,7 +243,7 @@ function WhatYouSee({ cap, tone }: Band) {
           eyebrow="What you see"
           eyebrowColor={textTone(suite.color)}
           title={`What ${cap.name} shows you`}
-          lead="Described from the product documentation — what the view holds, not what we hope it will."
+          lead="Taken from the product documentation."
         />
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {cap.whatYouSee.map((w) => (
@@ -350,7 +350,7 @@ function Limits({ cap, tone }: Band) {
     <Section id="limits" tone={tone}>
       <Container>
         <SectionHeading
-          eyebrow="Limits, said plainly"
+          eyebrow="Limits"
           eyebrowColor={textTone(suite.color)}
           title="What it does not do"
           lead="Knowing where a capability stops is part of deciding whether to buy it."

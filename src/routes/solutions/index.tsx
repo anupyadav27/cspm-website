@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Cloud, Cloudy, Server, Container, Landmark, HeartPulse, Building2, Globe } from "lucide-react";
+import { ArrowRight, Cloud, Cloudy, Server, Container, Landmark, HeartPulse, Building2, Globe } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
 import { Backdrop } from "@/components/site/system";
@@ -31,7 +31,7 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
   return (
     <Link
       to={item.href}
-      className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] hover:-translate-y-0.5 transition-all flex flex-col"
+      className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all flex flex-col"
     >
       <div className="flex items-center gap-3">
         <div
@@ -86,7 +86,7 @@ function SolutionsIndex() {
       <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
               By cloud
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
@@ -102,7 +102,7 @@ function SolutionsIndex() {
       <section className="bg-white py-20">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-xs font-bold uppercase tracking-widest bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
               By industry
             </div>
             <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">

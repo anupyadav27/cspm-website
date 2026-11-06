@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { CheckCircle2, Mail } from "lucide-react";
+import { CheckCircle2, Mail } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
 import { submitLead } from "@/lib/lead-capture";
 
