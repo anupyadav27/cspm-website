@@ -72,7 +72,7 @@ const PLATFORM_FAQ = [
   },
   {
     q: "Do I have to buy all four products?",
-    a: "No. Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan before you decide. Onam Estate, Onam FinOps and Onam DRM are added per organisation; contact sales for those. Whatever you start with, your cloud accounts are connected once and every product you add later works from the same inventory.",
+    a: "No. Onam Security has published prices: $20 per unit a month for cloud with CIEM and DSPM included, and a free one-time audit scan before you decide. Onam Estate, Onam FinOps and Onam DRM are added per organisation; contact sales for those. Whatever you start with, your cloud accounts are connected once and every product you add later works from the same inventory.",
   },
   {
     q: "What is Onam AIOps, and can I use it today?",

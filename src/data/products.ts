@@ -50,7 +50,7 @@ export const PRODUCTS: ProductSummary[] = [
     question: "Is my cloud secure, and what do I fix first?",
     blurb:
       "Cloud posture, identity, data, workloads, attack paths and compliance. Every engine works from the same security graph.",
-    packaging: "Annual subscription per cloud account, after a free one-time audit scan. The platform itself.",
+    packaging: "Priced per unit for cloud and SaaS and per developer for code, with a free one-time audit scan first. The platform itself.",
     surfaces: [
       "Posture & Identity",
       "Threat & Attack",

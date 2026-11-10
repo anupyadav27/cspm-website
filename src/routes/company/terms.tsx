@@ -40,7 +40,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     body: (
       <>
         <p>
-          Access to the Service is offered as an annual subscription priced per connected cloud account, and as a one-time audit scan at no charge. Fees and billing terms are as set out in an executed order form or a marketplace private offer. Unless otherwise agreed in writing, subscriptions are billed annually in advance.
+          Access to the Service is offered as a subscription priced per resource unit, developer or SaaS tenant as published on the pricing page, and as a one-time audit scan at no charge. Fees and billing terms are as set out in an executed order form or a marketplace private offer. Unless otherwise agreed in writing, subscriptions are billed annually in advance.
         </p>
         <p className="mt-2">
           You are responsible for keeping billing information current. Non-payment may result in suspension or termination of the Service.

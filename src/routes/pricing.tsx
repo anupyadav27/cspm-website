@@ -1,7 +1,30 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useMemo, useState } from "react";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
-import { Check, X, HelpCircle, Sparkles, ArrowRight, Scale } from "@/components/site/icons";
-import { useState } from "react";
+import {
+  ArrowRight,
+  Building2,
+  Check,
+  Cloud,
+  FileCode2,
+  HelpCircle,
+  Minus,
+  Plus,
+  X,
+  Users2,
+  ShieldCheck,
+  KeyRound,
+  Coins,
+  Layers,
+  Server,
+  ClipboardCheck,
+  LifeBuoy,
+  Handshake,
+  History,
+  ScrollText,
+  Landmark,
+  Calculator as CalculatorIcon,
+} from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { cn } from "@/lib/utils";
@@ -10,337 +33,782 @@ import { ENGINES, FRAMEWORKS } from "@/lib/product-facts";
 import { PRODUCTS } from "@/data/products";
 import { getSuite } from "@/data/product-suite";
 import { OPS_STATUS } from "@/data/operations";
-import { Backdrop, IconTile, StatusChip } from "@/components/site/system";
+import { IconTile, StatusChip } from "@/components/site/system";
+import {
+  CLOUD_PLANS,
+  CLOUD_RESOURCES,
+  DEV_BRACKETS,
+  DEV_PRICE,
+  FREE_RESOURCES,
+  MIN_UNITS,
+  SAAS_BANDS,
+  SAAS_PLATFORMS,
+  UNIT_BRACKETS,
+  bracketPrice,
+  num,
+  planBrackets,
+  usd,
+  type CloudPlanKey,
+  SIZES,
+  sizeFor,
+} from "@/data/pricing";
+
+const COMPLETE = CLOUD_PLANS[0];
+const POSTURE = CLOUD_PLANS[1];
 
 export const Route = createFileRoute("/pricing")({
   head: () =>
     seo({
       title: "Pricing — Onam",
-      description:
-        "Pricing for the Onam platform. Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation; contact sales for those. Onam AIOps is in early access by invitation.",
+      description: `Onam Security list prices: cloud security at ${usd(COMPLETE.unitPrice)} per unit a month with CIEM, DSPM and vulnerability scanning included (${usd(POSTURE.unitPrice)} without scanning), code security at ${usd(DEV_PRICE)} per developer a month, SaaS security per tenant. Work out your price with the calculator, or start with a free one-time audit scan.`,
       path: "/pricing",
       image: "/og/pricing.png",
     }),
   component: PricingPage,
 });
 
-type Tier = {
-  name: string;
-  price: string;
-  priceSub?: string;
-  blurb: string;
-  features: string[];
-  notIncluded?: string[];
-  cta: { label: string; to?: string; href?: string };
-  highlight?: boolean;
-};
+/* ------------------------------------------------------------------ helpers */
 
-const tiers: Tier[] = [
+function Stepper({ value, onChange, label, step = 1 }: { value: number; onChange: (n: number) => void; label: string; step?: number }) {
+  const set = (n: number) => onChange(Math.max(0, Math.min(1_000_000, Math.round(n))));
+  return (
+    <div className="inline-flex items-stretch rounded-lg border border-[#CBD5E1] bg-white overflow-hidden">
+      <button type="button" aria-label={`Fewer ${label}`} onClick={() => set(value - step)} className="px-2.5 text-[#475569] hover:bg-[#F1F5F9]">
+        <Minus className="w-3.5 h-3.5" />
+      </button>
+      <input
+        type="number"
+        inputMode="numeric"
+        min={0}
+        aria-label={label}
+        value={value}
+        onChange={(e) => set(Number(e.target.value) || 0)}
+        className="w-20 text-right px-2 py-1.5 text-sm tabular-nums text-[#0B1220] border-x border-[#E5E9F0] focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500/40 [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none"
+      />
+      <button type="button" aria-label={`More ${label}`} onClick={() => set(value + step)} className="px-2.5 text-[#475569] hover:bg-[#F1F5F9]">
+        <Plus className="w-3.5 h-3.5" />
+      </button>
+    </div>
+  );
+}
+
+/* --------------------------------------------------------------- calculator */
+
+type CloudRow = { id: number; type: string; count: number };
+type SaasRow = { id: number; platform: string; band: string };
+let nextId = 1;
+const newId = () => nextId++;
+
+const selectCls =
+  "w-full min-w-0 rounded-lg border border-[#CBD5E1] bg-white px-2.5 py-2 text-sm text-[#0B1220] focus:outline-none focus:ring-2 focus:ring-blue-500/40";
+
+function RemoveButton({ onClick, label }: { onClick: () => void; label: string }) {
+  return (
+    <button type="button" onClick={onClick} aria-label={label} className="p-2 rounded-md text-[#94A3B8] hover:text-[#B91C1C] hover:bg-[#FEF2F2]">
+      <X className="w-4 h-4" />
+    </button>
+  );
+}
+
+function AddButton({ onClick, children, disabled }: { onClick: () => void; children: React.ReactNode; disabled?: boolean }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      className="mt-3 inline-flex items-center gap-1.5 text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8] disabled:text-[#94A3B8] disabled:cursor-not-allowed"
+    >
+      <Plus className="w-4 h-4" /> {children}
+    </button>
+  );
+}
+
+function SectionTitle({ icon: Icon, title, meta, hint }: { icon: typeof Cloud; title: string; meta: string; hint: string }) {
+  return (
+    <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+      <div className="flex items-center gap-2">
+        <Icon className="w-4 h-4 text-[#2563EB]" />
+        <h3 className="font-display font-bold text-[#0B1220]">{title}</h3>
+      </div>
+      <span className="text-xs text-[#64748B] tabular-nums">{meta}</span>
+      <p className="basis-full text-xs text-[#64748B]">{hint}</p>
+    </div>
+  );
+}
+
+function PriceCalculator() {
+  const [plan, setPlan] = useState<CloudPlanKey>("complete");
+  const [cloud, setCloud] = useState<CloudRow[]>(() => [{ id: newId(), type: "vm", count: 0 }]);
+  const [saas, setSaas] = useState<SaasRow[]>([]);
+  const [devs, setDevs] = useState(0);
+
+  const active = CLOUD_PLANS.find((p) => p.key === plan)!;
+  const res = (key: string) => CLOUD_RESOURCES.find((r) => r.key === key)!;
+  const used = new Set(cloud.map((r) => r.type));
+  const unused = CLOUD_RESOURCES.filter((r) => !used.has(r.key));
+
+  const est = useMemo(() => {
+    const cloudUnits = cloud.reduce((s, r) => s + r.count * res(r.type).factor, 0);
+    let saasUnits = 0;
+    let saasQuote = false;
+    for (const r of saas) {
+      const band = SAAS_BANDS.find((b) => b.key === r.band)!;
+      if (band.units === null) saasQuote = true;
+      else saasUnits += band.units;
+    }
+    const units = cloudUnits + saasUnits;
+    const billed = units > 0 ? Math.max(units, MIN_UNITS) : 0;
+    const unitPrice = bracketPrice(billed, planBrackets(active.rateFactor));
+    const code = bracketPrice(devs, DEV_BRACKETS);
+    return {
+      cloudUnits,
+      saasUnits,
+      saasQuote,
+      units,
+      billed,
+      size: sizeFor(units),
+      minApplied: units > 0 && units < MIN_UNITS,
+      unitSlices: unitPrice.slices,
+      codeSlices: code.slices,
+      monthly: unitPrice.total + code.total,
+      empty: units === 0 && devs === 0 && !saasQuote,
+    };
+  }, [cloud, saas, devs, active.rateFactor]);
+
+  const setRow = (id: number, patch: Partial<CloudRow>) => setCloud((rows) => rows.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+  const setSaasRow = (id: number, patch: Partial<SaasRow>) => setSaas((rows) => rows.map((r) => (r.id === id ? { ...r, ...patch } : r)));
+
+  return (
+    <div className="grid lg:grid-cols-[minmax(0,1fr)_380px] gap-6 items-start">
+      <div className="rounded-lg border border-[#E5E9F0] bg-white divide-y divide-[#E5E9F0]">
+        {/* Plan */}
+        <fieldset className="p-5 sm:p-6">
+          <legend className="sr-only">Cloud plan</legend>
+          <div className="font-display font-bold text-[#0B1220]">1. Choose a cloud plan</div>
+          <div className="mt-3 grid sm:grid-cols-2 gap-3">
+            {CLOUD_PLANS.map((p) => (
+              <label
+                key={p.key}
+                className={cn(
+                  "cursor-pointer rounded-lg border p-4 transition",
+                  plan === p.key ? "border-[#2563EB] bg-[#F5F8FF]" : "border-[#E5E9F0] hover:border-[#94A3B8]",
+                )}
+              >
+                <input type="radio" name="plan" value={p.key} checked={plan === p.key} onChange={() => setPlan(p.key)} className="sr-only" />
+                <div className="flex items-baseline justify-between gap-3">
+                  <span className="font-display font-bold text-[#0B1220]">{p.name}</span>
+                  <span className="text-sm tabular-nums text-[#0B1220]">
+                    <b>{usd(p.unitPrice)}</b> <span className="text-[#64748B]">/ unit / month</span>
+                  </span>
+                </div>
+                <p className="mt-1.5 text-xs text-[#475569] leading-relaxed">{p.summary}</p>
+              </label>
+            ))}
+          </div>
+        </fieldset>
+
+        {/* Cloud rows */}
+        <div className="p-5 sm:p-6">
+          <SectionTitle
+            icon={Cloud}
+            title="2. Add your cloud resources"
+            meta={`${num(est.cloudUnits)} units`}
+            hint="Pick a resource type and enter the average count over a month, across all your accounts on AWS, Azure, Google Cloud, Oracle, Alibaba, IBM and Kubernetes."
+          />
+          <ul className="mt-4 space-y-2">
+            {cloud.map((row) => {
+              const r = res(row.type);
+              return (
+                <li key={row.id} className="rounded-lg border border-[#EEF1F5] p-3">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto_auto] items-center gap-2">
+                    <select aria-label="Resource type" value={row.type} onChange={(e) => setRow(row.id, { type: e.target.value })} className={selectCls}>
+                      {CLOUD_RESOURCES.map((o) => (
+                        <option key={o.key} value={o.key} disabled={o.key !== row.type && used.has(o.key)}>
+                          {o.label} ({o.ratio})
+                        </option>
+                      ))}
+                    </select>
+                    <Stepper value={row.count} onChange={(n) => setRow(row.id, { count: n })} label={r.label} step={r.factor < 0.1 ? 10 : 1} />
+                    <RemoveButton onClick={() => setCloud((rows) => rows.filter((x) => x.id !== row.id))} label={`Remove ${r.label}`} />
+                  </div>
+                  <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#64748B]">
+                    <span className="truncate" title={r.examples}>{r.examples}</span>
+                    <span className="shrink-0 tabular-nums">{num(row.count * r.factor)} units</span>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+          <AddButton disabled={unused.length === 0} onClick={() => setCloud((rows) => [...rows, { id: newId(), type: unused[0].key, count: 0 }])}>
+            Add a resource type
+          </AddButton>
+          <p className="mt-3 text-xs text-[#475569] leading-relaxed">
+            <b className="text-[#0B1220]">Free, never counted:</b> {FREE_RESOURCES}. They are still scanned and reported.
+          </p>
+        </div>
+
+        {/* SaaS rows */}
+        <div className="p-5 sm:p-6">
+          <SectionTitle
+            icon={Layers}
+            title="3. Add SaaS tenants (optional)"
+            meta={`${num(est.saasUnits)} units`}
+            hint="One row per tenant. Each counts as units by its number of licensed users and shares the cloud volume discount."
+          />
+          {saas.length > 0 && (
+            <ul className="mt-4 space-y-2">
+              {saas.map((row) => {
+                const band = SAAS_BANDS.find((b) => b.key === row.band)!;
+                const platform = SAAS_PLATFORMS.find((p) => p.key === row.platform)!;
+                return (
+                  <li key={row.id} className="rounded-lg border border-[#EEF1F5] p-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto] items-center gap-2">
+                      <select aria-label="SaaS platform" value={row.platform} onChange={(e) => setSaasRow(row.id, { platform: e.target.value })} className={selectCls}>
+                        {SAAS_PLATFORMS.map((p) => (
+                          <option key={p.key} value={p.key}>{p.label}</option>
+                        ))}
+                      </select>
+                      <div className="flex items-center gap-2">
+                        <select aria-label="Licensed users" value={row.band} onChange={(e) => setSaasRow(row.id, { band: e.target.value })} className={selectCls}>
+                          {SAAS_BANDS.filter((b) => b.key !== "none").map((b) => (
+                            <option key={b.key} value={b.key}>
+                              {b.label}
+                              {b.units ? ` (${b.units} units)` : " (quote)"}
+                            </option>
+                          ))}
+                        </select>
+                        <RemoveButton onClick={() => setSaas((rows) => rows.filter((x) => x.id !== row.id))} label={`Remove ${platform.label}`} />
+                      </div>
+                    </div>
+                    <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#64748B]">
+                      <span className="truncate">{platform.note}</span>
+                      <span className="shrink-0 tabular-nums">{band.units === null ? "quote" : `${band.units} units`}</span>
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
+          <AddButton onClick={() => setSaas((rows) => [...rows, { id: newId(), platform: SAAS_PLATFORMS[rows.length % SAAS_PLATFORMS.length].key, band: "b100" }])}>
+            Add a SaaS tenant
+          </AddButton>
+        </div>
+
+        {/* Code */}
+        <div className="p-5 sm:p-6">
+          <SectionTitle
+            icon={FileCode2}
+            title="4. Code security (optional)"
+            meta={`${devs} developers`}
+            hint="Active developers: anyone who committed to a scanned private repository in the last 90 days. GitHub and GitLab."
+          />
+          <div className="mt-4 flex flex-wrap items-center gap-4">
+            <Stepper value={devs} onChange={setDevs} label="developers" />
+            <input
+              type="range"
+              min={0}
+              max={500}
+              step={5}
+              value={Math.min(devs, 500)}
+              onChange={(e) => setDevs(Number(e.target.value))}
+              aria-label="Active developers"
+              className="flex-1 min-w-[160px] accent-[#2563EB]"
+            />
+          </div>
+          <p className="mt-3 text-xs text-[#475569]">SAST, dependency checks with SBOM, secrets and infrastructure-as-code checks. App testing (DAST) and AI Code Fix are priced on request.</p>
+        </div>
+      </div>
+
+      {/* Summary */}
+      <aside aria-live="polite" className="lg:sticky lg:top-24 rounded-lg bg-[#0B1220] text-white p-6">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#94A3B8]">
+            <CalculatorIcon className="w-3.5 h-3.5" /> Your estimate
+          </div>
+          {est.units > 0 && (
+            <span className="rounded-md bg-white/10 px-2 py-0.5 text-xs font-semibold text-white" title={est.size.note}>
+              {est.size.label}
+            </span>
+          )}
+        </div>
+        <div className="mt-3 flex items-baseline gap-2">
+          <span className="font-display font-bold text-4xl tabular-nums">{usd(est.monthly)}</span>
+          <span className="text-sm text-[#94A3B8]">a month</span>
+        </div>
+        <div className="text-sm text-[#CBD5E1] tabular-nums">{usd(est.monthly * 12)} a year</div>
+        {est.empty && <p className="mt-3 text-xs text-[#94A3B8]">Add your resources on the left to see a price.</p>}
+
+        <dl className="mt-6 space-y-2 text-sm">
+          <div className="flex justify-between gap-4">
+            <dt className="text-[#94A3B8]">Cloud, {active.name} plan</dt>
+            <dd className="tabular-nums">{num(est.cloudUnits)} units</dd>
+          </div>
+          <div className="flex justify-between gap-4">
+            <dt className="text-[#94A3B8]">SaaS tenants ({saas.length})</dt>
+            <dd className="tabular-nums">{num(est.saasUnits)} units</dd>
+          </div>
+          <div className="flex justify-between gap-4 pt-2 border-t border-white/10">
+            <dt className="text-[#CBD5E1]">Units billed</dt>
+            <dd className="tabular-nums font-semibold">{num(est.billed)}</dd>
+          </div>
+          {est.unitSlices.map((s) => (
+            <div key={s.label} className="flex justify-between gap-4 text-xs">
+              <dt className="text-[#94A3B8]">
+                {s.label}: {num(s.qty)} × {usd(s.rate, true)}
+              </dt>
+              <dd className="tabular-nums">{usd(s.cost)}</dd>
+            </div>
+          ))}
+          {est.minApplied && <p className="text-xs text-[#94A3B8]">Smallest bill is {MIN_UNITS} units.</p>}
+          {devs > 0 && (
+            <>
+              <div className="flex justify-between gap-4 pt-2 border-t border-white/10">
+                <dt className="text-[#CBD5E1]">Code security</dt>
+                <dd className="tabular-nums font-semibold">{devs} developers</dd>
+              </div>
+              {est.codeSlices.map((s) => (
+                <div key={s.label} className="flex justify-between gap-4 text-xs">
+                  <dt className="text-[#94A3B8]">
+                    {s.label}: {num(s.qty)} × {usd(s.rate, true)}
+                  </dt>
+                  <dd className="tabular-nums">{usd(s.cost)}</dd>
+                </div>
+              ))}
+            </>
+          )}
+        </dl>
+
+        {est.saasQuote && <p className="mt-4 text-xs text-[#FCD34D]">Plus a quote for tenants with more than 10,000 users.</p>}
+        {est.size.label === "Enterprise" && <p className="mt-4 text-xs text-[#FCD34D]">At this size an Enterprise contract usually costs less. Ask us.</p>}
+
+        <div className="mt-6 grid gap-2">
+          <BrandButton to="/company/contact" className="w-full">
+            Get a quote for this estimate <ArrowRight className="w-4 h-4" />
+          </BrandButton>
+          <BrandButton to="/request-demo" search={{ product: "security" }} variant="onDark" className="w-full">
+            Start with a free audit scan
+          </BrandButton>
+        </div>
+        <p className="mt-4 text-[11px] leading-relaxed text-[#94A3B8]">
+          List prices in US dollars, before tax. Your quote confirms the final price. Size is worked out from your units:{" "}
+          {SIZES.map((s) => `${s.label} ${s.note.toLowerCase()}`).join("; ")}.
+        </p>
+      </aside>
+    </div>
+  );
+}
+
+/* -------------------------------------------------------------- page data */
+
+const cloudCommon = [
+  `${ENGINES} engines across seven clouds: posture (CSPM, KSPM), identity (CIEM), data (DSPM)`,
+  `All ${FRAMEWORKS} compliance frameworks`,
+  "CIEM and identity attack paths",
+  "Threat detection mapped to MITRE ATT&CK",
+  "Network, API, database and encryption posture",
+  "AI assistant and a fix for every finding",
+  "1-year finding history, email and Slack alerts",
+  "Reports and exports in CSV, JSON and PDF",
+];
+
+const included = [
   {
-    name: "Audit scan",
-    price: "$0",
-    priceSub: "one time, no commitment",
-    blurb: "Before you decide: we scan one cloud account with read-only posture scanning and walk you through what we find.",
-    features: [
-      "1 cloud account, scanned once",
-      "Findings ranked by risk, each with its fix and the compliance frameworks it affects",
-      "A report of the findings to keep",
-      "45-minute readout with our team",
-    ],
-    notIncluded: ["Continuous monitoring", "Team access & SSO", "Workload, identity and data engines"],
-    cta: { label: "Request an audit scan", to: "/request-demo" },
+    icon: Cloud,
+    title: "Cloud security",
+    price: `${usd(COMPLETE.unitPrice)}`,
+    unit: "per unit a month",
+    sub: `Posture plan ${usd(POSTURE.unitPrice)} per unit, without vulnerability scanning`,
+    items: [...cloudCommon, "Complete plan: agentless vulnerability and malware scanning with EPSS scoring"],
   },
   {
-    name: "Onam Security",
-    price: "Annual",
-    priceSub: "priced per cloud account",
-    blurb: "All Onam Security engines across seven clouds, priced per connected cloud account and billed annually. Buy direct, through a partner, or on Microsoft Marketplace.",
-    features: [
-      "Priced per connected cloud account",
-      `All ${ENGINES} engines: CNAPP, CSPM, CIEM, DSPM, CWPP, SSPM`,
-      `All ${FRAMEWORKS} compliance frameworks`,
-      "CIEM & identity attack paths",
-      "Agentless workload scanning (no agents to deploy)",
-      "SaaS security: M365, Workspace, GitHub, Snowflake",
-      "Threat detection mapped to MITRE ATT&CK",
-      "Network, API, database & encryption posture",
-      "Vulnerability management with EPSS scoring",
-      "AI assistant & per-finding remediation",
-      "1-year finding history",
-      "Email & Slack notifications",
-      "Reports & exports in CSV, JSON and PDF",
-      "Email support",
+    icon: Layers,
+    title: "SaaS security",
+    price: usd(5 * COMPLETE.unitPrice),
+    unit: "a month per tenant, up to 100 users",
+    sub: "Counted in units by licensed users; shares the cloud volume discount",
+    items: [
+      "Microsoft 365 with SharePoint, Dynamics 365, Google Workspace",
+      "Okta, GitHub and GitLab organisation settings, Snowflake",
+      "SaaS posture checks (SSPM) on each platform's settings",
+      "Findings in the same console and reports as your clouds",
     ],
-    cta: { label: "Get a quote", to: "/company/contact" },
-    highlight: true,
   },
   {
-    name: "Enterprise & partners",
-    price: "Custom",
-    priceSub: "annual contract",
-    blurb: "For regulated organisations and for security service providers who run Onam for their own clients.",
-    features: [
-      "Everything in Onam Security",
-      "Multi-tenant organisation support",
-      "Custom compliance framework builder",
-      "SSO / SAML 2.0",
-      "RBAC with custom roles",
-      "Dedicated security engineer (on request)",
-      "On-premises deployment (on request)",
-      "Custom data retention",
-      "Service levels agreed in your contract",
-      "Priority support",
-      "Quarterly posture review (on request)",
-      "Custom contract & invoicing",
+    icon: FileCode2,
+    title: "Code security",
+    price: usd(DEV_PRICE),
+    unit: "per active developer a month",
+    sub: "Lower rate above 50 and 200 developers",
+    items: [
+      "Static analysis (SAST)",
+      "Dependency checks with SBOM (SCA)",
+      "Secrets detection",
+      "Infrastructure-as-code checks",
+      "GitHub and GitLab repositories",
     ],
-    cta: { label: "Contact sales", to: "/company/contact" },
   },
 ];
 
-const comparison: { label: string; free: string; pro: string; ent: string }[] = [
-  { label: "Cloud accounts", free: "1, scanned once", pro: "Priced per account", ent: "Per account + multi-tenant" },
-  { label: "Resources scanned", free: "All in the account", pro: "All", ent: "All" },
-  { label: "Security engines", free: "Posture (CSPM)", pro: `All ${ENGINES} engines`, ent: `All ${ENGINES} engines · custom rules` },
-  { label: "SaaS security (SSPM)", free: "—", pro: "All 8 platforms", ent: "All 8 + custom connectors" },
-  { label: "Agentless workload scanning", free: "—", pro: "Included", ent: "Included · custom schedules" },
-  { label: "Compliance frameworks", free: "Mapped in the report", pro: `All ${FRAMEWORKS} frameworks`, ent: `All ${FRAMEWORKS} + custom builder` },
-  { label: "Finding history", free: "The report you keep", pro: "1 year", ent: "Custom retention" },
-  { label: "Notifications", free: "—", pro: "Email + Slack", ent: "Email, Slack, PagerDuty, webhooks" },
-  { label: "Reports & exports", free: "Report", pro: "CSV, JSON, PDF", ent: "CSV, JSON, PDF + webhooks" },
-  { label: "SSO / SAML 2.0", free: "—", pro: "—", ent: "Included" },
-  { label: "RBAC", free: "—", pro: "Basic", ent: "Custom roles" },
-  { label: "Support", free: "Readout with our team", pro: "Email", ent: "Priority + CSM" },
-  { label: "Service levels", free: "—", pro: "—", ent: "Agreed in your contract" },
-  { label: "Deployment", free: "SaaS", pro: "SaaS", ent: "SaaS (on-prem on request)" },
+const enterprise = [
+  { icon: Building2, t: "Multi-tenant organisations", d: "For groups and for security providers running Onam for clients" },
+  { icon: ClipboardCheck, t: "Custom compliance frameworks", d: "Build your own controls beside the standard frameworks" },
+  { icon: KeyRound, t: "SSO / SAML 2.0", d: "Sign in through your identity provider" },
+  { icon: Users2, t: "RBAC with custom roles", d: "Scope people to accounts, teams and products" },
+  { icon: History, t: "Custom data retention", d: "Keep finding history as long as your policy needs" },
+  { icon: Landmark, t: "Your region", d: "Hosting in the US, Europe, India or another region you choose" },
+  { icon: Server, t: "On-premises deployment", d: "On request" },
+  { icon: ShieldCheck, t: "Dedicated security engineer", d: "On request, plus a quarterly posture review" },
+  { icon: LifeBuoy, t: "Priority support", d: "Service levels agreed in your contract" },
+  { icon: ScrollText, t: "Custom contract and invoicing", d: "Terms and invoicing that fit your procurement" },
+  { icon: Handshake, t: "Partner and marketplace buying", d: "Through a partner or a Microsoft Marketplace private offer" },
+  { icon: Coins, t: "Volume pricing", d: "Contract rates above 10,000 units or 500 developers" },
+];
+
+type Cell = string | boolean;
+const comparison: { label: string; cells: [Cell, Cell, Cell, Cell] }[] = [
+  { label: "Price", cells: ["Free, once", `${usd(POSTURE.unitPrice)} / unit / month`, `${usd(COMPLETE.unitPrice)} / unit / month`, "Contract"] },
+  { label: "Cloud accounts", cells: ["1", "Unlimited", "Unlimited", "Unlimited, multi-tenant"] },
+  { label: "Posture (CSPM, KSPM) and compliance", cells: [true, true, true, true] },
+  { label: "Identity and permissions (CIEM)", cells: [false, true, true, true] },
+  { label: "Sensitive data (DSPM)", cells: [false, true, true, true] },
+  { label: "Agentless vulnerability and malware scanning", cells: [false, false, true, true] },
+  { label: "SaaS and code security", cells: [false, "Add per tenant or developer", "Add per tenant or developer", "Included in contract"] },
+  { label: "Continuous monitoring", cells: ["Scanned once", true, true, true] },
+  { label: "Finding history", cells: ["The report you keep", "1 year", "1 year", "Custom"] },
+  { label: "SSO / SAML 2.0 and custom roles", cells: [false, false, false, true] },
+  { label: "Support", cells: ["Readout with our team", "Email", "Email", "Priority, agreed service levels"] },
 ];
 
 const faqs = [
   {
-    q: "How is Onam Security priced?",
-    a: "As an annual subscription priced per connected cloud account. Tell us how many accounts you run and on which clouds, and we send a quote. You can buy direct, through an Onam partner, or as a private offer on Microsoft Marketplace.",
+    q: "What is a unit?",
+    a: `A unit is how Onam counts what it protects. A virtual machine, a Kubernetes node or a cluster is 1 unit. Two databases are 1 unit, ten buckets are 1 unit and fifty functions are 1 unit. Identities, networks, security groups, disks, keys and logs count nothing. A unit costs ${usd(COMPLETE.unitPrice)} a month on the Complete plan and ${usd(POSTURE.unitPrice)} on the Posture plan.`,
+  },
+  {
+    q: "We already have a vulnerability scanner. Do we have to pay for ours?",
+    a: `No. Choose the Posture plan at ${usd(POSTURE.unitPrice)} per unit a month. You keep posture, compliance, identity (CIEM) and data (DSPM) checks; Onam does not run vulnerability or malware scans on your machines. You can move to Complete at any time.`,
+  },
+  {
+    q: "How do you count resources that come and go?",
+    a: "By the average over the month, not the peak. Autoscaling groups, short-lived containers and functions count at their average. Before you start you give us your numbers; after go-live we check them against Onam's daily scans.",
+  },
+  {
+    q: "How do volume discounts work?",
+    a: "Like tax brackets. The first 500 units are at the list rate, the next 500 are 8.3% lower, units above 1,000 are 16.7% lower, above 5,000 25% lower and above 10,000 33% lower. Your bill always rises smoothly with size. Code security works the same way above 50 and 200 developers.",
+  },
+  {
+    q: "Is there a minimum?",
+    a: `The smallest cloud and SaaS bill is ${MIN_UNITS} units a month (${usd(MIN_UNITS * COMPLETE.unitPrice)} on Complete). Before that, a free one-time audit scan of one cloud account lets you see the findings first.`,
   },
   {
     q: "What does the free audit scan include?",
     a: "We connect to one cloud account through read-only posture scanning, run the checks once and walk you through the results in a 45-minute readout. Each finding is ranked by risk and comes with its fix and the compliance frameworks it affects. You keep the report. There is no charge and no commitment.",
   },
-  { q: "Can we add cloud accounts during the year?", a: "Yes. Tell us and we update your quote for the accounts you add." },
-  { q: "Do you offer a nonprofit or academic discount?", a: "Yes. Contact sales. Verified nonprofits and academic institutions receive a discount." },
-  { q: "Can we buy through our existing security or cloud partner?", a: "Often, yes. Onam works with security service providers and cloud partners who resell or run Onam for their clients. Ask us, or ask your partner." },
   {
-    q: "Are Onam Estate, Onam FinOps and Onam DRM included in Onam Security?",
-    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription. Buying Onam Security does not turn them on, and buying one of them does not require Onam Security. Talk to sales about any of them.",
+    q: "Can we buy through our existing security or cloud partner?",
+    a: "Often, yes. Onam works with security service providers and cloud partners who resell or run Onam for their clients, and Onam Security is available as a private offer on Microsoft Marketplace.",
   },
   {
-    q: "Can we buy Onam FinOps without Onam Security?",
-    a: "Yes. Each product stands alone. If you do run more than one they share the same login, the same console and the same discovery, so you are not connecting your cloud accounts twice.",
+    q: "Do you offer a nonprofit or academic discount?",
+    a: "Yes. Contact sales. Verified nonprofits and academic institutions receive a discount.",
+  },
+  {
+    q: "Are Onam Estate, Onam FinOps and Onam DRM included?",
+    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription. Buying Onam Security does not turn them on, and buying one of them does not require Onam Security. If you run more than one, they share one login, one console and one discovery.",
   },
   {
     q: "How do we get Onam AIOps?",
-    a: "Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to \"propose\": agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.",
+    a: 'Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to "propose": agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.',
   },
 ];
 
-function TierCard({ t }: { t: Tier }) {
-  return (
-    <div
-      className={cn(
-        "relative rounded-2xl border p-8 flex flex-col bg-white",
-        t.highlight
-          ? "border-[#2563EB] shadow-[0_20px_50px_rgba(37,99,235,.18)]"
-          : "border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]",
-      )}
-    >
-      {t.highlight && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#2563EB] text-white text-[11px] font-bold uppercase tracking-widest">
-          <Sparkles className="w-3 h-3" /> Most popular
-        </div>
-      )}
-      <div className="font-display font-bold text-[#0B1220] text-lg">{t.name}</div>
-      {/* flex-wrap: at tablet the three cards get narrow enough that
-          "Custom" + "annual contract" overflowed the card and was cut off. */}
-      <div className="mt-3 flex flex-wrap items-baseline gap-x-2 gap-y-1">
-        <div className="font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight">{t.price}</div>
-        {t.priceSub && <div className="text-sm text-[#64748B]">{t.priceSub}</div>}
-      </div>
-      <p className="mt-3 text-sm text-[#475569] leading-relaxed">{t.blurb}</p>
-      <div className="mt-6">
-        {t.cta.href ? (
-          <a
-            href={t.cta.href}
-            className={cn(
-              "w-full inline-flex justify-center items-center rounded-[10px] px-4 py-2.5 text-sm font-semibold transition",
-              t.highlight ? "bg-[#2563EB] text-white hover:bg-[#1D4ED8]" : "bg-white text-[#0B1220] border border-[#CBD5E1] hover:bg-[#F1F5F9]",
-            )}
-          >
-            {t.cta.label}
-          </a>
-        ) : (
-          <BrandButton
-            to={t.cta.to!}
-            search={t.cta.to === "/request-demo" ? { product: "security" } : undefined}
-            variant={t.highlight ? "primary" : "secondary"}
-            className="w-full"
-          >
-            {t.cta.label}
-          </BrandButton>
-        )}
-      </div>
-      <div className="mt-6 pt-6 border-t border-[#E5E9F0] space-y-2.5">
-        {t.features.map((f) => (
-          <div key={f} className="flex items-start gap-2.5 text-sm text-[#334155]">
-            <Check className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
-            <span>{f}</span>
-          </div>
-        ))}
-      </div>
-      {t.notIncluded && t.notIncluded.length > 0 && (
-        <div className="mt-4 pt-4 border-t border-[#E5E9F0] space-y-2.5">
-          {t.notIncluded.map((f) => (
-            <div key={f} className="flex items-start gap-2.5 text-sm text-muted-500">
-              <X className="w-4 h-4 shrink-0 mt-0.5" />
-              <span>{f}</span>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
+/* ------------------------------------------------------------------- page */
+
+function CellView({ v }: { v: Cell }) {
+  if (v === true) return <Check className="w-4 h-4 text-[#2563EB]" aria-label="Included" />;
+  if (v === false) return <X className="w-4 h-4 text-[#CBD5E1]" aria-label="Not included" />;
+  return <span>{v}</span>;
 }
 
 function PricingPage() {
   const [open, setOpen] = useState<number | null>(0);
-  const security = getSuite("security");
   const aiops = getSuite("aiops");
+  const postureBrackets = planBrackets(POSTURE.rateFactor);
+
   return (
     <SiteLayout>
-      <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <Backdrop tone="light" color="#059669" pattern="dots" icon={Scale} />
-        <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Pricing</div>
-          <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl sm:text-5xl md:text-6xl tracking-tight leading-[1.05]">
-            Pricing for each Onam product
+      {/* Hero */}
+      <section className="border-b border-[#E5E9F0] bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 md:pt-24 md:pb-16">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#64748B]">Pricing</div>
+          <h1 className="mt-4 max-w-3xl font-display font-bold text-[#0B1220] text-4xl sm:text-5xl tracking-tight leading-[1.08]">
+            Prices you can work out before you call us
           </h1>
-          <p className="mt-5 text-lg text-[#475569]">
-            Onam Security is an annual subscription priced per cloud account, with a free one-time audit scan
-            before you decide. Onam Estate, FinOps and DRM are stand-alone products granted per organisation.
-            Onam AIOps is in early access.
+          <p className="mt-5 max-w-2xl text-lg text-[#475569] leading-relaxed">
+            Onam Security is priced per unit for cloud and SaaS, and per developer for code. Identity (CIEM) and data
+            (DSPM) checks are in every cloud unit, with no add-ons. Enter your numbers below for a monthly estimate.
           </p>
-          <nav aria-label="Jump to a product" className="mt-8 flex flex-wrap justify-center gap-2">
+          <dl className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 border border-[#E5E9F0] rounded-lg divide-y sm:divide-y-0 sm:divide-x divide-[#E5E9F0]">
             {[
-              { href: "#security", label: "Onam Security" },
-              { href: "#products", label: "Estate · FinOps · DRM" },
-              { href: "#aiops", label: "Onam AIOps" },
-            ].map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                className="px-3.5 py-1.5 rounded-full text-sm font-semibold border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
-              >
-                {l.label}
-              </a>
-            ))}
-          </nav>
-        </div>
-      </section>
-
-      <section id="security" className="bg-white pt-16 pb-16 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="flex items-start gap-4 max-w-3xl">
-            <IconTile icon={security.icon} color={security.color} size="lg" />
-            <div>
-              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-                Onam Security plans
-              </h2>
-              <p className="mt-2 text-[#475569] leading-relaxed">
-                {security.blurb}{" "}
-                <Link to="/platform" className="font-medium text-[#2563EB] hover:underline">
-                  What Onam Security does
-                </Link>
-              </p>
-            </div>
-          </div>
-          <div className="mt-10 grid md:grid-cols-3 gap-6">
-            {tiers.map((t) => <TierCard key={t.name} t={t} />)}
-          </div>
-        </div>
-      </section>
-
-      <section id="products" className="bg-white pb-16 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-2xl border border-[#E5E9F0] bg-[#FBFCFE] p-6 sm:p-8 md:p-10">
-            <div className="flex flex-wrap items-baseline justify-between gap-3">
-              <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-                Onam Estate, FinOps and DRM
-              </h2>
-              <div className="text-xs uppercase tracking-widest text-[#64748B] font-semibold">
-                Stand-alone · granted per organisation
+              { k: "Cloud, Complete", v: usd(COMPLETE.unitPrice), u: "per unit a month", d: "Posture, CIEM, DSPM and vulnerability scanning" },
+              { k: "Cloud, Posture", v: usd(POSTURE.unitPrice), u: "per unit a month", d: "For teams that already run a scanner" },
+              { k: "SaaS", v: usd(5 * COMPLETE.unitPrice), u: "a month per tenant", d: "Up to 100 users; larger tenants in bands" },
+              { k: "Code", v: usd(DEV_PRICE), u: "per developer a month", d: "SAST, SCA with SBOM, secrets, IaC" },
+            ].map((x) => (
+              <div key={x.k} className="p-5">
+                <dt className="text-xs font-semibold text-[#64748B]">{x.k}</dt>
+                <dd className="mt-2">
+                  <span className="font-display font-bold text-3xl text-[#0B1220] tabular-nums">{x.v}</span>{" "}
+                  <span className="text-sm text-[#64748B]">{x.u}</span>
+                  <div className="mt-1.5 text-xs text-[#475569]">{x.d}</div>
+                </dd>
               </div>
-            </div>
-            <p className="mt-3 text-sm text-[#475569] max-w-2xl leading-relaxed">
-              Each is its own product, granted per organisation. It is not a tier or feature of Onam Security. None of
-              them requires a security plan, and upgrading a security plan does not turn them on. If you run more
-              than one product, they share one login, one console and one discovery, so your cloud accounts are
-              connected once. No price is published yet; talk to us.
-            </p>
+            ))}
+          </dl>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <BrandButton href="#calculator" size="lg">
+              Work out your price <ArrowRight className="w-4 h-4" />
+            </BrandButton>
+            <BrandButton to="/request-demo" search={{ product: "security" }} variant="secondary" size="lg">
+              Request a free audit scan
+            </BrandButton>
+          </div>
+        </div>
+      </section>
 
-            <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {PRODUCTS.filter((p) => p.key !== "security").map((p) => {
-                const Icon = p.icon;
-                return (
-                  <div key={p.key} className="rounded-xl border border-[#E5E9F0] bg-white p-6 flex flex-col">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-lg grid place-items-center"
-                        style={{
-                          backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
-                          boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
-                        }}
-                      >
-                        <Icon className="w-5 h-5" style={{ color: p.color }} />
-                      </div>
-                      <div>
-                        <div className="font-display font-bold text-[#0B1220]">{p.name}</div>
-                        <div className="text-xs text-[#64748B]">{p.question}</div>
-                      </div>
+      {/* Calculator */}
+      <section id="calculator" className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-16 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display font-bold text-[#0B1220] text-2xl md:text-3xl tracking-tight">Price calculator</h2>
+          <p className="mt-2 max-w-2xl text-[#475569]">
+            Choose a plan, add each type of resource you run, then any SaaS tenants and developers. Your size and price
+            update as you go.
+          </p>
+          <div className="mt-8">
+            <PriceCalculator />
+          </div>
+        </div>
+      </section>
+
+      {/* What's included */}
+      <section className="bg-white py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display font-bold text-[#0B1220] text-2xl md:text-3xl tracking-tight">What each price includes</h2>
+          <div className="mt-8 grid md:grid-cols-3 gap-5">
+            {included.map((c) => (
+              <div key={c.title} className="rounded-lg border border-[#E5E9F0] p-6 flex flex-col">
+                <div className="flex items-center gap-2.5 text-[#0B1220]">
+                  <c.icon className="w-5 h-5 text-[#2563EB]" />
+                  <h3 className="font-display font-bold text-lg">{c.title}</h3>
+                </div>
+                <div className="mt-4">
+                  <span className="font-display font-bold text-3xl text-[#0B1220] tabular-nums">{c.price}</span>{" "}
+                  <span className="text-sm text-[#64748B]">{c.unit}</span>
+                </div>
+                <p className="mt-1.5 text-xs text-[#475569]">{c.sub}</p>
+                <ul className="mt-5 pt-5 border-t border-[#E5E9F0] space-y-2.5">
+                  {c.items.map((f) => (
+                    <li key={f} className="flex items-start gap-2.5 text-sm text-[#334155]">
+                      <Check className="w-4 h-4 text-[#2563EB] shrink-0 mt-0.5" />
+                      <span>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Units and discounts */}
+      <section className="bg-white pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] gap-8">
+          <div>
+            <h2 className="font-display font-bold text-[#0B1220] text-2xl tracking-tight">How resources count</h2>
+            <p className="mt-2 text-sm text-[#475569]">The same counting on every cloud. Anything not listed is scanned and reported free.</p>
+            <div className="mt-5 overflow-x-auto rounded-lg border border-[#E5E9F0]">
+              <table className="w-full text-sm">
+                <thead className="bg-[#F8FAFC] text-left">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220]">Resource</th>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220] whitespace-nowrap">Counts as</th>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220] whitespace-nowrap">Complete</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {CLOUD_RESOURCES.map((r) => (
+                    <tr key={r.key} className="border-t border-[#EEF1F5]">
+                      <td className="px-4 py-2.5 text-[#0B1220]">{r.label}</td>
+                      <td className="px-4 py-2.5 text-[#475569] whitespace-nowrap">{r.ratio}</td>
+                      <td className="px-4 py-2.5 text-[#475569] tabular-nums whitespace-nowrap">{usd(r.factor * COMPLETE.unitPrice, true)} each</td>
+                    </tr>
+                  ))}
+                  <tr className="border-t border-[#EEF1F5] bg-[#FBFCFE]">
+                    <td className="px-4 py-2.5 text-[#0B1220]" colSpan={1}>{FREE_RESOURCES}</td>
+                    <td className="px-4 py-2.5 text-[#475569]">0</td>
+                    <td className="px-4 py-2.5 text-[#475569]">Free</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div>
+            <h2 className="font-display font-bold text-[#0B1220] text-2xl tracking-tight">Volume discounts</h2>
+            <p className="mt-2 text-sm text-[#475569]">Each slice is charged at its own rate, so the bill always rises smoothly.</p>
+            <div className="mt-5 overflow-x-auto rounded-lg border border-[#E5E9F0]">
+              <table className="w-full text-sm">
+                <thead className="bg-[#F8FAFC] text-left">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220]">Cloud and SaaS units</th>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220] text-right">Complete</th>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220] text-right">Posture</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {UNIT_BRACKETS.map((b, i) => (
+                    <tr key={b.label} className="border-t border-[#EEF1F5]">
+                      <td className="px-4 py-2.5 text-[#0B1220]">{b.label}</td>
+                      <td className="px-4 py-2.5 text-right tabular-nums text-[#475569]">{usd(b.rate, true)}</td>
+                      <td className="px-4 py-2.5 text-right tabular-nums text-[#475569]">{usd(postureBrackets[i].rate, true)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className="mt-4 overflow-x-auto rounded-lg border border-[#E5E9F0]">
+              <table className="w-full text-sm">
+                <thead className="bg-[#F8FAFC] text-left">
+                  <tr>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220]">Code security</th>
+                    <th className="px-4 py-3 font-semibold text-[#0B1220] text-right">Per developer a month</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {DEV_BRACKETS.map((b) => (
+                    <tr key={b.label} className="border-t border-[#EEF1F5]">
+                      <td className="px-4 py-2.5 text-[#0B1220]">{b.label}</td>
+                      <td className="px-4 py-2.5 text-right tabular-nums text-[#475569]">{usd(b.rate, true)}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="mt-3 text-xs text-[#64748B]">Rates per month. Smallest cloud and SaaS bill: {MIN_UNITS} units.</p>
+          </div>
+        </div>
+      </section>
+
+      {/* Enterprise */}
+      <section id="enterprise" className="bg-[#0B1220] text-white py-16 md:py-20 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] gap-10">
+          <div>
+            <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#94A3B8]">Enterprise</div>
+            <h2 className="mt-3 font-display font-bold text-white text-3xl md:text-4xl tracking-tight">One contract for large and regulated estates</h2>
+            <p className="mt-4 text-[#CBD5E1] leading-relaxed">
+              For organisations above 10,000 units or 500 developers, regulated industries, and security providers who run
+              Onam for their own clients. Everything in Complete, plus SaaS and code security in one contract, with the
+              controls and terms your procurement team expects.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <BrandButton to="/company/contact" size="lg">
+                Talk to sales <ArrowRight className="w-4 h-4" />
+              </BrandButton>
+              <BrandButton to="/request-demo" search={{ product: "security" }} variant="onDark" size="lg">
+                Book a demo
+              </BrandButton>
+            </div>
+          </div>
+          <ul className="grid sm:grid-cols-2 gap-px bg-white/10 rounded-lg overflow-hidden">
+            {enterprise.map((e) => (
+              <li key={e.t} className="bg-[#0B1220] p-5 flex gap-3">
+                <e.icon className="w-5 h-5 text-[#60A5FA] shrink-0 mt-0.5" />
+                <div>
+                  <div className="font-semibold text-sm text-white">{e.t}</div>
+                  <div className="mt-0.5 text-xs text-[#94A3B8] leading-relaxed">{e.d}</div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* Compare */}
+      <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display font-bold text-[#0B1220] text-2xl md:text-3xl tracking-tight">Compare plans</h2>
+          <p className="mt-2 text-[#475569]">Onam Security only. Estate, FinOps and DRM are separate products.</p>
+          <div className="mt-8 overflow-x-auto rounded-lg border border-[#E5E9F0] bg-white">
+            <table className="w-full text-sm min-w-[720px]">
+              <thead>
+                <tr className="bg-[#F8FAFC] border-b border-[#E5E9F0] text-left">
+                  <th className="px-5 py-4 font-semibold text-[#0B1220]"> </th>
+                  {["Audit scan", "Posture", "Complete", "Enterprise"].map((h) => (
+                    <th key={h} className={cn("px-5 py-4 font-display font-bold", h === "Complete" ? "text-[#2563EB]" : "text-[#0B1220]")}>{h}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map((row) => (
+                  <tr key={row.label} className="border-b border-[#EEF1F5] last:border-0">
+                    <td className="px-5 py-3 font-medium text-[#0B1220]">{row.label}</td>
+                    {row.cells.map((c, i) => (
+                      <td key={i} className="px-5 py-3 text-[#475569]"><CellView v={c} /></td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Other products */}
+      <section id="products" className="bg-white pt-16 pb-10 scroll-mt-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <h2 className="font-display font-bold text-[#0B1220] text-2xl md:text-3xl tracking-tight">Onam Estate, FinOps and DRM</h2>
+          <p className="mt-2 text-sm text-[#475569] max-w-2xl leading-relaxed">
+            Each is its own product, granted per organisation, not a tier of Onam Security. If you run more than one, they
+            share one login, one console and one discovery, so your cloud accounts are connected once. No price is
+            published yet; talk to us.
+          </p>
+          <div className="mt-8 grid md:grid-cols-3 gap-4">
+            {PRODUCTS.filter((p) => p.key !== "security").map((p) => {
+              const Icon = p.icon;
+              return (
+                <div key={p.key} className="rounded-lg border border-[#E5E9F0] p-6 flex flex-col">
+                  <div className="flex items-center gap-3">
+                    <Icon className="w-5 h-5" style={{ color: p.color }} />
+                    <div>
+                      <div className="font-display font-bold text-[#0B1220]">{p.name}</div>
+                      <div className="text-xs text-[#64748B]">{p.question}</div>
                     </div>
-                    <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">{getSuite(p.key).blurb}</p>
-                    <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-4">
-                      <div className="font-display font-black text-[#0B1220] text-xl">Contact sales</div>
-                      <Link
-                        to="/request-demo"
-                        search={{ product: p.key }}
-                        className="text-sm font-semibold px-4 py-2 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
-                      >
-                        Talk to us
-                      </Link>
-                    </div>
-                    <Link to={p.href} className="mt-3 text-xs font-medium text-[#2563EB] hover:underline">
-                      What {p.name} does →
+                  </div>
+                  <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">{getSuite(p.key).blurb}</p>
+                  <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-4">
+                    <Link to={p.href} className="text-sm font-medium text-[#2563EB] hover:underline">What {p.name} does</Link>
+                    <Link to="/request-demo" search={{ product: p.key }} className="text-sm font-semibold text-[#0B1220] hover:text-[#2563EB]">
+                      Talk to us →
                     </Link>
                   </div>
-                );
-              })}
-            </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <section id="aiops" className="bg-white pb-20 scroll-mt-20">
+      <section id="aiops" className="bg-white pb-16 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="rounded-2xl border border-[#E5E9F0] bg-white p-6 sm:p-8 md:p-10 grid md:grid-cols-[1fr_auto] gap-6 items-center">
+          <div className="rounded-lg border border-[#E5E9F0] p-6 sm:p-8 grid md:grid-cols-[1fr_auto] gap-6 items-center">
             <div className="flex items-start gap-4">
               <IconTile icon={aiops.icon} color={aiops.color} size="lg" />
               <div>
                 <div className="flex flex-wrap items-center gap-3">
-                  <h2 className="font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-                    {aiops.name}
-                  </h2>
+                  <h2 className="font-display font-bold text-[#0B1220] text-2xl tracking-tight">{aiops.name}</h2>
                   <StatusChip status="early" />
                 </div>
-                <p className="mt-2 text-[#475569] leading-relaxed max-w-2xl">{aiops.blurb}</p>
-                <p className="mt-3 text-sm text-[#475569] leading-relaxed max-w-2xl">
-                  By invitation. {OPS_STATUS.early.meaning} Agents work on your Onam Security data today. No price is
-                  published.
+                <p className="mt-2 text-sm text-[#475569] leading-relaxed max-w-2xl">
+                  By invitation. {OPS_STATUS.early.meaning} Agents work on your Onam Security data today. No price is published.
                 </p>
                 <Link to="/platform/ai-operations" className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:underline">
                   What Onam AIOps does <ArrowRight className="w-3.5 h-3.5" aria-hidden />
@@ -356,86 +824,34 @@ function PricingPage() {
 
       <MarketplaceStrip tone="surface" />
 
-      <section className="bg-[#F7F9FC] border-y border-[#E5E9F0] py-20">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-              Compare plans
-            </div>
-            <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              What's included in each Onam Security plan
-            </h2>
-            <p className="mt-3 text-[#475569]">
-              The plans below cover Onam Security only. Onam Estate, FinOps and DRM are granted separately, per
-              organisation, and are not part of any plan.
-            </p>
+      {/* FAQ */}
+      <section className="bg-white py-16 md:py-20">
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }} />
+        <div className="max-w-3xl mx-auto px-4 sm:px-6">
+          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+            <HelpCircle className="w-3.5 h-3.5" /> Pricing questions
           </div>
-          <div className="mt-10 overflow-x-auto rounded-2xl border border-[#E5E9F0] bg-white">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="bg-[#F8FAFC] border-b border-[#E5E9F0]">
-                  <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Feature</th>
-                  <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Audit scan</th>
-                  <th className="text-left font-display font-bold text-[#2563EB] px-5 py-4">Onam Security</th>
-                  <th className="text-left font-display font-bold text-[#0B1220] px-5 py-4">Enterprise</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparison.map((row, i) => (
-                  <tr key={row.label} className={cn("border-b border-[#E5E9F0]", i % 2 && "bg-[#FBFCFE]")}>
-                    <td className="px-5 py-3.5 font-medium text-[#0B1220]">{row.label}</td>
-                    <td className="px-5 py-3.5 text-[#475569]">{row.free}</td>
-                    <td className="px-5 py-3.5 text-[#475569]">{row.pro}</td>
-                    <td className="px-5 py-3.5 text-[#475569]">{row.ent}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-white py-20">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }}
-        />
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center">
-            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-              <HelpCircle className="w-3.5 h-3.5" /> Pricing FAQ
-            </div>
-            <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              Things people ask before buying
-            </h2>
-          </div>
-          <div className="mt-10 space-y-3">
+          <h2 className="mt-3 font-display font-bold text-[#0B1220] text-3xl tracking-tight">Things people ask before buying</h2>
+          <div className="mt-8 divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
             {faqs.map((f, i) => {
               const isOpen = open === i;
               return (
-                <div key={f.q} className="bg-white border border-[#E5E9F0] rounded-xl overflow-hidden">
+                <div key={f.q}>
                   <button
+                    type="button"
+                    aria-expanded={isOpen}
                     onClick={() => setOpen(isOpen ? null : i)}
-                    className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-[#F8FAFC] transition"
+                    className="w-full text-left py-5 flex items-center justify-between gap-4"
                   >
                     <span className="font-display font-semibold text-[#0B1220]">{f.q}</span>
-                    <span className={cn("shrink-0 w-7 h-7 rounded-full grid place-items-center border border-[#E5E9F0] text-[#475569] transition-transform", isOpen && "rotate-45 border-[#2563EB] text-[#2563EB] bg-[#EFF4FF]")}>+</span>
+                    <span className={cn("shrink-0 text-[#64748B] transition-transform", isOpen && "rotate-45 text-[#2563EB]")}>
+                      <Plus className="w-4 h-4" />
+                    </span>
                   </button>
-                  {isOpen && <div className="px-6 pb-6 text-[#475569] leading-relaxed">{f.a}</div>}
+                  {isOpen && <div className="pb-5 text-[#475569] leading-relaxed">{f.a}</div>}
                 </div>
               );
             })}
-          </div>
-          <div className="mt-14 text-center">
-            <p className="text-[#475569]">Need a bespoke quote?</p>
-            <div className="mt-4 inline-flex">
-              <Link
-                to="/company/contact"
-                className="inline-flex items-center rounded-[10px] px-5 py-3 text-sm font-semibold bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition"
-              >
-                Talk to sales →
-              </Link>
-            </div>
           </div>
         </div>
       </section>

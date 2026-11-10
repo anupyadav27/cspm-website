@@ -378,7 +378,7 @@ export function OneFoundation() {
     },
     {
       t: "Buy what you need",
-      b: "Onam Security is an annual subscription priced per cloud account. Estate, FinOps and DRM are added per organisation.",
+      b: "Onam Security is priced per unit for cloud and SaaS and per developer for code, with published prices. Estate, FinOps and DRM are added per organisation.",
     },
   ];
   return (

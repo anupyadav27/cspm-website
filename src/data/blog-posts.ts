@@ -783,7 +783,7 @@ Each cell in the deployment and ranking columns is what the vendor's own page sa
 | SentinelOne Singularity Cloud Security | SentinelOne endpoint customers | Not stated on the page we read; ask | "Verified, exploitable risk" | Ask for a quote |
 | Sysdig Secure | Container and Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Lacework FortiCNAPP (Fortinet) | Fortinet network estates | Not stated on the page we read; ask | Attack path visualisation | Ask for a quote |
-| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | Annual per cloud account; free one-time audit scan ([pricing](/pricing)) |
+| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free one-time audit scan ([pricing](/pricing)) |
 
 ## Why teams look for a Wiz alternative
 
@@ -973,7 +973,7 @@ Deployment and ranking are what each vendor's own page says, on the date read. "
 | Sysdig Secure | Container and Kubernetes-heavy teams | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Tenable Cloud Security | Tenable VM customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
 | Wiz | Almost any shortlist; the category reference point | API connection; Wiz Sensor for runtime | "Prioritized issues of toxic combinations" | Packages quoted on request |
-| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | Annual per cloud account; free one-time audit scan ([pricing](/pricing)) |
+| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free one-time audit scan ([pricing](/pricing)) |
 
 ## How to evaluate CSPM tools: five criteria that still separate them
 
