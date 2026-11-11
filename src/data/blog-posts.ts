@@ -755,21 +755,23 @@ Access reviews in Onam are an attestation and remediation workflow: every identi
   },
   {
     slug: "wiz-alternatives",
-    title: "Wiz alternatives in 2026: 8 cloud security platforms compared",
+    title: "Wiz.io alternatives & competitors 2026: 8 compared, with public pricing",
     category: "Buyer's Guide",
     excerpt:
-      "Wiz alternatives in 2026 compared: Orca, Cortex Cloud, Defender for Cloud, CrowdStrike, Tenable, Sysdig and more. Who each fits, how it deploys, pricing.",
+      "Wiz.io alternatives and competitors for 2026, quoted from their own sites with dates: Orca, Cortex Cloud, Defender, CrowdStrike, Sysdig. Public pricing noted.",
     author: "anup-yadav",
     date: "September 15, 2026",
     readTime: "12 min",
     body: `
-*Updated 7 October 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
+*Updated 11 November 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
 
 ## The short answer
 
-The most common Wiz alternatives in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly sold as Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Which one fits depends less on feature lists than on four things you already know: which security vendor you are standardised on, which cloud you run most, whether you need runtime blocking, and what unit you want risk ranked in.
+The main Wiz.io alternatives and competitors in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Orca is closest to Wiz in design. Defender for Cloud has a free foundational tier. Choose by your clouds, your current security vendor and whether you need runtime blocking.
 
-## Wiz alternatives at a glance
+If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
+
+## Wiz.io alternatives and competitors at a glance
 
 Each cell in the deployment and ranking columns is what the vendor's own page says, on the date shown further down. "Best fit" is our view. Pricing says only what is public.
 
@@ -804,7 +806,7 @@ Two things in that description matter for a shortlist. The ranking unit is a pri
 - No ranking. Alternatives are listed alphabetically, with our own entry last.
 - Corrections go to hello@onamsecurity.com and we apply them.
 
-## Eight alternatives to Wiz
+## Eight Wiz competitors, in their own words
 
 ### 1. CrowdStrike Falcon Cloud Security
 
@@ -914,7 +916,11 @@ The platforms most often compared with Wiz are Orca Security, Palo Alto Networks
 
 ### Who are Wiz's main competitors?
 
-In cloud security posture and CNAPP, Wiz most often competes with Orca Security, Palo Alto Networks, Microsoft, CrowdStrike, Tenable, SentinelOne, Sysdig, Fortinet and Check Point, plus newer platforms such as Onam.
+In cloud security posture and CNAPP, Wiz's main competitors are Orca Security, Palo Alto Networks (Cortex Cloud), Microsoft (Defender for Cloud), CrowdStrike, Tenable, SentinelOne, Sysdig and Fortinet. Aqua Security and Check Point also appear on many shortlists, as do newer platforms such as Onam. Orca is the closest in design: agentless first, with an optional runtime sensor.
+
+### What is a cheaper alternative to Wiz?
+
+Wiz does not publish list prices, so any price comparison starts with a quote. Of the platforms here, Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free, Prowler is an open-source posture scanner, and Onam publishes $20 per unit a month with CIEM and DSPM included, plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Cheaper only helps if it covers what you need, so compare tools on the same accounts.
 
 ### What is the difference between Wiz and Orca?
 
@@ -922,7 +928,7 @@ On their own pages, both describe agentless scanning with an optional runtime se
 
 ### Is there a free alternative to Wiz?
 
-Microsoft's foundational CSPM tier in Defender for Cloud is free, open-source scanners such as Prowler cover posture checks for the main clouds, and Onam has a free plan for one cloud account. None of these is a like-for-like replacement for a full CNAPP, so compare what each covers.
+Microsoft's foundational CSPM tier in Defender for Cloud is free, open-source scanners such as Prowler cover posture checks for the main clouds, and Onam offers a free one-time audit scan of one cloud account. None of these is a like-for-like replacement for a full CNAPP, so compare what each covers.
 
 ### How much does Wiz cost?
 
@@ -934,32 +940,34 @@ Yes. Google completed its acquisition of Wiz in March 2026. Google has said Wiz 
 
 ## Corrections
 
-Last updated 7 October 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
 *Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and [what a CNAPP is](/learn/cnapp).*
 `,
   },
   {
     slug: "best-cspm-tools",
-    title: "Best CSPM tools in 2026: 9 compared, with a buyer's checklist",
+    title: "Best CSPM tools 2026: 9 compared in vendors' own words, with public pricing",
     category: "Buyer's Guide",
     excerpt:
-      "Best CSPM tools in 2026 compared: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable and more. Who each fits, deployment, how to choose.",
+      "Best CSPM tools 2026: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable, Sysdig and more, quoted from their own pages, with public pricing.",
     author: "anup-yadav",
     date: "September 15, 2026",
     readTime: "12 min",
     body: `
-*Updated 7 October 2026. Onam Security wrote this list, and Onam is on it.* That is the first thing to know. The second is that every other tool below is described in its vendor's own published words, with the page and the date, and nobody is scored. A "best tools" list written by a vendor is only worth reading if it is honest about both of those things.
+*Updated 11 November 2026. Onam Security wrote this list, and Onam is on it.* That is the first thing to know. The second is that every other tool below is described in its vendor's own published words, with the page and the date, and nobody is scored. A "best tools" list written by a vendor is only worth reading if it is honest about both of those things.
 
 ## The short answer
 
-The CSPM tools most worth shortlisting in 2026 are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Almost all of them are now sold as CNAPPs, platforms where posture management is one engine among several. The right one depends on your clouds, your existing security vendor, whether you need runtime blocking, and how you want risk ranked.
+The best CSPM tools in 2026 to shortlist are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Most are sold as CNAPPs. Pick by your clouds, your current security vendor and whether you need runtime blocking.
+
+If you want to see real findings before you shortlist, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
 
 ## What a CSPM tool is, in one paragraph
 
 Cloud security posture management checks the configuration of your cloud estate against rules, continuously, and tells you where it is wrong: the public bucket, the role with wildcard permissions, the database with no encryption, the security group open to the world. A longer explanation is on our [What is CSPM](/learn/cspm) page, and how CSPM sits inside a wider platform is on [What is CNAPP](/learn/cnapp).
 
-## The best CSPM tools at a glance
+## The best CSPM tools of 2026 at a glance
 
 Deployment and ranking are what each vendor's own page says, on the date read. "Best fit" is our view. Pricing says only what is public.
 
@@ -1099,7 +1107,7 @@ Connecting an account through a read-only role is usually quick for any of these
 
 ## Corrections
 
-Last updated 7 October 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
 *Read next: [Wiz alternatives in 2026](/resources/blog/wiz-alternatives), the [comparison pages](/compare), and [What is CSPM](/learn/cspm).*
 `,
@@ -1315,21 +1323,39 @@ If you're onboarding a new AWS organisation, check for all five on the first sca
   },
   {
     slug: "ciem-vs-iam-security",
-    title: "CIEM vs IAM Security: what's actually the difference?",
+    title: "CIEM vs IAM: what is the difference, and which do I need?",
     category: "Identity",
     excerpt:
-      "They sound identical. They aren't. Here's the practical split between IAM Security and Cloud Infrastructure Entitlement Management — and why you need both.",
+      "The difference between CIEM and traditional IAM in plain words: IAM grants access, CIEM checks what it adds up to and what is used. Table and FAQ.",
     author: "poonam-yadav",
     date: "July 3, 2026",
-    readTime: "5 min",
+    readTime: "6 min",
     body: `
-## CIEM and IAM Security are often confused
+*Updated 11 November 2026.*
 
-Vendors, us included, use "IAM Security" and "CIEM" interchangeably. In practice they answer different questions, and mature security programmes run both.
+## CIEM vs IAM: the short answer
 
-## IAM Security checks whether an identity is configured safely
+IAM is where cloud access is granted: users, roles, policies and sign-in. CIEM (cloud infrastructure entitlement management) sits on top of IAM and checks what those grants actually allow once every policy is combined, and how much of that access is ever used. You keep IAM. CIEM tells you what to remove from it.
 
-IAM Security is about the **static shape** of your identity plane:
+## CIEM vs traditional IAM at a glance
+
+| Aspect | Traditional IAM | CIEM |
+| --- | --- | --- |
+| Main job | Create identities and grant access | Find out what granted access adds up to, and trim it |
+| Question it answers | Who is allowed to sign in, and with which role? | What can this identity really do, and what has it used? |
+| Scope | Identities across the organisation, often beyond the cloud | Users, roles and service accounts inside cloud accounts, often across several clouds |
+| Looks at | One policy or one identity at a time | Policies, trust relationships, boundaries and activity together |
+| Typical output | An account, a role assignment, an access request approved | Unused permissions, shadow admins, cross-account paths, a smaller policy to apply |
+| Who uses it | IT and identity teams | Cloud security and platform teams |
+| Replaces the other? | No | No. Changes are applied back in IAM |
+
+## What is the difference between CIEM and traditional IAM?
+
+Vendors, us included, often use "IAM security" and "CIEM" as if they meant the same thing. In practice they answer different questions, and mature security programmes run both.
+
+### IAM security checks whether an identity is configured safely
+
+IAM security is about the **static shape** of your identity plane:
 
 - Are there IAM users with console access and no MFA?
 - Are access keys older than 90 days?
@@ -1338,9 +1364,9 @@ IAM Security is about the **static shape** of your identity plane:
 
 It's a posture check against identity best practice. Every CSPM does some of this. Good ones do a lot of it.
 
-## CIEM works out what an identity could do
+### CIEM works out what an identity could do
 
-CIEM starts where IAM Security stops. It reconciles **who has which entitlements** and **what those entitlements evaluate to**, given every trust policy, permission boundary and SCP in the chain. Most importantly, it checks **what was used** over a recent activity window.
+CIEM starts where IAM security stops. It reconciles **who has which entitlements** and **what those entitlements evaluate to**, given every trust policy, permission boundary and SCP in the chain. Most importantly, it checks **what was used** over a recent activity window.
 
 The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output looks more like this (illustrative examples):
 
@@ -1352,22 +1378,48 @@ The third bullet is the urgent one. **Unused entitlements are usually where over
 
 ## Where the two overlap
 
-- Detecting IAM users without MFA is IAM Security.
-- Detecting an IAM user without MFA whose permissions include \`iam:PassRole\` on an admin role is CIEM. IAM Security tells you the user is unsafe. CIEM tells you what it will cost when the user is compromised.
+- Detecting IAM users without MFA is IAM security.
+- Detecting an IAM user without MFA whose permissions include \`iam:PassRole\` on an admin role is CIEM. IAM security tells you the user is unsafe. CIEM tells you what it will cost when the user is compromised.
 
-## The rule we use internally
+## CIEM vs IAM: which do I need?
 
-If the finding can be answered by looking at one resource in isolation, it's IAM Security. If it requires stitching together identity, trust and behaviour across accounts, it's CIEM.
+You need IAM in any case; every cloud account runs on its provider's IAM. The question is whether you also need CIEM. A simple way to decide:
 
-You need both. IAM Security keeps the door from being obviously open. CIEM makes sure that if it opens, the blast radius is bounded.
+- **One small account, a handful of people.** You can review policies by hand. IAM plus basic posture checks is often enough to start.
+- **Many accounts, several clouds, or lots of machine identities.** Nobody can work out effective permissions by reading policies one at a time. This is where CIEM earns its place.
+- **An access review or audit is coming.** CIEM gives reviewers usage evidence, so they are not approving access blind. See the [cloud access review checklist](/resources/blog/cloud-access-review-checklist).
 
-## Frequently asked: the CIEM vs IAM difference
+The rule we use internally: if the finding can be answered by looking at one resource in isolation, it's IAM security. If it requires stitching together identity, trust and behaviour across accounts, it's CIEM.
 
-**What is the difference between CIEM and IAM?** IAM is the cloud provider's own identity service: it is where roles, policies and permissions are defined and granted. CIEM sits on top of it and answers a question IAM does not: what can each identity do once role chaining, permission boundaries, SCPs and resource policies are all resolved, and how much of that has it ever used.
+IAM security keeps the door from being obviously open. CIEM makes sure that if it opens, the blast radius is bounded.
 
-**Is CIEM a replacement for IAM?** No. Every cloud account still runs on its provider's IAM. CIEM audits what IAM has granted, finds the entitlements nobody uses, and turns the gap between granted and used into least-privilege changes you can apply back in IAM.
+## How Onam handles it, and what it does not do
 
-**What is the difference between CIEM and traditional IAM tooling?** Traditional IAM tooling manages the lifecycle of identities: joiners, movers, leavers, access requests. CIEM is about effective permissions in cloud accounts, across providers, and about which of those permissions put data within reach. The two are complementary, and neither one covers the other's job.
+[Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. A suggested right-sized policy is in development, so today the replacement policy is built from the used actions.
+
+Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/request-demo?product=security).
+
+## Frequently asked questions
+
+### What is the difference between CIEM and IAM?
+
+IAM is the cloud provider's own identity service: it is where roles, policies and permissions are defined and granted. CIEM sits on top of it and answers a question IAM does not: what can each identity do once role chaining, permission boundaries, SCPs and resource policies are all resolved, and how much of that has it ever used.
+
+### What is the difference between CIEM and traditional IAM tooling?
+
+Traditional IAM tooling manages the lifecycle of identities: joiners, movers, leavers, access requests. CIEM is about effective permissions in cloud accounts, across providers, and about which of those permissions put data within reach. The two are complementary, and neither one covers the other's job.
+
+### Do I need CIEM if I have IAM?
+
+If you run one small account, IAM and careful policy reviews may be enough for now. Once you have many accounts, more than one cloud, or many service accounts and roles, IAM alone will not tell you what each identity can really do or which permissions are unused. That is the gap CIEM fills.
+
+### Is CIEM a replacement for IAM?
+
+No. Every cloud account still runs on its provider's IAM. CIEM audits what IAM has granted, finds the entitlements nobody uses, and turns the gap between granted and used into least-privilege changes you can apply back in IAM.
+
+### Is CIEM part of CSPM or CNAPP?
+
+Often, yes. Many platforms include CIEM alongside posture management as part of a CNAPP. Basic identity posture checks, such as missing MFA, usually sit in CSPM; effective-permission and usage analysis is CIEM. More on [what CSPM is](/learn/cspm) and [what a CNAPP is](/learn/cnapp).
 `,
   },
   {

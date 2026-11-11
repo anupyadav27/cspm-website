@@ -149,6 +149,18 @@ function Article() {
           </div>
         </section>
 
+        <section className="max-w-3xl mx-auto px-6 pt-8">
+          <div className="bg-[#F7F9FC] border border-[#E5E9F0] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <p className="text-sm text-[#475569]">
+              <span className="font-semibold text-[#0B1220]">See your own cloud, free.</span>{" "}
+              We run a one-time read-only scan of one cloud account and walk you through the results. No charge, no commitment.
+            </p>
+            <BrandButton to="/request-demo" search={{ product: "security" }}>
+              Free audit scan
+            </BrandButton>
+          </div>
+        </section>
+
         <section className="max-w-3xl mx-auto px-6 py-14">
           <Prose source={body} />
         </section>
@@ -187,8 +199,8 @@ function Article() {
             </p>
           </div>
           <div className="flex gap-3">
-            <BrandButton to="/request-demo">Request demo</BrandButton>
-            <BrandButton to="/resources/blog" variant="secondary">More posts</BrandButton>
+            <BrandButton to="/request-demo" search={{ product: "security" }}>Free audit scan</BrandButton>
+            <BrandButton to="/request-demo" variant="secondary">Request demo</BrandButton>
           </div>
         </div>
       </section>

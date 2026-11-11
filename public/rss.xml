@@ -63,18 +63,18 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Wiz alternatives in 2026: 8 cloud security platforms compared</title>
+      <title>Wiz.io alternatives &amp; competitors 2026: 8 compared, with public pricing</title>
       <link>https://www.onamsecurity.com/resources/blog/wiz-alternatives</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/wiz-alternatives</guid>
-      <description>Wiz alternatives in 2026 compared: Orca, Cortex Cloud, Defender for Cloud, CrowdStrike, Tenable, Sysdig and more. Who each fits, how it deploys, pricing.</description>
+      <description>Wiz.io alternatives and competitors for 2026, quoted from their own sites with dates: Orca, Cortex Cloud, Defender, CrowdStrike, Sysdig. Public pricing noted.</description>
       <category>Buyer's Guide</category>
       <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Best CSPM tools in 2026: 9 compared, with a buyer's checklist</title>
+      <title>Best CSPM tools 2026: 9 compared in vendors' own words, with public pricing</title>
       <link>https://www.onamsecurity.com/resources/blog/best-cspm-tools</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/best-cspm-tools</guid>
-      <description>Best CSPM tools in 2026 compared: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable and more. Who each fits, deployment, how to choose.</description>
+      <description>Best CSPM tools 2026: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable, Sysdig and more, quoted from their own pages, with public pricing.</description>
       <category>Buyer's Guide</category>
       <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
     </item>
@@ -103,10 +103,10 @@
       <pubDate>Thu, 09 Jul 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>CIEM vs IAM Security: what's actually the difference?</title>
+      <title>CIEM vs IAM: what is the difference, and which do I need?</title>
       <link>https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</guid>
-      <description>They sound identical. They aren't. Here's the practical split between IAM Security and Cloud Infrastructure Entitlement Management — and why you need both.</description>
+      <description>The difference between CIEM and traditional IAM in plain words: IAM grants access, CIEM checks what it adds up to and what is used. Table and FAQ.</description>
       <category>Identity</category>
       <pubDate>Thu, 02 Jul 2026 18:30:00 GMT</pubDate>
     </item>
@@ -282,7 +282,7 @@
       <title>What is a cloud asset inventory?</title>
       <link>https://www.onamsecurity.com/learn/cloud-asset-inventory</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/learn/cloud-asset-inventory</guid>
-      <description>A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts (compute, storage, databases, networks, identities and managed services) with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs rather than by manual entry.</description>
+      <description>A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts, such as compute, storage, databases, networks and identities, with where each one lives, who owns it and how it connects to other resources. It is built by discovery through the cloud providers' APIs, not by manual entry.</description>
       <category>Learn</category>
       <pubDate>Thu, 06 Aug 2026 00:00:00 GMT</pubDate>
     </item>

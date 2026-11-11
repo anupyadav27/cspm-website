@@ -1714,13 +1714,13 @@ The last point is the one most often missed: a secrets programme that only inspe
     product: "platform",
     author: "poonam-yadav",
     question: "What is a cloud asset inventory?",
-    title: "What is a Cloud Asset Inventory? Discovery, Relationships, CMDB",
+    title: "Cloud Asset Inventory: AWS, Azure, GCP and Multi-Cloud Guide",
     excerpt:
-      "A cloud asset inventory is a continuously discovered list of every cloud resource and how they connect: how it differs from a CMDB, and what to include.",
+      "Cloud asset inventory explained: what to record, how to build one for AWS, Azure and GCP, native tools compared, and when you need a multi-cloud inventory.",
     term: "Cloud Asset Inventory",
     answer:
-      "A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts (compute, storage, databases, networks, identities and managed services) with where each one lives, who owns it, and how it connects to other resources. It is built by discovery through provider APIs rather than by manual entry.",
-    readTime: "6 min",
+      "A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts, such as compute, storage, databases, networks and identities, with where each one lives, who owns it and how it connects to other resources. It is built by discovery through the cloud providers' APIs, not by manual entry.",
+    readTime: "9 min",
     body: `
 ## Why a cloud asset inventory matters
 
@@ -1729,16 +1729,6 @@ Every other cloud discipline starts with the same question: *what do we run?* Se
 In a data centre the answer changed slowly. Servers arrived on a loading dock. In the cloud, a resource is one API call away, and so is its disappearance. Inventories that were accurate on Monday are wrong by Friday unless something keeps them current.
 
 That is why the major control frameworks put inventory first. Asset inventory is the opening control in the **CIS Critical Security Controls**, and *Asset Management* is the first category of the *Identify* function in the **NIST Cybersecurity Framework**.
-
-## How is a cloud asset inventory built?
-
-A modern inventory is discovered by the tooling rather than declared by people:
-
-1. **Connect**: a read-only credential in each cloud account, subscription or project.
-2. **Enumerate**: call the provider's APIs across every region and service to list what exists.
-3. **Normalise**: give every resource a stable identity, type, account, region, state and tags, so the same resource is not counted twice under different names.
-4. **Relate**: record the relationships between resources: what runs inside what, what attaches to what, what can reach what.
-5. **Repeat**: re-run on a schedule or on change events, and record when each resource was **last seen** so deleted resources drop out instead of lingering.
 
 ## What should a cloud asset inventory include?
 
@@ -1750,6 +1740,58 @@ A modern inventory is discovered by the tooling rather than declared by people:
 | Tags and owner | Who is responsible for it |
 | Relationships | What it depends on and what depends on it |
 | Configuration | The settings security and recovery decisions are made from |
+
+## AWS cloud asset inventory
+
+AWS has two native services for this, and they answer different questions.
+
+- **AWS Config** records the configuration of AWS resources in an account, how they relate to one another and how they were configured in the past. You choose which resource types it records. An **aggregator** collects Config data from multiple accounts and Regions, or from an AWS Organizations organization, into one account and Region, but only from accounts that have AWS Config enabled.
+- **AWS Resource Explorer** is a search service: you find resources by name, tag or ID. It searches across Regions once you choose an aggregator Region, and across accounts through AWS Organizations. AWS says searching carries no additional charge.
+
+For **AWS cloud asset inventory management** across many accounts, the usual pattern is Config with an organization-wide aggregator for history and relationships, and Resource Explorer for quick lookups.
+
+## Azure cloud asset inventory
+
+**Azure Resource Graph** lets you query resources at scale across subscriptions, management groups or a whole tenant, using a query language based on Kusto (KQL). It shows the last 14 days of configuration changes. Microsoft describes it as a free service whose queries are throttled per user, and it powers the Azure portal's search and *All resources* views.
+
+Two points from Microsoft's own documentation are worth knowing: Resource Graph data is not strongly consistent (it is indexed with a short delay), and a query returns only what the caller has at least read access to, without saying the result might be partial.
+
+## Google Cloud Asset Inventory
+
+**Google Cloud Asset Inventory** is Google's metadata inventory. It lists assets in a project, folder or organization, keeps create, update and delete history for up to 35 days, and can export to BigQuery or Cloud Storage. You can subscribe to a feed to be told when assets change.
+
+Google states that it is not designed for real-time querying of assets, and that the relationship content type requires Security Command Center Premium or Enterprise.
+
+## Native tools compared
+
+Each provider documents its own tool. This table only restates what those vendor docs say.
+
+| | AWS Config | AWS Resource Explorer | Azure Resource Graph | Google Cloud Asset Inventory |
+| --- | --- | --- | --- | --- |
+| What it is | Configuration recorder with relationships and history | Resource search by name, tag, ID | KQL query service over Azure resources | Metadata inventory with search and export |
+| Widest scope | AWS Organizations organization, via an aggregator | AWS Organizations, via multi-account search | Tenant | Organization |
+| Change history | Past configurations while Config was recording | Not its purpose | Last 14 days | Up to 35 days |
+| Freshness | Records on create, change and delete | Eventually consistent | Indexed with a short delay | Eventually consistent; not for real-time queries |
+| Resources covered | AWS | AWS | Azure | Google Cloud |
+
+## Multi-cloud asset inventory
+
+Every native tool above describes its own provider's resources. If you run on more than one cloud, you have three or four inventories with different schemas, scopes and history windows, and no single place that answers "how many public databases do we have?".
+
+A **multi-cloud asset inventory** reads each provider's APIs and normalises the results into one model: one identity per resource, the same fields for every cloud, and one set of relationships. The work is mostly in the normalising. A VM, a subnet and a role mean slightly different things on each provider, and an inventory that does not reconcile them counts the same idea three ways.
+
+## How to build a cloud asset inventory
+
+1. **Connect**: a read-only credential in each cloud account, subscription or project: an IAM role on AWS, a service principal on Azure, a service account on Google Cloud.
+2. **Enumerate**: call the provider's APIs across every region and service to list what exists. Missing a region is the most common blind spot.
+3. **Normalise**: give every resource a stable identity, type, account, region, state and tags, so the same resource is not counted twice under different names.
+4. **Relate**: record the relationships between resources: what runs inside what, what attaches to what, what can reach what.
+5. **Repeat**: re-run on a schedule or on change events, and record when each resource was **last seen** so deleted resources drop out instead of lingering.
+6. **Check the runs**: keep a history of each discovery run. A failed or partial run leaves an inventory that looks complete and is not.
+
+## Organization cloud asset inventory: scoping it right
+
+An **organization cloud asset inventory** has to start at the top of the hierarchy, not at the accounts someone remembered. On AWS that is the AWS Organizations organization, on Azure the tenant or root management group, on Google Cloud the organization node. Starting there means a new account, subscription or project is inside the inventory from the day it is created, instead of the day someone adds it.
 
 ## Cloud asset inventory vs CMDB
 
@@ -1768,13 +1810,43 @@ A flat list answers "how many databases do we have?". It does not answer "what b
 - **Unowned resources** with no tag or account mapping, which nobody will patch, pay for or recover.
 - **Stale records** that stay in the inventory after the resource is deleted, because nothing checks when it was last seen.
 
+## How Onam Estate does this
+
+[Onam Estate](/estate) is our multi-cloud inventory. Its [Inventory view](/estate/inventory) lists every resource discovery has found across AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, with the account, region and the time each one was last seen. Discovery is read-only: nothing is installed and nothing is modified. The [discovery pipeline](/estate/discovery) keeps a history of every run, so a stale inventory shows as stale.
+
+What it does not do, so you can judge the fit:
+
+- The [Architecture view](/estate/architecture), which draws one account's topology, covers **AWS accounts only** today. The inventory itself covers every supported cloud.
+- Estate does not show cost. That is Onam FinOps, a separate product.
+- Estate does not raise security findings. That is Onam Security, which reads the same discovery.
+
 ## Next steps
 
-- [How Onam Estate builds the estate of record](/estate): continuous discovery and relationships across your connected clouds
+- [Onam Estate inventory](/estate/inventory): the multi-cloud asset list, with last seen
 - [What is CSPM?](/learn/cspm): what security does with the inventory
 - [What is cloud cost allocation?](/learn/cloud-cost-allocation): what finance does with it
 `,
     faqs: [
+      {
+        q: "What is Google Cloud Asset Inventory?",
+        a: "It is Google Cloud's metadata inventory service. It lists assets in a project, folder or organization, keeps create, update and delete history for up to 35 days, exports to BigQuery or Cloud Storage, and can notify you of changes through feeds. It covers Google Cloud resources.",
+      },
+      {
+        q: "What is the AWS equivalent of Cloud Asset Inventory?",
+        a: "There is no single equivalent. AWS Config records resource configurations, relationships and history, and an aggregator brings several accounts and Regions together. AWS Resource Explorer searches resources by name, tag or ID across Regions and accounts. Many teams use both.",
+      },
+      {
+        q: "What is the Azure equivalent of Cloud Asset Inventory?",
+        a: "Azure Resource Graph. It queries resources across subscriptions, management groups or a tenant using a Kusto-based query language, and shows the last 14 days of configuration changes.",
+      },
+      {
+        q: "What is a multi-cloud asset inventory?",
+        a: "One inventory that reads every cloud provider's APIs and puts the results into a single model, so resources from AWS, Azure, Google Cloud and others share the same fields and relationships. The native tools each cover their own provider.",
+      },
+      {
+        q: "How do you build a cloud asset inventory?",
+        a: "Connect a read-only credential to each account, enumerate resources in every region, normalise them into one schema, record relationships, re-run on a schedule or on change events, and keep a history of each run so a failed run does not pass for a complete inventory.",
+      },
       {
         q: "What is the difference between a cloud asset inventory and a CMDB?",
         a: "A CMDB is a system of record for IT services and configuration items, typically maintained through change processes. A cloud asset inventory is discovered from provider APIs and reflects what exists right now. The strongest setups feed the CMDB from discovery rather than reconciling the two by hand.",
@@ -1787,16 +1859,13 @@ A flat list answers "how many databases do we have?". It does not answer "what b
         q: "Does a cloud asset inventory need agents?",
         a: "No. Cloud resources are described by the provider's control-plane APIs, so a read-only credential is enough to enumerate them. Agents are only needed to see inside a workload (installed packages, running processes), which is a different question from what exists.",
       },
-      {
-        q: "Why do asset inventories need relationships as well as a list?",
-        a: "Because most real questions are about connections: what an application depends on, what can reach a database, which team pays for a volume. A list of resources cannot answer those; a graph of resources and the edges between them can.",
-      },
     ],
     related: [
+      { label: "Onam Estate inventory", href: "/estate/inventory" },
+      { label: "Onam Estate", href: "/estate" },
       { label: "What is CSPM?", href: "/learn/cspm" },
       { label: "What is cloud cost allocation?", href: "/learn/cloud-cost-allocation" },
       { label: "What is cloud disaster recovery?", href: "/learn/cloud-disaster-recovery" },
-      { label: "Onam Estate", href: "/estate" },
     ],
   },
   {
