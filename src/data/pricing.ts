@@ -194,7 +194,7 @@ export const CLOUD_RESOURCES: CloudResource[] = [
   {
     key: "ai",
     label: "AI and ML services",
-    examples: "SageMaker endpoints, Bedrock, Azure OpenAI, Vertex AI endpoints",
+    examples: "SageMaker endpoints, Bedrock, Azure OpenAI, Agent Platform (Vertex AI) endpoints",
     factor: 0.5,
     ratio: "2 = 1 unit",
     defaults: { small: 0, mid: 4, large: 40 },
