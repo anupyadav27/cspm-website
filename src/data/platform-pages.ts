@@ -23,16 +23,9 @@ const emerald400 = "#34D399";
 
 export const platformPages: Record<string, ProductPageData> = {
   "code-security": {
-    heroImage: {
-      src: "/overviews/onam-code-security-overview.webp",
-      width: 1536,
-      height: 1024,
-      alt: "Onam Code Security overview sheet: what it scans (source code, dependencies, secrets, infrastructure files and running apps), how each check works, and what you get from it.",
-      caption: "Product overview. AI Code Fix covers static-analysis findings and is run with you on request; nothing merges without your review.",
-    },
     hideDemo: true,
     stats: [
-      { v: "413", l: "SAST security rules" },
+      { v: "597", l: "SAST security rules" },
       { v: "9", l: "languages scanned" },
       { v: "8", l: "dependency ecosystems" },
       { v: "479", l: "DAST test payloads" },
@@ -600,13 +593,6 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   "data-security": {
-    heroImage: {
-      src: "/overviews/onam-data-security-overview.webp",
-      width: 1536,
-      height: 1024,
-      alt: "Onam DSPM overview sheet: inputs (data store inventory, configuration, names and tags, audit events), the five steps (discover, label, expose, trace, score) and what each view shows.",
-      caption: "Product overview. Classification uses names, tags and schema; Onam never opens the data. Lineage links related stores and flags hops that cross regions or accounts.",
-    },
     demoClips: ["datasec", "attack"],
     icon: Database,
     iconColor: csmAmber,

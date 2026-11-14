@@ -1,5 +1,4 @@
 import { type LucideIcon, AlertTriangle, ArrowRight, ChevronRight } from "@/components/site/icons";
-import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -381,7 +380,6 @@ export function ProductPageTemplate({
         />
       )}
       {extra}
-      <OverviewSheet />
       <Faqs data={data} />
       <CtaAndRelated data={data} />
     </SiteLayout>

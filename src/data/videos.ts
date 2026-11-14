@@ -15,7 +15,7 @@ export const PLAYLISTS = {
   estate: { name: "Onam Estate", id: "PLMRwhR09P0I8" },
   finops: { name: "Onam FinOps", id: "PLXZIBgggDSIM" },
   drm: { name: "Onam DRM", id: "PLF5rP9ZPyges" },
-  operations: { name: "Onam Operations (early access)", id: "PLfpJo_8MhfCA" },
+  operations: { name: "Onam AIOps (early access)", id: "PLfpJo_8MhfCA" },
 } satisfies Record<string, Playlist>;
 
 export const playlistUrl = (p: Playlist) => `https://www.youtube.com/playlist?list=${p.id}`;

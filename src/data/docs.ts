@@ -305,7 +305,7 @@ ${title} is one of the capabilities Onam runs against every connected cloud. It 
 
 ## How it works
 
-Onam ingests the configuration and activity signals it needs through the same read-only role you deployed during [onboarding](/docs/onboarding/aws). Evaluation runs in the Onam control plane; no agents run in your account.
+Onam ingests the configuration and activity signals it needs through the same read-only role you deployed during [onboarding](/docs/onboarding/aws). Evaluation runs in the Onam control plane. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.
 
 > Need to talk to a human about this feature? [Book a demo](/request-demo) and we'll walk through it on your data.
 `;

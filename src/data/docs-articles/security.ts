@@ -67,7 +67,7 @@ Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST 800
 
 ## Agentless by design
 
-Onam connects through a **read-only IAM role (AWS), service principal (Azure), or service account (GCP and others)** — no agents on your workloads, no network changes, no write access. Credential references are stored in AWS Secrets Manager and encrypted with KMS; the platform never holds long-lived keys when a role-based option exists.
+Posture scanning connects through a **read-only IAM role (AWS), service principal (Azure), or service account (GCP and others)**; agentless workload scanning runs inside your account. No network changes are needed. Credential references are stored in AWS Secrets Manager and encrypted with KMS; the platform never holds long-lived keys when a role-based option exists.
 
 > The one optional exception: OS-level vulnerability scanning can use a lightweight host agent (\`onam-agent\`) on Linux, macOS, or Windows for package-level depth. The cloud connection itself is always agentless — the agent is opt-in and only for host vulnerability data.
 
