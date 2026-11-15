@@ -14,6 +14,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { SITE_URL, GSC_VERIFICATION } from "../lib/seo";
 import { analyticsScripts } from "../lib/analytics";
 import { ConsentBanner } from "../components/site/ConsentBanner";
+import { TalkToUs } from "../components/site/TalkToUs";
 
 const STRUCTURED_DATA = [
   {
@@ -217,6 +218,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <TalkToUs />
       <ConsentBanner />
     </QueryClientProvider>
   );

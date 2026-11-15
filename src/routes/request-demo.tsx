@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { CheckCircle2, MessageSquare, Timer, Users, Cloud, CalendarCheck } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ProductDemo } from "@/components/site/DemoVideos";
@@ -30,39 +30,21 @@ export const Route = createFileRoute("/request-demo")({
 
 const clouds = ["AWS", "Azure", "GCP", "OCI", "AliCloud", "IBM", "Kubernetes"];
 
-/** What a buyer of each product typically arrives with. Shown for the products picked. */
-const REASONS: Record<SuiteKey, string[]> = {
-  estate: [
-    "We don't have one trustworthy list of what we run",
-    "Replacing or reconciling a CMDB",
-    "Mapping how resources connect, account by account",
-  ],
-  security: [
-    "Preparing for a compliance audit",
-    "Recent security incident or concern",
-    "Need to improve our cloud security posture",
-    "CIEM — identity & access risk",
-    "Vulnerability prioritisation",
-    "Container / Kubernetes security",
-  ],
-  finops: [
-    "We can't explain cloud spend or who owns it",
-    "Cost allocation and ownership across teams",
-    "Forecasting, budgets and cost anomalies",
-    "Finding savings someone will actually act on",
-  ],
-  drm: [
-    "We don't know if we could recover in time (RTO / RPO)",
-    "Mapping applications and their dependencies for recovery",
-    "Proving DR readiness to an auditor or regulator",
-    "Our recovery plan has drifted from the cloud",
-  ],
-  aiops: [
-    "Requesting an invitation to Onam AIOps early access",
-    "AI agents for investigation, with a person approving every change",
-  ],
-};
-const GENERAL_REASONS = ["Looking at the whole platform", "Evaluating vendors"];
+/** Cloud accounts, subscriptions or projects in scope — sizes the call and the quote. */
+const SIZES = ["1–10 accounts", "11–50 accounts", "51–200 accounts", "More than 200 accounts", "Not sure yet"];
+/** Used to schedule the call in the visitor's working hours. */
+const COUNTRIES = [
+  "India",
+  "United States",
+  "United Kingdom",
+  "United Arab Emirates",
+  "Saudi Arabia",
+  "Singapore",
+  "Australia",
+  "Canada",
+  "Germany",
+  "Other",
+];
 
 const expectations = [
   {
@@ -96,7 +78,7 @@ const inputCls =
 
 function RequestDemo() {
   const { product } = Route.useSearch();
-  const [form, setForm] = useState({ email: "", name: "", company: "", reason: "", message: "" });
+  const [form, setForm] = useState({ email: "", name: "", title: "", company: "", country: "", size: "", message: "" });
   const [selectedClouds, setSelectedClouds] = useState<string[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<SuiteKey[]>(product ? [product] : []);
   const [submitted, setSubmitted] = useState(false);
@@ -108,23 +90,8 @@ function RequestDemo() {
   const toggleCloud = (c: string) =>
     setSelectedClouds((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
 
-  const reasons = useMemo(() => {
-    const keys = selectedProducts.length ? selectedProducts : PRODUCT_KEYS;
-    // Keep lifecycle order regardless of click order.
-    const ordered = PRODUCT_KEYS.filter((k) => keys.includes(k));
-    return [...ordered.flatMap((k) => REASONS[k]), ...GENERAL_REASONS];
-  }, [selectedProducts]);
-
-  const toggleProduct = (k: SuiteKey) => {
-    const next = selectedProducts.includes(k)
-      ? selectedProducts.filter((x) => x !== k)
-      : [...selectedProducts, k];
-    setSelectedProducts(next);
-    // Drop a reason that no longer belongs to the picked products.
-    const keys = next.length ? next : PRODUCT_KEYS;
-    const allowed = [...keys.flatMap((x) => REASONS[x]), ...GENERAL_REASONS];
-    setForm((f) => (f.reason && !allowed.includes(f.reason) ? { ...f, reason: "" } : f));
-  };
+  const toggleProduct = (k: SuiteKey) =>
+    setSelectedProducts((prev) => (prev.includes(k) ? prev.filter((x) => x !== k) : [...prev, k]));
 
   const picked = SUITE.filter((s) => selectedProducts.includes(s.key));
   const heading =
@@ -138,9 +105,9 @@ function RequestDemo() {
     if (!form.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) errs.email = "Please enter a valid work email.";
     if (!form.name.trim()) errs.name = "Please enter your name.";
     if (!form.company.trim()) errs.company = "Please enter your company.";
-    if (selectedProducts.length === 0) errs.products = "Pick at least one product.";
+    if (!form.country) errs.country = "Please pick your country.";
     if (selectedClouds.length === 0) errs.clouds = "Select at least one cloud.";
-    if (!form.reason) errs.reason = "Please pick what brings you here.";
+    if (!form.size) errs.size = "Please pick a size.";
     setErrors(errs);
     if (Object.keys(errs).length > 0) return;
 
@@ -148,7 +115,14 @@ function RequestDemo() {
     setSending(true);
     try {
       await submitLead({
-        data: { kind: "demo", ...form, clouds: selectedClouds, products: selectedProducts, website },
+        data: {
+          kind: "demo",
+          ...form,
+          // No product picked means the visitor wants the whole platform.
+          products: selectedProducts.length ? selectedProducts : PRODUCT_KEYS,
+          clouds: selectedClouds,
+          website,
+        },
       });
       setSubmitted(true);
     } catch {
@@ -205,34 +179,8 @@ function RequestDemo() {
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-5" noValidate>
-                <fieldset>
-                  <legend className="block text-sm font-semibold text-ink">Which product(s)?</legend>
-                  <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {SUITE.map((s) => {
-                      const active = selectedProducts.includes(s.key);
-                      const Icon = s.icon;
-                      return (
-                        <button
-                          type="button"
-                          key={s.key}
-                          aria-pressed={active}
-                          onClick={() => toggleProduct(s.key)}
-                          className={cn(
-                            "flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left text-sm transition",
-                            active ? "bg-tint-blue border-brand-500" : "bg-white border-[#CBD5E1] hover:border-muted-500",
-                          )}
-                        >
-                          <Icon className="w-4 h-4 shrink-0" style={{ color: s.color }} aria-hidden />
-                          <span className="font-semibold text-ink">{s.name}</span>
-                          {s.badge && (
-                            <span className="ml-auto text-[11px] font-semibold text-muted-500">{s.badge}</span>
-                          )}
-                        </button>
-                      );
-                    })}
-                  </div>
-                  {errors.products && <p className="mt-1 text-xs text-[#C81E1E]">{errors.products}</p>}
-                </fieldset>
+                {/* Order (owner, 14 Nov 2026): who you are, then your cloud, then optional notes. */}
+                <div className="text-xs font-bold uppercase tracking-[0.16em] text-muted-500">1 · About you</div>
                 <div>
                   <label htmlFor="demo-email" className="block text-sm font-semibold text-ink">Work email</label>
                   <input
@@ -258,6 +206,20 @@ function RequestDemo() {
                     {errors.name && <p className="mt-1 text-xs text-[#C81E1E]">{errors.name}</p>}
                   </div>
                   <div>
+                    <label htmlFor="demo-title" className="block text-sm font-semibold text-ink">
+                      Job title <span className="text-muted-500 font-normal">(optional)</span>
+                    </label>
+                    <input
+                      id="demo-title"
+                      value={form.title}
+                      onChange={(e) => setForm({ ...form, title: e.target.value })}
+                      placeholder="Head of Cloud Security"
+                      className={cn(inputCls, "border-[#CBD5E1]")}
+                    />
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
                     <label htmlFor="demo-company" className="block text-sm font-semibold text-ink">Company</label>
                     <input
                       id="demo-company"
@@ -268,7 +230,24 @@ function RequestDemo() {
                     />
                     {errors.company && <p className="mt-1 text-xs text-[#C81E1E]">{errors.company}</p>}
                   </div>
+                  <div>
+                    <label htmlFor="demo-country" className="block text-sm font-semibold text-ink">Country</label>
+                    <select
+                      id="demo-country"
+                      value={form.country}
+                      onChange={(e) => setForm({ ...form, country: e.target.value })}
+                      className={cn(inputCls, errors.country ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                    >
+                      <option value="">Select…</option>
+                      {COUNTRIES.map((c) => (
+                        <option key={c} value={c}>{c}</option>
+                      ))}
+                    </select>
+                    {errors.country && <p className="mt-1 text-xs text-[#C81E1E]">{errors.country}</p>}
+                  </div>
                 </div>
+
+                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">2 · Your cloud</div>
                 <fieldset>
                   <legend className="block text-sm font-semibold text-ink">Cloud provider(s)</legend>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -295,28 +274,56 @@ function RequestDemo() {
                   {errors.clouds && <p className="mt-1 text-xs text-[#C81E1E]">{errors.clouds}</p>}
                 </fieldset>
                 <div>
-                  <label htmlFor="demo-reason" className="block text-sm font-semibold text-ink">What brings you here?</label>
+                  <label htmlFor="demo-size" className="block text-sm font-semibold text-ink">
+                    How many cloud accounts, subscriptions or projects?
+                  </label>
                   <select
-                    id="demo-reason"
-                    value={form.reason}
-                    onChange={(e) => setForm({ ...form, reason: e.target.value })}
-                    className={cn(
-                      "mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-blue-500/30",
-                      errors.reason ? "border-[#E32D25]" : "border-[#CBD5E1]",
-                    )}
+                    id="demo-size"
+                    value={form.size}
+                    onChange={(e) => setForm({ ...form, size: e.target.value })}
+                    className={cn(inputCls, errors.size ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                   >
-                    <option value="">Select one…</option>
-                    {reasons.map((r) => (
-                      <option key={r} value={r}>
-                        {r}
-                      </option>
+                    <option value="">Select…</option>
+                    {SIZES.map((s) => (
+                      <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
-                  {errors.reason && <p className="mt-1 text-xs text-[#C81E1E]">{errors.reason}</p>}
+                  {errors.size && <p className="mt-1 text-xs text-[#C81E1E]">{errors.size}</p>}
                 </div>
+                <fieldset>
+                  <legend className="block text-sm font-semibold text-ink">
+                    Products to see <span className="text-muted-500 font-normal">(optional — leave empty for the whole platform)</span>
+                  </legend>
+                  <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    {SUITE.map((s) => {
+                      const active = selectedProducts.includes(s.key);
+                      const Icon = s.icon;
+                      return (
+                        <button
+                          type="button"
+                          key={s.key}
+                          aria-pressed={active}
+                          onClick={() => toggleProduct(s.key)}
+                          className={cn(
+                            "flex items-center gap-2.5 rounded-xl border px-3 py-2.5 text-left text-sm transition",
+                            active ? "bg-tint-blue border-brand-500" : "bg-white border-[#CBD5E1] hover:border-muted-500",
+                          )}
+                        >
+                          <Icon className="w-4 h-4 shrink-0" style={{ color: s.color }} aria-hidden />
+                          <span className="font-semibold text-ink">{s.name}</span>
+                          {s.badge && (
+                            <span className="ml-auto text-[11px] font-semibold text-muted-500">{s.badge}</span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </fieldset>
+
+                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">3 · Anything else</div>
                 <div>
                   <label htmlFor="demo-message" className="block text-sm font-semibold text-ink">
-                    Anything else? <span className="text-muted-500 font-normal">(optional)</span>
+                    What would you like us to focus on? <span className="text-muted-500 font-normal">(optional)</span>
                   </label>
                   <textarea
                     id="demo-message"

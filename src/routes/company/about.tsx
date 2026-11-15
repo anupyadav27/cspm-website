@@ -119,7 +119,7 @@ function AboutPage() {
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">How we work</h2>
           <p className="mt-4 text-[#475569] leading-relaxed">
-            Onam is a small company. Anup Yadav founded it after 20 years at HCL, Ericsson, Indiabulls and NTT,
+            Onam is a small company. Anup Yadav founded it after 20 years at HCL, Ericsson, Indiabulls, Netmagic and NTT,
             including work as a fintech security architect. Three things we hold ourselves to:
           </p>
           <ol className="mt-8 space-y-6 list-decimal pl-5 marker:font-bold marker:text-[#0B1220]">

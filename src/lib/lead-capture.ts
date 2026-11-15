@@ -39,6 +39,11 @@ const BUCKET = "onam-platform-588989875114";
  */
 const FROM = process.env.LEAD_FROM || "sales@onamsecurity.com";
 const TO = process.env.LEAD_TO || "sales@onamsecurity.com";
+/** Every lead is also copied to the founder (owner request, 13 Nov 2026), so none waits in a shared inbox. */
+const CC = (process.env.LEAD_CC || "anup.yadav@onamsecurity.com")
+  .split(",")
+  .map((s) => s.trim())
+  .filter((s) => s && s !== TO);
 
 export type LeadKind = "demo" | "contact" | "subscribe";
 
@@ -47,6 +52,10 @@ export type LeadInput = {
   email: string;
   name: string;
   company?: string;
+  /** Job title, country and cloud estate size — demo form (owner, 14 Nov 2026). */
+  title?: string;
+  country?: string;
+  size?: string;
   reason?: string;
   message?: string;
   clouds?: string[];
@@ -89,6 +98,9 @@ function validate(raw: unknown): LeadInput {
     email,
     name,
     company: clean(d.company, 200),
+    title: clean(d.title, 200),
+    country: clean(d.country, 80),
+    size: clean(d.size, 80),
     reason: clean(d.reason, 200),
     message: clean(d.message, 5000),
     clouds: Array.isArray(d.clouds) ? d.clouds.slice(0, 20).map((c) => clean(c, 40)) : [],
@@ -124,6 +136,9 @@ export const submitLead = createServerFn({ method: "POST" })
       name: data.name,
       email: data.email,
       company: data.company || null,
+      title: data.title || null,
+      country: data.country || null,
+      size: data.size || null,
       reason: data.reason || null,
       message: data.message || null,
       clouds: data.clouds?.length ? data.clouds : null,
@@ -153,6 +168,9 @@ export const submitLead = createServerFn({ method: "POST" })
         `Name:     ${data.name}`,
         `Email:    ${data.email}`,
         data.company ? `Company:  ${data.company}` : null,
+        data.title ? `Title:    ${data.title}` : null,
+        data.country ? `Country:  ${data.country}` : null,
+        data.size ? `Estate:   ${data.size}` : null,
         data.reason ? `Reason:   ${data.reason}` : null,
         data.products?.length ? `Products: ${data.products.join(", ")}` : null,
         data.clouds?.length ? `Clouds:   ${data.clouds.join(", ")}` : null,
@@ -165,7 +183,7 @@ export const submitLead = createServerFn({ method: "POST" })
       await ses.send(
         new SendEmailCommand({
           FromEmailAddress: FROM,
-          Destination: { ToAddresses: [TO] },
+          Destination: { ToAddresses: [TO], CcAddresses: CC },
           ReplyToAddresses: [data.email],
           Content: {
             Simple: {
