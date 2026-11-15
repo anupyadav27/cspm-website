@@ -1,6 +1,5 @@
 import { HeroIllustration } from "@/components/site/HeroIllustration";
 import { VideoSection } from "@/components/site/VideoEmbed";
-import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -117,7 +116,6 @@ function AiOperationsPage() {
       <EvidenceSection />
       <SecuritySection />
       <UseCasesSection />
-      <OverviewSheet />
       <FaqSection />
       <SuiteStrip current="aiops" />
       <FinalCta />
@@ -170,11 +168,11 @@ function Hero() {
           <div className="min-w-0 [&_figure]:mt-0 [&_figure]:max-w-none [&_img]:border-white/10 [&_img]:shadow-[0_32px_80px_rgba(0,0,0,.55)] [&_figcaption]:text-left [&_figcaption]:text-on-night-muted">
             <HeroIllustration
               image={{
-                src: "/overviews/onam-aiops-overview.webp",
-                width: 1536,
-                height: 1024,
-                alt: "Onam AIOps overview sheet: the specialist AI agents, what each one investigates, and the approval gate every proposed change passes through before it reaches your cloud.",
-                caption: "Product overview. Some agents are in early access or on the roadmap (see availability below). No change reaches your cloud without approval.",
+                src: "/images/products/aiops.svg",
+                width: 640,
+                height: 420,
+                alt: "Drawing of the Onam AIOps approvals queue: changes proposed by agents, the evidence behind each, and whether a person approved it.",
+                caption: "Drawing with sample data. Some agents are in early access or on the roadmap (see availability below). No change reaches your cloud without approval.",
               }}
             />
           </div>

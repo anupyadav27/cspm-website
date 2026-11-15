@@ -101,7 +101,7 @@ export const PRODUCTS: ProductSummary[] = [
 const ESTATE_STATS = [
   { v: `${CLOUDS} clouds`, l: "in the shared inventory" },
   { v: "Every run", l: "recorded with its status" },
-  { v: "Read-only", l: "no agents, nothing installed" },
+  { v: "Read-only", l: "cloud roles for discovery" },
   { v: "One", l: "inventory for every product" },
 ];
 

@@ -104,7 +104,7 @@ function Services({ data }: { data: CloudSolutionData }) {
           <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
             {data.servicesHeading ?? `Services we monitor on ${data.cloudName}`}
           </h2>
-          <p className="mt-3 text-[#475569]">Every service below is scanned continuously — no agents, no network changes, read-only.</p>
+          <p className="mt-3 text-[#475569]">Every service below is scanned continuously. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.</p>
         </div>
         <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
           {data.services.map((s) => (

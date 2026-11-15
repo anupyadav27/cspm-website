@@ -801,7 +801,7 @@ function OnboardAnimation({ duration }: { duration: number }) {
         <div className="font-display font-black text-[#0B1220] text-lg md:text-xl">AWS · Production</div>
         <div className="inline-flex items-center gap-2 text-[10px] text-[#64748B]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
-          Read-only • No agents
+          Read-only posture scanning
         </div>
       </div>
 

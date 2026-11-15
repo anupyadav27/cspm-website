@@ -1,5 +1,4 @@
 import { useId, useState } from "react";
-import { OverviewSheet } from "@/components/site/OverviewSheet";
 import { Link } from "@tanstack/react-router";
 import {
   AlertTriangle,
@@ -156,7 +155,6 @@ export function ProductFlagship({ data, video }: { data: FlagshipData; video?: V
       <AgentBand data={data} />
       <WhatYouGet data={data} />
       <Limits data={data} />
-      <OverviewSheet />
       <Faq data={data} />
       <SuiteStrip current={data.key} />
       <ClosingCta data={data} />

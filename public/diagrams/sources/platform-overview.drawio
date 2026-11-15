@@ -68,7 +68,7 @@
       <mxGeometry x="60" y="400" width="840" height="60" as="geometry" />
     </mxCell>
     <!-- Supporting text -->
-    <mxCell id="19" value="Read-only · No agents · Multi-cloud · Continuous" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#64748B;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+    <mxCell id="19" value="Read-only posture roles · Agentless workload scanning in your account · Multi-cloud · Continuous" style="text;html=1;align=center;verticalAlign=middle;fontSize=10;fontColor=#64748B;strokeColor=none;fillColor=none;" vertex="1" parent="1">
       <mxGeometry x="60" y="475" width="840" height="20" as="geometry" />
     </mxCell>
   </root>

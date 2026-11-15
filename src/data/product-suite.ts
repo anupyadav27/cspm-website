@@ -157,7 +157,7 @@ export const SECURITY_GROUPS: SuiteGroup[] = [
       {
         title: "AI Security",
         href: "/platform/ai-security",
-        desc: "SageMaker, Bedrock, Azure OpenAI and Vertex AI risk",
+        desc: "SageMaker, Bedrock, Azure OpenAI and Google Agent Platform (Vertex AI) risk",
       },
       {
         title: "AI Assistant",

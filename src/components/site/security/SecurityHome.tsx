@@ -583,9 +583,9 @@ function ViewOnboarding() {
           ))}
         </div>
         <div className="mt-5 pt-4 border-t border-[#E5E9F0] text-xs text-[#64748B]">
-          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#05A052]" /> No agents installed</div>
+          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#05A052]" /> Read-only roles for posture scanning</div>
           <div className="flex items-center gap-1.5 mt-1"><Check className="w-3 h-3 text-[#05A052]" /> No long-lived credentials</div>
-          <div className="flex items-center gap-1.5 mt-1"><Check className="w-3 h-3 text-[#05A052]" /> Read-only permissions only</div>
+          <div className="flex items-center gap-1.5 mt-1"><Check className="w-3 h-3 text-[#05A052]" /> Agentless workload scanning in your account</div>
         </div>
       </Panel>
     </div>

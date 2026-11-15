@@ -23,16 +23,9 @@ const emerald400 = "#34D399";
 
 export const platformPages: Record<string, ProductPageData> = {
   "code-security": {
-    heroImage: {
-      src: "/overviews/onam-code-security-overview.webp",
-      width: 1536,
-      height: 1024,
-      alt: "Onam Code Security overview sheet: what it scans (source code, dependencies, secrets, infrastructure files and running apps), how each check works, and what you get from it.",
-      caption: "Product overview. AI Code Fix covers static-analysis findings and is run with you on request; nothing merges without your review.",
-    },
     hideDemo: true,
     stats: [
-      { v: "413", l: "SAST security rules" },
+      { v: "597", l: "SAST security rules" },
       { v: "9", l: "languages scanned" },
       { v: "8", l: "dependency ecosystems" },
       { v: "479", l: "DAST test payloads" },
@@ -600,13 +593,6 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   "data-security": {
-    heroImage: {
-      src: "/overviews/onam-data-security-overview.webp",
-      width: 1536,
-      height: 1024,
-      alt: "Onam DSPM overview sheet: inputs (data store inventory, configuration, names and tags, audit events), the five steps (discover, label, expose, trace, score) and what each view shows.",
-      caption: "Product overview. Classification uses names, tags and schema; Onam never opens the data. Lineage links related stores and flags hops that cross regions or accounts.",
-    },
     demoClips: ["datasec", "attack"],
     icon: Database,
     iconColor: csmAmber,
@@ -694,10 +680,10 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: violet400,
     label: "AI Security",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
-    headline: "AI security posture checks for SageMaker, Bedrock, Azure OpenAI and Vertex AI.",
+    headline: "AI security posture checks for SageMaker, Bedrock, Azure OpenAI and Google Agent Platform (formerly Vertex AI).",
     metaDescription:
-      "AI security posture on AWS, Azure and Google Cloud: SageMaker and Bedrock, Azure OpenAI and Azure Machine Learning, Vertex AI. A surface standard CSPM rules miss.",
-    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud: AI services have their own security surface. Standard CSPM rules don't look at it. Onam checks their configuration on AWS, Azure and Google Cloud.",
+      "AI security posture on AWS, Azure and Google Cloud: SageMaker and Bedrock, Azure OpenAI and Azure Machine Learning, Gemini Enterprise Agent Platform (formerly Vertex AI). A surface standard CSPM rules miss.",
+    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud: AI services have their own security surface. Standard CSPM rules don't look at it. Onam checks their configuration on AWS, Azure and Google Cloud.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM has no rule for it, so nobody is watching.",
     mechanism: [

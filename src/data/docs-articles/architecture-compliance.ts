@@ -6,7 +6,7 @@ export const articles: DocArticle[] = [
     title: "Architecture Overview",
     breadcrumb: "Architecture / Overview",
     body: `
-The Onam platform is a multi-tenant SaaS that continuously discovers, evaluates, and monitors cloud resources across **seven cloud providers** — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes — using **read-only credentials**. There are no agents to install for cloud scanning and no changes to your environment. This page explains how the platform is organized: the 29 engines, the pipeline a scan flows through, the unified data model behind every finding, and how your data is isolated from every other tenant.
+The Onam platform is a multi-tenant SaaS that continuously discovers, evaluates, and monitors cloud resources across **seven cloud providers** — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes — with no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. This page explains how the platform is organized: the 29 engines, the pipeline a scan flows through, the unified data model behind every finding, and how your data is isolated from every other tenant.
 
 By the end you will be able to trace any number in the Onam console — a posture score, a compliance percentage, an attack path — back to the exact engine, table, and scan run that produced it.
 
