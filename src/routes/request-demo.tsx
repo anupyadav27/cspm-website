@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { CheckCircle2, MessageSquare, Timer, Users, Cloud, CalendarCheck } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
@@ -148,6 +148,13 @@ function RequestDemo() {
               No deck. No generic walkthrough. A working session with someone who knows the product you picked —
               asset inventory, cloud security, cost, disaster recovery or AI agents — and the problem it is
               meant to solve.
+            </p>
+            <p className="mt-4 text-sm text-body leading-relaxed">
+              Would you rather see findings from one of your own cloud accounts first?{" "}
+              <Link to="/audit-scan" className="text-brand-500 font-semibold hover:underline">
+                Ask for a free audit scan
+              </Link>
+              . One account, once, at no charge.
             </p>
             <div className="mt-10 space-y-4">
               {expectations.map((e) => (

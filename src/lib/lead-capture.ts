@@ -1,7 +1,8 @@
 import { createServerFn } from "@tanstack/react-start";
+import { AckThrottle, ackEmail, replyByDate, routeTag, wantsAck, type LeadKind } from "./lead-inbound";
 
 /**
- * Lead capture for /request-demo and /company/contact.
+ * Lead capture for /request-demo, /audit-scan, /company/contact and the resource signup.
  *
  * Both forms previously validated input, showed a success message, and threw
  * the submission away — no fetch, no backend. Every lead since launch was lost.
@@ -45,7 +46,17 @@ const CC = (process.env.LEAD_CC || "anup.yadav@onamsecurity.com")
   .map((s) => s.trim())
   .filter((s) => s && s !== TO);
 
-export type LeadKind = "demo" | "contact" | "subscribe";
+/**
+ * Visitor acknowledgement (owner, 15 Nov 2026): after a demo, audit or contact
+ * lead is stored, the visitor gets one short plain email from FROM. The booking
+ * line appears only when LEAD_BOOKING_URL is set on the deployment.
+ * LEAD_ACK=off turns the acknowledgement off without a code change.
+ */
+const BOOKING_URL = process.env.LEAD_BOOKING_URL || "";
+const ACK_ON = process.env.LEAD_ACK !== "off";
+const ackThrottle = new AckThrottle();
+
+export type { LeadKind };
 
 export type LeadInput = {
   kind: LeadKind;
@@ -56,6 +67,8 @@ export type LeadInput = {
   title?: string;
   country?: string;
   size?: string;
+  /** Audit scan form: Production | Non-production | Mixed | Not sure. */
+  environment?: string;
   reason?: string;
   message?: string;
   clouds?: string[];
@@ -71,10 +84,16 @@ const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
 const LABEL: Record<LeadKind, string> = {
   demo: "Request a demo",
+  audit: "Free audit scan",
   contact: "Contact",
   subscribe: "Resource library signup",
 };
-const SUBJECT: Record<LeadKind, string> = { demo: "Demo", contact: "Contact", subscribe: "Subscribe" };
+const SUBJECT: Record<LeadKind, string> = {
+  demo: "Demo",
+  audit: "Audit scan",
+  contact: "Contact",
+  subscribe: "Subscribe",
+};
 
 /** Trim, cap length, and strip control characters before anything is stored. */
 function clean(v: unknown, max = 2000): string {
@@ -86,7 +105,7 @@ function clean(v: unknown, max = 2000): string {
 function validate(raw: unknown): LeadInput {
   const d = (raw ?? {}) as Record<string, unknown>;
   const kind: LeadKind =
-    d.kind === "contact" ? "contact" : d.kind === "subscribe" ? "subscribe" : "demo";
+    d.kind === "contact" || d.kind === "subscribe" || d.kind === "audit" ? d.kind : "demo";
   const email = clean(d.email, 254);
   const name = clean(d.name, 200);
 
@@ -101,6 +120,7 @@ function validate(raw: unknown): LeadInput {
     title: clean(d.title, 200),
     country: clean(d.country, 80),
     size: clean(d.size, 80),
+    environment: clean(d.environment, 40),
     reason: clean(d.reason, 200),
     message: clean(d.message, 5000),
     clouds: Array.isArray(d.clouds) ? d.clouds.slice(0, 20).map((c) => clean(c, 40)) : [],
@@ -139,10 +159,12 @@ export const submitLead = createServerFn({ method: "POST" })
       title: data.title || null,
       country: data.country || null,
       size: data.size || null,
+      environment: data.environment || null,
       reason: data.reason || null,
       message: data.message || null,
       clouds: data.clouds?.length ? data.clouds : null,
       products: data.products?.length ? data.products : null,
+      route: routeTag(data),
       source: "www.onamsecurity.com",
     };
 
@@ -164,6 +186,9 @@ export const submitLead = createServerFn({ method: "POST" })
       const ses = new SESv2Client({ region: REGION });
 
       const lines = [
+        `Reply by: ${replyByDate(now).label}`,
+        `Route:    ${record.route}`,
+        ``,
         `Form:     ${LABEL[data.kind]}`,
         `Name:     ${data.name}`,
         `Email:    ${data.email}`,
@@ -171,6 +196,7 @@ export const submitLead = createServerFn({ method: "POST" })
         data.title ? `Title:    ${data.title}` : null,
         data.country ? `Country:  ${data.country}` : null,
         data.size ? `Estate:   ${data.size}` : null,
+        data.environment ? `Env:      ${data.environment}` : null,
         data.reason ? `Reason:   ${data.reason}` : null,
         data.products?.length ? `Products: ${data.products.join(", ")}` : null,
         data.clouds?.length ? `Clouds:   ${data.clouds.join(", ")}` : null,
@@ -201,6 +227,32 @@ export const submitLead = createServerFn({ method: "POST" })
       // The lead is already safe in S3. Log loudly so the gap is visible in
       // pod logs, but return success — the visitor did nothing wrong.
       console.error("[lead-capture] SES notification failed (lead IS stored):", err);
+    }
+
+    // ---- 3. Acknowledge the visitor. Best effort, at most once per address a day.
+    // Never reached for the honeypot (returned above) or an invalid submission
+    // (the validator threw before the handler ran).
+    if (ACK_ON && wantsAck(data.kind) && ackThrottle.allow(data.email)) {
+      try {
+        const { SESv2Client, SendEmailCommand } = await import("@aws-sdk/client-sesv2");
+        const ses = new SESv2Client({ region: REGION });
+        const ack = ackEmail(data, BOOKING_URL);
+        await ses.send(
+          new SendEmailCommand({
+            FromEmailAddress: FROM,
+            Destination: { ToAddresses: [data.email] },
+            ReplyToAddresses: [TO],
+            Content: {
+              Simple: {
+                Subject: { Data: ack.subject },
+                Body: { Text: { Data: ack.body } },
+              },
+            },
+          }),
+        );
+      } catch (err) {
+        console.error("[lead-capture] visitor acknowledgement failed (lead IS stored):", err);
+      }
     }
 
     return { ok: true as const };

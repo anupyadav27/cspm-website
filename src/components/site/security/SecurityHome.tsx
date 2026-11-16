@@ -1303,7 +1303,7 @@ export function FinalCTA() {
             team.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BrandButton to="/request-demo" search={{ product: "security" }} size="lg">Book the audit scan →</BrandButton>
+            <BrandButton to="/audit-scan" size="lg">Book the audit scan →</BrandButton>
             <BrandButton to="/company/contact" size="lg" variant="secondary">Talk to us</BrandButton>
           </div>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#64748B]">

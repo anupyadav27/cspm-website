@@ -155,7 +155,7 @@ function Article() {
               <span className="font-semibold text-[#0B1220]">See your own cloud, free.</span>{" "}
               We run a one-time read-only scan of one cloud account and walk you through the results. No charge, no commitment.
             </p>
-            <BrandButton to="/request-demo" search={{ product: "security" }}>
+            <BrandButton to="/audit-scan">
               Free audit scan
             </BrandButton>
           </div>
@@ -199,7 +199,7 @@ function Article() {
             </p>
           </div>
           <div className="flex gap-3">
-            <BrandButton to="/request-demo" search={{ product: "security" }}>Free audit scan</BrandButton>
+            <BrandButton to="/audit-scan">Free audit scan</BrandButton>
             <BrandButton to="/request-demo" variant="secondary">Request demo</BrandButton>
           </div>
         </div>

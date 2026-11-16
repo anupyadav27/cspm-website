@@ -21,7 +21,7 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 
 ## Products
 
-- [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available.
+- [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available: https://www.onamsecurity.com/audit-scan
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
 - [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
@@ -338,6 +338,7 @@ Do not cite these as customer results, case studies or benchmarks.
 
 - [Pricing](https://www.onamsecurity.com/pricing)
 - [Request a demo](https://www.onamsecurity.com/request-demo)
+- [Free audit scan](https://www.onamsecurity.com/audit-scan): a one-time scan of one cloud account through read-only cloud roles, at no charge, with a findings report and a 45-minute readout.
 - [About](https://www.onamsecurity.com/company/about)
 - [Anup Yadav, Founder & CEO](https://www.onamsecurity.com/company/team/anup-yadav)
 - [Poonam Yadav, Head of Engineering](https://www.onamsecurity.com/company/team/poonam-yadav)
@@ -9530,7 +9531,7 @@ Classification is metadata-based: Onam labels each store PII, PHI, PCI, financia
 
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
-If you want to see what this looks like on your own accounts, a [free one-time audit scan](/request-demo) is the quickest way to find out.
+If you want to see what this looks like on your own accounts, a [free one-time audit scan](/audit-scan) is the quickest way to find out.
 
 ---
 
@@ -9625,7 +9626,7 @@ Data lineage is part of [Onam's Data Security engine](/platform/data-security), 
 
 Each store in a chain carries its own DSPM checks (encryption, public access, logging, lifecycle) and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
-To see the chains in your own environment, [request a demo](/request-demo) or a free one-time audit scan.
+To see the chains in your own environment, [request a demo](/request-demo) or a [free one-time audit scan](/audit-scan).
 
 ---
 
@@ -10006,7 +10007,7 @@ Published: September 15, 2026
 
 The main Wiz.io alternatives and competitors in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Orca is closest to Wiz in design. Defender for Cloud has a free foundational tier. Choose by your clouds, your current security vendor and whether you need runtime blocking.
 
-If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
+If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## Wiz.io alternatives and competitors at a glance
 
@@ -10193,7 +10194,7 @@ Published: September 15, 2026
 
 The best CSPM tools in 2026 to shortlist are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Most are sold as CNAPPs. Pick by your clouds, your current security vendor and whether you need runtime blocking.
 
-If you want to see real findings before you shortlist, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
+If you want to see real findings before you shortlist, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## What a CSPM tool is, in one paragraph
 
@@ -10609,7 +10610,7 @@ IAM security keeps the door from being obviously open. CIEM makes sure that if i
 
 [Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. A suggested right-sized policy is in development, so today the replacement policy is built from the used actions.
 
-Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/request-demo?product=security).
+Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/audit-scan).
 
 ## Frequently asked questions
 

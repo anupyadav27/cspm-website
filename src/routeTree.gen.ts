@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuditScanRouteImport } from './routes/audit-scan'
 import { Route as CaseStudiesRouteImport } from './routes/case-studies'
 import { Route as DisasterRecoveryRouteImport } from './routes/disaster-recovery'
 import { Route as DocsRouteImport } from './routes/docs'
@@ -95,6 +96,11 @@ import { Route as ResourcesBlogSlugRouteImport } from './routes/resources/blog.$
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuditScanRoute = AuditScanRouteImport.update({
+  id: '/audit-scan',
+  path: '/audit-scan',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CaseStudiesRoute = CaseStudiesRouteImport.update({
@@ -516,6 +522,7 @@ const ResourcesBlogSlugRoute = ResourcesBlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/audit-scan': typeof AuditScanRoute
   '/case-studies': typeof CaseStudiesRoute
   '/disaster-recovery': typeof DisasterRecoveryRoute
   '/docs': typeof DocsRouteWithChildren
@@ -600,6 +607,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/audit-scan': typeof AuditScanRoute
   '/case-studies': typeof CaseStudiesRoute
   '/disaster-recovery': typeof DisasterRecoveryRoute
   '/estate': typeof EstateRoute
@@ -684,6 +692,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/audit-scan': typeof AuditScanRoute
   '/case-studies': typeof CaseStudiesRoute
   '/disaster-recovery': typeof DisasterRecoveryRoute
   '/docs': typeof DocsRouteWithChildren
@@ -770,6 +779,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/audit-scan'
     | '/case-studies'
     | '/disaster-recovery'
     | '/docs'
@@ -854,6 +864,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/audit-scan'
     | '/case-studies'
     | '/disaster-recovery'
     | '/estate'
@@ -937,6 +948,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/audit-scan'
     | '/case-studies'
     | '/disaster-recovery'
     | '/docs'
@@ -1022,6 +1034,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuditScanRoute: typeof AuditScanRoute
   CaseStudiesRoute: typeof CaseStudiesRoute
   DisasterRecoveryRoute: typeof DisasterRecoveryRoute
   DocsRoute: typeof DocsRouteWithChildren
@@ -1109,6 +1122,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/audit-scan': {
+      id: '/audit-scan'
+      path: '/audit-scan'
+      fullPath: '/audit-scan'
+      preLoaderRoute: typeof AuditScanRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/case-studies': {
@@ -1707,6 +1727,7 @@ const ResourcesBlogRouteWithChildren = ResourcesBlogRoute._addFileChildren(
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuditScanRoute: AuditScanRoute,
   CaseStudiesRoute: CaseStudiesRoute,
   DisasterRecoveryRoute: DisasterRecoveryRoute,
   DocsRoute: DocsRouteWithChildren,

@@ -136,7 +136,7 @@ function PlatformCTA() {
             which products, if any, you need.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <BrandButton to="/request-demo" size="lg">
+            <BrandButton to="/audit-scan" size="lg">
               Request the free scan →
             </BrandButton>
           </div>

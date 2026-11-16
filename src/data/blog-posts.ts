@@ -263,7 +263,7 @@ Classification is metadata-based: Onam labels each store PII, PHI, PCI, financia
 
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
-If you want to see what this looks like on your own accounts, a [free one-time audit scan](/request-demo) is the quickest way to find out.
+If you want to see what this looks like on your own accounts, a [free one-time audit scan](/audit-scan) is the quickest way to find out.
 `,
   },
   {
@@ -363,7 +363,7 @@ Data lineage is part of [Onam's Data Security engine](/platform/data-security), 
 
 Each store in a chain carries its own DSPM checks (encryption, public access, logging, lifecycle) and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
-To see the chains in your own environment, [request a demo](/request-demo) or a free one-time audit scan.
+To see the chains in your own environment, [request a demo](/request-demo) or a [free one-time audit scan](/audit-scan).
 `,
   },
   {
@@ -769,7 +769,7 @@ Access reviews in Onam are an attestation and remediation workflow: every identi
 
 The main Wiz.io alternatives and competitors in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Orca is closest to Wiz in design. Defender for Cloud has a free foundational tier. Choose by your clouds, your current security vendor and whether you need runtime blocking.
 
-If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
+If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## Wiz.io alternatives and competitors at a glance
 
@@ -961,7 +961,7 @@ Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 
 
 The best CSPM tools in 2026 to shortlist are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Most are sold as CNAPPs. Pick by your clouds, your current security vendor and whether you need runtime blocking.
 
-If you want to see real findings before you shortlist, Onam runs a [free audit scan](/request-demo?product=security) of one cloud account, once, and goes through the results with you.
+If you want to see real findings before you shortlist, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## What a CSPM tool is, in one paragraph
 
@@ -1397,7 +1397,7 @@ IAM security keeps the door from being obviously open. CIEM makes sure that if i
 
 [Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. A suggested right-sized policy is in development, so today the replacement policy is built from the used actions.
 
-Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/request-demo?product=security).
+Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/audit-scan).
 
 ## Frequently asked questions
 

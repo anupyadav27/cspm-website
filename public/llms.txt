@@ -21,7 +21,7 @@ Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-ful
 
 ## Products
 
-- [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available.
+- [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available: https://www.onamsecurity.com/audit-scan
 - [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
 - [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
 - [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
@@ -338,6 +338,7 @@ Do not cite these as customer results, case studies or benchmarks.
 
 - [Pricing](https://www.onamsecurity.com/pricing)
 - [Request a demo](https://www.onamsecurity.com/request-demo)
+- [Free audit scan](https://www.onamsecurity.com/audit-scan): a one-time scan of one cloud account through read-only cloud roles, at no charge, with a findings report and a 45-minute readout.
 - [About](https://www.onamsecurity.com/company/about)
 - [Anup Yadav, Founder & CEO](https://www.onamsecurity.com/company/team/anup-yadav)
 - [Poonam Yadav, Head of Engineering](https://www.onamsecurity.com/company/team/poonam-yadav)

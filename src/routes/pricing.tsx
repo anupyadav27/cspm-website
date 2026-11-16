@@ -557,8 +557,7 @@ function PriceCalculator() {
             Get a quote for this estimate <ArrowRight className="w-4 h-4" />
           </BrandButton>
           <BrandButton
-            to="/request-demo"
-            search={{ product: "security" }}
+            to="/audit-scan"
             variant="onDark"
             className="w-full"
           >
@@ -820,8 +819,7 @@ function PricingPage() {
               Work out your price <ArrowRight className="w-4 h-4" />
             </BrandButton>
             <BrandButton
-              to="/request-demo"
-              search={{ product: "security" }}
+              to="/audit-scan"
               variant="secondary"
               size="lg"
             >

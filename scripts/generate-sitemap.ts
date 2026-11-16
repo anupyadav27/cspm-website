@@ -312,7 +312,7 @@ Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
 ## Products
 
-- [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at ${SITE_URL}/pricing. A free one-time audit scan of one cloud account is available.
+- [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at ${SITE_URL}/pricing. A free one-time audit scan of one cloud account is available: ${SITE_URL}/audit-scan
 - [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
 - [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
 - [Onam DRM](${SITE_URL}/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
@@ -411,6 +411,7 @@ ${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/resources/blog/${p.slug}): $
 
 - [Pricing](${SITE_URL}/pricing)
 - [Request a demo](${SITE_URL}/request-demo)
+- [Free audit scan](${SITE_URL}/audit-scan): a one-time scan of one cloud account through read-only cloud roles, at no charge, with a findings report and a 45-minute readout.
 - [About](${SITE_URL}/company/about)
 ${AUTHORS.map((a) => `- [${a.name}, ${a.role}](${SITE_URL}/company/team/${a.slug})`).join("\n")}
 - [Contact](${SITE_URL}/company/contact)
