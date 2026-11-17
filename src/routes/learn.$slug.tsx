@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { retiredTarget } from "@/data/retired-pages";
 import { BookOpenText, ChevronRight } from "@/components/site/icons";
 import { Backdrop } from "@/components/site/system";
 import { getSuite } from "@/data/product-suite";
@@ -14,11 +15,6 @@ import { LEARN_ARTICLES, getLearnArticle, learnProduct, type LearnArticle, type 
 const OG_CARDS = new Set([
   // Cards rendered by screenshots/generate-og.cjs — add a slug here when its card exists.
   "cloud-asset-inventory",
-  "finops",
-  "cloud-cost-allocation",
-  "rto-vs-rpo",
-  "cloud-disaster-recovery",
-  "agentic-aiops",
   "kspm",
   "code-security",
   "secrets-management",
@@ -37,35 +33,11 @@ const ogImage = (slug: string) => (OG_CARDS.has(slug) ? `/og/learn-${slug}.png` 
 
 /** The closing call to action, matched to the explainer's product. */
 const PRODUCT_CTA: Record<LearnProduct, { line: string; to: string; label: string; demo: string }> = {
-  platform: {
-    line: "Onam Estate discovers every resource across your connected clouds and the relationships between them, through a read-only connection.",
-    to: "/estate",
-    label: "Explore Onam Estate",
-    demo: "estate",
-  },
   security: {
     line: "Connect a read-only role for posture scanning. Your first findings arrive with the first scan — across seven clouds and your SaaS platforms.",
     to: "/platform",
     label: "Explore Onam Security",
     demo: "security",
-  },
-  finops: {
-    line: "Onam FinOps works from reconciled billing data: what you spent, who owns it, what you will spend and what you can stop spending.",
-    to: "/finops",
-    label: "Explore Onam FinOps",
-    demo: "finops",
-  },
-  drm: {
-    line: "Onam DRM maps applications and dependencies, reads configured backup and replication, and predicts RTO and RPO against your targets.",
-    to: "/disaster-recovery",
-    label: "Explore Onam DRM",
-    demo: "drm",
-  },
-  aiops: {
-    line: "Onam AIOps is in early access: agents investigate with evidence and propose; a person approves every change.",
-    to: "/platform/ai-operations",
-    label: "Explore Onam AIOps",
-    demo: "aiops",
   },
 };
 import { seo, SITE_URL, faqJsonLd } from "@/lib/seo";
@@ -120,6 +92,8 @@ function schema(a: LearnArticle) {
 
 export const Route = createFileRoute("/learn/$slug")({
   loader: ({ params }) => {
+    const moved = retiredTarget(`/learn/${params.slug}`);
+    if (moved) throw redirect({ href: moved, statusCode: 301 });
     const article = getLearnArticle(params.slug);
     if (!article) throw notFound();
     return { article };
@@ -196,7 +170,7 @@ function LearnPage() {
         <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
           {(() => {
             const lp = learnProduct(article);
-            const suite = getSuite(lp === "platform" ? "estate" : lp);
+            const suite = getSuite(lp);
             return <Backdrop tone="light" color={suite?.color ?? "#2563EB"} pattern="dots" icon={suite?.icon ?? BookOpenText} />;
           })()}
           <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-14">

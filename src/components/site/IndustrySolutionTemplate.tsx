@@ -243,7 +243,7 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
       <StatStrip stats={data.stats} />
       <AcrossThePlatform
         title={`One platform for ${data.industryName.toLowerCase()} teams`}
-        lead="Security evidence is covered in detail below. Inventory, cost and recovery work from the same discovery, so your cloud accounts are connected once."
+        lead="Security evidence is covered in detail below. Onam AI, your AI security analyst, works from the same findings."
         notes={{ ...industryPlatformNotes(data.industryName), ...data.platform }}
       />
       <UseCases data={data} />

@@ -26,8 +26,8 @@ const STRUCTURED_DATA = [
     url: SITE_URL,
     logo: `${SITE_URL}/logo-512.png`,
     description:
-      "Cloud software with four products: asset intelligence (Onam Estate), cloud security (Onam Security: CSPM, CIEM, DSPM, code security, attack paths, CDR), cost (Onam FinOps) and disaster recovery (Onam DRM) across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AIOps agents in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
-    slogan: "From assets to a secure, optimised and resilient cloud.",
+      "Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection, attack paths, CDR), SaaS security and code security across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AI, the AI security analyst, in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
+    slogan: "Cloud, SaaS and code security, with an AI security analyst.",
     knowsAbout: [
       "Cloud Security Posture Management (CSPM)",
       "Cloud Infrastructure Entitlement Management (CIEM)",
@@ -37,8 +37,9 @@ const STRUCTURED_DATA = [
       "Cloud compliance automation",
       "Kubernetes security",
       "Cloud asset inventory",
-      "Cloud cost management (FinOps)",
-      "Cloud disaster recovery management",
+      "Data security posture management (DSPM)",
+      "SaaS security posture management (SSPM)",
+      "Application and code security (SAST, SCA, DAST)",
     ],
     // sameAs consolidates the brand entity across properties. It is also how
     // Google disambiguates "Onam Security" from the Onam festival — add every
@@ -126,11 +127,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Onam — from assets to a secure, optimised and resilient cloud" },
+      { title: "Onam Security — cloud, SaaS and code security with an AI security analyst" },
       {
         name: "description",
         content:
-          "One cloud platform from assets to recovery: asset inventory, CNAPP security, FinOps and disaster recovery on one discovery across AWS, Azure, GCP and more.",
+          "Onam Security: CSPM, CIEM, DSPM, workload, SaaS and code security on one security graph across AWS, Azure, GCP and more, with Onam AI, your AI security analyst.",
       },
       { name: "author", content: "Onam Security" },
       { name: "theme-color", content: "#FFFFFF" },

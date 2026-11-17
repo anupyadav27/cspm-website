@@ -6,8 +6,6 @@ import { articles as featuresWorkload } from "./docs-articles/features-workload"
 import { articles as architectureCompliance } from "./docs-articles/architecture-compliance";
 import { articles as trustReference } from "./docs-articles/trust-reference";
 import { articles as releaseNotes } from "./docs-articles/release-notes";
-import { articles as products } from "./docs-articles/products";
-import { articles as drm } from "./docs-articles/drm";
 import { articles as featuresExtra } from "./docs-articles/features-extra";
 import { articles as operations } from "./docs-articles/operations";
 import { articles as dspm } from "./docs-articles/dspm";
@@ -18,15 +16,12 @@ import { articles as security } from "./docs-articles/security";
 export type { DocArticle };
 
 /** The product a docs section belongs to. The sidebar groups sections by it. */
-export type DocProduct = "platform" | "estate" | "security" | "finops" | "drm" | "aiops" | "shared";
+export type DocProduct = "platform" | "security" | "aiops" | "shared";
 
 export const DOC_PRODUCT_LABEL: Record<DocProduct, string> = {
   platform: "Platform",
-  estate: "Onam Estate",
   security: "Onam Security",
-  finops: "Onam FinOps",
-  drm: "Onam DRM",
-  aiops: "Onam AIOps",
+  aiops: "Onam AI",
   shared: "Trust & reference",
 };
 
@@ -59,18 +54,6 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Alibaba Cloud", slug: "onboarding/alicloud" },
       { title: "IBM Cloud", slug: "onboarding/ibm" },
       { title: "Kubernetes", slug: "onboarding/kubernetes" },
-    ],
-  },
-  /* ── Onam Estate ── */
-  {
-    heading: "Onam Estate",
-    product: "estate",
-    items: [
-      { title: "Overview", slug: "estate/overview" },
-      { title: "Asset Inventory", slug: "estate/inventory" },
-      { title: "Architecture", slug: "estate/architecture" },
-      { title: "Discovery Pipeline", slug: "estate/pipeline" },
-      { title: "Access & Entitlement", slug: "estate/access" },
     ],
   },
   /* ── Onam Security ── */
@@ -165,38 +148,9 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Data Security", slug: "architecture/data-security" },
     ],
   },
-  /* ── Onam FinOps ── */
+  /* ── Onam AI (URLs stay /docs/operations/*) ── */
   {
-    heading: "Onam FinOps",
-    product: "finops",
-    items: [
-      { title: "Overview", slug: "finops/overview" },
-      { title: "The Cost Model", slug: "finops/cost-model" },
-      { title: "Explore", slug: "finops/explore" },
-      { title: "Ownership & Attribution", slug: "finops/ownership" },
-      { title: "Forecast, Budgets & Anomalies", slug: "finops/plan" },
-      { title: "Savings", slug: "finops/savings" },
-      { title: "Runs & Reconciliation", slug: "finops/runs" },
-      { title: "Access & Entitlement", slug: "finops/access" },
-    ],
-  },
-  /* ── Onam DRM ── */
-  {
-    heading: "Onam DRM",
-    product: "drm",
-    items: [
-      { title: "Overview", slug: "drm/overview" },
-      { title: "Applications & Dependencies", slug: "drm/applications" },
-      { title: "Protection", slug: "drm/protection" },
-      { title: "Recovery Plans & Readiness", slug: "drm/recovery-plans" },
-      { title: "RTO, RPO & Drills", slug: "drm/objectives" },
-      { title: "Approvals, Baselines & Drift", slug: "drm/governance" },
-      { title: "Access & Entitlement", slug: "drm/access" },
-    ],
-  },
-  /* ── Onam AIOps ── */
-  {
-    heading: "Onam AIOps",
+    heading: "Onam AI",
     product: "aiops",
     items: [
       { title: "Overview", slug: "operations/overview" },
@@ -205,14 +159,10 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "The Workspace", slug: "operations/workspace" },
       { title: "The Orchestrator", slug: "operations/orchestrator" },
       { title: "The Agents", slug: "operations/agents" },
-      { title: "Asset Agent", slug: "operations/agents/asset-agent" },
       { title: "Security Agent", slug: "operations/agents/security-agent" },
       { title: "Compliance Agent", slug: "operations/agents/compliance-agent" },
       { title: "Data Agent", slug: "operations/agents/data-agent" },
       { title: "Automation Agent", slug: "operations/agents/automation-agent" },
-      { title: "FinOps Agent", slug: "operations/agents/finops-agent" },
-      { title: "DR Agent", slug: "operations/agents/dr-agent" },
-      { title: "Architecture Agent", slug: "operations/agents/architecture-agent" },
       { title: "Governance & Approvals", slug: "operations/governance" },
       { title: "Security & AI Safety", slug: "operations/security" },
       { title: "Architecture", slug: "operations/architecture" },
@@ -264,8 +214,6 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...architectureCompliance,
   ...trustReference,
   ...releaseNotes,
-  ...products,
-  ...drm,
   ...featuresExtra,
   ...operations,
   ...dspm,

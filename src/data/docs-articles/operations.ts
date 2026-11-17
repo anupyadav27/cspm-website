@@ -10,7 +10,8 @@ import {
 } from "../operations";
 
 /**
- * Docs for Onam AIOps (the agentic operations layer). Agent articles are generated from
+ * Docs for Onam AI — your AI security analyst, for Onam Security (renamed from
+ * "Onam AIOps" 17 Nov 2026; URLs stay /docs/operations/*). Agent articles are generated from
  * src/data/operations.ts so the docs and the product page cannot disagree about an agent's
  * status, tools or limits. Honesty rules are in the header of that file.
  */
@@ -18,14 +19,10 @@ import {
 const label = (s: keyof typeof OPS_STATUS) => OPS_STATUS[s].label;
 
 const AGENT_DOC_SLUGS = [
-  "asset-agent",
   "security-agent",
   "compliance-agent",
   "data-agent",
   "automation-agent",
-  "finops-agent",
-  "dr-agent",
-  "architecture-agent",
 ] as const;
 
 function agentSection(a: OpsAgent): string {
@@ -75,11 +72,11 @@ function agentArticle(slug: (typeof AGENT_DOC_SLUGS)[number]): DocArticle {
   return {
     slug: `operations/agents/${slug}`,
     title,
-    breadcrumb: `Onam AIOps / Agents / ${title}`,
+    breadcrumb: `Onam AI / Agents / ${title}`,
     body: `
 ${intro}
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 ${agents.map(agentSection).join("\n---\n")}
 > Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
 `,
@@ -89,20 +86,22 @@ ${agents.map(agentSection).join("\n---\n")}
 export const articles: DocArticle[] = [
   {
     slug: "operations/overview",
-    title: "Onam AIOps overview",
-    breadcrumb: "Onam AIOps / Overview",
+    title: "Onam AI overview",
+    breadcrumb: "Onam AI / Overview",
     body: `
-Onam AIOps is a workspace where your team works with specialist AI agents that investigate your cloud with evidence and change nothing without a person’s approval.
+Onam AI is your AI security analyst for Onam Security. Ask about your findings, attack paths and data security in plain language; it answers from your own Onam Security data with evidence on every claim, masks sensitive values, and suggests fixes. It changes nothing without a person’s approval.
 
-> **Status: Early access.** Onam AIOps runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
+> **Status: Early access.** Onam AI runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
 
 ## What it is
 
-A real question about a cloud estate usually spans several consoles — security findings, inventory, cost, recovery — and today someone joins the answers by hand. Onam AIOps adds a workspace above the products that already know your cloud:
+A real security question usually spans several views — posture, identity, network, data security, attack paths — and today someone joins the answers by hand. Onam AI adds a workspace above Onam Security, which already knows your cloud:
 
-- An **orchestrator** turns your request into a visible plan and routes each step to a specialist agent.
-- **Specialist agents** — Asset, Security, Compliance, Data, Automation, and later FinOps, DR and Architecture — each with a declared job, permissions and limits.
+- An **orchestrator** turns your question into a visible plan and routes each step to a specialist agent.
+- **Specialist agents** — Security, Compliance, Data and Automation — each with a declared job, permissions and limits.
 - **Evidence** on every claim: the skill, query, rows and scan behind each number.
+- **Masking**: answers name the resource and the finding; secrets, keys and sensitive data values are masked.
+- **Suggested fixes**: a fix for a finding, with its rollback, for a person to decide.
 - An **approval centre** where every proposed change is decided by a named person, diff first.
 - An **audit trail** of every turn, tool call, decision and approval, append-only and hash-chained.
 
@@ -110,11 +109,11 @@ A real question about a cloud estate usually spans several consoles — security
 
 - **Not a chatbot.** A chatbot answers. This plans, investigates, proposes and records.
 - **Not autonomous.** Every change to a customer cloud passes a human approval gate. No setting removes it.
-- **Not a second scanner.** Agents reason over the data the products already resolved. An agent that re-scans your cloud is a bug.
+- **Not a second scanner.** Agents reason over the data Onam Security already resolved. An agent that re-scans your cloud is a bug.
 
 ## How it relates to the AI Assistant
 
-The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam AIOps is the workspace above it — plans, tasks, approvals and an audit trail across specialist agents.
+The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam AI is the workspace above it — plans, tasks, suggested fixes, approvals and an audit trail across specialist agents.
 
 ## Read next
 
@@ -129,9 +128,9 @@ The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to 
   {
     slug: "operations/availability",
     title: "Availability and status",
-    breadcrumb: "Onam AIOps / Availability",
+    breadcrumb: "Onam AI / Availability",
     body: `
-What in Onam AIOps you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
+What in Onam AI you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
 
 ## What the labels mean
 
@@ -167,9 +166,9 @@ Early access is by invitation. Onam enables your organisation, connects the agen
   {
     slug: "operations/concepts",
     title: "Concepts: agents, skills, tools, tasks and approvals",
-    breadcrumb: "Onam AIOps / Concepts",
+    breadcrumb: "Onam AI / Concepts",
     body: `
-The words Onam AIOps uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
+The words Onam AI uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
 
 ## The vocabulary
 
@@ -207,19 +206,19 @@ ${OPS_LEVELS.map((l) => `| ${l.level} | ${l.name} | ${l.reads} | ${l.writes} | $
 
 An agent’s level is fixed in its definition. Promotion needs re-certification; it is never a runtime decision.
 
-## Memory never holds a fact about your estate
+## Memory never holds a fact about your cloud
 
-Estate facts change; a remembered fact goes stale silently. Agents read the current estate on every turn, with its observed time. Memory holds preferences and context you give them — and never a secret.
+Cloud facts change; a remembered fact goes stale silently. Agents read the current data on every turn, with its observed time. Memory holds preferences and context you give them — and never a secret.
 `,
   },
   {
     slug: "operations/workspace",
     title: "The workspace",
-    breadcrumb: "Onam AIOps / Workspace",
+    breadcrumb: "Onam AI / Workspace",
     body: `
-The Onam AIOps workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
+The Onam AI workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
 
-> **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/platform/ai-operations#workspace) are mockups with sample data, not screenshots.
+> **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/onam-ai#workspace) are mockups with sample data, not screenshots.
 
 ## Three rules
 
@@ -234,7 +233,7 @@ The Onam AIOps workspace is shaped like team chat and behaves like an operations
 | Group | Screens |
 |---|---|
 | Needs you | Home (what is waiting, running, failed) · Approvals · Inbox |
-| Ask | Chat · Assets (the estate the agents see) · Agents (who does what, and may touch what) |
+| Ask | Chat · Assets (the resources the agents see) · Agents (who does what, and may touch what) |
 | Run | Tasks · Workflows · Reports |
 | Govern | Knowledge (what you told the agents) · Activity (the audit trail and its chain) · Settings (autonomy, budget, kill switch) |
 
@@ -270,7 +269,7 @@ Enable or disable agents for your organisation, set the autonomy ceiling, budget
   {
     slug: "operations/orchestrator",
     title: "The orchestrator",
-    breadcrumb: "Onam AIOps / Orchestrator",
+    breadcrumb: "Onam AI / Orchestrator",
     body: `
 The orchestrator turns a request into a plan, routes each step to a specialist agent, joins the results and surfaces conflicts. It never answers on its own.
 
@@ -286,14 +285,14 @@ The orchestrator turns a request into a plan, routes each step to a specialist a
 6. Surfaces conflicts between agents to you.
 7. If an action is needed, raises it for approval — and stops there.
 
-The orchestrator has **no access to estate data itself**. An orchestrator that could read data would eventually answer a question on its own, unaudited and without evidence.
+The orchestrator has **no access to security data itself**. An orchestrator that could read data would eventually answer a question on its own, unaudited and without evidence.
 
 ## Kinds of request
 
 | Kind | Produces | Example |
 |---|---|---|
 | Question | A direct answer from one agent | “How many production instances are in this account?” |
-| Investigation | A plan and a joined answer | “Which exposed assets have critical findings, and who owns them?” |
+| Investigation | A plan and a joined answer | “Which exposed assets have critical findings, and which attack paths run through them?” |
 | Action request | A plan, a proposal and an approval | “Close SSH from the internet on these instances.” |
 | Workflow start | A workflow run | “Prepare this account for audit.” |
 | Report | A synthesised document with evidence | “Give me the exposure summary for the board.” |
@@ -304,7 +303,7 @@ The orchestrator has **no access to estate data itself**. An orchestrator that c
 | Conflict | Example | What happens |
 |---|---|---|
 | Fact | Two sources disagree on an instance size | Both shown with sources and times; a declared precedence applies and is flagged |
-| Judgement | Security says remove it; another agent says it is a recovery dependency | Escalated to you with both positions and their evidence |
+| Judgement | Security says close the port; another agent says a production service depends on it | Escalated to you with both positions and their evidence |
 | Recommendation | Downsize versus scale out | Shown as a trade-off; the orchestrator does not pick |
 | Staleness | One source is hours older | The oldest time is reported as the answer’s freshness |
 
@@ -316,9 +315,9 @@ Permission denied is reported as “not authorised”, never as “no data”. A
   {
     slug: "operations/agents",
     title: "The specialist agents",
-    breadcrumb: "Onam AIOps / Agents",
+    breadcrumb: "Onam AI / Agents",
     body: `
-Onam AIOps has eight specialist agent roles, each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+Onam AI has four specialist agent roles — Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
 
 ![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
 
@@ -338,7 +337,7 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
 
 1. **Scope review** — every skill, tool and permission is necessary, and the narrowest that works.
 2. **Security review** — the prompt-injection test corpus passes in full; no path to an unregistered tool; cross-customer tests pass.
-3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test estates.
+3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test environments.
 4. **Documentation** — purpose, capabilities and known limits written for customers. An agent with no documented limits has not been examined.
 `,
   },
@@ -346,9 +345,9 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
   {
     slug: "operations/governance",
     title: "Governance and approvals",
-    breadcrumb: "Onam AIOps / Governance",
+    breadcrumb: "Onam AI / Governance",
     body: `
-How Onam AIOps decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
+How Onam AI decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
 
 > The approval centre is in **early access**. Executing an approved change in a customer cloud is **on the roadmap**.
 
@@ -372,7 +371,7 @@ Risk is assigned by policy from the kind of change, resource class, environment,
 |---|---|---|
 ${OPS_RISK_CLASSES.map((r) => `| ${r.cls} | ${r.approval} | ${r.examples} |`).join("\n")}
 
-A change is raised one class automatically when the target is production, is on an attack path to a crown jewel, holds regulated data, supports a tier-1 recovery plan, has no rollback, affects more than ten resources, or falls in a change freeze. **Nothing lowers a class.** Your organisation may set a higher floor, never a lower one.
+A change is raised one class automatically when the target is production, is on an attack path to a crown jewel, holds regulated data, has no rollback, affects more than ten resources, or falls in a change freeze. **Nothing lowers a class.** Your organisation may set a higher floor, never a lower one.
 
 ## What makes an approval real
 
@@ -410,9 +409,9 @@ Every agent turn, tool call, decision, approval and action is recorded with acto
   {
     slug: "operations/security",
     title: "Security and AI safety",
-    breadcrumb: "Onam AIOps / Security",
+    breadcrumb: "Onam AI / Security",
     body: `
-Onam AIOps is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
+Onam AI is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
 
 ## Tenant isolation at every layer
 
@@ -424,9 +423,9 @@ An agent is an untrusted principal. It has an identity on every call; its scope 
 
 ## Prompt injection
 
-Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam AIOps treats all of it as untrusted:
+Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam AI treats all of it as untrusted:
 
-1. **Structured tool output only.** Free text from the estate travels in designated fields, never spliced into instructions.
+1. **Structured tool output only.** Free text from your cloud travels in designated fields, never spliced into instructions.
 2. **Instruction and data separated.** Untrusted content is delimited and labelled as data.
 3. **Detection.** Known patterns are quarantined and logged; the investigation continues without them.
 4. **Authorisation after the model — the decisive control.** Whatever the model was persuaded to attempt, the policy engine and tool gateway check it against the agent’s declared scope, in code.
@@ -456,9 +455,9 @@ When execution is offered, changes will run in an isolated namespace holding the
   {
     slug: "operations/architecture",
     title: "Architecture",
-    breadcrumb: "Onam AIOps / Architecture",
+    breadcrumb: "Onam AI / Architecture",
     body: `
-The block architecture of Onam AIOps: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
+The block architecture of Onam AI: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
 
 ![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
 
@@ -468,7 +467,7 @@ The block architecture of Onam AIOps: eight blocks on the request path, a contro
 |---|---|---|
 | A · Experience | Workspace UI, embedded panels, API clients | Hold a credential or call a product backend directly |
 | B · Entry | The platform API gateway and the Operations API | Accept a tenant ID from a request body |
-| C · Orchestration | Orchestrator, task service, workflow engine | Read estate data, or decide whether a control applies |
+| C · Orchestration | Orchestrator, task service, workflow engine | Read security data, or decide whether a control applies |
 | D · Agents | Agent runtime, registry, context engine, memory | Call a tool directly, or change its own scope |
 | E · Capability | Skill runtime, tool gateway, model gateway | Let unsanitised text back into the model’s context |
 | F · Intelligence | Cloud Estate Intelligence | Write anything, or guess an identity mapping |
@@ -487,7 +486,7 @@ Reading passes entitlement, agent scope and the tenant filter, and returns an an
 
 ## Cloud Estate Intelligence
 
-A read-only layer over what the products already found. It reads published contract views of each product’s data — never their own tables — resolves every resource to one canonical identity, stamps every row with when it was observed, and says which sources were unavailable. In early access it carries the Onam Security inventory, assets and findings; relationships, exposure, attack paths and compliance results are being connected; cost and recovery data are on the roadmap.
+A read-only layer over what Onam Security already found. It reads published contract views of its data — never their own tables — resolves every resource to one canonical identity, stamps every row with when it was observed, and says which sources were unavailable. In early access it carries the Onam Security inventory, assets and findings; relationships, exposure, attack paths and compliance results are being connected.
 
 ## Five architectural commitments
 
@@ -497,7 +496,7 @@ A read-only layer over what the products already found. It reads published contr
 4. Identity comes only from the platform gateway.
 5. Agent records live alongside the platform’s own, under the same tenancy rules.
 
-The product page has the same design with diagrams: [How Onam AIOps is designed](/platform/ai-operations/architecture).
+The product page has the same design with diagrams: [How Onam AI is designed](/onam-ai/architecture).
 `,
   },
 ];

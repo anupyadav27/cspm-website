@@ -6,7 +6,7 @@ import { Search } from "@/components/site/icons";
 import { useState } from "react";
 
 const DESCRIPTION =
-  "Documentation for the Onam platform — connect a cloud once, then Onam Estate, Onam Security, Onam FinOps, Onam DRM and Onam AIOps.";
+  "Documentation for Onam — connect a cloud once, then Onam Security (cloud, SaaS and code security) and Onam AI, your AI security analyst.";
 
 export const Route = createFileRoute("/docs")({
   head: () => ({

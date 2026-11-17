@@ -72,13 +72,13 @@ export type LeadInput = {
   reason?: string;
   message?: string;
   clouds?: string[];
-  /** Products of interest: estate | security | finops | drm | aiops. */
+  /** Products of interest: security | aiops (aiops = Onam AI; Estate, FinOps, DRM retired 17 Nov 2026). */
   products?: string[];
   /** Honeypot — real users never fill this. Bots do. */
   website?: string;
 };
 
-const PRODUCT_KEYS = ["estate", "security", "finops", "drm", "aiops"];
+const PRODUCT_KEYS = ["security", "aiops"];
 
 const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 

@@ -390,7 +390,7 @@ function GovernmentPage() {
       <WhyChoose />
       <AcrossThePlatform
         title="One platform for government teams"
-        lead="Security evidence is covered in detail above. Inventory, cost and recovery work from the same discovery, so your cloud accounts are connected once."
+        lead="Security evidence is covered in detail above. Onam AI, your AI security analyst, works from the same findings."
         notes={{ ...industryPlatformNotes(governmentData.industryName), ...governmentData.platform }}
       />
       <ProductDemo

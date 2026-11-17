@@ -1,17 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ProductFlagship } from "@/components/site/ProductFlagship";
-import { productFlagships } from "@/data/products";
-import { seo } from "@/lib/seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { retiredTarget } from "@/data/retired-pages";
 
-const data = productFlagships.finops;
-
+/** Onam FinOps is no longer a product. Retired 17 Nov 2026 — see src/data/retired-pages.ts. */
 export const Route = createFileRoute("/finops")({
-  head: () =>
-    seo({
-      title: "Onam FinOps — cloud cost and commitment management",
-      description: data.page.metaDescription ?? data.page.sub,
-      path: "/finops",
-      image: "/og/finops.png",
-    }),
-  component: () => <ProductFlagship data={data} video="finops" />,
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: retiredTarget(location.pathname) ?? "/platform", statusCode: 301 });
+  },
 });

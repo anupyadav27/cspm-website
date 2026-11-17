@@ -59,7 +59,7 @@ export const Route = createFileRoute("/solutions/")({
     seo({
       title: "Solutions — Onam",
       description:
-        "Onam on every cloud and for every industry — Estate, Security, FinOps, DRM and AIOps on AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes.",
+        "Onam on every cloud and for every industry — Onam Security and Onam AI on AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes.",
       path: "/solutions",
     }),
   component: SolutionsIndex,
@@ -76,9 +76,9 @@ function SolutionsIndex() {
             Onam on every cloud, for every industry.
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            Four products — Estate, Security, FinOps and DRM — with AIOps across them, connected once with read-only
-            access. Each page shows what every product does on that cloud or for that industry, and where coverage
-            stops today.
+            Onam Security — cloud, SaaS and code security — with Onam AI, your AI security analyst, connected once
+            with read-only access. Each page shows what Onam does on that cloud or for that industry, and where
+            coverage stops today.
           </p>
         </div>
       </section>

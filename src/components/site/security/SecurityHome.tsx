@@ -25,7 +25,7 @@ import { cn } from "@/lib/utils";
 export const SECURITY_FAQ = [
   {
     q: "What is Onam Security?",
-    a: "Onam Security is the security product of the Onam platform. It finds and prioritises risk across posture, identity (CIEM), data, workloads, code, attack paths and threat detection, maps every finding to the compliance frameworks it affects, and works on the same inventory Onam Estate keeps current. A cloud account is connected once for every Onam product.",
+    a: "Onam Security is cloud, SaaS and code security on one security graph. It finds and prioritises risk across posture, identity (CIEM), data, workloads, SaaS, code, attack paths and threat detection, and maps every finding to the compliance frameworks it affects. Onam AI, your AI security analyst, answers questions about those findings and suggests fixes.",
   },
   {
     q: "What is cloud security posture management (CSPM)?",

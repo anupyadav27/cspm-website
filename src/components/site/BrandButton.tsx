@@ -6,7 +6,7 @@ type Props = {
   to?: string;
   href?: string;
   children: ReactNode;
-  /** Query string for `to` — e.g. { product: "finops" } on a demo link. */
+  /** Query string for `to` — e.g. { product: "security" } on a demo link. */
   search?: Record<string, string>;
   /** `onDark`: outline button for dark bands. */
   variant?: "primary" | "secondary" | "ghost" | "onDark";

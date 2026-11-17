@@ -42,6 +42,8 @@ import { Route as EstateModuleRouteImport } from './routes/estate_.$module'
 import { Route as FinopsModuleRouteImport } from './routes/finops_.$module'
 import { Route as LearnIndexRouteImport } from './routes/learn.index'
 import { Route as LearnSlugRouteImport } from './routes/learn.$slug'
+import { Route as OnamAiIndexRouteImport } from './routes/onam-ai.index'
+import { Route as OnamAiArchitectureRouteImport } from './routes/onam-ai.architecture'
 import { Route as PlatformIndexRouteImport } from './routes/platform/index'
 import { Route as PlatformAgentlessRouteImport } from './routes/platform/agentless'
 import { Route as PlatformAiAssistantRouteImport } from './routes/platform/ai-assistant'
@@ -259,6 +261,16 @@ const LearnIndexRoute = LearnIndexRouteImport.update({
 const LearnSlugRoute = LearnSlugRouteImport.update({
   id: '/learn/$slug',
   path: '/learn/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnamAiIndexRoute = OnamAiIndexRouteImport.update({
+  id: '/onam-ai/',
+  path: '/onam-ai/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnamAiArchitectureRoute = OnamAiArchitectureRouteImport.update({
+  id: '/onam-ai/architecture',
+  path: '/onam-ai/architecture',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PlatformIndexRoute = PlatformIndexRouteImport.update({
@@ -551,6 +563,7 @@ export interface FileRoutesByFullPath {
   '/estate/$module': typeof EstateModuleRoute
   '/finops/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/onam-ai/architecture': typeof OnamAiArchitectureRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
@@ -593,6 +606,7 @@ export interface FileRoutesByFullPath {
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
+  '/onam-ai/': typeof OnamAiIndexRoute
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -635,6 +649,7 @@ export interface FileRoutesByTo {
   '/estate/$module': typeof EstateModuleRoute
   '/finops/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/onam-ai/architecture': typeof OnamAiArchitectureRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
@@ -677,6 +692,7 @@ export interface FileRoutesByTo {
   '/compare': typeof CompareIndexRoute
   '/docs': typeof DocsIndexRoute
   '/learn': typeof LearnIndexRoute
+  '/onam-ai': typeof OnamAiIndexRoute
   '/platform': typeof PlatformIndexRoute
   '/resources': typeof ResourcesIndexRoute
   '/solutions': typeof SolutionsIndexRoute
@@ -721,6 +737,7 @@ export interface FileRoutesById {
   '/estate_/$module': typeof EstateModuleRoute
   '/finops_/$module': typeof FinopsModuleRoute
   '/learn/$slug': typeof LearnSlugRoute
+  '/onam-ai/architecture': typeof OnamAiArchitectureRoute
   '/platform/agentless': typeof PlatformAgentlessRoute
   '/platform/ai-assistant': typeof PlatformAiAssistantRoute
   '/platform/ai-code-fix': typeof PlatformAiCodeFixRoute
@@ -763,6 +780,7 @@ export interface FileRoutesById {
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
+  '/onam-ai/': typeof OnamAiIndexRoute
   '/platform/': typeof PlatformIndexRoute
   '/resources/': typeof ResourcesIndexRoute
   '/solutions/': typeof SolutionsIndexRoute
@@ -808,6 +826,7 @@ export interface FileRouteTypes {
     | '/estate/$module'
     | '/finops/$module'
     | '/learn/$slug'
+    | '/onam-ai/architecture'
     | '/platform/agentless'
     | '/platform/ai-assistant'
     | '/platform/ai-code-fix'
@@ -850,6 +869,7 @@ export interface FileRouteTypes {
     | '/compare/'
     | '/docs/'
     | '/learn/'
+    | '/onam-ai/'
     | '/platform/'
     | '/resources/'
     | '/solutions/'
@@ -892,6 +912,7 @@ export interface FileRouteTypes {
     | '/estate/$module'
     | '/finops/$module'
     | '/learn/$slug'
+    | '/onam-ai/architecture'
     | '/platform/agentless'
     | '/platform/ai-assistant'
     | '/platform/ai-code-fix'
@@ -934,6 +955,7 @@ export interface FileRouteTypes {
     | '/compare'
     | '/docs'
     | '/learn'
+    | '/onam-ai'
     | '/platform'
     | '/resources'
     | '/solutions'
@@ -977,6 +999,7 @@ export interface FileRouteTypes {
     | '/estate_/$module'
     | '/finops_/$module'
     | '/learn/$slug'
+    | '/onam-ai/architecture'
     | '/platform/agentless'
     | '/platform/ai-assistant'
     | '/platform/ai-code-fix'
@@ -1019,6 +1042,7 @@ export interface FileRouteTypes {
     | '/compare/'
     | '/docs/'
     | '/learn/'
+    | '/onam-ai/'
     | '/platform/'
     | '/resources/'
     | '/solutions/'
@@ -1062,6 +1086,7 @@ export interface RootRouteChildren {
   EstateModuleRoute: typeof EstateModuleRoute
   FinopsModuleRoute: typeof FinopsModuleRoute
   LearnSlugRoute: typeof LearnSlugRoute
+  OnamAiArchitectureRoute: typeof OnamAiArchitectureRoute
   PlatformAgentlessRoute: typeof PlatformAgentlessRoute
   PlatformAiAssistantRoute: typeof PlatformAiAssistantRoute
   PlatformAiCodeFixRoute: typeof PlatformAiCodeFixRoute
@@ -1103,6 +1128,7 @@ export interface RootRouteChildren {
   SolutionsOciRoute: typeof SolutionsOciRoute
   CompareIndexRoute: typeof CompareIndexRoute
   LearnIndexRoute: typeof LearnIndexRoute
+  OnamAiIndexRoute: typeof OnamAiIndexRoute
   PlatformIndexRoute: typeof PlatformIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   SolutionsIndexRoute: typeof SolutionsIndexRoute
@@ -1346,6 +1372,20 @@ declare module '@tanstack/react-router' {
       path: '/learn/$slug'
       fullPath: '/learn/$slug'
       preLoaderRoute: typeof LearnSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onam-ai/': {
+      id: '/onam-ai/'
+      path: '/onam-ai'
+      fullPath: '/onam-ai/'
+      preLoaderRoute: typeof OnamAiIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onam-ai/architecture': {
+      id: '/onam-ai/architecture'
+      path: '/onam-ai/architecture'
+      fullPath: '/onam-ai/architecture'
+      preLoaderRoute: typeof OnamAiArchitectureRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/platform/': {
@@ -1756,6 +1796,7 @@ const rootRouteChildren: RootRouteChildren = {
   EstateModuleRoute: EstateModuleRoute,
   FinopsModuleRoute: FinopsModuleRoute,
   LearnSlugRoute: LearnSlugRoute,
+  OnamAiArchitectureRoute: OnamAiArchitectureRoute,
   PlatformAgentlessRoute: PlatformAgentlessRoute,
   PlatformAiAssistantRoute: PlatformAiAssistantRoute,
   PlatformAiCodeFixRoute: PlatformAiCodeFixRoute,
@@ -1797,6 +1838,7 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsOciRoute: SolutionsOciRoute,
   CompareIndexRoute: CompareIndexRoute,
   LearnIndexRoute: LearnIndexRoute,
+  OnamAiIndexRoute: OnamAiIndexRoute,
   PlatformIndexRoute: PlatformIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
   SolutionsIndexRoute: SolutionsIndexRoute,

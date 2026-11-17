@@ -1,22 +1,24 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowDown, ExternalLink } from "@/components/site/icons";
-import { getSuite, AIOPS_COLOR, type SuiteKey } from "@/data/product-suite";
+import { AppWindow, ArrowDown, Cloud, FileCode2 } from "@/components/site/icons";
+import { getSuite, AIOPS_COLOR } from "@/data/product-suite";
 import { StatusBadge } from "@/components/site/ops/OpsUi";
 import { IconTile } from "@/components/site/system";
+import { SAAS_PLATFORMS } from "@/lib/product-facts";
 
 /**
- * The platform as layers — the homepage's first visual, in place of the dense
- * 1536px diagram (about 60 labels, unreadable on a phone). Same story, same facts as
- * the reviewed diagram (public/diagrams/onam-platform-overview.svg), which stays one
- * click away for anyone who wants the detail:
+ * How Onam Security fits together — the homepage's first visual.
  *
- *   your clouds -> Onam Estate (one inventory) -> Security | FinOps | DRM
- *   Onam AIOps across every layer -> outcomes
+ *   your clouds, SaaS and code -> one inventory and security graph (Onam Security)
+ *   -> cloud security | SaaS security | code security -> Onam AI across them -> outcomes
+ *
+ * Owner decision 17 Nov 2026: Estate, FinOps and DRM are retired, so the former
+ * "assets -> security -> cost -> recovery" layers are gone. The three lines match the
+ * three priced lines in src/data/pricing.ts.
  *
  * Built in HTML rather than SVG so it reflows: at 390px every label is still 13px+.
  */
 
-const CLOUDS = [
+const SOURCES = [
   "AWS",
   "Microsoft Azure",
   "Google Cloud",
@@ -25,38 +27,45 @@ const CLOUDS = [
   "IBM Cloud",
   "Kubernetes",
   "SaaS apps",
+  "Code repositories",
 ];
 
-const ACT: { key: SuiteKey; does: string[] }[] = [
+const LINES = [
   {
-    key: "security",
+    name: "Cloud security",
+    href: "/platform/cnapp",
+    icon: Cloud,
+    color: "#2563EB",
     does: [
-      "Posture, identity, data and code risks",
-      "Attack paths to sensitive data",
-      "Compliance evidence for each control",
+      "Posture (CSPM), identity (CIEM) and data (DSPM)",
+      "Vulnerabilities and workloads (CWPP), AI services",
+      "Attack paths to sensitive data, compliance evidence",
     ],
   },
   {
-    key: "finops",
+    name: "SaaS security",
+    href: "/platform/saas-security",
+    icon: AppWindow,
+    color: "#8B5CF6",
     does: [
-      "Billed and effective cost, broken down by owner",
-      "Forecasts, budgets and savings",
+      `Posture checks for ${SAAS_PLATFORMS} SaaS platforms`,
+      "Microsoft 365, Google Workspace, GitHub, Snowflake and more",
     ],
   },
   {
-    key: "drm",
-    does: [
-      "Applications and what they depend on",
-      "Predicted RTO and RPO, and drift from the approved recovery plan",
-    ],
+    name: "Code security",
+    href: "/platform/code-security",
+    icon: FileCode2,
+    color: "#0891B2",
+    does: ["SAST, secrets, IaC and SCA with an SBOM", "DAST against running applications"],
   },
 ];
 
-// What each team gets out of it, in plain words (the diagram's outcome pills, made concrete).
+// What each team gets out of it, in plain words.
 const OUTCOMES = [
   "Which risks to fix first",
-  "Where the cloud bill goes",
-  "How long recovery would take",
+  "How an attacker would reach your data",
+  "A suggested fix for each finding",
   "Evidence for auditors",
 ];
 
@@ -69,25 +78,26 @@ function Down() {
 }
 
 export function PlatformLayers() {
-  const estate = getSuite("estate");
+  const security = getSuite("security");
+  const ai = getSuite("aiops");
   return (
     <section id="platform" className="relative bg-white border-b border-line scroll-mt-20">
       <div className="absolute inset-x-0 top-0 h-24 md:h-40 bg-night" aria-hidden />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 -mt-16 md:-mt-24 pb-16 md:pb-20">
         <figure className="rounded-3xl border border-line bg-white shadow-[0_24px_64px_rgba(11,18,32,.18)] p-4 sm:p-8">
           <figcaption className="sr-only">
-            How the Onam platform fits together: your clouds feed Onam Estate's single inventory;
-            Onam Security, Onam FinOps and Onam DRM act on it; Onam AIOps agents work across every
-            layer with a person approving every change.
+            How Onam Security fits together: your clouds, SaaS apps and code feed one inventory
+            and security graph; cloud, SaaS and code security act on it; Onam AI, your AI security
+            analyst, works across them with a person approving every change.
           </figcaption>
 
           {/* 1 · Sources */}
           <div className="rounded-2xl bg-surface border border-line p-4">
             <div className="text-xs uppercase tracking-[0.12em] font-semibold text-muted-500">
-              Your clouds
+              What you connect
             </div>
-            <ul className="mt-3 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-2">
-              {CLOUDS.map((c) => (
+            <ul className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
+              {SOURCES.map((c) => (
                 <li
                   key={c}
                   className="rounded-lg bg-white border border-line px-2 py-2 text-center text-[13px] font-semibold text-ink-2"
@@ -99,75 +109,64 @@ export function PlatformLayers() {
           </div>
           <Down />
 
-          {/* 2 · One inventory */}
+          {/* 2 · One graph */}
           <Link
-            to={estate.href}
+            to={security.href}
             className="group flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl px-5 py-4 text-white transition hover:brightness-110"
-            style={{ background: estate.color }}
+            style={{ background: security.color }}
           >
-            <span className="text-xs uppercase tracking-[0.12em] font-semibold text-white/80">
-              {estate.stage}
-            </span>
-            <span className="font-display font-extrabold text-lg">Onam Estate</span>
+            <span className="font-display font-extrabold text-lg">Onam Security</span>
             <span className="text-[15px] text-white/90">
-              Finds what you run, maps how it connects and keeps the list current. Every product
-              reads it.
+              One inventory and one security graph. Every engine reads it, so findings from different
+              engines join up.
             </span>
           </Link>
           <Down />
 
-          {/* 3 · Products that act on it */}
+          {/* 3 · The three lines */}
           <div className="grid md:grid-cols-3 gap-3">
-            {ACT.map(({ key, does }) => {
-              const p = getSuite(key);
-              return (
-                <Link
-                  key={key}
-                  to={p.href}
-                  className="group rounded-2xl border border-line bg-white p-5 transition hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]"
-                  style={{ borderTop: `3px solid ${p.color}` }}
-                >
-                  <div className="flex items-center gap-3">
-                    <IconTile icon={p.icon} color={p.color} size="sm" />
-                    <div>
-                      <div className="text-xs uppercase tracking-[0.12em] font-semibold text-muted-500">
-                        {p.stage}
-                      </div>
-                      <div className="font-display font-bold text-ink group-hover:text-brand-500 transition">
-                        {p.name}
-                      </div>
-                    </div>
+            {LINES.map((l) => (
+              <Link
+                key={l.name}
+                to={l.href}
+                className="group rounded-2xl border border-line bg-white p-5 transition hover:shadow-[0_12px_28px_rgba(16,24,40,.10)]"
+                style={{ borderTop: `3px solid ${l.color}` }}
+              >
+                <div className="flex items-center gap-3">
+                  <IconTile icon={l.icon} color={l.color} size="sm" />
+                  <div className="font-display font-bold text-ink group-hover:text-brand-500 transition">
+                    {l.name}
                   </div>
-                  <ul className="mt-4 space-y-1.5">
-                    {does.map((d) => (
-                      <li key={d} className="flex gap-2 text-sm text-body">
-                        <span
-                          className="mt-2 w-1.5 h-1.5 rounded-full shrink-0"
-                          style={{ background: p.color }}
-                          aria-hidden
-                        />
-                        {d}
-                      </li>
-                    ))}
-                  </ul>
-                </Link>
-              );
-            })}
+                </div>
+                <ul className="mt-4 space-y-1.5">
+                  {l.does.map((d) => (
+                    <li key={d} className="flex gap-2 text-sm text-body">
+                      <span
+                        className="mt-2 w-1.5 h-1.5 rounded-full shrink-0"
+                        style={{ background: l.color }}
+                        aria-hidden
+                      />
+                      {d}
+                    </li>
+                  ))}
+                </ul>
+              </Link>
+            ))}
           </div>
 
-          {/* 4 · Across every layer */}
+          {/* 4 · Across them */}
           <Link
-            to="/platform/ai-operations"
+            to={ai.href}
             className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 rounded-2xl border px-5 py-4 transition hover:brightness-[0.98]"
             style={{ borderColor: "#C7D2FE", background: "#EEF2FF" }}
           >
             <span className="font-display font-extrabold text-lg" style={{ color: AIOPS_COLOR }}>
-              Onam AIOps
+              Onam AI
             </span>
             <StatusBadge status="early" />
             <span className="text-[15px] text-ink-2">
-              AI agents that investigate with evidence and propose changes. A person approves each
-              one.
+              Your AI security analyst: ask about findings, attack paths and data security. It
+              suggests fixes; a person approves each change.
             </span>
           </Link>
           <Down />
@@ -184,18 +183,6 @@ export function PlatformLayers() {
             ))}
           </ul>
         </figure>
-
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 px-1 text-sm text-muted-500">
-          <span>One discovery feeds every product. Onam AIOps is in early access.</span>
-          <a
-            href="/diagrams/onam-platform-overview.svg"
-            target="_blank"
-            rel="noopener"
-            className="inline-flex items-center gap-1.5 font-semibold text-brand-500 hover:text-brand-600"
-          >
-            Detailed platform diagram <ExternalLink className="w-3.5 h-3.5" />
-          </a>
-        </div>
       </div>
     </section>
   );

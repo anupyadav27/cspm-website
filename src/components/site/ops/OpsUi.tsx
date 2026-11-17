@@ -1,5 +1,5 @@
 /**
- * Onam AIOps — status badges and ILLUSTRATIVE workspace mockups.
+ * Onam AI — status badges and ILLUSTRATIVE workspace mockups.
  *
  * Every mockup here is drawn in HTML from the UX specification (docs/04 §2, §3.6, §4) and
  * the workspace's real navigation (apps/workspace Nav.tsx). They are NOT screenshots and
@@ -87,7 +87,7 @@ export function WorkspaceMock() {
   return (
     <div className="grid min-w-[340px] text-[12.5px] md:grid-cols-[150px_1fr] lg:grid-cols-[150px_1fr_220px]">
       <aside className="hidden border-r border-[#E5E9F0] bg-[#F8FAFC] p-3 md:block">
-        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AIOps</div>
+        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AI</div>
         {NAV.map((g) => (
           <div key={g.section} className="mb-3">
             <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
@@ -114,7 +114,7 @@ export function WorkspaceMock() {
         <div className="border-b border-[#E5E9F0] pb-2">
           <div className="font-bold text-[#0B1220]"># Exposed production assets</div>
           <div className="text-[11px] text-[#64748B]">
-            Agents in this conversation: Asset · Security
+            Agents in this conversation: Security
           </div>
         </div>
         <div className="ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-[#2563EB] px-3 py-2 text-white">
@@ -124,15 +124,15 @@ export function WorkspaceMock() {
         <PlanMock compact />
         <div
           className="rounded-xl border border-[#E5E9F0] border-l-[3px] bg-white p-3"
-          style={{ borderLeftColor: "#0F766E" }}
+          style={{ borderLeftColor: "#1D4ED8" }}
         >
           <div className="mb-1 flex items-center gap-2">
-            <AgentDot color="#0F766E" label="As" />
-            <span className="font-semibold text-[#0B1220]">Asset Agent</span>
-            <span className="text-[10.5px] text-[#64748B]">discover_assets · 214 rows</span>
+            <AgentDot color="#1D4ED8" label="Se" />
+            <span className="font-semibold text-[#0B1220]">Security Agent</span>
+            <span className="text-[10.5px] text-[#64748B]">find_public_exposure · 214 rows</span>
           </div>
           <p className="text-[#334155]">
-            214 production assets in the selected accounts; 61 have no owner tag.
+            214 production assets in the selected accounts are reachable from the internet.
           </p>
         </div>
         <div
@@ -211,9 +211,9 @@ export function WorkspaceMock() {
 const PLAN_STEPS = [
   {
     n: 1,
-    agent: "Asset",
-    color: "#0F766E",
-    skill: "discover_assets",
+    agent: "Security",
+    color: "#1D4ED8",
+    skill: "find_public_exposure",
     result: "214",
     state: "done",
   },
@@ -319,7 +319,7 @@ export function EvidenceMock() {
         sample time · scan example
       </span>,
     ],
-    ["Source", "security findings · estate assets"],
+    ["Source", "security findings · inventory"],
   ];
   return (
     <div className="min-w-[320px] p-4">
@@ -424,7 +424,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 const AUDIT_ROWS = [
   ["14:02:11", "you", "conversation.started", "—", "Low"],
   ["14:02:13", "Orchestrator", "plan.created", "4 steps", "Low"],
-  ["14:02:19", "Asset Agent", "tool.called · cei.query", "214 rows", "Low"],
+  ["14:02:19", "Security Agent", "tool.called · cei.query", "214 rows", "Low"],
   ["14:02:27", "Security Agent", "tool.called · cei.query", "12 rows", "Low"],
   ["14:07:40", "Automation planner", "approval.requested", "sg-example", "High"],
   ["14:21:05", "you", "approval.approved", "hash (sample)", "High"],
@@ -497,7 +497,7 @@ export function DiagramFigure({
   );
 }
 
-/** Small section shell shared by the two Onam AIOps pages. */
+/** Small section shell shared by the two Onam AI pages. */
 export function OpsSection({
   id,
   eyebrow,

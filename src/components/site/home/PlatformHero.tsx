@@ -1,33 +1,33 @@
-import { Link } from "@tanstack/react-router";
-import { ArrowDown, ArrowRight, Bot, ExternalLink, Play, Shield, ShieldHalf } from "@/components/site/icons";
-import type { ComponentType, CSSProperties } from "react";
+import { AppWindow, ArrowDown, ArrowRight, Bot, Cloud, FileCode2, Play, Shield, ShieldHalf } from "@/components/site/icons";
 import { BrandButton } from "@/components/site/BrandButton";
 import { Backdrop } from "@/components/site/system";
 import { CLOUDS } from "@/lib/product-facts";
 import { cn } from "@/lib/utils";
-import { PRODUCTS } from "@/data/products";
-import { SUITE } from "@/data/product-suite";
 
 /**
- * Homepage top: the end-to-end hero, the reviewed platform diagram with the five-card
- * product strip, and the Onam Security spotlight (the priced attack path that used to
- * be the hero visual). Kept out of routes/index.tsx so the page file stays a list of
+ * Homepage top: the hero and the Onam Security spotlight (the priced attack path, used
+ * as the /platform hero). Kept out of routes/index.tsx so the page file stays a list of
  * sections.
  */
 
 /* ============================ HERO ============================
- * The end-to-end story, said first (owner-cleared 2026-10-05, product.yaml
- * `availability_cleared`): one platform — Estate -> Security -> FinOps -> DRM, with
- * Onam AIOps (early access) across them.
+ * Owner decision 17 Nov 2026: Onam is Onam Security — cloud, SaaS and code security —
+ * with Onam AI, the AI security analyst. Estate, FinOps and DRM are retired.
  *
- * Dark and single-column on purpose. The reviewed platform diagram sits directly
- * under it and IS the hero visual; a second picture beside the headline would compete
- * with it. The priced attack path that used to sit here moved to SecuritySpotlight,
- * where it still makes the security argument — it just no longer makes the platform's.
+ * Dark and single-column on purpose. The layered platform picture (PlatformLayers) sits
+ * directly under it and IS the hero visual.
  *
  * Colours are the brand's dark theme, already checked against #0B1220 for WCAG AA
  * (blue_lt #4D8DFF 5.86:1, sub_dk #9FB0CC 8.52:1).
  */
+/** What Onam sells, in the order of src/data/pricing.ts, plus Onam AI. */
+const HERO_LINES = [
+  { label: "Cloud security", Icon: Cloud, color: "#2563EB" },
+  { label: "SaaS security", Icon: AppWindow, color: "#8B5CF6" },
+  { label: "Code security", Icon: FileCode2, color: "#0891B2" },
+  { label: "Onam AI", Icon: Bot, color: "#4F46E5" },
+];
+
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-[#0B1220]">
@@ -37,27 +37,23 @@ export function Hero() {
 
       <div className="relative max-w-5xl mx-auto px-6 pt-14 md:pt-20 pb-28 md:pb-36 text-center animate-slide-up">
         <ul className="inline-flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium text-[#C7D2E4]">
-          {SUITE.map((p) => {
-            const Icon = p.icon;
-            return (
-              <li key={p.key} className="inline-flex items-center gap-1.5">
-                <Icon className="w-[18px] h-[18px]" style={{ color: `color-mix(in srgb, ${p.color} 55%, #FFFFFF)` }} />
-                {p.short}
-              </li>
-            );
-          })}
+          {HERO_LINES.map(({ label, Icon, color }) => (
+            <li key={label} className="inline-flex items-center gap-1.5">
+              <Icon className="w-[18px] h-[18px]" style={{ color: `color-mix(in srgb, ${color} 55%, #FFFFFF)` }} />
+              {label}
+            </li>
+          ))}
         </ul>
 
         <h1 className="mt-6 font-display font-black text-white text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[68px] tracking-tight md:leading-[1.02] text-balance">
-          See what you run in the cloud, what is exposed, what it costs and{" "}
-          <span className="text-[#4D8DFF]">how it recovers.</span>
+          Cloud, SaaS and code security,{" "}
+          <span className="text-[#4D8DFF]">with an AI security analyst.</span>
         </h1>
 
         <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-2xl mx-auto text-pretty">
-          Onam is cloud software with four products: Estate, Security, FinOps and DRM. They share
-          one inventory of your accounts across {CLOUDS} clouds, and you connect each account once.
-          AI agents work across them in early access, and a person approves every change they
-          propose.
+          Onam Security finds and ranks risk across posture, identity, data, workloads, SaaS and
+          code, on one security graph across {CLOUDS} clouds. Onam AI, your AI security analyst,
+          answers questions about your findings and suggests fixes. A person approves every change.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
@@ -68,159 +64,9 @@ export function Hero() {
             href="#platform"
             className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-base font-semibold text-white border border-white/20 hover:bg-white/[0.06] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4D8DFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1220]"
           >
-            See the platform <ArrowDown className="w-4 h-4" />
+            See how it fits together <ArrowDown className="w-4 h-4" />
           </a>
         </div>
-      </div>
-    </section>
-  );
-}
-
-/* ============================ PLATFORM OVERVIEW ============================
- * The reviewed diagram (IMAGE-REVIEW-CHECKLIST.md, "brand/onam-platform-overview.svg"),
- * pulled up into the hero's dark band so the two read as one statement.
- *
- * The diagram is 1536x1024 and dense: legible full-screen, not as a phone thumbnail.
- * On small screens it runs edge to edge and the "Open full size" link opens the SVG
- * itself, which pinch-zooms without losing sharpness. Alt text is the SVG's own
- * <title>, so the image and its description cannot drift apart.
- */
-type StripItem = {
-  key: string;
-  name: string;
-  stage: string;
-  href: string;
-  icon: ComponentType<{ className?: string; style?: CSSProperties }>;
-  color: string;
-  line: string;
-  badge?: string;
-};
-
-const STAGE: Record<string, string> = {
-  estate: "1 · Discover",
-  security: "2 · Secure",
-  finops: "3 · Optimise",
-  drm: "4 · Recover",
-};
-
-const ORDER = ["estate", "security", "finops", "drm"] as const;
-
-const STRIP: StripItem[] = [
-  ...ORDER.map((k) => {
-    const p = PRODUCTS.find((x) => x.key === k)!;
-    return {
-      key: p.key,
-      name: p.name,
-      stage: STAGE[k],
-      href: p.href,
-      icon: p.icon,
-      color: p.color,
-      line: p.question,
-    };
-  }),
-  {
-    key: "operations",
-    name: "Onam AIOps",
-    stage: "Across all four",
-    href: "/platform/ai-operations",
-    icon: Bot,
-    color: "#4F46E5",
-    line: "AI agents investigate with evidence and propose changes. A person approves each one.",
-    badge: "Early access",
-  },
-];
-
-export function PlatformOverview() {
-  return (
-    <section id="platform" className="relative bg-white border-b border-[#E5E9F0] scroll-mt-20">
-      {/* The dark band continues behind the top of the diagram card. */}
-      <div className="absolute inset-x-0 top-0 h-24 md:h-40 bg-[#0B1220]" aria-hidden />
-      <div className="relative max-w-7xl mx-auto px-0 sm:px-6 -mt-16 md:-mt-24">
-        <figure className="bg-[#F7F9FC] sm:rounded-2xl border-y sm:border border-[#E5E9F0] shadow-[0_24px_64px_rgba(11,18,32,.18)] overflow-hidden">
-          <a
-            href="/diagrams/onam-platform-overview.svg"
-            target="_blank"
-            rel="noopener"
-            className="block"
-          >
-            <img
-              src="/diagrams/onam-platform-overview.svg"
-              width={1536}
-              height={1024}
-              alt="Onam platform overview: from assets to a secure, optimised and resilient cloud. Cloud and SaaS data flows into Onam Estate's unified asset graph; Onam Security, Onam FinOps and Onam DRM act on it; Onam AIOps (early access) puts AI agents across the platform with human approval."
-              className="block w-full h-auto"
-              decoding="async"
-            />
-          </a>
-          <figcaption className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 sm:px-6 py-3 border-t border-[#E5E9F0] bg-white text-xs text-[#64748B]">
-            <span>One discovery feeds every product. Onam AIOps is in early access.</span>
-            <a
-              href="/diagrams/onam-platform-overview.svg"
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center gap-1.5 font-semibold text-[#2563EB] hover:underline"
-            >
-              Open full size <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div className="max-w-7xl mx-auto px-6 pt-14 pb-20">
-        <div className="max-w-2xl">
-          <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">
-            One platform, four products
-          </div>
-          <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Start with one product and <span className="gradient-text">add the others later.</span>
-          </h2>
-          <p className="mt-4 text-[#475569] leading-relaxed">
-            You connect your cloud accounts once. Every product reads the same inventory, runs in the
-            same console behind the same login, and is granted per organisation.
-          </p>
-        </div>
-
-        <ol className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {STRIP.map((p) => {
-            const Icon = p.icon;
-            return (
-              <li key={p.key} className="min-w-0">
-                <Link to={p.href} className="group block h-full">
-                  <div className="h-full flex flex-col bg-white border border-[#E5E9F0] rounded-2xl p-5 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_16px_36px_rgba(16,24,40,.10)] transition-all">
-                    <div className="flex items-center justify-between gap-2">
-                      <div
-                        className="w-10 h-10 rounded-xl grid place-items-center shrink-0"
-                        style={{
-                          backgroundColor: `color-mix(in srgb, ${p.color} 12%, #FFFFFF)`,
-                          boxShadow: `inset 0 0 0 1px color-mix(in srgb, ${p.color} 22%, transparent)`,
-                        }}
-                      >
-                        <Icon className="w-5 h-5" style={{ color: p.color }} />
-                      </div>
-                      {p.badge ? (
-                        <span className="text-[11px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#EEF2FF] text-[#4338CA] border border-[#E0E7FF]">
-                          {p.badge}
-                        </span>
-                      ) : (
-                        <span className="text-[11px] font-bold uppercase tracking-wider text-[#64748B]">
-                          {p.stage}
-                        </span>
-                      )}
-                    </div>
-                    <div className="mt-4 font-display font-black text-[#0B1220] text-lg tracking-tight">
-                      {p.name}
-                    </div>
-                    <p className="mt-1.5 text-sm text-[#475569] leading-relaxed flex-1">{p.line}</p>
-                    <div className="mt-4 pt-3 border-t border-[#E5E9F0] flex items-center justify-between text-xs font-semibold text-[#2563EB]">
-                      <span>{p.badge ? p.stage : "Learn more"}</span>
-                      <ArrowRight className="w-4 h-4 text-[#94A3B8] group-hover:text-[#2563EB] group-hover:translate-x-0.5 transition" />
-                    </div>
-                  </div>
-                </Link>
-              </li>
-            );
-          })}
-        </ol>
       </div>
     </section>
   );
@@ -251,8 +97,8 @@ export function SecuritySpotlight({ asHero = false }: { asHero?: boolean } = {})
           <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-xl">
             Onam Security links misconfigurations, identity risks and attack paths across{" "}
             {CLOUDS} clouds, then puts an estimated cost on the route an attacker would take. It
-            covers CSPM, CIEM, DSPM, code security, attack paths and detection, using the inventory
-            Onam Estate keeps current.
+            covers CSPM, CIEM, DSPM, workloads, SaaS, code security, attack paths and detection, from
+            one inventory of your accounts.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <BrandButton

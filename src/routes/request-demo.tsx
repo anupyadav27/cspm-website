@@ -9,7 +9,7 @@ import { seo } from "@/lib/seo";
 import { submitLead } from "@/lib/lead-capture";
 import { SUITE, type SuiteKey } from "@/data/product-suite";
 
-const PRODUCT_KEYS: SuiteKey[] = ["estate", "security", "finops", "drm", "aiops"];
+const PRODUCT_KEYS: SuiteKey[] = ["security", "aiops"];
 
 type DemoSearch = { product?: SuiteKey };
 
@@ -22,7 +22,7 @@ export const Route = createFileRoute("/request-demo")({
     seo({
       title: "Request a demo — Onam",
       description:
-        "Book a 45-minute demo of Onam Estate, Security, FinOps, DRM or AIOps, with someone who knows the product you picked. No deck, no generic walkthrough.",
+        "Book a 45-minute demo of Onam Security or Onam AI, your AI security analyst, with someone who knows the product. No deck, no generic walkthrough.",
       path: "/request-demo",
     }),
   component: RequestDemo,
@@ -145,8 +145,8 @@ function RequestDemo() {
               {heading}
             </h1>
             <p className="mt-5 text-lg text-body leading-relaxed">
-              No deck. No generic walkthrough. A working session with someone who knows the product you picked —
-              asset inventory, cloud security, cost, disaster recovery or AI agents — and the problem it is
+              No deck. No generic walkthrough. A working session with someone who knows the product —
+              cloud, SaaS and code security, or Onam AI, your AI security analyst — and the problem it is
               meant to solve.
             </p>
             <p className="mt-4 text-sm text-body leading-relaxed">
@@ -299,7 +299,7 @@ function RequestDemo() {
                 </div>
                 <fieldset>
                   <legend className="block text-sm font-semibold text-ink">
-                    Products to see <span className="text-muted-500 font-normal">(optional — leave empty for the whole platform)</span>
+                    Products to see <span className="text-muted-500 font-normal">(optional — leave empty for both)</span>
                   </legend>
                   <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {SUITE.map((s) => {

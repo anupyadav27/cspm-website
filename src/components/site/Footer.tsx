@@ -14,66 +14,47 @@ const SOCIALS: { label: string; href: string; icon: LucideIcon }[] = [
 type FootLink = { label: string; to?: string; href?: string };
 type Col = { title: string; to?: string; badge?: string; links: FootLink[] };
 
-/** One column per product, in lifecycle order. The column title links to the product page. */
+/** Onam Security's three priced lines (src/data/pricing.ts), then Onam AI. The column title links to its page. */
 const productCols: Col[] = [
   {
-    title: "Onam Estate",
-    to: "/estate",
-    links: [
-      { label: "Inventory", to: "/estate/inventory" },
-      { label: "Architecture", to: "/estate/architecture" },
-      { label: "Discovery pipeline", to: "/estate/discovery" },
-      { label: "Estate docs", to: "/docs/estate/overview" },
-    ],
-  },
-  {
-    title: "Onam Security",
+    title: "Cloud security",
     to: "/platform",
     links: [
       { label: "CNAPP", to: "/platform/cnapp" },
       { label: "CSPM", to: "/platform/cspm" },
       { label: "CIEM", to: "/platform/ciem" },
       { label: "DSPM — Data Security", to: "/platform/data-security" },
+      { label: "AI Security", to: "/platform/ai-security" },
       { label: "CWPP — Workloads", to: "/platform/cwpp" },
+      { label: "Vulnerability Mgmt", to: "/platform/vulnerability" },
       { label: "Attack Path", to: "/platform/attack-path" },
-      { label: "Code Security", to: "/platform/code-security" },
       { label: "Compliance", to: "/platform/compliance" },
       { label: "All security engines →", to: "/platform" },
     ],
   },
   {
-    title: "Onam FinOps",
-    to: "/finops",
+    title: "SaaS & code security",
+    to: "/platform/saas-security",
     links: [
-      { label: "Cost explorer", to: "/finops/explore" },
-      { label: "Ownership", to: "/finops/ownership" },
-      { label: "Forecast & budgets", to: "/finops/plan" },
-      { label: "Savings", to: "/finops/savings" },
-      { label: "FinOps docs", to: "/docs/finops/overview" },
+      { label: "SaaS Security (SSPM)", to: "/platform/saas-security" },
+      { label: "Code Security", to: "/platform/code-security" },
+      { label: "SAST", to: "/platform/code-security/sast" },
+      { label: "SCA & SBOM", to: "/platform/code-security/sca-sbom" },
+      { label: "DAST", to: "/platform/code-security/dast" },
+      { label: "AI Code Fix", to: "/platform/ai-code-fix" },
     ],
   },
   {
-    title: "Onam DRM",
-    to: "/disaster-recovery",
-    links: [
-      { label: "Applications", to: "/disaster-recovery/applications" },
-      { label: "Protection", to: "/disaster-recovery/protection" },
-      { label: "Recovery plans", to: "/disaster-recovery/recovery-plans" },
-      { label: "RTO, RPO & drills", to: "/disaster-recovery/objectives" },
-      { label: "Baselines & drift", to: "/disaster-recovery/drift" },
-      { label: "DRM docs", to: "/docs/drm/overview" },
-    ],
-  },
-  {
-    title: "Onam AIOps",
-    to: "/platform/ai-operations",
+    title: "Onam AI",
+    to: "/onam-ai",
     badge: "Early access",
     links: [
+      { label: "Your AI security analyst", to: "/onam-ai" },
       { label: "Agents", to: "/docs/operations/agents" },
       { label: "Approvals & governance", to: "/docs/operations/governance" },
       { label: "Security & AI safety", to: "/docs/operations/security" },
       { label: "What's available today", to: "/docs/operations/availability" },
-      { label: "Architecture", to: "/platform/ai-operations/architecture" },
+      { label: "Architecture", to: "/onam-ai/architecture" },
     ],
   },
 ];
@@ -170,7 +151,7 @@ export function Footer() {
   return (
     <footer className="border-t border-[#E5E9F0] bg-[#F8FAFC]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16">
-        <nav aria-label="Products" className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-10 lg:gap-6">
+        <nav aria-label="Products" className="grid grid-cols-2 md:grid-cols-3 gap-10 lg:gap-6">
           {productCols.map((c) => (
             <FooterCol key={c.title} c={c} />
           ))}

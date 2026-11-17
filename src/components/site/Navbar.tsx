@@ -23,7 +23,7 @@ const resourceGroups: { heading: string; items: MenuItem[] }[] = [
   {
     heading: "Learn",
     items: [
-      { title: "Learn — glossary", href: "/learn", desc: "Asset inventory, security, FinOps, DR and AI agents, explained" },
+      { title: "Learn — glossary", href: "/learn", desc: "Cloud security terms, explained" },
       { title: "Blog", href: "/resources/blog", desc: "Engineering and product writing" },
       { title: "Scenarios", href: "/resources/scenarios", desc: "Real situations, step by step" },
     ],
@@ -31,7 +31,7 @@ const resourceGroups: { heading: string; items: MenuItem[] }[] = [
   {
     heading: "Build",
     items: [
-      { title: "Documentation", href: "/docs", desc: "Every product, from first connection" },
+      { title: "Documentation", href: "/docs", desc: "Onam Security and Onam AI, from first connection" },
       { title: "Connect a cloud", href: "/docs/onboarding/aws", desc: "Onboarding guides for all seven clouds" },
       { title: "Release notes", href: "/docs/release-notes", desc: "What changed, and when" },
     ],
@@ -43,7 +43,7 @@ const resourceGroups: { heading: string; items: MenuItem[] }[] = [
       { title: "Tools & calculators", href: "/tools", desc: "Exposure and consolidation calculators" },
       { title: "Case studies", href: "/case-studies", desc: "How teams use Onam" },
       { title: "Compare", href: "/compare", desc: "Onam Security side by side with others" },
-      { title: "Plans & pricing", href: "/pricing", desc: "Onam Security plans; other products per organisation" },
+      { title: "Plans & pricing", href: "/pricing", desc: "Cloud, SaaS and code security plans" },
       { title: "Cloud marketplaces", href: "/why-onam#marketplaces", desc: "Live on Microsoft Marketplace; AWS and Google Cloud next" },
     ],
   },
@@ -51,7 +51,7 @@ const resourceGroups: { heading: string; items: MenuItem[] }[] = [
 
 const companyItems: MenuItem[] = [
   { title: "About", href: "/company/about", desc: "Who we are and why Onam exists" },
-  { title: "Trust Center", href: "/trust", desc: "Security, data handling and what each product stores" },
+  { title: "Trust Center", href: "/trust", desc: "Security, data handling and what Onam stores" },
   { title: "Careers", href: "/company/careers", desc: "Build the platform with us" },
   { title: "Contact", href: "/company/contact", desc: "Talk to the team" },
 ];
@@ -126,10 +126,8 @@ function TriggerBtn({
 }
 
 /**
- * Products menu: the five products across the top (four in lifecycle order, then
- * Onam AIOps), and the modules of whichever one is pointed at underneath. Estate,
- * FinOps and DRM are separately entitled products, not security engines, so each
- * gets its own panel rather than a column inside Onam Security's.
+ * Products menu: Onam Security and Onam AI across the top, and the modules of whichever
+ * one is pointed at underneath. (Estate, FinOps and DRM retired 17 Nov 2026.)
  */
 function SuiteTab({ p, active, onActivate }: { p: SuiteProduct; active: boolean; onActivate: () => void }) {
   const Icon = p.icon;
@@ -194,7 +192,7 @@ function SuitePanel({ p }: { p: SuiteProduct }) {
         {p.agent && (
           <Link to={p.agent.href} className="mt-4 block rounded-lg border border-[#E0E7FF] bg-[#F8F9FF] p-2.5 hover:border-[#C7D2FE] transition">
             <span className="block text-[11px] uppercase tracking-wider font-bold" style={{ color: AIOPS_COLOR }}>
-              With Onam AIOps
+              Ask it with
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-[#0B1220]">
               {p.agent.name} <StatusBadge status={p.agent.status} />
@@ -254,7 +252,7 @@ export function Navbar() {
   };
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [tab, setTab] = useState<SuiteKey>("estate");
+  const [tab, setTab] = useState<SuiteKey>("security");
   const [mobileProduct, setMobileProduct] = useState<SuiteKey | null>(null);
   const activeProduct = SUITE.find((p) => p.key === tab)!;
 
@@ -304,7 +302,7 @@ export function Navbar() {
             </div>
             <MegaWrap id="menu-products" open={open === "products"} wide>
               <div className="w-[1180px] max-w-[calc(100vw-3rem)]" onClick={() => setOpen(null)}>
-                <div className="grid grid-cols-5 gap-3">
+                <div className="grid grid-cols-2 gap-3">
                   {SUITE.map((p) => (
                     <SuiteTab key={p.key} p={p} active={p.key === tab} onActivate={() => setTab(p.key)} />
                   ))}

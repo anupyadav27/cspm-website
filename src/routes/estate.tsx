@@ -1,17 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ProductFlagship } from "@/components/site/ProductFlagship";
-import { productFlagships } from "@/data/products";
-import { seo } from "@/lib/seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
+import { retiredTarget } from "@/data/retired-pages";
 
-const data = productFlagships.estate;
-
+/** Onam Estate is no longer a product; its address goes to the Security asset inventory. Retired 17 Nov 2026 — see src/data/retired-pages.ts. */
 export const Route = createFileRoute("/estate")({
-  head: () =>
-    seo({
-      title: "Onam Estate — the cloud estate of record",
-      description: data.page.metaDescription ?? data.page.sub,
-      path: "/estate",
-      image: "/og/estate.png",
-    }),
-  component: () => <ProductFlagship data={data} video="estate" />,
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: retiredTarget(location.pathname) ?? "/platform", statusCode: 301 });
+  },
 });

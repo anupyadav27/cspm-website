@@ -3,12 +3,12 @@
 <rect x="28" y="28" width="584" height="364" rx="8" fill="#FFFFFF" stroke="#E5E9F0"/>
 <rect x="28" y="28" width="584" height="44" rx="8" fill="#FFFFFF"/>
 <line x1="28" y1="72" x2="612" y2="72" stroke="#E5E9F0"/>
-<text x="48" y="56" font-size="15" font-weight="700" fill="#0B1220">Approvals</text>
-<rect x="133.8" y="41" width="68.9" height="20" rx="4" fill="#FFFFFF" stroke="#4F46E5" stroke-opacity=".45"/>
-<text x="141.8" y="55" font-size="11" font-weight="600" fill="#4F46E5">3 waiting</text>
+<text x="48" y="56" font-size="15" font-weight="700" fill="#0B1220">Suggested fixes</text>
+<rect x="183.0" y="41" width="68.9" height="20" rx="4" fill="#FFFFFF" stroke="#4F46E5" stroke-opacity=".45"/>
+<text x="191.0" y="55" font-size="11" font-weight="600" fill="#4F46E5">3 waiting</text>
 <rect x="29" y="90" width="582" height="28" fill="#F8FAFC"/>
-<text x="48" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">PROPOSED CHANGE</text>
-<text x="290" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">AGENT</text>
+<text x="48" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">SUGGESTED FIX</text>
+<text x="290" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">AREA</text>
 <text x="410" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">EVIDENCE</text>
 <text x="510" y="108" font-size="10" font-weight="600" fill="#64748B" letter-spacing=".6">STATUS</text>
 <line x1="29" y1="118" x2="611" y2="118" stroke="#EEF1F5"/>
@@ -22,9 +22,9 @@
 <text x="410" y="176" font-size="12" fill="#0B1220">90 days idle</text>
 <rect x="510" y="163" width="57.4" height="18" rx="4" fill="#B45309" fill-opacity=".1"/><text x="517" y="176" font-size="10.5" font-weight="600" fill="#B45309">Waiting</text>
 <line x1="29" y1="190" x2="611" y2="190" stroke="#EEF1F5"/>
-<text x="48" y="212" font-size="12" fill="#0B1220">Tag 37 resources with owner</text>
-<text x="290" y="212" font-size="12" fill="#0B1220">Asset</text>
-<text x="410" y="212" font-size="12" fill="#0B1220">query + rows</text>
+<text x="48" y="212" font-size="12" fill="#0B1220">Restrict bucket policy on audit-logs</text>
+<text x="290" y="212" font-size="12" fill="#0B1220">Data</text>
+<text x="410" y="212" font-size="12" fill="#0B1220">1 finding</text>
 <rect x="510" y="199" width="57.4" height="18" rx="4" fill="#B45309" fill-opacity=".1"/><text x="517" y="212" font-size="10.5" font-weight="600" fill="#B45309">Waiting</text>
 <line x1="29" y1="226" x2="611" y2="226" stroke="#EEF1F5"/>
 <text x="48" y="248" font-size="12" fill="#0B1220">Rotate key ci-deploy-key</text>

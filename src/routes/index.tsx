@@ -1,32 +1,29 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MarketplaceStrip } from "@/components/site/MarketplaceStrip";
-import { VideoSection } from "@/components/site/VideoEmbed";
-import { PLAYLISTS, playlistUrl } from "@/data/videos";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { seo, SITE_URL } from "@/lib/seo";
 import { CLOUDS } from "@/lib/product-facts";
 import { Hero } from "@/components/site/home/PlatformHero";
 import { PlatformLayers } from "@/components/site/home/PlatformLayers";
-import { AIOpsSpotlight, OneFoundation, ProductSuite } from "@/components/site/home/ProductSuite";
+import { OnamAiSpotlight, OneFoundation, ProductSuite } from "@/components/site/home/ProductSuite";
 import { FAQSection, TrustBar } from "@/components/site/security/SecurityHome";
 
 /**
- * The platform homepage (2026-10-06). It introduces Onam as one platform — Estate,
- * Security, FinOps and DRM, with Onam AIOps across them — and hands each product to its
- * own page. The security-only story that used to live here is now /platform, in full.
+ * The homepage. Owner decision 17 Nov 2026: Onam is Onam Security — cloud, SaaS and
+ * code security — with Onam AI, the AI security analyst. Estate, FinOps and DRM are
+ * retired (their addresses 301, see src/data/retired-pages.ts).
  *
- * Order: what Onam is (hero + platform layers, which name the clouds) -> the four
- * products and AIOps (tabs) -> AIOps highlighted -> what they share -> FAQ -> CTA.
- * The security spotlight (attack path) lives on /platform only — on both pages it
- * was the same section twice in one click.
+ * Order: what Onam is (hero + layers, which name the clouds) -> Security and Onam AI
+ * (tabs) -> Onam AI highlighted -> what they share -> FAQ -> CTA. The security
+ * spotlight (attack path) lives on /platform only.
  */
 export const Route = createFileRoute("/")({
   head: () =>
     seo({
-      title: "Onam — one cloud platform for assets, security, cost and recovery",
+      title: "Onam Security — cloud, SaaS and code security with an AI security analyst",
       description:
-        "One cloud platform: asset inventory, CNAPP security, FinOps and disaster recovery on one discovery, with Onam AIOps agents in early access across them.",
+        "Onam Security: CSPM, CIEM, DSPM, workload, SaaS and code security on one security graph, with Onam AI, your AI security analyst, in early access.",
       path: "/",
       image: "/og/home.png",
     }),
@@ -37,21 +34,9 @@ function HomePage() {
   return (
     <SiteLayout>
       <Hero />
-      <VideoSection
-        video="pitch"
-        eyebrow="Overview"
-        title="See it in two minutes"
-        lead="What Onam is and how the products fit together, in one short video."
-      >
-        <div className="mt-6 flex justify-center">
-          <BrandButton href={playlistUrl(PLAYLISTS.startHere)} variant="secondary">
-            All Q&amp;A videos →
-          </BrandButton>
-        </div>
-      </VideoSection>
       <PlatformLayers />
       <ProductSuite />
-      <AIOpsSpotlight />
+      <OnamAiSpotlight />
       <OneFoundation />
       <MarketplaceStrip />
       <TrustBar />
@@ -68,23 +53,23 @@ function HomePage() {
 const PLATFORM_FAQ = [
   {
     q: "What is Onam?",
-    a: "Onam is cloud software with four products. Onam Estate discovers and maps everything you run. Onam Security finds and prioritises risk across posture, identity, data, code, attack paths and threat detection. Onam FinOps explains what it costs and who owns it. Onam DRM maps applications, predicts recovery time against your targets and flags drift from the approved plan. All four share one discovery and one console. Onam AIOps, a set of AI agents that investigate with evidence and propose changes for a person to approve, is in early access across them.",
+    a: "Onam is Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection), SaaS security and code security on one security graph, across attack paths, threat detection and compliance. Onam AI, your AI security analyst, answers questions about your findings and suggests fixes; it is in early access.",
   },
   {
-    q: "Do I have to buy all four products?",
-    a: "No. Onam Security has published prices: $20 per unit a month for cloud with CIEM and DSPM included, and a free one-time audit scan before you decide. Onam Estate, Onam FinOps and Onam DRM are added per organisation; contact sales for those. Whatever you start with, your cloud accounts are connected once and every product you add later works from the same inventory.",
+    q: "How is Onam priced?",
+    a: "Onam Security has published prices in three lines: cloud security at $20 per unit a month on the Complete plan, with CIEM and DSPM included; SaaS security priced per unit; and code security priced per developer. A free one-time audit scan of one cloud account comes first, so you can decide with your own results.",
   },
   {
-    q: "What is Onam AIOps, and can I use it today?",
-    a: "Onam AIOps is a workspace where your team works with specialist AI agents. The Asset Agent and Security Agent are in early access, enabled per organisation by invitation; the Compliance and Data agents are in development; FinOps, DR and Architecture agents are on the roadmap. Agents answer questions and propose changes with evidence attached. They do not change your cloud, and every proposed change waits for a person to approve it.",
+    q: "What is Onam AI, and can I use it today?",
+    a: "Onam AI is your AI security analyst for Onam Security. Ask about findings, attack paths and data security in plain language; answers cite their evidence and mask sensitive values. It is in early access, enabled per organisation by invitation, starting on AWS. It suggests fixes and never changes your cloud without a person's approval. The AI Assistant inside Onam Security is available to every customer today.",
   },
   {
     q: "Which clouds does Onam cover?",
-    a: `The shared inventory covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes. Some views are narrower today (for example, Onam Estate's architecture view draws AWS accounts), and each product's documentation says where.`,
+    a: `Posture scanning covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, plus major SaaS platforms. Some features are narrower today (for example, some identity analysis is AWS-only), and the documentation says where.`,
   },
   {
     q: "Does Onam change anything in my cloud accounts?",
-    a: "Posture scanning and discovery use read-only cloud roles, and agentless workload scanning runs inside your own account. Onam DRM reads configuration and records approvals, baselines and drills inside DRM; it does not fail anything over. Onam AIOps proposes changes for a person to approve and does not execute them in a customer cloud.",
+    a: "No. Posture scanning and discovery use read-only cloud roles, and agentless workload scanning runs inside your own account. Onam AI suggests fixes for a person to approve and does not execute them in a customer cloud.",
   },
 ];
 
@@ -92,19 +77,18 @@ const HOME_JSONLD = [
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Onam",
-    applicationCategory: "BusinessApplication",
-    applicationSubCategory: "Cloud asset, security, cost and disaster recovery management",
+    name: "Onam Security",
+    applicationCategory: "SecurityApplication",
+    applicationSubCategory: "Cloud, SaaS and code security (CNAPP)",
     operatingSystem: "Cloud (SaaS)",
     url: SITE_URL,
     description:
-      "Cloud software with four products: Onam Estate (asset intelligence), Onam Security (CSPM, CIEM, attack paths, threat detection, data and code security, compliance), Onam FinOps (cloud cost) and Onam DRM (disaster recovery management) on one discovery, with Onam AIOps agents in early access across them.",
+      "Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection), SaaS security and code security on one security graph, with Onam AI, the AI security analyst, in early access.",
     featureList: [
-      "Onam Estate: continuous cloud asset inventory and relationship mapping",
-      "Onam Security: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths, threat detection and compliance",
-      "Onam FinOps: billed and effective cost, ownership attribution, forecast, budgets and savings",
-      "Onam DRM: application mapping, protection coverage, predicted RTO/RPO, recovery plans and drift from baseline",
-      "Onam AIOps (early access): specialist AI agents that investigate with evidence and propose changes for human approval",
+      "Cloud security: CSPM, CIEM, DSPM, CWPP, vulnerability management, AI security, attack paths, threat detection and compliance",
+      "SaaS security (SSPM): Microsoft 365, Google Workspace, GitHub, Snowflake and more",
+      "Code security: SAST, secrets, IaC, SCA with SBOM, and DAST",
+      "Onam AI (early access): an AI security analyst that answers questions about findings, attack paths and data security, masks sensitive values and suggests fixes for human approval",
     ],
     publisher: { "@type": "Organization", name: "Onam", url: SITE_URL },
   },
@@ -133,7 +117,7 @@ function PlatformCTA() {
           </h2>
           <p className="mt-5 text-lg text-[#475569] max-w-2xl mx-auto">
             The scan is a one-time audit. We go through the results with you, and then you decide
-            which products, if any, you need.
+            whether Onam is right for you.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <BrandButton to="/audit-scan" size="lg">

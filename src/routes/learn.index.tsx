@@ -16,21 +16,17 @@ const COMPARISON: { acronym: string; expands: string; scope: string; slug: strin
   { acronym: "CNAPP", expands: "Cloud-Native Application Protection Platform", scope: "All of the above, correlated on one data model.", slug: "cnapp" },
 ];
 
-/** Glossary groups, in platform lifecycle order, with the product page each one leads to. */
+/** Glossary groups, with the product page each one leads to. */
 const GROUPS: { product: LearnProduct; lead: string; href: string; cta: string }[] = [
-  { product: "platform", lead: "Knowing what you run: the inventory every other discipline starts from.", href: "/estate", cta: "Onam Estate" },
-  { product: "security", lead: "Posture, identity, data, workloads and code, and how the categories overlap.", href: "/platform", cta: "Onam Security" },
-  { product: "finops", lead: "Who spends what, who owns it, and how cloud cost is managed as a practice.", href: "/finops", cta: "Onam FinOps" },
-  { product: "drm", lead: "Recovery objectives, recovery strategies, and what makes a plan hold up.", href: "/disaster-recovery", cta: "Onam DRM" },
-  { product: "aiops", lead: "AI agents in operations, and how people stay in control of them.", href: "/platform/ai-operations", cta: "Onam AIOps" },
+  { product: "security", lead: "Inventory, posture, identity, data, workloads and code, and how the categories overlap.", href: "/platform", cta: "Onam Security" },
 ];
 
 const collectionJsonLd = {
   "@context": "https://schema.org",
   "@type": "CollectionPage",
-  name: "Cloud Platform Glossary",
+  name: "Cloud Security Glossary",
   description:
-    "Vendor-neutral explanations of cloud asset inventory, cloud security, FinOps, disaster recovery and agentic AIOps.",
+    "Vendor-neutral explanations of cloud asset inventory, posture, identity, data, workload, SaaS and code security.",
   url: `${SITE_URL}/learn`,
   hasPart: LEARN_ARTICLES.map((a) => ({
     "@type": "Article",
@@ -42,9 +38,9 @@ const collectionJsonLd = {
 export const Route = createFileRoute("/learn/")({
   head: () =>
     seo({
-      title: "Cloud Platform Glossary — Security, FinOps, DR and AIOps Explained",
+      title: "Cloud Security Glossary — CSPM, CNAPP, CIEM, DSPM and More Explained",
       description:
-        "Cloud glossary in plain English: asset inventory, CSPM, CNAPP, CIEM, DSPM, FinOps, cost allocation, RTO vs RPO, disaster recovery and agentic AIOps.",
+        "Cloud security glossary in plain English: asset inventory, CSPM, CNAPP, CIEM, DSPM, CWPP, SSPM, KSPM, attack paths and code security.",
       path: "/learn",
       image: "/og/learn.png",
     }),
@@ -63,11 +59,11 @@ function LearnIndex() {
             Learn
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-4xl md:text-6xl tracking-tight leading-[1.05]">
-            Cloud platform terms, <span className="gradient-text">explained.</span>
+            Cloud security terms, <span className="gradient-text">explained.</span>
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
-            Asset inventory, security posture, FinOps, disaster recovery and AI agents in operations each have their
-            own vocabulary and plenty of overlapping marketing. These are vendor-neutral explanations of what each
+            Asset inventory, posture, identity, data, workload, SaaS and code security each have their own
+            vocabulary and plenty of overlapping marketing. These are vendor-neutral explanations of what each
             term covers, and what it does not.
           </p>
         </div>
@@ -160,8 +156,8 @@ function LearnIndex() {
               See it on <span className="gradient-text">your own cloud.</span>
             </h2>
             <p className="mt-4 text-[#475569] max-w-lg mx-auto">
-              Estate, Security, FinOps and DRM run on one Onam platform, with AIOps agents across them. Connect a
-              read-only role once to get started.
+              Onam Security covers cloud, SaaS and code security on one graph, with Onam AI, your AI security
+              analyst. Connect a read-only role once to get started.
             </p>
             <div className="mt-8 flex flex-wrap justify-center gap-3">
               <BrandButton to="/request-demo" size="lg">Book a live demo →</BrandButton>

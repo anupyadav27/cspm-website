@@ -7,50 +7,33 @@ export const articles: DocArticle[] = [
     breadcrumb: "Platform / Introduction",
     body: `
 
-Onam is one cloud platform with four products — **Onam Estate**, **Onam Security**, **Onam FinOps** and **Onam DRM** — and **Onam AIOps**, AI agents that work across them (early access). You connect each cloud account once, and every product you are entitled to works from that connection — in the same console, behind the same login.
+Onam is **Onam Security** — cloud security, SaaS security and code security on one security graph — with **Onam AI**, your AI security analyst (early access). You connect each cloud account, SaaS platform and code repository once, and everything works from that connection — in the same console, behind the same login.
 
-This page explains what each product answers, how they share one connection, and how the documentation is organised.
+This page explains what each part answers and how the documentation is organised.
 
-## Four products, one platform
+## What Onam covers
 
-| Product | The question it answers | Start here |
+| Part | The question it answers | Start here |
 | --- | --- | --- |
-| **Onam Estate** | What do we actually run, and how is it wired together? | [Estate overview](/docs/estate/overview) |
-| **Onam Security** | Is my cloud secure, and what do I fix first? | [Security overview](/docs/security/overview) |
-| **Onam FinOps** | Where is the money going, and who owns it? | [FinOps overview](/docs/finops/overview) |
-| **Onam DRM** | If a region fails tonight, what comes back, in what order, and how fast? | [DRM overview](/docs/drm/overview) |
-| **Onam AIOps** *(early access)* | Can AI agents do the investigation — and leave every change to a person? | [AIOps overview](/docs/operations/overview) |
+| **Cloud security** | Is my cloud secure, and what do I fix first? CSPM, CIEM, DSPM, AI security, vulnerabilities and workloads (CWPP), attack paths, threat detection and compliance | [Security overview](/docs/security/overview) |
+| **SaaS security** | Are Microsoft 365, Google Workspace, GitHub, Snowflake and our other SaaS platforms configured safely? | [Security overview](/docs/security/overview) |
+| **Code security** | What is wrong in our code before it ships? SAST, secrets, IaC, SCA with an SBOM, and DAST | [Code security overview](/docs/code-security/overview) |
+| **Onam AI** *(early access)* | Can I ask my security data a question and get an answer I can check? | [Onam AI overview](/docs/operations/overview) |
 
-They follow the life of a cloud estate: **discover** what exists (Estate), **secure** it (Security), **optimise** what it costs (FinOps), and make sure it can **recover** (DRM).
-
-- **Onam Estate** is the estate of record: every resource across your connected accounts, the relationships between them, and a discovery pipeline that keeps the picture current.
-- **Onam Security** evaluates that inventory for misconfiguration, identity, data, network, workload and runtime risk, and correlates the results on one security graph — see the [Security overview](/docs/security/overview).
-- **Onam FinOps** is cost and commitment management on reconciled billing data: what you spent, who owns it, what you will spend, and what you can stop spending.
-- **Onam DRM** maps applications and their dependencies, reads the backup and replication your cloud configuration has, predicts recovery time and data loss against your targets, and flags drift from the recovery model you approved. It plans and records; it does not run a failover.
-- **Onam AIOps** puts AI agents on the platform's data. They investigate with evidence and propose; a person approves. It is in [early access](/docs/operations/availability) — the Asset and Security agents first, others in development or on the roadmap.
+- **Onam Security** evaluates your inventory for misconfiguration, identity, data, network, workload and runtime risk, and correlates the results on one security graph — see the [Security overview](/docs/security/overview).
+- **Onam AI** answers questions about your findings, attack paths and data security, with evidence on every claim and sensitive values masked. It suggests fixes; a person approves every change. It is in [early access](/docs/operations/availability).
 
 ## Connect once
 
-Every product works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others) — nothing is installed on your workloads and nothing is written to your environment. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
-
-Estate, Security and DRM work from one discovery pass over those accounts, so an organisation entitled to more than one does not connect its accounts twice and does not get two inventories that disagree. FinOps reads your billing data and never writes to your accounts.
-
-## Entitlement: each product is granted on its own
-
-Onam Security is sold in plan tiers. Onam Estate, Onam FinOps and Onam DRM are **separate products**, each granted per organisation — upgrading a security plan does not turn them on. A product your organisation has not been granted is hidden from the console, and the API enforces the same grant on every request. Each product's *Access & entitlement* page explains its own permissions:
-
-- [Estate access](/docs/estate/access) · [FinOps access](/docs/finops/access) · [DRM access](/docs/drm/access) · [AIOps availability](/docs/operations/availability)
+Everything works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others) — nothing is installed on your workloads and nothing is written to your environment. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
 
 ## How the documentation is organised
 
 | Group | What you'll find | Start with |
 | --- | --- | --- |
 | Platform | This introduction, a quickstart, core concepts, and connection guides for every cloud | [Quickstart](/docs/getting-started/quickstart) |
-| Onam Estate | Inventory, architecture view, discovery pipeline, access | [Estate overview](/docs/estate/overview) |
 | Onam Security | Features, data security (DSPM), code security, identity (CIEM), compliance, security architecture | [Security overview](/docs/security/overview) |
-| Onam FinOps | The cost model, explore, ownership, plan, savings, runs | [FinOps overview](/docs/finops/overview) |
-| Onam DRM | Applications, protection, recovery plans, RTO/RPO and drills, baselines and drift | [DRM overview](/docs/drm/overview) |
-| Onam AIOps | Agents, workspace, orchestrator, approvals and AI safety — with each capability's status | [AIOps overview](/docs/operations/overview) |
+| Onam AI | Agents, workspace, orchestrator, approvals and AI safety — with each capability's status | [Onam AI overview](/docs/operations/overview) |
 | Trust & reference | How Onam secures your data, the REST API, finding schema, integrations, RBAC and SSO, release notes | [Trust Center](/docs/trust/security) |
 
 ## Next steps

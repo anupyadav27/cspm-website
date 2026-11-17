@@ -88,21 +88,11 @@ const CLOUD_ACCESS: { cloud: string; create: string; access: string }[] = [
 ];
 
 /**
- * Per-product reads and stores. ONLY facts stated in the product docs:
- * docs-articles/products.ts (estate/*, finops/*), drm.ts, operations.ts (operations/overview,
- * availability, security), trust-reference.ts. If a fact is not in those docs, leave it out.
+ * Per-product reads and stores. ONLY facts stated in the docs: operations.ts
+ * (operations/overview, availability, security), trust-reference.ts. If a fact is not in
+ * those docs, leave it out. (Estate, FinOps and DRM rows removed 17 Nov 2026: retired.)
  */
 const PER_PRODUCT: { name: string; href: string; docs: string; reads: string; stores: string; never: string }[] = [
-  {
-    name: "Onam Estate",
-    href: "/estate",
-    docs: "/docs/estate/access",
-    reads:
-      "Your cloud resources and how they connect, through the same read-only access as the rest of the platform — a read-only IAM role, service principal or service account.",
-    stores:
-      "Each discovered resource as an asset (provider, region, account, state, last-seen time), the relationships between them as edges, and a record of every discovery run with its trigger, status, start and completion.",
-    never: "Installs nothing on a workload and never writes to your environment.",
-  },
   {
     name: "Onam Security",
     href: "/platform",
@@ -115,34 +105,13 @@ const PER_PRODUCT: { name: string; href: string; docs: string; reads: string; st
       "Posture scanning uses read permissions only. Agentless workload scanning, if you enable it, runs inside your own account.",
   },
   {
-    name: "Onam FinOps",
-    href: "/finops",
-    docs: "/docs/finops/access",
-    reads: "Billing data, with read-only billing access. On Google Cloud, billing is read only if you opt in.",
-    stores:
-      "Billed and effective cost per period, ownership rules, savings recommendations with the accept or dismiss decision recorded against them, and every ingestion and reconciliation run.",
-    never:
-      "Holds no write access to your cloud accounts. Accepting a savings recommendation records a decision; it does not resize, stop or delete anything.",
-  },
-  {
-    name: "Onam DRM",
-    href: "/disaster-recovery",
-    docs: "/docs/drm/governance",
-    reads:
-      "The platform's cloud inventory, and backup, snapshot and replication settings from cloud configuration. It has no connectors to backup products.",
-    stores:
-      "Proposals and the approvals or rejections made on them, approved baselines (components, dependencies, protection pairings, plan steps and required targets), the RTO and RPO targets you enter, and the drills you record.",
-    never:
-      "Does not execute a recovery, fail anything over or run a DR test. Approvals, baselines and drill records are records inside DRM, not changes to your cloud.",
-  },
-  {
-    name: "Onam AIOps (early access)",
-    href: "/platform/ai-operations",
+    name: "Onam AI (early access)",
+    href: "/onam-ai",
     docs: "/docs/operations/security",
     reads:
       "Your Onam Security data, once Onam enables early access for your organisation. All inference goes through one model gateway — today Amazon Bedrock in the region agreed with you, one customer's data per call.",
     stores:
-      "An append-only, hash-chained audit trail of every turn, tool call, decision and approval, and the evidence behind each claim.",
+      "An append-only, hash-chained audit trail of every turn, tool call, decision and approval, and the evidence behind each claim. Sensitive values are masked in its answers.",
     never:
       "Changes nothing in your cloud without a person's approval; executing changes is not offered in early access. Customer data is never used to train or fine-tune a model.",
   },
@@ -192,9 +161,8 @@ function TrustPage() {
           Security at Onam
         </h1>
         <p className="mt-4 text-[17px] leading-relaxed text-[#475569]">
-          Onam reads your cloud — its resources, configuration and, for Onam FinOps, billing data —
-          so it can tell you what you run, what is exposed, what it costs and whether it would
-          recover. That makes our own security part of the product. This page explains, plainly,
+          Onam reads your cloud — its resources and configuration — so it can tell you what you
+          run and what is exposed. That makes our own security part of the product. This page explains, plainly,
           how Onam connects to your clouds, what each product reads and stores, and what we have
           and have not done yet.
         </p>
@@ -280,10 +248,9 @@ function TrustPage() {
 
         <Section id="per-product" title="What each product reads and stores">
           <p>
-            All products run in the same console, behind the same login, and work from the same
-            connection to your clouds. Onam Estate, FinOps, DRM and AIOps are each granted per
-            organisation. Here is what each product reads,
-            what it keeps, and what it does not do.
+            Onam Security and Onam AI run in the same console, behind the same login, and work from
+            the same connection to your clouds. Onam AI is enabled per organisation in early access.
+            Here is what each reads, what it keeps, and what it does not do.
           </p>
           <div className="grid gap-4">
             {PER_PRODUCT.map((p) => (
