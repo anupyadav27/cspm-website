@@ -42,7 +42,7 @@ import { seo, faqJsonLd } from "@/lib/seo";
  * /platform/ai-operations until 17 Nov 2026; that address 301s here.
  *
  * Honesty rules (see src/data/operations.ts header): every capability carries a status badge.
- * Only the AI Assistant is "Available". The workspace, orchestrator and Security agent
+ * Only the AI Assistant is "Available". The workspace, orchestrator, Asset and Security agents
  * are "Early access". Executing changes in a customer cloud is "On the roadmap". Do not move a
  * status without evidence in the agentic platform repo's deploy history and onboarding notes.
  */

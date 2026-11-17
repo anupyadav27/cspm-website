@@ -23,8 +23,9 @@ export function OpsBand() {
             approval.
           </h2>
           <p className="mt-4 max-w-2xl text-[16.5px] leading-relaxed text-[#CBD5E1]">
-            Ask Onam AI about your findings, attack paths and data security. The Security agent is
-            in early access; Compliance, Data and Automation are in development. Answers cite the
+            Ask Onam AI about your assets, findings, attack paths and data security. The Asset agent
+            and the Security agent work today in early access; Compliance, Data and Automation are in
+            development. Answers cite the
             evidence for every number and mask sensitive values, and suggested fixes wait for a
             person to decide, with every step on the record.
           </p>

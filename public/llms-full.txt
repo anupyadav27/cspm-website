@@ -227,6 +227,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [The Workspace](https://www.onamsecurity.com/docs/operations/workspace)
 - [The Orchestrator](https://www.onamsecurity.com/docs/operations/orchestrator)
 - [The Agents](https://www.onamsecurity.com/docs/operations/agents)
+- [Asset Agent](https://www.onamsecurity.com/docs/operations/agents/asset-agent)
 - [Security Agent](https://www.onamsecurity.com/docs/operations/agents/security-agent)
 - [Compliance Agent](https://www.onamsecurity.com/docs/operations/agents/compliance-agent)
 - [Data Agent](https://www.onamsecurity.com/docs/operations/agents/data-agent)
@@ -6305,7 +6306,7 @@ Onam AI is your AI security analyst for Onam Security. Ask about your findings, 
 A real security question usually spans several views — posture, identity, network, data security, attack paths — and today someone joins the answers by hand. Onam AI adds a workspace above Onam Security, which already knows your cloud:
 
 - An **orchestrator** turns your question into a visible plan and routes each step to a specialist agent.
-- **Specialist agents** — Security, Compliance, Data and Automation — each with a declared job, permissions and limits.
+- **Specialist agents** — Asset, Security, Compliance, Data and Automation — each with a declared job, permissions and limits. The Asset and Security agents work today; Compliance and Data are in development.
 - **Evidence** on every claim: the skill, query, rows and scan behind each number.
 - **Masking**: answers name the resource and the finding; secrets, keys and sensitive data values are masked.
 - **Suggested fixes**: a fix for a finding, with its rollback, for a person to decide.
@@ -6354,7 +6355,7 @@ What in Onam AI you can use today, what is in early access or development, and w
 | AI Assistant in Onam Security | Available | Ask questions about your posture in plain language; specialists query your findings and cite them. Read-only. |
 | Workspace | Early access | Ask Onam AI in plain language, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and suggested fixes. |
 | Orchestrator and visible plans | Early access | A multi-step question becomes a plan you can see — which agent, which skill, in which order — before and while it runs. |
-| Security Agent | Early access | Findings, exposure and attack paths over the Onam Security inventory, on AWS first. |
+| Asset Agent and Security Agent | Early access | Assets, relationships, crown jewels, findings, exposure and attack paths over the Onam Security inventory and findings, on AWS first. |
 | Sensitive values masked | Early access | Answers name the resource and the finding; secrets, keys and sensitive data values are masked. |
 | Evidence on every claim | Early access | Each number cites the skill, tool, query, rows and scan time that produced it. |
 | Approval centre | Early access | One queue for every suggested change, diff first, with rollback and blast radius shown before the decision. |
@@ -6373,6 +6374,7 @@ What in Onam AI you can use today, what is in early access or development, and w
 
 | Agent | Level | Status | Note |
 |---|---|---|---|
+| [Asset Agent](/docs/operations/agents/asset-agent) | L1 | Early access | Reads the Onam Security inventory today. |
 | [Security Agent](/docs/operations/agents/security-agent) | L1 | Early access | Reads findings today; exposure and attack-path context are being connected. |
 | [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 | In development | Waits on the compliance-results feed. |
 | [Data Agent](/docs/operations/agents/data-agent) | L1 | In development | Waits on the exposure and relationship feeds. |
@@ -6383,10 +6385,10 @@ What in Onam AI you can use today, what is in early access or development, and w
 
 | Use case | Agents | Status |
 |---|---|---|
-| Find internet-exposed critical assets | Security | Early access |
-| Triage a new critical finding | Security | Early access |
+| Find internet-exposed critical assets | Asset → Security | Early access |
+| Triage a new critical finding | Security → Asset | Early access |
 | Identify excessive IAM permissions | Security | Early access |
-| Review a newly connected cloud account | Security | Early access |
+| Review a newly connected cloud account | Asset → Security | Early access |
 | Prepare compliance evidence for an audit | Compliance → Data → Security | In development |
 | Find sensitive data exposed publicly | Data → Security | In development |
 | Create a remediation plan | Security → Automation planner | In development |
@@ -6552,7 +6554,7 @@ Permission denied is reported as “not authorised”, never as “no data”. A
 ## The specialist agents
 URL: https://www.onamsecurity.com/docs/operations/agents
 
-Onam AI has four specialist agent roles — Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+Onam AI has five specialist agent roles — Asset, Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
 
 ![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
 
@@ -6560,6 +6562,7 @@ Onam AI has four specialist agent roles — Security, Compliance, Data and Autom
 
 | Agent | Level | Answers | Status |
 |---|---|---|---|
+| [Asset Agent](/docs/operations/agents/asset-agent) | L1 · Read and recommend | What do we have, how is it connected, and what is a crown jewel? | Early access |
 | [Security Agent](/docs/operations/agents/security-agent) | L1 · Read and recommend | What is exposed, how can it be reached, and how bad is it? | Early access |
 | [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 · Read and recommend | Which controls hold, which do not, and where is the evidence? | In development |
 | [Data Agent](/docs/operations/agents/data-agent) | L1 · Read and recommend | What data is where, how sensitive is it, and who can reach it? | In development |
@@ -6578,6 +6581,54 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
 2. **Security review** — the prompt-injection test corpus passes in full; no path to an unregistered tool; cross-customer tests pass.
 3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test environments.
 4. **Documentation** — purpose, capabilities and known limits written for customers. An agent with no documented limits has not been examined.
+
+---
+
+## Asset Agent
+URL: https://www.onamsecurity.com/docs/operations/agents/asset-agent
+
+The Asset Agent — what do we have, how is it connected, and what is a crown jewel?
+
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+
+## Asset Agent
+
+**Status: Early access.** Reads the Onam Security inventory today.
+
+| | |
+|---|---|
+| Level | L1 · Investigator |
+| Authority | Read and recommend |
+| Answers | What do we have, how is it connected, and what is a crown jewel? |
+
+Answers asset questions from Onam Security's own inventory: what exists, how it is connected, what depends on what (the blast radius of a change), which assets are crown jewels, and who owns them — never by re-scanning.
+
+### What it does
+
+- Finds and summarises assets by cloud, account, region, type, environment and criticality
+- Maps relationships and dependencies between resources, for the blast radius of a finding or a fix
+- Identifies crown-jewel assets and classifies assets
+- Attributes ownership from tags and records, stating the source and confidence — or saying the owner is unattributed
+
+### Skills it may invoke
+
+`discover_assets` · `inventory_summary` · `map_relationships` · `resolve_ownership` · `classify_asset` · `analyze_dependencies`
+
+### Tools its skills may use
+
+`cei.query` · `cei.graph_traverse` · `cei.resolve_identity` · `cloud.resource.read`
+
+### What it must never do
+
+- Re-scan your cloud to answer a question
+- Change anything
+- Guess an identity mapping it cannot resolve
+
+### Known limits
+
+Answers reflect the last completed scan; a resource created after it is not visible until the next one.
+
+> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
 
 ---
 

@@ -159,6 +159,7 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "The Workspace", slug: "operations/workspace" },
       { title: "The Orchestrator", slug: "operations/orchestrator" },
       { title: "The Agents", slug: "operations/agents" },
+      { title: "Asset Agent", slug: "operations/agents/asset-agent" },
       { title: "Security Agent", slug: "operations/agents/security-agent" },
       { title: "Compliance Agent", slug: "operations/agents/compliance-agent" },
       { title: "Data Agent", slug: "operations/agents/data-agent" },

@@ -224,6 +224,12 @@ export const SUITE: SuiteProduct[] = [
         heading: "Ask",
         items: [
           {
+            title: "Assets & blast radius",
+            href: "/onam-ai#agents",
+            desc: "What you run, how it connects, which assets are crown jewels",
+            status: "early",
+          },
+          {
             title: "Findings & exposure",
             href: "/onam-ai#agents",
             desc: "What is exposed, how it is reached, how bad it is",

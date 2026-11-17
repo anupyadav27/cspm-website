@@ -19,6 +19,7 @@ import {
 const label = (s: keyof typeof OPS_STATUS) => OPS_STATUS[s].label;
 
 const AGENT_DOC_SLUGS = [
+  "asset-agent",
   "security-agent",
   "compliance-agent",
   "data-agent",
@@ -98,7 +99,7 @@ Onam AI is your AI security analyst for Onam Security. Ask about your findings, 
 A real security question usually spans several views — posture, identity, network, data security, attack paths — and today someone joins the answers by hand. Onam AI adds a workspace above Onam Security, which already knows your cloud:
 
 - An **orchestrator** turns your question into a visible plan and routes each step to a specialist agent.
-- **Specialist agents** — Security, Compliance, Data and Automation — each with a declared job, permissions and limits.
+- **Specialist agents** — Asset, Security, Compliance, Data and Automation — each with a declared job, permissions and limits. The Asset and Security agents work today; Compliance and Data are in development.
 - **Evidence** on every claim: the skill, query, rows and scan behind each number.
 - **Masking**: answers name the resource and the finding; secrets, keys and sensitive data values are masked.
 - **Suggested fixes**: a fix for a finding, with its rollback, for a person to decide.
@@ -317,7 +318,7 @@ Permission denied is reported as “not authorised”, never as “no data”. A
     title: "The specialist agents",
     breadcrumb: "Onam AI / Agents",
     body: `
-Onam AI has four specialist agent roles — Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+Onam AI has five specialist agent roles — Asset, Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
 
 ![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
 

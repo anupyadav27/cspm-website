@@ -34,7 +34,6 @@ export const RETIRED_PAGES: Record<string, string> = {
   "/platform/ai-operations": "/onam-ai",
   "/platform/ai-operations/architecture": "/onam-ai/architecture",
   // Docs: retired agents -> the agent list
-  "/docs/operations/agents/asset-agent": "/docs/operations/agents",
   "/docs/operations/agents/finops-agent": "/docs/operations/agents",
   "/docs/operations/agents/dr-agent": "/docs/operations/agents",
   "/docs/operations/agents/architecture-agent": "/docs/operations/agents",

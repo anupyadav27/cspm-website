@@ -114,7 +114,7 @@ export function WorkspaceMock() {
         <div className="border-b border-[#E5E9F0] pb-2">
           <div className="font-bold text-[#0B1220]"># Exposed production assets</div>
           <div className="text-[11px] text-[#64748B]">
-            Agents in this conversation: Security
+            Agents in this conversation: Asset · Security
           </div>
         </div>
         <div className="ml-auto max-w-[85%] rounded-xl rounded-tr-sm bg-[#2563EB] px-3 py-2 text-white">
@@ -124,15 +124,15 @@ export function WorkspaceMock() {
         <PlanMock compact />
         <div
           className="rounded-xl border border-[#E5E9F0] border-l-[3px] bg-white p-3"
-          style={{ borderLeftColor: "#1D4ED8" }}
+          style={{ borderLeftColor: "#0F766E" }}
         >
           <div className="mb-1 flex items-center gap-2">
-            <AgentDot color="#1D4ED8" label="Se" />
-            <span className="font-semibold text-[#0B1220]">Security Agent</span>
-            <span className="text-[10.5px] text-[#64748B]">find_public_exposure · 214 rows</span>
+            <AgentDot color="#0F766E" label="As" />
+            <span className="font-semibold text-[#0B1220]">Asset Agent</span>
+            <span className="text-[10.5px] text-[#64748B]">discover_assets · 214 rows</span>
           </div>
           <p className="text-[#334155]">
-            214 production assets in the selected accounts are reachable from the internet.
+            214 production assets in the selected accounts; 9 are classified as crown jewels.
           </p>
         </div>
         <div
@@ -211,9 +211,9 @@ export function WorkspaceMock() {
 const PLAN_STEPS = [
   {
     n: 1,
-    agent: "Security",
-    color: "#1D4ED8",
-    skill: "find_public_exposure",
+    agent: "Asset",
+    color: "#0F766E",
+    skill: "discover_assets",
     result: "214",
     state: "done",
   },
@@ -424,7 +424,7 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
 const AUDIT_ROWS = [
   ["14:02:11", "you", "conversation.started", "—", "Low"],
   ["14:02:13", "Orchestrator", "plan.created", "4 steps", "Low"],
-  ["14:02:19", "Security Agent", "tool.called · cei.query", "214 rows", "Low"],
+  ["14:02:19", "Asset Agent", "tool.called · cei.query", "214 rows", "Low"],
   ["14:02:27", "Security Agent", "tool.called · cei.query", "12 rows", "Low"],
   ["14:07:40", "Automation planner", "approval.requested", "sg-example", "High"],
   ["14:21:05", "you", "approval.approved", "hash (sample)", "High"],

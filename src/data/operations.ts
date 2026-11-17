@@ -4,8 +4,9 @@
  * (/docs/operations/*, URLs kept stable).
  *
  * Owner decision 17 Nov 2026: "Onam AIOps" is renamed "Onam AI" and serves Onam Security
- * only. Estate, FinOps and DRM are retired, so the Asset, FinOps, DR and Architecture agents
- * and every cost, estate-mapping and recovery claim are gone. What Onam AI does: answers
+ * only. Estate, FinOps and DRM are retired, so the FinOps, DR and Architecture agents and every
+ * cost and recovery claim are gone. The Asset agent stays (AIOps PR #18): it answers asset
+ * questions from Onam Security's own inventory. What Onam AI does: answers
  * questions about findings, attack paths and data security, with sensitive values masked
  * in its answers; suggests fixes; never changes a customer's cloud without approval.
  *
@@ -120,6 +121,42 @@ export const OPS_LEVELS: {
 ];
 
 export const OPS_AGENTS: OpsAgent[] = [
+  {
+    id: "asset_agent",
+    slug: "asset-agent",
+    name: "Asset Agent",
+    level: "L1",
+    levelName: "Investigator",
+    authority: "Read and recommend",
+    color: "#0F766E",
+    status: "early",
+    statusNote: "Reads the Onam Security inventory today.",
+    question: "What do we have, how is it connected, and what is a crown jewel?",
+    purpose:
+      "Answers asset questions from Onam Security's own inventory: what exists, how it is connected, what depends on what (the blast radius of a change), which assets are crown jewels, and who owns them — never by re-scanning.",
+    does: [
+      "Finds and summarises assets by cloud, account, region, type, environment and criticality",
+      "Maps relationships and dependencies between resources, for the blast radius of a finding or a fix",
+      "Identifies crown-jewel assets and classifies assets",
+      "Attributes ownership from tags and records, stating the source and confidence — or saying the owner is unattributed",
+    ],
+    skills: [
+      "discover_assets",
+      "inventory_summary",
+      "map_relationships",
+      "resolve_ownership",
+      "classify_asset",
+      "analyze_dependencies",
+    ],
+    tools: ["cei.query", "cei.graph_traverse", "cei.resolve_identity", "cloud.resource.read"],
+    never: [
+      "Re-scan your cloud to answer a question",
+      "Change anything",
+      "Guess an identity mapping it cannot resolve",
+    ],
+    limits:
+      "Answers reflect the last completed scan; a resource created after it is not visible until the next one.",
+  },
   {
     id: "security_agent",
     slug: "security-agent",
@@ -313,8 +350,8 @@ export const OPS_AGENTS: OpsAgent[] = [
   },
 ];
 
-/** The four specialist roles (Automation counted once, in two modes). */
-export const OPS_AGENT_ROLES = ["Security", "Compliance", "Data", "Automation"] as const;
+/** The five specialist roles (Automation counted once, in two modes). */
+export const OPS_AGENT_ROLES = ["Asset", "Security", "Compliance", "Data", "Automation"] as const;
 
 export type OpsFeature = { name: string; status: OpsStatus; detail: string };
 
@@ -338,9 +375,9 @@ export const OPS_FEATURES: OpsFeature[] = [
       "A multi-step question becomes a plan you can see — which agent, which skill, in which order — before and while it runs.",
   },
   {
-    name: "Security Agent",
+    name: "Asset Agent and Security Agent",
     status: "early",
-    detail: "Findings, exposure and attack paths over the Onam Security inventory, on AWS first.",
+    detail: "Assets, relationships, crown jewels, findings, exposure and attack paths over the Onam Security inventory and findings, on AWS first.",
   },
   {
     name: "Sensitive values masked",
@@ -431,7 +468,7 @@ export const OPS_USE_CASES: OpsUseCase[] = [
   {
     title: "Find internet-exposed critical assets",
     ask: "Show me critical production assets reachable from the internet.",
-    agents: "Security",
+    agents: "Asset → Security",
     outcome:
       "A table of assets with exposure type and severity, with evidence on every row.",
     approval: "None — read only",
@@ -440,9 +477,9 @@ export const OPS_USE_CASES: OpsUseCase[] = [
   {
     title: "Triage a new critical finding",
     ask: "Is this finding real, and what does it actually reach?",
-    agents: "Security",
+    agents: "Security → Asset",
     outcome:
-      "The finding in context: the resource, what can reach it, the attack paths it sits on and a suggested fix.",
+      "The finding in context: the resource, what depends on it (its blast radius), the attack paths it sits on and a suggested fix.",
     approval: "None — read only",
     status: "early",
   },
@@ -458,8 +495,8 @@ export const OPS_USE_CASES: OpsUseCase[] = [
   {
     title: "Review a newly connected cloud account",
     ask: "We just connected this account. What should I worry about first?",
-    agents: "Security",
-    outcome: "The highest-risk findings for the new account, ready to export as a report.",
+    agents: "Asset → Security",
+    outcome: "An inventory summary, the crown jewels and the highest-risk findings for the new account, ready to export as a report.",
     approval: "None — read only",
     status: "early",
   },

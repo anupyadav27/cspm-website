@@ -227,6 +227,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [The Workspace](https://www.onamsecurity.com/docs/operations/workspace)
 - [The Orchestrator](https://www.onamsecurity.com/docs/operations/orchestrator)
 - [The Agents](https://www.onamsecurity.com/docs/operations/agents)
+- [Asset Agent](https://www.onamsecurity.com/docs/operations/agents/asset-agent)
 - [Security Agent](https://www.onamsecurity.com/docs/operations/agents/security-agent)
 - [Compliance Agent](https://www.onamsecurity.com/docs/operations/agents/compliance-agent)
 - [Data Agent](https://www.onamsecurity.com/docs/operations/agents/data-agent)
