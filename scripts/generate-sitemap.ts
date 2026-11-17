@@ -11,7 +11,6 @@ import { SITE_URL } from "../src/lib/seo";
 import { allDocSlugs, DOC_SECTIONS, getDocArticle } from "../src/data/docs";
 import { BLOG_POSTS } from "../src/data/blog-posts";
 import { LEARN_ARTICLES } from "../src/data/learn-articles";
-import { CAPABILITIES, PRODUCT_BASE } from "../src/data/capabilities";
 import { COMPETITORS } from "../src/data/compare";
 import { AUTHORS } from "../src/data/authors";
 import { execFileSync } from "node:child_process";
@@ -168,12 +167,18 @@ const REDIRECT_ONLY_ROUTES = new Set([
   "platform/secops.tsx",
   "company/security.tsx",
   "security.tsx",
-  "platform/drm.tsx",
 ]);
+
+/** A route file with a redirect and no component is redirect-only (e.g. the retired
+ *  Estate, FinOps, DRM and AIOps addresses, src/data/retired-pages.ts). */
+function isRedirectOnly(rel: string): boolean {
+  const src = readFileSync(join(routesDir, rel), "utf8");
+  return /throw redirect\(/.test(src) && !/component:/.test(src);
+}
 
 function fileToPath(rel: string): string | null {
   if (rel === "__root.tsx" || rel.includes("$") || rel.includes("[.]")) return null;
-  if (REDIRECT_ONLY_ROUTES.has(rel.replaceAll("\\", "/"))) return null;
+  if (REDIRECT_ONLY_ROUTES.has(rel.replaceAll("\\", "/")) || isRedirectOnly(rel)) return null;
   let p = rel.slice(0, -".tsx".length).replaceAll("\\", "/").replaceAll(".", "/");
   if (p === "index") return "/";
   if (p.endsWith("/index")) p = p.slice(0, -"/index".length);
@@ -216,12 +221,6 @@ const entries: Entry[] = [
       slugBlockDate("src/data/learn-articles.ts", a.slug),
       blameDate("src/routes/learn.$slug.tsx"),
     ),
-  })),
-  // Capability pages (/estate/$module, /finops/$module, /disaster-recovery/$module) are
-  // dynamic routes too.
-  ...CAPABILITIES.map((c) => ({
-    loc: `${PRODUCT_BASE[c.product]}/${c.slug}`,
-    lastmod: newest(blameDate(`src/data/capabilities/${c.product}.ts`), blameDate("src/components/site/CapabilityPage.tsx")),
   })),
   // /compare/$slug is a dynamic route, so pathFor() skips it — enumerate explicitly.
   ...COMPETITORS.map((c) => ({
@@ -291,38 +290,24 @@ const industries = [
 
 const llms = `# Onam
 
-> Onam (${SITE_URL}) is ONE end-to-end cloud platform, from assets to a secure, optimised and
-> resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
-> (cost) -> Onam DRM (disaster recovery), with Onam AIOps — AI agents, early access — across
-> them. All four products share one discovery pass, one console and one login.
+> Onam (${SITE_URL}) is Onam Security — cloud security, SaaS security and code security on one
+> security graph — with Onam AI, an AI security analyst (early access). Onam Estate, Onam FinOps
+> and Onam DRM were retired as products on 17 Nov 2026; their old pages redirect to Onam Security.
 >
-> Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
+> Onam Security is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
 > encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
->
-> Estate, FinOps and DRM are separately licensed products, granted per organisation, never bundled
-> into a security plan tier; each stands alone and none requires Onam Security. No prices are
-> published for them; contact sales.
 
 Full site content (docs + blog, one file): ${SITE_URL}/llms-full.txt
 
 ## Products
 
-- [Onam Security](${SITE_URL}/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at ${SITE_URL}/pricing. A free one-time audit scan of one cloud account is available: ${SITE_URL}/audit-scan
-- [Onam Estate](${SITE_URL}/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
-- [Onam FinOps](${SITE_URL}/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
-- [Onam DRM](${SITE_URL}/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
-- [Onam AIOps](${SITE_URL}/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/platform/ai-operations/architecture
-
-Capabilities, one page each:
-${CAPABILITIES.map((c) => `- [${c.name} — ${c.product === "drm" ? "Onam DRM" : c.product === "finops" ? "Onam FinOps" : "Onam Estate"}](${SITE_URL}${PRODUCT_BASE[c.product]}/${c.slug}): ${c.lead}`).join("\n")}
-
-All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
-organisation entitled to more than one does not connect its cloud accounts twice.
+- [Onam Security](${SITE_URL}/platform): cloud, SaaS and code security — posture, identity, data, workloads, attack paths and compliance, every engine on one security graph. Cloud priced per unit on the Posture or Complete plan, SaaS per unit, code per developer, or an Enterprise contract; prices at ${SITE_URL}/pricing. A free one-time audit scan of one cloud account is available: ${SITE_URL}/audit-scan
+- [Onam AI](${SITE_URL}/onam-ai) (early access, by invitation): your AI security analyst for Onam Security. Ask about findings, attack paths and data security; answers cite their evidence and mask sensitive values. It suggests fixes and never changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: ${SITE_URL}/onam-ai/architecture
 
 Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes

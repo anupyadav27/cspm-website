@@ -13,11 +13,11 @@ import { OPS_USE_CASES } from "@/data/operations";
 import { StatusBadge } from "@/components/site/ops/OpsUi";
 
 /**
- * Platform homepage sections built on src/data/product-suite.ts, plus SuiteStrip,
- * which every product page uses to show where it sits in the platform.
+ * Homepage sections built on src/data/product-suite.ts, plus SuiteStrip, which the
+ * Onam Security and Onam AI pages use to point at each other.
  *
- * Product pictures: real console screenshots where we have them (Security, DRM), and flat
- * console-style drawings in public/images/products/*.svg for the rest (3 Nov 2026).
+ * Pictures: a real console screenshot for Security, a flat console-style drawing for
+ * Onam AI (public/images/products/onam-ai.svg).
  */
 
 function IconTile({ p, size = "md" }: { p: SuiteProduct; size?: "sm" | "md" }) {
@@ -39,34 +39,33 @@ function IconTile({ p, size = "md" }: { p: SuiteProduct; size?: "sm" | "md" }) {
 }
 
 /* ============================ PRODUCT SUITE (tabs) ============================
- * One panel per product. Tabs, not five stacked sections: a buyer compares the
- * products against each other, and the tab row keeps all five names in view while
+ * One panel each for Onam Security and Onam AI. Tabs keep both names in view while
  * one is open. All panels render (hidden ones with `hidden`) so every product's copy
  * is in the HTML for search engines and for no-JS readers.
  */
 export function ProductSuite() {
-  const [active, setActive] = useState<SuiteKey>("estate");
+  const [active, setActive] = useState<SuiteKey>("security");
 
   return (
     <section id="products" className="py-24 bg-white border-b border-[#E5E9F0] scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="max-w-3xl">
           <div className="text-sm font-semibold text-[#1D4ED8]">
-            The products
+            What you get
           </div>
           <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.08] text-balance">
-            Four products that share one inventory. AI agents work across them in early access.
+            Onam Security finds the risk. Onam AI helps you work through it.
           </h2>
           <p className="mt-4 text-lg text-[#475569] leading-relaxed">
-            Each product answers a question a team already asks. Buy the one you need now. The
-            others use the same discovery when you add them.
+            Cloud, SaaS and code security on one security graph, and an AI security analyst that
+            answers from your own findings.
           </p>
         </div>
 
         <div
           role="tablist"
           aria-label="Onam products"
-          className="mt-10 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 p-1.5 rounded-2xl bg-[#F1F5FB] border border-[#E5E9F0]"
+          className="mt-10 grid grid-cols-2 gap-2 p-1.5 rounded-2xl bg-[#F1F5FB] border border-[#E5E9F0]"
         >
           {SUITE.map((p) => {
             const on = p.key === active;
@@ -96,7 +95,6 @@ export function ProductSuite() {
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-3 text-left transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#2563EB]",
                   on ? "bg-white shadow-[0_4px_14px_rgba(16,24,40,.10)]" : "hover:bg-white/60",
-                  p.key === "aiops" && "col-span-2 sm:col-span-1",
                 )}
               >
                 <IconTile p={p} size="sm" />
@@ -198,7 +196,7 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
               className="mt-7 flex flex-wrap items-center gap-2 rounded-xl border border-[#E0E7FF] bg-white px-4 py-3 text-sm hover:border-[#C7D2FE] transition"
             >
               <span className="font-semibold" style={{ color: AIOPS_COLOR }}>
-                With Onam AIOps:
+                Ask it with
               </span>
               <span className="text-[#0B1220] font-semibold">{p.agent.name}</span>
               <StatusBadge status={p.agent.status} />
@@ -239,14 +237,12 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
   );
 }
 
-/* ============================ AIOPS SPOTLIGHT ============================
- * The highlight the platform story leads to. Statuses come from operations.ts and
- * are shown on every line: Asset and Security agents are early access; the FinOps and
- * DR agents are roadmap, and saying so is what makes the rest believable.
+/* ============================ ONAM AI SPOTLIGHT ============================
+ * Onam AI, the AI security analyst. Statuses come from operations.ts and are shown on
+ * every line; saying what is not ready yet is what makes the rest believable.
  */
-export function AIOpsSpotlight() {
+export function OnamAiSpotlight() {
   const ai = getSuite("aiops");
-  const perProduct = SUITE.filter((s) => s.agent);
   const cases = OPS_USE_CASES.filter((u) => u.status === "early").slice(0, 3);
 
   return (
@@ -256,12 +252,12 @@ export function AIOpsSpotlight() {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-[11px] font-bold uppercase tracking-widest text-[#A5B4FC]">
-                Onam AIOps
+                Onam AI
               </span>
               <StatusBadge status="early" />
             </div>
             <h2 className="mt-4 font-display font-black text-white text-3xl md:text-5xl tracking-tight leading-[1.06] text-balance">
-              AI agents that do the investigation.{" "}
+              Your AI security analyst.{" "}
               <span className="text-[#A5B4FC]">People make the call.</span>
             </h2>
             <p className="mt-5 text-lg text-[#CBD5E1] leading-relaxed max-w-xl">{ai.blurb}</p>
@@ -270,12 +266,13 @@ export function AIOpsSpotlight() {
               {(
                 [
                   [
-                    "You see the plan first.",
-                    "Which agent does what, and in which order, before anything runs.",
+                    "Ask in plain language.",
+                    "About findings, attack paths and data security, from your own Onam Security data.",
                   ],
                   ["Numbers come with evidence.", "Each one links to the query and scan behind it."],
+                  ["Sensitive values stay masked.", "Secrets, keys and data values are not shown in answers."],
                   [
-                    "A person approves each change.",
+                    "It suggests; a person approves.",
                     "You see the diff and the rollback first, and the approval covers only that change.",
                   ],
                   [
@@ -292,13 +289,14 @@ export function AIOpsSpotlight() {
 
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
-                to="/platform/ai-operations"
+                to="/onam-ai"
                 className="inline-flex items-center gap-2 rounded-[10px] bg-[#4F46E5] px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-[#4338CA]"
               >
-                Meet the agents <ArrowRight className="h-4 w-4" />
+                Meet Onam AI <ArrowRight className="h-4 w-4" />
               </Link>
               <Link
                 to="/request-demo"
+                search={{ product: "aiops" }}
                 className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#64748B]"
               >
                 Ask for early access
@@ -316,24 +314,6 @@ export function AIOpsSpotlight() {
                 loading="lazy"
                 className="w-full"
               />
-            </div>
-            <div className="mt-4 rounded-2xl border border-[#1E293B] bg-[#111A2E] p-5">
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#94A3B8]">
-                One agent per product
-              </div>
-              <ul className="mt-3 divide-y divide-[#1E293B]">
-                {perProduct.map((p) => (
-                  <li key={p.key} className="flex items-center justify-between gap-3 py-2.5">
-                    <Link to={p.agent!.href} className="min-w-0 group">
-                      <span className="block text-sm font-semibold text-white group-hover:text-[#A5B4FC] transition">
-                        {p.agent!.name}
-                      </span>
-                      <span className="block text-xs text-[#94A3B8]">works on {p.name}</span>
-                    </Link>
-                    <StatusBadge status={p.agent!.status} />
-                  </li>
-                ))}
-              </ul>
             </div>
           </div>
         </div>
@@ -365,20 +345,20 @@ export function AIOpsSpotlight() {
 export function OneFoundation() {
   const items = [
     {
-      t: "One discovery",
-      b: "Cloud accounts are connected once. Every product reads the inventory Onam Estate keeps current, so the four never disagree about what exists.",
+      t: "One security graph",
+      b: "Cloud accounts, SaaS platforms and code are connected once. Every engine writes to the same graph, so an attack path can cross clouds and a finding links to everything it touches.",
     },
     {
       t: "One console, one login",
-      b: "Estate, Security, FinOps, DRM and the AIOps workspace run in the same console, behind the same login.",
+      b: "Cloud, SaaS and code security and the Onam AI workspace run in the same console, behind the same login.",
     },
     {
       t: "Read-only by default",
       b: "Posture and inventory come through read-only cloud roles. Nothing changes your cloud unless a person approves it.",
     },
     {
-      t: "Buy what you need",
-      b: "Onam Security is priced per unit for cloud and SaaS and per developer for code, with published prices. Estate, FinOps and DRM are added per organisation.",
+      t: "Published prices",
+      b: "Priced per unit for cloud and SaaS and per developer for code, with a free one-time audit scan first.",
     },
   ];
   return (
@@ -389,7 +369,7 @@ export function OneFoundation() {
             One platform
           </div>
           <h2 className="mt-3 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.08] text-balance">
-            What the four products share.
+            What every part of Onam shares.
           </h2>
         </div>
         <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -407,8 +387,8 @@ export function OneFoundation() {
 }
 
 /* ============================ SUITE STRIP ============================
- * The closing "rest of the platform" band on every product page: the same five
- * cards and illustrations as the homepage, with the current product marked.
+ * The closing band on the Onam Security and Onam AI pages: both cards, with the
+ * current one marked.
  */
 export function SuiteStrip({ current }: { current: SuiteKey }) {
   return (
@@ -416,18 +396,17 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto">
           <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">
-            The rest of the platform
+            Onam
           </div>
           <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-3xl tracking-tight">
-            {getSuite(current).name} works alongside the other Onam products.
+            {getSuite(current).name} works with {getSuite(current === "aiops" ? "security" : "aiops").name}.
           </h2>
           <p className="mt-3 text-[#475569]">
-            Estate finds what you run, Security protects it, FinOps explains what it costs and DRM
-            plans how it comes back after an outage. Onam AIOps agents work across all of them, on
-            the same discovery.
+            Onam Security finds and ranks risk across cloud, SaaS and code. Onam AI, your AI
+            security analyst, answers questions about those findings and suggests fixes.
           </p>
         </div>
-        <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        <div className="mt-10 grid sm:grid-cols-2 gap-4 max-w-4xl mx-auto">
           {SUITE.map((p) => {
             const here = p.key === current;
             return (

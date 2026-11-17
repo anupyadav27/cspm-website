@@ -1,0 +1,819 @@
+import { HeroIllustration } from "@/components/site/HeroIllustration";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import {
+  ArrowRight,
+  Check,
+  Eye,
+  FileSearch,
+  ListChecks,
+  Lock,
+  ShieldCheck,
+  Users,
+  X,
+} from "@/components/site/icons";
+import { SiteLayout } from "@/components/site/SiteLayout";
+import { SuiteStrip } from "@/components/site/home/ProductSuite";
+import { BrandButton } from "@/components/site/BrandButton";
+import { Backdrop } from "@/components/site/system";
+import {
+  ApprovalMock,
+  AuditMock,
+  DiagramFigure,
+  EvidenceMock,
+  IllustrativeFrame,
+  OpsSection,
+  PlanMock,
+  StatusBadge,
+  WorkspaceMock,
+} from "@/components/site/ops/OpsUi";
+import {
+  OPS_AGENTS,
+  OPS_COMMITMENTS,
+  OPS_FEATURES,
+  OPS_RISK_CLASSES,
+  OPS_STATUS,
+  OPS_USE_CASES,
+  type OpsStatus,
+} from "@/data/operations";
+import { seo, faqJsonLd } from "@/lib/seo";
+
+/**
+ * Onam AI — your AI security analyst, for Onam Security. Was "Onam AIOps" at
+ * /platform/ai-operations until 17 Nov 2026; that address 301s here.
+ *
+ * Honesty rules (see src/data/operations.ts header): every capability carries a status badge.
+ * Only the AI Assistant is "Available". The workspace, orchestrator, Asset and Security agents
+ * are "Early access". Executing changes in a customer cloud is "On the roadmap". Do not move a
+ * status without evidence in the agentic platform repo's deploy history and onboarding notes.
+ */
+
+const FAQS = [
+  {
+    q: "What is Onam AI?",
+    a: "Onam AI is your AI security analyst for Onam Security. You ask questions about your findings, attack paths and data security in plain language; it answers from your own Onam Security data, cites the evidence, masks sensitive values, and suggests fixes. It never changes your cloud without a person's approval.",
+  },
+  {
+    q: "Can I use Onam AI today?",
+    a: "It is in early access: running on the Onam platform and enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. The AI Assistant inside Onam Security is available to every customer today.",
+  },
+  {
+    q: "Will Onam AI show secrets or sensitive data in an answer?",
+    a: "No. Answers name the resource and the finding behind them; secrets, keys and sensitive data values are masked. For data security questions it works from classifications and counts, never the content of your data.",
+  },
+  {
+    q: "Can Onam AI change my cloud?",
+    a: "Not in early access. It suggests fixes; it does not apply them. Organisations start at the “propose” ceiling: agents answer, investigate and propose, and nothing touches your cloud. Executing an approved change is on the roadmap, and even then it needs a named person to approve the exact change, a write role you create in your own account, and it runs in an isolated sandbox that validates and rolls back.",
+  },
+  {
+    q: "How is this different from the AI Assistant?",
+    a: "The AI Assistant answers questions about your findings inside the Onam Security console. Onam AI is a workspace above it: multi-step investigations with visible plans, evidence cards, tasks, an approval centre and an audit trail, run by specialist agents with declared permissions.",
+  },
+  {
+    q: "Is my data used to train models?",
+    a: "No. Customer data is never used to train or fine-tune a model. Agents call approved models through one model gateway, in the region agreed with you, one customer's data per call.",
+  },
+  {
+    q: "What stops an agent being tricked by text in my cloud?",
+    a: "Resource tags, policy descriptions and finding text are treated as untrusted data and labelled as such. The decisive control is in code: the policy engine and tool gateway check every call against the agent's declared scope, so a persuaded model still cannot call a tool its agent does not hold.",
+  },
+];
+
+export const Route = createFileRoute("/onam-ai/")({
+  head: () =>
+    seo({
+      title: "Onam AI — your AI security analyst",
+      description:
+        "Onam AI: ask about findings, attack paths and data security. Answers cite evidence and mask sensitive values; it suggests fixes and changes nothing without approval.",
+      path: "/onam-ai",
+      image: "/og/onam-ai.png",
+    }),
+  component: OnamAiPage,
+});
+
+const STATUS_ORDER: OpsStatus[] = ["available", "early", "development", "roadmap"];
+
+const NAV = [
+  { id: "today", label: "What you can use today" },
+  { id: "problem", label: "The problem" },
+  { id: "workspace", label: "The workspace" },
+  { id: "agents", label: "The specialist agents" },
+  { id: "orchestrator", label: "The orchestrator" },
+  { id: "approvals", label: "Approval and governance" },
+  { id: "evidence", label: "Evidence and audit trail" },
+  { id: "security", label: "Security architecture" },
+  { id: "use-cases", label: "What you can do with it" },
+  { id: "faq", label: "Questions" },
+];
+
+function OnamAiPage() {
+  return (
+    <SiteLayout>
+      <Hero />
+      <TodaySection />
+      <ProblemSection />
+      <WorkspaceSection />
+      <AgentsSection />
+      <OrchestratorSection />
+      <ApprovalSection />
+      <EvidenceSection />
+      <SecuritySection />
+      <UseCasesSection />
+      <FaqSection />
+      <SuiteStrip current="aiops" />
+      <FinalCta />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(FAQS)) }}
+      />
+    </SiteLayout>
+  );
+}
+
+/** Onam AI indigo, lightened to read as text on the night band. */
+const AIOPS_ON_NIGHT = "color-mix(in srgb, #4F46E5 50%, #FFFFFF)";
+
+function Hero() {
+  return (
+    <section className="relative overflow-hidden bg-night">
+      <Backdrop tone="night" color="#4F46E5" pattern="grid" />
+      <div className="relative mx-auto max-w-7xl px-4 pb-16 pt-16 sm:px-6 md:pt-20">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+          <div className="min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest"
+                style={{ color: AIOPS_ON_NIGHT }}
+              >
+                Onam AI
+              </span>
+              <StatusBadge status="early" />
+            </div>
+            <h1 className="mt-6 font-display text-4xl font-black leading-[1.05] tracking-tight text-white text-balance md:text-5xl lg:text-[52px]">
+              Your AI security analyst,{" "}
+              <span style={{ color: AIOPS_ON_NIGHT }}>with a person approving every change.</span>
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-on-night-muted text-pretty">
+              Onam AI is the AI security analyst for Onam Security. Ask about your findings, attack
+              paths and data security in plain language. It answers from your own Onam Security data,
+              shows the evidence for every number, masks sensitive values, and suggests fixes for a
+              person to decide. It never changes your cloud without that approval. Every step is
+              recorded.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <BrandButton to="/request-demo" search={{ product: "aiops" }} size="lg">
+                Ask for early access <ArrowRight className="h-4 w-4" />
+              </BrandButton>
+              <BrandButton to="/onam-ai/architecture" size="lg" variant="onDark">
+                How it is designed
+              </BrandButton>
+            </div>
+          </div>
+          <div className="min-w-0 [&_figure]:mt-0 [&_figure]:max-w-none [&_img]:border-white/10 [&_img]:shadow-[0_32px_80px_rgba(0,0,0,.55)] [&_figcaption]:text-left [&_figcaption]:text-on-night-muted">
+            <HeroIllustration
+              image={{
+                src: "/images/products/onam-ai.svg",
+                width: 640,
+                height: 420,
+                alt: "Drawing of Onam AI's suggested fixes: each fix, the evidence behind it, and whether a person approved it.",
+                caption: "Drawing with sample data. Some capabilities are in early access or on the roadmap (see availability below). No change reaches your cloud without approval.",
+              }}
+            />
+          </div>
+        </div>
+        <ul className="mt-12 grid gap-3 text-[14.5px] text-white/90 sm:grid-cols-3 [&>*]:min-w-0">
+          {[
+            [FileSearch, "Evidence on every claim"],
+            [Eye, "Sensitive values masked"],
+            [Lock, "Suggests fixes; a person approves every change"],
+          ].map(([Icon, text]) => {
+            const I = Icon as typeof Check;
+            return (
+              <li
+                key={text as string}
+                className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.05] px-3.5 py-3"
+              >
+                <I className="h-4 w-4 shrink-0" style={{ color: AIOPS_ON_NIGHT }} />
+                <span>{text as string}</span>
+              </li>
+            );
+          })}
+        </ul>
+        <nav
+          aria-label="On this page"
+          className="mt-6 rounded-2xl border border-white/10 bg-white/[0.04] p-5"
+        >
+          <p className="text-[12px] font-bold uppercase tracking-[1.5px] text-on-night-muted">
+            On this page
+          </p>
+          <ul className="mt-3 grid gap-x-6 gap-y-1.5 text-[14.5px] sm:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
+            {NAV.map((n) => (
+              <li key={n.id}>
+                <a href={`#${n.id}`} className="text-[#A9C4FF] hover:text-white hover:underline">
+                  {n.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+    </section>
+  );
+}
+
+function TodaySection() {
+  return (
+    <OpsSection
+      id="today"
+      eyebrow="Status"
+      title="What you can use today, and what is still coming"
+      intro={
+        <p>
+          Onam AI is new. We label every capability on this page so you never have to guess
+          whether something exists. Nothing marked “On the roadmap” is available, and no date is
+          promised for it.
+        </p>
+      }
+      tint
+    >
+      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 [&>*]:min-w-0">
+        {STATUS_ORDER.map((st) => (
+          <div key={st} className="rounded-2xl border border-[#E5E9F0] bg-white p-5">
+            <StatusBadge status={st} />
+            <p className="mt-3 text-[13px] leading-relaxed text-[#64748B]">
+              {OPS_STATUS[st].meaning}
+            </p>
+            <ul className="mt-4 space-y-3">
+              {OPS_FEATURES.filter((f) => f.status === st).map((f) => (
+                <li key={f.name}>
+                  <div className="text-[14px] font-semibold text-[#0B1220]">{f.name}</div>
+                  <div className="text-[13px] leading-relaxed text-[#475569]">{f.detail}</div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p className="mt-6 text-[13.5px] text-[#64748B]">
+        Looking for the assistant you can use right now?{" "}
+        <Link to="/platform/ai-assistant" className="font-semibold text-[#2563EB] hover:underline">
+          AI Assistant in Onam Security
+        </Link>
+        .
+      </p>
+    </OpsSection>
+  );
+}
+
+function ProblemSection() {
+  return (
+    <OpsSection
+      id="problem"
+      eyebrow="The problem"
+      title="The answer is in your findings. Getting it out takes an analyst."
+      intro={
+        <p>
+          Take a real question: “which internet-exposed production databases hold regulated data,
+          and how could an attacker reach them?” The answer touches posture, identity, network,
+          data security and attack paths. Today someone opens five views, combines filters and joins
+          the results by resource by hand.
+        </p>
+      }
+    >
+      <div className="grid gap-6 lg:grid-cols-2 [&>*]:min-w-0">
+        <div className="rounded-2xl border border-[#FECACA] bg-[#FEF2F2] p-6">
+          <div className="text-[12px] font-bold uppercase tracking-widest text-[#B91C1C]">
+            Today, by hand
+          </div>
+          <ul className="mt-4 space-y-3 text-[15px] text-[#7F1D1D]">
+            {[
+              "Five views, several filters, one spreadsheet join",
+              "Skilled work that ties up a senior engineer",
+              "Stale the moment it is finished",
+              "No evidence anyone can audit, a screenshot at best",
+              "The fix happens out of band, unlogged",
+            ].map((t) => (
+              <li key={t} className="flex gap-2.5">
+                <X className="mt-0.5 h-4 w-4 shrink-0 text-[#DC2626]" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div className="rounded-2xl border border-[#BBF7D0] bg-[#F0FDF4] p-6">
+          <div className="text-[12px] font-bold uppercase tracking-widest text-[#15803D]">
+            With Onam AI
+          </div>
+          <ul className="mt-4 space-y-3 text-[15px] text-[#14532D]">
+            {[
+              "Ask once; the orchestrator plans the steps across agents",
+              "Answers come from your Onam Security findings, not a model's recollection",
+              "Every number cites the query, rows and scan time behind it",
+              "Sensitive values are masked in every answer",
+              "Fixes are suggested with a diff and a rollback, and a person decides",
+            ].map((t) => (
+              <li key={t} className="flex gap-2.5">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[#64748B]">
+        In early access Onam AI reads the Onam Security inventory and findings, on AWS first.
+      </p>
+    </OpsSection>
+  );
+}
+
+function WorkspaceSection() {
+  return (
+    <OpsSection
+      id="workspace"
+      eyebrow="The workspace"
+      title="A team-chat layout with the controls of an operations console"
+      intro={
+        <p>
+          The workspace looks familiar because chat is already in your muscle memory. But chat alone
+          cannot carry a plan, an approval or an audit trail, so three rules set it apart.
+        </p>
+      }
+      tint
+    >
+      <div className="grid gap-4 md:grid-cols-3 [&>*]:min-w-0">
+        {[
+          [
+            Eye,
+            "Every claim is inspectable",
+            "Numbers and names in an agent’s reply link to the skill, query, rows and scan time that produced them.",
+          ],
+          [
+            ListChecks,
+            "The plan is visible before it runs",
+            "A multi-step request shows its steps first, so you can stop it before it starts.",
+          ],
+          [
+            ShieldCheck,
+            "Actions arrive as changes to review",
+            "A proposed change is a distinct card: bordered, diff first, with explicit decision buttons.",
+          ],
+        ].map(([Icon, title, body]) => {
+          const I = Icon as typeof Eye;
+          return (
+            <div key={title as string} className="rounded-2xl border border-[#E5E9F0] bg-white p-5">
+              <I className="h-5 w-5 text-[#2563EB]" />
+              <div className="mt-3 font-display text-lg font-bold text-[#0B1220]">
+                {title as string}
+              </div>
+              <p className="mt-1.5 text-[14px] leading-relaxed text-[#475569]">{body as string}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-8">
+        <IllustrativeFrame
+          title="Onam AI · Chat"
+          caption="Chat with the agents: navigation on the left, each agent’s reply in its own attributed card, and a context panel for evidence, tasks and actions."
+        >
+          <WorkspaceMock />
+        </IllustrativeFrame>
+      </div>
+      <div className="mt-6 grid gap-3 text-[14px] text-[#475569] sm:grid-cols-2 lg:grid-cols-4 [&>*]:min-w-0">
+        {[
+          ["Needs you", "Home, the approval queue and your inbox"],
+          ["Ask", "Chat, the assets the agents see, and the agent directory"],
+          ["Run", "Tasks, workflows and reports"],
+          [
+            "Govern",
+            "Knowledge you give the agents, the activity record, and settings including the kill switch",
+          ],
+        ].map(([h, b]) => (
+          <div key={h} className="rounded-xl border border-[#E5E9F0] bg-white p-4">
+            <div className="text-[11px] font-bold uppercase tracking-widest text-[#2563EB]">
+              {h}
+            </div>
+            <div className="mt-1">{b}</div>
+          </div>
+        ))}
+      </div>
+    </OpsSection>
+  );
+}
+
+function AgentsSection() {
+  return (
+    <OpsSection
+      id="agents"
+      eyebrow="The specialist agents"
+      title="Specialist agents, each with a declared job and a declared limit"
+      intro={
+        <p>
+          Each agent is a versioned definition rather than a prompt: its purpose, level, skills, tools and
+          permissions are data that can be reviewed. An agent invokes skills; skills invoke tools;
+          only tools touch anything outside the platform. Automation works in two modes: a planner
+          that proposes and an actor that may execute only from an approval.
+        </p>
+      }
+    >
+      <DiagramFigure
+        src="/diagrams/ops-agent-roster.svg"
+        alt="The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute."
+        caption="Who may do what. L1 agents read and recommend; L2 agents write proposals only; the L3 actor runs only from an approval record."
+      />
+      <div className="mt-8 grid gap-4 md:grid-cols-2 xl:grid-cols-3 [&>*]:min-w-0">
+        {OPS_AGENTS.map((a) => (
+          <article
+            key={a.id}
+            className="flex flex-col rounded-2xl border border-[#E5E9F0] bg-white p-5"
+            style={{ borderTop: `3px solid ${a.color}` }}
+          >
+            <div className="flex items-start justify-between gap-2">
+              <h3 className="font-display text-lg font-bold text-[#0B1220]">{a.name}</h3>
+              <StatusBadge status={a.status} />
+            </div>
+            <div className="mt-1 text-[12px] font-semibold text-[#64748B]">
+              {a.level} · {a.levelName} · {a.authority}
+            </div>
+            <p className="mt-3 text-[14px] italic text-[#334155]">“{a.question}”</p>
+            <ul className="mt-3 space-y-1.5 text-[13.5px] text-[#475569]">
+              {a.does.slice(0, 3).map((d) => (
+                <li key={d} className="flex gap-2">
+                  <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[#16A34A]" />
+                  {d}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-3 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">
+              Tools
+            </div>
+            <div className="mt-1.5 flex flex-wrap gap-1">
+              {a.tools.slice(0, 5).map((t) => (
+                <span
+                  key={t}
+                  className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[11px] text-[#334155]"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+            <div className="mt-3 text-[13px] text-[#7F1D1D]">
+              <span className="font-semibold">Never:</span>{" "}
+              {a.never[0].charAt(0).toLowerCase() + a.never[0].slice(1)}.
+            </div>
+            <div className="mt-auto pt-4 text-[12.5px] text-[#64748B]">{a.statusNote}</div>
+          </article>
+        ))}
+      </div>
+      <p className="mt-6 text-[14px] text-[#475569]">
+        Full definitions (skills, tools, permissions and known limits for every agent) are in the{" "}
+        <Link
+          to="/docs/$"
+          params={{ _splat: "operations/agents" }}
+          className="font-semibold text-[#2563EB] hover:underline"
+        >
+          agent reference
+        </Link>
+        .
+      </p>
+    </OpsSection>
+  );
+}
+
+function OrchestratorSection() {
+  return (
+    <OpsSection
+      id="orchestrator"
+      eyebrow="The orchestrator"
+      title="The orchestrator routes the work and never answers on its own."
+      intro={
+        <p>
+          The orchestrator turns a request into a plan: it detects the intent, picks the agents,
+          orders the steps (in parallel where nothing depends on anything else), passes each step
+          the previous step’s result, and joins the answers. It has no access to security data itself,
+          so it cannot answer a question unaudited.
+        </p>
+      }
+      tint
+    >
+      <div className="grid items-start gap-8 lg:grid-cols-2 [&>*]:min-w-0">
+        <IllustrativeFrame
+          title="Plan card"
+          caption="A plan pauses where a step would change the cloud, and waits for a person."
+        >
+          <div className="p-4">
+            <PlanMock />
+          </div>
+        </IllustrativeFrame>
+        <div className="space-y-4">
+          {[
+            [
+              "Question",
+              "Answered by one agent.",
+              "How many production instances are in this account?",
+            ],
+            [
+              "Investigation",
+              "Several agents, results joined.",
+              "Which exposed assets have critical findings, and which attack paths run through them?",
+            ],
+            [
+              "Action request",
+              "A plan, a proposal and an approval.",
+              "Close SSH from the internet on these instances.",
+            ],
+            [
+              "Report",
+              "A synthesised document with its evidence.",
+              "Give me the exposure summary for the board.",
+            ],
+          ].map(([k, d, ex]) => (
+            <div key={k} className="rounded-xl border border-[#E5E9F0] bg-white p-4">
+              <div className="flex flex-wrap items-baseline gap-2">
+                <span className="font-semibold text-[#0B1220]">{k}</span>
+                <span className="text-[13px] text-[#64748B]">{d}</span>
+              </div>
+              <div className="mt-1 text-[13.5px] italic text-[#334155]">“{ex}”</div>
+            </div>
+          ))}
+          <div className="rounded-xl border-l-4 border-[#B45309] bg-[#FFFBEB] p-4 text-[14px] text-[#78350F]">
+            <strong>Conflicts reach you.</strong> If one agent says “close this port” and another says
+            “a production service depends on it”, the orchestrator does not pick a winner. Both positions
+            and their evidence are shown, and you decide. A silently resolved conflict is a wrong
+            answer in a confident tone.
+          </div>
+        </div>
+      </div>
+    </OpsSection>
+  );
+}
+
+function ApprovalSection() {
+  return (
+    <OpsSection
+      id="approvals"
+      eyebrow="Approval and governance"
+      title="No setting lets an agent skip the approval gate"
+      intro={
+        <p>
+          There is no autonomy level, tenant setting or flag that lets an agent change your cloud
+          without a recorded human approval. Risk is assigned by policy, never by the agent, and
+          can only be raised automatically, never lowered: production targets, paths to high-value assets,
+          regulated data, missing rollback and bulk changes all push a change up a class.
+        </p>
+      }
+    >
+      <div className="grid items-start gap-8 lg:grid-cols-[1.1fr_1fr] [&>*]:min-w-0">
+        <IllustrativeFrame
+          title="Approval centre"
+          caption="The approval card leads with the exact change, then blast radius, reason and rollback, so the approver sees what will change before anything else."
+        >
+          <ApprovalMock />
+        </IllustrativeFrame>
+        <div>
+          <div className="overflow-x-auto rounded-xl border border-[#E5E9F0] bg-white">
+            <table className="w-full min-w-[420px] text-left text-[13.5px]">
+              <thead className="bg-[#F8FAFC] text-[#0B1220]">
+                <tr>
+                  <th className="px-3 py-2.5 font-semibold">Risk</th>
+                  <th className="px-3 py-2.5 font-semibold">Who must approve</th>
+                  <th className="px-3 py-2.5 font-semibold">For example</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[#E5E9F0]">
+                {OPS_RISK_CLASSES.map((r) => (
+                  <tr key={r.cls} className="align-top">
+                    <td className="px-3 py-2.5 font-semibold" style={{ color: r.color }}>
+                      {r.cls}
+                    </td>
+                    <td className="px-3 py-2.5 text-[#334155]">{r.approval}</td>
+                    <td className="px-3 py-2.5 text-[#475569]">{r.examples}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <ul className="mt-5 space-y-2.5 text-[14px] text-[#334155]">
+            {[
+              "An approval binds to the change’s hash, so approving one change cannot authorise another.",
+              "The target is re-read just before execution; if it drifted, the approval is superseded.",
+              "Approvals expire. Critical changes need two distinct people.",
+              "Agents can never hold approval authority. The database refuses to record it.",
+              "Review time is measured, so rubber-stamping becomes visible to admins.",
+            ].map((t) => (
+              <li key={t} className="flex gap-2.5">
+                <Check className="mt-0.5 h-4 w-4 shrink-0 text-[#16A34A]" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="mt-10">
+        <DiagramFigure
+          src="/diagrams/ops-read-write-paths.svg"
+          alt="The read path passes three automatic gates; the write path passes seven gates including a person approving the exact change, then runs in a sandbox, is validated, and rolls back on failure."
+          caption="Reading is cheap because it is safe. Changing your cloud is deliberately expensive."
+        />
+      </div>
+    </OpsSection>
+  );
+}
+
+function EvidenceSection() {
+  return (
+    <OpsSection
+      id="evidence"
+      eyebrow="Evidence and audit trail"
+      title="Every claim links to its evidence"
+      intro={
+        <p>
+          Every factual claim an agent makes carries the skill, the tool, the query, the rows and
+          the scan it came from. When the data cannot support an answer, the agent says it cannot
+          verify it. Every turn, tool call, decision and approval is written to an append-only
+          record, chained so that an edit or a deletion is detectable.
+        </p>
+      }
+      tint
+    >
+      <div className="grid items-start gap-6 lg:grid-cols-[1fr_1.4fr] [&>*]:min-w-0">
+        <IllustrativeFrame
+          title="Evidence card"
+          caption="Open any number to see how it was produced, and re-run it."
+        >
+          <EvidenceMock />
+        </IllustrativeFrame>
+        <IllustrativeFrame
+          title="Activity · audit trail"
+          caption="Who did what, when and why, for people and agents alike, with a check that the chain is intact."
+        >
+          <AuditMock />
+        </IllustrativeFrame>
+      </div>
+    </OpsSection>
+  );
+}
+
+function SecuritySection() {
+  const items: { icon: typeof Lock; title: string; body: string }[] = [
+    {
+      icon: Users,
+      title: "Tenant isolation at every layer",
+      body: "Your data never crosses to another customer in a query, cache, memory, model call, event or log line. Each layer is isolated and tested on its own, so a bug in one layer does not on its own open your data to anyone else.",
+    },
+    {
+      icon: Lock,
+      title: "Zero-trust agents",
+      body: "An agent is an untrusted principal. Its scope is verified on every call, it cannot change its own definition or permissions, and it can never exceed the person it acts for.",
+    },
+    {
+      icon: ShieldCheck,
+      title: "Prompt-injection defence in code",
+      body: "Text from your cloud is labelled as data, never as instruction. The decisive control is the policy engine and tool gateway: a persuaded model still cannot call a tool its agent does not hold.",
+    },
+    {
+      icon: Eye,
+      title: "One model gateway",
+      body: "All inference goes through one gateway, to approved models only, in the region agreed with you. Customer data is never used to train a model.",
+    },
+    {
+      icon: ListChecks,
+      title: "Kill switch and budgets",
+      body: "Stop all agent activity for your organisation from settings. Every task has step, time and cost ceilings; when one is reached, the task stops and says what is left undone.",
+    },
+    {
+      icon: FileSearch,
+      title: "Fail safe",
+      body: "On ambiguity, timeout, missing data or policy doubt, the platform stops and reports. A domain that is unavailable is named in the answer, never hidden.",
+    },
+  ];
+  return (
+    <OpsSection
+      id="security"
+      eyebrow="Security architecture"
+      title="Built on the assumption that the model can be fooled"
+      intro={
+        <p>
+          The controls that protect your cloud do not rely on the model behaving well. They sit in
+          code, in the call path, where a refusal stops the request and is itself recorded. These
+          are design commitments of the platform.
+        </p>
+      }
+    >
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 [&>*]:min-w-0">
+        {items.map((it) => {
+          const I = it.icon;
+          return (
+            <div key={it.title} className="rounded-2xl border border-[#E5E9F0] bg-white p-5">
+              <I className="h-5 w-5 text-[#2563EB]" />
+              <div className="mt-3 font-display text-[17px] font-bold text-[#0B1220]">
+                {it.title}
+              </div>
+              <p className="mt-1.5 text-[14px] leading-relaxed text-[#475569]">{it.body}</p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="mt-8 rounded-2xl border border-[#082869] bg-[#082869] p-6 text-white md:p-8">
+        <div className="text-[11px] font-bold uppercase tracking-widest text-[#93B4F8]">
+          Five things it will never do
+        </div>
+        <ol className="mt-4 grid gap-3 text-[15px] md:grid-cols-2 [&>*]:min-w-0">
+          {OPS_COMMITMENTS.map((c, i) => (
+            <li key={c} className="flex gap-3">
+              <span className="font-mono text-[#93B4F8]">{i + 1}</span>
+              <span className="text-[#E2E8F0]">{c}</span>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <div className="mt-6">
+        <BrandButton to="/onam-ai/architecture" variant="secondary">
+          See the architecture, block by block <ArrowRight className="h-4 w-4" />
+        </BrandButton>
+      </div>
+    </OpsSection>
+  );
+}
+
+function UseCasesSection() {
+  return (
+    <OpsSection
+      id="use-cases"
+      eyebrow="What you can do with it"
+      title="Questions it can answer"
+      intro={
+        <p>
+          Each use case shows the agents involved, what you get back, and whether a person must
+          approve anything.
+        </p>
+      }
+      tint
+    >
+      <div className="grid gap-4 md:grid-cols-2 [&>*]:min-w-0">
+        {OPS_USE_CASES.map((u) => (
+          <div key={u.title} className="rounded-2xl border border-[#E5E9F0] bg-white p-5">
+            <div className="flex items-start justify-between gap-3">
+              <h3 className="font-display text-[17px] font-bold text-[#0B1220]">{u.title}</h3>
+              <StatusBadge status={u.status} />
+            </div>
+            <p className="mt-2 text-[14px] italic text-[#334155]">“{u.ask}”</p>
+            <dl className="mt-3 grid grid-cols-[88px_1fr] gap-x-3 gap-y-1.5 text-[13.5px] [&>*]:min-w-0">
+              <dt className="text-[#64748B]">Agents</dt>
+              <dd className="text-[#0B1220]">{u.agents}</dd>
+              <dt className="text-[#64748B]">You get</dt>
+              <dd className="text-[#475569]">{u.outcome}</dd>
+              <dt className="text-[#64748B]">Approval</dt>
+              <dd className="text-[#475569]">{u.approval}</dd>
+            </dl>
+          </div>
+        ))}
+      </div>
+    </OpsSection>
+  );
+}
+
+function FaqSection() {
+  return (
+    <OpsSection id="faq" eyebrow="Questions" title="Common questions">
+      <div className="max-w-3xl divide-y divide-[#E5E9F0] rounded-2xl border border-[#E5E9F0] bg-white">
+        {FAQS.map((f) => (
+          <details key={f.q} className="group p-5">
+            <summary className="cursor-pointer list-none font-semibold text-[#0B1220] marker:hidden">
+              <span className="flex items-center justify-between gap-4">
+                {f.q}
+                <span className="text-[#94A3B8] transition group-open:rotate-45">+</span>
+              </span>
+            </summary>
+            <p className="mt-3 text-[14.5px] leading-relaxed text-[#475569]">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </OpsSection>
+  );
+}
+
+function FinalCta() {
+  return (
+    <section className="bg-white py-20">
+      <div className="mx-auto max-w-4xl px-4 sm:px-6">
+        <div className="gradient-border rounded-3xl p-8 text-center md:p-14">
+          <h2 className="font-display text-3xl font-black tracking-tight text-[#0B1220] md:text-4xl">
+            Request <span className="gradient-text">early access.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-xl text-[#475569]">
+            Early access is by invitation and starts on AWS with your Onam Security data. Onam AI
+            answers and suggests fixes; nothing changes your cloud without your approval.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center gap-3">
+            <BrandButton to="/request-demo" search={{ product: "aiops" }} size="lg">
+              Ask for early access
+            </BrandButton>
+            <BrandButton href="/docs/operations/overview" size="lg" variant="secondary">
+              Read the documentation
+            </BrandButton>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}

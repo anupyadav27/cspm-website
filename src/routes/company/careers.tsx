@@ -35,7 +35,7 @@ function CareersPage() {
           </h1>
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">
             Onam is a small company led by its founder, Anup Yadav, with Poonam Yadav as Head of Engineering. We build
-            four products (Onam Estate, Security, FinOps and DRM) and the AI agents that work across them. Most of
+            Onam Security (cloud, SaaS and code security) and Onam AI, our AI security analyst. Most of
             the work is remote.
           </p>
         </div>

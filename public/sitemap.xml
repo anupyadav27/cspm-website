@@ -2,11 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.onamsecurity.com/</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/audit-scan</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/case-studies</loc>
@@ -14,15 +14,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/about</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/careers</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/contact</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/company/privacy</loc>
@@ -34,31 +34,27 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/estate</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/onam-ai</loc>
+    <lastmod>2026-11-17</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/onam-ai/architecture</loc>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-10-07</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/agentless</loc>
@@ -71,14 +67,6 @@
   <url>
     <loc>https://www.onamsecurity.com/platform/ai-code-fix</loc>
     <lastmod>2026-10-08</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/platform/ai-operations</loc>
-    <lastmod>2026-11-14</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/platform/ai-operations/architecture</loc>
-    <lastmod>2026-11-06</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/ai-security</loc>
@@ -154,7 +142,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/inventory</loc>
-    <lastmod>2026-10-08</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/platform/network-security</loc>
@@ -186,15 +174,15 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/pricing</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/request-demo</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog</loc>
@@ -206,7 +194,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/alicloud</loc>
@@ -230,7 +218,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/government</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/solutions/healthcare</loc>
@@ -250,11 +238,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/tools</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/trust</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/whitepapers</loc>
@@ -262,7 +250,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/why-onam</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/tools/fair-exposure-calculator.html</loc>
@@ -274,7 +262,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/getting-started/introduction</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/getting-started/quickstart</loc>
@@ -313,28 +301,8 @@
     <lastmod>2026-07-21</lastmod>
   </url>
   <url>
-    <loc>https://www.onamsecurity.com/docs/estate/overview</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/estate/inventory</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/estate/architecture</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/estate/pipeline</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/estate/access</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
     <loc>https://www.onamsecurity.com/docs/security/overview</loc>
-    <lastmod>2026-11-14</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/security/capability-matrix</loc>
@@ -537,88 +505,28 @@
     <lastmod>2026-10-05</lastmod>
   </url>
   <url>
-    <loc>https://www.onamsecurity.com/docs/finops/overview</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/cost-model</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/explore</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/ownership</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/plan</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/savings</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/runs</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/finops/access</loc>
-    <lastmod>2026-09-01</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/overview</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/applications</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/protection</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/recovery-plans</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/objectives</loc>
-    <lastmod>2026-10-05</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/governance</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/drm/access</loc>
-    <lastmod>2026-10-07</lastmod>
-  </url>
-  <url>
     <loc>https://www.onamsecurity.com/docs/operations/overview</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/availability</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/concepts</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/workspace</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/orchestrator</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/agents</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/agents/asset-agent</loc>
@@ -636,25 +544,16 @@
     <loc>https://www.onamsecurity.com/docs/operations/agents/automation-agent</loc>
   </url>
   <url>
-    <loc>https://www.onamsecurity.com/docs/operations/agents/finops-agent</loc>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/operations/agents/dr-agent</loc>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/docs/operations/agents/architecture-agent</loc>
-  </url>
-  <url>
     <loc>https://www.onamsecurity.com/docs/operations/governance</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/security</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/operations/architecture</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/trust/security</loc>
@@ -686,135 +585,63 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/docs/release-notes</loc>
-    <lastmod>2026-10-23</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cspm</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cnapp</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cwpp</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/ciem</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/dspm</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/sspm</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-attack-path</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/agentless-cloud-security</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-risk-quantification</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/choke-point</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/kspm</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/code-security</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/secrets-management</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/learn/cloud-asset-inventory</loc>
-    <lastmod>2026-11-11</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/learn/finops</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/learn/cloud-cost-allocation</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/learn/rto-vs-rpo</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/learn/cloud-disaster-recovery</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/learn/agentic-aiops</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/estate/inventory</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/estate/architecture</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/estate/discovery</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops/explore</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops/ownership</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops/plan</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops/savings</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/finops/reconciliation</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery/applications</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery/protection</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery/recovery-plans</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery/objectives</loc>
-    <lastmod>2026-11-06</lastmod>
-  </url>
-  <url>
-    <loc>https://www.onamsecurity.com/disaster-recovery/drift</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-17</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-wiz</loc>
@@ -862,11 +689,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</loc>
@@ -886,11 +713,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-alternatives</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/best-cspm-tools</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>
@@ -906,7 +733,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ciem-vs-iam-security</loc>
-    <lastmod>2026-11-15</lastmod>
+    <lastmod>2026-11-16</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</loc>

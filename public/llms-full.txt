@@ -1,49 +1,23 @@
 # Onam
 
-> Onam (https://www.onamsecurity.com) is ONE end-to-end cloud platform, from assets to a secure, optimised and
-> resilient cloud: Onam Estate (asset intelligence) -> Onam Security (cloud security) -> Onam FinOps
-> (cost) -> Onam DRM (disaster recovery), with Onam AIOps — AI agents, early access — across
-> them. All four products share one discovery pass, one console and one login.
+> Onam (https://www.onamsecurity.com) is Onam Security — cloud security, SaaS security and code security on one
+> security graph — with Onam AI, an AI security analyst (early access). Onam Estate, Onam FinOps
+> and Onam DRM were retired as products on 17 Nov 2026; their old pages redirect to Onam Security.
 >
-> Onam Security, the largest product, is a unified CNAPP (cloud-native application protection platform) —
+> Onam Security is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
 > attack path analysis, cloud threat detection & response (CDR), API security, database security,
 > encryption & key management, code security, and compliance — across AWS, Azure, GCP, OCI, Alibaba
 > Cloud, IBM Cloud, Kubernetes, and major SaaS platforms. Posture scanning connects through
 > read-only cloud roles; agentless workload scanning runs inside your account.
->
-> Estate, FinOps and DRM are separately licensed products, granted per organisation, never bundled
-> into a security plan tier; each stands alone and none requires Onam Security. No prices are
-> published for them; contact sales.
 
 Full site content (docs + blog, one file): https://www.onamsecurity.com/llms-full.txt
 
 ## Products
 
-- [Onam Security](https://www.onamsecurity.com/platform): cloud posture, identity, data, workloads, attack paths and compliance — every engine on one security graph. Sold per unit on the Posture or Complete plan, or as an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available: https://www.onamsecurity.com/audit-scan
-- [Onam Estate](https://www.onamsecurity.com/estate): continuous discovery of every cloud resource and the relationships between them, with full pipeline-run provenance. Separately licensed, granted per organisation; contact sales.
-- [Onam FinOps](https://www.onamsecurity.com/finops): cloud cost and commitment management on reconciled billing data — billed vs effective cost, ownership attribution with a stated coverage percentage, forecast with low/expected/high bounds, budgets, anomalies and savings recommendations. Separately licensed, granted per organisation; contact sales.
-- [Onam DRM](https://www.onamsecurity.com/disaster-recovery): disaster recovery management — maps applications and their dependencies, reads backup and replication coverage from cloud configuration, predicts RTO and RPO against the customer's own targets, composes ordered recovery plans, records DR drills run elsewhere and flags drift from the approved baseline. It does not execute recoveries or run DR tests. Separately licensed, granted per organisation; contact sales.
-- [Onam AIOps](https://www.onamsecurity.com/platform/ai-operations) (early access, by invitation): a workspace where specialist AI agents investigate the cloud estate with evidence on every claim and propose changes; nothing changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/platform/ai-operations/architecture
-
-Capabilities, one page each:
-- [Inventory — Onam Estate](https://www.onamsecurity.com/estate/inventory): The Inventory view lists every resource Onam Estate's discovery has found, across every connected account and region, each with the time discovery last confirmed it exists.
-- [Architecture — Onam Estate](https://www.onamsecurity.com/estate/architecture): The Architecture view summarises one account's topology: what it holds, how the pieces connect, and which relationships cross the account boundary. It draws AWS accounts today.
-- [Discovery pipeline — Onam Estate](https://www.onamsecurity.com/estate/discovery): The Pipeline view is the run history for discovery: every pass over your accounts and regions, what triggered it and how it ended. Discovery is read-only. Nothing is installed and nothing is modified.
-- [Cost explorer — Onam FinOps](https://www.onamsecurity.com/finops/explore): Onam FinOps shows spend as a daily series and ranks what changed since the last period. You see billed and effective cost side by side, so the number matches the invoice and the reality.
-- [Ownership & attribution — Onam FinOps](https://www.onamsecurity.com/finops/ownership): Onam FinOps attributes cost to owners and cost centres with rules you control. It tells you how much of the bill it could attribute, and shows the amount it could not.
-- [Forecast, budgets & anomalies — Onam FinOps](https://www.onamsecurity.com/finops/plan): Onam FinOps forecasts spend as a range with low, expected and high figures. Budgets are tracked against the forecast as well as actuals, and anomalies are found in the daily series.
-- [Savings — Onam FinOps](https://www.onamsecurity.com/finops/savings): Onam FinOps holds cost-reduction recommendations, each with a recorded decision. The headline figure is labelled as an upper bound.
-- [Reconciled billing — Onam FinOps](https://www.onamsecurity.com/finops/reconciliation): Onam FinOps records every ingestion run and shows the reconciliation state of every period. You can see whether a number is settled before you quote it.
-- [Applications & dependencies — Onam DRM](https://www.onamsecurity.com/disaster-recovery/applications): Recovery happens application by application. Onam DRM proposes your applications from the tags you already use and classifies every dependency between their parts by what it means for recovery.
-- [Protection — Onam DRM](https://www.onamsecurity.com/disaster-recovery/protection): Onam DRM reads backup plans, snapshots, replicas and replication from your cloud configuration and reports each one as discovered. It never reports protected or tested, because those are statements a person makes.
-- [Recovery plans — Onam DRM](https://www.onamsecurity.com/disaster-recovery/recovery-plans): Onam DRM composes each application's recovery plan from approved applications, dependencies and protection: ordered steps, the steps that can run at the same time, and the critical path that sets how long it should take.
-- [RTO, RPO & drills — Onam DRM](https://www.onamsecurity.com/disaster-recovery/objectives): Onam DRM keeps three kinds of recovery figure apart: the targets you require, the figures it predicts from the approved plan, and the results of drills you record. Mixing them is how a plan looks better than it is.
-- [Baselines & drift — Onam DRM](https://www.onamsecurity.com/disaster-recovery/drift): Onam DRM freezes each approved recovery model as a baseline and measures drift against it, so you see every difference from what you signed off, ranked by what it does to recoverability.
-
-All four run at app.onamsecurity.com behind the same session, and share one discovery pass — an
-organisation entitled to more than one does not connect its cloud accounts twice.
+- [Onam Security](https://www.onamsecurity.com/platform): cloud, SaaS and code security — posture, identity, data, workloads, attack paths and compliance, every engine on one security graph. Cloud priced per unit on the Posture or Complete plan, SaaS per unit, code per developer, or an Enterprise contract; prices at https://www.onamsecurity.com/pricing. A free one-time audit scan of one cloud account is available: https://www.onamsecurity.com/audit-scan
+- [Onam AI](https://www.onamsecurity.com/onam-ai) (early access, by invitation): your AI security analyst for Onam Security. Ask about findings, attack paths and data security; answers cite their evidence and mask sensitive values. It suggests fixes and never changes a customer cloud without a named person's approval. Executing approved changes is on the roadmap. Design: https://www.onamsecurity.com/onam-ai/architecture
 
 Key facts:
 - 7 cloud providers supported as first-class citizens: AWS, Microsoft Azure, Google Cloud (GCP), Oracle Cloud (OCI), Alibaba Cloud, IBM Cloud, Kubernetes
@@ -129,11 +103,6 @@ the right choice. Onam has no public reference customers.
 - [What is code security?](https://www.onamsecurity.com/learn/code-security): Code security is the practice of finding and fixing security defects in everything that builds a system before it is deployed. That covers application source code, open-source dependencies, infrastructure-as-code templates, container images and pipeline configuration. It combines static analysis (SAST), dependency analysis (SCA), IaC scanning and secret detection, run automatically on every change.
 - [What is cloud secrets management?](https://www.onamsecurity.com/learn/secrets-management): Cloud secrets management is the practice of storing, distributing, rotating and auditing credentials such as API keys, database passwords, tokens and certificates, so that no application holds a long-lived secret in code or configuration. Secrets live in a dedicated store, are fetched at runtime, and every access is logged.
 - [What is a cloud asset inventory?](https://www.onamsecurity.com/learn/cloud-asset-inventory): A cloud asset inventory is a continuously updated record of every resource running across an organisation's cloud accounts, such as compute, storage, databases, networks and identities, with where each one lives, who owns it and how it connects to other resources. It is built by discovery through the cloud providers' APIs, not by manual entry.
-- [What is FinOps?](https://www.onamsecurity.com/learn/finops): FinOps is an operational framework and cultural practice for managing variable cloud spend. It brings engineering, finance and business teams together so that spending decisions are made with timely cost data, each cost has an accountable owner, and the organisation gets the most business value from what it spends on cloud.
-- [What is cloud cost allocation?](https://www.onamsecurity.com/learn/cloud-cost-allocation): Cloud cost allocation is the practice of assigning every cloud cost to the team, product, environment or customer responsible for it. It relies on account structure, resource tags and rules for splitting shared costs, and its results are reported back to teams through showback, which informs them, or chargeback, which bills them.
-- [What is the difference between RTO and RPO?](https://www.onamsecurity.com/learn/rto-vs-rpo): Recovery Time Objective (RTO) is the longest a system can be unavailable after a disruption before the impact becomes unacceptable. Recovery Point Objective (RPO) is the most data, measured in time, that can be lost: how far back the restored copy may be. RTO is about downtime; RPO is about data loss.
-- [What is cloud disaster recovery?](https://www.onamsecurity.com/learn/cloud-disaster-recovery): Cloud disaster recovery is the set of strategies, configurations and procedures that restore applications and data after a major disruption (a regional outage, data corruption, deletion or a cyberattack) using cloud infrastructure as the recovery site. Strategies range from restoring backups to running fully active copies in more than one region.
-- [What is agentic AIOps?](https://www.onamsecurity.com/learn/agentic-aiops): Agentic AIOps applies AI agents to IT and cloud operations. Instead of only correlating alerts, agents plan and carry out multi-step work (investigating an incident, gathering evidence, proposing a fix) using tools with defined permissions. In a human-in-the-loop design, a person approves any change before an agent makes it.
 
 ## Free tools (no signup, no email gate)
 
@@ -185,13 +154,6 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Alibaba Cloud](https://www.onamsecurity.com/docs/onboarding/alicloud)
 - [IBM Cloud](https://www.onamsecurity.com/docs/onboarding/ibm)
 - [Kubernetes](https://www.onamsecurity.com/docs/onboarding/kubernetes)
-
-### Onam Estate
-- [Overview](https://www.onamsecurity.com/docs/estate/overview)
-- [Asset Inventory](https://www.onamsecurity.com/docs/estate/inventory)
-- [Architecture](https://www.onamsecurity.com/docs/estate/architecture)
-- [Discovery Pipeline](https://www.onamsecurity.com/docs/estate/pipeline)
-- [Access & Entitlement](https://www.onamsecurity.com/docs/estate/access)
 
 ### Onam Security
 - [Overview](https://www.onamsecurity.com/docs/security/overview)
@@ -258,26 +220,7 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Scanning Engine](https://www.onamsecurity.com/docs/architecture/scanning)
 - [Data Security](https://www.onamsecurity.com/docs/architecture/data-security)
 
-### Onam FinOps
-- [Overview](https://www.onamsecurity.com/docs/finops/overview)
-- [The Cost Model](https://www.onamsecurity.com/docs/finops/cost-model)
-- [Explore](https://www.onamsecurity.com/docs/finops/explore)
-- [Ownership & Attribution](https://www.onamsecurity.com/docs/finops/ownership)
-- [Forecast, Budgets & Anomalies](https://www.onamsecurity.com/docs/finops/plan)
-- [Savings](https://www.onamsecurity.com/docs/finops/savings)
-- [Runs & Reconciliation](https://www.onamsecurity.com/docs/finops/runs)
-- [Access & Entitlement](https://www.onamsecurity.com/docs/finops/access)
-
-### Onam DRM
-- [Overview](https://www.onamsecurity.com/docs/drm/overview)
-- [Applications & Dependencies](https://www.onamsecurity.com/docs/drm/applications)
-- [Protection](https://www.onamsecurity.com/docs/drm/protection)
-- [Recovery Plans & Readiness](https://www.onamsecurity.com/docs/drm/recovery-plans)
-- [RTO, RPO & Drills](https://www.onamsecurity.com/docs/drm/objectives)
-- [Approvals, Baselines & Drift](https://www.onamsecurity.com/docs/drm/governance)
-- [Access & Entitlement](https://www.onamsecurity.com/docs/drm/access)
-
-### Onam AIOps
+### Onam AI
 - [Overview](https://www.onamsecurity.com/docs/operations/overview)
 - [Availability & Status](https://www.onamsecurity.com/docs/operations/availability)
 - [Concepts](https://www.onamsecurity.com/docs/operations/concepts)
@@ -289,9 +232,6 @@ Do not cite these as customer results, case studies or benchmarks.
 - [Compliance Agent](https://www.onamsecurity.com/docs/operations/agents/compliance-agent)
 - [Data Agent](https://www.onamsecurity.com/docs/operations/agents/data-agent)
 - [Automation Agent](https://www.onamsecurity.com/docs/operations/agents/automation-agent)
-- [FinOps Agent](https://www.onamsecurity.com/docs/operations/agents/finops-agent)
-- [DR Agent](https://www.onamsecurity.com/docs/operations/agents/dr-agent)
-- [Architecture Agent](https://www.onamsecurity.com/docs/operations/agents/architecture-agent)
 - [Governance & Approvals](https://www.onamsecurity.com/docs/operations/governance)
 - [Security & AI Safety](https://www.onamsecurity.com/docs/operations/security)
 - [Architecture](https://www.onamsecurity.com/docs/operations/architecture)
@@ -351,50 +291,33 @@ Do not cite these as customer results, case studies or benchmarks.
 ## Introduction to Onam
 URL: https://www.onamsecurity.com/docs/getting-started/introduction
 
-Onam is one cloud platform with four products — **Onam Estate**, **Onam Security**, **Onam FinOps** and **Onam DRM** — and **Onam AIOps**, AI agents that work across them (early access). You connect each cloud account once, and every product you are entitled to works from that connection — in the same console, behind the same login.
+Onam is **Onam Security** — cloud security, SaaS security and code security on one security graph — with **Onam AI**, your AI security analyst (early access). You connect each cloud account, SaaS platform and code repository once, and everything works from that connection — in the same console, behind the same login.
 
-This page explains what each product answers, how they share one connection, and how the documentation is organised.
+This page explains what each part answers and how the documentation is organised.
 
-## Four products, one platform
+## What Onam covers
 
-| Product | The question it answers | Start here |
+| Part | The question it answers | Start here |
 | --- | --- | --- |
-| **Onam Estate** | What do we actually run, and how is it wired together? | [Estate overview](/docs/estate/overview) |
-| **Onam Security** | Is my cloud secure, and what do I fix first? | [Security overview](/docs/security/overview) |
-| **Onam FinOps** | Where is the money going, and who owns it? | [FinOps overview](/docs/finops/overview) |
-| **Onam DRM** | If a region fails tonight, what comes back, in what order, and how fast? | [DRM overview](/docs/drm/overview) |
-| **Onam AIOps** *(early access)* | Can AI agents do the investigation — and leave every change to a person? | [AIOps overview](/docs/operations/overview) |
+| **Cloud security** | Is my cloud secure, and what do I fix first? CSPM, CIEM, DSPM, AI security, vulnerabilities and workloads (CWPP), attack paths, threat detection and compliance | [Security overview](/docs/security/overview) |
+| **SaaS security** | Are Microsoft 365, Google Workspace, GitHub, Snowflake and our other SaaS platforms configured safely? | [Security overview](/docs/security/overview) |
+| **Code security** | What is wrong in our code before it ships? SAST, secrets, IaC, SCA with an SBOM, and DAST | [Code security overview](/docs/code-security/overview) |
+| **Onam AI** *(early access)* | Can I ask my security data a question and get an answer I can check? | [Onam AI overview](/docs/operations/overview) |
 
-They follow the life of a cloud estate: **discover** what exists (Estate), **secure** it (Security), **optimise** what it costs (FinOps), and make sure it can **recover** (DRM).
-
-- **Onam Estate** is the estate of record: every resource across your connected accounts, the relationships between them, and a discovery pipeline that keeps the picture current.
-- **Onam Security** evaluates that inventory for misconfiguration, identity, data, network, workload and runtime risk, and correlates the results on one security graph — see the [Security overview](/docs/security/overview).
-- **Onam FinOps** is cost and commitment management on reconciled billing data: what you spent, who owns it, what you will spend, and what you can stop spending.
-- **Onam DRM** maps applications and their dependencies, reads the backup and replication your cloud configuration has, predicts recovery time and data loss against your targets, and flags drift from the recovery model you approved. It plans and records; it does not run a failover.
-- **Onam AIOps** puts AI agents on the platform's data. They investigate with evidence and propose; a person approves. It is in [early access](/docs/operations/availability) — the Asset and Security agents first, others in development or on the roadmap.
+- **Onam Security** evaluates your inventory for misconfiguration, identity, data, network, workload and runtime risk, and correlates the results on one security graph — see the [Security overview](/docs/security/overview).
+- **Onam AI** answers questions about your findings, attack paths and data security, with evidence on every claim and sensitive values masked. It suggests fixes; a person approves every change. It is in [early access](/docs/operations/availability).
 
 ## Connect once
 
-Every product works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others) — nothing is installed on your workloads and nothing is written to your environment. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
-
-Estate, Security and DRM work from one discovery pass over those accounts, so an organisation entitled to more than one does not connect its accounts twice and does not get two inventories that disagree. FinOps reads your billing data and never writes to your accounts.
-
-## Entitlement: each product is granted on its own
-
-Onam Security is sold in plan tiers. Onam Estate, Onam FinOps and Onam DRM are **separate products**, each granted per organisation — upgrading a security plan does not turn them on. A product your organisation has not been granted is hidden from the console, and the API enforces the same grant on every request. Each product's *Access & entitlement* page explains its own permissions:
-
-- [Estate access](/docs/estate/access) · [FinOps access](/docs/finops/access) · [DRM access](/docs/drm/access) · [AIOps availability](/docs/operations/availability)
+Everything works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others) — nothing is installed on your workloads and nothing is written to your environment. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
 
 ## How the documentation is organised
 
 | Group | What you'll find | Start with |
 | --- | --- | --- |
 | Platform | This introduction, a quickstart, core concepts, and connection guides for every cloud | [Quickstart](/docs/getting-started/quickstart) |
-| Onam Estate | Inventory, architecture view, discovery pipeline, access | [Estate overview](/docs/estate/overview) |
 | Onam Security | Features, data security (DSPM), code security, identity (CIEM), compliance, security architecture | [Security overview](/docs/security/overview) |
-| Onam FinOps | The cost model, explore, ownership, plan, savings, runs | [FinOps overview](/docs/finops/overview) |
-| Onam DRM | Applications, protection, recovery plans, RTO/RPO and drills, baselines and drift | [DRM overview](/docs/drm/overview) |
-| Onam AIOps | Agents, workspace, orchestrator, approvals and AI safety — with each capability's status | [AIOps overview](/docs/operations/overview) |
+| Onam AI | Agents, workspace, orchestrator, approvals and AI safety — with each capability's status | [Onam AI overview](/docs/operations/overview) |
 | Trust & reference | How Onam secures your data, the REST API, finding schema, integrations, RBAC and SSO, release notes | [Trust Center](/docs/trust/security) |
 
 ## Next steps
@@ -2197,160 +2120,12 @@ Onam evaluates **51 Kubernetes resource kinds** against **718 posture rules**, p
 
 ---
 
-## Onam Estate
-URL: https://www.onamsecurity.com/docs/estate/overview
-
-**Onam Estate** is the cloud estate of record. It discovers every resource across your connected accounts, records the relationships between them, and keeps that picture current run after run — so the inventory is a live system rather than a spreadsheet somebody exported once.
-
-It is a **separate product**, not a feature of Onam Security. It is granted per organisation and is never bundled into a security plan tier.
-
-## What it answers
-
-| Question | Where |
-| --- | --- |
-| What do we run, where, and in which account? | [Inventory](/docs/estate/inventory) |
-| How is it wired together, and what reaches outside? | [Architecture](/docs/estate/architecture) |
-| Is the picture current, and did the last run finish? | [Pipeline](/docs/estate/pipeline) |
-| Why can't I see any of this? | [Access & entitlement](/docs/estate/access) |
-
-## Why an estate product exists at all
-
-Ask how many production databases you run and you will get three answers: one from the CMDB, one from Terraform state, one from the billing export. The CMDB was last reconciled by hand. The state file only covers what was provisioned through the pipeline. The billing export knows cost but not what a resource connects to.
-
-The gap between those three is where forgotten infrastructure lives — and it is the same gap that produces both the security surprise and the cost surprise. Estate closes it by making discovery the source, not reconciliation.
-
-## How discovery works
-
-1. A discovery pipeline enumerates resources across your connected accounts and regions using the **same read-only credentials** as the rest of the platform. Nothing is installed and nothing is modified.
-2. Each resource is written as an **asset** with provider, region, account, state and last-seen time.
-3. Relationships are written as **edges** — containment edges describe what lives inside what, external edges describe what crosses the account boundary.
-4. Every pass is recorded as a **run** with its trigger, status, start and completion, so the inventory carries its own provenance.
-
-> Estate and Onam Security share one discovery pass. An organisation entitled to both does not connect its cloud accounts twice, and does not get two inventories that disagree.
-
-## What it is not
-
-Estate does not evaluate posture rules, score risk, or raise security findings — that is [Onam Security](/docs/security/overview). Estate answers what exists and how it is connected. The two products read the same discovery output and answer different questions from it.
-
----
-
-## Asset Inventory
-URL: https://www.onamsecurity.com/docs/estate/inventory
-
-The **Inventory** view lists every resource the discovery pipeline has found, across every connected account and region.
-
-## Columns
-
-| Column | What it holds |
-| --- | --- |
-| Asset | The resource name, with its type |
-| Provider | Which cloud it was discovered in |
-| Region | The region it lives in |
-| Account | The account or subscription that owns it |
-| State | The resource's current lifecycle state |
-| Last seen | How long ago discovery last confirmed it exists |
-
-## What about cost?
-
-Estate answers what exists and how it is connected; it does not report what a resource costs. For cost — what you spent, who owns it, forecast, budgets, anomalies and savings — see [Onam FinOps](/docs/finops/overview), which is a separate product built on your billing data.
-
-## Last seen, and why it matters
-
-Every asset carries the time discovery last confirmed it. A resource that stops appearing does not silently vanish from the list; its last-seen time ages, which is how decommissioned-but-not-really infrastructure becomes visible.
-
-> If last-seen times across a whole account are ageing together, that is a pipeline problem rather than a decommissioning event. Check [Pipeline](/docs/estate/pipeline) before concluding anything about the account.
-
-## Pagination on large estates
-
-Inventory listings are keyset-paginated. On estates past a few hundred thousand assets, offset pagination degrades badly enough to exceed the query timeout — keyset paging holds a constant cost per page regardless of how deep you are in the list.
-
----
-
-## Architecture
-URL: https://www.onamsecurity.com/docs/estate/architecture
-
-The **Architecture** view summarises the topology of a single account: what it holds, and how the pieces connect.
-
-> The architecture view draws **AWS accounts** today. The asset inventory itself covers all seven supported clouds, because it comes from the platform's shared discovery.
-
-## The four figures
-
-| Figure | Meaning |
-| --- | --- |
-| Assets | Resources discovered in this account |
-| Edges | Total recorded relationships between them |
-| Containment edges | "Lives inside" relationships — a subnet in a VPC, a container in a task |
-| External edges | Relationships that cross the account boundary |
-
-**External edges are the number to read first.** They are the account's actual connection to everything outside it — the peering, the cross-account trust, the shared service. An account with very few external edges is genuinely isolated; one with many is not, whatever the architecture diagram says.
-
-## Asset type breakdown
-
-Alongside the counts, the view breaks assets down by type, so sprawl is visible by shape rather than only by total. Two thousand assets that are mostly log groups is a very different estate from two thousand that are mostly compute.
-
-## Scenes are built by the pipeline
-
-The architecture view renders from a scene the discovery pipeline builds. If an account has never completed a run, there is no scene and the view says so rather than drawing an empty diagram that reads as "nothing here". Run the pipeline from the [Pipeline](/docs/estate/pipeline) view first.
-
----
-
-## Discovery Pipeline
-URL: https://www.onamsecurity.com/docs/estate/pipeline
-
-The **Pipeline** view is the run history for discovery — every pass over your accounts and regions, with what triggered it and how it ended.
-
-## Run record
-
-| Field | Meaning |
-| --- | --- |
-| Run | The scan run identifier |
-| Trigger | What started it — schedule, onboarding, or a manual request |
-| Status | How it ended |
-| Started / Completed | When it ran, and how long it took |
-
-## Why the run history is a first-class view
-
-An inventory without provenance is a claim. When someone asks whether a resource is really gone, the answer depends entirely on whether the last run over that account actually finished — and a failed or partial run leaves an inventory that looks complete and is not. Putting run status on its own page means a stale picture is visible as a stale picture.
-
-## Scan scope follows entitlement
-
-What the pipeline runs depends on which products the organisation has:
-
-- **Estate only** — discovery runs on its own.
-- **Estate and Onam Security** — the full pipeline runs, and both products read the same output.
-
-There is nothing to configure for this. Scheduling is automatic and follows the entitlement.
-
----
-
-## Access & Entitlement
-URL: https://www.onamsecurity.com/docs/estate/access
-
-## One login, one console
-
-Onam Estate runs at **/estate** inside the same console as the rest of the platform, behind the same session. You switch to it from the product switcher — there is no second login, no second URL to remember and no separate credential.
-
-## Entitlement
-
-Estate is a **per-organisation add-on**, granted individually. It is not part of any Onam Security plan tier, so upgrading a security plan does not turn it on.
-
-- Organisations without the grant do not see the Estate link at all — it is hidden rather than shown greyed-out.
-- The API gateway enforces the same grant server-side on every Estate request, so hiding the link is a user-experience choice and not the security boundary.
-
-> **"I'm on Enterprise, why can't I see Estate?"** Because it is not a tier feature. Ask your platform administrator to grant the add-on for your organisation, or [talk to us](/request-demo).
-
-## Permissions
-
-Discovery uses the same read-only posture-scanning access as the rest of the platform — a read-only IAM role, service principal, or service account. Discovery installs nothing on a workload and never writes to your environment.
-
----
-
 ## Onam Security
 URL: https://www.onamsecurity.com/docs/security/overview
 
-**Onam Security** is the security product of the Onam platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
+**Onam Security** is cloud, SaaS and code security on one platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
 
-This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For the platform as a whole — Estate, Security, FinOps, DRM and AIOps — start with the [Introduction](/docs/getting-started/introduction).
+This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For Onam as a whole — Onam Security and Onam AI, your AI security analyst — start with the [Introduction](/docs/getting-started/introduction).
 
 ![The Onam dashboard — posture score, severity counts, top risks, and compliance summary in one view (demo account)](/screenshots/screenshot-dashboard.png)
 
@@ -3006,10 +2781,6 @@ Behind the pillars sits one findings model. Severity on a finding is raised when
 ## Why the score moves when nothing changed
 
 Because the estate changed. Each scan discovers resources again, and a newly deployed misconfigured resource lowers the score at the next scan. The pillar scores and their findings show what caused a movement.
-
-## What is not in the score
-
-[Onam Estate](/docs/estate/overview) and [Onam FinOps](/docs/finops/overview) are separate products and do not contribute to the CNAPP score. Folding a cost figure into a security score would make the number mean nothing.
 
 ---
 
@@ -6523,475 +6294,22 @@ Where a stored credential is needed, in AWS Secrets Manager, encrypted with AWS 
 
 ---
 
-## Onam FinOps
-URL: https://www.onamsecurity.com/docs/finops/overview
-
-**Onam FinOps** is cloud cost and commitment management built on reconciled billing data. It answers four questions: what did we spend, who owns it, what will we spend next, and what can we stop spending.
-
-It is a **separate product**, not a feature of Onam Security. It is granted per organisation and is never bundled into a security plan tier.
-
-## What it answers
-
-| Question | Where |
-| --- | --- |
-| What did we spend, and is the number final? | [Cost model](/docs/finops/cost-model) |
-| What changed since last period, and where? | [Explore](/docs/finops/explore) |
-| Who owns this spend? | [Ownership](/docs/finops/ownership) |
-| What will we spend, and are we over budget? | [Plan](/docs/finops/plan) |
-| What can we stop spending? | [Savings](/docs/finops/savings) |
-| Can I trust this month's figure yet? | [Runs](/docs/finops/runs) |
-| Why can't I see any of this? | [Access & entitlement](/docs/finops/access) |
-
-## The design principle: say how settled the number is
-
-Most cost tools present a figure without saying whether it is final. A partial month rendered like a closed one is how a team spends a week explaining a spike that reconciliation would have removed on its own.
-
-Onam FinOps reports the reconciliation state alongside every period, reports **both** billed and effective cost rather than flattening them into one, and states attribution coverage as a percentage instead of implying that allocation is complete. The figures are less tidy and considerably more useful.
-
----
-
-## The Cost Model
-URL: https://www.onamsecurity.com/docs/finops/cost-model
-
-## Billed cost and effective cost
-
-Every period reports two figures, and they are different on purpose.
-
-| Figure | What it is |
-| --- | --- |
-| **Billed cost** | What the provider invoiced in this period |
-| **Effective cost** | Cost with commitments and amortised charges spread across the periods they actually cover |
-
-Reporting only billed cost makes the month you buy a three-year reservation look like a crisis, and the following thirty-five months look like an efficiency programme. Reporting only effective cost makes it impossible to reconcile against the invoice finance actually received. So both are reported, side by side.
-
-## Ingestion cadence
-
-Cost data is ingested on two schedules:
-
-- **Daily** — the running picture of the current period.
-- **Monthly close** — the finalised run for a completed period.
-
-Because the current period is still being ingested, its figure moves. The [Runs](/docs/finops/runs) view shows when it last moved and whether the period has closed.
-
-## Reconciliation
-
-Each period carries a reconciliation state describing how well the ingested records agree with the source billing data. Read it before quoting a figure to anyone: an unreconciled current period is a working estimate, and the console labels it as one rather than presenting it as settled.
-
-## Categories and dimensions
-
-Cost decomposes by **category**, by **owner**, by **resource** and by **day**. Category partitioning is checked for balance — if the parts do not add to the whole, the console says so rather than rendering a chart that quietly drops the remainder.
-
----
-
-## Explore
-URL: https://www.onamsecurity.com/docs/finops/explore
-
-**Explore** is the daily cost series and period-over-period movement.
-
-## Daily trend
-
-The daily series is the granularity at which cost questions are actually answerable. A monthly total tells you spend went up; the daily series tells you it went up on the fourteenth, which is a question with an answer.
-
-## Movement
-
-Movement compares the current period against the previous one along a chosen dimension and reports what changed, ranked by contribution. The output is a list of movers rather than a single delta, because "cost rose eleven percent" is not actionable and "one service in one account accounts for nine of those points" is.
-
-> Movement on a period that has not closed compares a partial period against a complete one. The console flags partial data; read the [Runs](/docs/finops/runs) view before drawing a conclusion from an early-month comparison.
-
----
-
-## Ownership & Attribution
-URL: https://www.onamsecurity.com/docs/finops/ownership
-
-**Ownership** attributes cost to owners and cost centres, and is honest about how much of the bill it could not attribute.
-
-## The three figures
-
-| Figure | Meaning |
-| --- | --- |
-| **Attribution coverage** | The share of spend that ownership rules could assign |
-| **Unattributed** | The amount that no rule matched |
-| **Total** | The period's total spend |
-
-Coverage is reported as a number because tag-based allocation is never complete, and a tool that hides the gap produces confident allocations that are quietly wrong. A coverage figure of seventy percent is a measurable problem you can close. An unstated one is a problem you argue about in a meeting.
-
-## Ownership rules
-
-Rules map resources to owners and cost centres. Unattributed spend is the working list for improving them — each rule you add moves a slice from unattributed into coverage, and the number tells you immediately whether it worked.
-
-## Attribution reports chargeback; it does not move money
-
-Ownership answers who is responsible for spend, and showback and chargeback statements say what each cost centre is responsible for. FinOps does not move money between ledgers, issue internal invoices, or enforce anything — it gives your finance process the figures, not the process itself.
-
----
-
-## Forecast, Budgets & Anomalies
-URL: https://www.onamsecurity.com/docs/finops/plan
-
-**Plan** covers the forward-looking half of cost management.
-
-## Forecast: three numbers, not one
-
-The forecast reports a **low**, an **expected** and a **high** figure.
-
-A single forecast line is false precision — it is wrong every month, and being wrong every month is how a forecast stops being read. A band communicates what a forecast actually knows, and a period that lands outside it is genuinely informative rather than routine.
-
-## Budgets
-
-Budgets are tracked against the forecast and against actuals. A budget that only compares against actuals tells you about the overrun after it has happened; comparing against the forecast is what makes the warning early enough to act on.
-
-## Anomalies
-
-Anomalies are detected against the daily cost series rather than against monthly totals — a spike that starts on the ninth and is corrected on the eleventh does not exist in a monthly figure at all.
-
-> Anomaly detection needs enough daily history to have a baseline. A newly connected account produces few useful anomalies until the series is long enough to have a shape.
-
----
-
-## Savings
-URL: https://www.onamsecurity.com/docs/finops/savings
-
-**Savings** holds cost-reduction recommendations, each with a decision attached.
-
-## Portfolio upper bound
-
-The headline figure is an **upper bound** on what the open recommendations could save if every one of them were accepted and realised. It is deliberately labelled as a bound rather than a projection — every savings tool that presents its ceiling as an expectation trains its users to ignore the number within two quarters.
-
-## Every recommendation has a state
-
-A recommendation is **accepted** or **dismissed**, and the decision is recorded. This is the difference between a savings feature and a savings list: a list gets read, agreed with, and never actioned, because nothing in it has an owner or an outcome.
-
-## Nothing is changed in your account
-
-Accepting a recommendation records the decision. It does not reach into your cloud account and resize, stop, or delete anything. Onam FinOps holds read-only billing access and acts on nothing.
-
-> If you want the recommendation executed, that is a change your own change-management process makes. The record of the accepted decision is what it works from.
-
----
-
-## Runs & Reconciliation
-URL: https://www.onamsecurity.com/docs/finops/runs
-
-**Runs** is the ingestion and reconciliation history — the provenance behind every figure in the product.
-
-## What a run records
-
-Each run records what it ingested, when, and how it ended. Between them, the daily runs and the monthly-close runs describe exactly how settled any given period is.
-
-## How to read it
-
-- **A current period with recent daily runs** — the figure is live and will keep moving.
-- **A period with a completed monthly close** — the figure is settled, and quotable.
-- **A gap in the run history** — the figures for that window are incomplete, whatever the charts show.
-
-## Why this is a page and not a footnote
-
-Every other view in Onam FinOps presents a number. This is the view that tells you how much to trust it. A cost tool without visible ingestion history asks its users to take every figure on faith, and the first time a figure moves after someone has quoted it, faith is what they lose.
-
----
-
-## Access & Entitlement
-URL: https://www.onamsecurity.com/docs/finops/access
-
-## One login, one console
-
-Onam FinOps runs at **/finops** inside the same console as the rest of the platform, behind the same session. You switch to it from the product switcher — no second login, no separate credential.
-
-## Entitlement
-
-FinOps is a **per-organisation add-on**, granted individually. It is not part of any Onam Security plan tier, so upgrading a security plan does not turn it on.
-
-- Organisations without the grant do not see the FinOps link.
-- The API gateway enforces the same grant server-side on every FinOps request. Hiding the link is a user-experience choice; the gateway is the boundary.
-
-> **"I'm on Enterprise, why can't I see FinOps?"** Because it is not a tier feature. Ask your platform administrator to grant the add-on for your organisation, or [talk to us](/request-demo).
-
-## Can I buy FinOps on its own?
-
-Yes. It stands alone and does not require Onam Security. If you do run more than one product they share the same console and the same discovery, so your cloud accounts are connected once.
-
-## Permissions
-
-FinOps reads billing data. It holds no write access to your cloud accounts and changes nothing in them — including when a savings recommendation is accepted, which records a decision and nothing more.
-
----
-
-## Onam DRM
-URL: https://www.onamsecurity.com/docs/drm/overview
-
-**Onam DRM** is disaster recovery management for your cloud. It maps your applications and what they depend on, reads the backup and replication your cloud configuration has, predicts recovery time (RTO) and data loss (RPO) against the targets you set, composes the order in which each application comes back, and flags drift from the recovery model you approved.
-
-It is a **separate product**, granted per organisation, and runs inside the same console as Onam Estate, Onam Security and Onam FinOps. It works from the platform's cloud inventory, so your accounts are connected once.
-
-## What it answers
-
-| Question | Where in DRM |
-| --- | --- |
-| Which applications do we run, and what do they depend on? | Applications, Dependencies, Topology |
-| What is protected, and by what? | Protection |
-| Could we recover in time? | Recovery — readiness and objectives |
-| In what order does it come back? | Recovery — plans |
-| Has anything changed since we signed off? | Monitor — drift; Governance — baselines |
-| Did the last drill meet the target? | Drills |
-
-## The stages
-
-1. **Understand.** Resources come from the platform inventory and are placed where the provider says they live — the availability zone where one is given, the region otherwise. Applications are proposed from your tags, each with the tag it came from and a confidence. Dependencies are classified as recovery order, protection (proves a copy exists) or placement (shares a failure domain).
-2. **Protect.** Backup, snapshot and replication are read from cloud configuration. A configured mechanism is reported as *discovered*, never as *protected* or *tested* — those are statements a person makes.
-3. **Recover.** Recovery plans are composed from approved items only. Predicted RTO is the critical path through the plan; predicted RPO is the worst replication link.
-4. **Govern.** Engines propose and people approve. The approved model is frozen as a baseline, and drift is measured against it.
-
-## What DRM does not do
-
-- It does **not execute a recovery** or fail anything over.
-- It does **not run DR tests.** Drills run with your own tools are recorded in DRM.
-- It has **no connectors to backup products.** Protection is read from cloud configuration, which shows that a mechanism is configured — not that last night's job succeeded or that a restore works.
-
----
-
-## Applications & Dependencies
-URL: https://www.onamsecurity.com/docs/drm/applications
-
-You recover an **application**, not a volume. Everything else in DRM — required targets, recovery plans, predicted RTO and RPO, baselines — hangs off the applications you approve and the dependencies between their parts. This page explains where both come from.
-
-## Where the resources come from
-
-DRM does not run its own scan. It reads the **Onam platform's cloud inventory** — the same discovery Onam Estate reads — so your accounts are connected once and every product sees the same list of resources.
-
-Each resource is placed where the provider says it lives: its **availability zone** where the provider gives one, its **region** otherwise. DRM does not guess a placement the provider does not state.
-
-## How applications are proposed
-
-Applications are proposed from your **tags** — for example an application tag, a CloudFormation stack, a Helm release or a Kubernetes cluster. Every proposed application shows:
-
-- the **tag it came from**, so you can see why these resources were grouped together;
-- a **confidence** in what that tag means.
-
-An infrastructure grouping such as a Kubernetes cluster is labelled as one, rather than presented as a business application. Resources that could not be grouped are shown as plainly as those that could — an ungrouped resource is a gap to look at, not something to hide.
-
-Within an application, resources are organised into **components** — the parts of the application that recover together. The application is the unit that carries your required RTO and RPO and gets a recovery plan.
-
-> Grouping reads tags. An estate where only compute is tagged will produce applications that contain only compute, and databases or storage left ungrouped. Tagging what an application uses is the most direct way to improve what DRM proposes.
-
-## How dependencies are classified
-
-Dependencies come from a catalogue of how cloud resources relate to each other. Every edge says what **kind** of dependency it is, because the kinds mean different things for recovery:
-
-| Kind | What it means | Sets recovery order? |
-| --- | --- | --- |
-| **Recovery order** | This must be recovered before that | Yes |
-| **Protection** | This proves a copy of that exists (a replica, a snapshot) | No |
-| **Placement** | These share a failure domain, so they can fail together | No |
-
-Only recovery-order edges decide the order of a recovery plan. An edge DRM could not resolve is **kept visible** as unresolved rather than dropped, so a missing link shows up as a question instead of disappearing.
-
-## Where to see them
-
-| View | What it shows |
-| --- | --- |
-| Applications | Applications, their components and resources, with the tag and confidence behind every grouping |
-| Dependencies | The dependency graph, by edge kind, with unresolved edges kept visible |
-| Topology | Where each application's resources sit — by region and availability zone |
-
-## Nothing counts until a person approves it
-
-Every proposed application and dependency arrives in the **Approval Center** as a proposal. Nothing enters a recovery plan or a baseline until someone with approval rights accepts it. A rejected proposal is recorded and is not proposed again. See [Approvals, Baselines & Drift](/docs/drm/governance).
-
-## Next
-
-- [Protection](/docs/drm/protection) — what the configuration says is backed up or replicated.
-- [Recovery Plans & Readiness](/docs/drm/recovery-plans) — how approved applications become an ordered plan.
-
----
-
-## Protection
-URL: https://www.onamsecurity.com/docs/drm/protection
-
-The **Protection** view answers one question: what does the cloud configuration say is backed up, snapshotted or replicated? It answers it carefully, because a protection report that overstates is worse than none.
-
-## What DRM reads
-
-Protection is read from **cloud configuration** through the platform's read-only connection. That includes, for example:
-
-- backup plans and their retention;
-- database automated backups and multi-zone deployments;
-- snapshots;
-- read replicas;
-- storage replication, including cross-region replication.
-
-Which mechanisms DRM recognises varies by cloud and by resource type.
-
-## Configured is not protected
-
-A configured mechanism is reported as **discovered** — never as *protected* or *tested*. Those are statements a person makes.
-
-Configuration shows that a mechanism is set up. It does **not** show:
-
-- whether last night's backup job succeeded;
-- whether a restore has ever worked;
-- whether the copy is complete or usable.
-
-DRM does not pretend otherwise. The way to prove a recovery works is a drill run with your own tools and recorded in DRM — see [RTO, RPO & Drills](/docs/drm/objectives).
-
-## What DRM cannot see
-
-DRM reads the cloud provider's control plane. Anything that only happens **inside** a server is invisible to it:
-
-- a database dump or backup job scheduled inside a virtual machine;
-- the job history of a third-party backup product.
-
-There are **no connectors to backup products**. A resource with no configured mechanism that DRM can see may still be protected by something it cannot — treat it as a question for the resource's owner, not as a verdict.
-
-## Per resource and per application
-
-Protection is a property of a **resource**, so DRM records it whether or not the resource has been grouped into an application yet. A database nobody has tagged still shows the backup its configuration has.
-
-Where a resource belongs to an application, protection is also shown **per application**. A resource used by two applications gets one pairing for each: the same replica can be critical to one application and incidental to another, and approving it for one is not approving it for the other.
-
-## How protection feeds the rest of DRM
-
-- **Recovery plans** use only approved protection pairings.
-- **Predicted RPO** comes from replication links — the worst link, taking the larger of the lag last observed and the configured target. An application protected only by backups, with no backup frequency recorded, gets no predicted RPO rather than a guess. See [RTO, RPO & Drills](/docs/drm/objectives).
-- **Drift** reports protection that changed since you approved the baseline — for example a new resource without protection. See [Approvals, Baselines & Drift](/docs/drm/governance).
-
----
-
-## Recovery Plans & Readiness
-URL: https://www.onamsecurity.com/docs/drm/recovery-plans
-
-A **recovery plan** is the order in which an application comes back: which steps, in what sequence, which can run at the same time, and how long the whole thing should take. DRM composes it; a person approves it; your own tools and runbooks carry it out.
-
-## How a plan is composed
-
-Plans are composed from **approved items only** — approved applications, approved dependencies and approved protection pairings. Nothing an engine has merely proposed can shape a plan.
-
-Each plan has:
-
-- **Ordered steps**, following the recovery-order dependencies between the application's parts.
-- **Parallel groups** — steps that can run at the same time.
-- **The critical path** — the longest chain of steps that must run one after another.
-- For every step, **where its position came from**: a discovered dependency, or convention. A step placed by convention is a prompt to check the order with the application's owner.
-
-A composed plan arrives in the Approval Center like any other proposal.
-
-## Predicted RTO
-
-Predicted recovery time is the **critical path** through the approved plan. Steps that run in parallel cost the longest of them, not the sum. A step nobody has timed still carries its default duration, so it never drops off the path. With no approved plan there is no predicted RTO — the field is left blank rather than showing zero. The detail is in [RTO, RPO & Drills](/docs/drm/objectives).
-
-## Readiness
-
-Each application is rated on recovery readiness as **ready**, **warning**, **at risk** or **not ready**.
-
-Readiness sets the application's predicted figures against the **required** RTO and RPO you entered for it. A required target is your input, and a calculated value never overwrites it.
-
-## The executive resilience scorecard
-
-For leadership, DRM summarises each application against four plain questions:
-
-1. Does a recovery **plan exist**?
-2. Is the predicted recovery **within the required RTO**?
-3. Is it **governed by a baseline** — an approved model that drift is measured against?
-4. Has it been **proven by a drill**?
-
-## What a plan is not
-
-- DRM does **not execute** the plan or fail anything over. It is the order and the expectation; the recovery is carried out with your own tools.
-- DRM does **not run DR tests.** When you test the plan, record the drill in DRM and it is compared with the prediction captured when the drill was planned.
-
----
-
-## RTO, RPO & Drills
-URL: https://www.onamsecurity.com/docs/drm/objectives
-
-DRM keeps three kinds of recovery figure apart, because mixing them is how a plan looks better than it is.
-
-| Kind | Where it comes from |
-| --- | --- |
-| **Required** | You enter it per application. A calculated value never overwrites it. |
-| **Predicted** | Calculated by DRM from the approved plan and protection. |
-| **Actual** | Recorded from a drill you ran. |
-
-## Predicted RTO
-
-The critical path through the application's approved recovery plan. Steps that can run at the same time cost the longest of them, not the sum. A step nobody has timed still carries its default duration, so it never drops off the path. With no approved plan, there is no predicted RTO — the field is left blank rather than showing zero.
-
-## Predicted RPO
-
-The worst data-loss window across the application's replication links. For each link DRM takes the larger of the lag last observed and the configured target, so a quiet moment does not improve the reported figure. An application protected only by backups, with no backup frequency recorded, gets no predicted RPO rather than a guess.
-
-## Drills
-
-A drill is planned, started and completed in DRM, and the prediction at planning time is captured on it — so the result is compared with what was promised then, not with whatever the model says today. The measured recovery time, data loss, success and issues found are entered by the person who ran it. DRM does not run the drill; it records it.
-
----
-
-## Approvals, Baselines & Drift
-URL: https://www.onamsecurity.com/docs/drm/governance
-
-## Engines propose, people approve
-
-Every application, dependency, protection pairing and plan an engine finds arrives as a **proposal** in the Approval Center. Nothing enters a recovery plan or a baseline until someone with approval rights accepts it. A rejected proposal is recorded and is not proposed again.
-
-## Baselines
-
-Approving an application's recovery model freezes it as a **baseline**: its structure and intent — components, dependencies, protection pairings, plan steps, required targets. Live readings such as replication lag are deliberately left out, because they change constantly and are not what was approved.
-
-## Drift
-
-Drift is the difference between the active baseline and the current state, **not** between last week's scan and this one. That answers the question an auditor asks — has anything changed since the plan was approved? Drift is ranked by its consequence for recovery: one changed recovery target outranks ten renamed steps.
-
-## Access
-
-DRM runs inside the same console and behind the same login as the rest of the platform. It is granted per organisation; organisations without it do not get access to DRM's pages or API. Approving and authoring are separate permissions from viewing.
-
----
-
-## Access & Entitlement
-URL: https://www.onamsecurity.com/docs/drm/access
-
-## One login, one console
-
-Onam DRM runs at **/drm** inside the same console as the rest of the Onam platform, behind the same login. There is no second credential and no separate set of cloud connections — DRM reads the platform's cloud inventory, so your accounts are connected once.
-
-## Entitlement
-
-DRM is a **separate product**, granted per organisation as its own add-on. Organisations without the grant do not get access to DRM's pages or its API.
-
-## Who can do what
-
-Seeing DRM, approving what it proposes and authoring records in it are **separate permissions**. Reaching a page does not let you approve anything on it.
-
-| Permission | What it allows |
-| --- | --- |
-| **View** | Read applications, dependencies, protection, plans, readiness, drift and drills |
-| **Approve** | Accept or reject proposals in the Approval Center — the act that lets an item into a plan or a baseline |
-| **Author** | Create and edit what people write in DRM, such as drill records |
-| **Modify rules** | Change the rules DRM's engines use |
-
-Permissions come from the roles and grants your platform administrator already manages — DRM does not keep its own user list. A grant carries the **scope** it was made at: a permission granted for one cloud account allows nothing across the whole organisation.
-
-## What DRM changes in your cloud
-
-Nothing. DRM reads configuration and inventory. Approvals, baselines, required targets and drill records are records **inside DRM**, not changes to your cloud accounts. It does not execute a recovery, run a DR test or connect to a backup product.
-
-> **"Why can't I see DRM?"** Either your organisation has not been granted it, or your role does not include it. Ask your platform administrator, or [talk to us](/request-demo?product=drm).
-
----
-
-## Onam AIOps overview
+## Onam AI overview
 URL: https://www.onamsecurity.com/docs/operations/overview
 
-Onam AIOps is a workspace where your team works with specialist AI agents that investigate your cloud with evidence and change nothing without a person’s approval.
+Onam AI is your AI security analyst for Onam Security. Ask about your findings, attack paths and data security in plain language; it answers from your own Onam Security data with evidence on every claim, masks sensitive values, and suggests fixes. It changes nothing without a person’s approval.
 
-> **Status: Early access.** Onam AIOps runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
+> **Status: Early access.** Onam AI runs on the Onam platform and is enabled per organisation by invitation, starting with AWS and the Onam Security inventory and findings. Organisations start at the “propose” ceiling: agents answer, investigate and propose; nothing changes your cloud. See [Availability](/docs/operations/availability) for every capability’s status.
 
 ## What it is
 
-A real question about a cloud estate usually spans several consoles — security findings, inventory, cost, recovery — and today someone joins the answers by hand. Onam AIOps adds a workspace above the products that already know your cloud:
+A real security question usually spans several views — posture, identity, network, data security, attack paths — and today someone joins the answers by hand. Onam AI adds a workspace above Onam Security, which already knows your cloud:
 
-- An **orchestrator** turns your request into a visible plan and routes each step to a specialist agent.
-- **Specialist agents** — Asset, Security, Compliance, Data, Automation, and later FinOps, DR and Architecture — each with a declared job, permissions and limits.
+- An **orchestrator** turns your question into a visible plan and routes each step to a specialist agent.
+- **Specialist agents** — Asset, Security, Compliance, Data and Automation — each with a declared job, permissions and limits. The Asset and Security agents work today; Compliance and Data are in development.
 - **Evidence** on every claim: the skill, query, rows and scan behind each number.
+- **Masking**: answers name the resource and the finding; secrets, keys and sensitive data values are masked.
+- **Suggested fixes**: a fix for a finding, with its rollback, for a person to decide.
 - An **approval centre** where every proposed change is decided by a named person, diff first.
 - An **audit trail** of every turn, tool call, decision and approval, append-only and hash-chained.
 
@@ -6999,11 +6317,11 @@ A real question about a cloud estate usually spans several consoles — security
 
 - **Not a chatbot.** A chatbot answers. This plans, investigates, proposes and records.
 - **Not autonomous.** Every change to a customer cloud passes a human approval gate. No setting removes it.
-- **Not a second scanner.** Agents reason over the data the products already resolved. An agent that re-scans your cloud is a bug.
+- **Not a second scanner.** Agents reason over the data Onam Security already resolved. An agent that re-scans your cloud is a bug.
 
 ## How it relates to the AI Assistant
 
-The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam AIOps is the workspace above it — plans, tasks, approvals and an audit trail across specialist agents.
+The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to every customer today: ask questions about your findings and get cited answers. Onam AI is the workspace above it — plans, tasks, suggested fixes, approvals and an audit trail across specialist agents.
 
 ## Read next
 
@@ -7019,7 +6337,7 @@ The [AI Assistant](/platform/ai-assistant) inside Onam Security is available to 
 ## Availability and status
 URL: https://www.onamsecurity.com/docs/operations/availability
 
-What in Onam AIOps you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
+What in Onam AI you can use today, what is in early access or development, and what is on the roadmap — stated plainly, capability by capability.
 
 ## What the labels mean
 
@@ -7035,20 +6353,19 @@ What in Onam AIOps you can use today, what is in early access or development, an
 | Capability | Status | Detail |
 |---|---|---|
 | AI Assistant in Onam Security | Available | Ask questions about your posture in plain language; specialists query your findings and cite them. Read-only. |
-| Agent workspace | Early access | Chat with the agents, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and actions. |
+| Workspace | Early access | Ask Onam AI in plain language, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and suggested fixes. |
 | Orchestrator and visible plans | Early access | A multi-step question becomes a plan you can see — which agent, which skill, in which order — before and while it runs. |
-| Asset Agent and Security Agent | Early access | Over the Onam Security inventory and findings, on AWS first. |
+| Asset Agent and Security Agent | Early access | Assets, relationships, crown jewels, findings, exposure and attack paths over the Onam Security inventory and findings, on AWS first. |
+| Sensitive values masked | Early access | Answers name the resource and the finding; secrets, keys and sensitive data values are masked. |
 | Evidence on every claim | Early access | Each number cites the skill, tool, query, rows and scan time that produced it. |
-| Approval centre | Early access | One queue for every proposed change, diff first, with rollback and blast radius shown before the decision. |
+| Approval centre | Early access | One queue for every suggested change, diff first, with rollback and blast radius shown before the decision. |
 | Activity and audit trail | Early access | Every turn, tool call, decision and approval recorded append-only, with a hash-chain check that nothing was edited. |
 | Reports | Early access | A conversation or task exported with its evidence preserved. |
 | Kill switch and autonomy ceiling | Early access | Stop all agent activity for your organisation; cap how far agents may go — read, analyse, recommend, simulate, propose. |
-| Compliance Agent and Data Agent | In development | Built; waiting on the compliance-results, exposure and relationship feeds into the estate layer. |
+| Compliance Agent and Data Agent | In development | Built; waiting on the compliance-results, exposure and relationship feeds. |
 | Change proposals with rollback | In development | Automation Planner proposals with exact change, rollback and dry run; blast-radius inputs are being connected. |
 | Pre-built workflows | In development | Multi-step procedures such as audit preparation and exposure remediation, with approval steps built in. |
 | Executing approved changes | On the roadmap | The actor applies an approved change in an isolated sandbox, validates it and rolls back on failure. Built and tested; enabled for no customer. |
-| FinOps, DR and Architecture agents | On the roadmap | Cost, recovery and design reasoning across the estate. |
-| Cost and recovery data (Onam FinOps, Onam DRM) | On the roadmap | Joining exposure with cost and recoverability in one answer. |
 | Azure, Google Cloud and Kubernetes actions | On the roadmap | AWS first; the design keeps provider specifics inside tools so agents do not change. |
 | Event triggers and a workflow builder | On the roadmap | Start investigations from events; compose workflows that cannot publish an execute step without an approval step. |
 | Customer-authored agents | On the roadmap | Needs a sandbox and certification model that does not exist yet. |
@@ -7059,13 +6376,10 @@ What in Onam AIOps you can use today, what is in early access or development, an
 |---|---|---|---|
 | [Asset Agent](/docs/operations/agents/asset-agent) | L1 | Early access | Reads the Onam Security inventory today. |
 | [Security Agent](/docs/operations/agents/security-agent) | L1 | Early access | Reads findings today; exposure and attack-path context are being connected. |
-| [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 | In development | Waits on the compliance-results feed into the estate layer. |
-| [Data Agent](/docs/operations/agents/data-agent) | L1 | In development | Waits on the exposure and relationship feeds into the estate layer. |
+| [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 | In development | Waits on the compliance-results feed. |
+| [Data Agent](/docs/operations/agents/data-agent) | L1 | In development | Waits on the exposure and relationship feeds. |
 | [Automation Agent — planner](/docs/operations/agents/automation-agent) | L2 | In development | Proposal flow is built; blast-radius inputs are being connected. |
 | [Automation Agent — actor](/docs/operations/agents/automation-agent) | L3 | On the roadmap | Built and tested in the platform; not enabled for any customer. |
-| [FinOps Agent](/docs/operations/agents/finops-agent) | L1 | On the roadmap | Needs cost data in the estate layer. |
-| [DR Agent](/docs/operations/agents/dr-agent) | L1 | On the roadmap | Needs recovery data in the estate layer. |
-| [Architecture Agent](/docs/operations/agents/architecture-agent) | L2 | On the roadmap | Needs the full topology graph as an input. |
 
 ## Use cases
 
@@ -7079,8 +6393,6 @@ What in Onam AIOps you can use today, what is in early access or development, an
 | Find sensitive data exposed publicly | Data → Security | In development |
 | Create a remediation plan | Security → Automation planner | In development |
 | Execute an approved security remediation | Automation actor | On the roadmap |
-| Decide whether an idle resource is safe to remove | FinOps → Asset → DR | On the roadmap |
-| Find business-critical assets with no recovery plan | DR → Asset | On the roadmap |
 
 ## Getting early access
 
@@ -7093,7 +6405,7 @@ Early access is by invitation. Onam enables your organisation, connects the agen
 ## Concepts: agents, skills, tools, tasks and approvals
 URL: https://www.onamsecurity.com/docs/operations/concepts
 
-The words Onam AIOps uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
+The words Onam AI uses, each with one meaning. Permissions are only reasonable when these are never used interchangeably.
 
 ## The vocabulary
 
@@ -7127,25 +6439,25 @@ Two rules follow and are enforced everywhere:
 
 | Level | Name | Reads | Writes | Approval |
 |---|---|---|---|---|
-| L1 | Investigator | Any estate domain it is granted | Its own investigation notes | None — it cannot change anything |
-| L2 | Proposer | Any estate domain it is granted | Change proposals only | Every proposal needs a human decision before anything is applied |
-| L3 | Actor | Any estate domain it is granted | The customer cloud, scoped to one approved change | Mandatory, per action. Starts only from an approval record |
-| L4 | Orchestrator | No estate data at all | Nothing | Routes work; never answers or acts itself |
+| L1 | Investigator | Any Onam Security data it is granted | Its own investigation notes | None — it cannot change anything |
+| L2 | Proposer | Any Onam Security data it is granted | Change proposals only | Every proposal needs a human decision before anything is applied |
+| L3 | Actor | Any Onam Security data it is granted | The customer cloud, scoped to one approved change | Mandatory, per action. Starts only from an approval record |
+| L4 | Orchestrator | No security data at all | Nothing | Routes work; never answers or acts itself |
 
 An agent’s level is fixed in its definition. Promotion needs re-certification; it is never a runtime decision.
 
-## Memory never holds a fact about your estate
+## Memory never holds a fact about your cloud
 
-Estate facts change; a remembered fact goes stale silently. Agents read the current estate on every turn, with its observed time. Memory holds preferences and context you give them — and never a secret.
+Cloud facts change; a remembered fact goes stale silently. Agents read the current data on every turn, with its observed time. Memory holds preferences and context you give them — and never a secret.
 
 ---
 
 ## The workspace
 URL: https://www.onamsecurity.com/docs/operations/workspace
 
-The Onam AIOps workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
+The Onam AI workspace is shaped like team chat and behaves like an operations console: plans, evidence, approvals and an audit trail around the conversation.
 
-> **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/platform/ai-operations#workspace) are mockups with sample data, not screenshots.
+> **Status: Early access.** Screens below are described from the design; the illustrations on the [product page](/onam-ai#workspace) are mockups with sample data, not screenshots.
 
 ## Three rules
 
@@ -7160,7 +6472,7 @@ The Onam AIOps workspace is shaped like team chat and behaves like an operations
 | Group | Screens |
 |---|---|
 | Needs you | Home (what is waiting, running, failed) · Approvals · Inbox |
-| Ask | Chat · Assets (the estate the agents see) · Agents (who does what, and may touch what) |
+| Ask | Chat · Assets (the resources the agents see) · Agents (who does what, and may touch what) |
 | Run | Tasks · Workflows · Reports |
 | Govern | Knowledge (what you told the agents) · Activity (the audit trail and its chain) · Settings (autonomy, budget, kill switch) |
 
@@ -7211,14 +6523,14 @@ The orchestrator turns a request into a plan, routes each step to a specialist a
 6. Surfaces conflicts between agents to you.
 7. If an action is needed, raises it for approval — and stops there.
 
-The orchestrator has **no access to estate data itself**. An orchestrator that could read data would eventually answer a question on its own, unaudited and without evidence.
+The orchestrator has **no access to security data itself**. An orchestrator that could read data would eventually answer a question on its own, unaudited and without evidence.
 
 ## Kinds of request
 
 | Kind | Produces | Example |
 |---|---|---|
 | Question | A direct answer from one agent | “How many production instances are in this account?” |
-| Investigation | A plan and a joined answer | “Which exposed assets have critical findings, and who owns them?” |
+| Investigation | A plan and a joined answer | “Which exposed assets have critical findings, and which attack paths run through them?” |
 | Action request | A plan, a proposal and an approval | “Close SSH from the internet on these instances.” |
 | Workflow start | A workflow run | “Prepare this account for audit.” |
 | Report | A synthesised document with evidence | “Give me the exposure summary for the board.” |
@@ -7229,7 +6541,7 @@ The orchestrator has **no access to estate data itself**. An orchestrator that c
 | Conflict | Example | What happens |
 |---|---|---|
 | Fact | Two sources disagree on an instance size | Both shown with sources and times; a declared precedence applies and is flagged |
-| Judgement | Security says remove it; another agent says it is a recovery dependency | Escalated to you with both positions and their evidence |
+| Judgement | Security says close the port; another agent says a production service depends on it | Escalated to you with both positions and their evidence |
 | Recommendation | Downsize versus scale out | Shown as a trade-off; the orchestrator does not pick |
 | Staleness | One source is hours older | The oldest time is reported as the answer’s freshness |
 
@@ -7242,7 +6554,7 @@ Permission denied is reported as “not authorised”, never as “no data”. A
 ## The specialist agents
 URL: https://www.onamsecurity.com/docs/operations/agents
 
-Onam AIOps has eight specialist agent roles, each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
+Onam AI has five specialist agent roles — Asset, Security, Compliance, Data and Automation — each with a declared job, level, skills, tools and limits. Automation works in two modes: planner and actor.
 
 ![The orchestrator routes to read-and-recommend agents and proposing agents; proposals pass a human approval gate before the automation actor may execute.](/diagrams/ops-agent-roster.svg)
 
@@ -7250,15 +6562,12 @@ Onam AIOps has eight specialist agent roles, each with a declared job, level, sk
 
 | Agent | Level | Answers | Status |
 |---|---|---|---|
-| [Asset Agent](/docs/operations/agents/asset-agent) | L1 · Read and recommend | What do we have, how is it connected, and who owns it? | Early access |
+| [Asset Agent](/docs/operations/agents/asset-agent) | L1 · Read and recommend | What do we have, how is it connected, and what is a crown jewel? | Early access |
 | [Security Agent](/docs/operations/agents/security-agent) | L1 · Read and recommend | What is exposed, how can it be reached, and how bad is it? | Early access |
 | [Compliance Agent](/docs/operations/agents/compliance-agent) | L1 · Read and recommend | Which controls hold, which do not, and where is the evidence? | In development |
 | [Data Agent](/docs/operations/agents/data-agent) | L1 · Read and recommend | What data is where, how sensitive is it, and who can reach it? | In development |
 | [Automation Agent — planner](/docs/operations/agents/automation-agent) | L2 · Propose | How exactly should this be changed, and how do we undo it? | In development |
 | [Automation Agent — actor](/docs/operations/agents/automation-agent) | L3 · Execute an approved change | Apply exactly what was approved, check it worked, undo it if not. | On the roadmap |
-| [FinOps Agent](/docs/operations/agents/finops-agent) | L1 · Read and recommend | What does it cost, where is the waste, and is removing it safe? | On the roadmap |
-| [DR Agent](/docs/operations/agents/dr-agent) | L1 · Read and recommend | What would actually come back after a failure, and how fast? | On the roadmap |
-| [Architecture Agent](/docs/operations/agents/architecture-agent) | L2 · Propose | Is this design sound, and what will a change break? | On the roadmap |
 
 ## How agents escalate
 
@@ -7270,7 +6579,7 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
 
 1. **Scope review** — every skill, tool and permission is necessary, and the narrowest that works.
 2. **Security review** — the prompt-injection test corpus passes in full; no path to an unregistered tool; cross-customer tests pass.
-3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test estates.
+3. **Evaluation** — accuracy, groundedness, tool success and cost per task meet declared floors on test environments.
 4. **Documentation** — purpose, capabilities and known limits written for customers. An agent with no documented limits has not been examined.
 
 ---
@@ -7278,9 +6587,9 @@ No agent is enabled until it passes four gates, each producing a recorded artifa
 ## Asset Agent
 URL: https://www.onamsecurity.com/docs/operations/agents/asset-agent
 
-The Asset Agent — what do we have, how is it connected, and who owns it?
+The Asset Agent — what do we have, how is it connected, and what is a crown jewel?
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 
 ## Asset Agent
 
@@ -7290,24 +6599,24 @@ Every agent in Onam AIOps is a versioned definition — purpose, level, skills, 
 |---|---|
 | Level | L1 · Investigator |
 | Authority | Read and recommend |
-| Answers | What do we have, how is it connected, and who owns it? |
+| Answers | What do we have, how is it connected, and what is a crown jewel? |
 
-Answers what exists in the estate, how it is connected, who owns it and what depends on what — always over the resolved estate, never by re-scanning.
+Answers asset questions from Onam Security's own inventory: what exists, how it is connected, what depends on what (the blast radius of a change), which assets are crown jewels, and who owns them — never by re-scanning.
 
 ### What it does
 
 - Finds and summarises assets by cloud, account, region, type, environment and criticality
-- Maps relationships and dependencies between resources
+- Maps relationships and dependencies between resources, for the blast radius of a finding or a fix
+- Identifies crown-jewel assets and classifies assets
 - Attributes ownership from tags and records, stating the source and confidence — or saying the owner is unattributed
-- Narrows a question to a candidate set that the other agents then work on
 
 ### Skills it may invoke
 
-`discover_assets` · `inventory_summary` · `map_relationships` · `resolve_ownership` · `classify_asset` · `analyze_dependencies` · `analyze_topology`
+`discover_assets` · `inventory_summary` · `map_relationships` · `resolve_ownership` · `classify_asset` · `analyze_dependencies`
 
 ### Tools its skills may use
 
-`cei.query` · `cei.graph_traverse` · `cei.resolve_identity` · `engine.estate` · `cloud.resource.read`
+`cei.query` · `cei.graph_traverse` · `cei.resolve_identity` · `cloud.resource.read`
 
 ### What it must never do
 
@@ -7328,7 +6637,7 @@ URL: https://www.onamsecurity.com/docs/operations/agents/security-agent
 
 The Security Agent — what is exposed, how can it be reached, and how bad is it?
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 
 ## Security Agent
 
@@ -7340,13 +6649,13 @@ Every agent in Onam AIOps is a versioned definition — purpose, level, skills, 
 | Authority | Read and recommend |
 | Answers | What is exposed, how can it be reached, and how bad is it? |
 
-Determines what is exposed, how it can be reached, how bad that is and what should be done — always over resolved estate data.
+Determines what is exposed, how it can be reached, how bad that is and what should be done — always over Onam Security findings and inventory.
 
 ### What it does
 
 - Queries and triages findings across the Onam Security engines
 - Explains exposure, identity and network risk for a set of assets
-- Ranks risk and recommends a remediation, which it hands to the Automation Planner
+- Ranks risk and suggests a fix, which it hands to the Automation Planner
 - Explains an attack path to a crown-jewel asset in plain language
 
 ### Skills it may invoke
@@ -7376,11 +6685,11 @@ URL: https://www.onamsecurity.com/docs/operations/agents/compliance-agent
 
 The Compliance Agent — which controls hold, which do not, and where is the evidence?
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 
 ## Compliance Agent
 
-**Status: In development.** Waits on the compliance-results feed into the estate layer.
+**Status: In development.** Waits on the compliance-results feed.
 
 | | |
 |---|---|
@@ -7393,7 +6702,7 @@ States which controls hold and which do not, and produces evidence an auditor ca
 ### What it does
 
 - Assesses posture against a framework and maps controls to policies
-- Validates one control across the estate
+- Validates one control across your cloud accounts
 - Collects dated evidence and assembles an audit package
 
 ### Skills it may invoke
@@ -7422,11 +6731,11 @@ URL: https://www.onamsecurity.com/docs/operations/agents/data-agent
 
 The Data Agent — what data is where, how sensitive is it, and who can reach it?
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 
 ## Data Agent
 
-**Status: In development.** Waits on the exposure and relationship feeds into the estate layer.
+**Status: In development.** Waits on the exposure and relationship feeds.
 
 | | |
 |---|---|
@@ -7468,7 +6777,7 @@ URL: https://www.onamsecurity.com/docs/operations/agents/automation-agent
 
 The Automation Agent works in two modes: a planner that turns a recommendation into a reversible change proposal, and an actor that may execute only from an approval.
 
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
+Every agent in Onam AI is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
 
 ## Automation Agent — planner
 
@@ -7549,146 +6858,10 @@ Requires you to create a write role in your own cloud account and to raise your 
 
 ---
 
-## FinOps Agent
-URL: https://www.onamsecurity.com/docs/operations/agents/finops-agent
-
-The FinOps Agent — what does it cost, where is the waste, and is removing it safe?
-
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
-
-## FinOps Agent
-
-**Status: On the roadmap.** Needs cost data in the estate layer.
-
-| | |
-|---|---|
-| Level | L1 · Investigator |
-| Authority | Read and recommend |
-| Answers | What does it cost, where is the waste, and is removing it safe? |
-
-Explains what the estate costs, where the waste is and whether removing it is safe — no cost recommendation without a dependency and protection check.
-
-### What it does
-
-- Analyses cost, waste, idle resources and anomalies
-- Checks dependencies and recovery protection before calling anything safe to remove
-- Correlates cost with security risk
-
-### Skills it may invoke
-
-`analyze_cost` · `detect_waste` · `detect_idle_resource` · `rightsizing` · `cost_anomaly` · `correlate_cost_security`
-
-### Tools its skills may use
-
-`cei.query` · `engine.cost` · `cloud.cost.read` · `cloud.metrics.read`
-
-### What it must never do
-
-- Recommend removing a resource without a dependency and protection check
-
-### Known limits
-
-Works on the last closed billing period; forecasts are labelled as estimates.
-
-> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
-
----
-
-## DR Agent
-URL: https://www.onamsecurity.com/docs/operations/agents/dr-agent
-
-The DR Agent — what would actually come back after a failure, and how fast?
-
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
-
-## DR Agent
-
-**Status: On the roadmap.** Needs recovery data in the estate layer.
-
-| | |
-|---|---|
-| Level | L1 · Investigator |
-| Authority | Read and recommend |
-| Answers | What would actually come back after a failure, and how fast? |
-
-Says what would come back after a failure, how fast and where the gaps are — separating protection that exists from recovery that was validated.
-
-### What it does
-
-- Finds backup coverage for a business service
-- Calculates realistic recovery time and recovery point
-- Finds business-critical assets with no recovery plan
-
-### Skills it may invoke
-
-`discover_backup` · `assess_recovery_readiness` · `calculate_rto` · `calculate_rpo` · `analyze_recovery_gap`
-
-### Tools its skills may use
-
-`cei.query` · `engine.dr` · `cloud.backup.read`
-
-### What it must never do
-
-- Call something recoverable because a backup exists — untested protection is reported as untested
-
-### Known limits
-
-Where there is no recovery record for a resource, it says the recovery posture is unknown.
-
-> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
-
----
-
-## Architecture Agent
-URL: https://www.onamsecurity.com/docs/operations/agents/architecture-agent
-
-The Architecture Agent — is this design sound, and what will a change break?
-
-Every agent in Onam AIOps is a versioned definition — purpose, level, skills, tools and permissions held as data — certified through scope review, security review, an evaluation suite and documentation before it can be enabled. See [how agents work](/docs/operations/concepts) and the [full roster](/docs/operations/agents).
-
-## Architecture Agent
-
-**Status: On the roadmap.** Needs the full topology graph as an input.
-
-| | |
-|---|---|
-| Level | L2 · Proposer |
-| Authority | Propose |
-| Answers | Is this design sound, and what will a change break? |
-
-Judges whether a design is sound and says specifically what to change — each recommendation carrying its cost, security, recovery and migration impact.
-
-### What it does
-
-- Reviews an architecture against reference designs
-- Assesses the impact of a proposed change before it ships
-- Recommends design changes as proposals
-
-### Skills it may invoke
-
-`analyze_architecture` · `review_design` · `assess_architecture_risk` · `recommend_architecture_change` · `compare_to_reference_architecture`
-
-### Tools its skills may use
-
-`cei.query` · `cei.graph_traverse` · `engine.estate` · `engine.risk`
-
-### What it must never do
-
-- Apply a design change
-- Judge intent that lives only in design documents it cannot see
-
-### Known limits
-
-Works from the topology as last scanned.
-
-> Status labels mean exactly what [Availability](/docs/operations/availability) says. Nothing marked “On the roadmap” is offered today.
-
----
-
 ## Governance and approvals
 URL: https://www.onamsecurity.com/docs/operations/governance
 
-How Onam AIOps decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
+How Onam AI decides what an agent may do, how risk is classified, and how a person approves a change before anything is applied.
 
 > The approval centre is in **early access**. Executing an approved change in a customer cloud is **on the roadmap**.
 
@@ -7715,7 +6888,7 @@ Risk is assigned by policy from the kind of change, resource class, environment,
 | High | One approver plus a dry run | Narrowing a production security group; changing a production IAM policy |
 | Critical | Two distinct approvers, one an organisation admin; dry run; change window | Deleting a production database; changing an organisation-level policy |
 
-A change is raised one class automatically when the target is production, is on an attack path to a crown jewel, holds regulated data, supports a tier-1 recovery plan, has no rollback, affects more than ten resources, or falls in a change freeze. **Nothing lowers a class.** Your organisation may set a higher floor, never a lower one.
+A change is raised one class automatically when the target is production, is on an attack path to a crown jewel, holds regulated data, has no rollback, affects more than ten resources, or falls in a change freeze. **Nothing lowers a class.** Your organisation may set a higher floor, never a lower one.
 
 ## What makes an approval real
 
@@ -7754,7 +6927,7 @@ Every agent turn, tool call, decision, approval and action is recorded with acto
 ## Security and AI safety
 URL: https://www.onamsecurity.com/docs/operations/security
 
-Onam AIOps is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
+Onam AI is designed on the assumption that a model can be fooled. The controls that protect your cloud sit in code, in the call path.
 
 ## Tenant isolation at every layer
 
@@ -7766,9 +6939,9 @@ An agent is an untrusted principal. It has an identity on every call; its scope 
 
 ## Prompt injection
 
-Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam AIOps treats all of it as untrusted:
+Text in your cloud — resource tags, object keys, policy descriptions, finding titles, commit messages — can be written by an attacker. Onam AI treats all of it as untrusted:
 
-1. **Structured tool output only.** Free text from the estate travels in designated fields, never spliced into instructions.
+1. **Structured tool output only.** Free text from your cloud travels in designated fields, never spliced into instructions.
 2. **Instruction and data separated.** Untrusted content is delimited and labelled as data.
 3. **Detection.** Known patterns are quarantined and logged; the investigation continues without them.
 4. **Authorisation after the model — the decisive control.** Whatever the model was persuaded to attempt, the policy engine and tool gateway check it against the agent’s declared scope, in code.
@@ -7799,7 +6972,7 @@ When execution is offered, changes will run in an isolated namespace holding the
 ## Architecture
 URL: https://www.onamsecurity.com/docs/operations/architecture
 
-The block architecture of Onam AIOps: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
+The block architecture of Onam AI: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
 
 ![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
 
@@ -7809,7 +6982,7 @@ The block architecture of Onam AIOps: eight blocks on the request path, a contro
 |---|---|---|
 | A · Experience | Workspace UI, embedded panels, API clients | Hold a credential or call a product backend directly |
 | B · Entry | The platform API gateway and the Operations API | Accept a tenant ID from a request body |
-| C · Orchestration | Orchestrator, task service, workflow engine | Read estate data, or decide whether a control applies |
+| C · Orchestration | Orchestrator, task service, workflow engine | Read security data, or decide whether a control applies |
 | D · Agents | Agent runtime, registry, context engine, memory | Call a tool directly, or change its own scope |
 | E · Capability | Skill runtime, tool gateway, model gateway | Let unsanitised text back into the model’s context |
 | F · Intelligence | Cloud Estate Intelligence | Write anything, or guess an identity mapping |
@@ -7828,7 +7001,7 @@ Reading passes entitlement, agent scope and the tenant filter, and returns an an
 
 ## Cloud Estate Intelligence
 
-A read-only layer over what the products already found. It reads published contract views of each product’s data — never their own tables — resolves every resource to one canonical identity, stamps every row with when it was observed, and says which sources were unavailable. In early access it carries the Onam Security inventory, assets and findings; relationships, exposure, attack paths and compliance results are being connected; cost and recovery data are on the roadmap.
+A read-only layer over what Onam Security already found. It reads published contract views of its data — never their own tables — resolves every resource to one canonical identity, stamps every row with when it was observed, and says which sources were unavailable. In early access it carries the Onam Security inventory, assets and findings; relationships, exposure, attack paths and compliance results are being connected.
 
 ## Five architectural commitments
 
@@ -7838,7 +7011,7 @@ A read-only layer over what the products already found. It reads published contr
 4. Identity comes only from the platform gateway.
 5. Agent records live alongside the platform’s own, under the same tenancy rules.
 
-The product page has the same design with diagrams: [How Onam AIOps is designed](/platform/ai-operations/architecture).
+The product page has the same design with diagrams: [How Onam AI is designed](/onam-ai/architecture).
 
 ---
 
@@ -8935,6 +8108,16 @@ Everything that shipped in the Onam platform, newest first. Each month covers ne
 > **Release cadence:** monthly, published on the first business day of each month. **Changelog format:** New · Changed · Fixed · Deprecated · Breaking.
 
 ![The Onam console dashboard after the July 2026 release (demo account)](/screenshots/screenshot-dashboard.png)
+
+## November 2026
+
+### Changed: checks whose data we could not read now show "Not evaluated"
+
+Until now, a check that needed a setting Onam's read-only discovery could not read from your account was shown as **Pass**. From 17 November 2026 these checks show **Not evaluated** instead. A failing check never changes.
+
+**What you will see:** after your next scan, a small number of results move from Pass to Not evaluated (on Onam's own test accounts, about 1 in every 70 passes: 216 of 15,600 on Azure, Google Cloud and Kubernetes). Your pass rate can drop slightly because those checks no longer count as passed. Nothing in your cloud account changed, and there is nothing you need to do.
+
+**Why:** a pass should mean the setting was checked and is right, not that it could not be seen. The rule health page shows, for every rule, how many resources were checked and how many results were Not evaluated.
 
 ## July 2026
 

@@ -45,7 +45,7 @@ export type ProductPageData = {
   /** The product's own docs; engine pages (/platform/*) default to Onam Security's. */
   docsHref?: string;
   /** Preselects the product on /request-demo; engine pages default to "security". */
-  demoProduct?: "security" | "estate" | "finops" | "drm" | "aiops";
+  demoProduct?: "security" | "aiops";
 };
 
 /** Onam Security's docs home — the same link the Products menu uses for Security. */

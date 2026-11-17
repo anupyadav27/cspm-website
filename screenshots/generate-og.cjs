@@ -82,23 +82,15 @@ function card({ eyebrow, title, sub, accent }) {
 const CARDS = [
   // ── Learn glossary ────────────────────────────────────────────────────────
   // ── Platform (2026-10-07) — '../og-image' writes the site-wide default ─────
-  ['../og-image',                 'Onam platform', 'From assets to a secure, optimised and resilient cloud.', 'Estate · Security · FinOps · DRM — with Onam AIOps agents in early access.', '#2563EB'],
-  ['home',                        'Onam platform', 'From assets to a secure, optimised and resilient cloud.', 'Estate · Security · FinOps · DRM — with Onam AIOps agents in early access.', '#2563EB'],
-  ['estate',                      'Onam Estate', 'What do we actually run, and how is it wired together?', 'Continuous cloud asset inventory and relationships — one estate of record.', '#7C3AED'],
-  ['finops',                      'Onam FinOps', 'Where is the money going, and who owns it?', 'Reconciled cloud cost: attribution, forecast, budgets, anomalies and savings.', '#059669'],
-  ['drm',                         'Onam DRM', 'If a region fails tonight, what comes back — and how fast?', 'Applications mapped, protection read, predicted RTO and RPO against your targets.', '#D97706'],
-  ['aiops',                       'Onam AIOps · Early access', 'AI agents do the investigation. People make the call.', 'Evidence on every claim. A person approves every change.', '#4F46E5'],
-  ['docs',                        'Documentation', 'Onam documentation', 'Estate, Security, FinOps, DRM and AIOps — connect a cloud once.', '#2563EB'],
+  ['../og-image',                 'Onam Security', 'Cloud, SaaS and code security on one graph.', 'CSPM, CIEM, DSPM, workloads, SaaS and code — with Onam AI, your AI security analyst.', '#2563EB'],
+  ['home',                        'Onam Security', 'Cloud, SaaS and code security on one graph.', 'CSPM, CIEM, DSPM, workloads, SaaS and code — with Onam AI, your AI security analyst.', '#2563EB'],
+  ['onam-ai',                     'Onam AI · Early access', 'Your AI security analyst.', 'Ask about findings, attack paths and data. It suggests fixes; a person approves every change.', '#4F46E5'],
+  ['docs',                        'Documentation', 'Onam documentation', 'Onam Security and Onam AI — connect a cloud once.', '#2563EB'],
   ['learn-cloud-asset-inventory', 'Learn', 'What is a cloud asset inventory?', 'Every resource, its relationships, and why a CMDB drifts.', '#7C3AED'],
-  ['learn-finops',                'Learn', 'What is FinOps?', 'Cloud financial management — engineering, finance and the bill.', '#059669'],
-  ['learn-cloud-cost-allocation', 'Learn', 'What is cloud cost allocation?', 'Showback, chargeback, tags — and the cost nobody can attribute.', '#059669'],
-  ['learn-rto-vs-rpo',            'Learn', 'RTO vs RPO', 'How long you can be down, and how much data you can lose.', '#D97706'],
-  ['learn-cloud-disaster-recovery','Learn', 'What is cloud disaster recovery?', 'Backup and restore, pilot light, warm standby, multi-site.', '#D97706'],
-  ['learn-agentic-aiops',         'Learn', 'What is agentic AIOps?', 'AI agents in operations — with a person approving every change.', '#4F46E5'],
   ['learn-kspm',                  'Learn', 'What is KSPM?', 'Kubernetes security posture, cluster by cluster.', '#326CE5'],
   ['learn-code-security',         'Learn', 'What is code security?', 'SAST, SCA, secrets and IaC — before code ships.', '#0891B2'],
   ['learn-secrets-management',    'Learn', 'What is secrets management?', 'Keys, tokens and rotation — and where secrets leak.', '#CA8A04'],
-  ['learn',                       'Learn', 'Cloud platform terms, explained', 'Asset inventory, security posture, FinOps, disaster recovery and AI agents.', '#2563EB'],
+  ['learn',                       'Learn', 'Cloud security terms, explained', 'Asset inventory, posture, identity, data, workloads and code.', '#2563EB'],
   ['learn-cspm',                  'Learn', 'What is CSPM?', 'Cloud Security Posture Management — what it catches, and what it misses.', '#2563EB'],
   ['learn-cnapp',                 'Learn', 'What is CNAPP?', 'The umbrella category — and how to spot a bundle pretending to be one.', '#4F46E5'],
   ['learn-cwpp',                  'Learn', 'What is CWPP?', 'Workload protection across VMs, containers, serverless and hosts.', '#059669'],
@@ -132,8 +124,8 @@ const CARDS = [
   ['solutions-kubernetes',        'Solutions', 'Kubernetes Security', 'EKS, AKS, GKE, OKE and any conformant cluster.', '#326CE5'],
 
   // ── Other ─────────────────────────────────────────────────────────────────
-  ['resources',                   'Resources', 'Whitepapers, tools & explainers', 'Guides, calculators and deep dives across the Onam platform.', '#0891B2'],
-  ['pricing',                     'Pricing', 'Four products. Buy the ones you need.', 'Onam Security from free. Estate, FinOps and DRM granted per organisation.', '#05A052'],
+  ['resources',                   'Resources', 'Whitepapers, tools & explainers', 'Guides, calculators and deep dives on cloud security.', '#0891B2'],
+  ['pricing',                     'Pricing', 'Cloud, SaaS and code security pricing.', 'Priced per unit and per developer, with a free one-time audit scan first.', '#05A052'],
 ];
 
 (async () => {
@@ -141,7 +133,10 @@ const CARDS = [
   const browser = await chromium.launch();
   const page = await browser.newPage({ viewport: { width: 1200, height: 630 } });
 
+  // Optional: node screenshots/generate-og.cjs home onam-ai — render only those cards.
+  const only = new Set(process.argv.slice(2));
   for (const [slug, eyebrow, title, sub, accent] of CARDS) {
+    if (only.size && !only.has(slug)) continue;
     await page.setContent(card({ eyebrow, title, sub, accent }), { waitUntil: 'networkidle' });
     const out = path.join(OUT, `${slug}.png`);
     await page.screenshot({ path: out });

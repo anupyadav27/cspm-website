@@ -4,13 +4,13 @@ import { PRODUCTS, type ProductSummary } from "@/data/products";
 import { OPS_STATUS, type OpsStatus } from "@/data/operations";
 
 /**
- * The product suite as a buyer navigates it: four products in lifecycle order, plus
- * Onam AIOps across them. One source for the Products menu, the homepage suite
- * section and the footer, so the menu and the page cannot list different modules.
+ * What a buyer navigates: Onam Security, and Onam AI — its AI security analyst.
+ * One source for the Products menu, the homepage product section and the footer, so the
+ * menu and the page cannot list different modules.
  *
- * Module copy is taken from the product docs (src/data/docs-articles/products.ts,
- * drm.ts, operations.ts) and says only what those docs say each view does. AIOps
- * statuses come from OPS_AGENTS / OPS_FEATURES — never upgrade one here.
+ * Owner decision 17 Nov 2026: Estate, FinOps and DRM are retired; "Onam AIOps" is now
+ * "Onam AI" and serves Onam Security only. Onam AI statuses come from OPS_AGENTS /
+ * OPS_FEATURES (src/data/operations.ts) — never upgrade one here.
  */
 
 export type SuiteKey = ProductSummary["key"] | "aiops";
@@ -19,7 +19,7 @@ export type SuiteModule = {
   title: string;
   href: string;
   desc: string;
-  /** AIOps only: shown as a status chip so roadmap items never read as shipped. */
+  /** Onam AI only: shown as a status chip so roadmap items never read as shipped. */
   status?: OpsStatus;
 };
 
@@ -43,7 +43,7 @@ export type SuiteProduct = {
   docs: string;
   badge?: string;
   groups: SuiteGroup[];
-  /** The AIOps agent that works on this product, and its honest status. */
+  /** The AI analyst that works on this product, and its honest status. */
   agent?: { name: string; href: string; status: OpsStatus };
 };
 
@@ -187,191 +187,71 @@ export const AIOPS_COLOR = "#4F46E5";
 
 export const SUITE: SuiteProduct[] = [
   {
-    ...pick("estate"),
-    // Not PRODUCTS' blurb: its "cost on every row" is unconfirmed in code (see a2daff7).
-    blurb:
-      "Continuous discovery of every cloud resource and the relationships between them — one estate of record that every other product works from.",
-    short: "Estate",
-    stage: "1 · Discover",
-    image: "/images/products/estate.svg",
-    imageAlt:
-      "Drawing of the Onam Estate inventory: a table of cloud resources with type, account and how many other resources each one links to.",
-    docs: "/docs/estate/overview",
-    groups: [
-      {
-        heading: "Inside Onam Estate",
-        items: [
-          {
-            title: "Inventory",
-            href: "/estate/inventory",
-            desc: "Every discovered resource, across accounts and regions",
-          },
-          {
-            title: "Architecture",
-            href: "/estate/architecture",
-            desc: "One account's topology: what it holds and how it connects",
-          },
-          {
-            title: "Discovery pipeline",
-            href: "/estate/discovery",
-            desc: "Every discovery run, its trigger and how it ended",
-          },
-        ],
-      },
-    ],
-    agent: { name: "Asset Agent", href: "/platform/ai-operations#agents", status: "early" },
-  },
-  {
     ...pick("security"),
     short: "Security",
-    stage: "2 · Secure",
+    stage: "Cloud · SaaS · Code",
     image: "/screenshots/screenshot-dashboard.png",
     imageAlt:
       "The Onam Security overview screen in the console, with sample data.",
     docs: "/docs/security/overview",
     groups: SECURITY_GROUPS,
     agent: {
-      name: "Security Agent",
-      href: "/platform/ai-operations#agents",
+      name: "Onam AI",
+      href: "/onam-ai",
       status: "early",
     },
   },
   {
-    ...pick("finops"),
-    short: "FinOps",
-    stage: "3 · Optimise",
-    image: "/images/products/finops.svg",
-    imageAlt: "Drawing of the Onam FinOps cost view: daily cost bars, the month's forecast range and spend by owner, including untagged spend.",
-    docs: "/docs/finops/overview",
-    groups: [
-      {
-        heading: "Inside Onam FinOps",
-        items: [
-          {
-            title: "Cost explorer",
-            href: "/finops/explore",
-            desc: "Daily cost, billed and effective, period over period",
-          },
-          {
-            title: "Ownership & attribution",
-            href: "/finops/ownership",
-            desc: "Cost by owner and cost centre, with what is unattributed",
-          },
-          {
-            title: "Forecast, budgets & anomalies",
-            href: "/finops/plan",
-            desc: "Forecast as low, expected and high; budgets; anomalies",
-          },
-          {
-            title: "Savings",
-            href: "/finops/savings",
-            desc: "Recommendations, each with a decision attached",
-          },
-          {
-            title: "Reconciled billing",
-            href: "/finops/reconciliation",
-            desc: "Whether each period is final — the provenance behind every figure",
-          },
-        ],
-      },
-    ],
-    agent: {
-      name: "FinOps Agent",
-      href: "/platform/ai-operations#agents",
-      status: "roadmap",
-    },
-  },
-  {
-    ...pick("drm"),
-    short: "DRM",
-    stage: "4 · Recover",
-    image: "/screenshots/console/drm-overview.webp",
-    imageAlt:
-      "The Onam DRM overview screen in the console, with demo tenant data.",
-    docs: "/docs/drm/overview",
-    groups: [
-      {
-        heading: "Inside Onam DRM",
-        items: [
-          {
-            title: "Applications & dependencies",
-            href: "/disaster-recovery/applications",
-            desc: "Applications proposed from your tags, with what they depend on",
-          },
-          {
-            title: "Protection",
-            href: "/disaster-recovery/protection",
-            desc: "Backup, snapshot and replication read from cloud configuration",
-          },
-          {
-            title: "Recovery plans",
-            href: "/disaster-recovery/recovery-plans",
-            desc: "The order each application comes back, from approved items",
-          },
-          {
-            title: "RTO, RPO & drills",
-            href: "/disaster-recovery/objectives",
-            desc: "Predicted recovery time and data loss against your targets",
-          },
-          {
-            title: "Baselines & drift",
-            href: "/disaster-recovery/drift",
-            desc: "What changed since the model you approved",
-          },
-        ],
-      },
-    ],
-    agent: { name: "DR Agent", href: "/platform/ai-operations#agents", status: "roadmap" },
-  },
-  {
+    // Key stays "aiops" so demo-form leads and ?product= links keep their value; the
+    // name a visitor sees is "Onam AI".
     key: "aiops",
-    name: "Onam AIOps",
-    short: "AIOps",
-    stage: "Across all four",
-    href: "/platform/ai-operations",
+    name: "Onam AI",
+    short: "Onam AI",
+    stage: "Your AI security analyst",
+    href: "/onam-ai",
     icon: Bot,
     color: AIOPS_COLOR,
     badge: OPS_STATUS.early.label,
-    question: "Can AI agents do the investigation — and leave every change to a person?",
+    question: "Can I ask my security data a question and get an answer I can check?",
     blurb:
-      "AI agents that investigate across the platform with evidence on every claim, and propose changes a person approves. Nothing changes your cloud without that approval.",
-    image: "/images/products/aiops.svg",
+      "Your AI security analyst for Onam Security. Ask about findings, attack paths and data security; every answer cites its evidence and masks sensitive values. It suggests fixes and never changes your cloud without a person's approval.",
+    image: "/images/products/onam-ai.svg",
     imageAlt:
-      "Drawing of the Onam AIOps approvals queue: changes proposed by agents, the evidence behind each, and whether a person approved it.",
+      "Drawing of Onam AI's suggested fixes: each fix, the evidence behind it, and whether a person approved it.",
     docs: "/docs/operations/overview",
     groups: [
       {
-        heading: "Agents",
+        heading: "Ask",
         items: [
           {
-            title: "Asset Agent",
-            href: "/platform/ai-operations#agents",
-            desc: "What we have, how it connects, who owns it",
+            title: "Assets & blast radius",
+            href: "/onam-ai#agents",
+            desc: "What you run, how it connects, which assets are crown jewels",
             status: "early",
           },
           {
-            title: "Security Agent",
-            href: "/platform/ai-operations#agents",
+            title: "Findings & exposure",
+            href: "/onam-ai#agents",
             desc: "What is exposed, how it is reached, how bad it is",
             status: "early",
           },
           {
-            title: "Compliance Agent",
-            href: "/platform/ai-operations#agents",
-            desc: "Which controls hold, and where the evidence is",
-            status: "development",
+            title: "Attack paths",
+            href: "/onam-ai#use-cases",
+            desc: "A route to a crown-jewel asset, in plain language",
+            status: "early",
           },
           {
-            title: "Data Agent",
-            href: "/platform/ai-operations#agents",
+            title: "Data security",
+            href: "/onam-ai#agents",
             desc: "What data is where, and who can reach it",
             status: "development",
           },
           {
-            title: "FinOps, DR & Architecture agents",
-            href: "/platform/ai-operations#agents",
-            desc: "Cost, recovery and design questions",
-            status: "roadmap",
+            title: "Compliance evidence",
+            href: "/onam-ai#agents",
+            desc: "Which controls hold, and where the evidence is",
+            status: "development",
           },
         ],
       },
@@ -379,26 +259,20 @@ export const SUITE: SuiteProduct[] = [
         heading: "How people stay in control",
         items: [
           {
-            title: "Agent workspace",
-            href: "/platform/ai-operations#workspace",
+            title: "Workspace",
+            href: "/onam-ai#workspace",
             desc: "Ask in plain language; see the plan before it runs",
             status: "early",
           },
           {
-            title: "Orchestrator",
-            href: "/platform/ai-operations#orchestrator",
-            desc: "Routes a question to the right agents, visibly",
-            status: "early",
-          },
-          {
-            title: "Approval centre",
-            href: "/platform/ai-operations#approvals",
+            title: "Suggested fixes & approvals",
+            href: "/onam-ai#approvals",
             desc: "Every proposed change waits for a person",
             status: "early",
           },
           {
             title: "Audit trail & kill switch",
-            href: "/platform/ai-operations#evidence",
+            href: "/onam-ai#evidence",
             desc: "Every step recorded; autonomy capped and stoppable",
             status: "early",
           },

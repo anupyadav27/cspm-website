@@ -37,13 +37,11 @@ function Page() {
           places where the answer does not flatter us.
         </p>
         <p className="mt-4 max-w-[720px] rounded-xl border border-[#E2E8F2] bg-white px-4 py-3 text-[15px] leading-relaxed text-[#475569]">
-          <strong className="text-[#0B1220]">These comparisons cover Onam Security.</strong> Onam is
-          a platform of four products; comparisons for{" "}
-          <Link to="/estate" className="text-[#2563EB] underline">Onam Estate</Link>,{" "}
-          <Link to="/finops" className="text-[#2563EB] underline">Onam FinOps</Link> and{" "}
-          <Link to="/disaster-recovery" className="text-[#2563EB] underline">Onam DRM</Link> are
-          not published yet. Each of those pages says plainly what the product does and does not
-          do — or ask us on a{" "}
+          <strong className="text-[#0B1220]">These comparisons cover Onam Security.</strong> A
+          comparison for{" "}
+          <Link to="/onam-ai" className="text-[#2563EB] underline">Onam AI</Link>, our AI security
+          analyst, is not published yet. Its page says plainly what it does and does not do — or ask
+          us on a{" "}
           <Link to="/request-demo" className="text-[#2563EB] underline">demo</Link>.
         </p>
       </div>

@@ -12,7 +12,7 @@ export const Route = createFileRoute("/resources/")({
     seo({
       title: "Resources — Onam",
       description:
-        "Guides, documentation and technical references for cloud, security, FinOps and SRE teams, covering Onam Estate, Security, FinOps, DRM and AIOps.",
+        "Guides, documentation and technical references for cloud and security teams, covering Onam Security and Onam AI.",
       path: "/resources",
       image: "/og/resources.png",
     }),
@@ -32,16 +32,14 @@ type Category = {
 const categories: Category[] = [
   {
     title: "Product documentation",
-    desc: "Start here for each product: what it answers, how it works, and what it does not do.",
+    desc: "Start here: what each part answers, how it works, and what it does not do.",
     color: "#7C3AED",
     bg: "#F5F3FF",
     Icon: BookOpen,
     links: [
-      { label: "Onam Estate", to: "/docs/estate/overview" },
       { label: "Onam Security", to: "/docs/security/overview" },
-      { label: "Onam FinOps", to: "/docs/finops/overview" },
-      { label: "Onam DRM", to: "/docs/drm/overview" },
-      { label: "Onam AIOps (early access)", to: "/docs/operations/overview" },
+      { label: "Code security", to: "/docs/code-security/overview" },
+      { label: "Onam AI (early access)", to: "/docs/operations/overview" },
     ],
   },
   {
@@ -166,8 +164,8 @@ function Page() {
           <div className="text-xs uppercase tracking-widest font-semibold text-[#1D4ED8] mb-3">Resources</div>
           <h1 className="font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight max-w-3xl leading-[1.05]">Resources</h1>
           <p className="mt-4 text-lg text-[#475569] max-w-2xl">
-            Guides, documentation and technical references for cloud, security, FinOps and SRE teams. Most of the
-            library below is about Onam Security; product documentation covers every product.
+            Guides, documentation and technical references for cloud and security teams, covering Onam Security
+            and Onam AI.
           </p>
         </div>
       </section>

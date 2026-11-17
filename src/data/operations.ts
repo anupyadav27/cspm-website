@@ -1,27 +1,27 @@
 /**
- * Onam AIOps — the agentic operations layer. One source of truth for the
- * flagship page (/platform/ai-operations), the design page
- * (/platform/ai-operations/architecture) and the docs section (/docs/operations/*).
+ * Onam AI — your AI security analyst, for Onam Security. One source of truth for the
+ * flagship page (/onam-ai), the design page (/onam-ai/architecture) and the docs section
+ * (/docs/operations/*, URLs kept stable).
  *
- * SOURCES (read-only, 2026-10-05):
- *   "agentic ai platform" repo — README, docs/01 (naming §4, principles §3), 03 (agents,
+ * Owner decision 17 Nov 2026: "Onam AIOps" is renamed "Onam AI" and serves Onam Security
+ * only. Estate, FinOps and DRM are retired, so the FinOps, DR and Architecture agents and every
+ * cost and recovery claim are gone. The Asset agent stays (AIOps PR #18): it answers asset
+ * questions from Onam Security's own inventory. What Onam AI does: answers
+ * questions about findings, attack paths and data security, with sensitive values masked
+ * in its answers; suggests fixes; never changes a customer's cloud without approval.
+ *
+ * SOURCES (read-only, 2026-10-05): "agentic ai platform" repo — README, docs/03 (agents,
  *   levels, permissions, orchestrator), 04 (UX), 05 (block architecture), 08 (security),
- *   09 (governance), 10 (approval model), 11 (MVP), 12 (roadmap), 15 (use cases),
- *   18 (architecture views); agents/*.yaml; apps/workspace; git log + infrastructure/onboarding.
+ *   09 (governance), 10 (approval model), 11 (MVP), 12 (roadmap), 15 (use cases); agents/*.yaml.
  *
  * HONESTY RULES FOR THIS FILE — read before editing a status:
  *   - "available"   = a customer can use it today in Onam Security. Only the AI Assistant.
- *   - "early"       = running on the Onam platform at /ops, enabled per organisation by Onam,
+ *   - "early"       = running on the Onam platform, enabled per organisation by Onam,
  *                     autonomy starting at "propose". Reads Onam Security inventory and findings.
- *   - "development" = built or specified, but its data feed or enablement is not in place yet
- *                     (e.g. the compliance-results, exposure and attack-path contract views were
- *                     not yet connected as of 2026-09-26).
+ *   - "development" = built or specified, but its data feed or enablement is not in place yet.
  *   - "roadmap"     = not offered. Includes executing changes in a customer cloud (built and
- *                     tested, enabled for no customer), FinOps/DR/Architecture agents, and
- *                     clouds other than AWS for agent actions.
- *   Estate, FinOps and DRM are NOT cleared in facts/product.yaml, so on these surfaces they are
- *   named only as roadmap data sources. No counts of skills/tools/tests appear: none is cleared.
- *   Name: "Onam AIOps" — owner decision 2026-10-06, replacing "Onam Operations" (docs/01 §4, OD-01).
+ *                     tested, enabled for no customer) and clouds other than AWS for actions.
+ *   No counts of skills/tools/tests appear: none is cleared.
  */
 
 export type OpsStatus = "available" | "early" | "development" | "roadmap";
@@ -61,7 +61,7 @@ export const OPS_STATUS: Record<
   },
 };
 
-export const OPS_PRODUCT = "Onam AIOps";
+export const OPS_PRODUCT = "Onam AI";
 
 export type OpsAgent = {
   id: string;
@@ -93,28 +93,28 @@ export const OPS_LEVELS: {
   {
     level: "L1",
     name: "Investigator",
-    reads: "Any estate domain it is granted",
+    reads: "Any Onam Security data it is granted",
     writes: "Its own investigation notes",
     approval: "None — it cannot change anything",
   },
   {
     level: "L2",
     name: "Proposer",
-    reads: "Any estate domain it is granted",
+    reads: "Any Onam Security data it is granted",
     writes: "Change proposals only",
     approval: "Every proposal needs a human decision before anything is applied",
   },
   {
     level: "L3",
     name: "Actor",
-    reads: "Any estate domain it is granted",
+    reads: "Any Onam Security data it is granted",
     writes: "The customer cloud, scoped to one approved change",
     approval: "Mandatory, per action. Starts only from an approval record",
   },
   {
     level: "L4",
     name: "Orchestrator",
-    reads: "No estate data at all",
+    reads: "No security data at all",
     writes: "Nothing",
     approval: "Routes work; never answers or acts itself",
   },
@@ -131,14 +131,14 @@ export const OPS_AGENTS: OpsAgent[] = [
     color: "#0F766E",
     status: "early",
     statusNote: "Reads the Onam Security inventory today.",
-    question: "What do we have, how is it connected, and who owns it?",
+    question: "What do we have, how is it connected, and what is a crown jewel?",
     purpose:
-      "Answers what exists in the estate, how it is connected, who owns it and what depends on what — always over the resolved estate, never by re-scanning.",
+      "Answers asset questions from Onam Security's own inventory: what exists, how it is connected, what depends on what (the blast radius of a change), which assets are crown jewels, and who owns them — never by re-scanning.",
     does: [
       "Finds and summarises assets by cloud, account, region, type, environment and criticality",
-      "Maps relationships and dependencies between resources",
+      "Maps relationships and dependencies between resources, for the blast radius of a finding or a fix",
+      "Identifies crown-jewel assets and classifies assets",
       "Attributes ownership from tags and records, stating the source and confidence — or saying the owner is unattributed",
-      "Narrows a question to a candidate set that the other agents then work on",
     ],
     skills: [
       "discover_assets",
@@ -147,15 +147,8 @@ export const OPS_AGENTS: OpsAgent[] = [
       "resolve_ownership",
       "classify_asset",
       "analyze_dependencies",
-      "analyze_topology",
     ],
-    tools: [
-      "cei.query",
-      "cei.graph_traverse",
-      "cei.resolve_identity",
-      "engine.estate",
-      "cloud.resource.read",
-    ],
+    tools: ["cei.query", "cei.graph_traverse", "cei.resolve_identity", "cloud.resource.read"],
     never: [
       "Re-scan your cloud to answer a question",
       "Change anything",
@@ -176,11 +169,11 @@ export const OPS_AGENTS: OpsAgent[] = [
     statusNote: "Reads findings today; exposure and attack-path context are being connected.",
     question: "What is exposed, how can it be reached, and how bad is it?",
     purpose:
-      "Determines what is exposed, how it can be reached, how bad that is and what should be done — always over resolved estate data.",
+      "Determines what is exposed, how it can be reached, how bad that is and what should be done — always over Onam Security findings and inventory.",
     does: [
       "Queries and triages findings across the Onam Security engines",
       "Explains exposure, identity and network risk for a set of assets",
-      "Ranks risk and recommends a remediation, which it hands to the Automation Planner",
+      "Ranks risk and suggests a fix, which it hands to the Automation Planner",
       "Explains an attack path to a crown-jewel asset in plain language",
     ],
     skills: [
@@ -217,13 +210,13 @@ export const OPS_AGENTS: OpsAgent[] = [
     authority: "Read and recommend",
     color: "#4338CA",
     status: "development",
-    statusNote: "Waits on the compliance-results feed into the estate layer.",
+    statusNote: "Waits on the compliance-results feed.",
     question: "Which controls hold, which do not, and where is the evidence?",
     purpose:
       "States which controls hold and which do not, and produces evidence an auditor can follow — dated, retained and re-derivable.",
     does: [
       "Assesses posture against a framework and maps controls to policies",
-      "Validates one control across the estate",
+      "Validates one control across your cloud accounts",
       "Collects dated evidence and assembles an audit package",
     ],
     skills: [
@@ -257,7 +250,7 @@ export const OPS_AGENTS: OpsAgent[] = [
     authority: "Read and recommend",
     color: "#7C3AED",
     status: "development",
-    statusNote: "Waits on the exposure and relationship feeds into the estate layer.",
+    statusNote: "Waits on the exposure and relationship feeds.",
     question: "What data is where, how sensitive is it, and who can reach it?",
     purpose:
       "Says what data exists where, how sensitive it is, who can reach it and where it flows — classifications, counts and locations, never the values.",
@@ -355,113 +348,10 @@ export const OPS_AGENTS: OpsAgent[] = [
     limits:
       "Requires you to create a write role in your own cloud account and to raise your autonomy ceiling past “propose”.",
   },
-  {
-    id: "finops_agent",
-    slug: "finops-agent",
-    name: "FinOps Agent",
-    level: "L1",
-    levelName: "Investigator",
-    authority: "Read and recommend",
-    color: "#047857",
-    status: "roadmap",
-    statusNote: "Needs cost data in the estate layer.",
-    question: "What does it cost, where is the waste, and is removing it safe?",
-    purpose:
-      "Explains what the estate costs, where the waste is and whether removing it is safe — no cost recommendation without a dependency and protection check.",
-    does: [
-      "Analyses cost, waste, idle resources and anomalies",
-      "Checks dependencies and recovery protection before calling anything safe to remove",
-      "Correlates cost with security risk",
-    ],
-    skills: [
-      "analyze_cost",
-      "detect_waste",
-      "detect_idle_resource",
-      "rightsizing",
-      "cost_anomaly",
-      "correlate_cost_security",
-    ],
-    tools: ["cei.query", "engine.cost", "cloud.cost.read", "cloud.metrics.read"],
-    never: ["Recommend removing a resource without a dependency and protection check"],
-    limits: "Works on the last closed billing period; forecasts are labelled as estimates.",
-  },
-  {
-    id: "dr_agent",
-    slug: "dr-agent",
-    name: "DR Agent",
-    level: "L1",
-    levelName: "Investigator",
-    authority: "Read and recommend",
-    color: "#0369A1",
-    status: "roadmap",
-    statusNote: "Needs recovery data in the estate layer.",
-    question: "What would actually come back after a failure, and how fast?",
-    purpose:
-      "Says what would come back after a failure, how fast and where the gaps are — separating protection that exists from recovery that was validated.",
-    does: [
-      "Finds backup coverage for a business service",
-      "Calculates realistic recovery time and recovery point",
-      "Finds business-critical assets with no recovery plan",
-    ],
-    skills: [
-      "discover_backup",
-      "assess_recovery_readiness",
-      "calculate_rto",
-      "calculate_rpo",
-      "analyze_recovery_gap",
-    ],
-    tools: ["cei.query", "engine.dr", "cloud.backup.read"],
-    never: [
-      "Call something recoverable because a backup exists — untested protection is reported as untested",
-    ],
-    limits:
-      "Where there is no recovery record for a resource, it says the recovery posture is unknown.",
-  },
-  {
-    id: "architecture_agent",
-    slug: "architecture-agent",
-    name: "Architecture Agent",
-    level: "L2",
-    levelName: "Proposer",
-    authority: "Propose",
-    color: "#B45309",
-    status: "roadmap",
-    statusNote: "Needs the full topology graph as an input.",
-    question: "Is this design sound, and what will a change break?",
-    purpose:
-      "Judges whether a design is sound and says specifically what to change — each recommendation carrying its cost, security, recovery and migration impact.",
-    does: [
-      "Reviews an architecture against reference designs",
-      "Assesses the impact of a proposed change before it ships",
-      "Recommends design changes as proposals",
-    ],
-    skills: [
-      "analyze_architecture",
-      "review_design",
-      "assess_architecture_risk",
-      "recommend_architecture_change",
-      "compare_to_reference_architecture",
-    ],
-    tools: ["cei.query", "cei.graph_traverse", "engine.estate", "engine.risk"],
-    never: [
-      "Apply a design change",
-      "Judge intent that lives only in design documents it cannot see",
-    ],
-    limits: "Works from the topology as last scanned.",
-  },
 ];
 
-/** The eight specialist roles (Automation counted once, in two modes). */
-export const OPS_AGENT_ROLES = [
-  "Asset",
-  "Security",
-  "Compliance",
-  "Data",
-  "Automation",
-  "FinOps",
-  "DR",
-  "Architecture",
-] as const;
+/** The five specialist roles (Automation counted once, in two modes). */
+export const OPS_AGENT_ROLES = ["Asset", "Security", "Compliance", "Data", "Automation"] as const;
 
 export type OpsFeature = { name: string; status: OpsStatus; detail: string };
 
@@ -473,10 +363,10 @@ export const OPS_FEATURES: OpsFeature[] = [
       "Ask questions about your posture in plain language; specialists query your findings and cite them. Read-only.",
   },
   {
-    name: "Agent workspace",
+    name: "Workspace",
     status: "early",
     detail:
-      "Chat with the agents, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and actions.",
+      "Ask Onam AI in plain language, each reply attributed to the agent that produced it, with a context panel for evidence, tasks and suggested fixes.",
   },
   {
     name: "Orchestrator and visible plans",
@@ -487,7 +377,13 @@ export const OPS_FEATURES: OpsFeature[] = [
   {
     name: "Asset Agent and Security Agent",
     status: "early",
-    detail: "Over the Onam Security inventory and findings, on AWS first.",
+    detail: "Assets, relationships, crown jewels, findings, exposure and attack paths over the Onam Security inventory and findings, on AWS first.",
+  },
+  {
+    name: "Sensitive values masked",
+    status: "early",
+    detail:
+      "Answers name the resource and the finding; secrets, keys and sensitive data values are masked.",
   },
   {
     name: "Evidence on every claim",
@@ -498,7 +394,7 @@ export const OPS_FEATURES: OpsFeature[] = [
     name: "Approval centre",
     status: "early",
     detail:
-      "One queue for every proposed change, diff first, with rollback and blast radius shown before the decision.",
+      "One queue for every suggested change, diff first, with rollback and blast radius shown before the decision.",
   },
   {
     name: "Activity and audit trail",
@@ -520,8 +416,7 @@ export const OPS_FEATURES: OpsFeature[] = [
   {
     name: "Compliance Agent and Data Agent",
     status: "development",
-    detail:
-      "Built; waiting on the compliance-results, exposure and relationship feeds into the estate layer.",
+    detail: "Built; waiting on the compliance-results, exposure and relationship feeds.",
   },
   {
     name: "Change proposals with rollback",
@@ -540,16 +435,6 @@ export const OPS_FEATURES: OpsFeature[] = [
     status: "roadmap",
     detail:
       "The actor applies an approved change in an isolated sandbox, validates it and rolls back on failure. Built and tested; enabled for no customer.",
-  },
-  {
-    name: "FinOps, DR and Architecture agents",
-    status: "roadmap",
-    detail: "Cost, recovery and design reasoning across the estate.",
-  },
-  {
-    name: "Cost and recovery data (Onam FinOps, Onam DRM)",
-    status: "roadmap",
-    detail: "Joining exposure with cost and recoverability in one answer.",
   },
   {
     name: "Azure, Google Cloud and Kubernetes actions",
@@ -585,7 +470,7 @@ export const OPS_USE_CASES: OpsUseCase[] = [
     ask: "Show me critical production assets reachable from the internet.",
     agents: "Asset → Security",
     outcome:
-      "A table of assets with exposure type, severity and owner, with evidence on every row.",
+      "A table of assets with exposure type and severity, with evidence on every row.",
     approval: "None — read only",
     status: "early",
   },
@@ -594,7 +479,7 @@ export const OPS_USE_CASES: OpsUseCase[] = [
     ask: "Is this finding real, and what does it actually reach?",
     agents: "Security → Asset",
     outcome:
-      "The finding in context: the resource, what depends on it, who owns it and a recommended next step.",
+      "The finding in context: the resource, what depends on it (its blast radius), the attack paths it sits on and a suggested fix.",
     approval: "None — read only",
     status: "early",
   },
@@ -611,7 +496,7 @@ export const OPS_USE_CASES: OpsUseCase[] = [
     title: "Review a newly connected cloud account",
     ask: "We just connected this account. What should I worry about first?",
     agents: "Asset → Security",
-    outcome: "An inventory summary and the highest-risk findings, ready to export as a report.",
+    outcome: "An inventory summary, the crown jewels and the highest-risk findings for the new account, ready to export as a report.",
     approval: "None — read only",
     status: "early",
   },
@@ -647,23 +532,6 @@ export const OPS_USE_CASES: OpsUseCase[] = [
     outcome:
       "Applied in a sandbox, validated, rolled back automatically if validation fails, with the evidence package stored.",
     approval: "Required; two people for critical changes",
-    status: "roadmap",
-  },
-  {
-    title: "Decide whether an idle resource is safe to remove",
-    ask: "Can we delete this idle instance without breaking anything?",
-    agents: "FinOps → Asset → DR",
-    outcome:
-      "Cost, dependencies and recovery role checked together before anything is called safe.",
-    approval: "Required to remove",
-    status: "roadmap",
-  },
-  {
-    title: "Find business-critical assets with no recovery plan",
-    ask: "Which of our most critical services would not come back?",
-    agents: "DR → Asset",
-    outcome: "Services separated into unprotected, protected-but-untested and validated.",
-    approval: "None — read only",
     status: "roadmap",
   },
 ];

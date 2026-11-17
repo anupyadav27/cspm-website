@@ -39,10 +39,6 @@ Behind the pillars sits one findings model. Severity on a finding is raised when
 ## Why the score moves when nothing changed
 
 Because the estate changed. Each scan discovers resources again, and a newly deployed misconfigured resource lowers the score at the next scan. The pillar scores and their findings show what caused a movement.
-
-## What is not in the score
-
-[Onam Estate](/docs/estate/overview) and [Onam FinOps](/docs/finops/overview) are separate products and do not contribute to the CNAPP score. Folding a cost figure into a security score would make the number mean nothing.
 `,
   },
   {

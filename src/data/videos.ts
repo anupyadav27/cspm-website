@@ -5,6 +5,11 @@
  * (Onam cuts only — partner cuts are not shown on the site). Change list:
  * marketing/onam-assets/seo/VIDEO-EMBEDS.md. If a video is re-uploaded with a new ID,
  * update it here and in the register together.
+ *
+ * 17 Nov 2026: the Estate, FinOps, DRM and AIOps videos, the four-product pitch and the
+ * overview (uaI1p4GW--c, which names Estate, FinOps and DRM aloud) are no
+ * longer embedded (products retired / renamed Onam AI). Their YouTube uploads and playlists
+ * still exist and need handling on YouTube itself.
  */
 
 export type Playlist = { name: string; id: string };
@@ -12,10 +17,6 @@ export type Playlist = { name: string; id: string };
 export const PLAYLISTS = {
   startHere: { name: "Onam Security: start here", id: "PLO_NYlUliH7Q" },
   cloudSecurity: { name: "Onam Security: cloud security", id: "PLHEDm7EIQZJs" },
-  estate: { name: "Onam Estate", id: "PLMRwhR09P0I8" },
-  finops: { name: "Onam FinOps", id: "PLXZIBgggDSIM" },
-  drm: { name: "Onam DRM", id: "PLF5rP9ZPyges" },
-  operations: { name: "Onam AIOps (early access)", id: "PLfpJo_8MhfCA" },
 } satisfies Record<string, Playlist>;
 
 export const playlistUrl = (p: Playlist) => `https://www.youtube.com/playlist?list=${p.id}`;
@@ -30,22 +31,6 @@ export type Video = {
 };
 
 export const VIDEOS = {
-  pitch: {
-    id: "nB7rbux1Or4",
-    title: "What is cloud security? One platform for multi-cloud security | Onam Security (presenter edition)",
-    description:
-      "A two-minute overview of Onam: one platform for cloud assets, security, cost and recovery across multiple clouds.",
-    uploadDate: "2026-10-07T17:47:10-07:00",
-    playlist: PLAYLISTS.startHere,
-  },
-  overview: {
-    id: "uaI1p4GW--c",
-    title: "What is cloud security? One platform for multi-cloud security posture | Onam Security",
-    description:
-      "A short Q&A on cloud security posture across multiple clouds, and how Onam Security brings the findings onto one platform.",
-    uploadDate: "2026-10-06T09:13:08-07:00",
-    playlist: PLAYLISTS.startHere,
-  },
   cspm: {
     id: "-vXpQOJ5aCM",
     title: "What is CSPM? Cloud security posture management across AWS, Azure and more | Onam CSPM",
@@ -109,38 +94,6 @@ export const VIDEOS = {
       "A short Q&A on prioritising cloud security alerts when separate tools disagree, and how Onam Security ranks them on one graph.",
     uploadDate: "2026-10-06T19:01:54-07:00",
     playlist: PLAYLISTS.cloudSecurity,
-  },
-  estate: {
-    id: "oDrP_UsvQbk",
-    title: "Cloud asset inventory: know everything you run, and who owns it | Onam Estate",
-    description:
-      "A short Q&A on cloud asset inventory: knowing everything you run, and who owns it, with Onam Estate.",
-    uploadDate: "2026-10-06T09:12:36-07:00",
-    playlist: PLAYLISTS.estate,
-  },
-  finops: {
-    id: "NHKwU1YNfoI",
-    title: "Cloud cost optimization and FinOps: who owns the bill, and what's next? | Onam FinOps",
-    description:
-      "A short Q&A on cloud cost optimization and FinOps: who owns the bill and what to do next, with Onam FinOps.",
-    uploadDate: "2026-10-06T09:12:42-07:00",
-    playlist: PLAYLISTS.finops,
-  },
-  drm: {
-    id: "ZSyiHyGYrfE",
-    title: "Disaster recovery plan: RTO and RPO against your real targets | Onam DRM",
-    description:
-      "A short Q&A on disaster recovery planning: checking predicted RTO and RPO against your real targets with Onam DRM.",
-    uploadDate: "2026-10-06T09:12:50-07:00",
-    playlist: PLAYLISTS.drm,
-  },
-  operations: {
-    id: "fhy9dXkByJg",
-    title: "AIOps and AI agents with a human in the loop | Onam AIOps",
-    description:
-      "A short Q&A on AIOps: AI agents that investigate with evidence and propose changes for a person to approve. Onam AIOps is in early access.",
-    uploadDate: "2026-10-06T09:12:58-07:00",
-    playlist: PLAYLISTS.operations,
   },
 } satisfies Record<string, Video>;
 

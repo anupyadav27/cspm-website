@@ -3,7 +3,7 @@ import { ArrowRight, FileSearch, ListChecks, Lock } from "@/components/site/icon
 import { StatusBadge } from "./OpsUi";
 
 /**
- * Promotional band for Onam AIOps, used on the homepage and the platform index.
+ * Promotional band for Onam AI, used on the Onam Security hub (/platform).
  * Keep the "Early access" badge: the workspace is enabled per organisation by invitation and
  * agents cannot change a customer's cloud (see src/data/operations.ts).
  */
@@ -14,29 +14,30 @@ export function OpsBand() {
         <div>
           <div className="flex flex-wrap items-center gap-2">
             <span className="text-[11px] font-bold uppercase tracking-widest text-[#93B4F8]">
-              Onam AIOps
+              Onam AI
             </span>
             <StatusBadge status="early" />
           </div>
           <h2 className="mt-4 font-display text-3xl font-extrabold leading-[1.12] tracking-tight text-white md:text-[40px]">
-            Specialist AI agents that investigate your cloud — and change nothing without your
+            Your AI security analyst — it suggests fixes and changes nothing without your
             approval.
           </h2>
           <p className="mt-4 max-w-2xl text-[16.5px] leading-relaxed text-[#CBD5E1]">
-            A workspace where your team works with specialist agents — Asset and Security in early
-            access, Compliance, Data and Automation in development. They plan multi-step
-            investigations, cite the evidence for every number, and propose changes for a person to
-            decide, with every step on the record.
+            Ask Onam AI about your assets, findings, attack paths and data security. The Asset agent
+            and the Security agent work today in early access; Compliance, Data and Automation are in
+            development. Answers cite the
+            evidence for every number and mask sensitive values, and suggested fixes wait for a
+            person to decide, with every step on the record.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
             <Link
-              to="/platform/ai-operations"
+              to="/onam-ai"
               className="inline-flex items-center gap-2 rounded-[10px] bg-[#2563EB] px-5 py-3 text-[15px] font-semibold text-white transition hover:bg-[#1D4ED8]"
             >
-              Meet the agents <ArrowRight className="h-4 w-4" />
+              Meet Onam AI <ArrowRight className="h-4 w-4" />
             </Link>
             <Link
-              to="/platform/ai-operations/architecture"
+              to="/onam-ai/architecture"
               className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#64748B]"
             >
               How it is designed
@@ -58,7 +59,7 @@ export function OpsBand() {
               ],
               [
                 Lock,
-                "A person approves every change",
+                "Suggests fixes; a person approves every change",
                 "Diff first, rollback shown, bound to the exact change.",
               ],
             ] as const

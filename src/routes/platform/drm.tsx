@@ -1,8 +1,9 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { retiredTarget } from "@/data/retired-pages";
 
-/** /platform/drm is the address people guess from /platform/*; the page lives at /disaster-recovery. */
+/** Old guessable address for Onam DRM. Retired 17 Nov 2026 — see src/data/retired-pages.ts. */
 export const Route = createFileRoute("/platform/drm")({
-  beforeLoad: () => {
-    throw redirect({ to: "/disaster-recovery", statusCode: 301 });
+  beforeLoad: ({ location }) => {
+    throw redirect({ href: retiredTarget(location.pathname) ?? "/platform", statusCode: 301 });
   },
 });

@@ -85,9 +85,7 @@ function Page() {
         <p className="mt-3 max-w-[680px] text-[15px] leading-relaxed text-[#475569]">
           Both come from{" "}
           <a href="/platform" className="font-semibold text-[#2563EB] underline">Onam Security</a>{" "}
-          work. For cost and recovery questions, see{" "}
-          <a href="/finops" className="font-semibold text-[#2563EB] underline">Onam FinOps</a> and{" "}
-          <a href="/disaster-recovery" className="font-semibold text-[#2563EB] underline">Onam DRM</a>.
+          work.
         </p>
       </div>
       </section>

@@ -13,7 +13,7 @@ export const Route = createFileRoute("/company/contact")({
     seo({
       title: "Contact — Onam",
       description:
-        "Get in touch with Onam about Estate, Security, FinOps, DRM or AIOps — general questions, pre-sales, security disclosure, and privacy.",
+        "Get in touch with Onam about Onam Security or Onam AI — general questions, pre-sales, security disclosure, and privacy.",
       path: "/company/contact",
     }),
   component: ContactPage,

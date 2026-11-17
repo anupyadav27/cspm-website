@@ -304,32 +304,22 @@ function RelatedReading({ items, cloudName }: { items: CloudRelated[]; cloudName
   );
 }
 
-/* ───────────────────────── Across the platform ─────────────────────────
- * The other Onam products on this cloud or industry. Every sentence here is taken
- * from src/data/product-suite.ts, src/data/products.ts and the product docs
- * (src/data/docs-articles/products.ts, drm.ts, operations.ts, trust-reference.ts).
- * Do not add a cloud-specific claim the docs do not make — where coverage for a
- * cloud is not documented, the card says to ask rather than implying support.
+/* ───────────────────────── Onam Security and Onam AI ─────────────────────────
+ * Onam Security and Onam AI on this cloud or industry (Estate, FinOps and DRM cards
+ * removed 17 Nov 2026: retired). Every sentence is taken from src/data/product-suite.ts,
+ * src/data/operations.ts and the docs. Do not add a cloud-specific claim the docs do
+ * not make.
  */
 
-export type PlatformNotes = { security: string; estate: string; finops: string; drm: string; aiops: string };
+export type PlatformNotes = { security: string; aiops: string };
 
 export function cloudPlatformNotes(cloudName: string): PlatformNotes {
   const isAws = cloudName === "AWS";
   return {
     security: `Posture, identity, attack paths, workloads and compliance for ${cloudName}. The detail is on the rest of this page.`,
-    estate: `Every ${cloudName} resource Onam discovers lands in one inventory, with provider, region, account, state and last-seen time, through the same read-only access. Every discovery run is recorded with its trigger and status. ${
-      isAws
-        ? "The per-account architecture view draws each AWS account's topology: what it holds and how it connects."
-        : `The per-account architecture view draws AWS accounts today, not ${cloudName}.`
-    }`,
-    finops: `Onam FinOps works on reconciled billing data: billed and effective cost, ownership, forecast, budgets, anomalies and savings. It holds read-only billing access and changes nothing in your accounts.${
-      cloudName === "Google Cloud" ? " On Google Cloud, billing is read only if you opt in when you grant access." : ""
-    } Ask us which ${cloudName} billing data applies to your accounts.`,
-    drm: `Onam DRM works from the same inventory: it proposes applications from your tags, reads backup, snapshot and replication from cloud configuration, and predicts RTO and RPO against your targets. It plans and records — it does not run a failover or a DR test. Ask us about DRM coverage for ${cloudName}.`,
     aiops: isAws
-      ? "AI agents investigate your Onam Security inventory and findings and propose changes a person approves. Executing a change in your AWS account is built but not offered — it is on the roadmap."
-      : `AI agents investigate your Onam Security inventory and findings and propose changes a person approves. Executing a change in a customer cloud is on the roadmap, with AWS first; nothing is executed in ${cloudName} today.`,
+      ? "Onam AI, your AI security analyst, answers questions about your Onam Security findings, attack paths and data security, masks sensitive values and suggests fixes a person approves. Executing a change in your AWS account is built but not offered — it is on the roadmap."
+      : `Onam AI, your AI security analyst, answers questions about your Onam Security findings and suggests fixes a person approves. It starts with AWS; nothing is executed in ${cloudName}.`,
   };
 }
 
@@ -337,17 +327,12 @@ export function industryPlatformNotes(industryName: string): PlatformNotes {
   const who = industryName.toLowerCase();
   return {
     security: `Posture, identity, data security and compliance evidence for ${who} workloads. The detail is on the rest of this page.`,
-    estate:
-      "Auditors start with what you run. Onam Estate keeps one inventory of every discovered resource across accounts and regions, and records every discovery run — so the asset list carries its own provenance instead of being an export from last quarter.",
-    finops:
-      "Billed and effective cost side by side, cost attributed to owners and cost centres with the unattributed amount stated plainly, and forecasts as low, expected and high figures. Read-only: accepting a saving records a decision and changes nothing in your accounts.",
-    drm: "Regulators expect tested recovery plans. Onam DRM maps applications and what they depend on, predicts RTO and RPO against the targets you set, records the drills you run with your own tools, and measures drift from the recovery model you approved. It plans and records; it does not run the failover.",
     aiops:
-      "AI agents that investigate your Onam Security data with evidence on every claim, and propose changes a person approves. Nothing changes your cloud without that approval.",
+      "Onam AI, your AI security analyst, answers questions about your Onam Security data with evidence on every claim and sensitive values masked, and suggests fixes a person approves. Nothing changes your cloud without that approval.",
   };
 }
 
-const PLATFORM_ORDER: SuiteKey[] = ["estate", "security", "finops", "drm", "aiops"];
+const PLATFORM_ORDER: SuiteKey[] = ["security", "aiops"];
 
 export function AcrossThePlatform({
   title,
@@ -361,12 +346,12 @@ export function AcrossThePlatform({
   return (
     <Section id="platform" tone="surface">
       <Container>
-        <SectionHeading eyebrow="Across the platform" title={title} lead={lead} />
+        <SectionHeading eyebrow="Onam Security and Onam AI" title={title} lead={lead} />
         <div className="mt-12 grid md:grid-cols-2 gap-5">
           {PLATFORM_ORDER.map((key) => {
             const p = getSuite(key);
             return (
-              <Card key={key} className={cn("p-6 flex flex-col", key === "aiops" && "md:col-span-2")}>
+              <Card key={key} className="p-6 flex flex-col">
                 <div className="flex items-start gap-4">
                   <IconTile icon={p.icon} color={p.color} />
                   <div className="min-w-0">
@@ -409,8 +394,8 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
       <Hero data={data} />
       <StatStrip stats={data.stats} />
       <AcrossThePlatform
-        title={`One platform on ${data.cloudName}`}
-        lead={`Connect ${data.cloudName} once. Onam Security is covered in detail below; the rest of the platform works from the same discovery.`}
+        title={`Onam on ${data.cloudName}`}
+        lead={`Connect ${data.cloudName} once. Onam Security is covered in detail below; Onam AI works from the same findings.`}
         notes={{ ...cloudPlatformNotes(data.cloudName), ...data.platform }}
       />
       <Services data={data} />

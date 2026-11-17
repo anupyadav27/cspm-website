@@ -13,7 +13,7 @@ export const Route = createFileRoute("/company/about")({
     seo({
       title: "About — Onam",
       description:
-        "Onam is one cloud platform of four products — Estate, Security, FinOps and DRM — with AI agents across them. It started with security; here is why it grew.",
+        "Onam is Onam Security — cloud, SaaS and code security on one security graph — with Onam AI, your AI security analyst. Here is why we built it.",
       path: "/company/about",
     }),
   component: AboutPage,
@@ -30,7 +30,7 @@ const principles = [
   },
   {
     title: "A person approves every change.",
-    body: "Scans read your configuration. The AI agents in Onam AIOps (early access) can propose a fix, but nothing changes in your cloud until someone on your team approves it.",
+    body: "Scans read your configuration. Onam AI, your AI security analyst (early access), can suggest a fix, but nothing changes in your cloud until someone on your team approves it.",
   },
 ];
 
@@ -80,26 +80,24 @@ function AboutPage() {
         <Container>
           <div className="grid lg:grid-cols-[1fr_1.4fr] gap-12 items-start">
             <SectionHeading
-              eyebrow="How Onam grew"
-              title="It started with security."
+              eyebrow="Why Onam exists"
+              title="It is about security."
               lead="We built Onam Security because cloud security tooling was fragmented, noisy and hard to act on: teams paid for several products, wired several dashboards, and still missed the finding that mattered."
             />
             <div className="space-y-4 text-body leading-relaxed">
               <p>
                 Doing that well meant building a complete, continuously refreshed picture of every resource and how it
-                connects. Once that picture existed, it was clear the security team was not the only one asking for it.
-                Finance wanted to know what the same resources cost and who owned them. The people responsible for
-                recovery wanted to know which applications depended on them, and whether they would come back.
+                connects, and putting cloud, SaaS and code findings on one security graph, so a misconfiguration, an
+                over-permissive identity and a sensitive data store show up as one route an attacker could take.
               </p>
               <p>
-                So Onam became four products on one discovery (Onam Estate, Onam Security, Onam FinOps and Onam DRM),
-                with Onam AIOps, in early access, adding AI agents that investigate across them and
-                leave every change to a person. Each product is sold on its own; together they share one login, one
-                console and one inventory, so your cloud accounts are connected once.
+                Onam AI, in early access, is the AI security analyst on top of that graph: it answers questions about
+                your findings with evidence, masks sensitive values, and suggests fixes, leaving every change to a
+                person. Everything runs in one console, behind one login, and your cloud accounts are connected once.
               </p>
             </div>
           </div>
-          <div className="mt-12 grid sm:grid-cols-2 lg:grid-cols-5 gap-4">
+          <div className="mt-12 grid sm:grid-cols-2 gap-4 max-w-4xl">
             {SUITE.map((p) => (
               <Link key={p.key} to={p.href} className="group">
                 <Card interactive className="h-full p-5">

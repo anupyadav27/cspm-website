@@ -11,9 +11,9 @@ export const articles: DocArticle[] = [
     title: "Onam Security",
     breadcrumb: "Onam Security / Overview",
     body: `
-**Onam Security** is the security product of the Onam platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
+**Onam Security** is cloud, SaaS and code security on one platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
 
-This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For the platform as a whole — Estate, Security, FinOps, DRM and AIOps — start with the [Introduction](/docs/getting-started/introduction).
+This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For Onam as a whole — Onam Security and Onam AI, your AI security analyst — start with the [Introduction](/docs/getting-started/introduction).
 
 ![The Onam dashboard — posture score, severity counts, top risks, and compliance summary in one view (demo account)](/screenshots/screenshot-dashboard.png)
 

@@ -1,4 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
+import { retiredTarget } from "@/data/retired-pages";
 import { Prose } from "@/components/site/Prose";
 import { BrandButton } from "@/components/site/BrandButton";
 import { getDocArticle, DOC_SECTIONS, DOC_PRODUCT_LABEL, allDocSlugs } from "@/data/docs";
@@ -9,6 +10,9 @@ import { ChevronRight } from "@/components/site/icons";
 export const Route = createFileRoute("/docs/$")({
   loader: ({ params }) => {
     const slug = params._splat ?? "";
+    // Retired product docs (Estate, FinOps, DRM, retired agents) 301 to the closest page.
+    const moved = retiredTarget(`/docs/${slug}`);
+    if (moved) throw redirect({ href: moved, statusCode: 301 });
     if (!slug || !allDocSlugs().includes(slug)) throw notFound();
     return { article: getDocArticle(slug) };
   },

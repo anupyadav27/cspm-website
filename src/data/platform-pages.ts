@@ -1108,7 +1108,7 @@ export const platformPages: Record<string, ProductPageData> = {
       { label: "Database Security", href: "/platform/database-security" },
       { label: "SaaS Security (SSPM)", href: "/platform/saas-security" },
       { label: "CSPM", href: "/platform/cspm" },
-      { label: "Onam Estate: the assets underneath", href: "/estate" },
+      { label: "Asset Inventory", href: "/platform/inventory" },
     ],
   },
 
@@ -1648,10 +1648,6 @@ export const platformPages: Record<string, ProductPageData> = {
       {
         q: "Why does my score move when I did not change anything?",
         a: "Because your environment changes. Each scan discovers resources again, and a newly deployed misconfigured resource lowers the score at the next scan. The pillar scores and their findings show what caused a movement.",
-      },
-      {
-        q: "Do Onam Estate and Onam FinOps appear in the CNAPP score?",
-        a: "No, deliberately. CNAPP scores security posture. Estate is the inventory of record and FinOps is cost and commitment management. Both are separately entitled products, and folding a cost figure into a security score would make the number mean nothing. They share the same discovery and the same console; they do not share a score.",
       },
     ],
     related: [

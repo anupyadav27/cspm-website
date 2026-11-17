@@ -11,7 +11,7 @@ export const Route = createFileRoute("/docs/")({
     seo({
       title: "Documentation — Onam",
       description:
-        "Onam platform docs: connect a cloud once, then guides for Onam Estate, Onam Security, Onam FinOps, Onam DRM and Onam AIOps.",
+        "Onam docs: connect a cloud once, then guides for Onam Security (cloud, SaaS and code security) and Onam AI, your AI security analyst.",
       path: "/docs",
       image: "/og/docs.png",
     }),
@@ -21,36 +21,12 @@ export const Route = createFileRoute("/docs/")({
 /** Where each product's docs start, and the three pages most readers need next. */
 const PRODUCT_DOCS: Record<SuiteKey, { overview: string; key: { title: string; slug: string }[] }> =
   {
-    estate: {
-      overview: "estate/overview",
-      key: [
-        { title: "Asset inventory", slug: "estate/inventory" },
-        { title: "Architecture view", slug: "estate/architecture" },
-        { title: "Discovery pipeline", slug: "estate/pipeline" },
-      ],
-    },
     security: {
       overview: "security/overview",
       key: [
         { title: "CSPM", slug: "features/cspm" },
         { title: "Attack path", slug: "features/attack-path" },
         { title: "Compliance frameworks", slug: "compliance/frameworks" },
-      ],
-    },
-    finops: {
-      overview: "finops/overview",
-      key: [
-        { title: "The cost model", slug: "finops/cost-model" },
-        { title: "Ownership & attribution", slug: "finops/ownership" },
-        { title: "Savings", slug: "finops/savings" },
-      ],
-    },
-    drm: {
-      overview: "drm/overview",
-      key: [
-        { title: "Applications & dependencies", slug: "drm/applications" },
-        { title: "Recovery plans & readiness", slug: "drm/recovery-plans" },
-        { title: "RTO, RPO & drills", slug: "drm/objectives" },
       ],
     },
     aiops: {
@@ -81,14 +57,14 @@ function DocsHome() {
             Onam documentation
           </h1>
           <p className="mt-4 text-lg text-body max-w-2xl">
-            One platform, four products and AI agents across them. Connect a cloud once, then pick
-            the product you are working in. Not sure where to begin? Read the{" "}
+            Onam Security and Onam AI, your AI security analyst. Connect a cloud once, then pick
+            what you are working on. Not sure where to begin? Read the{" "}
             <Link
               to="/docs/$"
               params={{ _splat: "getting-started/introduction" }}
               className="text-brand-600 underline underline-offset-4 hover:text-ink"
             >
-              platform introduction
+              introduction
             </Link>
             .
           </p>

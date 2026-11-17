@@ -1,5 +1,5 @@
 /**
- * Onam AIOps — status badges and ILLUSTRATIVE workspace mockups.
+ * Onam AI — status badges and ILLUSTRATIVE workspace mockups.
  *
  * Every mockup here is drawn in HTML from the UX specification (docs/04 §2, §3.6, §4) and
  * the workspace's real navigation (apps/workspace Nav.tsx). They are NOT screenshots and
@@ -87,7 +87,7 @@ export function WorkspaceMock() {
   return (
     <div className="grid min-w-[340px] text-[12.5px] md:grid-cols-[150px_1fr] lg:grid-cols-[150px_1fr_220px]">
       <aside className="hidden border-r border-[#E5E9F0] bg-[#F8FAFC] p-3 md:block">
-        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AIOps</div>
+        <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AI</div>
         {NAV.map((g) => (
           <div key={g.section} className="mb-3">
             <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
@@ -132,7 +132,7 @@ export function WorkspaceMock() {
             <span className="text-[10.5px] text-[#64748B]">discover_assets · 214 rows</span>
           </div>
           <p className="text-[#334155]">
-            214 production assets in the selected accounts; 61 have no owner tag.
+            214 production assets in the selected accounts; 9 are classified as crown jewels.
           </p>
         </div>
         <div
@@ -319,7 +319,7 @@ export function EvidenceMock() {
         sample time · scan example
       </span>,
     ],
-    ["Source", "security findings · estate assets"],
+    ["Source", "security findings · inventory"],
   ];
   return (
     <div className="min-w-[320px] p-4">
@@ -497,7 +497,7 @@ export function DiagramFigure({
   );
 }
 
-/** Small section shell shared by the two Onam AIOps pages. */
+/** Small section shell shared by the two Onam AI pages. */
 export function OpsSection({
   id,
   eyebrow,

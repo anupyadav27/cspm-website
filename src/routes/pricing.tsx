@@ -742,8 +742,8 @@ const faqs = [
     a: "Yes. Cloud security, SaaS security and code security are sold separately, in any combination. You can buy code security alone for your developers, or SaaS security alone for your Microsoft 365 or Google Workspace tenants, with no cloud plan.",
   },
   {
-    q: "How do we get Onam AIOps?",
-    a: 'Onam AIOps is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to "propose": agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.',
+    q: "How do we get Onam AI?",
+    a: 'Onam AI, your AI security analyst, is in early access, by invitation. Onam enables it for your organisation, connects the agents to your Onam Security data, and sets the autonomy ceiling to "propose": agents answer and propose, and nothing changes your cloud. There is no published price; ask us for an invitation.',
   },
 ];
 
@@ -984,10 +984,10 @@ function PricingPage() {
                   today. No price is published.
                 </p>
                 <Link
-                  to="/platform/ai-operations"
+                  to="/onam-ai"
                   className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-[#2563EB] hover:underline"
                 >
-                  What Onam AIOps does <ArrowRight className="w-3.5 h-3.5" aria-hidden />
+                  What Onam AI does <ArrowRight className="w-3.5 h-3.5" aria-hidden />
                 </Link>
               </div>
             </div>

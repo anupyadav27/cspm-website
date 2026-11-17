@@ -28,9 +28,8 @@ export function Logo({
     size === "lg" ? "text-2xl" : size === "sm" ? "text-base" : "text-xl";
   const mark = size === "lg" ? 28 : size === "sm" ? 18 : 23;
 
-  // Wordmark is "Onam" since the platform launch (owner decision 2026-10-07): the
-  // products are Onam Estate / Security / FinOps / DRM / AIOps, so a logo reading
-  // "Onam Security" named one product. The company stays Onam Security, Inc.
+  // Wordmark is "Onam" (owner decision 2026-10-07). Since 17 Nov 2026 Onam sells Onam
+  // Security, with Onam AI; the company stays Onam Security, Inc.
   return (
     <Link to="/" aria-label="Onam home" className={cn("inline-flex items-center group", className)}>
       <div className={cn("flex", stacked ? "flex-col items-start gap-1" : "items-center gap-2")}>
