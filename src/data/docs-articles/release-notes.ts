@@ -12,6 +12,16 @@ Everything that shipped in the Onam platform, newest first. Each month covers ne
 
 ![The Onam console dashboard after the July 2026 release (demo account)](/screenshots/screenshot-dashboard.png)
 
+## November 2026
+
+### Changed: checks whose data we could not read now show "Not evaluated"
+
+Until now, a check that needed a setting Onam's read-only discovery could not read from your account was shown as **Pass**. From 17 November 2026 these checks show **Not evaluated** instead. A failing check never changes.
+
+**What you will see:** after your next scan, a small number of results move from Pass to Not evaluated (on Onam's own test accounts, about 1 in every 70 passes: 216 of 15,600 on Azure, Google Cloud and Kubernetes). Your pass rate can drop slightly because those checks no longer count as passed. Nothing in your cloud account changed, and there is nothing you need to do.
+
+**Why:** a pass should mean the setting was checked and is right, not that it could not be seen. The rule health page shows, for every rule, how many resources were checked and how many results were Not evaluated.
+
 ## July 2026
 
 Headline changes this month: Attack Path v2 on a Neo4j graph with a first-class choke-points view, CDR relaunched as Behavioral Analysis with three-tier detection across all 7 providers, the master rule registry crossing 10,000 rules with 78 framework mappings, regulatory and breach-cost modeling in the FAIR risk engine, and a completely new website and documentation portal.
