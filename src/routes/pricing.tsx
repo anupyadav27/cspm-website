@@ -30,7 +30,6 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { cn } from "@/lib/utils";
 import { seo, faqJsonLd } from "@/lib/seo";
 import { ENGINES, FRAMEWORKS } from "@/lib/product-facts";
-import { PRODUCTS } from "@/data/products";
 import { getSuite } from "@/data/product-suite";
 import { OPS_STATUS } from "@/data/operations";
 import { IconTile, StatusChip } from "@/components/site/system";
@@ -510,7 +509,9 @@ function PriceCalculator() {
                   Volume discount, {x.d.level.label} ({Math.round(x.d.level.off * 1000) / 10}%
                   {x.d.capped ? ", capped" : ""})
                 </dt>
-                <dd className="tabular-nums whitespace-nowrap text-[#86EFAC]">−{usd(x.d.discount, true)}</dd>
+                <dd className="tabular-nums whitespace-nowrap text-[#86EFAC]">
+                  −{usd(x.d.discount, true)}
+                </dd>
               </div>
             ))}
           {est.discount === 0 && (
@@ -556,11 +557,7 @@ function PriceCalculator() {
           <BrandButton to="/company/contact" className="w-full">
             Get a quote for this estimate <ArrowRight className="w-4 h-4" />
           </BrandButton>
-          <BrandButton
-            to="/audit-scan"
-            variant="onDark"
-            className="w-full"
-          >
+          <BrandButton to="/audit-scan" variant="onDark" className="w-full">
             Start with a free audit scan
           </BrandButton>
         </div>
@@ -685,13 +682,16 @@ const comparison: { label: string; cells: [Cell, Cell, Cell, Cell] }[] = [
   { label: "Posture (CSPM, KSPM) and compliance", cells: [true, true, true, true] },
   { label: "Identity and permissions (CIEM)", cells: [false, true, true, true] },
   { label: "Sensitive data (DSPM)", cells: [false, true, true, true] },
+  { label: "AI security assessment", cells: [false, true, true, true] },
   { label: "Agentless vulnerability and malware scanning", cells: [false, false, true, true] },
+  { label: "Workload and container protection (CWPP)", cells: [false, false, true, true] },
+  { label: "MCP server for AI assistants, and the API", cells: [false, true, true, true] },
   {
     label: "SaaS and code security",
     cells: [
-      false,
-      "Add per tenant or developer",
-      "Add per tenant or developer",
+      "Sold separately",
+      "Sold separately, per tenant or developer",
+      "Sold separately, per tenant or developer",
       "Included in contract",
     ],
   },
@@ -738,8 +738,8 @@ const faqs = [
     a: "Yes. Contact sales. Verified nonprofits and academic institutions receive a discount.",
   },
   {
-    q: "Are Onam Estate, Onam FinOps and Onam DRM included?",
-    a: "No. Each is a separate product enabled per organisation, not a feature of the security subscription. Buying Onam Security does not turn them on, and buying one of them does not require Onam Security. If you run more than one, they share one login, one console and one discovery.",
+    q: "Can we buy SaaS security or code security without a cloud plan?",
+    a: "Yes. Cloud security, SaaS security and code security are sold separately, in any combination. You can buy code security alone for your developers, or SaaS security alone for your Microsoft 365 or Google Workspace tenants, with no cloud plan.",
   },
   {
     q: "How do we get Onam AIOps?",
@@ -818,11 +818,7 @@ function PricingPage() {
             <BrandButton href="#calculator" size="lg">
               Work out your price <ArrowRight className="w-4 h-4" />
             </BrandButton>
-            <BrandButton
-              to="/audit-scan"
-              variant="secondary"
-              size="lg"
-            >
+            <BrandButton to="/audit-scan" variant="secondary" size="lg">
               Request a free audit scan
             </BrandButton>
           </div>
@@ -933,7 +929,8 @@ function PricingPage() {
             Compare plans
           </h2>
           <p className="mt-2 text-[#475569]">
-            Onam Security only. Estate, FinOps and DRM are separate products.
+            Cloud security plans. SaaS security and code security are sold separately, alone or with
+            any plan.
           </p>
           <div className="mt-8 overflow-x-auto rounded-lg border border-[#E5E9F0] bg-white">
             <table className="w-full text-sm min-w-[720px]">
@@ -966,54 +963,6 @@ function PricingPage() {
                 ))}
               </tbody>
             </table>
-          </div>
-        </div>
-      </section>
-
-      {/* Other products */}
-      <section id="products" className="bg-white pt-16 pb-10 scroll-mt-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <h2 className="font-display font-bold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-            Onam Estate, FinOps and DRM
-          </h2>
-          <p className="mt-2 text-sm text-[#475569] max-w-2xl leading-relaxed">
-            Each is its own product, granted per organisation, not a tier of Onam Security. If you
-            run more than one, they share one login, one console and one discovery, so your cloud
-            accounts are connected once. No price is published yet; talk to us.
-          </p>
-          <div className="mt-8 grid md:grid-cols-3 gap-4">
-            {PRODUCTS.filter((p) => p.key !== "security").map((p) => {
-              const Icon = p.icon;
-              return (
-                <div key={p.key} className="rounded-lg border border-[#E5E9F0] p-6 flex flex-col">
-                  <div className="flex items-center gap-3">
-                    <Icon className="w-5 h-5" style={{ color: p.color }} />
-                    <div>
-                      <div className="font-display font-bold text-[#0B1220]">{p.name}</div>
-                      <div className="text-xs text-[#64748B]">{p.question}</div>
-                    </div>
-                  </div>
-                  <p className="mt-4 text-sm text-[#475569] leading-relaxed flex-1">
-                    {getSuite(p.key).blurb}
-                  </p>
-                  <div className="mt-5 pt-4 border-t border-[#E5E9F0] flex items-center justify-between gap-4">
-                    <Link
-                      to={p.href}
-                      className="text-sm font-medium text-[#2563EB] hover:underline"
-                    >
-                      What {p.name} does
-                    </Link>
-                    <Link
-                      to="/request-demo"
-                      search={{ product: p.key }}
-                      className="text-sm font-semibold text-[#0B1220] hover:text-[#2563EB]"
-                    >
-                      Talk to us →
-                    </Link>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
