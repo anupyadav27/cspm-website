@@ -58,9 +58,12 @@ Check the deployment memory for the current image number; use the next vN.
 
 ```bash
 NITRO_PRESET=node-server npm run build        # also regenerates sitemap.xml + llms.txt
-docker build --platform linux/amd64 -t yadavanup84/cspm-docs-website:vN .
-docker push yadavanup84/cspm-docs-website:vN
-kubectl set image deployment/cspm-docs-website cspm-docs-website=yadavanup84/cspm-docs-website:vN -n threat-engine-engines
+# Image lives in Onam's private ECR (Docker Hub is no longer used for the site; only engine-dspm stays there).
+ECR=588989875114.dkr.ecr.ap-south-1.amazonaws.com/onam/cspm-docs-website
+aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 588989875114.dkr.ecr.ap-south-1.amazonaws.com
+docker build --platform linux/amd64 -t $ECR:vN .
+docker push $ECR:vN        # if Docker Desktop's login/push hangs, push with crane and a clean DOCKER_CONFIG
+kubectl set image deployment/cspm-docs-website cspm-docs-website=$ECR:vN -n threat-engine-engines
 kubectl rollout status deployment/cspm-docs-website -n threat-engine-engines
 curl -s -o /dev/null -w '%{http_code}' https://www.onamsecurity.com/resources/blog/<slug>
 ```
