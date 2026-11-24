@@ -294,6 +294,12 @@ const llms = `# Onam
 > security graph — with Onam AI, an AI security analyst (early access). Onam Estate, Onam FinOps
 > and Onam DRM were retired as products on 17 Nov 2026; their old pages redirect to Onam Security.
 >
+> The company, Onam Security, is based in Noida, India (office: Sector-62,
+> Noida, Uttar Pradesh), founded by Anup Yadav. Its product, Onam Security, is priced per unit:
+> $20 per unit a month on Complete (includes data security), $14 per unit on Posture, $39 per active
+> developer for code security, minimum 25 units; Enterprise contracts on request. There is no
+> free trial or free plan; a free one-time audit scan of one cloud account is offered instead.
+>
 > Onam Security is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,

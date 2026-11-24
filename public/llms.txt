@@ -4,6 +4,12 @@
 > security graph — with Onam AI, an AI security analyst (early access). Onam Estate, Onam FinOps
 > and Onam DRM were retired as products on 17 Nov 2026; their old pages redirect to Onam Security.
 >
+> The company, Onam Security, is based in Noida, India (office: Sector-62,
+> Noida, Uttar Pradesh), founded by Anup Yadav. Its product, Onam Security, is priced per unit:
+> $20 per unit a month on Complete (includes data security), $14 per unit on Posture, $39 per active
+> developer for code security, minimum 25 units; Enterprise contracts on request. There is no
+> free trial or free plan; a free one-time audit scan of one cloud account is offered instead.
+>
 > Onam Security is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
@@ -252,6 +258,9 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ## Blog
 
+- [Which CSPM tools have public pricing? 2026 list with sources](https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing): CSPM and CNAPP tools that publish prices in 2026: AWS, Google, Microsoft, Prowler, Cloudanix, Plerion, Aikido, Onam. Each quoted from its own page, with dates.
+- [Prisma Cloud alternatives 2026: 10 compared, now that it is Cortex Cloud](https://www.onamsecurity.com/resources/blog/prisma-cloud-alternatives): Prisma Cloud alternatives for 2026, now that Palo Alto sells it as Cortex Cloud: Wiz, Orca, Defender, CrowdStrike, Sysdig and more, in their own words.
+- [Orca Security alternatives & competitors 2026: 8 compared, in their own words](https://www.onamsecurity.com/resources/blog/orca-security-alternatives): Orca Security alternatives for 2026, each quoted from its own site with a date: Wiz, Cortex Cloud, Defender, CrowdStrike, Sysdig, Upwind, Aqua, Tenable.
 - [Wiz vs Orca POC: 30 questions to ask in any CNAPP trial](https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions): Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.
 - [DSPM implementation checklist: a practical rollout for cloud data](https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist): A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.
 - [Data lineage security: why encryption is a property of the flow, not the bucket](https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops): Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.

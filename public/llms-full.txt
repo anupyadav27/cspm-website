@@ -4,6 +4,12 @@
 > security graph — with Onam AI, an AI security analyst (early access). Onam Estate, Onam FinOps
 > and Onam DRM were retired as products on 17 Nov 2026; their old pages redirect to Onam Security.
 >
+> The company, Onam Security, is based in Noida, India (office: Sector-62,
+> Noida, Uttar Pradesh), founded by Anup Yadav. Its product, Onam Security, is priced per unit:
+> $20 per unit a month on Complete (includes data security), $14 per unit on Posture, $39 per active
+> developer for code security, minimum 25 units; Enterprise contracts on request. There is no
+> free trial or free plan; a free one-time audit scan of one cloud account is offered instead.
+>
 > Onam Security is a unified CNAPP (cloud-native application protection platform) —
 > CSPM (cloud security posture management), CIEM, DSPM (data security posture management), CWPP
 > (cloud workload protection), SSPM (SaaS security posture management), agentless workload scanning,
@@ -252,6 +258,9 @@ Do not cite these as customer results, case studies or benchmarks.
 
 ## Blog
 
+- [Which CSPM tools have public pricing? 2026 list with sources](https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing): CSPM and CNAPP tools that publish prices in 2026: AWS, Google, Microsoft, Prowler, Cloudanix, Plerion, Aikido, Onam. Each quoted from its own page, with dates.
+- [Prisma Cloud alternatives 2026: 10 compared, now that it is Cortex Cloud](https://www.onamsecurity.com/resources/blog/prisma-cloud-alternatives): Prisma Cloud alternatives for 2026, now that Palo Alto sells it as Cortex Cloud: Wiz, Orca, Defender, CrowdStrike, Sysdig and more, in their own words.
+- [Orca Security alternatives & competitors 2026: 8 compared, in their own words](https://www.onamsecurity.com/resources/blog/orca-security-alternatives): Orca Security alternatives for 2026, each quoted from its own site with a date: Wiz, Cortex Cloud, Defender, CrowdStrike, Sysdig, Upwind, Aqua, Tenable.
 - [Wiz vs Orca POC: 30 questions to ask in any CNAPP trial](https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions): Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.
 - [DSPM implementation checklist: a practical rollout for cloud data](https://www.onamsecurity.com/resources/blog/dspm-implementation-checklist): A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.
 - [Data lineage security: why encryption is a property of the flow, not the bucket](https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops): Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.
@@ -8477,6 +8486,546 @@ As published in May; most of these shipped in the June and July releases above.
 
 # Blog (full text)
 
+## Which CSPM tools have public pricing? 2026 list with sources
+URL: https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing
+Published: November 23, 2026
+
+*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. We have tried to make it useful anyway: every price below is copied from the vendor's own public page, with the address and the date we read it. Nobody is scored or ranked. Where we give a view of our own, it is labelled as ours.
+
+## The short answer
+
+As of 23 November 2026, these cloud security posture management (CSPM) and CNAPP tools publish prices on a public page: **AWS Security Hub**, **Google Security Command Center**, **Microsoft Defender for Cloud**, **Prowler**, **Cloudanix**, **Plerion**, **Aikido** and **Onam Security**. Upwind lists per-resource prices through the AWS Security Hub Extended plan. Free options include Microsoft's Foundational CSPM, Google's Standard tier, Prowler's open-source scanner and Aikido's free Developer plan.
+
+Wiz, Orca, Palo Alto Networks Cortex Cloud, CrowdStrike Falcon Cloud Security, Sysdig, Tenable Cloud Security and Fortinet's Lacework FortiCNAPP price by quote. That is a normal way to sell enterprise software, and it says nothing about the products themselves.
+
+If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
+
+## CSPM public pricing at a glance
+
+Every cell is what the vendor's own page said on the date shown. Prices are in US dollars and before tax.
+
+| Vendor | Public price? | Pricing unit | Free tier | Source + date |
+| --- | --- | --- | --- | --- |
+| AWS Security Hub | Yes. Essentials $3.75 per resource unit a month (US East); Security Hub CSPM $0.0010 per check for the first 100,000 checks a month | Resource unit (Essentials); security checks, finding ingestions and rule evaluations (CSPM) | 30-day free trial | aws.amazon.com/security-hub/pricing and /security-hub/cspm/pricing, 23 Nov 2026 |
+| Aikido | Yes, plans listed by monthly fee | Monthly fee that includes 10 users and rises with users | Developer plan, $0 "free forever", includes CSPM for 1 cloud account | aikido.dev/pricing, 23 Nov 2026 |
+| Cloudanix | Yes. $3.49 per monitored asset a month (posture); $14.99 per workload a month (runtime) | Monitored asset; workload | "First month on us" | cloudanix.com/pricing, 23 Nov 2026 |
+| Google Security Command Center | Yes. Premium pay-as-you-go from $0.0071 per Compute Engine hour; Premium subscription from $15,000 a year | Cloud usage (pay-as-you-go) or share of cloud spend (subscription) | Standard tier, "Free of charge" | cloud.google.com/security-command-center/pricing, 23 Nov 2026 |
+| Microsoft Defender for Cloud | Yes. Defender CSPM about $5 per billable resource a month | Billable resource (servers, storage accounts, databases, serverless) | Foundational CSPM, free | azure.microsoft.com Defender for Cloud pricing and Azure Retail Prices API, 23 Nov 2026 |
+| Plerion | Yes, a fixed monthly bill set by your cloud spend band | Your monthly cloud bill | Free trial; 30-day trial on AWS Marketplace | plerion.com/pricing, 23 Nov 2026 |
+| Prowler | Yes. $79 per cloud account a month billed annually, $99 monthly | Cloud account | Open source, free under Apache-2.0; 7-day trial of Prowler Cloud | prowler.com/pricing, 23 Nov 2026 |
+| Upwind | Yes, through AWS. $3.75 per resource a month (Cloud Security) | Resource | Not stated on the page we read | aws.amazon.com/security-hub/pricing (Extended plan), 23 Nov 2026 |
+| Onam Security (us) | Yes. $20 per unit a month (Complete); $14 (Posture); $39 per active developer (code security) | Unit, counted by resource type; minimum 25 units | No free plan or trial; free one-time audit scan | onamsecurity.com/pricing, 23 Nov 2026 |
+| Wiz | Quote only | Not published | Not stated | wiz.io/pricing, 23 Nov 2026 |
+| Sysdig | Quote only | Hosts ("compute instances for CSPM") | Not stated | sysdig.com/pricing, 23 Nov 2026 |
+| Tenable Cloud Security | Quote only | Not published | Not stated | tenable.com/buy, 23 Nov 2026 |
+| CrowdStrike Falcon Cloud Security | Quote only | Not published | Not stated | crowdstrike.com/en-us/pricing, 23 Nov 2026 |
+| Cortex Cloud (Palo Alto Networks) | Quote only | Not published | Not stated | paloaltonetworks.com/cortex/cloud, 23 Nov 2026 |
+| Lacework FortiCNAPP (Fortinet) | Quote only | Not published | Not stated | fortinet.com/products/forticnapp, 23 Nov 2026 |
+| Orca Security | Not verified | Not verified | Not verified | Pricing page did not open, 23 Nov 2026 |
+
+## How this list was built
+
+- We opened each vendor's own pricing page on 23 November 2026 and copied the price, the unit and anything offered free. Where a page fills in its numbers in the browser, we read the same figure from the vendor's own public price list and say so.
+- We only list what a page says. If a page did not open, or a number did not show, the vendor is marked "not verified" and no number is given.
+- Third-party price estimates are left out. They can be useful in a negotiation, but they are not the vendor's own list price.
+- Nothing here says what any product cannot do. We have not tested these tools against each other.
+- Vendors are listed alphabetically, with our own entry last.
+- Corrections go to hello@onamsecurity.com and we apply them.
+
+## Why public pricing helps a buyer
+
+A published price lets you work out a rough budget before the first sales call, compare the pricing unit across tools, and spot the plan where a feature you need begins. It does not tell you the final bill. Most published prices still have volume discounts, minimums or add-ons, so read the unit and the small print as carefully as the number.
+
+The pricing unit matters as much as the price. On this list you will find tools priced per resource, per check, per cloud account, per monitored asset, per user, per developer and as a share of cloud spend. Two tools with the same headline price can cost very different amounts for the same estate.
+
+## CSPM tools with public prices, in their own words
+
+### 1. AWS Security Hub
+
+AWS describes Security Hub as offering "a unified pricing model with an Essentials plan foundation, optional add-ons, and an Extended plan for curated partner solutions." The Essentials plan is priced per "Resource unit / mo" on a "Pay-as-you-go" basis, and its included capabilities list "Cloud Security Posture Management (Security Hub CSPM)". The page's price list sets this at $3.75 per resource unit per month in US East (N. Virginia). On the unit: "Pricing is anchored on Amazon EC2 instance, Azure Virtual Machines, and GCP Virtual Machines as 1 resource unit", with "12 functions = 1 resource unit", "18 images = 1 resource unit" and "125 identity resources = 1 resource unit". The page also says "Try AWS Security Hub at no cost with a 30-day free trial that includes Essentials plan capabilities." Source: aws.amazon.com/security-hub/pricing, accessed 23 November 2026.
+
+The standalone Security Hub CSPM is "priced along three dimensions: the quantity of security checks, the quantity of finding ingestion events, and the quantity of rule evaluations processed per month." Its worked examples use "$0.0010 per check (first 100,000 checks tier)" and a "first 10,000 events free tier" for finding ingestion, and "You can try AWS Security Hub CSPM at no cost with a 30-day free trial." AWS Config is required for AWS checks and "configuration items are priced separately." Source: aws.amazon.com/security-hub/cspm/pricing, accessed 23 November 2026.
+
+- **Worth checking:** which of the two pricing models applies to your accounts, and the AWS Config charges that sit alongside CSPM checks.
+
+### 2. Aikido
+
+Aikido's free Developer plan is listed at "$0 / free forever", "Incl. 2 users", with "No credit card required". Its free features include "Cloud", described as "Misconfiguration checks (CSPM), Container & Virtual Machine Scanning, Cloud Asset Graph Search, IaC, and more", within limits that include "1 Cloud Account". The paid plans, Basic, Pro and Advanced, show a monthly "Total fee (incl. 10 users)" that changes as you select more users, and Enterprise is custom. The page notes "Prices do not include withholding, import, sales, VAT, or other local taxes." Source: aikido.dev/pricing, accessed 23 November 2026.
+
+- **Worth checking:** the price is set by the number of users, so confirm how many cloud accounts each plan covers (the page lists 3 for Basic and 10 for Pro).
+
+### 3. Cloudanix
+
+Cloudanix lists "Cloud Pro" posture at "$3.49 / monitored asset / month", with "Min. 100 monitored assets", and runtime at "$14.99 / workload / month", with "Min. 25 protected workloads". Enterprise is "Custom pricing". On trials, the page says "First month on us", and Pro sign-up needs a card on file. Source: cloudanix.com/pricing, accessed 23 November 2026.
+
+- **Worth checking:** what counts as a monitored asset in your estate.
+
+### 4. Google Security Command Center
+
+Google says "Security Command Center offers three service tiers: Standard, Premium, and Enterprise", with Standard "Free of charge", and "Google Cloud charges only for the Premium and Enterprise service tiers of Security Command Center." Premium is sold two ways. As a subscription, "the cost of the subscription is 5% of your projected annualized run rate of Google Cloud spend", and "The minimum annual cost of a Security Command Center Premium subscription is $15,000." On pay-as-you-go for project-level activations, the rate table lists Compute Engine at "$0.0071 / 1 hour" and Cloud SQL at "$0.0071 / 1 hour", among other services. Enterprise is "Subscription-based pricing for organization-level activations only." Source: cloud.google.com/security-command-center/pricing, accessed 23 November 2026.
+
+- **Worth checking:** whether you would activate at project or organisation level, since the pay-as-you-go rates differ.
+
+### 5. Microsoft Defender for Cloud
+
+Microsoft says "Foundational CSPM (for free) provides continuous assessments, security recommendations, Secure Score, and the Microsoft cloud security benchmark across Azure, Amazon Web Services(AWS), and Google Cloud." The paid plan, Defender CSPM, "provides advanced security posture capabilities including agentless vulnerability scanning, attack path analysis, integrated data-aware security posture, code to cloud contextualization, and an intelligent cloud security graph." On the unit: "Pricing is dependent on cloud size, with billing based only on Server, Storage account, Database, Serverless Containers, and Serverless resource counts", and "8 functions and/or web apps = 1 billable resource". Source: azure.microsoft.com, Defender for Cloud pricing, accessed 23 November 2026.
+
+The pricing page fills in the Defender CSPM figure in your browser. Microsoft's public Azure Retail Prices API lists the "DCSPM Node" meter at $0.006849 per hour, which is about $5 per billable resource a month (prices.azure.com, accessed 23 November 2026).
+
+- **Worth checking:** which of your resources are billable, and whether Defender CSPM is already part of an agreement you have with Microsoft.
+
+### 6. Plerion
+
+Plerion says "There's one plan. Every customer gets the full platform, our agent, and a customer success engineer, whatever their cloud bill." The price is set by your cloud spend band. For example, the page's calculator shows a "Fixed monthly cloud bill" of "$100,000 – $130,000" giving an "Estimated fixed monthly Plerion bill" of "$3,100 – $3,700". Runtime or code security is a paid add-on, and "Usage over your license, billed at list price". On trials: "Is there a free trial? Yes, sign up, connect your cloud in about 10 minutes and see your real findings", and on AWS Marketplace "You can start a 30-day free trial with your AWS account." Source: plerion.com/pricing, accessed 23 November 2026.
+
+- **Worth checking:** the band your cloud bill falls in, and what is excluded from it (the page gives Marketplace spending as an example).
+
+### 7. Prowler
+
+Prowler's open-source scanner is free: "Yes, forever, under Apache-2.0", and the CLI, SDK and Local Server "run every check on every provider." The hosted Prowler Cloud plan is "$79" "per cloud account / month, billed annually", or $99 per account billed monthly. The free trial is "$0" "for 7 days", with "No credit card, no cloud account limit." A Private Cloud option, "Deployed in your environment", is "Custom", via "AWS Marketplace or a direct quote." Source: prowler.com/pricing, accessed 23 November 2026.
+
+- **Worth checking:** whether you want to run the open-source tool yourself or pay for the hosted service, and how many cloud accounts you have.
+
+### 8. Upwind (through AWS Security Hub)
+
+We did not find a price list on Upwind's own site. AWS lists Upwind as a curated partner in the Security Hub Extended plan, with "Upwind (Cloud Security) Per resource per month $3.75", "Upwind (Sensors) Per resource per month $7.00" and "Upwind (Shift Left) Per resource per month $5.25". AWS notes that "The Security Hub Essentials plan must be enabled before activating Extended Plan solutions" and "Extended Plan charges are in addition to Essentials plan charges." Source: aws.amazon.com/security-hub/pricing, accessed 23 November 2026.
+
+- **Worth checking:** whether buying through AWS or directly from Upwind suits you, and how the Essentials charge adds to the total.
+
+## CSPM tools that price by quote
+
+These vendors did not show list prices on the pages we read on 23 November 2026. A quote-based price is common for large platforms and usually reflects discounts tied to the size and length of the contract.
+
+- **CrowdStrike Falcon Cloud Security.** The pricing page lists endpoint bundles (Falcon Go, Pro, Enterprise and Complete); cloud security is not priced there (crowdstrike.com/en-us/pricing).
+- **Cortex Cloud (Palo Alto Networks).** The product page offers "Request demo" and shows no price (paloaltonetworks.com/cortex/cloud).
+- **Lacework FortiCNAPP (Fortinet).** The product page offers "Schedule a FortiCNAPP Demo", "Contact Sales" and links to "Free Trials" (fortinet.com/products/forticnapp).
+- **Sysdig.** The page says "Prices tailored to your needs" with "Request a quote". For CNAPP, "Licensing is based on the number of hosts in a customer's environment (compute instances for CSPM)" (sysdig.com/pricing).
+- **Tenable Cloud Security.** The buy page prices Nessus and some Tenable One products, and for others says to "request a customized quote" (tenable.com/buy).
+- **Wiz.** The pricing page names "Wiz One", "Wiz Go" and "À la Carte" and asks you to fill in a pricing request (wiz.io/pricing).
+- **Orca Security.** Orca's pricing page did not open when we tried, so we have not verified how Orca prices. Please check orca.security directly.
+
+## And Onam Security (that is us)
+
+Onam publishes its prices on the [pricing page](/pricing), with a calculator:
+
+- **Complete:** $20 per unit a month. It includes posture (CSPM, KSPM) and compliance, identity and permissions (CIEM), sensitive data (DSPM), and agentless vulnerability and malware scanning.
+- **Posture:** $14 per unit a month. Everything in Complete except vulnerability and malware scanning, for teams that already run a scanner.
+- **Code security:** $39 per active developer a month.
+- **Minimum:** 25 units a month, so the smallest Complete bill is $500 a month and the smallest Posture bill is $350.
+
+**What a unit is.** Each virtual machine, Kubernetes node and Kubernetes cluster counts as 1 unit. Two managed databases, two warehouses or NoSQL accounts, or two AI and ML services count as 1 unit. Four caches, search or stream services count as 1 unit. Ten storage buckets, ten file systems or NoSQL tables, ten serverless containers, or ten self-managed servers and devices count as 1 unit. Twenty container image repositories, or fifty functions and web apps, count as 1 unit. Identities and roles, networks and subnets, security groups, load balancers, disks, snapshots, keys, policies, DNS and logs are scanned and reported at no charge.
+
+**What is free.** There is no free plan and no free trial. Instead, we run a [free one-time audit scan](/audit-scan) of one cloud account and go through the findings with you.
+
+- **The honest gap:** we are a young company with no public reference customers yet, so please test us on your own accounts before you decide.
+
+## How to choose using public prices
+
+Start from your own estate before comparing numbers:
+
+- **Count the thing each tool charges for.** Write down your virtual machines, databases, buckets, functions, cloud accounts and developers. Then price each shortlisted tool with its own unit.
+- **Use the free tiers first.** Microsoft's Foundational CSPM, Google's Standard tier, Prowler's open-source scanner and Aikido's Developer plan let you see real findings before you spend anything.
+- **Look for the minimum.** Several published prices have a floor: 100 monitored assets at Cloudanix, $15,000 a year for Google's Premium subscription, 25 units at Onam.
+- **Check what is an add-on.** Runtime, code security, vulnerability scanning and threat detection are often priced separately. Compare the bundle you actually need.
+- **Ask quote-based vendors for the unit.** Even without a list price, every vendor can tell you what the price grows with. That makes their quote comparable with the published ones.
+- **Test on the same accounts.** A low price only helps if the tool covers your clouds and finds what matters to you. Run two or three tools on the same non-production accounts for two weeks.
+
+## Frequently asked questions
+
+### Which CSPM tools have public pricing?
+
+As of 23 November 2026: AWS Security Hub, Google Security Command Center, Microsoft Defender for Cloud, Prowler, Cloudanix, Plerion, Aikido and Onam Security publish prices on their own pages. Upwind's per-resource prices are published on the AWS Security Hub pricing page. Wiz, Orca, Cortex Cloud, CrowdStrike, Sysdig, Tenable and FortiCNAPP price by quote.
+
+### Is there a free CSPM tool?
+
+Yes. Microsoft's Foundational CSPM in Defender for Cloud is free, Google's Security Command Center Standard tier is "Free of charge", Prowler's open-source scanner is free under Apache-2.0, and Aikido's Developer plan includes CSPM for one cloud account at $0. AWS Security Hub and Security Hub CSPM have a 30-day free trial.
+
+### How is CSPM usually priced?
+
+The units vary. On this list we found per resource (AWS Security Hub, Microsoft Defender CSPM, Upwind), per security check (Security Hub CSPM), per cloud account (Prowler), per monitored asset (Cloudanix), by cloud spend (Plerion and Google's Premium subscription), per user (Aikido), per host (Sysdig) and per unit counted by resource type (Onam).
+
+### How much does Microsoft Defender CSPM cost?
+
+Foundational CSPM is free. Defender CSPM is billed per billable resource; Microsoft's public Azure Retail Prices API lists it at $0.006849 per hour, about $5 per billable resource a month, as of 23 November 2026.
+
+### Does Wiz publish its pricing?
+
+No. Wiz's pricing page names the Wiz One and Wiz Go packages and an à la carte option, and asks you to request a quote.
+
+### How much does Onam Security cost?
+
+$20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security. The minimum is 25 units. There is no free plan or trial, but there is a free one-time audit scan. Details are on the [pricing page](/pricing).
+
+### What is a unit in Onam's pricing?
+
+A virtual machine, a Kubernetes node or a Kubernetes cluster is 1 unit each. Other resources count as fractions, for example 2 managed databases, 10 storage buckets or 50 functions per unit. Identities, networks, security groups, keys, policies and logs are not charged.
+
+## Corrections
+
+Last updated 23 November 2026. Every vendor page above was read on 23 November 2026, and every statement about another vendor is a quotation or a figure from that vendor's own public page or price list. Prices change often, so check the source before you buy. If anything here is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+
+*Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz.io alternatives and competitors](/resources/blog/wiz-alternatives), and [what a CNAPP is](/learn/cnapp).*
+
+---
+
+## Prisma Cloud alternatives 2026: 10 compared, now that it is Cortex Cloud
+URL: https://www.onamsecurity.com/resources/blog/prisma-cloud-alternatives
+Published: November 23, 2026
+
+*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we give a view of our own, it is labelled as ours.
+
+## The short answer
+
+The main Prisma Cloud alternatives in 2026 are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Sysdig Secure**, **Tenable One Cloud Exposure** (formerly Tenable Cloud Security), **Aqua Security**, **Check Point** and **Fortinet's Lacework FortiCNAPP**. Prisma Cloud itself is now sold by Palo Alto Networks as **Cortex Cloud**, which Palo Alto calls "the next version of Prisma Cloud". Wiz and Orca are agentless first. Defender for Cloud has a free foundational tier. Sysdig and Aqua lead with runtime. Choose by your clouds, the security vendor you already run and how much you want installed on workloads.
+
+If you would rather see findings from your own account first, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
+
+## Prisma Cloud alternatives at a glance
+
+The deployment and ranking columns say what each vendor's own page says, on the date shown further down. "Best fit" is our view. Pricing says only what is public.
+
+| Platform | Best fit, in our view | Deployment, as the vendor describes it | Ranking, as described | Public pricing |
+| --- | --- | --- | --- | --- |
+| Aqua Security | Container-heavy teams that want runtime enforcement | Agent-based, enforces locally | Risk filtered by what is actually executing | Ask for a quote |
+| Check Point | Check Point network estates | Posture plus cloud security gateways | Prioritises risks across apps, network and workloads | Ask for a quote |
+| CrowdStrike Falcon Cloud Security | Teams already running the Falcon sensor | Unified agent and agentless | Adversary intelligence and graph-based context | Ask for a quote |
+| Lacework FortiCNAPP (Fortinet) | Fortinet network estates | Not stated on the page we read; ask | Attack path visualisation | Ask for a quote |
+| Microsoft Defender for Cloud | Azure-centred estates | Agentless for AWS and GCP; Defender for Endpoint for servers | Secure score; attack paths in paid Defender CSPM | Published; foundational CSPM is free |
+| Orca Security | Teams that want agentless-first scanning | SideScanning, plus optional Orca Sensor | Dynamic scoring and attack path analysis | Ask for a quote |
+| Sysdig Secure | Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
+| Tenable One Cloud Exposure | Tenable vulnerability management customers | AWS, Azure, GCP; in-account scanning add-on | Toxic combinations with attack paths | Ask for a quote |
+| Wiz | Teams that want API-first with an optional sensor | Connects via API; Wiz Sensor for runtime | One prioritised list of toxic combinations | Packages quoted on request |
+| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; in-account workload scanning; no sensor | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture, $39 per active developer ([pricing](/pricing)) |
+
+## Why teams look for a Prisma Cloud alternative
+
+The reasons are usually ordinary, and none of them is a verdict on Palo Alto Networks.
+
+- **A renewal is coming.** Prisma Cloud uses credit-based licensing, and teams often want to check how their usage maps to the price.
+- **The product has a new name and a new home.** In February 2025 Palo Alto said Prisma Cloud would merge with Cortex CDR to form Cortex Cloud, with a seamless upgrade for existing customers. Even a smooth upgrade changes the console and the workflow, so many teams look at the market again.
+- **An agent rollout is on the table.** Cortex Cloud's runtime protection uses Palo Alto's agent. Some teams are happy to deploy it; others prefer to install as little as possible on workloads and want to compare first.
+- **The estate changed.** A new cloud arrived, Kubernetes grew, or the board started asking for risk in money.
+
+Cortex Cloud belongs on the same shortlist. The fair way to decide is to put the same questions to every platform, including Cortex Cloud and including us.
+
+## First, be clear what you would be replacing
+
+Palo Alto's launch release of 13 February 2025 introduced "Cortex® Cloud, the next version of Prisma Cloud", and said "Prisma Cloud is merged with Cortex CDR to form Cortex Cloud, stopping attacks in real-time" and "Existing Prisma Cloud customers will experience a seamless upgrade to Cortex Cloud." Source: paloaltonetworks.com/company/press, "Palo Alto Networks Introduces Cortex Cloud", accessed 23 November 2026.
+
+The Cortex Cloud page says it "brings together proactive prevention, autonomous risk reduction and real-time defense in one unified platform". On deployment: "Cortex Cloud combines agentless scanning for cloud asset discovery, posture management and risk assessment with lightweight runtime agents for continuous threat monitoring and active protection." Source: paloaltonetworks.com/cortex/cloud, accessed 23 November 2026.
+
+The Prisma Cloud page is still online. It lists "two deployment models: SaaS (Prisma Cloud Enterprise Edition) and Self-Hosted (Prisma Cloud Compute Edition)" and says "Prisma Cloud uses a credit-based licensing module". Source: paloaltonetworks.com/prisma/cloud, accessed 23 November 2026.
+
+In plain terms: Prisma Cloud and Cortex Cloud are one product line, and Cortex Cloud is the newer version, built on Palo Alto's Cortex security operations platform. If your contract still says Prisma Cloud, ask your account team which edition you are on and what the move to Cortex Cloud means for your licence.
+
+## How this list was built
+
+- Each vendor is quoted from its own public page, verbatim, with the address and the date. If a page changes, the quote is out of date, and we will update it when told.
+- We did not test these products. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you.
+- No ranking. Vendors are listed alphabetically, with our own entry last.
+- SentinelOne's cloud security page would not open for us on the day we checked, so SentinelOne Singularity Cloud Security is left out of this edition. We will add it once we can quote its page.
+- Corrections go to hello@onamsecurity.com and we apply them.
+
+## Ten Prisma Cloud alternatives, in their own words
+
+### 1. Aqua Security
+
+Aqua says "Aqua Security is a cloud native application protection platform built to secure applications from development through production." On prioritisation: "Aquasec filters vulnerability risk based on what is actually executing in the workload". On deployment: "Aquasec's agent-based architecture enforces protection locally, even when environments are disconnected or air gapped". Source: aquasec.com/aqua-cloud-native-security-platform, accessed 23 November 2026.
+
+- **Best for, in our view:** container and Kubernetes-heavy teams, including air-gapped or on-premises clusters, that want enforcement where workloads run.
+- **Trade-off to check:** which workloads the agent must reach, and who owns that rollout.
+- **Ask them:** how posture findings and runtime findings are ranked in one queue.
+
+### 2. Check Point
+
+The page at Check Point's CloudGuard address now uses the Check Point name: "Check Point is a comprehensive cloud security platform that allows you to prevent threats and prioritize risks in the cloud across your applications, network, and workloads." It also describes a partnership: "Check Point and Wiz Deliver End-to-End Cloud Security". Source: checkpoint.com/cloudguard, accessed 23 November 2026.
+
+- **Best for, in our view:** organisations that already run Check Point firewalls and want cloud network security and posture from the same vendor.
+- **Trade-off to check:** which product names are on the quote, and what the Wiz partnership means for what you buy from each company.
+- **Ask them:** which posture features are Check Point's own and which come through the partnership.
+
+### 3. CrowdStrike Falcon Cloud Security
+
+CrowdStrike describes "The most complete CNAPP with unified agent and agentless protection, from code to cloud." On prioritisation: "CrowdStrike enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Source: crowdstrike.com/platform/cloud-security, accessed 23 November 2026.
+
+- **Best for, in our view:** organisations already running the Falcon sensor on endpoints.
+- **Trade-off to check:** which protections need the sensor, and what a workload without it receives.
+- **Ask them:** how a posture finding is ranked when no adversary intelligence applies to it.
+
+### 4. Lacework FortiCNAPP (Fortinet)
+
+Fortinet says "FortiCNAPP provides unmatched visibility and context to simplify securing everything from code to cloud". On attack paths: "Quickly visualize complex relationships between entities, risks, and threats to gain deeper insight into potential attack paths." Source: fortinet.com/products/forticnapp, accessed 23 November 2026.
+
+- **Best for, in our view:** Fortinet estates that want cloud posture from the vendor already running the network.
+- **Trade-off to check:** the page we read does not state the deployment model, so confirm agent or agentless per workload type.
+- **Ask them:** what unit the ranking is expressed in.
+
+### 5. Microsoft Defender for Cloud
+
+Microsoft describes Defender for Cloud as a CNAPP, "which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle." For other clouds: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection." Servers are protected "through Microsoft Defender for Endpoint". Source: learn.microsoft.com, Defender for Cloud overview, accessed 23 November 2026.
+
+- **Best for, in our view:** Azure-centred estates, where it is often already licensed.
+- **Trade-off to check:** foundational CSPM is free, while attack path analysis sits in the paid Defender CSPM plan, where "Pricing is dependent on cloud size" (azure.microsoft.com, Defender for Cloud pricing, accessed 23 November 2026).
+- **Ask them:** how AWS and GCP resources are treated compared with Azure ones.
+
+### 6. Orca Security
+
+Orca's platform page describes "All-in-One Security For Cloud-Native and AI-Native Apps". Prioritisation is "Dynamic scoring & attack path analysis". Deployment is Orca SideScanning, "Agentless scanning across every workload", with the Orca Sensor for "Runtime observability & protection." Source: orca.security/platform, accessed 23 November 2026.
+
+- **Best for, in our view:** teams that want agentless scanning first, adding a sensor only where they choose.
+- **Trade-off to check:** what the sensor adds over SideScanning, and on which workloads you would need it.
+- **Ask them:** how a finding on one cloud is ranked against a finding on another.
+
+### 7. Sysdig Secure
+
+Sysdig calls itself "The real-time cloud defense platform for teams who will not compromise on security." On prioritisation: "Sysdig prioritizes risk by combining runtime insights with cloud context to focus your team on what’s truly exploitable." Its page describes "Agent & agentless deployments". Source: sysdig.com/platform/secure, accessed 23 November 2026.
+
+- **Best for, in our view:** container and Kubernetes-heavy teams that want runtime insight to drive prioritisation.
+- **Trade-off to check:** which prioritisation signals depend on the agent.
+- **Ask them:** what the ranking looks like where the agent is not running.
+
+### 8. Tenable One Cloud Exposure
+
+Tenable's old Cloud Security address now leads to Tenable One Cloud Exposure, which aims to "Prevent cloud breaches and reduce cloud risk by closing gaps that misconfigurations, risky entitlements, and vulnerabilities create across multi-cloud and hybrid environments". On prioritisation: "Identify toxic combinations of risk first, with clear attack path visualizations". It "integrates with all major cloud providers (AWS, Azure, GCP)", and in-account scanning is an add-on where "the data never leaves the environment." Source: tenable.com/cloud-security/products/cnapp, accessed 23 November 2026.
+
+- **Best for, in our view:** organisations already using Tenable for vulnerability management.
+- **Trade-off to check:** which scanning mode your quote includes.
+- **Ask them:** how cloud findings rank against on-premises vulnerabilities in one queue.
+
+### 9. Wiz
+
+Wiz says "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime." On prioritisation: "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited and would lead to significant business impact." On runtime: "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection with context for better prioritization." Source: wiz.io/platform, accessed 23 November 2026. Its pricing page lists Wiz One, Wiz Go and à la carte options by custom quote (wiz.io/pricing, 23 November 2026). Google completed its acquisition of Wiz in March 2026.
+
+- **Best for, in our view:** teams that want to connect by API first and add a runtime sensor only where needed.
+- **Trade-off to check:** which protections come from the API connection and which need the Wiz Sensor.
+- **Ask them:** which package your use cases fall into. See also our [Wiz alternatives guide](/resources/blog/wiz-alternatives).
+
+### And Onam Security (that is us)
+
+We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
+
+Our prices are public: $20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security. There is no free trial; instead we offer a [free one-time audit scan](/audit-scan) of one cloud account.
+
+- **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from one of the vendors above who sells it.
+- **Ask us:** the same questions as everyone else. Our answers are on the [Onam vs Cortex Cloud](/compare/onam-vs-cortex-cloud) page.
+
+## How to choose a Prisma Cloud alternative
+
+Start from your own situation:
+
+- **You are happy with Palo Alto and the agent suits you.** Price the move to Cortex Cloud, and run one alternative beside it so you have a real comparison at renewal.
+- **You want as little as possible installed on workloads.** Put agentless-first platforms such as Wiz and Orca against Cortex Cloud in the same accounts, in the same two weeks.
+- **You are Azure-first.** Price Defender CSPM first; you may already own part of it.
+- **You already run CrowdStrike, Check Point or Fortinet.** Their cloud products extend a console your team knows. Test the posture side as hard as the runtime side.
+- **Containers and runtime matter most.** Shortlist runtime-first platforms such as Sysdig and Aqua.
+- **You run more than the big three clouds, or the board wants risk in money.** That is the case we built Onam for; test us against the incumbent.
+
+Then ask every finalist the same questions:
+
+| Question | Why it matters |
+| --- | --- |
+| What does onboarding grant, and what needs an agent? | Whatever needs a rollout tends to reach only part of the estate. |
+| How many clouds get first-class treatment? | Ask for the per-cloud rule breakdown. |
+| What unit is the ranking expressed in? | A score ranks findings against each other. A money figure ranks them against everything else you fund. |
+| What does the price grow with? | Credits, resources, workloads and developers scale differently. |
+| What happens to your Prisma Cloud policies and reports? | Custom policies, alert rules and reports need to be rebuilt somewhere. |
+
+Pick two alternatives plus Cortex Cloud and give each read-only access to the same non-production accounts. Compare what each ranks first and why. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set of questions. If you want to include us, [request a scan](/request-demo) and we will run it against one account.
+
+## Frequently asked questions
+
+### What are the best Prisma Cloud alternatives in 2026?
+
+The platforms most often compared with Prisma Cloud (now Cortex Cloud) are Wiz, Orca Security, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Sysdig Secure, Tenable One Cloud Exposure, Aqua Security, Check Point, Lacework FortiCNAPP and SentinelOne Singularity Cloud Security, with newer platforms such as Onam. "Best" depends on your clouds, the vendor you already run and whether you want an agent on workloads, so trial two or three side by side.
+
+### Is Prisma Cloud now Cortex Cloud?
+
+Yes. In February 2025 Palo Alto Networks introduced Cortex Cloud as "the next version of Prisma Cloud", formed by merging Prisma Cloud with Cortex CDR, and said existing Prisma Cloud customers would get a seamless upgrade. The Prisma Cloud page is still online, so you will see both names. Ask your account team which one your contract covers.
+
+### What is a cheaper alternative to Prisma Cloud?
+
+The Palo Alto pages we read show no list prices, so any comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete, $14 for Posture and $39 per active developer for code security, plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Compare tools on the same accounts, because a lower price only helps if it covers what you need.
+
+### Is there an agentless alternative to Prisma Cloud?
+
+Wiz, Orca, Microsoft Defender for Cloud and Sysdig all describe agentless scanning on their own pages, usually with an optional agent or sensor for runtime. Onam scans through read-only cloud roles and in-account workload scanning, with no sensor. Cortex Cloud also describes agentless scanning for posture.
+
+## Corrections
+
+Last updated 23 November 2026. Every vendor page quoted here was read on 23 November 2026, and every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+
+*Read next: [Wiz alternatives and competitors](/resources/blog/wiz-alternatives), [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and [what a CNAPP is](/learn/cnapp).*
+
+---
+
+## Orca Security alternatives & competitors 2026: 8 compared, in their own words
+URL: https://www.onamsecurity.com/resources/blog/orca-security-alternatives
+Published: November 23, 2026
+
+*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. Every vendor is described in its own published words, with the page we read and the date, and nobody is scored. Where we add a view of our own, it is labelled as ours.
+
+## The short answer
+
+The main Orca Security alternatives and competitors in 2026 are **Wiz**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Sysdig Secure**, **Tenable One Cloud Exposure**, **Upwind** and **Aqua Security**. Wiz is closest to Orca in design: both describe agentless scanning with an optional runtime sensor. Defender for Cloud has a free foundational tier. Choose by your clouds, the security vendor you already run, and how much runtime protection you need.
+
+If you would rather see findings from your own account first, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
+
+## Orca Security alternatives at a glance
+
+Deployment and ranking are what each vendor's own page says, on the date given below. "Best fit" is our view. Pricing says only what is public.
+
+| Platform | Best fit, in our view | Deployment, as the vendor describes it | Ranking, as described | Public pricing |
+| --- | --- | --- | --- | --- |
+| Aqua Security | Container and Kubernetes teams that want enforcement on the workload | Agent-based enforcement; workload posture "without deploying agents" | Reachability, EPSS scores, evidence of active exploitation | Not on the pages we read |
+| Cortex Cloud (Palo Alto) | Estates standardised on Palo Alto | Agentless scanning plus lightweight runtime agents | Connects vulnerabilities, misconfigurations, identities and exposure | Not on the pages we read |
+| CrowdStrike Falcon Cloud Security | Teams already running the Falcon sensor | Agent and agentless | Adversary intelligence and graph-based context | Not on the pages we read |
+| Defender for Cloud | Azure-centred estates | Agentless connectors for AWS and GCP | Secure score; attack paths in paid Defender CSPM | Published; foundational CSPM is free |
+| Sysdig Secure | Container and Kubernetes-heavy teams | Agentless posture plus an agent | Runtime insights with cloud context | Not on the pages we read |
+| Tenable One Cloud Exposure | Tenable vulnerability management customers | AWS, Azure, GCP integration; in-account scanning add-on | Toxic combinations, attack paths | "Request pricing" |
+| Upwind | Teams that want runtime context to drive the ranking | Agentless cloud scanners plus runtime sensors | Runtime intelligence with workload, API and agent context | Not on the pages we read |
+| Wiz | Teams that want Orca's agentless-first shape from another vendor | Connects via API; optional Wiz Sensor | A single list of toxic combinations | Custom quote |
+| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; no sensor | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture ([pricing](/pricing)) |
+
+## Why teams look for an Orca alternative
+
+The reasons are usually ordinary. A renewal is due and procurement wants a second quote. A new cloud arrived, perhaps with an acquisition. The team already pays an endpoint or network vendor that now sells cloud security, and someone asks whether one contract would be simpler. Finance wants a ranking it can read. Or the team wants more runtime protection this year.
+
+None of those is a verdict on Orca, which is on many cloud security shortlists for good reason. The fair way to answer them is to put the same questions to every platform, including Orca and including us.
+
+## First, be clear what you would be replacing
+
+Orca's page description reads: "Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." The platform page lists Orca SideScanning as "Agentless scanning across every workload." and the Orca Sensor as "Runtime observability & protection." Prioritisation is "Dynamic scoring & attack path analysis." Source: orca.security/platform, accessed 23 November 2026. We did not find list prices on the Orca pages we read.
+
+So coverage starts agentless, with a sensor for runtime, and the ranking combines a score with attack paths. These are design choices, and the alternatives below make different ones. Write down which parts you rely on today; that list is what a replacement has to cover.
+
+## How this list was built
+
+- Each vendor is quoted verbatim from its own public page, with the address and date. If a page changes, tell us and we will update the quote.
+- We did not test these products, and nothing here says what any of them cannot do. "Trade-off to check" means a design choice on the vendor's own page that you should confirm fits you.
+- No ranking. Alphabetical order, with our own entry last.
+- SentinelOne Singularity Cloud Security is often on these shortlists, but its page returned a security check for us on 23 November 2026, so we left it out rather than quote it from memory.
+
+## Eight Orca competitors, in their own words
+
+### 1. Aqua Security
+
+Aqua says its platform will "Monitor behavior, detect exploitable risk, enforce policy and contain threats across the application lifecycle." On prioritisation: "Aquasec filters vulnerability risk based on what is actually executing in the workload, so teams act on real exposure instead of theoretical lists." On deployment: "Aquasec's agent-based architecture enforces protection locally, even when environments are disconnected or air gapped." Source: aquasec.com, accessed 23 November 2026. Its platform page adds that you can "See your cloud workload posture immediately, without deploying agents" (aquasec.com/aqua-cloud-native-security-platform, 23 November 2026).
+
+- **Best for, in our view:** container and Kubernetes teams that want policy enforced on the workload, including in air-gapped environments.
+- **Trade-off to check:** which parts run agentless and which need the agent.
+- **Ask them:** how a posture finding with no runtime signal ranks against one with runtime evidence.
+
+### 2. Cortex Cloud (Palo Alto Networks)
+
+If your shortlist says Prisma Cloud, check which product name is on the quote. Palo Alto says "Cortex Cloud goes beyond traditional CNAPP solutions by unifying application security, cloud posture management and runtime defense in one platform." On prioritisation: "By connecting vulnerabilities, misconfigurations, identities and exposure risks, the platform identifies the issues that matter most". On deployment: "Cortex Cloud combines agentless scanning for cloud asset discovery, posture management and risk assessment with lightweight runtime agents for continuous threat monitoring and active protection." Source: paloaltonetworks.com/cortex/cloud, accessed 23 November 2026.
+
+- **Best for, in our view:** estates standardised on Palo Alto, where one relationship covers network, endpoint and cloud.
+- **Trade-off to check:** which workloads the runtime agents must reach for the protection you want.
+- **Ask them:** how existing Prisma Cloud contracts map to Cortex Cloud.
+
+### 3. CrowdStrike Falcon Cloud Security
+
+CrowdStrike calls it "The most complete CNAPP with unified agent and agentless protection, from code to cloud." On prioritisation: "CrowdStrike enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Source: crowdstrike.com/platform/cloud-security, accessed 23 November 2026.
+
+- **Best for, in our view:** organisations already running the Falcon sensor on endpoints.
+- **Trade-off to check:** which protections need the sensor, and what a workload without it receives.
+- **Ask them:** how a posture finding is ranked when no adversary intelligence applies to it.
+
+### 4. Microsoft Defender for Cloud
+
+Microsoft describes Defender for Cloud as "a Cloud Native Application Protection Platform (CNAPP), which is a unified solution that combines multiple cloud security tools to protect applications across their entire lifecycle." Secure score will "Summarize your security posture based on the security recommendations." For other clouds: "Connect to your multicloud environments by using agentless methods for CSPM insight and CWPP protection", with connectors for AWS and GCP. Source: learn.microsoft.com, Defender for Cloud overview, accessed 23 November 2026.
+
+- **Best for, in our view:** Azure-centred estates, where it is often already licensed.
+- **Trade-off to check:** "Foundational CSPM (for free) provides continuous assessments, security recommendations, Secure Score, and the Microsoft cloud security benchmark", while attack path analysis sits in the paid Defender CSPM plan, priced publicly by billable resource (azure.microsoft.com, Defender for Cloud pricing, 23 November 2026).
+- **Ask them:** how AWS and GCP resources are treated relative to Azure ones.
+
+### 5. Sysdig Secure
+
+Sysdig calls itself "The real-time cloud defense platform for teams who will not compromise on security." On prioritisation: "Sysdig prioritizes risk by combining runtime insights with cloud context to focus your team on what’s truly exploitable." On deployment, its agentless approach is "complemented by a scalable, performant agent that analyzes active processes in real time". Source: sysdig.com/platform/secure, accessed 23 November 2026.
+
+- **Best for, in our view:** container and Kubernetes-heavy teams that want runtime insight to drive prioritisation.
+- **Trade-off to check:** which prioritisation signals depend on the agent.
+- **Ask them:** what the ranking looks like for accounts where the agent is not running.
+
+### 6. Tenable One Cloud Exposure
+
+The page at Tenable's Cloud Security address now names the product Tenable One Cloud Exposure. It aims to "Prevent cloud breaches and reduce cloud risk by closing gaps that misconfigurations, risky entitlements, and vulnerabilities create across multi-cloud and hybrid environments". On prioritisation: "Identify toxic combinations of risk first, with clear attack path visualizations and remediation workflows most likely to result in material damage." In-account scanning is an add-on, where "the data never leaves the environment." Source: tenable.com/products/tenable-cloud-security, accessed 23 November 2026.
+
+- **Best for, in our view:** organisations already using Tenable for vulnerability management.
+- **Trade-off to check:** which scanning mode is in the base product and which is the add-on.
+- **Ask them:** how cloud findings rank against on-premises vulnerabilities in one queue.
+
+### 7. Upwind
+
+Upwind's home page says "Combine the context of your cloud workloads, APIs, and agents with runtime intelligence to identify the most critical risks, build a plan to fix them, and catch new attacks in real time." Source: upwind.io, accessed 23 November 2026. Its CNAPP page says "Upwind brings together the ease-of-use of agentless and the power of runtime", listing "Agentless Cloud Scanners" and "Runtime Sensors" (upwind.io/cnapp, 23 November 2026).
+
+- **Best for, in our view:** teams that want runtime context, such as what is reachable, to decide what gets fixed first.
+- **Trade-off to check:** which findings come from the agentless scanners alone and which need the sensors.
+- **Ask them:** how the ranking changes where the sensor is not deployed.
+
+### 8. Wiz
+
+Wiz says "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime." On prioritisation: "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited and would lead to significant business impact." On deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", and "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection with context for better prioritization." Source: wiz.io/platform, accessed 23 November 2026. Pricing is by custom quote (wiz.io/pricing, 23 November 2026).
+
+- **Best for, in our view:** the closest design to Orca on this list, for teams that want that shape from a different vendor.
+- **Trade-off to check:** what the sensor adds over API-based coverage, and where you would need it.
+- **Ask them:** how a finding on one cloud is ranked against a finding on another. For a direct comparison, use our [Wiz vs Orca POC questions](/resources/blog/wiz-vs-orca-poc-questions).
+
+### And Onam Security (that is us)
+
+We are the newest company on this list, so here are the facts. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks. Pricing is public: $20 per unit a month for Complete, which includes data security, $14 per unit for Posture, and $39 per active developer for code security. There is no free trial; we offer a [free one-time audit scan](/audit-scan) instead.
+
+- **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. If inline blocking is what you are buying, buy it from someone above who sells it.
+- **Ask us:** the same questions as everyone else. Our answers are on the [Onam vs Orca](/compare/onam-vs-orca) page.
+
+## How to choose an Orca alternative
+
+- **You like Orca's agentless-first design and want a second quote.** Run Wiz against Orca in the same accounts, in the same two weeks.
+- **You are Azure-first and already pay for Microsoft security.** Price Defender CSPM first; part of it may already be in what you own.
+- **You run CrowdStrike or Palo Alto on endpoints and network.** Their cloud products extend an agent your team already operates. Test the posture side as hard as the runtime side.
+- **Containers and Kubernetes are most of your estate.** Shortlist the platforms that lead with runtime, such as Sysdig, Upwind and Aqua.
+- **You run more than the big three clouds, or the board wants risk in money.** That is the case we built Onam for.
+
+Then put the same questions to every finalist:
+
+| Question | Why it matters |
+| --- | --- |
+| How many clouds get first-class treatment? | Ask for the per-cloud rule breakdown as well as the headline. |
+| What does onboarding grant, and what needs an agent? | Whatever needs a rollout may take time to reach the whole estate. |
+| What unit is the ranking expressed in? | A score ranks findings against each other; a money figure ranks them against other spending. |
+| Does it connect findings across engines and clouds? | The path that reaches data is often several ordinary findings in a row. |
+| Is compliance evidence continuous? | Continuous evidence means you are ready for an audit on any day. |
+
+For the POC itself, give two vendors plus Orca read-only access to the same non-production accounts for two weeks, and compare what each ranks first. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set, grouped by week. If you want to include us, [request a scan](/request-demo).
+
+## Frequently asked questions
+
+### What are the best Orca Security alternatives in 2026?
+
+The platforms most often compared with Orca Security are Wiz, Palo Alto Networks Cortex Cloud, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Sysdig Secure, Tenable One Cloud Exposure, Upwind and Aqua Security, with SentinelOne also on many shortlists. "Best" depends on your clouds, your current security vendor and how much runtime protection you need, so run the same POC against two or three of them.
+
+### Who are Orca Security's main competitors?
+
+In CNAPP and cloud security posture, Orca's main competitors include Wiz, Palo Alto Networks, Microsoft, CrowdStrike, Tenable, SentinelOne, Sysdig, Upwind and Aqua Security, along with newer platforms such as Onam. Wiz is the closest in design.
+
+### What is the difference between Orca and Wiz?
+
+On their own pages, both describe agentless coverage, an optional runtime sensor (the Orca Sensor and the Wiz Sensor) and prioritisation built on attack paths or toxic combinations. The differences show up in your own accounts, so test both side by side; see [Wiz vs Orca: what to ask in a POC](/resources/blog/wiz-vs-orca-poc-questions).
+
+### Is there a cheaper or free alternative to Orca Security?
+
+We did not find Orca list prices on the pages we read, so a comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete and $14 per unit for Posture, and offers a free one-time audit scan. A lower price only helps if it covers what you need, so compare tools on the same accounts.
+
+## Corrections
+
+Last updated 23 November 2026. Every vendor page quoted here was read that day, and every statement about another vendor is a quotation from its own public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and we will correct it.
+
+*Read next: [Wiz.io alternatives & competitors 2026](/resources/blog/wiz-alternatives), [Wiz vs Orca: what to ask in a POC](/resources/blog/wiz-vs-orca-poc-questions), and [Onam vs Orca](/compare/onam-vs-orca).*
+
+---
+
 ## Wiz vs Orca POC: 30 questions to ask in any CNAPP trial
 URL: https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions
 Published: October 7, 2026
@@ -9184,7 +9733,7 @@ Access reviews in Onam are an attestation and remediation workflow: every identi
 URL: https://www.onamsecurity.com/resources/blog/wiz-alternatives
 Published: September 15, 2026
 
-*Updated 11 November 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
+*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
 
 ## The short answer
 
@@ -9199,7 +9748,7 @@ Each cell in the deployment and ranking columns is what the vendor's own page sa
 | Platform | Best fit, in our view | Deployment, as the vendor describes it | Ranking, as described | Public pricing |
 | --- | --- | --- | --- | --- |
 | Orca Security | Teams that want Wiz's agentless-first shape from another vendor | Agentless SideScanning; optional Orca Sensor | Dynamic scoring and attack path analysis | Ask for a quote |
-| Cortex Cloud (Palo Alto) | Estates standardised on Palo Alto | Performance-optimised agent for runtime | SmartScore, exposure and production behaviour | Ask for a quote |
+| Cortex Cloud (Palo Alto) | Estates standardised on Palo Alto | Agentless scanning plus lightweight runtime agents | Connects vulnerabilities, misconfigurations, identities and exposure | Ask for a quote |
 | Defender for Cloud | Azure-centred estates | Agentless connectors for AWS and GCP; Defender for Endpoint for servers | Secure score; attack paths in the paid Defender CSPM plan | Published; foundational CSPM is free |
 | CrowdStrike Falcon Cloud Security | Teams already running the Falcon sensor | Agent and agentless | Adversary intelligence and graph context | Ask for a quote |
 | Tenable Cloud Security | Tenable vulnerability management customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
@@ -9231,7 +9780,7 @@ Two things in that description matter for a shortlist. The ranking unit is a pri
 
 ### 1. CrowdStrike Falcon Cloud Security
 
-In its own words, Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform." On prioritisation, it "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." On deployment it describes "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
+CrowdStrike calls it "The most complete CNAPP with unified agent and agentless protection, from code to cloud." On prioritisation: "CrowdStrike enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Source: crowdstrike.com/platform/cloud-security, re-checked 23 November 2026.
 
 - **Best for, in our view:** organisations already running the Falcon sensor on endpoints, where cloud runtime protection extends an agent the operations team knows.
 - **Trade-off to check:** which protections need the sensor deployed, and what a workload without it receives.
@@ -9239,10 +9788,10 @@ In its own words, Falcon Cloud Security "unifies agentless visibility with the C
 
 ### 2. Cortex Cloud (Palo Alto Networks)
 
-If your shortlist says Prisma Cloud, check which product name is on the quote. The Cortex Cloud page describes it as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
+If your shortlist says Prisma Cloud, check which product name is on the quote. Palo Alto says "Cortex Cloud goes beyond traditional CNAPP solutions by unifying application security, cloud posture management and runtime defense in one platform." On prioritisation: "By connecting vulnerabilities, misconfigurations, identities and exposure risks, the platform identifies the issues that matter most". On deployment: "Cortex Cloud combines agentless scanning for cloud asset discovery, posture management and risk assessment with lightweight runtime agents for continuous threat monitoring and active protection." Source: paloaltonetworks.com/cortex/cloud, re-checked 23 November 2026.
 
 - **Best for, in our view:** estates standardised on Palo Alto, where one commercial relationship covers network, endpoint and cloud.
-- **Trade-off to check:** which workloads the agent must reach, and who owns that rollout.
+- **Trade-off to check:** which workloads the runtime agents must reach, and who owns that rollout.
 - **Ask them:** what a workload without the agent receives, and how existing Prisma Cloud contracts map to Cortex Cloud.
 
 ### 3. Lacework FortiCNAPP (Fortinet)
@@ -9361,9 +9910,9 @@ Yes. Google completed its acquisition of Wiz in March 2026. Google has said Wiz 
 
 ## Corrections
 
-Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 23 November 2026. Cortex Cloud and CrowdStrike were re-read on 23 November 2026; Wiz, Orca, SentinelOne and Sysdig on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
-*Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and [what a CNAPP is](/learn/cnapp).*
+*Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Prisma Cloud alternatives](/resources/blog/prisma-cloud-alternatives), [Orca Security alternatives](/resources/blog/orca-security-alternatives), [Which CSPM tools have public pricing](/resources/blog/cspm-tools-public-pricing), and [what a CNAPP is](/learn/cnapp).*
 
 ---
 
@@ -9389,7 +9938,7 @@ Deployment and ranking are what each vendor's own page says, on the date read. "
 
 | Tool | Best fit, in our view | Deployment, as described | Ranking, as described | Public pricing |
 | --- | --- | --- | --- | --- |
-| Cortex Cloud | Palo Alto estates | Performance-optimised agent for runtime | SmartScore, exposure and production behaviour | Ask for a quote |
+| Cortex Cloud | Palo Alto estates | Agentless scanning plus lightweight runtime agents | Connects vulnerabilities, misconfigurations, identities and exposure | Ask for a quote |
 | Falcon Cloud Security | Falcon endpoint customers | Agent and agentless | Adversary intelligence and graph context | Ask for a quote |
 | Defender for Cloud | Azure-centred estates | Agentless connectors for AWS and GCP; Defender for Endpoint for servers | Secure score; attack paths in the paid Defender CSPM plan | Published; foundational CSPM is free |
 | Orca Security | Agentless-first teams | Agentless SideScanning; optional Orca Sensor | Dynamic scoring and attack path analysis | Ask for a quote |
@@ -9417,14 +9966,14 @@ Vendors' own public pages, quoted verbatim, with the address and the date read. 
 
 ### 1. Cortex Cloud (Palo Alto Networks)
 
-Palo Alto describes Cortex Cloud as "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments." On prioritisation: "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk." On deployment: "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats." Source: paloaltonetworks.com/cortex/cloud, accessed 15 September 2026.
+Palo Alto says "Cortex Cloud goes beyond traditional CNAPP solutions by unifying application security, cloud posture management and runtime defense in one platform." On prioritisation: "By connecting vulnerabilities, misconfigurations, identities and exposure risks, the platform identifies the issues that matter most". On deployment: "Cortex Cloud combines agentless scanning for cloud asset discovery, posture management and risk assessment with lightweight runtime agents for continuous threat monitoring and active protection." Source: paloaltonetworks.com/cortex/cloud, re-checked 23 November 2026.
 
 - **Best for:** estates already on Palo Alto for network and endpoint.
 - **Check:** which workloads the agent must reach. If you were quoted Prisma Cloud, ask which product name applies.
 
 ### 2. CrowdStrike Falcon Cloud Security
 
-CrowdStrike says Falcon Cloud Security "unifies agentless visibility with the CrowdStrike Falcon sensor, combining real-time detection, AI-driven insights, and automated response in a single platform", and that it "enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Deployment is "a proven agent and agentless solution." Source: crowdstrike.com/platform/cloud-security, accessed 15 September 2026.
+CrowdStrike calls Falcon Cloud Security "The most complete CNAPP with unified agent and agentless protection, from code to cloud." On prioritisation: "CrowdStrike enriches cloud risk detections with adversary intelligence and graph-based context, enabling you to prioritize exploitable exposures and prevent breaches." Source: crowdstrike.com/platform/cloud-security, re-checked 23 November 2026.
 
 - **Best for:** organisations already running the Falcon sensor on endpoints.
 - **Check:** which protections need the sensor, and what posture-only accounts receive.
@@ -9525,7 +10074,7 @@ Connecting an account through a read-only role is usually quick for any of these
 
 Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
-*Read next: [Wiz alternatives in 2026](/resources/blog/wiz-alternatives), the [comparison pages](/compare), and [What is CSPM](/learn/cspm).*
+*Read next: [Which CSPM tools have public pricing](/resources/blog/cspm-tools-public-pricing), [Wiz alternatives](/resources/blog/wiz-alternatives), [Prisma Cloud alternatives](/resources/blog/prisma-cloud-alternatives), [Orca Security alternatives](/resources/blog/orca-security-alternatives), the [comparison pages](/compare), and [What is CSPM](/learn/cspm).*
 
 ---
 

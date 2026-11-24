@@ -653,7 +653,7 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-prisma-cloud</loc>
-    <lastmod>2026-11-06</lastmod>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/compare/onam-vs-defender</loc>
@@ -682,6 +682,18 @@
   <url>
     <loc>https://www.onamsecurity.com/company/team/ajay-chaudhary</loc>
     <lastmod>2026-11-15</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/resources/blog/prisma-cloud-alternatives</loc>
+    <lastmod>2026-11-23</lastmod>
+  </url>
+  <url>
+    <loc>https://www.onamsecurity.com/resources/blog/orca-security-alternatives</loc>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-vs-orca-poc-questions</loc>
@@ -713,11 +725,11 @@
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/wiz-alternatives</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/best-cspm-tools</loc>
-    <lastmod>2026-11-16</lastmod>
+    <lastmod>2026-11-23</lastmod>
   </url>
   <url>
     <loc>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</loc>

@@ -169,13 +169,13 @@ export const COMPETITORS: Competitor[] = [
       {
         vendor: "Palo Alto Networks — Cortex Cloud",
         quotes: [
-          "a Cloud-Native Application Protection Platform (CNAPP) designed to secure cloud-native applications across multi-cloud environments.",
-          "SmartScore prioritizes them by real-world exposure and production behavior, replacing volume-driven alerts with decisions grounded in actual risk.",
-          "Our performance-optimized agent captures deep behavioral telemetry to understand attacker intent and contain threats.",
+          "Cortex Cloud goes beyond traditional CNAPP solutions by unifying application security, cloud posture management and runtime defense in one platform.",
+          "By connecting vulnerabilities, misconfigurations, identities and exposure risks, the platform identifies the issues that matter most",
+          "Cortex Cloud combines agentless scanning for cloud asset discovery, posture management and risk assessment with lightweight runtime agents for continuous threat monitoring and active protection.",
         ],
         url: "https://www.paloaltonetworks.com/cortex/cloud",
         source: "paloaltonetworks.com/cortex/cloud",
-        accessed: "15 September 2026",
+        accessed: "23 November 2026",
         note: "The page we read describes Cortex Cloud. If your quote says Prisma Cloud, ask which product name applies.",
       },
     ],

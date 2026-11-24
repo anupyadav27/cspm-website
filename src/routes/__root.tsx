@@ -26,8 +26,17 @@ const STRUCTURED_DATA = [
     url: SITE_URL,
     logo: `${SITE_URL}/logo-512.png`,
     description:
-      "Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection, attack paths, CDR), SaaS security and code security across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AI, the AI security analyst, in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.",
+      "Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection, attack paths, CDR), SaaS security and code security across AWS, Azure, GCP, OCI, Alibaba, IBM and Kubernetes, with Onam AI, the AI security analyst, in early access. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Based in Noida, India. Priced per unit: $20 per unit a month on Complete, $14 per unit on Posture.",
     slogan: "Cloud, SaaS and code security, with an AI security analyst.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "AF-08 & 09, C-58, TOT, Sector-62",
+      addressLocality: "Noida",
+      addressRegion: "Uttar Pradesh",
+      postalCode: "201301",
+      addressCountry: "IN",
+    },
+    founder: { "@type": "Person", name: "Anup Yadav" },
     knowsAbout: [
       "Cloud Security Posture Management (CSPM)",
       "Cloud Infrastructure Entitlement Management (CIEM)",
@@ -57,7 +66,7 @@ const STRUCTURED_DATA = [
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     name: "Onam",
-    alternateName: "Onam — cloud asset, security, cost and recovery platform",
+    alternateName: "Onam Security — cloud security platform",
     url: SITE_URL,
     publisher: { "@id": `${SITE_URL}/#organization` },
   },
