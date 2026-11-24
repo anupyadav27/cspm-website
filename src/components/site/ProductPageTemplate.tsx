@@ -353,11 +353,14 @@ export function ProductPageTemplate({
   data,
   extra,
   video,
+  short,
 }: {
   data: ProductPageData;
   extra?: ReactNode;
   /** Short Q&A video (click-to-play) shown after "Why it matters". */
   video?: VideoKey;
+  /** Optional one-minute animated Short, shown after the main video. */
+  short?: { video: VideoKey; title: string };
 }) {
   return (
     <SiteLayout>
@@ -365,6 +368,7 @@ export function ProductPageTemplate({
       <StickyNav data={data} />
       <WhyItMatters data={data} />
       {video && <VideoSection video={video} title={`${data.label} in two minutes`} />}
+      {short && <VideoSection video={short.video} eyebrow="One-minute short" title={short.title} />}
       <HowItWorks data={data} />
       <WhatYouGet data={data} />
       {!data.hideDemo && (

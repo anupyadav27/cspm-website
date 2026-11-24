@@ -46,6 +46,8 @@ export type LearnArticle = {
   body: string;
   faqs: LearnFaq[];
   related: { label: string; href: string }[];
+  /** Optional embedded video (key in data/videos.ts), shown after the answer. */
+  video?: import("@/data/videos").VideoKey;
 };
 
 export const LEARN_ARTICLES: LearnArticle[] = [
@@ -833,6 +835,7 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
 
   {
     slug: "cloud-attack-path",
+    video: "chokePoint",
     author: "anup-yadav",
     question: "What is attack path analysis?",
     title: "What is Attack Path Analysis? Attack Path Mapping in Cloud",
@@ -1168,6 +1171,7 @@ Quantification produces a defensible estimate. It is not a prophecy. Its value i
   },
   {
     slug: "choke-point",
+    video: "chokePoint",
     author: "anup-yadav",
     question: "What is a choke point in cloud security?",
     title: "What is a Choke Point? Attack Path Choke Points Explained",

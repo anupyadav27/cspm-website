@@ -13,5 +13,9 @@ export const Route = createFileRoute("/platform/attack-path")({
       path: "/platform/attack-path",
       image: "/og/platform-attack-path.png",
     }),
-  component: () => <ProductPageTemplate data={data} video="attackPath" />,
+  component: () => <ProductPageTemplate
+      data={data}
+      video="attackPath"
+      short={{ video: "chokePoint", title: "What is a choke point, and why fix it first?" }}
+    />,
 });

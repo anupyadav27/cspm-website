@@ -28,6 +28,10 @@ export type Video = {
   /** ISO 8601, as YouTube reports it. */
   uploadDate: string;
   playlist: Playlist;
+  /** A YouTube Short (9:16): shown in a tall frame instead of 16:9. */
+  vertical?: boolean;
+  /** Our own cover, served from /public (YouTube's hqdefault crops a Short to 4:3). */
+  thumbnail?: string;
 };
 
 export const VIDEOS = {
@@ -62,6 +66,16 @@ export const VIDEOS = {
       "A short Q&A on data security posture management (DSPM): data classification and lineage with Onam DSPM.",
     uploadDate: "2026-10-06T09:13:14-07:00",
     playlist: PLAYLISTS.cloudSecurity,
+  },
+  chokePoint: {
+    id: "dLHhQLfZV38",
+    title: "What Are Choke Points in an Attack Path, and Why Fix Them First?",
+    description:
+      "A one-minute animated short: four small cloud findings chain into one attack path (request forgery, IMDSv1, iam:PassRole, customer data), and requiring IMDSv2 cuts it at the choke point.",
+    uploadDate: "2026-11-24T05:50:44Z",
+    playlist: PLAYLISTS.cloudSecurity,
+    vertical: true,
+    thumbnail: "/videos/choke-point-short.jpg",
   },
   attackPath: {
     id: "VAQFWAZq8fs",

@@ -14,7 +14,7 @@ export function videoJsonLd(v: Video) {
     "@type": "VideoObject",
     name: v.title,
     description: v.description,
-    thumbnailUrl: thumb(v.id),
+    thumbnailUrl: v.thumbnail ? `${SITE_URL}${v.thumbnail}` : thumb(v.id),
     uploadDate: v.uploadDate,
     embedUrl: embed(v.id),
     contentUrl: `https://www.youtube.com/watch?v=${v.id}`,
@@ -30,7 +30,9 @@ export function videoJsonLd(v: Video) {
 export function VideoFacade({ video }: { video: Video }) {
   const [playing, setPlaying] = useState(false);
   return (
-    <div className="relative aspect-video w-full overflow-hidden rounded-2xl border border-line bg-[#0B1220] shadow-[0_1px_2px_rgba(16,24,40,.04),0_8px_24px_rgba(16,24,40,.08)]">
+    <div
+      className={`relative ${video.vertical ? "mx-auto aspect-[9/16] max-w-[340px]" : "aspect-video"} w-full overflow-hidden rounded-2xl border border-line bg-[#0B1220] shadow-[0_1px_2px_rgba(16,24,40,.04),0_8px_24px_rgba(16,24,40,.08)]`}
+    >
       {playing ? (
         <iframe
           className="absolute inset-0 h-full w-full"
@@ -49,12 +51,12 @@ export function VideoFacade({ video }: { video: Video }) {
           aria-label={`Play video: ${video.title}`}
         >
           <img
-            src={thumb(video.id)}
+            src={video.thumbnail ?? thumb(video.id)}
             alt=""
             loading="lazy"
             decoding="async"
-            width={480}
-            height={360}
+            width={video.vertical ? 540 : 480}
+            height={video.vertical ? 960 : 360}
             className="absolute inset-0 h-full w-full object-cover"
           />
           <span className="absolute inset-0 bg-black/20 transition group-hover:bg-black/10" />
@@ -71,7 +73,7 @@ export function VideoFacade({ video }: { video: Video }) {
 export function VideoCaption({ video }: { video: Video }) {
   return (
     <p className="mt-3 text-sm text-body">
-      Voices are AI-generated. More short Q&amp;A videos:{" "}
+      Voices are AI-generated. More short videos:{" "}
       <a
         href={playlistUrl(video.playlist)}
         target="_blank"

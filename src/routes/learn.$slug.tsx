@@ -6,6 +6,7 @@ import { getSuite } from "@/data/product-suite";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { Prose } from "@/components/site/Prose";
+import { VideoSection } from "@/components/site/VideoEmbed";
 import { LEARN_ARTICLES, getLearnArticle, learnProduct, type LearnArticle, type LearnProduct } from "@/data/learn-articles";
 
 /**
@@ -206,6 +207,10 @@ function LearnPage() {
             </div>
           </div>
         </section>
+
+        {article.video && (
+          <VideoSection video={article.video} eyebrow="One-minute short" title="Watch: choke points in one minute" />
+        )}
 
         <section className="max-w-3xl mx-auto px-6 py-14">
           <Prose source={article.body} />
