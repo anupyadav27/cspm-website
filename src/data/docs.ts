@@ -12,6 +12,7 @@ import { articles as dspm } from "./docs-articles/dspm";
 import { articles as codeSecurity } from "./docs-articles/code-security";
 import { articles as ciem } from "./docs-articles/ciem";
 import { articles as security } from "./docs-articles/security";
+import { articles as aiSecurity } from "./docs-articles/ai-security";
 
 export type { DocArticle };
 
@@ -103,6 +104,18 @@ export const DOC_SECTIONS: DocSection[] = [
       { title: "Data lineage", slug: "dspm/lineage" },
       { title: "Findings reference", slug: "dspm/findings-reference" },
       { title: "Coverage by cloud", slug: "dspm/coverage" },
+    ],
+  },
+  {
+    heading: "AI security (AI-SPM)",
+    product: "security",
+    items: [
+      { title: "Overview", slug: "ai-security/overview" },
+      { title: "Discovery and AI bill of materials", slug: "ai-security/discovery-and-bom" },
+      { title: "Guardrail and exposure checks", slug: "ai-security/guardrails-and-exposure" },
+      { title: "AI and your data, AI agents", slug: "ai-security/data-and-agents" },
+      { title: "AI compliance mappings", slug: "ai-security/compliance" },
+      { title: "Coverage by cloud", slug: "ai-security/coverage" },
     ],
   },
   {
@@ -221,6 +234,7 @@ const CUSTOM_ARTICLES: DocArticle[] = [
   ...codeSecurity,
   ...ciem,
   ...security,
+  ...aiSecurity,
 ];
 
 function titleFromSlug(slug: string) {

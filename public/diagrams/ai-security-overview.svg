@@ -1,0 +1,177 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 480" width="960" height="480" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How Onam Security AI-SPM works</title>
+  <desc id="d">Five stages: AI sources (cloud AI services, self-hosted AI on Kubernetes, software bills of materials), read-only discovery, one AI inventory, posture checks (guardrails, exposure, configuration, data links, agent identities), and findings mapped to AI frameworks.</desc>
+  <rect width="960" height="480" fill="#F8FAFC" rx="10"/>
+
+  <text x="480" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">HOW AI SECURITY POSTURE WORKS — FROM AI SERVICES TO FINDINGS IN ONE QUEUE</text>
+  <line x1="16" y1="34" x2="944" y2="34" stroke="#CBD5E1" stroke-width="1"/>
+
+  <!-- ── 1. AI SOURCES ── -->
+  <rect x="16" y="48" width="170" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="101" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. AI SOURCES</text>
+  <text x="101" y="82" text-anchor="middle" font-size="8" fill="#64748B">Where AI runs in your estate</text>
+  <line x1="26" y1="90" x2="176" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="26" y="100" width="150" height="104" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="101" y="119" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Cloud AI services</text>
+  <text x="36" y="139" font-size="8" font-weight="700" fill="#C2410C">AWS</text>
+  <text x="66" y="139" font-size="8" fill="#64748B">SageMaker · Bedrock</text>
+  <text x="36" y="155" font-size="8" font-weight="700" fill="#1D4ED8">Azure</text>
+  <text x="66" y="155" font-size="8" fill="#64748B">AI services · Azure</text>
+  <text x="66" y="166" font-size="8" fill="#64748B">OpenAI · Machine Learning</text>
+  <text x="36" y="182" font-size="8" font-weight="700" fill="#15803D">Google</text>
+  <text x="66" y="182" font-size="8" fill="#64748B">Vertex AI endpoints,</text>
+  <text x="66" y="193" font-size="8" fill="#64748B">datasets, Workbench</text>
+
+  <rect x="26" y="212" width="150" height="104" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="101" y="231" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Self-hosted AI</text>
+  <text x="101" y="244" text-anchor="middle" font-size="8" fill="#64748B">on Kubernetes</text>
+  <text x="36" y="262" font-size="8" fill="#475569">• Ollama · vLLM · TGI · LiteLLM</text>
+  <text x="36" y="276" font-size="8" fill="#475569">• Jupyter · MLflow</text>
+  <text x="36" y="290" font-size="8" fill="#475569">• Qdrant · Weaviate · Milvus</text>
+  <text x="36" y="304" font-size="8" fill="#475569">• KServe · KubeRay · Seldon</text>
+
+  <rect x="26" y="324" width="150" height="70" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="101" y="343" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Software (SBOMs)</text>
+  <text x="101" y="360" text-anchor="middle" font-size="8" fill="#64748B">AI libraries · model servers</text>
+  <text x="101" y="372" text-anchor="middle" font-size="8" fill="#64748B">MCP SDKs in your</text>
+  <text x="101" y="384" text-anchor="middle" font-size="8" fill="#64748B">code and images</text>
+
+  <text x="101" y="416" text-anchor="middle" font-size="8" fill="#64748B">AWS · Azure · Google Cloud · Kubernetes</text>
+
+  <!-- arrow -->
+  <line x1="186" y1="238" x2="196" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="195,233 204,238 195,243" fill="#94A3B8"/>
+
+  <!-- ── 2. DISCOVER ── -->
+  <rect x="206" y="48" width="170" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="291" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">2. DISCOVER</text>
+  <text x="291" y="82" text-anchor="middle" font-size="8" fill="#64748B">Configuration, not content</text>
+  <line x1="216" y1="90" x2="366" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="216" y="100" width="150" height="92" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="291" y="119" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Read-only cloud roles</text>
+  <text x="291" y="137" text-anchor="middle" font-size="8" fill="#475569">The same posture scan that</text>
+  <text x="291" y="149" text-anchor="middle" font-size="8" fill="#475569">feeds CSPM records each</text>
+  <text x="291" y="161" text-anchor="middle" font-size="8" fill="#475569">AI resource and its settings.</text>
+  <text x="291" y="179" text-anchor="middle" font-size="8" fill="#475569">Nothing new to deploy.</text>
+
+  <rect x="216" y="200" width="150" height="92" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="291" y="219" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Read-only cluster access</text>
+  <text x="291" y="237" text-anchor="middle" font-size="8" fill="#475569">A classifier reads workloads</text>
+  <text x="291" y="249" text-anchor="middle" font-size="8" fill="#475569">and custom resources and</text>
+  <text x="291" y="261" text-anchor="middle" font-size="8" fill="#475569">recognises AI servers,</text>
+  <text x="291" y="273" text-anchor="middle" font-size="8" fill="#475569">notebooks and vector DBs.</text>
+
+  <rect x="216" y="300" width="150" height="70" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="291" y="319" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">SBOM reader</text>
+  <text x="291" y="337" text-anchor="middle" font-size="8" fill="#475569">Picks the AI components</text>
+  <text x="291" y="349" text-anchor="middle" font-size="8" fill="#475569">out of the software bills</text>
+  <text x="291" y="361" text-anchor="middle" font-size="8" fill="#475569">of materials.</text>
+
+  <text x="291" y="400" text-anchor="middle" font-size="8" fill="#64748B">No prompts, completions or</text>
+  <text x="291" y="412" text-anchor="middle" font-size="8" fill="#64748B">training data are read.</text>
+
+  <line x1="376" y1="238" x2="386" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="385,233 394,238 385,243" fill="#94A3B8"/>
+
+  <!-- ── 3. AI INVENTORY ── -->
+  <rect x="396" y="48" width="170" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="481" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">3. AI INVENTORY</text>
+  <text x="481" y="82" text-anchor="middle" font-size="8" fill="#64748B">One list of your AI estate</text>
+  <line x1="406" y1="90" x2="556" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="406" y="100" width="150" height="150" fill="#0B1220" stroke="#0B1220" stroke-width="1.2" rx="8"/>
+  <circle cx="481" cy="134" r="20" fill="#1E293B" stroke="#2563EB" stroke-width="1.5"/>
+  <circle cx="481" cy="134" r="6" fill="#60A5FA"/>
+  <line x1="461" y1="134" x2="449" y2="134" stroke="#60A5FA" stroke-width="1.2"/>
+  <line x1="501" y1="134" x2="513" y2="134" stroke="#60A5FA" stroke-width="1.2"/>
+  <line x1="481" y1="114" x2="481" y2="106" stroke="#60A5FA" stroke-width="1.2"/>
+  <line x1="481" y1="154" x2="481" y2="162" stroke="#60A5FA" stroke-width="1.2"/>
+  <text x="481" y="184" text-anchor="middle" font-size="10" font-weight="700" fill="#FFFFFF">AI resources</text>
+  <text x="481" y="200" text-anchor="middle" font-size="8" fill="#CBD5E1">Models, endpoints,</text>
+  <text x="481" y="212" text-anchor="middle" font-size="8" fill="#CBD5E1">deployments, agents,</text>
+  <text x="481" y="224" text-anchor="middle" font-size="8" fill="#CBD5E1">notebooks, model servers,</text>
+  <text x="481" y="236" text-anchor="middle" font-size="8" fill="#CBD5E1">vector databases</text>
+
+  <rect x="406" y="258" width="150" height="62" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="481" y="277" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">AI bill of materials</text>
+  <text x="481" y="294" text-anchor="middle" font-size="8" fill="#64748B">Which AI libraries, model</text>
+  <text x="481" y="306" text-anchor="middle" font-size="8" fill="#64748B">servers and MCP SDKs you ship</text>
+
+  <rect x="406" y="328" width="150" height="62" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
+  <text x="481" y="347" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">AI applications</text>
+  <text x="481" y="364" text-anchor="middle" font-size="8" fill="#64748B">Your AI apps, with their</text>
+  <text x="481" y="376" text-anchor="middle" font-size="8" fill="#64748B">own tab in the console</text>
+
+  <text x="481" y="412" text-anchor="middle" font-size="8" fill="#64748B">Console: AI Security › Inventory</text>
+
+  <line x1="566" y1="238" x2="576" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="575,233 584,238 575,243" fill="#94A3B8"/>
+
+  <!-- ── 4. CHECK ── -->
+  <rect x="586" y="48" width="170" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="671" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">4. CHECK</text>
+  <text x="671" y="82" text-anchor="middle" font-size="8" fill="#64748B">Every scan</text>
+  <line x1="596" y1="90" x2="746" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <rect x="596" y="100" width="150" height="52" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="671" y="118" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1E3A8A">Guardrails present?</text>
+  <text x="671" y="133" text-anchor="middle" font-size="8" fill="#475569">Bedrock Guardrails · Azure</text>
+  <text x="671" y="144" text-anchor="middle" font-size="8" fill="#475569">content filters · Model Armor</text>
+
+  <rect x="596" y="158" width="150" height="52" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="671" y="176" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1E3A8A">Exposed without auth?</text>
+  <text x="671" y="191" text-anchor="middle" font-size="8" fill="#475569">Self-hosted model servers,</text>
+  <text x="671" y="202" text-anchor="middle" font-size="8" fill="#475569">notebooks, vector databases</text>
+
+  <rect x="596" y="216" width="150" height="52" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="671" y="234" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1E3A8A">Configuration checks</text>
+  <text x="671" y="249" text-anchor="middle" font-size="8" fill="#475569">Cloud AI services on AWS,</text>
+  <text x="671" y="260" text-anchor="middle" font-size="8" fill="#475569">Azure and Google Cloud</text>
+
+  <rect x="596" y="274" width="150" height="52" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="671" y="292" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1E3A8A">Which data does it read?</text>
+  <text x="671" y="307" text-anchor="middle" font-size="8" fill="#475569">AI-to-data links to the</text>
+  <text x="671" y="318" text-anchor="middle" font-size="8" fill="#475569">stores each service uses</text>
+
+  <rect x="596" y="332" width="150" height="52" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
+  <text x="671" y="350" text-anchor="middle" font-size="9.5" font-weight="700" fill="#1E3A8A">What can the agent do?</text>
+  <text x="671" y="365" text-anchor="middle" font-size="8" fill="#475569">AI identities flagged for</text>
+  <text x="671" y="376" text-anchor="middle" font-size="8" fill="#475569">admin and wide write access</text>
+
+  <text x="671" y="412" text-anchor="middle" font-size="8" fill="#64748B">Identity risk shown on every AI workload</text>
+
+  <line x1="756" y1="238" x2="766" y2="238" stroke="#94A3B8" stroke-width="2"/>
+  <polygon points="765,233 774,238 765,243" fill="#94A3B8"/>
+
+  <!-- ── 5. FINDINGS ── -->
+  <rect x="776" y="48" width="168" height="380" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
+  <text x="860" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">5. FINDINGS</text>
+  <text x="860" y="82" text-anchor="middle" font-size="8" fill="#64748B">In the same queue as the rest</text>
+  <line x1="786" y1="90" x2="934" y2="90" stroke="#CBD5E1" stroke-width="1"/>
+
+  <text x="792" y="110" font-size="8" fill="#334155">• Missing guardrail</text>
+  <text x="792" y="126" font-size="8" fill="#334155">• AI server open without auth</text>
+  <text x="792" y="142" font-size="8" fill="#334155">• Risky AI configuration</text>
+  <text x="792" y="158" font-size="8" fill="#334155">• AI agent with admin access</text>
+  <text x="792" y="174" font-size="8" fill="#334155">• AI agent with wide write</text>
+
+  <rect x="786" y="192" width="148" height="108" fill="#DCFCE7" stroke="#86EFAC" stroke-width="1" rx="8"/>
+  <text x="860" y="210" text-anchor="middle" font-size="8" font-weight="700" fill="#166534">Mapped automatically</text>
+  <text x="796" y="228" font-size="8" fill="#166534">→ OWASP Top 10 for LLM</text>
+  <text x="806" y="240" font-size="8" fill="#166534">Applications 2025</text>
+  <text x="796" y="256" font-size="8" fill="#166534">→ NIST AI RMF</text>
+  <text x="796" y="272" font-size="8" fill="#166534">→ ISO/IEC 42001</text>
+  <text x="796" y="288" font-size="8" fill="#166534">→ EU AI Act</text>
+
+  <rect x="786" y="308" width="148" height="76" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="8"/>
+  <text x="860" y="326" text-anchor="middle" font-size="8" font-weight="700" fill="#334155">Attestation only</text>
+  <text x="796" y="344" font-size="8" fill="#475569">→ MITRE ATLAS</text>
+  <text x="796" y="360" font-size="8" fill="#475569">→ OWASP Agentic 2026</text>
+  <text x="796" y="374" font-size="8" fill="#475569">You supply the evidence</text>
+
+  <text x="860" y="412" text-anchor="middle" font-size="8" fill="#64748B">A mapping is not full coverage</text>
+
+  <text x="480" y="456" text-anchor="middle" font-size="8" fill="#64748B">Posture scanning connects through read-only cloud roles and a read-only Kubernetes ServiceAccount. Onam checks how AI is set up; it does not test models or prompts.</text>
+</svg>

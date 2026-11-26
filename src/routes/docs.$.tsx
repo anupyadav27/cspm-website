@@ -4,7 +4,7 @@ import { Prose } from "@/components/site/Prose";
 import { BrandButton } from "@/components/site/BrandButton";
 import { getDocArticle, DOC_SECTIONS, DOC_PRODUCT_LABEL, allDocSlugs } from "@/data/docs";
 import { seo, descriptionFromMarkdown, SITE_URL } from "@/lib/seo";
-import { extractHeadings, slugifyHeading } from "@/components/site/Prose";
+import { extractHeadings, slugifyHeading, faqJsonLd } from "@/components/site/Prose";
 import { ChevronRight } from "@/components/site/icons";
 
 export const Route = createFileRoute("/docs/$")({
@@ -62,7 +62,10 @@ function productBreadcrumb(slug: string, breadcrumb: string) {
 }
 
 function docJsonLd(article: { title: string; slug: string; body: string }) {
+  // A page with a :::faq block also gets FAQPage structured data.
+  const faq = faqJsonLd(article.body);
   return [
+    ...(faq ? [faq] : []),
     {
       "@context": "https://schema.org",
       "@type": "TechArticle",

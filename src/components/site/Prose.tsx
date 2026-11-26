@@ -1,9 +1,29 @@
 import { type ReactNode } from "react";
+import { SummaryCard, parseCardRows } from "./blocks/SummaryCard";
+import { FlowDiagram, parseFlow } from "./blocks/FlowDiagram";
+import { CoverageMatrix, parseMatrix } from "./blocks/CoverageMatrix";
+import { Walkthrough } from "./blocks/Walkthrough";
+import { LimitsCallout } from "./blocks/LimitsCallout";
+import { FaqList } from "./blocks/FaqList";
+import { splitByH3, plainText } from "./blocks/shared";
 
 // Ultra-small "markdown-ish" renderer for our in-house doc/blog copy.
 // Supports: ## headings, ### headings, paragraphs, - lists, 1. lists, > callouts,
 // fenced ``` code blocks, inline `code`, simple pipe tables, links [t](u), **bold**,
 // block images ![alt](src) on their own line, and --- horizontal rules.
+//
+// Visual blocks (fenced directives, closed by a line that is exactly `:::`;
+// the text after the block name is its title). Syntax reference:
+// header comment of each file in src/components/site/blocks/.
+//   :::card [title]      "In 60 seconds" card. Lines `Label: text`.
+//   :::flow [aria label] Animated flow. One line per stage, `Label | sublabel`;
+//                        parallel nodes in a stage are separated by ` || `.
+//   :::matrix [title]    Coverage matrix. A pipe table; cells start with
+//                        yes | partial | no | planned (or ✓ ✗), optional (note).
+//   :::steps [title]     Walkthrough. `### Step title` + markdown body per step.
+//   :::limits [title]    Amber "Honest limits" callout; markdown body.
+//   :::faq [title]       Q/A list. `### Question` + markdown answer; emits FAQPage JSON-LD.
+// An unknown block name renders its body as ordinary prose.
 
 type Block =
   | { kind: "h2"; text: string }
@@ -15,7 +35,10 @@ type Block =
   | { kind: "code"; text: string }
   | { kind: "img"; alt: string; src: string }
   | { kind: "hr" }
-  | { kind: "table"; rows: string[][] };
+  | { kind: "table"; rows: string[][] }
+  | { kind: "directive"; name: string; title: string; body: string };
+
+const DIRECTIVE_OPEN = /^:::([a-z]+)\s*(.*)$/;
 
 function parse(src: string): Block[] {
   const lines = src.replace(/\r\n/g, "\n").split("\n");
@@ -24,6 +47,17 @@ function parse(src: string): Block[] {
   while (i < lines.length) {
     const line = lines[i];
     if (!line.trim()) { i++; continue; }
+    {
+      const d = DIRECTIVE_OPEN.exec(line.trim());
+      if (d) {
+        const buf: string[] = [];
+        i++;
+        while (i < lines.length && lines[i].trim() !== ":::") { buf.push(lines[i]); i++; }
+        i++;
+        blocks.push({ kind: "directive", name: d[1], title: d[2].trim(), body: buf.join("\n") });
+        continue;
+      }
+    }
     if (line.startsWith("```")) {
       const buf: string[] = [];
       i++;
@@ -72,7 +106,7 @@ function parse(src: string): Block[] {
     // paragraph: consume until blank
     const buf = [line];
     i++;
-    while (i < lines.length && lines[i].trim() && !/^([-*] |\d+\. |> |## |### |```|\||!\[|-{3,}\s*$)/.test(lines[i])) {
+    while (i < lines.length && lines[i].trim() && !/^([-*] |\d+\. |> |## |### |```|\||!\[|-{3,}\s*$|:::)/.test(lines[i])) {
       buf.push(lines[i]); i++;
     }
     blocks.push({ kind: "p", text: buf.join(" ") });
@@ -112,6 +146,61 @@ export function slugifyHeading(text: string) {
   return text.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 
+/** Q/A pairs from every :::faq block, as plain text, for FAQPage JSON-LD. */
+export function extractFaq(src: string): { q: string; a: string }[] {
+  return parse(src)
+    .filter((b): b is Extract<Block, { kind: "directive" }> => b.kind === "directive" && b.name === "faq")
+    .flatMap((b) => splitByH3(b.body))
+    .filter((x) => x.title && x.body.trim())
+    .map((x) => ({ q: plainText(x.title), a: plainText(x.body) }));
+}
+
+/** schema.org FAQPage for a body that contains a :::faq block, else null. */
+export function faqJsonLd(src: string) {
+  const faq = extractFaq(src);
+  if (!faq.length) return null;
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faq.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  };
+}
+
+function renderDirective(b: Extract<Block, { kind: "directive" }>, key: number): ReactNode {
+  switch (b.name) {
+    case "card":
+      return <SummaryCard key={key} title={b.title || "In 60 seconds"} rows={parseCardRows(b.body).map((r) => ({ label: r.label, content: renderInline(r.text) }))} />;
+    case "flow":
+      return <FlowDiagram key={key} spec={parseFlow(b.title, b.body)} />;
+    case "matrix":
+      return <CoverageMatrix key={key} spec={parseMatrix(b.title, b.body)} renderInline={renderInline} />;
+    case "steps":
+      return (
+        <Walkthrough
+          key={key}
+          title={b.title}
+          steps={splitByH3(b.body).filter((s) => s.title).map((s) => ({ title: s.title, content: <Prose source={s.body} /> }))}
+        />
+      );
+    case "limits":
+      return <LimitsCallout key={key} title={b.title || "Honest limits"}><Prose source={b.body} /></LimitsCallout>;
+    case "faq":
+      return (
+        <FaqList
+          key={key}
+          title={b.title}
+          items={splitByH3(b.body).filter((s) => s.title).map((s) => ({ q: s.title, a: <Prose source={s.body} /> }))}
+        />
+      );
+    default:
+      return <Prose key={key} source={b.body} />;
+  }
+}
+
 export function extractHeadings(src: string): { text: string; id: string }[] {
   return parse(src)
     .filter((b): b is { kind: "h2"; text: string } => b.kind === "h2")
@@ -124,6 +213,8 @@ export function Prose({ source }: { source: string }) {
     <div className="max-w-none">
       {blocks.map((b, i) => {
         switch (b.kind) {
+          case "directive":
+            return renderDirective(b, i);
           case "h2":
             return (
               <h2 key={i} id={slugifyHeading(b.text)} className="font-display font-extrabold text-2xl md:text-[28px] tracking-tight text-[#0B1220] mt-12 mb-4 scroll-mt-24">

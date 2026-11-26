@@ -76,7 +76,7 @@ export function descriptionFromMarkdown(body: string, max = 155): string {
     .replace(/```[\s\S]*?```/g, "")
     .split(/\n\s*\n/)
     .map((p) => p.trim())
-    .filter((p) => p && !/^[#>|\-*\d]|^!\[/.test(p));
+    .filter((p) => p && !/^[#>|\-*\d:]|^!\[/.test(p));
   const text = (paragraphs[0] ?? "")
     .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
     .replace(/[*_`]/g, "")

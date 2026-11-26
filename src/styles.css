@@ -210,3 +210,13 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* Prose :::flow diagrams — a dash that travels along each connector. */
+@keyframes onam-flow-dash { to { stroke-dashoffset: -32; } }
+.onam-flow-dash {
+  stroke-dasharray: 6 10;
+  animation: onam-flow-dash 1.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .onam-flow-dash { animation: none; stroke-dasharray: none; opacity: 0.55; }
+}

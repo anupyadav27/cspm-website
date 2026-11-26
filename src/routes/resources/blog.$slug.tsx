@@ -1,7 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
-import { Prose } from "@/components/site/Prose";
+import { Prose, faqJsonLd } from "@/components/site/Prose";
 import { BLOG_POSTS, getPost, type BlogPost } from "@/data/blog-posts";
 import { seo, SITE_URL } from "@/lib/seo";
 import { getAuthor, personJsonLd } from "@/data/authors";
@@ -93,6 +93,8 @@ function Article() {
         dangerouslySetInnerHTML={{
           __html: JSON.stringify([
             articleJsonLd(post),
+            // A post with a :::faq block also gets FAQPage structured data.
+            ...(post.body && faqJsonLd(post.body) ? [faqJsonLd(post.body)] : []),
             {
               "@context": "https://schema.org",
               "@type": "BreadcrumbList",
