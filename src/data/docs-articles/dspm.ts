@@ -7,7 +7,9 @@ import type { DocArticle } from "./types";
  * posture_signals.py, tech_resource_classifier.py, edge_signals/writer.py,
  * input/inventory_reader.py), shared/api_gateway/bff/datasec.py (lineage
  * chains), engines/database-security and engines/encryption-security.
- * Classification is metadata-based. Do not add a claim here that those files
+ * Classification is metadata-based by default; content classification runs where the
+ * customer deploys the DSPM scanner or on-prem collector (engines/dspm; owner decision
+ * 2026-11-26: available to all customers). Do not add a claim here that those files
  * do not support, and do not add a product number that is not `status: cleared`
  * in marketing/facts/product.yaml.
  *
@@ -20,7 +22,7 @@ export const articles: DocArticle[] = [
     title: "DSPM overview",
     breadcrumb: "Data Security (DSPM) / Overview",
     body: `
-DSPM in Onam Security: find every cloud data store, label it from metadata, and see how it is exposed, who reaches it and where its data flows.
+DSPM in Onam Security: find every cloud data store, classify what it holds, and see how it is exposed, who reaches it and where its data flows.
 
 Data security posture management answers three questions continuously rather than once before an audit: **what data do we hold, where is it, and how exposed is it?** Onam's DSPM runs inside every scan, alongside posture, identity and attack-path analysis, and writes its results onto the same security graph.
 
@@ -32,15 +34,15 @@ Data security posture management answers three questions continuously rather tha
 | --- | --- | --- |
 | 1. Data stores | Object storage, managed databases and warehouses, streams, Kubernetes secrets and ConfigMaps, and self-hosted databases you onboard | [Coverage by cloud](/docs/dspm/coverage) |
 | 2. Discover | The posture scan records each store and its settings: encryption, policies, ACLs, public-access block, logging, versioning, backup, region, relationships | [Discovery](/docs/dspm/discovery) |
-| 3. Classify | Names, descriptions, tags, database and schema names become PII, PHI, PCI, financial and confidential labels. Contents are not read | [Classification](/docs/dspm/classification) |
+| 3. Classify | Names, descriptions, tags, database and schema names become PII, PHI, PCI, financial and confidential labels. Where you deploy Onam's DSPM scanner or on-prem collector, sampled file and row contents are classified too | [Classification](/docs/dspm/classification) |
 | 4. Join | Public grants, cross-account grants, observed access, encryption and keys, attack paths | [Access mapping](/docs/dspm/access-mapping) |
 | 5. Findings | Per store, every scan: classification, encryption, access, residency, logging, lifecycle, lineage and a 0–100 governance score | [Findings reference](/docs/dspm/findings-reference) |
 
 ## What DSPM is, and is not
 
 - **It is** an always-current catalog of your data stores, with a sensitivity label you can trace to its source, and the exposure that makes each label matter.
-- **It is** metadata-based. It does not open objects, query rows, read stream messages or read secret values. Posture scanning connects through read-only cloud roles.
-- **It is not** a content scanner. A store whose name and tags say nothing about what it holds gets no label until someone tags it. See [Classification and its limits](/docs/dspm/classification).
+- **It is** metadata-based by default. Posture scanning connects through read-only cloud roles and does not open objects or query rows.
+- **It is** a content classifier where you deploy its scanner. Where you deploy Onam's DSPM scanner in your own cloud account (AWS: S3 and RDS/Aurora snapshots; Azure: Blob Storage, Files and Azure SQL; Google Cloud: Cloud Storage, BigQuery and Cloud SQL) or the on-prem collector (SMB and NTFS file shares, NetApp and FSx), DSPM also reads samples of files and rows and classifies their contents with country-specific detectors. See [Classification and its limits](/docs/dspm/classification).
 - **It is not** a DLP tool. It does not watch data in motion or block transfers.
 
 ## How it connects to the rest of Onam
@@ -102,7 +104,7 @@ Posture scanning connects through read-only cloud roles: list and describe calls
     title: "Classification and its limits",
     breadcrumb: "Data Security (DSPM) / Classification",
     body: `
-How DSPM labels a store PII, PHI, PCI, financial or confidential from metadata — names, tags and schema — and what that approach cannot see.
+How DSPM labels a store PII, PHI, PCI, financial or confidential from metadata and, with the DSPM scanner, from sampled contents, and what each approach cannot see.
 
 ## The labels
 
@@ -126,7 +128,11 @@ A store can carry more than one label — a table called \`patient-intake\` is l
 
 Because every signal is metadata you can read — a name, a tag, a schema — the reason for a label is visible in the store's own configuration.
 
-## What classification does not read
+## Content classification
+
+Where you deploy Onam's DSPM scanner in your own cloud account (AWS: S3 and RDS/Aurora snapshots; Azure: Blob Storage, Files and Azure SQL; Google Cloud: Cloud Storage, BigQuery and Cloud SQL) or the on-prem collector (SMB and NTFS file shares, NetApp and FSx), DSPM also reads samples of files and rows and classifies their contents with country-specific detectors. The scanner runs in your own cloud account and the collector on your own network. Content classification is set up per tenant: nothing is scanned for contents until you configure it.
+
+## What metadata classification does not read
 
 - Objects or files in buckets
 - Rows or columns of data in tables
@@ -135,12 +141,12 @@ Because every signal is metadata you can read — a name, a tag, a schema — th
 
 ## The limits, stated plainly
 
-- **False negatives.** A bucket called \`nightly-exports\` holding customer records gets no label, because nothing in its metadata says what it holds. Fix: tag it, or name it for its contents.
+- **False negatives.** Without the content scanner, a bucket called \`nightly-exports\` holding customer records gets no label, because nothing in its metadata says what it holds. Fix: deploy the scanner for that store, tag it, or name it for its contents.
 - **False positives.** A bucket called \`user-avatars-thumbnails\` is labelled PII because of the token *user*. Fix: rename it, or accept the label; the reason is in the name.
-- **No record counts.** Because contents are not read, DSPM cannot tell you how many personal records a store holds, or which columns hold them.
-- **No content-level PCI proof.** A PCI label means the metadata points to card data, not that a card number was found.
+- **No record counts from metadata.** From metadata alone, DSPM cannot tell you how many personal records a store holds, or which columns hold them.
+- **No content-level PCI proof from metadata.** A PCI label from metadata means the names point to card data, not that a card number was found.
 
-> If you need to know exactly what is inside unlabelled files, that requires a content scanner, which Onam's DSPM is not. The design choice is deliberate: your data stays where it is, and no permission to read it is needed.
+> If you need to know what is inside unlabelled files, deploy Onam's DSPM scanner for those stores. Without it, DSPM needs no permission to read your data.
 
 ## Making classification better
 

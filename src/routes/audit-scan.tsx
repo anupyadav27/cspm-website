@@ -72,7 +72,7 @@ const COVERS = [
 const NOT_COVERED = [
   "Agentless workload scanning. It runs inside your account and creates short-lived scan resources there, so it needs more than read access. We add it only if you ask and agree in writing.",
   "Code repositories, SaaS platforms and any other cloud accounts",
-  "Reading data contents. Data is labelled from metadata only (store names, tags, column names); Onam never opens a file or reads a row.",
+  "Reading data contents. The audit scan labels data from metadata (store names, tags, column names); content classification needs Onam's DSPM scanner deployed in your account.",
   "A compliance verdict. Framework mapping says which findings map to which controls; it is not a certification.",
 ];
 

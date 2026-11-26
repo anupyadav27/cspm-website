@@ -209,8 +209,8 @@ function DspmDeepDive() {
               Every label traces back to something you can read
             </h2>
             <p className="mt-4 text-[#475569] leading-relaxed">
-              Labels come from metadata, so the reason is always something you can read and change:
-              a name, a tag, a schema.
+              Metadata labels come from a name, a tag or a schema, so the reason is something you can read
+              and change. Where you deploy Onam's DSPM scanner, sampled contents add labels the names miss.
             </p>
           </div>
           <figure className="mt-10">

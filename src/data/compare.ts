@@ -306,7 +306,7 @@ export const COMPETITORS: Competitor[] = [
     questions: [
       {
         q: "How is data classified — by reading contents, or from metadata?",
-        onam: "From metadata: resource names, descriptions, tags, database and schema names, and configuration. Onam does not read the contents of files or rows to classify them. Because labels come from names and tags, the reason for a label is readable in the store's own name, and a wrong or missing label is corrected with a tag.",
+        onam: "Both. By default, from metadata: resource names, descriptions, tags, database and schema names, and configuration. Where you deploy Onam's DSPM scanner in your own cloud account (AWS: S3 and RDS/Aurora snapshots; Azure: Blob Storage, Files and Azure SQL; Google Cloud: Cloud Storage, BigQuery and Cloud SQL) or the on-prem collector (SMB and NTFS file shares, NetApp and FSx), DSPM also reads samples of files and rows and classifies their contents with country-specific detectors.",
       },
       {
         q: "Which data stores are covered?",
@@ -326,11 +326,11 @@ export const COMPETITORS: Competitor[] = [
       },
       {
         q: "What leaves your environment to make this work?",
-        onam: "Metadata read through cloud APIs. Because classification does not read contents, the files and rows themselves are not copied out to be classified.",
+        onam: "For metadata classification, metadata read through cloud APIs. Content classification runs in the DSPM scanner you deploy in your own cloud account, or the collector on your own network.",
       },
     ],
     honestLimit:
-      "The honest gap: Onam classifies from metadata and does not read contents. Cyera describes AI-native classification of structured and unstructured data across cloud, SaaS, DBaaS and on-premises stores. If you need to know what is actually inside the files — or you need on-premises coverage — that is Cyera's design and not ours. Our case is data exposure joined to identity, network and attack paths on one graph.",
+      "The honest gap: Onam's content classification covers selected stores on AWS, Azure and Google Cloud plus on-prem file shares, through a scanner you deploy. Cyera describes AI-native classification of structured and unstructured data across cloud, SaaS, DBaaS and on-premises stores. If content classification across SaaS and every data service is the main requirement, that is Cyera's design and not ours. Our case is data exposure joined to identity, network and attack paths on one graph.",
   },
   {
     slug: "onam-vs-ciem-tools",

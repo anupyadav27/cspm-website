@@ -120,17 +120,17 @@ export const healthcareData: IndustrySolutionData = {
   whyChoose: [
     { title: "PHI labels that drive priority", body: "Stores labelled as likely PHI raise the findings and attack paths that reach them, so the riskiest gaps come first." },
     { title: "Evidence per control", body: "Timestamped evidence for each HIPAA control, exported as PDF or CSV." },
-    { title: "Classification without opening your data", body: "PHI labels come from metadata. Onam does not open objects, query rows or sample files." },
+    { title: "Classification you control", body: "PHI labels come from metadata by default. Content classification runs only where you deploy Onam's DSPM scanner, in your own cloud account." },
     { title: "Works for health systems, payers, and digital health", body: "One control set covers hospitals, insurers and digital health apps." },
   ],
   faqs: [
     {
       q: "Does Onam ever ingest PHI?",
-      a: "Data classification uses metadata: store names, descriptions, tags, database and schema names, and configuration such as bucket policies, encryption settings and IAM bindings. It does not open objects, query rows or sample files.",
+      a: "By default, data classification uses metadata: store names, descriptions, tags, database and schema names, and configuration such as bucket policies, encryption settings and IAM bindings. If you deploy Onam's DSPM scanner in your own cloud account, it reads samples of files and rows there to classify their contents.",
     },
     {
       q: "How does Onam identify which resources hold PHI?",
-      a: "Tokens in a store's name, description and tags (for example patient or clinical), database and schema names for self-hosted databases, and the metadata on rules that matched it. A store whose name and tags say nothing about its contents gets no label until someone tags it, so tagging PHI stores by your own convention makes the labels complete.",
+      a: "Tokens in a store's name, description and tags (for example patient or clinical), database and schema names for self-hosted databases, and the metadata on rules that matched it. Without the content scanner, a store whose name and tags say nothing about its contents gets no label until someone tags it, so tagging PHI stores by your own convention makes the labels complete.",
     },
     {
       q: "Can Onam produce evidence for an OCR audit?",

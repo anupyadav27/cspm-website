@@ -660,7 +660,7 @@ export const ibmData: CloudSolutionData = {
     },
     {
       q: "Can Onam audit Red Hat OpenShift on IBM Cloud?",
-      a: "Yes. ROKS clusters are audited alongside IKS with CIS Kubernetes and OpenShift-specific rules: RBAC, SCCs, image policies, and network policies.",
+      a: "ROKS clusters can be connected through the Kubernetes connector and checked with the same Kubernetes API rules as other clusters: RBAC, workloads and network policies. The CIS OpenShift benchmark is not checked automatically.",
     },
     {
       q: "What IBM Cloud network security checks does Onam run?",
@@ -694,7 +694,7 @@ export const kubernetesData: CloudSolutionData = {
   sub: "Privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin are the Kubernetes misconfigurations that open a cluster to attack. Onam audits every cluster object without deploying a sidecar or daemonset.",
   docsHref: "/docs/onboarding/kubernetes",
   stats: [
-    { value: "824", label: "posture rules on Kubernetes" },
+    { value: "824", label: "posture rule definitions for Kubernetes" },
     { value: "EKS / AKS / GKE", label: "+ self-managed" },
     { value: "Agentless", label: "no sidecar, no daemonset" },
     { value: "CIS", label: "Kubernetes benchmarks mapped" },
@@ -706,34 +706,30 @@ export const kubernetesData: CloudSolutionData = {
     "ServiceAccounts & Bindings",
     "NetworkPolicies",
     "Ingress & Services",
-    "Secrets & ConfigMaps",
     "Admission Controllers",
     "Container Images & Registries",
-    "Nodes & Kubelet Config",
     "CRDs & Custom Resources",
-    "etcd & Control-Plane Settings",
   ],
   servicesPlusNote:
-    "GKE Autopilot, EKS Fargate, OpenShift, Rancher-managed clusters, and self-hosted kubeadm clusters.",
+    "Any cluster whose API server Onam can reach, through the Kubernetes connector: EKS, AKS, GKE, OKE, ACK, IKS or self-managed.",
   frameworks: [
     "CIS Kubernetes Benchmark",
     "CIS EKS / AKS / GKE Benchmarks",
-    "CIS OpenShift",
     "PCI DSS",
     "SOC 2",
   ],
   setupSteps: [
     {
       title: "Grant read-only cluster access",
-      body: "Apply the Onam ClusterRole manifest with one kubectl apply. It grants get, list, and watch on every resource, and nothing else. No exec, no port-forward, no impersonation.",
+      body: "Apply the Onam manifest with one kubectl apply. Its ClusterRole grants get, list and watch on workloads, services, networking, RBAC, storage and nodes. It grants no access to Secrets or ConfigMaps, no write verbs, and no exec or port-forward.",
     },
     {
-      title: "Bind to Onam's service account",
-      body: "Federated OIDC binding to Onam's service account, so no long-lived kubeconfig files exchanged. For self-managed clusters, the token is stored in AWS Secrets Manager, encrypted with AWS KMS.",
+      title: "Register the cluster",
+      body: "Paste the API server URL, the service account token and the cluster CA certificate into the Onam console. The token does not expire; rotate it by deleting and re-applying its Secret.",
     },
     {
       title: "Findings from the first scan",
-      body: "Onam watches the API server for drift and audits workloads against CIS Kubernetes and image-supply-chain rules. No runtime agent is required.",
+      body: "Onam re-scans the cluster on a schedule and checks workloads, RBAC and network policy against its Kubernetes posture rules. No runtime agent is required.",
     },
   ],
   featuresHeading: "What makes Onam different on Kubernetes",
@@ -748,13 +744,13 @@ export const kubernetesData: CloudSolutionData = {
       icon: KeyRound,
       iconColor: "#2563EB",
       title: "RBAC effective-permission graph",
-      body: "Every RoleBinding, ClusterRoleBinding, and ServiceAccount is resolved into what a pod can do, including cross-namespace escalation via aggregation rules and impersonation verbs.",
+      body: "Every RoleBinding, ClusterRoleBinding, and ServiceAccount is resolved into what a pod can do, including wildcard grants, secret reads, pods/exec, and the right to create pods, roles or bindings.",
     },
     {
       icon: Boxes,
       iconColor: "#05A052",
       title: "Image supply-chain analysis",
-      body: "Container images are traced back to their registries and their base layers. Unscanned images, missing signatures, and vulnerable OS packages are surfaced with the workloads that run them.",
+      body: "Container images are traced back to their registries and their base layers. Unscanned images and vulnerable OS packages are surfaced with the workloads that run them.",
     },
   ],
   faqs: [
@@ -764,19 +760,19 @@ export const kubernetesData: CloudSolutionData = {
     },
     {
       q: "Which Kubernetes distributions do you support?",
-      a: "EKS, AKS, GKE (including Autopilot), Red Hat OpenShift, Rancher-managed clusters, and self-hosted kubeadm clusters, all with the same rules.",
+      a: "Any cluster whose API server Onam can reach, through the Kubernetes connector: EKS, AKS, GKE, OKE, ACK, IKS or self-managed, all with the same rules.",
     },
     {
       q: "How does Onam get access to a private cluster?",
-      a: "For managed clusters, Onam uses cloud-provider IAM federation. For private self-managed clusters, a lightweight read-only broker runs inside your VPC and forwards API-server calls only.",
+      a: "The API server must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs. The connection uses a read-only service account token; Onam does not offer an in-VPC broker or a cloud-IAM-federated cluster connection today.",
     },
     {
       q: "Do you scan container images?",
-      a: "Yes. Onam correlates every running pod to its image digest and pulls image metadata from your registries to surface unsigned images, unpatched base layers, and vulnerable packages.",
+      a: "Yes. Onam correlates every running pod to its image digest and pulls image metadata from your registries to surface unpatched base layers and vulnerable packages.",
     },
     {
       q: "Which frameworks do you map Kubernetes findings to?",
-      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Kubernetes Benchmark, CIS EKS / AKS / GKE / OKE, CIS OpenShift, PCI DSS and SOC 2.`,
+      a: `Among the ${FRAMEWORKS} frameworks Onam maps: CIS Kubernetes Benchmark, CIS EKS / AKS / GKE / OKE, PCI DSS and SOC 2.`,
     },
   ],
 };

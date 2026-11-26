@@ -230,7 +230,7 @@ Yes. The full topology graph (VPCs, subnets, route tables, peerings, transit gat
     title: "Data Security (DSPM)",
     breadcrumb: "Features / Data Security",
     body: `
-Data Security (DSPM): every cloud data store, labelled from metadata and joined to exposure, access, encryption and lineage. The short version.
+Data Security (DSPM): every cloud data store, classified from metadata and, where you deploy Onam's scanner, from its contents, and joined to exposure, access, encryption and lineage. The short version.
 
 This page is the short version. The full documentation has its own section: start at the [DSPM overview](/docs/dspm/overview).
 
@@ -239,7 +239,7 @@ This page is the short version. The full documentation has its own section: star
 ## What it answers
 
 - **What data do we hold, and where?** Every data store across the connected clouds — object storage, managed databases and warehouses, streams, Kubernetes secrets and ConfigMaps — plus self-hosted databases you onboard. See [Discovery](/docs/dspm/discovery) and [Coverage by cloud](/docs/dspm/coverage).
-- **Which stores look sensitive?** PII, PHI, PCI, financial and confidential labels inferred from names, descriptions, tags and schema. Contents are not read. See [Classification and its limits](/docs/dspm/classification).
+- **Which stores look sensitive?** PII, PHI, PCI, financial and confidential labels inferred from names, descriptions, tags and schema, and from sampled contents where you deploy Onam's DSPM scanner. See [Classification and its limits](/docs/dspm/classification).
 - **How can each store be reached?** Public grants, other accounts in bucket policies, principals seen in the last 30 days of audit events, encryption and keys, and attack paths that end at the store. See [Access mapping](/docs/dspm/access-mapping).
 - **Is it protected?** Encryption at rest, access logging, versioning and backup, residency, and a 0–100 governance score per store. See [Exposure, encryption and residency](/docs/dspm/exposure-and-residency).
 - **Where does the data go next?** Replication, backup, ETL, streaming and export hops linked into chains, with cross-region and cross-account hops flagged. See [Data lineage](/docs/dspm/lineage).
@@ -290,9 +290,9 @@ Four curated sources feed detection and prioritization:
 
 | Source | What it provides | Refresh cadence |
 | --- | --- | --- |
-| NVD | CVE metadata and CVSS v3.1 base scores | Every 4 hours |
-| EPSS (FIRST.org) | Probability each CVE is exploited in the next 30 days | Daily |
-| CISA KEV | Catalog of vulnerabilities confirmed exploited in the wild | Within an hour of CISA publication |
+| NVD | CVE metadata and CVSS v3.1 base scores | Hourly |
+| EPSS (FIRST.org) | Probability each CVE is exploited in the next 30 days | Every 12 hours |
+| CISA KEV | Catalog of vulnerabilities confirmed exploited in the wild | Checked every 6 hours |
 | OSV | Open-source package advisories keyed by ecosystem and affected version range | Continuous |
 
 Vendor advisories (Microsoft MSRC, Red Hat, GitHub Security Advisories) are also tracked — they often run ahead of NVD, so new zero-days typically appear within hours.
@@ -470,7 +470,7 @@ The Kubernetes attack surface is uniquely large: every cluster has a control pla
 | Workload security | Pod-spec misconfigurations · resource limits · dangerous capability grants · read-only filesystem · non-root enforcement |
 | Image security | Registry image scanning · known CVEs · base-image age · secrets in image layers |
 | Network | Ingress exposure · LoadBalancer service types · missing network policies · cluster-to-cluster peering |
-| Registry and supply chain | ECR / ACR / GCR / Docker Hub / GHCR / OCIR scanning · image-signature verification · unsigned images in production |
+| Registry and supply chain | ECR / ACR / GCR / Docker Hub / GHCR / OCIR scanning |
 
 ## Supported Platforms
 
@@ -495,7 +495,7 @@ Every scan runs three stages: discover cluster state, evaluate against rule cata
 
 1. **Discovery.** Onam reads cluster state through the Kubernetes API server with your read-only credential: Pods, Deployments, Services, Roles, RoleBindings, NetworkPolicies, Namespaces, ConfigMaps (Secret references only — never values), Nodes, and the images running on each. In parallel, container registries are scanned for image inventory.
 2. **Evaluation.** Three rule catalogs apply: the **CIS Kubernetes Benchmark v1.8** (112 controls), **NSA/CISA Kubernetes Hardening Guidance** (2024 edition), and **custom rules** — YAML rules you define for org-specific policies via the Rule Builder.
-3. **Findings.** Output is categorized into RBAC findings (over-privileged service accounts, cluster-admin bindings), workload findings (privileged pods, missing limits), network findings (no policies, exposed services), and image findings (CVEs, unsigned images). Each is severity-graded and CIS-mapped.
+3. **Findings.** Output is categorized into RBAC findings (over-privileged service accounts, cluster-admin bindings), workload findings (privileged pods, missing limits), network findings (no policies, exposed services), and image findings (CVEs). Each is severity-graded, and CIS-mapped where a CIS control applies.
 
 ![Container security platform view — cluster posture, RBAC findings, and workload risk](/diagrams/p-container.svg)
 
@@ -550,20 +550,19 @@ The fix is rarely "deny everything". Onam suggests policy templates based on the
 
 ## Image Security
 
-Images are scanned in two contexts — at rest in registries and at runtime in the cluster — for four classes of issues:
+Images are scanned in two contexts — at rest in registries and at runtime in the cluster — for three classes of issues:
 
 | Check | What's flagged |
 | --- | --- |
 | Known CVEs | Matched against NVD, OSV, Red Hat, Debian, Ubuntu, Alpine, and GitHub Security advisories |
 | Secrets in layers | API keys, passwords, and tokens baked into image history |
 | Base-image age | EOL base OS versions (Debian 9, Ubuntu 18.04, Alpine 3.12) |
-| Image signing | Unsigned images deployed to production (Cosign / Notary v2 / sigstore verification) |
 
-Supported registries: ECR (AWS), ACR (Azure), GCR / Artifact Registry (GCP), OCIR (OCI), Docker Hub, GitHub Container Registry, and Quay. If your CI pipeline signs images at build, Onam verifies the signature is intact at deploy time and flags tampered images at runtime.
+Supported registries: ECR (AWS), ACR (Azure), GCR / Artifact Registry (GCP), OCIR (OCI), Docker Hub, GitHub Container Registry, and Quay. Image signatures (Cosign, Notary) are not verified today.
 
 ## CIS Kubernetes Benchmark Coverage
 
-Findings map to the CIS Kubernetes Benchmark v1.8 — 112 controls in six sections. New CIS versions are added within 60 days of publication; previous versions stay available for migration.
+Findings are linked to CIS Kubernetes Benchmark controls where a working rule exists. Onam reads the cluster through the Kubernetes API, so the Kubernetes policies section (RBAC, network policies, pod security) is where most automated checks sit. Control-plane, etcd and worker-node controls depend on settings that are mostly not readable through the API: they are checked only in part, and the rest are marked for manual review.
 
 | Section | Controls | Examples |
 | --- | --- | --- |

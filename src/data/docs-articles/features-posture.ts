@@ -366,7 +366,7 @@ See [CDR](/docs/features/cdr) for the full detection model, log source configura
 
 The correlation plane merges both worlds:
 
-- **Behavioral edges on the graph.** When CDR observes real movement — an assumption, a data access — it becomes an edge in the attack path graph, upgrading a theoretical path to an active one.
+- **Threat state on paths.** A path whose resources carry an open detection or incident is marked as threat, incident or attack in progress, so a theoretical path that is being used stands out.
 - **Choke points.** The graph identifies single fixes that sever many paths at once — the highest-leverage remediation available.
 - **Incidents.** Related detections are grouped by shared entities and temporal proximity, so three alerts become one investigation.
 
@@ -384,7 +384,7 @@ The console renders this as an ATT&CK heatmap (\`GET /api/v1/cdr/heatmap\`) show
 
 A typical analyst flow from alert to resolution:
 
-1. **Triage.** Start in the Findings or CDR view, sorted by severity and incident grouping. The finding header shows the affected asset, when it fired, and its MITRE technique.
+1. **Triage.** Start in the Findings view or in Threats > Detections, sorted by severity and incident grouping. The finding header shows the affected asset, when it fired, and its MITRE technique.
 2. **Context.** Open the finding detail: full description, evidence, related findings on the same asset, compliance impact, and remediation steps.
 3. **Blast radius.** Pivot to the asset in Inventory and its blast radius (\`GET /api/v1/inventory/asset/{resource_uid}/blast-radius\`) — what an attacker could reach from here.
 4. **Correlate.** Check whether the asset sits on an attack path or a choke point; an active detection on a confirmed path is your priority incident.
@@ -397,7 +397,7 @@ A typical analyst flow from alert to resolution:
 
 - **Severity thresholds** — alert routing has a minimum-severity gate per channel, so pagers only fire for what matters.
 - **Suppressions** — accepted posture findings are suppressed with justification and expiry, keeping scores honest without deleting evidence.
-- **Entity allowlists** — CDR detections support per-entity allowlisting, for example a role that legitimately operates from many regions.
+- **Known automation** — Onam's own scanning identities are recognised and do not raise CDR alerts. A customer-editable allowlist for CDR detections is not available today.
 - **Custom rules** — the Rule Builder adds tenant-specific posture rules; CDR scenario tuning adjusts behavioral sensitivity.
 
 ## Next steps
@@ -433,7 +433,7 @@ CDR ingests audit and activity logs from every connected provider using the same
 | IBM Cloud | Activity logs | IBM Cloud Object Storage |
 | Kubernetes | API server audit events | Collected via Discovery & Inventory |
 
-On AWS, supplemental sources — VPC Flow Logs and GuardDuty findings — can be enabled to enrich detections with network telemetry and Amazon's native alerts.
+Network flow logs are also read where you already export them: VPC Flow Logs on AWS, NSG flow logs on Azure and VPC flow logs on Google Cloud. On AWS, GuardDuty findings are read when GuardDuty exports them to S3. Onam does not turn logging on for you.
 
 ## The three-tier detection model
 
@@ -462,7 +462,7 @@ L2 scenarios watch for sequences that are individually unremarkable but damning 
 
 ### L3 — statistical behavior baselines
 
-L3 builds a per-entity behavioral profile over a 30-day rolling window — typical API call rate and distribution, normal geographic regions, standard hours of activity, usual services accessed, and typical data transfer volumes. Detections fire when behavior deviates sharply:
+L3 builds a per-entity behavioral profile over rolling windows of 7 to 30 days, depending on the behavior — typical API call rate and distribution, normal geographic regions, standard hours of activity, usual services accessed, and typical data transfer volumes. Detections fire when behavior deviates sharply:
 
 - API call rate deviates more than 3 standard deviations from baseline
 - Activity at unusual hours or from a new geographic region
@@ -498,41 +498,26 @@ Detections aggregate into the ATT&CK heatmap in the console (\`GET /api/v1/cdr/h
 Each incident type ships with a response playbook:
 
 1. **Alert triage** — context summary, affected resources, estimated blast radius
-2. **Containment** — one-click actions: quarantine IAM role, revoke session tokens, block IP
-3. **Investigation** — a linked audit-log query pulls the full event timeline for the entities involved
-4. **Remediation** — the posture findings that contributed to the incident, with fix guidance from the [CSPM](/docs/features/cspm) engine
+2. **Investigation** — a linked audit-log query pulls the full event timeline for the entities involved
+3. **Remediation** — the posture findings that contributed to the incident, with fix guidance from the [CSPM](/docs/features/cspm) engine
+
+Response is guidance. Onam does not take containment actions for you: it does not quarantine roles, revoke sessions or block IP addresses. CDR's cloud access is read-only, and your team carries out the response.
 
 Because CDR shares the platform's asset and identity inventory, every incident is pre-enriched with posture context: the role's entitlements from [CIEM](/docs/features/ciem), the resource's exposure from [Network Security](/docs/features/network-security), and its position on any [attack path](/docs/features/attack-path).
 
 ## Configuration
 
-CDR is enabled per cloud account:
-
-\`\`\`
-cdr:
-  log_sources:
-    cloudtrail: enabled
-    vpc_flow_logs: enabled
-    guardduty: enabled
-  detection_tiers:
-    l1_rules: enabled
-    l2_scenarios: enabled
-    l3_baselines: enabled
-  alerting:
-    min_severity: medium       # low | medium | high | critical
-    channels: [slack, pagerduty, email]
-  baseline_window_days: 30
-\`\`\`
+There is no per-account CDR configuration file to write. CDR finds the log sources each connected account already delivers and reads them through the same cloud connection; which sources and detection levels run is managed by the platform. Logs are read on a schedule, hourly, rather than streamed.
 
 > L3 baselines need history before they are trustworthy. Initial baselines are established within 7 days of activation and reach full accuracy after about 14 days. L1 and L2 detections fire from the first ingested event — do not delay enabling CDR waiting for baselines.
 
 ## FAQ
 
-**Does CDR consume GuardDuty findings?** Yes. GuardDuty findings are ingested alongside L1 detections, enriched with posture and identity context from Onam's other engines, and correlated into the unified incident stream.
+**Does CDR consume GuardDuty findings?** Yes, when GuardDuty exports its findings to an S3 bucket. CDR reads them from that export and matches them with its GuardDuty rules, so they appear as detections with posture and identity context from Onam's other engines. Reading findings directly from the GuardDuty API is not generally available.
 
-**How do I reduce false positives?** Use the per-detection entity allowlist. For example, suppress "unusual region" detections for a specific IAM role that legitimately operates globally. Suppressed detections are still logged but do not create alerts.
+**How do I reduce false positives?** Onam's own scanning identities are recognised and do not raise alerts. A customer-editable per-entity allowlist for CDR detections is not available today.
 
-**What latency should I expect from event to detection?** Ingestion follows each provider's log delivery cadence (typically minutes). L1 and L2 evaluation happens on ingest; L3 evaluates against the rolling baseline continuously.
+**What latency should I expect from event to detection?** Logs are read hourly. Detections typically appear within about an hour of the provider delivering the log.
 
 ## Next steps
 

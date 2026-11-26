@@ -495,7 +495,7 @@ export const platformPages: Record<string, ProductPageData> = {
     painPoint:
       "Your alerting fires all day. Many alerts are false positives from a batch job that runs out of hours, and the rest look much like each other. Somewhere in that stream is a real attacker using valid credentials to list S3 buckets from a country you don't operate in. Nobody has time to tell which is which, and the attacker is counting on that.",
     mechanism: [
-      "Onam reads cloud audit logs and network flow logs from every connected cloud, plus GuardDuty findings on AWS, and runs the events through single-event rules, multi-step correlation and per-identity baselines.",
+      "Onam reads cloud audit logs from every connected cloud, network flow logs on AWS, Azure and Google Cloud, and GuardDuty findings on AWS when GuardDuty exports them to S3, and runs the events through single-event rules, multi-step correlation and per-identity baselines.",
       "Every finding is mapped to a MITRE ATT&CK for Cloud tactic and technique, so responders see the technique, likely next steps and a playbook.",
       "Related detections are automatically grouped into attack chains: initial access → discovery → privilege escalation → impact, visualised as a connected graph.",
       "Alerts are ranked by exploitability and by whether the resources involved can be reached. This uses the same reachability model as Attack Path Analysis.",
@@ -518,7 +518,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What log sources power threat detection?",
-        a: "AWS CloudTrail, VPC Flow Logs and GuardDuty findings; Azure Activity Log and NSG flow logs; Google Cloud Audit Logs and VPC flow logs; OCI Audit, Alibaba Cloud ActionTrail and IBM Cloud Activity Tracker; Kubernetes audit logs and Kubernetes events. All read-only.",
+        a: "AWS CloudTrail, VPC Flow Logs and GuardDuty findings (when GuardDuty exports them to S3); Azure Activity Log and NSG flow logs; Google Cloud Audit Logs and VPC flow logs; OCI Audit, Alibaba Cloud ActionTrail and IBM Cloud Activity Tracker; Kubernetes audit logs and Kubernetes events. All read-only.",
       },
       {
         q: "What's the difference between an attack path and an alert?",
@@ -526,7 +526,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Does Onam replace GuardDuty?",
-        a: "No. On AWS, Onam reads GuardDuty findings alongside the audit and flow logs and correlates them with cross-cloud posture, identity and network context, so you keep your provider-native investment and get one prioritised queue on top.",
+        a: "No. On AWS, when GuardDuty exports its findings to S3, Onam reads them alongside the audit and flow logs and correlates them with cross-cloud posture, identity and network context, so you keep your provider-native investment and get one prioritised queue on top.",
       },
     ],
     related: [
@@ -600,13 +600,13 @@ export const platformPages: Record<string, ProductPageData> = {
     question: "Where is your sensitive data, and who can reach it?",
     headline: "DSPM: every cloud data store, what it likely holds, and who can reach it.",
     metaDescription:
-      "DSPM from Onam Security: find every cloud data store, label it from metadata, and see who can reach it, how it is exposed and where its data flows.",
-    sub: "Onam's DSPM inventories every data store across your clouds, labels it from metadata, and joins it to exposure, identity, encryption and lineage, so a sensitive store is never judged on its own.",
+      "DSPM from Onam Security: find every cloud data store, classify what it holds, and see who can reach it, how it is exposed and where its data flows.",
+    sub: "Onam's DSPM inventories every data store across your clouds, classifies what it holds from metadata and, where you deploy its scanner, from its contents, and joins it to exposure, identity, encryption and lineage, so a sensitive store is never judged on its own.",
     stats: [
       { v: "1,321", l: "data protection rules" },
       { v: "310", l: "storage & database rules" },
       { v: "7", l: "clouds" },
-      { v: "Metadata", l: "classification, contents not read" },
+      { v: "Metadata + content", l: "classification" },
     ],
     risk: {
       title: "A store is only as safe as its weakest grant",
@@ -617,7 +617,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "You started with one production database. Now you have that database, its read replicas, an analytics warehouse, a pile of buckets holding exports, a stream feeding a data lake, and a disaster-recovery copy in another region. Each was created for a good reason by someone who has since moved teams. Nobody can say which of them hold customer data, which are reachable from outside, or where the nightly export ends up. Usually that stays unknown until an auditor asks for the map.",
     mechanism: [
       "Discovery: the posture scan inventories every data store through read-only cloud roles (object storage, managed databases, warehouses, streams, Kubernetes secrets and ConfigMaps) and records encryption, bucket policy, ACLs, public-access settings, logging, versioning, backup retention, region and the store's relationships to other resources. Self-hosted databases you onboard as technology accounts join the same inventory.",
-      "Classification from metadata: store names, descriptions, tags, database and schema names, and the metadata on matching rules are turned into PII, PHI, PCI, financial and confidential labels. No object is opened and no row is queried. Every signal is something you can read in the store's own configuration, so you can always see why a label was given.",
+      "Classification from metadata: store names, descriptions, tags, database and schema names, and the metadata on matching rules are turned into PII, PHI, PCI, financial and confidential labels. Every metadata signal is something you can read in the store's own configuration, so you can see why a label was given. Where you deploy Onam's DSPM scanner in your own cloud account (AWS: S3 and RDS/Aurora snapshots; Azure: Blob Storage, Files and Azure SQL; Google Cloud: Cloud Storage, BigQuery and Cloud SQL) or the on-prem collector (SMB and NTFS file shares, NetApp and FSx), DSPM also reads samples of files and rows and classifies their contents with country-specific detectors.",
       "Exposure: a store counts as public only when a grant makes it so: the provider's own policy verdict, an ACL grant to all users, or a wildcard principal. Each is checked against the matching public-access block. Bucket policies that let another account in are flagged separately, and write access from outside is ranked critical.",
       "Who reaches it: observed access from cloud audit events over the last 30 days sits next to the policy view. It shows which principals touched each store, with which operations, and when. Classification, public access and encryption are written to the security graph, so attack paths that end at a sensitive store are scored as reaching a critical asset.",
       "Lineage: relationships that discovery already records (replication, backup, ETL writes, streaming, export and import) are linked into chains from the original source, up to eight hops, with every cross-region and cross-account hop flagged.",
@@ -625,7 +625,7 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     whatYouGet: [
       "Data store catalog: every store with type, region, account and its sensitivity labels",
-      "Metadata classification: PII, PHI, PCI, financial and confidential labels from names, tags and schema, never from contents",
+      "Classification: PII, PHI, PCI, financial and confidential labels from names, tags and schema, and from sampled contents where Onam's DSPM scanner or on-prem collector is deployed",
       "Public exposure explained: which grant made a store public (policy verdict, ACL or wildcard principal)",
       "Cross-account access: bucket policies that let another account in, with write access ranked critical",
       "Observed access: who touched each store in the last 30 days, with operations and time of last access",
@@ -639,7 +639,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "Does Onam read the actual contents of my data?",
-        a: "No. Classification uses metadata: store names, descriptions, tags, database and schema names, and configuration. It does not open objects, query rows or sample files. That keeps your data where it is, and it has a cost worth knowing: a store whose name and tags say nothing about its contents gets no label until someone tags it.",
+        a: "Only where you deploy Onam's DSPM scanner. By default, classification uses metadata: store names, descriptions, tags, database and schema names, and configuration. Where you deploy Onam's DSPM scanner in your own cloud account (AWS: S3 and RDS/Aurora snapshots; Azure: Blob Storage, Files and Azure SQL; Google Cloud: Cloud Storage, BigQuery and Cloud SQL) or the on-prem collector (SMB and NTFS file shares, NetApp and FSx), DSPM also reads samples of files and rows and classifies their contents with country-specific detectors. The scanner runs in your own cloud account; the on-prem collector runs on your network.",
       },
       {
         q: "What decides whether a store is labelled PII?",
@@ -721,7 +721,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Do AI security findings appear in compliance reports?",
-        a: "AI findings sit in the same findings queue and exports as the rest of the platform, each tagged with MITRE ATLAS. Dedicated EU AI Act and NIST AI RMF mappings are not available today.",
+        a: "AI findings sit in the same findings queue and exports as the rest of the platform, each tagged with MITRE ATLAS. In Compliance, AI findings also map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act. A mapping links findings to controls; it does not mean every control is checked automatically.",
       },
     ],
     related: [
@@ -747,25 +747,25 @@ export const platformPages: Record<string, ProductPageData> = {
       "A pod runs as root. Its service account can list secrets across the namespace. The base image was pulled from an unofficial registry three releases ago and hasn't been scanned since. Meanwhile the cluster fails several CIS checks that nobody has flagged. Each of these looks minor on its own. Together they decide how far an attacker gets once they have a shell on that pod.",
     mechanism: [
       "Onam connects to EKS, AKS, GKE, ECS, and self-managed clusters via read-only Kubernetes RBAC or the equivalent cloud service integration.",
-      "The engine evaluates cluster, node, and workload configuration against CIS Kubernetes Benchmark plus Onam's cloud-native container rules.",
-      "Container images referenced by running workloads are scanned for CVEs in base and application layers, correlated with EPSS and CISA KEV.",
+      "The engine evaluates workload, RBAC and network-policy configuration read through the Kubernetes API, plus Onam's cloud-native container rules, and links findings to CIS Kubernetes Benchmark controls where a working rule exists. Control-plane, etcd and kubelet settings are checked only in part.",
+      "Container images referenced by running workloads are scanned for CVEs in base and application layers, with EPSS and CISA KEV context where it is available.",
       "Pod-level analysis flags privileged containers, host mounts, root users, missing security contexts, and over-scoped service accounts.",
       "Findings feed the same attack-path graph as posture and identity, so a vulnerable image on a pod with a permissive service account shows up as one prioritised risk.",
     ],
     whatYouGet: [
       "Image vulnerability scanning: CVEs in base and app layers",
-      "Kubernetes CIS benchmark: cluster, node, RBAC",
+      "Kubernetes CIS benchmark mapping for workload, RBAC and network-policy controls",
       "Service account privilege analysis",
       "Pod security analysis: privileged containers, host mounts, root users",
       "Network policy coverage",
-      "Registry security: pull policies, unsigned images, image age",
+      "Registry security: pull policies and image age",
       "ECS task definition security",
       "Kubernetes audit-log detections through CDR",
     ],
     faqs: [
       {
         q: "Which Kubernetes distributions are supported?",
-        a: "EKS, AKS, GKE, OKE and self-managed clusters. ECS Fargate and EC2-based ECS clusters are covered separately. Coverage focuses on the control plane, node configuration, workloads, and RBAC, the same way on every distribution.",
+        a: "EKS, AKS, GKE, OKE and self-managed clusters. ECS Fargate and EC2-based ECS clusters are covered separately. Coverage focuses on workloads, RBAC and network policy read through the Kubernetes API, the same way on every distribution; control-plane and node settings are checked only in part.",
       },
       {
         q: "Do I need to install anything inside my clusters?",
@@ -773,7 +773,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What does the CIS Kubernetes Benchmark cover?",
-        a: "The CIS Kubernetes Benchmark defines controls across the control plane (etcd, API server, scheduler), worker nodes, RBAC, pod security policies, and audit logging. Onam maps findings to the specific control ID so evidence exports directly to the framework.",
+        a: "The CIS Kubernetes Benchmark defines controls across the control plane (etcd, API server, scheduler), worker nodes, RBAC, pod security policies, and audit logging. Onam links its findings to CIS control IDs where a working rule exists. Many control-plane, etcd and worker-node controls cannot be read through the Kubernetes API and are not checked automatically.",
       },
       {
         q: "How does container image scanning work?",
@@ -1358,7 +1358,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Every database resource is discovered across AWS, Azure, GCP, OCI, IBM Cloud, Alibaba and Kubernetes through read-only APIs.",
       "Cloud-level posture is evaluated against 310 storage and database rules covering encryption at rest and in transit, public accessibility, backup retention, deletion protection, and audit configuration.",
       "Engine-level hardening is evaluated against CIS benchmarks for the database software itself: PostgreSQL, MySQL, MariaDB, MSSQL, Oracle, IBM Db2, MongoDB and Cassandra.",
-      "Database findings are joined with the labels DSPM assigns from metadata, so a public or unencrypted database labelled as holding PII is raised to critical, above the same misconfiguration on a scratch database.",
+      "Database findings are joined with the labels DSPM assigns, so a public or unencrypted database labelled as holding PII is raised to critical, above the same misconfiguration on a scratch database.",
       "Each database gets a posture score across six domains (access control, encryption, network, audit logging, backup and recovery, and configuration), so the weakest area is visible at a glance.",
     ],
     whatYouGet: [

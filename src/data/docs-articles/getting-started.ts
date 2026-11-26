@@ -192,7 +192,7 @@ Encryption, database security, AI security, API security, agentless workload sca
 - A **full scan** re-runs the whole pipeline: DI enumeration, rule evaluation, engine fan-out, graph rebuild, compliance and risk. Your first scan is always full, and scheduled scans (daily is typical) keep the baseline fresh.
 - An **incremental scan** re-evaluates what changed since the last run rather than re-enumerating everything, so new misconfigurations surface quickly between full scans.
 - **Ad-hoc scans** can be triggered any time from the Scans page or the [API](/docs/reference/api) — useful right after a remediation sprint to confirm findings closed.
-- **CDR is continuous**, not cyclical: it ingests audit and activity logs from all seven providers as they arrive, with three detection tiers — single-event rules, multi-event correlation scenarios, and statistical behavior baselines.
+- **CDR runs separately from scan cycles**: it reads audit and activity logs from all seven providers every hour, with three detection tiers — single-event rules, multi-event correlation scenarios, and statistical behavior baselines.
 
 Every finding records the **scan run** that produced it, so you can always answer "as of when?"
 

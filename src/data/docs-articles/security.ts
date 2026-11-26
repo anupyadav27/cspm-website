@@ -130,7 +130,7 @@ Each row links to its product page. **Available with limits** means the capabili
 
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
-| [DSPM (Data Security)](/platform/data-security) | Labels sensitive data stores, shows who can reach them and where data flows. | Available with limits | 7 clouds, cloud data stores | Labels come from metadata only (store names, tags, column names). It never opens a file or reads a row. A store with uninformative names and no tags gets no label. Copies made by scripts are not visible. |
+| [DSPM (Data Security)](/platform/data-security) | Labels sensitive data stores, shows who can reach them and where data flows. | Available with limits | 7 clouds, cloud data stores | Labels come from metadata (store names, tags, column names) and, where you deploy Onam's DSPM scanner or on-prem collector, from sampled file and row contents. Copies made by scripts are not visible. |
 | [Database Security](/platform/database-security) | Managed database posture plus CIS database benchmarks. | Available | 1,321 data-protection rules in the catalogue | — |
 | [Encryption & Keys](/platform/encryption) | Key inventory, rotation and who a key policy lets in. | Available | 502 secrets and key rules in the catalogue | — |
 | [Network Security](/platform/network-security) | Seven-layer network topology analysis. | Available | 1,166 network rules in the catalogue | — |
@@ -207,7 +207,6 @@ Things a buyer may expect that Onam Security does not do yet.
 
 | Not available | Where it stands |
 | --- | --- |
-| Reading file or row contents to classify data | DSPM labels from metadata only |
 | Data loss prevention and data labelling | Not offered |
 | Unused access, access reviews, shadow admins and role chains outside AWS | AWS only today |
 | Pull-request comments and an IDE plugin | Code Security |
@@ -494,7 +493,7 @@ Cluster, container service and image scanning. Available. [Product page](/platfo
 | Service account privilege analysis | — |
 | Pod security analysis | privileged containers, host mounts, root users |
 | Network policy coverage | — |
-| Registry security | pull policies, unsigned images, image age |
+| Registry security | pull policies, image age |
 | ECS task definition security | — |
 | Runtime anomaly indicators | — |
 

@@ -1427,19 +1427,19 @@ This guide walks you through connecting a Kubernetes cluster to Onam — any CNC
 
 ## How the connection works
 
-Onam talks directly to the Kubernetes API server using a dedicated **ServiceAccount** whose ClusterRole allows exactly three verbs: \`get\`, \`list\`, and \`watch\`. At scan time, Onam enumerates cluster objects — workloads, RBAC bindings, network policies, secrets metadata, admission configuration — and evaluates them against **718 Kubernetes rules covering 51 resource kinds**, plus 103 identity-focused CIEM rules for RBAC analysis.
+Onam talks directly to the Kubernetes API server using a dedicated **ServiceAccount** whose ClusterRole allows exactly three verbs: \`get\`, \`list\`, and \`watch\`. At scan time, Onam enumerates cluster objects — workloads, RBAC bindings, network policies, admission configuration — and evaluates them against **718 Kubernetes rules covering 51 resource kinds**, plus 103 identity-focused CIEM rules for RBAC analysis.
 
 - **Nothing runs in your cluster.** No DaemonSet, no operator, no sidecars — Onam is a read-only API client, so there is zero workload overhead.
 - **RBAC is the enforcement boundary.** The ClusterRole you apply has no \`create\`, \`update\`, \`patch\`, or \`delete\` verb, and the Kubernetes API server rejects anything beyond it.
 - **Revocation is one command.** Delete the ServiceAccount (or its namespace) and access ends instantly.
 
-> **How the connection stays read-only:** the ClusterRole in this guide grants only \`get\`, \`list\`, and \`watch\` — the Kubernetes API server's admission path enforces that on every request, so Onam cannot create, modify, or delete any object even in error. The ServiceAccount token is stored in AWS Secrets Manager, encrypted with KMS, and \`kubectl delete ns onam-system\` severs access immediately.
+> **How the connection stays read-only:** the ClusterRole in this guide grants only \`get\`, \`list\`, and \`watch\` — the Kubernetes API server's admission path enforces that on every request, so Onam cannot create, modify, or delete any object even in error. The ServiceAccount token is stored in AWS Secrets Manager, encrypted with KMS, and \`kubectl delete ns onam-system\` severs access immediately. The token does not expire on its own: rotate it by deleting and re-applying its Secret.
 
 ### Before you begin
 
 - \`kubectl\` access to the cluster with permission to create namespaces, ServiceAccounts, and ClusterRoleBindings (typically \`cluster-admin\`)
 - A cluster running Kubernetes 1.24 or later
-- Network reachability: the API server endpoint must be reachable from Onam — either a public endpoint restricted to Onam's egress IPs (shown on the onboarding screen), or private connectivity on Enterprise plans
+- Network reachability: the API server endpoint must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs (shown on the onboarding screen)
 - An Onam account with at least the \`tenant_admin\` role
 
 ## Step 1 — Create read-only cluster credentials
@@ -1447,7 +1447,7 @@ Onam talks directly to the Kubernetes API server using a dedicated **ServiceAcco
 Apply this manifest. It creates a namespace, a ServiceAccount, a read-only ClusterRole, the binding, and a long-lived token Secret:
 
 \`\`\`yaml
-# onam-scanner.yaml
+# onam-discovery.yaml
 apiVersion: v1
 kind: Namespace
 metadata:
@@ -1456,58 +1456,90 @@ metadata:
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: onam-scanner
+  name: onam-discovery
   namespace: onam-system
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: onam-scanner-readonly
+  name: onam-discovery-readonly
 rules:
-  - apiGroups:
-      - ""
-      - "apps"
-      - "batch"
-      - "networking.k8s.io"
-      - "rbac.authorization.k8s.io"
-      - "policy"
-      - "storage.k8s.io"
-      - "autoscaling"
-      - "apiextensions.k8s.io"
-      - "admissionregistration.k8s.io"
-    resources: ["*"]
+  # Explicit resource lists. Secrets and ConfigMaps are deliberately absent.
+  - apiGroups: [""]
+    resources:
+      - namespaces
+      - nodes
+      - pods
+      - services
+      - endpoints
+      - serviceaccounts
+      - persistentvolumes
+      - persistentvolumeclaims
+      - resourcequotas
+      - limitranges
+      - events
+      - componentstatuses
     verbs: ["get", "list", "watch"]
-  - nonResourceURLs: ["/version", "/healthz"]
-    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "replicasets", "statefulsets", "daemonsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs", "cronjobs"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["ingresses", "networkpolicies", "ingressclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["rbac.authorization.k8s.io"]
+    resources: ["roles", "rolebindings", "clusterroles", "clusterrolebindings"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["storage.k8s.io"]
+    resources: ["storageclasses"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["policy"]
+    resources: ["poddisruptionbudgets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["autoscaling"]
+    resources: ["horizontalpodautoscalers"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["admissionregistration.k8s.io"]
+    resources: ["validatingwebhookconfigurations", "mutatingwebhookconfigurations"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["certificates.k8s.io"]
+    resources: ["certificatesigningrequests"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apiextensions.k8s.io"]
+    resources: ["customresourcedefinitions"]
+    verbs: ["get", "list", "watch"]
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
-  name: onam-scanner-readonly
+  name: onam-discovery-readonly
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: onam-scanner-readonly
+  name: onam-discovery-readonly
 subjects:
   - kind: ServiceAccount
-    name: onam-scanner
+    name: onam-discovery
     namespace: onam-system
 ---
+# A long-lived token for the service account (Kubernetes 1.24+ no longer creates one automatically).
 apiVersion: v1
 kind: Secret
 metadata:
-  name: onam-scanner-token
+  name: onam-discovery-token
   namespace: onam-system
   annotations:
-    kubernetes.io/service-account.name: onam-scanner
+    kubernetes.io/service-account.name: onam-discovery
 type: kubernetes.io/service-account-token
 \`\`\`
 
 \`\`\`bash
-kubectl apply -f onam-scanner.yaml
+kubectl apply -f onam-discovery.yaml
 \`\`\`
 
-> The ClusterRole includes read access to Secrets so Onam can flag risky patterns — stale ServiceAccount tokens, secrets mounted into privileged pods, plaintext credentials in ConfigMaps. Onam evaluates secret metadata and never stores secret values. If your policy forbids this, replace \`resources: ["*"]\` in the core API group with an explicit list that omits \`secrets\` — the related checks are then skipped and marked as such in reports.
+> The ClusterRole lists every resource it can read and grants no access to Secrets or ConfigMaps, because both often hold credentials. Checks that need them (for example credentials in ConfigMaps) are not evaluated with this manifest. Do not widen the role to \`resources: ["*"]\`: on the core API group that would grant read access to Secret values.
 
 ### Retrieve the token, CA certificate, and endpoint
 
@@ -1517,12 +1549,12 @@ APISERVER=$(kubectl config view --minify -o jsonpath='{.clusters[0].cluster.serv
 echo "API server: $APISERVER"
 
 # ServiceAccount token (long-lived, bound to the Secret above)
-TOKEN=$(kubectl -n onam-system get secret onam-scanner-token \\
+TOKEN=$(kubectl -n onam-system get secret onam-discovery-token \\
   -o jsonpath='{.data.token}' | base64 -d)
 echo "$TOKEN"
 
 # Cluster CA certificate
-kubectl -n onam-system get secret onam-scanner-token \\
+kubectl -n onam-system get secret onam-discovery-token \\
   -o jsonpath='{.data.ca\\.crt}' | base64 -d > onam-ca.crt
 \`\`\`
 
@@ -1583,15 +1615,14 @@ Onam evaluates **51 Kubernetes resource kinds** against **718 posture rules**, p
 | **Workloads** | Pods, Deployments, StatefulSets, DaemonSets, Jobs, CronJobs | Privileged containers · hostPath mounts · missing resource limits · latest-tag images |
 | **RBAC & identity** | Roles, ClusterRoles, RoleBindings, ServiceAccounts | Wildcard verbs · cluster-admin bindings · auto-mounted tokens |
 | **Network** | Services, Ingresses, NetworkPolicies | Namespaces without default-deny · public LoadBalancers · missing TLS on Ingress |
-| **Secrets & config** | Secrets, ConfigMaps | Credentials in ConfigMaps · stale ServiceAccount tokens · unencrypted etcd (self-managed) |
-| **Cluster & admission** | Namespaces, Nodes, PodSecurity admission, webhooks | Anonymous auth enabled · missing Pod Security standards · permissive admission webhooks |
+| **Cluster & admission** | Namespaces, Nodes, PodSecurity admission, webhooks | Missing Pod Security standards · permissive admission webhooks |
 
 ## Troubleshooting
 
 | Error | Cause | Fix |
 | --- | --- | --- |
-| \`401 Unauthorized\` | Token invalid or Secret recreated | Re-extract the token from \`onam-scanner-token\` and update it in the console |
-| \`Connection timed out\` | API server not reachable from Onam | Allowlist Onam's egress IPs on the endpoint, or use private connectivity |
+| \`401 Unauthorized\` | Token invalid or Secret recreated | Re-extract the token from \`onam-discovery-token\` and update it in the console |
+| \`Connection timed out\` | API server not reachable from Onam | Allowlist Onam's egress IPs on the endpoint |
 | \`x509: certificate signed by unknown authority\` | Wrong or truncated CA certificate | Re-extract \`ca.crt\` from the token Secret and re-paste the full PEM |
 | \`403 Forbidden\` on some kinds | ClusterRole missing an API group | Re-apply the manifest from Step 1 unchanged |
 | Scan finds 0 workloads | ClusterRoleBinding subject mismatch | Verify the binding's subject namespace is \`onam-system\` |
