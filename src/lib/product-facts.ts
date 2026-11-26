@@ -1,7 +1,7 @@
 /**
  * GENERATED — do not edit.
  *
- * Source of truth: marketing/facts/product.yaml (last verified 2026-08-05).
+ * Source of truth: marketing/facts/product.yaml (last verified 2026-11-26).
  * Regenerate: npm run facts:generate   (also runs as part of npm run build)
  *
  * Only facts marked `status: cleared` appear here. Disputed numbers are
@@ -15,25 +15,25 @@
  */
 
 /** detection/analysis engines in the platform */
-export const ENGINES = 29;
+export const ENGINES = 32;
 
 /** cloud services covered — the full definition catalog, all 7 clouds */
-export const SERVICES = 549;
+export const SERVICES = 672;
 
 /** AWS · Azure · GCP · OCI · Alibaba Cloud · IBM Cloud · Kubernetes */
 export const CLOUDS = 7;
 
-/** distinct compliance frameworks */
-export const FRAMEWORKS = 78;
+/** active compliance frameworks in the live platform (119 with automated checks, 25 attestation-only) */
+export const FRAMEWORKS = 144;
 
-/** SSPM connectors — M365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, Okta */
-export const SAAS_PLATFORMS = 8;
+/** SSPM connectors switched on — M365, SharePoint, Google Workspace, GitHub, GitLab, Bitbucket Cloud, Snowflake, Dynamics 365, Okta */
+export const SAAS_PLATFORMS = 9;
 
-/** CSPM posture rules — the Check engine scope per CSPM_CONSTITUTION.md §11.2 */
-export const CSPM_POSTURE_RULES = 9853;
+/** CSPM posture rule definitions — the Check engine scope per CSPM_CONSTITUTION.md §11.2 */
+export const CSPM_POSTURE_RULES = 11856;
 
 /** all posture rule definitions across 7 clouds */
-export const RULE_CATALOG_TOTAL = 11433;
+export const RULE_CATALOG_TOTAL = 12912;
 
 /** Thousands-separated, for display. */
 export const fmt = (n: number): string => n.toLocaleString("en-US");

@@ -30,7 +30,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
     title: "2. The service",
     body: (
       <p>
-        Onam provides a cloud security platform that reads configuration metadata from customer-connected cloud environments and returns findings, dashboards, and reports. The Service operates in read-only mode with respect to customer cloud environments and does not read data-plane content.
+        Onam provides a cloud security platform that reads configuration metadata from customer-connected cloud environments and returns findings, dashboards, and reports. The Service reads data contents only where Customer adopts Onam's data security posture management ("DSPM") content scanning by deploying the DSPM scanner in Customer's own cloud account or the on-premises collector. Otherwise, the Service operates in read-only mode with respect to customer cloud environments and does not read data contents.
       </p>
     ),
   },
@@ -132,7 +132,7 @@ function TermsPage() {
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Terms of Service
           </h1>
-          <p className="mt-4 text-sm text-[#64748B]">Last updated: July 2026</p>
+          <p className="mt-4 text-sm text-[#64748B]">Last updated: November 2026</p>
         </div>
       </section>
 

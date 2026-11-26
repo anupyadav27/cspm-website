@@ -66,7 +66,7 @@ const COVERS = [
   "Posture scanning (CSPM) of one cloud account, subscription or project, through read-only cloud roles",
   "Identity and data views from the same scan: who can reach what, and where sensitive data appears to sit",
   "Attack paths: the routes an attacker could take to reach what matters",
-  "Mapping of findings to the compliance frameworks you name, from the 78 Onam maps to",
+  "Mapping of findings to the compliance frameworks you name, from the 144 Onam maps to",
 ];
 
 const NOT_COVERED = [

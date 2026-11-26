@@ -35,7 +35,7 @@ const sections: { id: string; title: string; body: React.ReactNode }[] = [
         <p>We collect three categories of data:</p>
         <ul className="list-disc pl-6 space-y-2 mt-2">
           <li><strong className="text-[#0B1220]">Account data.</strong> Name, work email, company, and role you provide when creating an account or requesting a demo.</li>
-          <li><strong className="text-[#0B1220]">Cloud configuration metadata.</strong> Onam reads configuration metadata from the cloud accounts you connect — for example, IAM policy documents, resource tags, security-group rules, and encryption settings. Onam does not read data-plane content (the objects inside your S3 buckets, the rows in your databases, or the payloads in your queues).</li>
+          <li><strong className="text-[#0B1220]">Cloud configuration metadata.</strong> Onam reads configuration metadata from the cloud accounts you connect — for example, IAM policy documents, resource tags, security-group rules, and encryption settings. Onam does not read data-plane content (the objects inside your S3 buckets, the rows in your databases, or the payloads in your queues), except where you adopt Onam's data security posture management (DSPM) content scanning by deploying the DSPM scanner in your own cloud account or the on-premises collector; only then does DSPM read data contents. Everything else Onam does is read-only and does not read data contents.</li>
           <li><strong className="text-[#0B1220]">Product usage data.</strong> Basic telemetry about how the Onam UI is used — page views, feature interactions, error events — used to improve the product.</li>
           <li><strong className="text-[#0B1220]">Website analytics data.</strong> If you consent, Google Analytics records how this marketing website is used — pages viewed, referring source, approximate location, and device type. This is separate from the product telemetry above and is covered in <a href="#cookies" className="text-[#2563EB] font-semibold hover:underline">Cookies and website analytics</a>.</li>
         </ul>
@@ -143,7 +143,7 @@ function PrivacyPage() {
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Privacy Policy
           </h1>
-          <p className="mt-4 text-sm text-[#64748B]">Last updated: October 2026</p>
+          <p className="mt-4 text-sm text-[#64748B]">Last updated: November 2026</p>
         </div>
       </section>
 

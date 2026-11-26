@@ -85,10 +85,10 @@ const joinedToday = [
   "SAST and DAST results feed the AppSec pillar of the CNAPP posture score",
   "Dependency advisories come from the same OSV and NVD store the vulnerability engine uses",
   "Static-analysis findings also appear in the platform-wide findings store, tagged as code",
+  "Code findings link to the cloud workload or container image built from that repository, with the match method and confidence shown; matches from infrastructure-as-code are labelled as suggestions",
 ];
 
 const notYet = [
-  "Linking a code finding to the container image or workload built from that repository",
   "Reachability — whether the vulnerable function in a dependency is actually called",
   "Tracing a runtime misconfiguration back to the template line that created it",
 ];

@@ -84,7 +84,7 @@ export type VendorQuotes = {
 export const QUESTIONS: { q: string; onam: string }[] = [
   {
     q: "How many clouds get first-class treatment?",
-    onam: "Posture rules cover seven clouds through one rule engine: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 11,433 posture rule definitions across 549 cloud services — the all-cloud totals, not a per-cloud figure. Depth is not identical everywhere: some identity analysis, such as unused-permission and shadow-admin detection, runs on AWS today. Ask any vendor for the per-cloud breakdown rather than the headline number.",
+    onam: "Posture rules cover seven clouds through one rule engine: AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. 12,912 posture rule definitions across 672 cloud services — the all-cloud totals, not a per-cloud figure, and definitions rather than working checks. Depth is not identical everywhere: unused-permission analysis runs on AWS and Google Cloud today, and the deepest identity analysis is on AWS. Ask any vendor for the per-cloud breakdown rather than the headline number.",
   },
   {
     q: "Is the analysis cross-cloud, or per-cloud silos side by side?",
@@ -104,11 +104,11 @@ export const QUESTIONS: { q: string; onam: string }[] = [
   },
   {
     q: "Is compliance evidence continuous or point-in-time?",
-    onam: "Findings are mapped to 78 compliance frameworks and the scores are recomputed from the latest findings on every scan, with evidence per control, a trend per framework and PDF, CSV or Excel export for your auditor.",
+    onam: "Findings are mapped to 144 compliance frameworks (119 with automated checks, 25 attestation-only) and the scores are recomputed from the latest findings on every scan, with evidence per control, a trend per framework and PDF, CSV or Excel export for your auditor.",
   },
   {
     q: "Does coverage span code to runtime?",
-    onam: "Code Security (SAST, secrets, IaC, dependencies and DAST), posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 8 platforms, and cloud detection and response — 29 engines on one platform. Code findings are reported on their own today rather than traced to the workload they deploy.",
+    onam: "Code Security (SAST, secrets, IaC, dependencies and DAST), posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 9 platforms, and cloud detection and response — 32 engines on one platform. Code findings link to the cloud workload or container image built from them.",
   },
 ];
 
@@ -244,7 +244,7 @@ export const COMPETITORS: Competitor[] = [
       },
       {
         q: "Does a dependency finding know whether the code is running and reachable?",
-        onam: "No. Onam ranks a dependency finding by CVSS, EPSS exploit probability, CISA KEV membership and whether a fix exists — not by call-graph reachability, and it does not yet link the finding to the workload running that code.",
+        onam: "No. Onam ranks a dependency finding by CVSS, EPSS exploit probability, CISA KEV membership and whether a fix exists — not by call-graph reachability. Code findings do link to the cloud workload or container image built from the repository, with the match method and confidence shown.",
       },
       {
         q: "How does it decide which code findings are real?",

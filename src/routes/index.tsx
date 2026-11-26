@@ -65,7 +65,7 @@ const PLATFORM_FAQ = [
   },
   {
     q: "Which clouds does Onam cover?",
-    a: `Posture scanning covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, plus major SaaS platforms. Some features are narrower today (for example, some identity analysis is AWS-only), and the documentation says where.`,
+    a: `Posture scanning covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, plus major SaaS platforms. Some features are narrower today (for example, unused-permission analysis runs on AWS and Google Cloud only), and the documentation says where.`,
   },
   {
     q: "Does Onam change anything in my cloud accounts?",

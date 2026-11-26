@@ -12,7 +12,7 @@ export const financialData: IndustrySolutionData = {
   stats: [
     { value: String(FRAMEWORKS), label: "frameworks mapped" },
     { value: "Per control", label: "evidence collection" },
-    { value: fmt(CSPM_POSTURE_RULES), label: "posture rules" },
+    { value: fmt(CSPM_POSTURE_RULES), label: "posture rule definitions" },
     { value: String(CLOUDS), label: "clouds supported" },
   ],
   useCases: [

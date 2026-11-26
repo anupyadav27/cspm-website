@@ -183,7 +183,7 @@ Every control records whether it is collected via **API** or requires an **agent
 
 ## Coverage across frameworks
 
-Onam maps **78 frameworks**. Coverage varies between them — a cloud-native benchmark maps almost entirely to automated checks, while a broad control framework like NIST 800-53 has substantial process content that no scanner can assess. The coverage view makes that difference visible per framework instead of averaging it away.
+Onam maps **144 frameworks**: 119 with automated checks and 25 attestation-only, where you record the evidence. Coverage varies between them — a cloud-native benchmark maps almost entirely to automated checks, while a broad control framework like NIST 800-53 has substantial process content that no scanner can assess. The coverage view makes that difference visible per framework instead of averaging it away.
 
 > Related: [Compliance](/docs/features/compliance) for the framework list and evidence export.
 `,

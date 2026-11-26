@@ -24,7 +24,7 @@ Onam Code Security scans the things that build your applications: source code, d
 
 | Scanner | What it reads | What it produces |
 | --- | --- | --- |
-| [Static analysis (SAST)](/docs/code-security/sast) | Source files in Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby, plus GitHub Actions workflows, Terraform, npm config and HTML templates | Security issues (from data-flow and code-structure rules) and hotspots to review (pattern matches) |
+| [Static analysis (SAST)](/docs/code-security/sast) | Source files in Python, JavaScript, TypeScript, Java, C#, Go, C, C++, Ruby, PHP, Kotlin, Swift and Scala, plus GitHub Actions workflows, Terraform, npm config and HTML templates | Security issues (from data-flow and code-structure rules) and hotspots to review (pattern matches) |
 | [Secret detection](/docs/code-security/secrets) | Every file in the clone | Hard-coded credentials, keys and tokens |
 | [IaC checks](/docs/code-security/iac) | Terraform, YAML (Kubernetes, CloudFormation), JSON and Dockerfiles | Misconfigurations in templates and images |
 | [Dependencies and SBOM (SCA)](/docs/code-security/sca-sbom) | Manifests and lockfiles, or an uploaded SBOM | Vulnerable packages with a 0–10 risk score, and a CycloneDX 1.5 SBOM |
@@ -39,7 +39,9 @@ Static analysis, secret detection, IaC checks and dependency analysis run on eve
 - **Shared advisories.** Dependency findings are matched against the same OSV and NVD advisory store the [Vulnerability engine](/docs/features/vulnerability-management) uses.
 - **Findings store.** Static-analysis findings are also written to the platform-wide findings store, tagged as code, with the file path as the resource.
 
-What it does **not** do yet: link a code finding to the container image or cloud workload built from that repository, tell you whether a vulnerable dependency function is actually called, or trace a runtime misconfiguration back to its template line. Plan around those gaps rather than assume them away.
+- **Code to cloud.** A code finding links to the cloud workload or container image built from that repository, shown as a Source block on the finding and on attack-path nodes, with the method used and how confident the match is. Matches made from infrastructure-as-code are labelled as suggestions. For Terraform findings, Onam can open a fix pull request.
+
+What it does **not** do yet: tell you whether a vulnerable dependency function is actually called, or trace a runtime misconfiguration back to its template line. Plan around those gaps rather than assume them away.
 
 ## Fixing what it finds
 
@@ -210,14 +212,18 @@ Application code is scanned by Onam's own static analysis engine. It reads each 
 | Ruby | \`.rb\` | Yes | Yes | — |
 | C | \`.c\` \`.h\` | — | Yes | Yes |
 | C++ | \`.cpp\` \`.cxx\` \`.cc\` \`.hpp\` \`.hxx\` | — | Yes | Yes |
+| PHP | \`.php\` \`.phtml\` | Yes | Yes | — |
+| Kotlin | \`.kt\` \`.kts\` | Yes | Yes | — |
+| Swift | \`.swift\` | Yes | Yes | — |
+| Scala | \`.scala\` \`.sc\` | Yes | Yes | — |
 
 The same scan also checks files that are not application code: GitHub Actions workflows (script injection, unpinned actions, risky triggers), Terraform (public network exposure, old TLS, credentials written in the file, encryption switched off), npm and yarn config, and HTML templates (unescaped output, unquoted attributes, scripts loaded without an integrity check). Terraform is also checked by the separate [IaC checks](/docs/code-security/iac).
 
-PHP, Kotlin, Rust, Swift and Scala are not analysed today.
+Rust and other languages not listed here are not analysed today. PHP, Kotlin, Swift and Scala were added in November 2026.
 
 ## The three kinds of rule
 
-1. **Data-flow rules** — follow untrusted input (a request parameter, a header, a file) to a dangerous call (a query, a shell, a file path, an outbound request), and stay quiet when the value passes through a sanitiser first. They follow the value **within a single function**: input that enters in one function and reaches the dangerous call in another is not traced. Data-flow rules exist for Python, JavaScript/TypeScript, Java, C#, Go and Ruby.
+1. **Data-flow rules** — follow untrusted input (a request parameter, a header, a file) to a dangerous call (a query, a shell, a file path, an outbound request), and stay quiet when the value passes through a sanitiser first. They follow the value **across functions and files** within the repository, so input that enters in one function and reaches the dangerous call in another is traced. Data-flow rules exist for Python, JavaScript/TypeScript, Java, C#, Go, Ruby, PHP, Kotlin, Swift and Scala.
 2. **Code-structure rules** — match the shape of the code in its syntax tree rather than its text: a security setting switched off, a weak algorithm, a call that is unsafe whatever its input. Because they understand the code, comments and strings do not trigger them.
 3. **Reviewed pattern rules** — broader text patterns, each triaged by hand into security, code-quality, accessibility or not-applicable. Only the security ones run; the rest are dropped before a scan.
 
@@ -255,7 +261,7 @@ Before scanning, the clone is pruned of \`node_modules\`, \`vendor\`, build outp
 
 - Analysis is per scan of one branch. There is no incremental or changed-files-only mode.
 - Custom rules cannot be added from the console.
-- Data-flow analysis works within a single function. A flaw where untrusted input enters in one function and reaches a dangerous call in another is not traced; where a code-structure or pattern rule matches the call itself, it is still reported.
+- Data-flow analysis follows input across functions and files within one repository. Flows that pass through another repository or service are not traced; where a code-structure or pattern rule matches the call itself, it is still reported.
 
 ## Engine change in October 2026
 
@@ -558,7 +564,7 @@ The full documentation now lives in the **Code Security** section:
 | Topic | Page |
 | --- | --- |
 | What it does and how it fits with the rest of Onam | [Overview](/docs/code-security/overview) |
-| Static analysis — Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby | [SAST](/docs/code-security/sast) |
+| Static analysis — Python, JavaScript, TypeScript, Java, C#, Go, C, C++, Ruby, PHP, Kotlin, Swift and Scala | [SAST](/docs/code-security/sast) |
 | Hard-coded credentials and keys | [Secret detection](/docs/code-security/secrets) |
 | Terraform, Kubernetes YAML, CloudFormation and Dockerfiles | [IaC checks](/docs/code-security/iac) |
 | Dependencies, risk scoring, CycloneDX SBOM, VEX and NTIA | [SCA and SBOM](/docs/code-security/sca-sbom) |

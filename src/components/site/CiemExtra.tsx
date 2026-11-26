@@ -15,8 +15,9 @@ import {
 
 /**
  * Extra sections for /platform/ciem. Every statement here was checked against the
- * identity engine (threat-engine engines/iam) on 2026-10-05. Where a capability is
- * AWS-only today, the card says so — keep it that way when editing.
+ * identity engine (threat-engine engines/iam) on 2026-10-05; per-cloud reach updated
+ * 2026-11-26 from the owner-cleared limits (marketing/facts/limits.yaml ciem_*). Where a
+ * capability is limited to some clouds today, the card says so — keep it that way when editing.
  */
 
 type Capability = { icon: LucideIcon; title: string; body: string; where: string };
@@ -37,8 +38,8 @@ const capabilities: Capability[] = [
   {
     icon: ShieldAlert,
     title: "Escalation paths and shadow admins",
-    body: "PassRole to an admin role, multi-hop assume-role chains, permission-boundary removal, and identities that can attach or rewrite their way to an admin policy — plus each cloud's own escalation vectors.",
-    where: "AWS, Azure, GCP, OCI, IBM Cloud, Kubernetes · shadow admins on AWS",
+    body: "PassRole to an admin role, multi-hop assume-role chains, permission-boundary removal, Google Cloud service-account impersonation chains of up to 4 hops, and identities that can attach, rewrite or grant their way to admin — plus each cloud's own escalation vectors.",
+    where: "AWS, Azure, GCP, OCI, IBM Cloud, Kubernetes · shadow admins on AWS, Azure, GCP and Kubernetes",
   },
   {
     icon: RouteIcon,
@@ -55,14 +56,14 @@ const capabilities: Capability[] = [
   {
     icon: ScanSearch,
     title: "Unused permissions",
-    body: "CloudTrail activity collected by threat detection is compared with granted actions. You get a permission gap per identity, the high-risk unused actions such as iam:PassRole or kms:ScheduleKeyDeletion, and a list of roles with no recent activity.",
-    where: "AWS today",
+    body: "Audit-log activity collected by threat detection (CloudTrail on AWS, Cloud Audit Logs on Google Cloud) is compared with granted actions. You get a permission gap per identity and the high-risk unused actions such as iam:PassRole or kms:ScheduleKeyDeletion; on AWS, also a list of roles with no recent activity. Other clouds show granted access only.",
+    where: "AWS and GCP",
   },
   {
     icon: Users,
     title: "Risk score and access reviews",
-    body: "A 0–100 score built from escalation paths, recent escalation activity seen by CDR, blast radius and permission gap. High-tier identities open a review: pending, needs remediation, reviewed or deferred, with an audit trail.",
-    where: "AWS identities today",
+    body: "A 0–100 score built from escalation paths, recent escalation activity seen by CDR, blast radius and permission gap. High-tier identities open a review: pending, needs remediation, reviewed or deferred, with an audit trail. On Azure and Google Cloud, high or critical escalation findings open a review on granted access.",
+    where: "Score with usage: AWS · reviews: AWS, Azure, GCP",
   },
 ];
 
@@ -71,11 +72,12 @@ const clouds = ["AWS", "Azure", "GCP", "K8s", "OCI", "Alibaba", "IBM"] as const;
 const coverage: { row: string; marks: Mark[] }[] = [
   { row: "Effective-access table", marks: ["yes", "yes", "yes", "yes", "no", "no", "no"] },
   { row: "Escalation detection", marks: ["yes", "yes", "yes", "yes", "yes", "no", "yes"] },
-  { row: "Multi-hop assume-role chains", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
-  { row: "Shadow admin detection", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
+  { row: "Multi-hop escalation chains", marks: ["yes", "no", "yes", "no", "no", "no", "no"] },
+  { row: "Shadow admin detection", marks: ["yes", "yes", "yes", "yes", "no", "no", "no"] },
   { row: "Trust and federation checks", marks: ["yes", "yes", "yes", "no", "yes", "yes", "yes"] },
-  { row: "Unused permissions and stale roles", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
-  { row: "Risk score and access reviews", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
+  { row: "Unused permissions (used vs granted)", marks: ["yes", "no", "yes", "no", "no", "no", "no"] },
+  { row: "Stale roles and risk score with usage", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
+  { row: "Access reviews", marks: ["yes", "yes", "yes", "no", "no", "no", "no"] },
   {
     row: "Identity hygiene (IAM Security)",
     marks: ["yes", "yes", "yes", "yes", "yes", "yes", "yes"],

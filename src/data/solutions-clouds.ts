@@ -53,11 +53,11 @@ export const awsData: CloudSolutionData = {
     ...CLOUD_RELATED_BASE,
   ],
   headline: "Stop AWS misconfigurations before attackers find them first",
-  sub: "Onam checks every IAM policy, S3 bucket, security group and Lambda configuration across all your AWS accounts, using 2,018 posture rules written for AWS. With 200+ AWS services across global regions, that is a lot of configuration to keep track of by hand.",
+  sub: "Onam checks every IAM policy, S3 bucket, security group and Lambda configuration across all your AWS accounts, using 2,633 posture rule definitions written for AWS. With 200+ AWS services across global regions, that is a lot of configuration to keep track of by hand.",
   docsHref: "/docs/onboarding/aws",
   stats: [
-    { value: "2,018", label: "posture rules on AWS" },
-    { value: "123", label: "AWS services in the catalog" },
+    { value: "2,633", label: "posture rule definitions on AWS" },
+    { value: "147", label: "AWS services in the catalog" },
     { value: "Read-only", label: "posture scanning role" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -154,12 +154,12 @@ export const azureData: CloudSolutionData = {
   ],
   headline: "Azure CSPM across every subscription, from Entra ID to NSG rules",
   metaDescription:
-    "Azure CSPM: 1,926 posture rules across 95 Azure services, mapped to CIS Microsoft Azure Foundations 5.0, NIST 800-53 and ISO 27001, for every subscription.",
+    "Azure CSPM: 2,173 posture rule definitions across 121 Azure services, mapped to CIS Microsoft Azure Foundations 5.0, NIST 800-53 and ISO 27001, for every subscription.",
   sub: "Azure cloud security posture management has to follow Azure's hierarchy (management groups, subscriptions and resource groups) or it misses the subscription nobody remembered. Onam scans the scope you grant, from Entra ID conditional access and Defender for Cloud plan settings to NSG rules and Key Vault configuration, and re-checks every resource on every scan.",
   docsHref: "/docs/onboarding/azure",
   stats: [
-    { value: "1,926", label: "posture rules on Azure" },
-    { value: "95", label: "Azure services in the catalog" },
+    { value: "2,173", label: "posture rule definitions on Azure" },
+    { value: "121", label: "Azure services in the catalog" },
     { value: "Multi-tenant", label: "Entra ID support" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -272,8 +272,8 @@ export const gcpData: CloudSolutionData = {
   sub: "In GCP, IAM bindings inherit down the organisation, folder and project tree, and any engineer can create a new project. Onam audits every project, from IAM bindings and BigQuery permissions to GKE configs and VPC firewall rules.",
   docsHref: "/docs/onboarding/gcp",
   stats: [
-    { value: "1,322", label: "posture rules on GCP" },
-    { value: "71", label: "GCP services in the catalog" },
+    { value: "1,558", label: "posture rule definitions on GCP" },
+    { value: "99", label: "GCP services in the catalog" },
     { value: "Org-wide", label: "folder & project traversal" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -362,12 +362,12 @@ export const ociData: CloudSolutionData = {
   ],
   headline: "OCI security posture management across every compartment",
   metaDescription:
-    "OCI CSPM: 2,059 posture rules across 61 Oracle Cloud services, mapped to the CIS OCI Benchmark 3.0 and CIS OKE. Read-only onboarding, every compartment.",
+    "OCI CSPM: 2,163 posture rule definitions across 69 Oracle Cloud services, mapped to the CIS OCI Benchmark 3.0 and CIS OKE. Read-only onboarding, every compartment.",
   sub: "Oracle Cloud security posture management lives or dies on the compartment tree: a policy statement written three levels up decides who can touch a bucket at the bottom. Onam walks every compartment, evaluates IAM policy statements against that tree, and re-checks Compute, OKE, Object Storage, Autonomous Database, VCN and Vault configuration on every scan, mapped to the CIS Oracle Cloud Infrastructure Benchmark.",
   docsHref: "/docs/onboarding/oci",
   stats: [
-    { value: "2,059", label: "posture rules on OCI" },
-    { value: "61", label: "OCI services in the catalog" },
+    { value: "2,163", label: "posture rule definitions on OCI" },
+    { value: "69", label: "OCI services in the catalog" },
     { value: "Nested", label: "compartment traversal" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -449,7 +449,7 @@ export const ociData: CloudSolutionData = {
     },
     {
       q: "What does OCI CSPM cover in Onam?",
-      a: "Configuration across 61 OCI services: IAM policies, users, groups and dynamic groups; compartments; Compute and VCN security lists, NSGs and route tables; Object Storage; Autonomous Database, MySQL and Data Safe; OKE; Vault and keys; Logging, Audit and Cloud Guard. It reads configuration through OCI APIs and does not read the data in your stores.",
+      a: "Configuration across 69 OCI services: IAM policies, users, groups and dynamic groups; compartments; Compute and VCN security lists, NSGs and route tables; Object Storage; Autonomous Database, MySQL and Data Safe; OKE; Vault and keys; Logging, Audit and Cloud Guard. It reads configuration through OCI APIs and does not read the data in your stores.",
     },
     {
       q: "Which frameworks do you map OCI findings to?",
@@ -467,12 +467,12 @@ export const alicloudData: CloudSolutionData = {
   ],
   headline: "Alibaba Cloud CSPM, region by region, alongside your other clouds",
   metaDescription:
-    "Alibaba Cloud CSPM: 1,151 posture rules across 68 services (RAM, OSS, ECS, ACK, RDS, VPC), mapped to CIS Alibaba Cloud and CIS ACK.",
+    "Alibaba Cloud CSPM: 1,735 posture rule definitions across 91 services (RAM, OSS, ECS, ACK, RDS, VPC), mapped to CIS Alibaba Cloud and CIS ACK.",
   sub: "Alibaba Cloud often runs alongside AWS and Azure, in China and international regions alike. Onam brings the same rule-driven posture coverage to it: RAM policies, OSS buckets, RDS instances and VPC configurations, evaluated by the same engine as your other clouds.",
   docsHref: "/docs/onboarding/alicloud",
   stats: [
-    { value: "1,151", label: "posture rules on Alibaba Cloud" },
-    { value: "68", label: "Alibaba Cloud services in the catalog" },
+    { value: "1,735", label: "posture rule definitions on Alibaba Cloud" },
+    { value: "91", label: "Alibaba Cloud services in the catalog" },
     { value: "China + intl", label: "regions scanned" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -561,7 +561,7 @@ export const alicloudData: CloudSolutionData = {
     },
     {
       q: "What does Alibaba Cloud CSPM cover in Onam?",
-      a: "Configuration across 68 Alibaba Cloud services, including RAM identities and policies, OSS buckets, ECS and security groups, VPC, ACK clusters, RDS, KMS, ActionTrail and Log Service. Findings are prioritized by severity and joined to the attack-path graph.",
+      a: "Configuration across 91 Alibaba Cloud services, including RAM identities and policies, OSS buckets, ECS and security groups, VPC, ACK clusters, RDS, KMS, ActionTrail and Log Service. Findings are prioritized by severity and joined to the attack-path graph.",
     },
   ],
 };
@@ -575,12 +575,12 @@ export const ibmData: CloudSolutionData = {
   ],
   headline: "IBM Cloud security posture, from VPC network rules to IAM",
   metaDescription:
-    "IBM Cloud security posture: 553 posture rules across 63 services (VPC security groups, network ACLs, flow logs, IAM, COS, IKS), mapped to CIS IBM Cloud.",
+    "IBM Cloud security posture: 571 posture rule definitions across 68 services (VPC security groups, network ACLs, flow logs, IAM, COS, IKS), mapped to CIS IBM Cloud.",
   sub: "IBM Cloud security starts with the network: security groups, network ACLs, floating IPs and public gateways decide what the internet can reach. Onam checks those alongside IAM access groups and trusted profiles, Cloud Object Storage, Key Protect, IKS and OpenShift clusters. Every check is read-only, repeated on every scan, and mapped to CIS IBM Cloud and NIST 800-53.",
   docsHref: "/docs/onboarding/ibm",
   stats: [
-    { value: "553", label: "posture rules on IBM Cloud" },
-    { value: "63", label: "IBM Cloud services in the catalog" },
+    { value: "571", label: "posture rule definitions on IBM Cloud" },
+    { value: "68", label: "IBM Cloud services in the catalog" },
     { value: "VPC", label: "security groups, ACLs & flow logs checked" },
     { value: String(FRAMEWORKS), label: "compliance frameworks" },
   ],
@@ -694,7 +694,7 @@ export const kubernetesData: CloudSolutionData = {
   sub: "Privileged pods, exposed dashboards and RBAC bindings that grant cluster-admin are the Kubernetes misconfigurations that open a cluster to attack. Onam audits every cluster object without deploying a sidecar or daemonset.",
   docsHref: "/docs/onboarding/kubernetes",
   stats: [
-    { value: "824", label: "posture rule definitions for Kubernetes" },
+    { value: "1,023", label: "Kubernetes rule definitions (not all are working checks yet)" },
     { value: "EKS / AKS / GKE", label: "+ self-managed" },
     { value: "Agentless", label: "no sidecar, no daemonset" },
     { value: "CIS", label: "Kubernetes benchmarks mapped" },

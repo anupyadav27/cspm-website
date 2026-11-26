@@ -89,10 +89,10 @@ The first scan starts automatically once validation passes (you can also trigger
 
 1. **Credential validation** — the role is assumed and its permissions confirmed.
 2. **Discovery and Inventory (DI)** — multi-phase enumeration of every resource in the account, written to \`asset_inventory\` with cross-resource links in \`asset_relationships\`.
-3. **Rule evaluation** — the posture engine evaluates the inventory against 9,853 posture rules, producing PASS, FAIL or ERROR per resource per rule.
+3. **Rule evaluation** — the posture engine evaluates the inventory against 11,856 posture rule definitions, producing PASS, FAIL or ERROR per resource per rule.
 4. **Engine fan-out** — the domain engines (CIEM, data security, network, container, vulnerability, and the rest) run in parallel against the same inventory.
 5. **Attack path build** — assets, relationships, and findings are loaded into the security graph and traversed from entry points to crown jewels.
-6. **Compliance and risk** — findings map onto 78 framework control catalogs, then risk quantification gives Critical and High findings a FAIR-style loss estimate in dollars.
+6. **Compliance and risk** — findings map onto 144 framework control catalogs (119 with automated checks), then risk quantification gives Critical and High findings a FAIR-style loss estimate in dollars.
 
 Watch progress on the **Scans** page. Findings appear as each stage completes — you don't have to wait for the pipeline to finish.
 
@@ -168,11 +168,11 @@ Findings you accept as business risk can be **suppressed** with a justification 
 
 ## Engines
 
-The platform runs 29 engines; each is a service responsible for one security domain, and each writes findings to the same data model. The ones you will interact with directly:
+The platform runs 32 engines; each is a service responsible for one security domain, and each writes findings to the same data model. The ones you will interact with directly:
 
 | Engine | What it evaluates |
 | --- | --- |
-| Check (CSPM core) | The 9,853 posture rules against every discovered resource — [CSPM](/docs/features/cspm) |
+| Check (CSPM core) | The posture rules (11,856 definitions) against every discovered resource — [CSPM](/docs/features/cspm) |
 | IAM / CIEM | Effective permissions, unused access, privilege-escalation chains — [CIEM](/docs/features/ciem) |
 | Attack Path v2 | Graph traversal from entry points to crown jewels — [Attack Path](/docs/features/attack-path) |
 | CDR / Behavioral Analysis | Audit-log threat detection across all 7 providers — [CDR](/docs/features/cdr) |
@@ -180,7 +180,7 @@ The platform runs 29 engines; each is a service responsible for one security dom
 | Vulnerability | CVEs prioritized by EPSS, CISA KEV, and exposure — [Vulnerability Management](/docs/features/vulnerability-management) |
 | Network Security | 7-layer network posture and effective exposure — [Network Security](/docs/features/network-security) |
 | Container Security | EKS, ECS, AKS, GKE posture, images, and K8s RBAC — [Container Security](/docs/features/container-security) |
-| Compliance | Mapping findings onto 78 framework control catalogs — [Compliance](/docs/features/compliance) |
+| Compliance | Mapping findings onto 144 framework control catalogs — [Compliance](/docs/features/compliance) |
 | Risk Quantification | FAIR-based dollar exposure — [Risk Quantification](/docs/features/risk-quantification) |
 | Code Security | SAST, secret detection, IaC checks, SCA with CycloneDX SBOM, and DAST — [Code Security](/docs/code-security/overview) |
 | Technology Engine | 34 self-hosted technologies in 9 categories |
@@ -204,7 +204,7 @@ A **choke point** is a node that many paths pass through. The console ranks the 
 
 ## Compliance mapping
 
-Rules are mapped to the controls they evidence across **78 frameworks** — CIS Benchmarks, NIST 800-53, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP, and more. One finding can count against controls in several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
+Rules are mapped to the controls they evidence across **144 frameworks** (119 with automated checks) — CIS Benchmarks, NIST 800-53, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP, and more. One finding can count against controls in several frameworks; fixing it moves all of those scores at once. Per-framework reports show control-by-control pass rates with the underlying findings as evidence. Details in [Framework Coverage](/docs/compliance/frameworks).
 
 ## Risk in dollars: FAIR
 
@@ -220,7 +220,7 @@ Every input is visible: default per-record costs by industry (healthcare $10.93,
 | Asset relationship | A typed edge between assets: assumes, contains, can-read, exposes |
 | Security graph | Assets plus relationships plus findings, stored as a traversable graph |
 | Finding | One rule failing on one resource, with evidence and remediation |
-| Rule | A single check (9,853 posture rules), mapped to framework controls |
+| Rule | A single check (11,856 posture rule definitions), mapped to framework controls |
 | Engine | A service that evaluates one security domain and emits findings |
 | Scan run | One execution of the pipeline; every finding references its run |
 | Severity | Rule-assigned impact level: Critical, High, Medium, Low, Info |
@@ -235,7 +235,7 @@ Every input is visible: default per-record costs by industry (healthcare $10.93,
 ## Next steps
 
 - [Quickstart](/docs/getting-started/quickstart) — put the model into practice on your first account.
-- [Architecture Overview](/docs/architecture/overview) — the 29 engines and the pipeline in full detail.
+- [Architecture Overview](/docs/architecture/overview) — the 32 engines and the pipeline in full detail.
 - [Attack Path](/docs/features/attack-path) — derivation, verification, and choke-point ranking in depth.
 - [Risk Quantification](/docs/features/risk-quantification) — the full FAIR methodology and tenant overrides.
 `,

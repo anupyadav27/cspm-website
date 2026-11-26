@@ -29,7 +29,7 @@ export const SECURITY_FAQ = [
   },
   {
     q: "What is cloud security posture management (CSPM)?",
-    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations such as public storage buckets, open security groups, unencrypted databases and over-permissive IAM, and tells you how to fix them. Onam runs 9,853 CSPM posture rules on every scan across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, so a misconfiguration shows up at the next scan rather than at the next audit.",
+    a: "Cloud security posture management (CSPM) continuously checks your cloud accounts for misconfigurations such as public storage buckets, open security groups, unencrypted databases and over-permissive IAM, and tells you how to fix them. Onam's catalogue holds 11,856 CSPM posture rule definitions across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes, and every scan re-checks your resources, so a misconfiguration shows up at the next scan rather than at the next audit.",
   },
   {
     q: "Which cloud providers does Onam Security support?",
@@ -65,10 +65,10 @@ export const SECURITY_JSONLD = [
     description:
       "Onam Security: CSPM, CIEM, DSPM, CWPP, SSPM, attack paths, threat detection, code security and compliance across seven clouds.",
     featureList: [
-      "CSPM: 9,853 posture rules evaluated on every scan",
+      "CSPM: 11,856 posture rule definitions across seven clouds, checked on every scan",
       "CIEM: 30-day behavioral identity risk analysis",
       "Cross-cloud attack path analysis",
-      "Compliance: 78 frameworks with evidence per control (CIS, NIST 800-53, ISO 27001, PCI DSS, HIPAA, SOC 2)",
+      "Compliance: 144 frameworks (119 with automated checks) with evidence per control (CIS, NIST 800-53, ISO 27001, PCI DSS, HIPAA, SOC 2)",
       "FAIR-style dollar loss estimates per finding",
       "Code + runtime coverage: SAST, DAST, SCA, IaC scanning",
       "Onboarding with a template you run in your own account",
@@ -1052,10 +1052,10 @@ export function PlatformPillars() {
       heading: "Posture, identity and network",
       items: [
         { title: "CNAPP", q: "What's our posture, in one number?", metric: "7 pillars · one score", to: "/platform/cnapp" },
-        { title: "CSPM", q: "What's misconfigured, cloud by cloud?", metric: "9,853 posture rules", to: "/platform/cspm" },
+        { title: "CSPM", q: "What's misconfigured, cloud by cloud?", metric: "11,856 posture rule definitions", to: "/platform/cspm" },
         { title: "CIEM", q: "Which identities are quietly over-privileged?", metric: "30-day behavioral baselines", to: "/platform/ciem" },
         { title: "IAM Security", q: "Who has access to what?", metric: "Policies · users · roles", to: "/platform/iam" },
-        { title: "Asset Inventory", q: "What do we run, and where?", metric: "549 services · 7 clouds", to: "/platform/inventory" },
+        { title: "Asset Inventory", q: "What do we run, and where?", metric: "672 services · 7 clouds", to: "/platform/inventory" },
         { title: "Network Security", q: "Where is the network open to the internet?", metric: "7-layer topology analysis", to: "/platform/network-security" },
         { title: "API Security", q: "Which APIs are open to the world?", metric: "241 API posture rules", to: "/platform/api-security" },
       ],
@@ -1095,7 +1095,7 @@ export function PlatformPillars() {
       items: [
         { title: "AI Assistant", q: "Can I ask in plain English what's exposed?", metric: "13 domain specialists", to: "/platform/ai-assistant" },
         { title: "Remediation", q: "How does each finding get fixed?", metric: "Fix guidance per finding", to: "/platform/remediation" },
-        { title: "Compliance", q: "Are we ready for the next audit?", metric: "78 frameworks", to: "/platform/compliance" },
+        { title: "Compliance", q: "Are we ready for the next audit?", metric: "144 frameworks", to: "/platform/compliance" },
       ],
     },
   ];
@@ -1151,7 +1151,7 @@ export function StatsSection() {
     { v: String(FRAMEWORKS), label: "compliance frameworks", sub: "CIS · NIST · ISO 27001 · PCI-DSS · HIPAA · SOC 2 · more", accent: "#05A052" },
     { v: String(ENGINES), label: "detection & analysis engines", sub: "All on the same data model", accent: "#F2AF04" },
     { v: String(CLOUDS), label: "cloud providers", sub: "AWS · Azure · GCP · OCI · AliCloud · IBM · Kubernetes", accent: "#7C3AED" },
-    { v: String(SAAS_PLATFORMS), label: "SaaS platforms", sub: "M365 · Workspace · GitHub · GitLab · Snowflake · Okta · more", accent: "#0EA5E9" },
+    { v: String(SAAS_PLATFORMS), label: "SaaS platforms", sub: "M365 · Workspace · GitHub · GitLab · Bitbucket · Snowflake · Okta · more", accent: "#0EA5E9" },
   ];
   return (
     <section className="relative py-24 border-b border-[#E5E9F0] bg-[#F8FAFC]">
@@ -1190,7 +1190,7 @@ export function ComplianceSection() {
     <section className="py-24 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeader eyebrow="Compliance" title="Ready for your next audit"
-                       subtitle="Evidence for 78 frameworks, kept up to date with each scan and exported in one click."
+                       subtitle="Evidence for 144 frameworks, 119 with automated checks, kept up to date with each scan and exported in one click."
                        gradientWords="next audit" />
         <div className="mt-12 flex flex-wrap gap-3 justify-center max-w-4xl mx-auto">
           {frameworks.map((f) => (
@@ -1261,7 +1261,7 @@ export function TrustBar() {
     },
     {
       icon: <FileCheck className="w-4 h-4 text-[#05A052]" />,
-      label: `${FRAMEWORKS} frameworks covered`,
+      label: `${FRAMEWORKS} frameworks mapped`,
     },
     { icon: <Lock className="w-4 h-4 text-[#2563EB]" />, label: "Read-only posture scanning" },
     {

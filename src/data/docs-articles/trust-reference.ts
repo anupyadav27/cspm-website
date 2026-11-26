@@ -10,7 +10,7 @@ Onam Security reads your cloud configuration so it can show you which risks an a
 
 ## Compliance mapping
 
-Onam maps **your** findings to 78 compliance frameworks. That is a product feature — see [Framework Coverage](/docs/compliance/frameworks) — not a statement about Onam's own certification.
+Onam maps **your** findings to 144 compliance frameworks (119 with automated checks). That is a product feature — see [Framework Coverage](/docs/compliance/frameworks) — not a statement about Onam's own certification.
 
 ## How Onam connects to your clouds
 
@@ -87,7 +87,7 @@ Security questionnaire, DPA request, or a question this page does not answer? Wr
 - [Trust Center](/trust) — the full, current version of this page
 - [Data Retention](/docs/trust/data-retention) — what is kept, and how deletion works
 - [Service Levels](/docs/trust/sla-and-slo) — where service levels are agreed
-- [Framework Coverage](/docs/compliance/frameworks) — the 78 compliance frameworks the platform evaluates for you
+- [Framework Coverage](/docs/compliance/frameworks) — the 144 compliance frameworks the platform tracks for you, 119 with automated checks
 `,
   },
   {
@@ -403,7 +403,7 @@ Official clients are in development. Until they ship, generate a client from the
     title: "Finding Schema",
     breadcrumb: "Reference / Finding Schema",
     body: `
-Every engine on the platform — CSPM checks, CIEM, vulnerability, data security, CDR, and the rest of the 29 engines — emits findings normalized to one shared data model. This reference documents that model: the base finding item, the detail response with its compliance and remediation blocks, the list envelopes, the status lifecycle, and the severity scale. If you consume findings through the [REST API](/docs/reference/api) or a [webhook integration](/docs/reference/integration-catalog), this is the contract.
+Every engine on the platform — CSPM checks, CIEM, vulnerability, data security, CDR, and the rest of the 32 engines — emits findings normalized to one shared data model. This reference documents that model: the base finding item, the detail response with its compliance and remediation blocks, the list envelopes, the status lifecycle, and the severity scale. If you consume findings through the [REST API](/docs/reference/api) or a [webhook integration](/docs/reference/integration-catalog), this is the contract.
 
 ![The findings view in the Onam console (demo account)](/screenshots/screenshot-findings.png)
 
@@ -545,7 +545,7 @@ The header carries identity, rule metadata, taxonomy, and framework mappings. De
 
 ### ComplianceBlock
 
-Maps the finding's rule to compliance controls across the 78 supported frameworks.
+Maps the finding's rule to compliance controls across the 144 frameworks it tracks.
 
 | Field | Type | Notes |
 | --- | --- | --- |
@@ -607,7 +607,7 @@ Three container shapes wrap findings in list and aggregate responses.
 ## Next steps
 
 - [API Reference](/docs/reference/api) — authentication, pagination, and the endpoint map these schemas travel through
-- [CSPM](/docs/features/cspm) — how the Check engine evaluates 9,853 posture rules to produce configuration findings
+- [CSPM](/docs/features/cspm) — how the Check engine evaluates its 11,856 posture rule definitions to produce configuration findings
 - [Integration Catalog](/docs/reference/integration-catalog) — push these finding payloads to Jira, Slack, Splunk, or any webhook
 - [Data Retention](/docs/trust/data-retention) — how long findings are stored and when they are deleted
 `,

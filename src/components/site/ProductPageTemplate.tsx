@@ -64,7 +64,7 @@ function useEngineContext(data: ProductPageData) {
 }
 
 const defaultStats = [
-  { v: fmt(CSPM_POSTURE_RULES), l: "posture rules" },
+  { v: fmt(CSPM_POSTURE_RULES), l: "posture rule definitions" },
   { v: String(CLOUDS), l: "cloud providers" },
   { v: String(SERVICES), l: "cloud services" },
   { v: String(FRAMEWORKS), l: "compliance frameworks" },

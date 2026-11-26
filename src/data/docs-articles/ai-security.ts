@@ -13,9 +13,8 @@ import type { DocArticle } from "./types";
  *    builder, A9 AI path sync, A10 code-finding join, A11/A12/A15 rules and extra
  *    discovery reads, A14 OpenAI connector) appear only in :::limits blocks or not at all.
  *  - marketing/facts/limits.yaml `ai_security_aws_only` (the per-cloud resource list).
- *  - marketing/facts/product.yaml `capability.ai_spm_live_items` and
- *    `capability.ai_compliance_frameworks` — PROPOSED, NOT YET CLEARED. Owner must
- *    clear these before this section is published.
+ *  - marketing/facts/product.yaml `capabilities.ai_spm_live_items` and
+ *    `capabilities.ai_compliance_frameworks` — cleared by the owner on 2026-11-26.
  *
  * No AI rule counts: none is cleared (posture_engines.md A11). Do not add one.
  * The first paragraph of each body becomes the page's meta description.

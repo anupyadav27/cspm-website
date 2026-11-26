@@ -816,6 +816,8 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 Classification is metadata-based: Onam labels each store PII, PHI, PCI, financial or confidential from its name, description, tags and schema, without reading the contents. Because the labels come from names and tags, the reason is readable in the store's own metadata, and a missing label is fixed with a tag.
 
+*Update, 26 November 2026: Onam's DSPM can now also read data contents, but only where you adopt it: if you deploy Onam's DSPM scanner in your own cloud account or the on-premises collector, it reads samples of files and rows and classifies what they contain. Without that scanner, classification works from metadata as described above, and everything else Onam does is read-only and does not read data contents.*
+
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
 If you want to see what this looks like on your own accounts, a [free one-time audit scan](/audit-scan) is the quickest way to find out.
@@ -2522,6 +2524,8 @@ Agentless works for everything that lives in the cloud control plane. It does no
 **Runtime workload behaviour** needs a sensor on the host: which processes are running, which network connections are open, which system calls a container makes. Onam does not have one. Rule evaluation covers the configuration surface and cloud audit logs cover control-plane activity. Live runtime behaviour is a different layer.
 
 **Data plane access patterns** are out of scope too. Onam does not read the contents of S3 objects, database rows or file system data. Data classification is based on metadata signals: naming patterns, tags, schema metadata, and resource configuration. This is sufficient for most DSPM use cases, but it will not detect sensitive data stored in an unexpectedly named bucket.
+
+*Update, 26 November 2026: Onam's DSPM can now also read data contents, but only where you adopt it: if you deploy Onam's DSPM scanner in your own cloud account or the on-premises collector, it reads samples of files and rows and classifies what they contain. Without that scanner, classification works from metadata as described in this post, and everything else Onam does is read-only and does not read data contents.*
 
 ## Why agentless matters for security teams
 

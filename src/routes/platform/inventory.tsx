@@ -10,7 +10,7 @@ export const Route = createFileRoute("/platform/inventory")({
     seo({
       title: "Cloud Asset Inventory & Discovery — Onam Security",
       description:
-        "Cloud asset inventory across seven clouds and 549 services, normalised into one resource model with the relationship graph attack paths run on.",
+        "Cloud asset inventory across seven clouds and 672 services, normalised into one resource model with the relationship graph attack paths run on.",
       path: "/platform/inventory",
     }),
   component: () => <ProductPageTemplate data={data} />,

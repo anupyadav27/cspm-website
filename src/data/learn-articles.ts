@@ -128,7 +128,7 @@ Buying these as four products from four vendors reproduces the problem they were
 
 ## Next steps
 
-- [How Onam implements CSPM](/platform/cspm): 9,853 posture rules across seven clouds
+- [How Onam implements CSPM](/platform/cspm): 11,856 posture rule definitions across seven clouds
 - [What is CNAPP?](/learn/cnapp): the umbrella category
 - [What is a cloud attack path?](/learn/cloud-attack-path): why a list of findings is not a priority order
 `,
@@ -802,7 +802,7 @@ They meet at the identity provider. A SaaS compromise becomes a cloud compromise
 
 ## Next steps
 
-- [How Onam implements SSPM](/platform/saas-security): 8 platforms, 433 CIS SaaS rules
+- [How Onam implements SSPM](/platform/saas-security): 9 platforms, 433 CIS SaaS rules
 - [What is CIEM?](/learn/ciem)
 - [What is CNAPP?](/learn/cnapp)
 `,
@@ -946,7 +946,7 @@ The terms look alike and are unrelated. An **on-path attack** (the newer name fo
 
 ## How Onam approaches attack path analysis
 
-Onam keeps the signals attack path analysis joins in one platform across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes: 9,853 CSPM posture rules, and in its rule catalogue 1,459 rule definitions tagged to IAM, 1,166 to network and 1,321 to data protection. One honest limit: a path computed from configuration shows that a route is possible; it is not evidence that anyone has used it.
+Onam keeps the signals attack path analysis joins in one platform across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes: 11,856 CSPM posture rule definitions, and in its rule catalogue 1,459 rule definitions tagged to IAM, 1,166 to network and 1,321 to data protection. One honest limit: a path computed from configuration shows that a route is possible; it is not evidence that anyone has used it.
 
 - [Onam Attack Path](/platform/attack-path)
 - [What is CNAPP?](/learn/cnapp)
@@ -1403,7 +1403,7 @@ Commercial KSPM is usually delivered as part of a CNAPP. When you compare option
 
 ## How Onam approaches Kubernetes posture
 
-Onam treats Kubernetes as one of the seven environments its posture engine covers, alongside AWS, Azure, GCP, OCI, Alibaba Cloud and IBM Cloud. Its catalogue of 9,853 CSPM posture rules includes 824 rule definitions for Kubernetes; not every definition is switched on, so fewer checks run on a cluster. They use the same finding format as the cloud rules, so a cluster finding and the cloud finding it connects to are read in one place. One honest limit: posture rules evaluate configuration. They do not, on their own, detect an attack in progress inside a pod.
+Onam treats Kubernetes as one of the seven environments its posture engine covers, alongside AWS, Azure, GCP, OCI, Alibaba Cloud and IBM Cloud. Its catalogue of 11,856 CSPM posture rule definitions includes 1,023 for Kubernetes; those are definitions, not working checks, and many are not switched on yet, so fewer checks run on a cluster. They use the same finding format as the cloud rules, so a cluster finding and the cloud finding it connects to are read in one place. One honest limit: posture rules evaluate configuration. They do not, on their own, detect an attack in progress inside a pod.
 
 - [Onam Container & Kubernetes Security](/platform/container-security)
 - [Onam on Kubernetes](/solutions/kubernetes)
@@ -1573,7 +1573,7 @@ The rule that keeps this survivable: **gate on the delta, not the backlog.** A p
 
 ## How Onam approaches code security
 
-Onam's cleared figures in this area cover the platforms code lives on and the cloud it deploys to. GitHub and GitLab are two of its eight SaaS posture connectors, with 122 CIS rules for GitLab; in its cloud rule catalogue, 502 rule definitions are tagged to secrets and key management and 241 to application and API. One honest limit: GitHub has posture checks but no CIS rule pack yet.
+Onam's cleared figures in this area cover the platforms code lives on and the cloud it deploys to. GitHub, GitLab and Bitbucket Cloud are three of its nine SaaS posture connectors, with 122 CIS rules for GitLab; in its cloud rule catalogue, 502 rule definitions are tagged to secrets and key management and 241 to application and API. One honest limit: GitHub and Bitbucket Cloud have posture checks but no CIS rule pack yet.
 
 - [Onam Code Security](/platform/code-security)
 - [Onam SaaS Security (GitHub, GitLab)](/platform/saas-security)

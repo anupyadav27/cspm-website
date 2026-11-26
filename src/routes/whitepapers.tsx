@@ -18,7 +18,7 @@ export const Route = createFileRoute("/whitepapers")({
     seo({
       title: "Technical whitepapers — Onam",
       description:
-        "Cloud security whitepapers on attack-path analysis, FAIR-style risk estimates, single-graph architecture and 78-framework compliance.",
+        "Cloud security whitepapers on attack-path analysis, FAIR-style risk estimates, single-graph architecture and multi-framework compliance.",
       path: "/whitepapers",
     }),
   component: Page,
@@ -92,11 +92,11 @@ const papers: Paper[] = [
   {
     n: "04",
     title: "Compliance, mapped once",
-    pill: "78 frameworks",
-    desc: "How Onam evaluates a control once and reports it against 78 frameworks — and reads each gap alongside the attack paths it sits on.",
+    pill: "Framework mapping",
+    desc: "How Onam evaluates a control once and reports it against every framework you track — and reads each gap alongside the attack paths it sits on.",
     points: [
       "One control evaluation, many framework projections",
-      "78 compliance frameworks over a single control set",
+      "Many compliance frameworks over a single control set",
       "Why a compliance gap matters more when it sits on an attack path",
     ],
     limit:
@@ -124,7 +124,7 @@ function Page() {
         <p className="mt-4 max-w-[720px] text-[17px] leading-relaxed text-[#475569]">
           Four papers on how Onam Security actually works — the attack-path method, how a finding
           gets a loss estimate, why everything writes into one graph, and how one control evaluation
-          reports against 78 frameworks. Written for engineers and architects who want the
+          reports against many frameworks. Written for engineers and architects who want the
           mechanism, not the pitch.
         </p>
         <div className="mt-7">

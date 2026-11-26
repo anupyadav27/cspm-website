@@ -635,7 +635,7 @@ Yes — namespaces, workloads, services, the RBAC graph, and network policies ex
     title: "Compliance",
     breadcrumb: "Features / Compliance",
     body: `
-Onam's Compliance engine turns security findings into compliance posture: findings are mapped to the controls they affect across **78 frameworks**, each control is assessed, and each framework gets a 0–100% score you can track, drill into and export.
+Onam's Compliance engine turns security findings into compliance posture: findings are mapped to the controls they affect across **144 frameworks** (119 with automated checks), each control is assessed, and each framework gets a 0–100% score you can track, drill into and export.
 
 This page explains where the findings come from, how controls are assessed and scored, and how to export reports. For the framework list, see [Framework Coverage](/docs/compliance/frameworks).
 
@@ -675,7 +675,7 @@ The framework score (0–100%) rolls up the control results. Scores are recomput
 
 ## Framework Catalog
 
-The catalog covers **78 frameworks**: CIS benchmarks for AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes (including managed Kubernetes services), CIS benchmarks for operating systems, databases, web servers, network devices and SaaS platforms, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI DSS, HIPAA, GDPR, SOC 2, FedRAMP Moderate and High, RBI frameworks for banks and NBFCs, and Canada PBMM.
+The catalog covers **144 frameworks**, 119 with automated checks and 25 attestation-only: CIS benchmarks for AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes (including managed Kubernetes services), CIS benchmarks for operating systems, databases, web servers, network devices and SaaS platforms, NIST 800-53, NIST 800-171, ISO 27001:2022, PCI DSS, HIPAA, GDPR, SOC 2, FedRAMP Moderate and High, RBI frameworks for banks and NBFCs, and Canada PBMM, plus AI frameworks (OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001, EU AI Act).
 
 The full list is on [Framework Coverage](/docs/compliance/frameworks). Custom rules built in the Rule Builder can carry their own framework mappings.
 
@@ -739,7 +739,7 @@ Every automatically assessed control passed in the latest results. Controls mark
 
 ## Next steps
 
-- [Framework Coverage](/docs/compliance/frameworks) — the 78 frameworks
+- [Framework Coverage](/docs/compliance/frameworks) — the 144 frameworks
 - [CSPM](/docs/features/cspm) — the posture rules that generate most of the underlying findings
 - [Data Security](/docs/features/data-security) — data findings and sensitive stores
 - [Book a demo](/request-demo) — see your framework scores on a live connected account

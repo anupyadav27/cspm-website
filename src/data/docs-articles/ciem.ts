@@ -63,12 +63,12 @@ The console's CIEM screen has three views:
 
 ## Coverage at a glance
 
-AWS has the deepest coverage: full effective-permission resolution, multi-hop assume-role chains, shadow admins, unused permissions, risk scoring and access reviews. Azure, GCP and Kubernetes have effective access and escalation detection; OCI and IBM Cloud have escalation detection; trust checks run on every cloud except Kubernetes. Details are in [Per-cloud notes](/docs/ciem/per-cloud).
+AWS has the deepest coverage: full effective-permission resolution, multi-hop assume-role chains, shadow admins, unused permissions, risk scoring and access reviews. Azure, GCP and Kubernetes have effective access, escalation detection and shadow admins; Google Cloud also has service-account impersonation chains (up to 4 hops) and unused permissions from Cloud Audit Logs; Azure and Google Cloud have access reviews opened from high or critical escalation findings, on granted access. OCI and IBM Cloud have escalation detection; trust checks run on every cloud except Kubernetes. Details are in [Per-cloud notes](/docs/ciem/per-cloud).
 
 ## What CIEM does not do
 
 - **It never changes your IAM.** Findings and reviews tell you what to remove; you remove it.
-- **Unused-permission analysis is AWS-only today**, and needs CloudTrail activity to be flowing into Onam's threat detection.
+- **Unused-permission analysis runs on AWS and Google Cloud only**, and needs their audit logs (CloudTrail, Cloud Audit Logs) to be flowing into Onam's threat detection. Other clouds show granted access only.
 - **There is no separate identity-graph screen.** You read the graph through the Effective Access panel, escalation findings and the [Attack Path](/docs/features/attack-path) view.
 `,
   },
@@ -340,6 +340,8 @@ What CIEM does on each cloud today. AWS has the deepest coverage; the other clou
 - **Identities:** role definitions and assignments, Entra service principals, managed identities (user- and system-assigned).
 - **Effective access:** assignments joined to role definitions, scope classified, ABAC conditions evaluated. Entra group membership is not expanded.
 - **Escalation:** RBAC Owner, PIM activation, service principal owner rights.
+- **Shadow admins and escalation:** role-assignment write, Privileged Role Administrator, app credentials and managed identities.
+- **Access reviews:** opened from high or critical escalation findings, on granted access (usage is not part of Azure reviews yet).
 - **Trust and scope:** cross-tenant access without conditional access; service principals and managed identities with Owner, Contributor or User Access Administrator at broad scope; guests with privileged roles.
 - **Graph:** VM → managed identity links.
 
@@ -347,7 +349,9 @@ What CIEM does on each cloud today. AWS has the deepest coverage; the other clou
 
 - **Identities:** IAM bindings, service accounts, workload identity pools.
 - **Effective access:** bindings on projects, service accounts, buckets, BigQuery datasets and Pub/Sub topics, mapped onto the shared access levels.
-- **Escalation:** service-account key creation, primitive (owner/editor) roles, broad workload identity.
+- **Escalation:** service-account key creation, primitive (owner/editor) roles, broad workload identity, setIamPolicy, and service-account impersonation chains of up to 4 hops; shadow admins.
+- **Usage:** API calls from Cloud Audit Logs mapped to permissions, for used-versus-granted and unused permissions.
+- **Access reviews:** opened from high or critical escalation findings, on granted access.
 - **Findings:** service accounts with Owner, keys past rotation age, public principals in bindings, workload identity pools without an attribute condition, service-account chaining.
 - **Graph:** compute instance → service account links.
 
@@ -355,7 +359,7 @@ What CIEM does on each cloud today. AWS has the deepest coverage; the other clou
 
 - **Identities:** service accounts, Roles and ClusterRoles, RoleBindings and ClusterRoleBindings, pods.
 - **Effective access:** bindings resolved to service accounts and their rules.
-- **Escalation:** cluster-admin bindings, Role and ClusterRole write, pods/exec and pods/attach, cluster-wide secrets read, node access, cross-namespace escalation.
+- **Escalation:** cluster-admin bindings, Role and ClusterRole write, bind, escalate and impersonate, pod creation with a privileged service account, pods/exec and pods/attach, cluster-wide secrets read, node access, cross-namespace escalation; shadow admins.
 - **Graph:** pod → service account links; workload-identity annotations to the cloud identity.
 
 ## OCI
@@ -378,7 +382,7 @@ What CIEM does on each cloud today. AWS has the deepest coverage; the other clou
 
 ## Not yet on these clouds
 
-Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. Multi-hop assume-role chains are AWS-only.
+The 0–100 risk score with usage and stale-role findings run on AWS identities today. Unused-permission analysis runs on AWS and Google Cloud; Kubernetes, OCI, Alibaba Cloud and IBM Cloud show granted access only. Access reviews run on AWS, Azure and Google Cloud. Multi-hop chains are followed on AWS (assume-role) and Google Cloud (service-account impersonation); shadow admins are found on AWS, Azure, Google Cloud and Kubernetes.
 `,
   },
 ];

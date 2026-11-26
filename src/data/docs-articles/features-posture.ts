@@ -6,7 +6,7 @@ export const articles: DocArticle[] = [
     title: "CSPM — Cloud Security Posture Management",
     breadcrumb: "Features / CSPM",
     body: `
-CSPM is the core posture engine of the Onam platform. It evaluates every resource in your connected clouds against **9,853 posture rules**, records a PASS, FAIL or ERROR result for each rule-resource pair, and turns every FAIL into a severity-ranked finding with remediation guidance, MITRE ATT&CK mapping, and compliance citations.
+CSPM is the core posture engine of the Onam platform. It evaluates every resource in your connected clouds against **11,856 posture rule definitions**, records a PASS, FAIL or ERROR result for each rule-resource pair, and turns every FAIL into a severity-ranked finding with remediation guidance, MITRE ATT&CK mapping, and compliance citations.
 
 This page explains what the rule registry covers per cloud, how a single rule is evaluated, how the severity model works, how to suppress findings you have accepted, and how PASS/FAIL results roll up into compliance scores.
 
@@ -24,17 +24,17 @@ CSPM answers one question on every scan: **is every resource configured the way 
 
 ## Rule coverage by cloud
 
-The posture engine runs **9,853 rules** across seven clouds:
+The posture catalogue holds **11,856 rule definitions** across seven clouds. A definition that is switched off or has no check yet is still counted, so not every definition runs as a working check today; Kubernetes in particular has far fewer working checks than definitions.
 
-| Cloud | Posture rules |
+| Cloud | Posture rule definitions |
 | --- | --- |
-| OCI | 2,059 |
-| AWS | 2,018 |
-| Azure | 1,926 |
-| GCP | 1,322 |
-| Alibaba Cloud | 1,151 |
-| Kubernetes | 824 |
-| IBM Cloud | 553 |
+| AWS | 2,633 |
+| Azure | 2,173 |
+| OCI | 2,163 |
+| Alibaba Cloud | 1,735 |
+| GCP | 1,558 |
+| Kubernetes | 1,023 |
+| IBM Cloud | 571 |
 
 Every rule ships with metadata: severity, domain, rationale, remediation guidance, references, compliance mappings, and MITRE ATT&CK tactics and techniques.
 
@@ -108,7 +108,7 @@ Creating a suppression requires admin rights. At the compliance level, exception
 
 ## Compliance mapping
 
-Rules are mapped to the controls they evidence across **78 compliance frameworks** — including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR and FedRAMP. The mapping is maintained in one catalog, so one scan produces evidence for every mapped framework at once:
+Rules are mapped to the controls they evidence across **144 compliance frameworks** (119 with automated checks) — including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR and FedRAMP. The mapping is maintained in one catalog, so one scan produces evidence for every mapped framework at once:
 
 1. A rule evaluates PASS or FAIL per resource.
 2. Each result is attributed to every control the rule maps to.

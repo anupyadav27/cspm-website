@@ -25,8 +25,8 @@ export const platformPages: Record<string, ProductPageData> = {
   "code-security": {
     hideDemo: true,
     stats: [
-      { v: "597", l: "SAST security rules" },
-      { v: "9", l: "languages scanned" },
+      { v: "835", l: "SAST security rules" },
+      { v: "13", l: "languages scanned" },
       { v: "8", l: "dependency ecosystems" },
       { v: "479", l: "DAST test payloads" },
     ],
@@ -51,7 +51,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "The first scan of a mature repository returns a wall of findings, and most of them are pattern matches nobody can act on without reading the code. The one real injection flaw is in there somewhere, ranked next to a hundred hotspots with the same severity. The dependency report is no better: sorted by CVSS, it puts a theoretical 9.8 above a medium-rated bug that attackers are exploiting this week. The team triages for a day, fixes nothing important, and stops opening the report.",
     mechanism: [
       "You give Onam a repository's HTTPS address and a branch (GitHub, GitLab or Bitbucket) and, if you want dynamic testing, the URL of a running app you are authorised to test. Each scan runs as its own isolated job against a shallow clone of that branch, and the clone is deleted when the scan ends.",
-      "Static analysis runs on Onam's own engine with three kinds of Onam rules: data-flow rules that follow untrusted input to a dangerous call within a single function, code-structure rules that match the shape of the code, and reviewed pattern rules. No third-party rule packs are used. Pattern rules that were judged code-quality rather than security are dropped before a scan runs.",
+      "Static analysis runs on Onam's own engine with three kinds of Onam rules: data-flow rules that follow untrusted input to a dangerous call across functions and files in the repository, code-structure rules that match the shape of the code, and reviewed pattern rules. No third-party rule packs are used. Pattern rules that were judged code-quality rather than security are dropped before a scan runs.",
       "Every result is graded by how much the rule can prove. Data-flow and code-structure matches become Security issues and keep the severity the rule asserts; pattern matches become Hotspots to review, capped at medium, so they can never outrank a confirmed flaw. Each finding carries the file, line, rule, CWE and OWASP category.",
       "Dependency analysis reads manifests and lockfiles itself, matches each component against OSV and NVD advisories, adds EPSS exploit probability and CISA KEV membership, and turns them into a single 0–10 risk score. The same pass produces a CycloneDX 1.5 SBOM for the repository.",
       "IaC templates and Dockerfiles in the same clone are checked in the same scan, and secret rules run over every file. If you gave a target URL, dynamic testing discovers the app's endpoints and sends rate-limited test payloads at them.",
@@ -60,7 +60,7 @@ export const platformPages: Record<string, ProductPageData> = {
     whatYouGet: [
       "Confirmed issues kept apart from hotspots: data-flow and code-structure findings first, pattern matches in a separate review list capped at medium",
       "CWE and OWASP on every code finding, with the file, line and rule that produced it",
-      "Coverage for mainstream languages: Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby",
+      "Coverage for 13 languages: Python, JavaScript, TypeScript, Java, C#, Go, C, C++, Ruby, PHP, Kotlin, Swift and Scala",
       "Dependency risk beyond CVSS: a 0–10 score built from CVSS, EPSS, CISA KEV and whether a fixed version exists",
       "A CycloneDX 1.5 SBOM per repository, and import of existing CycloneDX or SPDX JSON SBOMs",
       "SBOM governance: license classification and policy checks, an NTIA minimum-elements check, VEX statements and SBOM diffs",
@@ -71,7 +71,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "Which languages does static analysis cover?",
-        a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++ and Ruby. Depth varies by language: Python, JavaScript/TypeScript, Java, C#, Go and Ruby have data-flow rules (traced within a single function) as well as code-structure rules; C and C++ have code-structure and pattern rules but no data-flow rules, so expect more of their results in the hotspot list. Other languages are not analysed today.",
+        a: "Python, JavaScript, TypeScript, Java, C#, Go, C, C++, Ruby, PHP, Kotlin, Swift and Scala. Depth varies by language: all of them except C and C++ have data-flow rules (traced across functions and files within the repository) as well as code-structure rules; C and C++ have code-structure and pattern rules but no data-flow rules, so expect more of their results in the hotspot list. Other languages, such as Rust, are not analysed today.",
       },
       {
         q: "What is the difference between a security issue and a hotspot?",
@@ -83,7 +83,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Does it trace a code finding to the workload running that code?",
-        a: "Not today. Code findings live in the same platform as your cloud findings and count towards the same posture score, but Onam does not yet link a finding to the specific container image or cloud workload built from that repository. We would rather say so than imply a join that is not there.",
+        a: "Yes. A code finding links to the cloud workload or container image built from that repository, shown as a Source block on the finding and on attack-path nodes, with the method used and how confident the match is. Matches made from infrastructure-as-code are labelled as suggestions. For Terraform findings, Onam can open a fix pull request.",
       },
       {
         q: "Can it fix what it finds?",
@@ -109,13 +109,13 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: brand400,
     label: "CSPM",
     question: "Are my cloud configs secure right now?",
-    headline: "CSPM that checks 9,853 posture rules across seven clouds on every scan.",
+    headline: "CSPM across seven clouds, built on 11,856 posture rule definitions and run on every scan.",
     sub: "Every resource your team deploys is checked again on each scan, so a misconfiguration shows up at the first scan after it is introduced. You don't have to wait for the next audit to find it.",
     painPoint:
       "Your DevOps team ships new resources every week. By Friday a few of them are misconfigured: a security group open to the internet, an S3 bucket with public read, an RDS instance with no encryption. Nobody meant it. They are defaults nobody changed, and manual audits can't keep pace with how fast the cloud changes.",
     mechanism: [
-      "When you connect a cloud account, Onam discovers its resources across 549 services, with region and account recorded for each. Posture scanning connects through read-only cloud roles: IAM roles, service principals or service accounts.",
-      "Each resource is evaluated against 9,853 posture rules (OCI 2,059, AWS 2,018, Azure 1,926, GCP 1,322, Alibaba 1,151, Kubernetes 824, IBM 553) by one cloud-agnostic engine that records PASS, FAIL or ERROR for every rule and resource.",
+      "When you connect a cloud account, Onam discovers its resources across 672 services, with region and account recorded for each. Posture scanning connects through read-only cloud roles: IAM roles, service principals or service accounts.",
+      "Each resource is evaluated by one cloud-agnostic engine that records PASS, FAIL or ERROR for every rule and resource. The catalogue holds 11,856 posture rule definitions (AWS 2,633, Azure 2,173, OCI 2,163, Alibaba 1,735, GCP 1,558, Kubernetes 1,023, IBM 571); a definition that is switched off or has no check yet is still counted, so not every one runs as a working check today.",
       "Every rule carries its severity, rationale, references, remediation guidance, compliance mappings and MITRE ATT&CK tactics and techniques, so each finding arrives with the why and the how-to-fix.",
       "Severity is raised when context makes a finding worse: the resource is exposed and sits on an attack path, it is one of your most valuable assets, or an active threat touches it. Each finding also gets a fix-by date.",
       "Every finding also carries an AI fix prompt, written for your cloud's tooling, that you can paste into an assistant to draft the CLI command, Terraform change or console steps.",
@@ -124,7 +124,7 @@ export const platformPages: Record<string, ProductPageData> = {
     whatYouGet: [
       "Every misconfiguration ranked by severity: Critical, High, Medium, Low",
       "Remediation guidance for each rule, plus an AI fix prompt for CLI, Terraform or console steps",
-      "Compliance mapping: which of the 78 frameworks each finding affects",
+      "Compliance mapping: which of the 144 frameworks each finding affects",
       "MITRE ATT&CK tactics and techniques on every rule",
       "Resource-level drilldown: every finding linked to the specific resource, account and region",
       "Context-raised severity and a fix-by date per finding",
@@ -183,7 +183,7 @@ export const platformPages: Record<string, ProductPageData> = {
     headline: "CIEM: the effective permissions of every cloud identity, and its paths to admin.",
     metaDescription:
       "Onam CIEM resolves effective permissions for users, roles and machine identities, finds escalation paths and risky trusts, and tracks access reviews.",
-    sub: "CIEM works out what human users, roles, service accounts and workload identities can do once group membership, conditions, explicit denies and SCP denies are applied. Then it finds the escalation paths, the shadow admins, the risky trusts and, on AWS, the permissions nobody uses.",
+    sub: "CIEM works out what human users, roles, service accounts and workload identities can do once group membership, conditions, explicit denies and SCP denies are applied. Then it finds the escalation paths, the shadow admins, the risky trusts and, on AWS and Google Cloud, the permissions nobody uses.",
     painPoint:
       "Nobody can answer 'what can this role actually do?' by reading its policy. The answer depends on the groups it inherits from, the explicit denies elsewhere, the conditions on each statement and the SCP above the account. And the risk is rarely the role that looks like an admin. It is the CI role with iam:PassRole on a wildcard, the forgotten role that trusts an external account without an ExternalId, or the Kubernetes service account that can create pods/exec. CIEM is the work of resolving that per identity, then ranking what to fix first.",
     risk: {
@@ -193,7 +193,7 @@ export const platformPages: Record<string, ProductPageData> = {
     },
     stats: [
       { v: "7", l: "clouds analysed" },
-      { v: "1,342", l: "CIEM rules" },
+      { v: "1,431", l: "CIEM rules" },
       { v: "12 hops", l: "assume-role chains traced" },
       { v: "4 states", l: "per access review" },
     ],
@@ -203,7 +203,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Escalation paths",
       "Cross-account trust",
       "Non-human identities",
-      "Unused permissions (AWS)",
+      "Unused permissions (AWS, Google Cloud)",
       "Identity risk score",
       "Access reviews",
     ],
@@ -212,21 +212,21 @@ export const platformPages: Record<string, ProductPageData> = {
       "Effective access is resolved per identity. On AWS, group policies are copied onto each member, every condition is classified by whether an attacker could satisfy it, explicit denies are netted out and SCP deny statements are checked. Azure role assignments (with their scope), GCP bindings and Kubernetes RoleBindings resolve into the same effective-access table.",
       "Each grant gets an access level (admin, IAM control, write, read, list or tagging) and is flagged when it is admin-equivalent, cross-account or blocked by an SCP.",
       "Identity relationships go into the platform's security graph, which Attack Path and blast-radius analysis read. They include has-policy, member-of, assumes and can-access on AWS, and the link from a VM, instance or pod to the identity it runs as.",
-      "Detectors look for privilege escalation: PassRole to an admin role, multi-hop assume-role chains that reach admin, permission-boundary removal and shadow admins on AWS, plus escalation vectors for Azure, GCP, OCI, IBM Cloud and Kubernetes.",
-      "On AWS, CloudTrail activity collected by threat detection is joined to the granted actions: roles with no recent activity are flagged as stale, and each identity gets a permission gap (the share of granted actions it never called), with the high-risk unused ones listed.",
-      "AWS identities get a 0–100 risk score from escalation paths, recent use of escalation operations, blast radius and permission gap. Identities in the high tier open an access review with the evidence attached.",
+      "Detectors look for privilege escalation: PassRole to an admin role, multi-hop assume-role chains that reach admin and permission-boundary removal on AWS; role-assignment writes, Privileged Role Administrator, app credentials and managed identities on Azure; setIamPolicy and service-account impersonation chains of up to 4 hops on Google Cloud; bind, escalate, impersonate and pod creation with a privileged service account on Kubernetes; plus escalation vectors for OCI and IBM Cloud. Shadow admins are found on AWS, Azure, Google Cloud and Kubernetes.",
+      "On AWS, CloudTrail activity collected by threat detection is joined to the granted actions: roles with no recent activity are flagged as stale, and each identity gets a permission gap (the share of granted actions it never called), with the high-risk unused ones listed. On Google Cloud, API calls from Cloud Audit Logs are mapped to permissions the same way. Other clouds show granted access only.",
+      "AWS identities get a 0–100 risk score from escalation paths, recent use of escalation operations, blast radius and permission gap. Identities in the high tier open an access review with the evidence attached. On Azure and Google Cloud, high or critical escalation findings open an access review on granted access.",
     ],
     whatYouGet: [
       "Effective permissions per identity: after group inheritance, conditions, explicit denies and SCP denies",
-      "Shadow admin detection: AWS identities that can attach, rewrite or create their way to an admin policy",
-      "Privilege escalation paths: PassRole, multi-hop assume-role chains, boundary removal, and vectors for Azure, GCP, OCI, IBM Cloud and Kubernetes",
+      "Shadow admin detection on AWS, Azure, Google Cloud and Kubernetes: identities that can attach, rewrite or create their way to admin",
+      "Privilege escalation paths: PassRole, multi-hop assume-role chains and boundary removal on AWS, service-account impersonation chains on Google Cloud, and vectors for Azure, OCI, IBM Cloud and Kubernetes",
       "Cross-account and federated trust: external accounts, wildcard principals, missing ExternalId, OIDC and SAML federation",
       "Non-human identities, with roles classified by who can assume them: AWS service, execution, CI/CD over OIDC, EKS service account, cross-account",
-      "Unused permissions on AWS: granted actions never seen in CloudTrail, with the high-risk ones called out",
+      "Unused permissions on AWS and Google Cloud: granted actions never seen in the audit logs, with the high-risk ones called out",
       "Identity risk score: 0–100 per AWS identity, with the breakdown behind it",
       "Blast radius: how many resources with open high or critical findings an identity can reach",
       "Stale roles: AWS roles with no recent API activity",
-      "Access reviews: pending, needs remediation, reviewed or deferred, with an audit trail and decisions that expire",
+      "Access reviews on AWS, Azure and Google Cloud: pending, needs remediation, reviewed or deferred, with an audit trail and decisions that expire",
       "Kubernetes RBAC: service accounts bound to cluster-admin, able to read secrets, exec into pods or rewrite roles",
       "Database identity activity: superuser and role-grant changes and login anomalies, from credentialed database connections",
     ],
@@ -241,7 +241,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Does unused-permission analysis need activity logs?",
-        a: "Yes. The permission gap and stale-role findings come from CloudTrail activity collected by Onam's threat detection, and today they run for AWS. Effective permissions, escalation paths, shadow admins and trust analysis do not depend on logs, so they work as soon as a cloud is connected.",
+        a: "Yes. The permission gap comes from audit-log activity collected by Onam's threat detection: CloudTrail on AWS and Cloud Audit Logs on Google Cloud. Stale-role findings run for AWS. Other clouds show granted access only. Effective permissions, escalation paths, shadow admins and trust analysis do not depend on logs, so they work as soon as a cloud is connected.",
       },
       {
         q: "Will Onam change my IAM policies?",
@@ -261,7 +261,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "How do access reviews work?",
-        a: "AWS identities whose risk score reaches the high tier open a review automatically, with the permission gap, granted and used counts and high-risk unused actions attached. A reviewer marks it reviewed, needs remediation or deferred. Every change is written to an audit trail, decisions expire after a set period, and a re-flagged identity goes back to pending.",
+        a: "AWS identities whose risk score reaches the high tier open a review automatically, with the permission gap, granted and used counts and high-risk unused actions attached. On Azure and Google Cloud, a high or critical escalation finding opens a review on the identity's granted access (usage is not part of those reviews yet). A reviewer marks it reviewed, needs remediation or deferred. Every change is written to an audit trail, decisions expire after a set period, and a re-flagged identity goes back to pending.",
       },
     ],
     related: [
@@ -680,20 +680,27 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: violet400,
     label: "AI Security",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
-    headline: "AI security posture checks for SageMaker, Bedrock, Azure OpenAI and Google Agent Platform (formerly Vertex AI).",
+    headline: "AI security posture for SageMaker, Bedrock, Azure OpenAI, Google Agent Platform (formerly Vertex AI) and the AI you run yourself on Kubernetes.",
     metaDescription:
-      "AI security posture on AWS, Azure and Google Cloud: SageMaker and Bedrock, Azure OpenAI and Azure Machine Learning, Gemini Enterprise Agent Platform (formerly Vertex AI). A surface standard CSPM rules miss.",
-    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud: AI services have their own security surface. Standard CSPM rules don't look at it. Onam checks their configuration on AWS, Azure and Google Cloud.",
+      "AI security posture (AI-SPM): one AI inventory and AI bill of materials, guardrail presence, exposed self-hosted AI, AI-to-data links and AI agent identities, on AWS, Azure, Google Cloud and Kubernetes.",
+    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud, and model servers, notebooks and vector databases on your own Kubernetes clusters: AI has its own security surface, and standard CSPM rules don't look at it. Onam finds the AI in your estate and checks how each piece is set up.",
     painPoint:
       "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM has no rule for it, so nobody is watching.",
     mechanism: [
       "Onam finds AI-specific resources through read-only APIs: on AWS, SageMaker endpoints, notebooks, training jobs, Bedrock and model artifacts; on Azure, Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces; on Google Cloud, Vertex AI endpoints, datasets and Workbench instances.",
-      "Each resource is evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events.",
-      "On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
-      "Findings integrate with the identity, network, and data engines, so an over-permissive endpoint reachable from the internet ranks alongside the equivalent web-app risk.",
-      "Each finding is tagged with MITRE ATLAS, the public catalogue of known attacks on AI systems. Onam checks configuration. It does not read prompts or attack-test models.",
+      "In each connected Kubernetes cluster, a classifier recognises self-hosted AI (model servers such as Ollama, vLLM and LiteLLM, Jupyter and MLflow, vector databases such as Qdrant and Milvus, and KServe, KubeRay, NVIDIA NIM and Seldon resources), adds it to the inventory and checks whether it is exposed without authentication. Clusters are read through a read-only ServiceAccount.",
+      "An AI bill of materials picks the AI libraries, model servers and MCP SDKs out of the SBOMs Onam already builds for your code and images.",
+      "Cloud AI resources are evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events. Onam also checks that a provider guardrail (Bedrock Guardrails, Azure content filters or Google Model Armor) is attached to your models, deployments and agents.",
+      "Each AI service is joined to the data stores it reads and to the identity it runs as. AI execution identities are marked as AI agents in CIEM, with findings for admin or wide write access, and every AI workload shows its identity's risk. On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
+      "AI findings land in the same findings queue as the rest of the platform, and in an AI Security area of the console with Overview, Inventory, Applications, Findings, Compliance, Coverage, Threats, Incidents and Settings tabs. Onam checks configuration. It does not read prompts or attack-test models.",
     ],
     whatYouGet: [
+      "One AI inventory across cloud AI services and self-hosted AI on Kubernetes",
+      "An AI bill of materials: AI libraries, model servers and MCP SDKs from your SBOMs",
+      "Guardrail presence on models, deployments and agents: Bedrock Guardrails, Azure content filters, Google Model Armor",
+      "Self-hosted model servers, notebooks and vector databases exposed without authentication",
+      "AI-to-data links: which data stores each AI service reads",
+      "AI agents as identities, with admin and wide-write findings, and identity risk on every AI workload",
       "SageMaker endpoint access control: public vs VPC-only",
       "Bedrock model invocation audit",
       "Training job isolation (VPC + security groups)",
@@ -702,29 +709,32 @@ export const platformPages: Record<string, ProductPageData> = {
       "Azure AI services and Azure OpenAI: public access, key-based sign-in, logging",
       "Azure Machine Learning workspace network isolation",
       "Vertex AI endpoints, datasets and Workbench instances: public access, encryption keys, logging",
-      "SageMaker Studio network isolation",
-      "ML service role scoping",
-      "Logging and monitoring for inference and training",
+      "AI findings mapped to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act",
     ],
     faqs: [
       {
         q: "Which AI services are covered today?",
-        a: "AWS: SageMaker (endpoints, notebooks, Studio, training jobs, models, feature store), Bedrock (models, provisioned throughput, agents, knowledge bases), Comprehend, Textract, Rekognition, and Kendra. Azure: Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. AI services on other clouds are not checked yet.",
+        a: "AWS: SageMaker and Bedrock. Azure: Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Kubernetes: self-hosted model servers, notebooks, vector databases and serving resources on any connected cluster, for inventory and exposure; configuration rules for self-hosted AI are written but not switched on yet. AI services on Oracle Cloud, Alibaba Cloud and IBM Cloud are not checked.",
       },
       {
         q: "Why does AI security need a separate engine if I already have CSPM?",
-        a: "AI services have configuration surfaces standard CSPM rules do not cover: network mode of endpoints, execution role scoping, artifact encryption, invocation logging, guardrails. AI Security applies AI-native rules and joins the findings to the same graph so risk shows up in the same queue.",
+        a: "AI services have configuration surfaces standard CSPM rules do not cover: network mode of endpoints, execution role scoping, artifact encryption, invocation logging, guardrails. AI Security applies AI-native rules, finds the AI teams run themselves, and puts the findings in the same queue as everything else. AI services are not drawn onto attack paths yet.",
       },
       {
         q: "What about Azure and Google Cloud AI services?",
         a: "Both are covered, proven on live Azure and Google Cloud accounts in October 2026. On Azure, Onam checks Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces: public network access, key-based sign-in, logging, managed identity and customer-managed keys. On Google Cloud, it checks Vertex AI endpoints, datasets and Workbench instances: public access, customer-managed keys, request logging, public IPs and default service accounts. AWS has the longest list of services, and shadow AI detection from audit logs is AWS only.",
       },
       {
+        q: "Does Onam read our prompts or model data?",
+        a: "No. AI Security works from configuration and metadata: what the cloud APIs report about each AI resource, what the Kubernetes API reports about each workload, and the package lists in your SBOMs. It does not call your models, and does not read prompts, completions, training data or model weights.",
+      },
+      {
         q: "Do AI security findings appear in compliance reports?",
-        a: "AI findings sit in the same findings queue and exports as the rest of the platform, each tagged with MITRE ATLAS. In Compliance, AI findings also map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act. A mapping links findings to controls; it does not mean every control is checked automatically.",
+        a: "Yes. AI findings sit in the same findings queue and exports as the rest of the platform. In Compliance, they map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act, which have automated checks; MITRE ATLAS and OWASP Agentic 2026 are tracked as attestation only. A mapping links findings to controls; it does not mean every control is checked automatically.",
       },
     ],
     related: [
+      { label: "AI Security docs", href: "/docs/ai-security/overview" },
       { label: "CSPM", href: "/platform/cspm" },
       { label: "Data Security", href: "/platform/data-security" },
       { label: "IAM Security", href: "/platform/iam" },
@@ -996,14 +1006,15 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: emerald400,
     label: "Compliance",
     question: "Am I ready for my next audit today?",
-    headline: "Continuous compliance across 78 frameworks, with evidence collected for each control.",
+    headline: "Continuous compliance across 144 frameworks, 119 of them with automated checks, with evidence collected for each control.",
     metaDescription:
-      "Continuous compliance: Onam maps findings to 78 compliance frameworks, keeps a score per framework, collects evidence per control and exports PDF and CSV reports.",
-    sub: "Onam maps posture, threat, vulnerability and technology findings to 78 compliance frameworks and recomputes a score for each framework from the latest findings, so the score shows where you stand today.",
+      "Continuous compliance: Onam maps findings to 144 compliance frameworks (119 with automated checks), keeps a score per framework, collects evidence per control and exports PDF and CSV reports.",
+    sub: "Onam maps posture, threat, vulnerability and technology findings to 144 compliance frameworks and recomputes a score for each framework from the latest findings, so the score shows where you stand today. Of those, 119 have automated checks; the other 25 are tracked for your own evidence.",
     painPoint:
       "The auditor arrives on Monday. Your team spent last week screenshotting console pages and stitching evidence into a spreadsheet. Meanwhile production picked up new resources that are not in the evidence pack at all. The gap between what you can prove and what is running is where audits fail and remediation plans balloon.",
     mechanism: [
-      "Posture, threat-detection, vulnerability and technology findings are mapped to the controls they affect across 78 frameworks. They include CIS benchmarks for clouds and technologies, NIST 800-53 and 800-171, ISO 27001:2022, PCI DSS, HIPAA, GDPR, SOC 2, FedRAMP Moderate and High, RBI, Canada PBMM and more.",
+      "Posture, threat-detection, vulnerability and technology findings are mapped to the controls they affect across 144 frameworks. They include CIS benchmarks for clouds and technologies, NIST 800-53 and 800-171, ISO 27001:2022, PCI DSS, HIPAA, GDPR, SOC 2, FedRAMP Moderate and High, RBI, Canada PBMM and more.",
+      "Of the 144, 119 have automated checks: at least one working Onam check is linked, so findings appear against their controls without you doing anything (this does not mean every control is automated). The other 25 are attestation-only: Onam tracks status, owners and evidence, and makes no scan claim.",
       "Each control is assessed as pass, fail, partial, manual review or not applicable, and each framework gets a 0–100% score, recomputed from the latest findings and kept as a trend.",
       "Evidence is collected per control (the resources, their results and timestamps), so nobody has to assemble screenshots.",
       "Every framework drills down from framework to control to resource.",
@@ -1011,7 +1022,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Exceptions and compensating controls are tracked with a justification, an approver and a target date, and are flagged as their expiry nears.",
     ],
     whatYouGet: [
-      "78 frameworks mapped",
+      "144 frameworks mapped: 119 with automated checks, 25 attestation-only",
       "A continuous 0–100% score per framework, with a trend",
       "Evidence per control, with timestamps",
       "Drill-down from framework to control to resource",
@@ -1029,7 +1040,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Which frameworks are supported?",
-        a: "78 in total. They include CIS benchmarks for AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, plus CIS benchmarks for operating systems, databases, web servers and network devices; NIST 800-53 and NIST 800-171; ISO 27001:2022; PCI DSS; HIPAA; GDPR; SOC 2; FedRAMP Moderate and High; RBI for banks and NBFCs; and Canada PBMM.",
+        a: "144 in total: 119 with automated checks and 25 attestation-only, where Onam tracks your evidence but makes no scan claim. They include CIS benchmarks for AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, plus CIS benchmarks for operating systems, databases, web servers and network devices; NIST 800-53 and NIST 800-171; ISO 27001:2022; PCI DSS; HIPAA; GDPR; SOC 2; FedRAMP Moderate and High; RBI for banks and NBFCs; and Canada PBMM. For AI, findings map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act; MITRE ATLAS and OWASP Agentic 2026 are attestation-only.",
       },
       {
         q: "What happens to exceptions in compliance reports?",
@@ -1118,12 +1129,12 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: violet400,
     label: "SaaS Security (SSPM)",
     question: "Who can reach your data in Microsoft 365, Google Workspace, and GitHub?",
-    headline: "SSPM: posture checks for Microsoft 365, Google Workspace, GitHub, Snowflake and four more SaaS platforms.",
-    sub: "SaaS Security posture management extends the same rule graph to the platforms your company runs on: Microsoft 365, Google Workspace, GitHub, GitLab, Snowflake, SharePoint, Dynamics 365 and Okta. It applies 433 CIS Benchmark rules across six SaaS benchmarks.",
+    headline: "SSPM: posture checks for Microsoft 365, Google Workspace, GitHub, Snowflake and five more SaaS platforms.",
+    sub: "SaaS Security posture management extends the same rule graph to the platforms your company runs on: Microsoft 365, Google Workspace, GitHub, GitLab, Bitbucket Cloud, Snowflake, SharePoint, Dynamics 365 and Okta. It applies 433 CIS Benchmark rules across six SaaS benchmarks.",
     painPoint:
       "A cloud posture tool will tell you an S3 bucket is public. It will say nothing about the SharePoint site shared with 'anyone with the link', the Microsoft 365 global admin without MFA, the stale Google Workspace guest account from a contractor who left in 2023, or the Snowflake service account holding ACCOUNTADMIN. Attackers go after exactly these accounts, and a cloud posture tool never sees them.",
     mechanism: [
-      "Each SaaS platform is connected through a dedicated read-only connector: Microsoft Graph with OAuth 2.0, Google Admin SDK with service-account impersonation, Snowflake private-key JWT, GitHub and GitLab app tokens.",
+      "Each SaaS platform is connected through a dedicated read-only connector: Microsoft Graph with OAuth 2.0, Google Admin SDK with service-account impersonation, Snowflake private-key JWT, GitHub and GitLab app tokens, and a Bitbucket Cloud workspace connection.",
       "Discovery enumerates tenants, users, admin roles, sharing settings, audit-log configuration, and data-exposure surfaces without any agent or browser extension.",
       "Findings are evaluated against 433 CIS rules: Microsoft 365 (130), GitLab (122), Google Workspace (89), Snowflake (39), SharePoint (37) and Dynamics 365 (16).",
       "SaaS findings write into the same findings model as cloud findings, so a SaaS identity risk and a cloud identity risk appear in one queue rather than two consoles.",
@@ -1134,7 +1145,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "MFA and conditional-access gaps on privileged SaaS accounts",
       "External sharing exposure: SharePoint, OneDrive and Google Drive links open to anyone",
       "Audit-log configuration checks: M365 Unified Audit Log, GWS retention, Snowflake QUERY_HISTORY",
-      "DevOps platform posture: GitHub and GitLab org settings, branch protection, token hygiene",
+      "DevOps platform posture: GitHub, GitLab and Bitbucket Cloud settings, branch protection, token hygiene",
       "Data warehouse posture: Snowflake roles, network policies, and grant sprawl",
       "CIS Benchmark scoring per SaaS platform with per-control evidence",
       "Stale and orphaned SaaS identity report",
@@ -1142,7 +1153,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "Which SaaS platforms does Onam support today?",
-        a: "Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Snowflake, Dynamics 365, and Okta. Each is a read-only connector using the platform's official API. Adding a platform is a connector plus a rule pack, so the list grows without changes to how you consume findings.",
+        a: "Microsoft 365, SharePoint, Google Workspace, GitHub, GitLab, Bitbucket Cloud, Snowflake, Dynamics 365, and Okta. Each is a read-only connector using the platform's official API. GitHub, Bitbucket Cloud and Okta have posture checks but no CIS rule pack yet. Adding a platform is a connector plus a rule pack, so the list grows without changes to how you consume findings.",
       },
       {
         q: "Is this a separate product from CSPM?",
@@ -1562,19 +1573,19 @@ export const platformPages: Record<string, ProductPageData> = {
     iconColor: blue400,
     label: "Asset Inventory & Discovery",
     question: "What do you run across every cloud, in one list?",
-    headline: "Cloud asset inventory across seven clouds and 549 services, with the links between resources mapped.",
-    sub: "The discovery engine is the foundation every other engine reads from: continuous, read-only enumeration of every resource across seven clouds and 549 services, with the relationships between them modelled as a graph.",
+    headline: "Cloud asset inventory across seven clouds and 672 services, with the links between resources mapped.",
+    sub: "The discovery engine is the foundation every other engine reads from: continuous, read-only enumeration of every resource across seven clouds and 672 services, with the relationships between them modelled as a graph.",
     painPoint:
       "Ask three teams how many cloud accounts the company has and you will get three numbers. The spreadsheet is a year old, the tagging standard was adopted by two of nine teams, and the account someone opened for a proof of concept in 2022 is still running, still billed, and still has a production database in it. Every security control you own applies only to the resources you know about.",
     mechanism: [
-      "Discovery enumerates every resource across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes (549 services in total) using read-only credentials.",
+      "Discovery enumerates every resource across AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes (672 services in total) using read-only credentials.",
       "Each resource is normalised into a shared model, so an AWS security group and an Azure network security group are comparable objects rather than two vendor formats.",
       "Relationships are modelled explicitly: which instance sits in which subnet, which role is assumed by which function, which volume is attached where. Together they form the graph that attack-path analysis walks.",
       "Discovery runs on every scan, so new resources appear in inventory at the next scan and deleted resources are retired rather than lingering.",
       "Every other engine reads from this inventory, which is why a resource cannot be evaluated by one engine and invisible to another.",
     ],
     whatYouGet: [
-      "Unified inventory across seven clouds and 549 services",
+      "Unified inventory across seven clouds and 672 services",
       "Normalised resource model: comparable objects across providers",
       "Relationship graph: the dependency map attack paths are computed on",
       "Refreshed on every scan, with new resources picked up at the next scan",
@@ -1586,7 +1597,7 @@ export const platformPages: Record<string, ProductPageData> = {
     faqs: [
       {
         q: "How many services does discovery cover?",
-        a: "549 services across seven providers: 123 on AWS, 95 on Azure, 71 on GCP, 68 on Alibaba Cloud, 68 on Kubernetes, 63 on IBM Cloud and 61 on OCI. Coverage expands with each rule-catalogue release.",
+        a: "672 services across seven providers: 147 on AWS, 121 on Azure, 99 on GCP, 91 on Alibaba Cloud, 77 on Kubernetes, 69 on OCI and 68 on IBM Cloud. Coverage expands with each rule-catalogue release.",
       },
       {
         q: "Does discovery need write access?",

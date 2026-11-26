@@ -11,7 +11,7 @@ export const articles: DocArticle[] = [
     title: "Onam Security",
     breadcrumb: "Onam Security / Overview",
     body: `
-**Onam Security** is cloud, SaaS and code security on one platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **9,853 posture rules**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
+**Onam Security** is cloud, SaaS and code security on one platform — a **cloud-native application protection platform (CNAPP)**. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Onam builds an inventory of every resource, evaluates it against **11,856 posture rule definitions**, and correlates posture, identity, data, network, workload, and runtime signals on **one security graph**. The result is a single prioritized queue of findings — with attack paths and FAIR-style dollar loss estimates — instead of eight disconnected consoles.
 
 This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For Onam as a whole — Onam Security and Onam AI, your AI security analyst — start with the [Introduction](/docs/getting-started/introduction).
 
@@ -29,14 +29,14 @@ Connecting one cloud account activates every capability — there are no per-mod
 | Attack Path | Which combinations of issues let an attacker reach my crown jewels? | [Attack Path](/docs/features/attack-path) |
 | Data Security (DSPM) | Where is my sensitive data, and what is it exposed to? | [Data Security](/docs/features/data-security) |
 | Vulnerability Management | Which CVEs matter, ranked by real exploitability? | [Vulnerability Management](/docs/features/vulnerability-management) |
-| Compliance | How do I score against CIS, NIST, PCI-DSS, and 78 other frameworks? | [Compliance](/docs/features/compliance) |
+| Compliance | How do I score against CIS, NIST, PCI-DSS and the rest of the 144 frameworks? | [Compliance](/docs/features/compliance) |
 | Risk Quantification | What is my exposure in dollars, using the FAIR model? | [Risk Quantification](/docs/features/risk-quantification) |
 
 Supporting these are container security, network security, encryption, database security, AI security, API security, IaC scanning, and application security (SAST, DAST, SCA) — the full engine list is in the [Architecture Overview](/docs/architecture/overview).
 
 ## One platform, one graph
 
-Most security stacks bolt together a posture scanner, an identity tool, a data classifier, and a log-analytics product — then leave you to correlate their alerts by hand. Onam runs **29 engines** against one shared data model instead:
+Most security stacks bolt together a posture scanner, an identity tool, a data classifier, and a log-analytics product — then leave you to correlate their alerts by hand. Onam runs **32 engines** against one shared data model instead:
 
 1. Discovery and Inventory (DI) enumerates every resource and writes \`asset_inventory\` and \`asset_relationships\`.
 2. Every engine — posture, identity, data, network, runtime — evaluates the same inventory and attaches findings to the same resource identifiers.
@@ -63,7 +63,7 @@ Onam scans seven cloud targets with provider-specific rule sets:
 
 Beyond the clouds, the **Technology Engine** scans **34 self-hosted technologies in 9 categories** — databases, Linux and OS, network devices, web servers, virtualization, containers, DevOps tooling, SaaS platforms, and data platforms — so the PostgreSQL server in your datacenter is held to the same standard as the RDS instance next to it.
 
-Findings map to **78 compliance frameworks**, including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP Moderate and High, RBI and Canada PBMM. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
+Findings map to **144 compliance frameworks** (119 with automated checks, 25 attestation-only), including CIS Benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP Moderate and High, RBI and Canada PBMM. See [Framework Coverage](/docs/compliance/frameworks) for the full list.
 
 ## Agentless by design
 
@@ -74,7 +74,7 @@ Posture scanning connects through a **read-only IAM role (AWS), service principa
 ## Who Onam Security is for
 
 - **Security engineers** — one queue of deduplicated, graph-prioritized findings with concrete remediation, instead of alert triage across per-cloud native tools.
-- **Compliance and GRC teams** — continuous scoring against 78 frameworks with per-control evidence, replacing quarterly spreadsheet audits.
+- **Compliance and GRC teams** — continuous scoring against 144 frameworks (119 with automated checks) with per-control evidence, replacing quarterly spreadsheet audits.
 - **CISOs and leadership** — a posture score, top risks, and FAIR-based dollar exposure that translate directly into board reporting.
 - **DevOps and platform teams** — findings tied to the exact resource, region, and account, with CLI, Terraform, or console remediation steps.
 
@@ -112,10 +112,10 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [CNAPP](/platform/cnapp) | Combines seven pillar scores (misconfiguration, detection and identity, workloads, data, network, threat, application security) into one 0–100 posture score. | Available | One score per tenant | Cloud cost is not part of the score. |
-| [CSPM](/platform/cspm) | Finds misconfigurations in what is deployed. | Available | 9,853 posture checks across 7 clouds | Checks deployed resources, not Terraform templates (Code Security covers templates). On AWS, no secret is stored: Onam assumes a read-only role. |
-| [CIEM](/platform/ciem) | Works out effective permissions and escalation paths. | Available with limits | Unused access, access reviews, shadow admins and role chains: AWS only | Those four parts run on AWS only today. Unused-access analysis also needs cloud audit logs flowing into Onam. |
+| [CSPM](/platform/cspm) | Finds misconfigurations in what is deployed. | Available | 11,856 posture rule definitions across 7 clouds | Checks deployed resources, not Terraform templates (Code Security covers templates). On AWS, no secret is stored: Onam assumes a read-only role. |
+| [CIEM](/platform/ciem) | Works out effective permissions and escalation paths. | Available with limits | Shadow admins: AWS, Azure, Google Cloud and Kubernetes. Escalation chains: AWS and Google Cloud. Access reviews: AWS, Azure and Google Cloud. Unused access: AWS and Google Cloud | Access reviews on Azure and Google Cloud open from high or critical escalation findings and use granted access only. Unused-access analysis runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access only. |
 | [IAM Security](/platform/iam) | Checks MFA, access keys and policy hygiene. | Available | 1,459 identity rules in the catalogue, 7 clouds | — |
-| [Asset Inventory](/platform/inventory) | Lists every discovered resource in one place. | Available | 549 services across 7 clouds | — |
+| [Asset Inventory](/platform/inventory) | Lists every discovered resource in one place. | Available | 672 services across 7 clouds | — |
 
 ## Threat & Attack
 
@@ -144,34 +144,34 @@ Each row links to its product page. **Available with limits** means the capabili
 | [Agentless Scanning](/platform/agentless) | Scans disk snapshots inside the customer’s own account. | Available | — | — |
 | [Container Security](/platform/container-security) | Cluster, container service and image scanning. | Available | 1,508 container and Kubernetes rules in the catalogue | — |
 | [Vulnerability Management](/platform/vulnerability) | Known vulnerabilities ranked with context, not only by severity score. | Available | — | — |
-| [Code Security](/platform/code-security) | Static analysis, live-app testing, library checks and infrastructure-template checks. | Available with limits | Code repositories | No pull-request comments. No IDE plugin. Cannot gate a build on new findings only (a pipeline can start a scan instead). Code findings are not yet linked to the running workload. |
+| [Code Security](/platform/code-security) | Static analysis, live-app testing, library checks and infrastructure-template checks. | Available with limits | Code repositories | No pull-request comments. No IDE plugin. Cannot gate a build on new findings only (a pipeline can start a scan instead). |
 | [AI Code Fix](/platform/ai-code-fix) | Writes a fix and pushes it to a branch. | Available with limits | Static-analysis findings | Library and live-app findings are not rewritten. The affected file is sent to a language model (Mistral). |
 
 ## SaaS, AI & Governance
 
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
-| [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 8 platforms; 433 CIS rules across 6 of them | GitHub and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI. | Available | AI services on AWS, Azure and Google Cloud | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is AWS only. AI services on other clouds are not checked. |
+| [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 9 platforms; 433 CIS rules across 6 of them | GitHub, Bitbucket and Okta have posture checks but no CIS rule pack yet. |
+| [AI Security](/platform/ai-security) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is AWS only. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
-| [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 78 frameworks | Controls with no automated check are marked for manual review. |
+| [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 144 frameworks: 119 with automated checks, 25 attestation-only | Controls with no automated check are marked for manual review. |
 | [Technology Engine](/platform/technology) | Discovers running technology and checks it against CIS benchmarks. | Available | 34 CIS technology benchmarks in 9 categories | — |
 
 ## Coverage by cloud
 
-"All rules" is the full rule catalogue. "Posture checks" is the subset the CSPM scanner runs.
+"All rules" is the full rule catalogue. "Posture rules" is the subset the CSPM scanner is built to run. Both count rule definitions: a definition that is switched off or has no check yet is still counted, so not every one is a working check today.
 
-| Cloud | All rules | Posture checks | Services |
+| Cloud | All rules | Posture rules | Services |
 | --- | --- | --- | --- |
-| AWS | 2,568 | 2,018 | 123 |
-| Oracle Cloud (OCI) | 2,157 | 2,059 | 61 |
-| Azure | 2,101 | 1,926 | 95 |
-| Alibaba Cloud | 1,585 | 1,151 | 68 |
-| Google Cloud | 1,479 | 1,322 | 71 |
-| Kubernetes | 927 | 824 | 68 |
-| IBM Cloud | 616 | 553 | 63 |
-| **Total** | **11,433** | **9,853** | **549** |
+| AWS | 2,983 | 2,633 | 147 |
+| Azure | 2,306 | 2,173 | 121 |
+| Oracle Cloud (OCI) | 2,275 | 2,163 | 69 |
+| Google Cloud | 1,826 | 1,558 | 99 |
+| Alibaba Cloud | 1,785 | 1,735 | 91 |
+| Kubernetes | 1,072 | 1,023 | 77 |
+| IBM Cloud | 665 | 571 | 68 |
+| **Total** | **12,912** | **11,856** | **672** |
 
 ## Rules by security area
 
@@ -199,6 +199,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | SharePoint | 37 |
 | Dynamics 365 | 16 |
 | GitHub | Posture checks, no CIS rule pack yet |
+| Bitbucket Cloud | Posture checks, no CIS rule pack yet |
 | Okta | Posture checks, no CIS rule pack yet |
 
 ## Not in the product today
@@ -208,14 +209,13 @@ Things a buyer may expect that Onam Security does not do yet.
 | Not available | Where it stands |
 | --- | --- |
 | Data loss prevention and data labelling | Not offered |
-| Unused access, access reviews, shadow admins and role chains outside AWS | AWS only today |
+| Unused access outside AWS and Google Cloud; escalation chains outside AWS and Google Cloud | Other clouds show granted access only |
 | Pull-request comments and an IDE plugin | Code Security |
 | Failing a build on new findings only | Code Security |
-| Linking a code finding to the workload built from it | Code Security |
 | AI fixes for library and live-app findings | AI Code Fix covers static analysis only |
 | Template scanning inside the misconfiguration scanner | Handled by Code Security instead |
 | Making changes in the customer’s cloud | Onam reads and recommends |
-| A CIS rule pack for GitHub and Okta | Posture checks only |
+| A CIS rule pack for GitHub, Bitbucket and Okta | Posture checks only |
 
 Dollar figures in Attack Path and Risk Quantification are loss estimates for ranking, in the FAIR style published by The Open Group.
 `,
@@ -251,7 +251,7 @@ Finds misconfigurations in what is deployed. Available. [Product page](/platform
 | --- | --- |
 | Severity ranking | every misconfiguration ranked Critical, High, Medium or Low |
 | Remediation guidance | per rule, plus an AI fix prompt for CLI, Terraform or console steps |
-| Compliance mapping | which of the 78 frameworks each finding affects |
+| Compliance mapping | which of the 144 frameworks each finding affects |
 | MITRE ATT&CK | tactics and techniques on every rule |
 | Resource-level drilldown | every finding linked to the resource, account and region |
 | Context-raised severity | and a fix-by date per finding |
@@ -265,15 +265,15 @@ Works out effective permissions and escalation paths. Available with limits. [Pr
 | Feature | Detail |
 | --- | --- |
 | Effective permissions per identity | after group inheritance, conditions, explicit denies and SCP denies |
-| Shadow admin detection | AWS identities that can attach, rewrite or create their way to an admin policy |
-| Privilege escalation paths | PassRole, multi-hop assume-role chains and boundary removal on AWS; vectors for Azure, GCP, OCI, IBM Cloud and Kubernetes |
+| Shadow admin detection | identities that can attach, rewrite or create their way to admin: AWS, Azure, Google Cloud and Kubernetes |
+| Privilege escalation paths | PassRole, multi-hop assume-role chains and boundary removal on AWS; service-account impersonation chains (up to 4 hops) on Google Cloud; vectors for Azure, OCI, IBM Cloud and Kubernetes |
 | Cross-account and federated trust | external accounts, wildcard principals, missing ExternalId, OIDC and SAML federation |
 | Non-human identities | roles classified by who can assume them: AWS service, execution, CI/CD over OIDC, EKS service account, cross-account |
-| Unused permissions on AWS | granted actions never seen in CloudTrail, with the high-risk ones called out |
+| Unused permissions | granted compared with used, from audit logs, on AWS (CloudTrail) and Google Cloud; other clouds show granted access only |
 | Identity risk score | 0–100 per AWS identity, with the breakdown behind it |
 | Blast radius | how many resources with open high or critical findings an identity can reach |
 | Stale roles | AWS roles with no recent API activity |
-| Access reviews | pending, needs remediation, reviewed or deferred, with an audit trail and decisions that expire (AWS) |
+| Access reviews | pending, needs remediation, reviewed or deferred, with an audit trail and decisions that expire; AWS with usage, Azure and Google Cloud opened from high or critical escalation findings (granted access only) |
 | Kubernetes RBAC | service accounts bound to cluster-admin, able to read secrets, exec into pods or rewrite roles |
 | Database identity activity | superuser and role-grant changes and login anomalies, from credentialed database connections |
 
@@ -298,7 +298,7 @@ Lists every discovered resource in one place. Available. [Product page](/platfor
 
 | Feature | Detail |
 | --- | --- |
-| Unified inventory | seven clouds and 549 services |
+| Unified inventory | seven clouds and 672 services |
 | Normalised resource model | comparable objects across providers |
 | Relationship graph | the dependency map attack paths are computed on |
 | Refresh on every scan | new resources picked up at the next scan |
@@ -555,14 +555,14 @@ Posture checks for business SaaS platforms. Available with limits. [Product page
 | MFA and conditional-access gaps | on privileged SaaS accounts |
 | External sharing exposure | SharePoint, OneDrive and Google Drive links open to anyone |
 | Audit-log configuration checks | M365 Unified Audit Log, Google Workspace retention, Snowflake QUERY_HISTORY |
-| DevOps platform posture | GitHub and GitLab org settings, branch protection, token hygiene |
+| DevOps platform posture | GitHub, GitLab and Bitbucket Cloud settings, branch protection, token hygiene |
 | Data warehouse posture | Snowflake roles, network policies and grant sprawl |
 | CIS Benchmark scoring | per SaaS platform, with per-control evidence |
 | Stale identities | stale and orphaned SaaS identity report |
 
 ### AI Security
 
-Risk checks for AI and machine-learning services on AWS, Azure and Google Cloud. Available. [Product page](/platform/ai-security).
+Inventory and risk checks for AI and machine-learning services on AWS, Azure and Google Cloud, and for self-hosted AI on Kubernetes. Available with limits. [Product page](/platform/ai-security) · [AI security docs](/docs/ai-security/overview).
 
 | Feature | Detail |
 | --- | --- |
@@ -579,6 +579,12 @@ Risk checks for AI and machine-learning services on AWS, Azure and Google Cloud.
 | Vertex AI endpoints | public access (no VPC or Private Service Connect), customer-managed keys, request logging |
 | Vertex AI datasets | customer-managed keys, classification label |
 | Vertex AI Workbench instances | public IP, default service account, Secure Boot |
+| Self-hosted AI on Kubernetes | model servers, notebooks and vector databases found in your clusters and checked for exposure (inventory and exposure only) |
+| AI bill of materials | AI libraries, model servers and MCP SDKs taken from SBOMs |
+| Guardrail presence | Bedrock Guardrails, Azure content filters, Google Model Armor |
+| AI-to-data links | which data stores an AI service reads |
+| AI agents as identities | admin and wide-write findings on AI execution identities, and identity risk on every AI workload |
+| AI compliance | OWASP Top 10 for LLM 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act with automated checks; MITRE ATLAS and OWASP Agentic 2026 attestation-only |
 
 ### AI Assistant
 
@@ -615,7 +621,7 @@ Maps findings to frameworks with evidence per control. Available with limits. [P
 
 | Feature | Detail |
 | --- | --- |
-| 78 frameworks mapped | — |
+| 144 frameworks mapped | 119 with automated checks, 25 attestation-only |
 | Continuous score | 0–100% per framework, with a trend |
 | Evidence per control | with timestamps |
 | Drill-down | from framework to control to resource |
