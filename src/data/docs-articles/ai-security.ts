@@ -178,15 +178,15 @@ The posture scan records each AI resource and its settings through the same read
 | Azure | Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces |
 | Google Cloud | Vertex AI endpoints, datasets and Workbench instances |
 
-:::screen /screens/ai-security/ais-inventory-services-models.webp
+:::screen /screens/ai-security/ais-inventory-libraries.webp
 url: app.onamsecurity.com/ui/ai-security?tab=inventory
-alt: The Inventory tab's Services and models view listing SageMaker, Azure OpenAI and Bedrock resources with their kind, service and model.
-size: 1440x1004
+alt: The Inventory tab's Libraries (AI-BOM) view: a table of AI libraries such as mistralai, anthropic and google-genai found in container images, with kind, guardrail and exposure columns.
+size: 1440x938
 hidpi: yes
-caption: ${CAPTURED}
-1 @ 57,26.4: **Libraries (AI-BOM)** is the AI bill of materials; **AI in SaaS** and **Agents** sit beside it.
-2 @ 76,40.2: The kind column tells a notebook from an endpoint, a model or a guardrail.
-3 @ 3,74.9: Provider, account and region on every row, so you know whose AI it is.
+caption: Real console, Onam's internal test workspace, captured 27 Nov 2026. Tenant IDs redacted.
+1 @ 52.8,13.2: **Libraries (AI-BOM)** sits beside services and models, agents and AI in SaaS.
+2 @ 61,33.2: Each row is an AI library found in your software: model SDKs such as mistralai, anthropic and google-genai.
+3 @ 10.4,33.2: The source is the container image whose SBOM it came from.
 :::
 
 ## What is the AI bill of materials?
