@@ -4,28 +4,156 @@ export type BlogPost = {
   slug: string;
   title: string;
   category: string;
+  /** Topic tags. Related posts are picked by category first, then shared tags. */
+  tags?: string[];
   excerpt: string;
   /** Who put their name on it — see src/data/authors.ts. */
   author: AuthorSlug;
   /** Optional second name: checked the piece, did not write it. */
   reviewedBy?: AuthorSlug;
   date: string;
+  /** Last substantive change; emitted as dateModified and shown in the byline. */
+  updated?: string;
   readTime: string;
-  body?: string; // markdown-ish plain content is rendered by the article page
+  /** Markdown-ish content rendered by Prose. The free plan CTA is appended to every body. */
+  body?: string;
 };
 
-export const BLOG_POSTS: BlogPost[] = [
+// Shared, fact-keyed copy (marketing/facts/product.yaml, limits.yaml; checked 27 Nov 2026).
+// Edit here once instead of in every post.
+export const ONAM_AT_A_GLANCE = "We are the newest company on this list, so here are the facts. Posture scanning connects through read-only cloud roles, and agentless workload scanning runs inside your account. Posture rules cover seven clouds (AWS, Azure, Google Cloud, OCI, Alibaba Cloud, IBM Cloud and Kubernetes): 12,912 rule definitions across 672 cloud services as the all-cloud totals, 11,856 of them CSPM posture rule definitions. These are definitions, not working checks: the catalogue includes rules that are switched off or have no check yet, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate for ranking (FAIR is published by The Open Group as the O-RT and O-RA standards); it is a per-finding estimate, not a price for a whole route and not a prediction. Compliance covers 144 frameworks: 119 with automated checks, 25 attestation-only. SaaS posture covers 9 platforms. These figures come from our published fact set, last checked on 27 November 2026.";
+
+export const ONAM_PRICES = "Our prices are public: $20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security, with a 25-unit minimum. There is no time-limited trial. Instead there is a [free plan](/start-free) of up to 25 units with API-based scanning only, and a [free one-time audit scan](/audit-scan) of one cloud account.";
+
+/** The closing call to action every post ends with. */
+export function freePlanCta(slug: string) {
+  return `
+## Try it on your own cloud
+
+**Start free.** The free plan covers up to 25 units of cloud security, with API-based scanning only: posture (CSPM), identity and permissions (CIEM), data stores found through cloud APIs (DSPM checks, no content classification) and AI-SPM. Posture scanning connects through read-only cloud roles, the free plan deploys no agent or scanner, and no card is needed. Register, and the team emails you the login.
+
+**[Start free](/start-free?from=/resources/blog/${slug})** · [Book a demo](/request-demo)
+`;
+}
+
+const POSTS: BlogPost[] = [
+  {
+    slug: "aws-security-hub-what-would-onam-add",
+    title: "I already have AWS Security Hub. What would Onam add?",
+    category: "CSPM",
+    tags: ["cspm","aws","security-hub","multicloud"],
+    excerpt: "Keep Security Hub. What it already does (exposure findings, attack path graph, unused access, Azure and Google Cloud CSPM), per AWS's own docs, and the lanes Onam adds.",
+    author: "anup-yadav",
+    date: "November 27, 2026",
+    readTime: "7 min",
+    body: `
+:::answer
+Keep Security Hub. It correlates AWS's own detectors (Security Hub CSPM, Inspector, GuardDuty, Macie and IAM Access Analyzer) into exposure findings, and its CSPM also checks Azure and Google Cloud. Onam adds what sits outside that set: OCI, Alibaba Cloud and IBM Cloud posture, in-cluster Kubernetes, nine SaaS platforms, your source code, and AI workloads, in one place.
+:::
+
+*Checked against Onam's product facts and AWS's documentation on 27 November 2026. Onam sells a cloud security platform; where we describe it, it is labelled.*
+
+## What does Security Hub already do for us?
+
+More than many people assume. Credit it before deciding anything.
+
+- **Correlation into exposure findings.** AWS says Security Hub "correlates findings from Security Hub CSPM control checks, Amazon Inspector, and other AWS services to detect exposures associated with AWS resources". The signals include GuardDuty threats, Inspector vulnerabilities, CSPM misconfigurations and Macie sensitive data. ([What is Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub-v2.html); [Exposure findings](https://docs.aws.amazon.com/securityhub/latest/userguide/exposure-findings.html))
+- **A potential attack path graph.** It shows "the primary resource where the exposure was generated, the network path (if applicable), and the downstream resources that an attacker could reach by escalating permissions". It is available "only in the Security Hub console". ([Attack path graph](https://docs.aws.amazon.com/securityhub/latest/userguide/potential-attack-path-graph.html))
+- **Unused access.** It identifies "IAM roles, users, access keys, and permissions that have not been used within a 90-day lookback period", and can generate "a scoped-down replacement policy". ([What is Security Hub](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub-v2.html))
+- **Azure and Google Cloud posture.** Security Hub CSPM integrates with Azure (CIS Azure Foundations v4.0 and Azure Foundational Best Practices, "122 controls across both standards") and Google Cloud (CIS GCP Foundation v4.0.0, "69 controls"). Each gets its own security score. AWS's pricing page says Essentials "includes multicloud (Microsoft Azure and Google Cloud Platform (GCP)) coverage". ([Azure](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-azure.html); [GCP](https://docs.aws.amazon.com/securityhub/latest/userguide/securityhub-gcp.html); [Pricing](https://aws.amazon.com/security-hub/pricing/))
+
+So "Security Hub is AWS-only" is no longer true. If your estate is AWS, Azure and Google Cloud and nothing else, much of what you need is already in the account. Say so to your team before anyone buys anything.
+
+## So where would Onam add something?
+
+In the places the Security Hub pages we read do not describe:
+
+1. **Clouds beyond the big three.** Onam's posture rules cover seven clouds: AWS, Azure, Google Cloud, OCI, Alibaba Cloud, IBM Cloud and Kubernetes. That is 12,912 rule definitions in all, including 2,275 for OCI, 1,785 for Alibaba Cloud and 665 for IBM Cloud. These are rule definitions, and not every definition is a working check yet.
+2. **Inside your Kubernetes clusters.** Onam reads cluster workloads, RBAC and exposure, with 1,023 Kubernetes rule definitions (not every definition is a working check yet). Shadow-admin detection covers Kubernetes \`bind\`, \`escalate\` and \`impersonate\`, as well as AWS, Azure and Google Cloud.
+3. **SaaS.** Onam runs posture checks on nine platforms: M365, SharePoint, Google Workspace, GitHub, GitLab, Bitbucket Cloud, Snowflake, Dynamics 365 and Okta. It also links one person's accounts across Google Workspace, Microsoft 365/Entra, AWS, Azure, Google Cloud, Kubernetes and OCI, so you can see who is admin in several places at once.
+4. **Your source code.** Onam scans 13 languages with 835 rules it wrote itself. A code finding links to the cloud workload or image built from it, with the method and confidence shown. AWS sells Lambda code scanning as a Security Hub add-on ([Pricing](https://aws.amazon.com/security-hub/pricing/)). Compare the two on scope, not on name.
+5. **AI workloads.** Onam covers cloud AI services on AWS (SageMaker, Bedrock), Azure (Azure AI services including Azure OpenAI, and Azure Machine Learning) and Google Cloud (Vertex AI). It finds self-hosted model servers on Kubernetes and checks whether they are exposed, and it checks whether provider guardrails are attached.
+6. **Longer identity chains.** On AWS, Onam follows assume-role chains up to 12 hops. On Google Cloud, it follows service-account impersonation chains up to 4 hops.
+7. **Compliance breadth.** Onam has 144 compliance frameworks: 119 with automated checks and 25 attestation-only. Security Hub CSPM lists FSBP, CIS, PCI DSS and NIST among its standards ([Security Hub CSPM](https://docs.aws.amazon.com/securityhub/latest/userguide/what-is-securityhub.html)).
+
+## Side by side
+
+| Question | AWS Security Hub (AWS docs, 27 Nov 2026) | Onam (product facts, 27 Nov 2026) | Verdict |
+|---|---|---|---|
+| Correlates misconfigurations, vulnerabilities, threats and sensitive data? | Yes, for AWS resources, through exposure findings | Yes, across its own engines; each finding gets a loss estimate for ranking | Same |
+| Azure and Google Cloud posture | Yes: 122 Azure controls, 69 GCP controls | Yes | Same |
+| OCI, Alibaba Cloud, IBM Cloud posture | Not described on the pages we read | Yes | Different |
+| Unused access | 90-day lookback, with scoped-down policy recommendations | AWS and Google Cloud, from audit logs over a 30-day window | Same; Security Hub also writes the replacement policy |
+| SaaS posture | Not described on the pages we read | 9 platforms | Different |
+| Source code to cloud | Lambda code scanning add-on | Static analysis in 13 languages, linked to the workload | Different |
+| AI inventory and guardrails | Not described on the pages we read | AWS, Azure, Google Cloud and self-hosted Kubernetes | Different |
+| Threat detection | GuardDuty | Reads audit logs and matches threat intelligence; reads GuardDuty findings from your S3 export | Different approach |
+| Automated response | Automation rules and EventBridge | Guidance only | **Onam does not** |
+| Pricing unit | Per resource unit; AWS's worked examples use $3.75 a unit a month | $20 a unit a month (Complete) or $14 (Posture), minimum 25 units, counted by resource type | Units differ |
+
+## Do I have to choose?
+
+No. Onam's posture scanning connects through read-only cloud roles, and agentless workload scanning runs inside your account. Nothing in Security Hub has to be switched off. Many teams will keep Security Hub for AWS-native correlation and automation, and add a second tool only for the lanes it does not cover.
+
+**Is it worth paying for both?** Price it on your own inventory. The two products count units differently, so a per-unit headline price tells you little. Onam's free plan (up to 25 units, API-based scanning only) is one way to compare on a real account without a purchase.
+
+## What would make Onam the wrong choice?
+
+The honest limit: **Onam does not act for you.** Response is guidance only. Onam does not quarantine roles, revoke sessions or block IP addresses. If automated containment is the reason you run Security Hub with EventBridge, keep doing that.
+
+:::ledger
+yes: What Onam adds
+no: What Onam does not do
++ OCI, Alibaba Cloud and IBM Cloud posture rule definitions
++ In-cluster Kubernetes posture and RBAC escalation checks
++ Posture checks on nine SaaS platforms, and one person's accounts linked across platforms
++ Code findings linked to the workload built from them
++ AI inventory, exposure and guardrail checks on AWS, Azure, Google Cloud and self-hosted Kubernetes
+- Does not take containment actions (quarantine, revoke, block); response is guidance
+- Does not read GuardDuty from the API by default; it reads your S3 export
+- Does not turn logging on for you
+- Does not put AI services on attack paths yet
+- Does not cover AI services on OCI, Alibaba Cloud or IBM Cloud
+- Does not comment on pull requests, and has no IDE plugin
+:::
+
+:::faq Frequently asked questions
+### Does Onam replace AWS Security Hub?
+It does not have to. Security Hub correlates AWS's own services, and its CSPM now covers Azure and Google Cloud. Onam adds OCI, Alibaba Cloud, IBM Cloud, in-cluster Kubernetes, SaaS, code and AI workloads. Many teams run both.
+
+### Does AWS Security Hub cover Azure and Google Cloud?
+Yes. AWS documents Security Hub CSPM integrations for Microsoft Azure (CIS Azure Foundations v4.0 and Azure Foundational Best Practices, 122 controls) and Google Cloud (CIS GCP Foundation v4.0.0, 69 controls), each with its own security score (AWS docs, accessed 27 November 2026).
+
+### Can I run Onam and Security Hub on the same accounts?
+Yes. Onam's posture scanning connects through read-only cloud roles, and its agentless workload scanning runs inside your account. You do not need to change Security Hub.
+
+### Is Onam cheaper than Security Hub?
+The units differ. AWS prices Security Hub per resource unit, and its worked examples use $3.75 a month. Onam is $20 a unit a month for Complete or $14 for Posture, with a 25-unit minimum and its own unit definitions. Price both on your inventory.
+
+### Does Onam take automatic action like EventBridge rules?
+No. Onam's response is guidance only. It does not quarantine roles, revoke sessions or block IP addresses.
+:::
+
+:::next Read next
+### Which five AWS misconfigurations should we check first? | /resources/blog/aws-misconfigurations-first-scan
+Five read-only AWS CLI checks with their fixes.
+### We run GuardDuty. What would we still miss? | /resources/blog/cdr-behavioral-threat-detection
+The logs to switch on, and one attack traced from a log line to an incident.
+:::
+`,
+  },
   {
     slug: "cspm-tools-public-pricing",
     title: "Which CSPM tools have public pricing? 2026 list with sources",
     category: "Buyer's Guide",
-    excerpt:
-      "CSPM and CNAPP tools that publish prices in 2026: AWS, Google, Microsoft, Prowler, Cloudanix, Plerion, Aikido, Onam. Each quoted from its own page, with dates.",
+    tags: ["pricing","cspm","free-plan"],
+    excerpt: "CSPM and CNAPP tools that publish prices in 2026: AWS, Google, Microsoft, Prowler, Cloudanix, Plerion, Aikido, Onam. Each quoted from its own page, with dates.",
     author: "anup-yadav",
     date: "November 23, 2026",
+    updated: "November 27, 2026",
     readTime: "11 min",
     body: `
-*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. We have tried to make it useful anyway: every price below is copied from the vendor's own public page, with the address and the date we read it. Nobody is scored or ranked. Where we give a view of our own, it is labelled as ours.
+*Updated 27 November 2026: Onam now has a free plan, and AWS's pricing page now says Security Hub Essentials includes Azure and Google Cloud coverage. Both are reflected below. Onam sells a cloud security platform and is on this list; where we mention it, it is labelled.*
 
 ## The short answer
 
@@ -33,7 +161,7 @@ As of 23 November 2026, these cloud security posture management (CSPM) and CNAPP
 
 Wiz, Orca, Palo Alto Networks Cortex Cloud, CrowdStrike Falcon Cloud Security, Sysdig, Tenable Cloud Security and Fortinet's Lacework FortiCNAPP price by quote. That is a normal way to sell enterprise software, and it says nothing about the products themselves.
 
-If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
+If you would rather see findings from your own account before reading further, Onam's [free plan](/start-free?from=/resources/blog/cspm-tools-public-pricing) covers up to 25 units with no card.
 
 ## CSPM public pricing at a glance
 
@@ -49,7 +177,7 @@ Every cell is what the vendor's own page said on the date shown. Prices are in U
 | Plerion | Yes, a fixed monthly bill set by your cloud spend band | Your monthly cloud bill | Free trial; 30-day trial on AWS Marketplace | plerion.com/pricing, 23 Nov 2026 |
 | Prowler | Yes. $79 per cloud account a month billed annually, $99 monthly | Cloud account | Open source, free under Apache-2.0; 7-day trial of Prowler Cloud | prowler.com/pricing, 23 Nov 2026 |
 | Upwind | Yes, through AWS. $3.75 per resource a month (Cloud Security) | Resource | Not stated on the page we read | aws.amazon.com/security-hub/pricing (Extended plan), 23 Nov 2026 |
-| Onam Security (us) | Yes. $20 per unit a month (Complete); $14 (Posture); $39 per active developer (code security) | Unit, counted by resource type; minimum 25 units | No free plan or trial; free one-time audit scan | onamsecurity.com/pricing, 23 Nov 2026 |
+| Onam Security (us) | Yes. $20 per unit a month (Complete); $14 (Posture); $39 per active developer (code security) | Unit, counted by resource type; minimum 25 units | Free plan up to 25 units (API-based scanning only); free one-time audit scan | onamsecurity.com/pricing, 27 Nov 2026 |
 | Wiz | Quote only | Not published | Not stated | wiz.io/pricing, 23 Nov 2026 |
 | Sysdig | Quote only | Hosts ("compute instances for CSPM") | Not stated | sysdig.com/pricing, 23 Nov 2026 |
 | Tenable Cloud Security | Quote only | Not published | Not stated | tenable.com/buy, 23 Nov 2026 |
@@ -77,7 +205,7 @@ The pricing unit matters as much as the price. On this list you will find tools 
 
 ### 1. AWS Security Hub
 
-AWS describes Security Hub as offering "a unified pricing model with an Essentials plan foundation, optional add-ons, and an Extended plan for curated partner solutions." The Essentials plan is priced per "Resource unit / mo" on a "Pay-as-you-go" basis, and its included capabilities list "Cloud Security Posture Management (Security Hub CSPM)". The page's price list sets this at $3.75 per resource unit per month in US East (N. Virginia). On the unit: "Pricing is anchored on Amazon EC2 instance, Azure Virtual Machines, and GCP Virtual Machines as 1 resource unit", with "12 functions = 1 resource unit", "18 images = 1 resource unit" and "125 identity resources = 1 resource unit". The page also says "Try AWS Security Hub at no cost with a 30-day free trial that includes Essentials plan capabilities." Source: aws.amazon.com/security-hub/pricing, accessed 23 November 2026.
+AWS describes Security Hub as offering "a unified pricing model with an Essentials plan foundation, optional add-ons, and an Extended plan for curated partner solutions." The Essentials plan is priced per "Resource unit / mo" on a "Pay-as-you-go" basis, and its included capabilities list "Cloud Security Posture Management (Security Hub CSPM)". The page's price list sets this at $3.75 per resource unit per month in US East (N. Virginia). On the unit: "Pricing is anchored on Amazon EC2 instance, Azure Virtual Machines, and GCP Virtual Machines as 1 resource unit", with "12 functions = 1 resource unit", "18 images = 1 resource unit" and "125 identity resources = 1 resource unit". The page also says "Try AWS Security Hub at no cost with a 30-day free trial that includes Essentials plan capabilities." Source: aws.amazon.com/security-hub/pricing, accessed 23 November 2026. When we re-read the page on 27 November 2026, it also said Essentials "includes multicloud (Microsoft Azure and Google Cloud Platform (GCP)) coverage".
 
 The standalone Security Hub CSPM is "priced along three dimensions: the quantity of security checks, the quantity of finding ingestion events, and the quantity of rule evaluations processed per month." Its worked examples use "$0.0010 per check (first 100,000 checks tier)" and a "first 10,000 events free tier" for finding ingestion, and "You can try AWS Security Hub CSPM at no cost with a 30-day free trial." AWS Config is required for AWS checks and "configuration items are priced separately." Source: aws.amazon.com/security-hub/cspm/pricing, accessed 23 November 2026.
 
@@ -150,7 +278,7 @@ Onam publishes its prices on the [pricing page](/pricing), with a calculator:
 
 **What a unit is.** Each virtual machine, Kubernetes node and Kubernetes cluster counts as 1 unit. Two managed databases, two warehouses or NoSQL accounts, or two AI and ML services count as 1 unit. Four caches, search or stream services count as 1 unit. Ten storage buckets, ten file systems or NoSQL tables, ten serverless containers, or ten self-managed servers and devices count as 1 unit. Twenty container image repositories, or fifty functions and web apps, count as 1 unit. Identities and roles, networks and subnets, security groups, load balancers, disks, snapshots, keys, policies, DNS and logs are scanned and reported at no charge.
 
-**What is free.** There is no free plan and no free trial. Instead, we run a [free one-time audit scan](/audit-scan) of one cloud account and go through the findings with you.
+**What is free (updated 27 November 2026).** There is no time-limited trial. The free plan covers up to 25 units, counted the same way as the paid plans, with API-based scanning only: posture and compliance (CSPM), identity and permissions (CIEM), data stores found through cloud APIs (DSPM checks, no content classification) and AI-SPM. Kubernetes posture, data-content classification and vulnerability and malware scanning need a scanner, so they are on paid plans. No card is needed; you register and the team emails you the login. We also run a [free one-time audit scan](/audit-scan) of one cloud account and go through the findings with you.
 
 - **The honest gap:** we are a young company with no public reference customers yet, so please test us on your own accounts before you decide.
 
@@ -159,21 +287,20 @@ Onam publishes its prices on the [pricing page](/pricing), with a calculator:
 Start from your own estate before comparing numbers:
 
 - **Count the thing each tool charges for.** Write down your virtual machines, databases, buckets, functions, cloud accounts and developers. Then price each shortlisted tool with its own unit.
-- **Use the free tiers first.** Microsoft's Foundational CSPM, Google's Standard tier, Prowler's open-source scanner and Aikido's Developer plan let you see real findings before you spend anything.
+- **Use the free tiers first.** Microsoft's Foundational CSPM, Google's Standard tier, Prowler's open-source scanner, Aikido's Developer plan and Onam's free plan let you see real findings before you spend anything.
 - **Look for the minimum.** Several published prices have a floor: 100 monitored assets at Cloudanix, $15,000 a year for Google's Premium subscription, 25 units at Onam.
 - **Check what is an add-on.** Runtime, code security, vulnerability scanning and threat detection are often priced separately. Compare the bundle you actually need.
 - **Ask quote-based vendors for the unit.** Even without a list price, every vendor can tell you what the price grows with. That makes their quote comparable with the published ones.
 - **Test on the same accounts.** A low price only helps if the tool covers your clouds and finds what matters to you. Run two or three tools on the same non-production accounts for two weeks.
 
-## Frequently asked questions
-
+:::faq Frequently asked questions
 ### Which CSPM tools have public pricing?
 
-As of 23 November 2026: AWS Security Hub, Google Security Command Center, Microsoft Defender for Cloud, Prowler, Cloudanix, Plerion, Aikido and Onam Security publish prices on their own pages. Upwind's per-resource prices are published on the AWS Security Hub pricing page. Wiz, Orca, Cortex Cloud, CrowdStrike, Sysdig, Tenable and FortiCNAPP price by quote.
+As of 23 November 2026 (Onam re-checked 27 November): AWS Security Hub, Google Security Command Center, Microsoft Defender for Cloud, Prowler, Cloudanix, Plerion, Aikido and Onam Security publish prices on their own pages. Upwind's per-resource prices are published on the AWS Security Hub pricing page. Wiz, Orca, Cortex Cloud, CrowdStrike, Sysdig, Tenable and FortiCNAPP price by quote.
 
 ### Is there a free CSPM tool?
 
-Yes. Microsoft's Foundational CSPM in Defender for Cloud is free, Google's Security Command Center Standard tier is "Free of charge", Prowler's open-source scanner is free under Apache-2.0, and Aikido's Developer plan includes CSPM for one cloud account at $0. AWS Security Hub and Security Hub CSPM have a 30-day free trial.
+Yes. Microsoft's Foundational CSPM in Defender for Cloud is free, Google's Security Command Center Standard tier is "Free of charge", Prowler's open-source scanner is free under Apache-2.0, Aikido's Developer plan includes CSPM for one cloud account at $0, and Onam's free plan covers up to 25 units with API-based scanning. AWS Security Hub and Security Hub CSPM have a 30-day free trial.
 
 ### How is CSPM usually priced?
 
@@ -189,15 +316,16 @@ No. Wiz's pricing page names the Wiz One and Wiz Go packages and an à la carte 
 
 ### How much does Onam Security cost?
 
-$20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security. The minimum is 25 units. There is no free plan or trial, but there is a free one-time audit scan. Details are on the [pricing page](/pricing).
+$20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security. The minimum is 25 units. There is no time-limited trial, but there is a free plan of up to 25 units (API-based scanning only, no card) and a free one-time audit scan. Details are on the [pricing page](/pricing).
 
 ### What is a unit in Onam's pricing?
 
 A virtual machine, a Kubernetes node or a Kubernetes cluster is 1 unit each. Other resources count as fractions, for example 2 managed databases, 10 storage buckets or 50 functions per unit. Identities, networks, security groups, keys, policies and logs are not charged.
+:::
 
 ## Corrections
 
-Last updated 23 November 2026. Every vendor page above was read on 23 November 2026, and every statement about another vendor is a quotation or a figure from that vendor's own public page or price list. Prices change often, so check the source before you buy. If anything here is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 27 November 2026 (Onam's free plan; the Security Hub multicloud line). Every other vendor page above was read on 23 November 2026, and every statement about another vendor is a quotation or a figure from that vendor's own public page or price list. Prices change often, so check the source before you buy. If anything here is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
 *Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz.io alternatives and competitors](/resources/blog/wiz-alternatives), and [what a CNAPP is](/learn/cnapp).*
 `,
@@ -206,19 +334,18 @@ Last updated 23 November 2026. Every vendor page above was read on 23 November 2
     slug: "prisma-cloud-alternatives",
     title: "Prisma Cloud alternatives 2026: 10 compared, now that it is Cortex Cloud",
     category: "Buyer's Guide",
-    excerpt:
-      "Prisma Cloud alternatives for 2026, now that Palo Alto sells it as Cortex Cloud: Wiz, Orca, Defender, CrowdStrike, Sysdig and more, in their own words.",
+    tags: ["cnapp","cspm","vendor-list"],
+    excerpt: "Prisma Cloud alternatives for 2026, now that Palo Alto sells it as Cortex Cloud: Wiz, Orca, Defender, CrowdStrike, Sysdig and more, in their own words.",
     author: "anup-yadav",
     date: "November 23, 2026",
+    updated: "November 27, 2026",
     readTime: "11 min",
     body: `
-*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we give a view of our own, it is labelled as ours.
+*Vendor pages read 23 November 2026. Updated 27 November 2026: Onam's own figures and free plan. Onam sells a cloud security platform and is on this list; where we mention it, it is labelled. How the list was built is at the end.*
 
 ## The short answer
 
 The main Prisma Cloud alternatives in 2026 are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Sysdig Secure**, **Tenable One Cloud Exposure** (formerly Tenable Cloud Security), **Aqua Security**, **Check Point** and **Fortinet's Lacework FortiCNAPP**. Prisma Cloud itself is now sold by Palo Alto Networks as **Cortex Cloud**, which Palo Alto calls "the next version of Prisma Cloud". Wiz and Orca are agentless first. Defender for Cloud has a free foundational tier. Sysdig and Aqua lead with runtime. Choose by your clouds, the security vendor you already run and how much you want installed on workloads.
-
-If you would rather see findings from your own account first, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## Prisma Cloud alternatives at a glance
 
@@ -235,7 +362,7 @@ The deployment and ranking columns say what each vendor's own page says, on the 
 | Sysdig Secure | Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Tenable One Cloud Exposure | Tenable vulnerability management customers | AWS, Azure, GCP; in-account scanning add-on | Toxic combinations with attack paths | Ask for a quote |
 | Wiz | Teams that want API-first with an optional sensor | Connects via API; Wiz Sensor for runtime | One prioritised list of toxic combinations | Packages quoted on request |
-| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; in-account workload scanning; no sensor | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture, $39 per active developer ([pricing](/pricing)) |
+| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles for posture; agentless workload scanning in your account | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture, $39 per active developer ([pricing](/pricing)) |
 
 ## Why teams look for a Prisma Cloud alternative
 
@@ -257,14 +384,6 @@ The Cortex Cloud page says it "brings together proactive prevention, autonomous 
 The Prisma Cloud page is still online. It lists "two deployment models: SaaS (Prisma Cloud Enterprise Edition) and Self-Hosted (Prisma Cloud Compute Edition)" and says "Prisma Cloud uses a credit-based licensing module". Source: paloaltonetworks.com/prisma/cloud, accessed 23 November 2026.
 
 In plain terms: Prisma Cloud and Cortex Cloud are one product line, and Cortex Cloud is the newer version, built on Palo Alto's Cortex security operations platform. If your contract still says Prisma Cloud, ask your account team which edition you are on and what the move to Cortex Cloud means for your licence.
-
-## How this list was built
-
-- Each vendor is quoted from its own public page, verbatim, with the address and the date. If a page changes, the quote is out of date, and we will update it when told.
-- We did not test these products. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you.
-- No ranking. Vendors are listed alphabetically, with our own entry last.
-- SentinelOne's cloud security page would not open for us on the day we checked, so SentinelOne Singularity Cloud Security is left out of this edition. We will add it once we can quote its page.
-- Corrections go to hello@onamsecurity.com and we apply them.
 
 ## Ten Prisma Cloud alternatives, in their own words
 
@@ -342,12 +461,12 @@ Wiz says "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI a
 
 ### And Onam Security (that is us)
 
-We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
+${ONAM_AT_A_GLANCE}
 
-Our prices are public: $20 per unit a month for Complete, which includes data security; $14 per unit a month for Posture; and $39 per active developer a month for code security. There is no free trial; instead we offer a [free one-time audit scan](/audit-scan) of one cloud account.
+${ONAM_PRICES}
 
 - **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
-- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from one of the vendors above who sells it.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. API-based posture scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from one of the vendors above who sells it.
 - **Ask us:** the same questions as everyone else. Our answers are on the [Onam vs Cortex Cloud](/compare/onam-vs-cortex-cloud) page.
 
 ## How to choose a Prisma Cloud alternative
@@ -371,10 +490,17 @@ Then ask every finalist the same questions:
 | What does the price grow with? | Credits, resources, workloads and developers scale differently. |
 | What happens to your Prisma Cloud policies and reports? | Custom policies, alert rules and reports need to be rebuilt somewhere. |
 
-Pick two alternatives plus Cortex Cloud and give each read-only access to the same non-production accounts. Compare what each ranks first and why. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set of questions. If you want to include us, [request a scan](/request-demo) and we will run it against one account.
+Pick two alternatives plus Cortex Cloud and give each read-only access to the same non-production accounts. Compare what each ranks first and why. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set of questions. If you want to include us, start on the free plan or ask for the free audit scan of one account.
 
-## Frequently asked questions
+## How this list was built
 
+- Each vendor is quoted from its own public page, verbatim, with the address and the date. If a page changes, the quote is out of date, and we will update it when told.
+- We did not test these products. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you.
+- No ranking. Vendors are listed alphabetically, with our own entry last.
+- SentinelOne's cloud security page would not open for us on the day we checked, so SentinelOne Singularity Cloud Security is left out of this edition. We will add it once we can quote its page.
+- Corrections go to hello@onamsecurity.com and we apply them.
+
+:::faq Frequently asked questions
 ### What are the best Prisma Cloud alternatives in 2026?
 
 The platforms most often compared with Prisma Cloud (now Cortex Cloud) are Wiz, Orca Security, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Sysdig Secure, Tenable One Cloud Exposure, Aqua Security, Check Point, Lacework FortiCNAPP and SentinelOne Singularity Cloud Security, with newer platforms such as Onam. "Best" depends on your clouds, the vendor you already run and whether you want an agent on workloads, so trial two or three side by side.
@@ -385,36 +511,36 @@ Yes. In February 2025 Palo Alto Networks introduced Cortex Cloud as "the next ve
 
 ### What is a cheaper alternative to Prisma Cloud?
 
-The Palo Alto pages we read show no list prices, so any comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete, $14 for Posture and $39 per active developer for code security, plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Compare tools on the same accounts, because a lower price only helps if it covers what you need.
+The Palo Alto pages we read show no list prices, so any comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete, $14 for Posture and $39 per active developer for code security, and has a free plan of up to 25 units plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Compare tools on the same accounts, because a lower price only helps if it covers what you need.
 
 ### Is there an agentless alternative to Prisma Cloud?
 
-Wiz, Orca, Microsoft Defender for Cloud and Sysdig all describe agentless scanning on their own pages, usually with an optional agent or sensor for runtime. Onam scans through read-only cloud roles and in-account workload scanning, with no sensor. Cortex Cloud also describes agentless scanning for posture.
+Wiz, Orca, Microsoft Defender for Cloud and Sysdig all describe agentless scanning on their own pages, usually with an optional agent or sensor for runtime. Onam's posture scanning connects through read-only cloud roles, and its agentless workload scanning runs inside your account. Cortex Cloud also describes agentless scanning for posture.
+:::
 
 ## Corrections
 
-Last updated 23 November 2026. Every vendor page quoted here was read on 23 November 2026, and every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 27 November 2026 (Onam's own figures and free plan). Every vendor page quoted here was read on 23 November 2026, and every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
-*Read next: [Wiz alternatives and competitors](/resources/blog/wiz-alternatives), [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and [what a CNAPP is](/learn/cnapp).*
+*Read next: [Wiz alternatives and competitors](/resources/blog/wiz-alternatives), [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Wiz vs Orca POC: 30 questions to ask](/resources/blog/wiz-vs-orca-poc-questions), and [what a CNAPP is](/learn/cnapp).*
 `,
   },
   {
     slug: "orca-security-alternatives",
     title: "Orca Security alternatives & competitors 2026: 8 compared, in their own words",
     category: "Buyer's Guide",
-    excerpt:
-      "Orca Security alternatives for 2026, each quoted from its own site with a date: Wiz, Cortex Cloud, Defender, CrowdStrike, Sysdig, Upwind, Aqua, Tenable.",
+    tags: ["cnapp","cspm","vendor-list"],
+    excerpt: "Orca Security alternatives for 2026, each quoted from its own site with a date: Wiz, Cortex Cloud, Defender, CrowdStrike, Sysdig, Upwind, Aqua, Tenable.",
     author: "anup-yadav",
     date: "November 23, 2026",
+    updated: "November 27, 2026",
     readTime: "11 min",
     body: `
-*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Please read it with that in mind. Every vendor is described in its own published words, with the page we read and the date, and nobody is scored. Where we add a view of our own, it is labelled as ours.
+*Vendor pages read 23 November 2026. Updated 27 November 2026: Onam's own figures and free plan. Onam sells a cloud security platform and is on this list; where we mention it, it is labelled. How the list was built is at the end.*
 
 ## The short answer
 
 The main Orca Security alternatives and competitors in 2026 are **Wiz**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Sysdig Secure**, **Tenable One Cloud Exposure**, **Upwind** and **Aqua Security**. Wiz is closest to Orca in design: both describe agentless scanning with an optional runtime sensor. Defender for Cloud has a free foundational tier. Choose by your clouds, the security vendor you already run, and how much runtime protection you need.
-
-If you would rather see findings from your own account first, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## Orca Security alternatives at a glance
 
@@ -430,7 +556,7 @@ Deployment and ranking are what each vendor's own page says, on the date given b
 | Tenable One Cloud Exposure | Tenable vulnerability management customers | AWS, Azure, GCP integration; in-account scanning add-on | Toxic combinations, attack paths | "Request pricing" |
 | Upwind | Teams that want runtime context to drive the ranking | Agentless cloud scanners plus runtime sensors | Runtime intelligence with workload, API and agent context | Not on the pages we read |
 | Wiz | Teams that want Orca's agentless-first shape from another vendor | Connects via API; optional Wiz Sensor | A single list of toxic combinations | Custom quote |
-| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; no sensor | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture ([pricing](/pricing)) |
+| Onam Security (us) | Estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles for posture; agentless workload scanning in your account | FAIR-style loss estimate per finding | $20 per unit a month Complete, $14 Posture ([pricing](/pricing)) |
 
 ## Why teams look for an Orca alternative
 
@@ -443,13 +569,6 @@ None of those is a verdict on Orca, which is on many cloud security shortlists f
 Orca's page description reads: "Orca Security is the complete Cloud Security Platform that detects, prioritizes, and remediates security risks and compliance issues across your cloud estate." The platform page lists Orca SideScanning as "Agentless scanning across every workload." and the Orca Sensor as "Runtime observability & protection." Prioritisation is "Dynamic scoring & attack path analysis." Source: orca.security/platform, accessed 23 November 2026. We did not find list prices on the Orca pages we read.
 
 So coverage starts agentless, with a sensor for runtime, and the ranking combines a score with attack paths. These are design choices, and the alternatives below make different ones. Write down which parts you rely on today; that list is what a replacement has to cover.
-
-## How this list was built
-
-- Each vendor is quoted verbatim from its own public page, with the address and date. If a page changes, tell us and we will update the quote.
-- We did not test these products, and nothing here says what any of them cannot do. "Trade-off to check" means a design choice on the vendor's own page that you should confirm fits you.
-- No ranking. Alphabetical order, with our own entry last.
-- SentinelOne Singularity Cloud Security is often on these shortlists, but its page returned a security check for us on 23 November 2026, so we left it out rather than quote it from memory.
 
 ## Eight Orca competitors, in their own words
 
@@ -519,7 +638,9 @@ Wiz says "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI a
 
 ### And Onam Security (that is us)
 
-We are the newest company on this list, so here are the facts. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks. Pricing is public: $20 per unit a month for Complete, which includes data security, $14 per unit for Posture, and $39 per active developer for code security. There is no free trial; we offer a [free one-time audit scan](/audit-scan) instead.
+${ONAM_AT_A_GLANCE}
+
+${ONAM_PRICES}
 
 - **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
 - **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. If inline blocking is what you are buying, buy it from someone above who sells it.
@@ -543,10 +664,16 @@ Then put the same questions to every finalist:
 | Does it connect findings across engines and clouds? | The path that reaches data is often several ordinary findings in a row. |
 | Is compliance evidence continuous? | Continuous evidence means you are ready for an audit on any day. |
 
-For the POC itself, give two vendors plus Orca read-only access to the same non-production accounts for two weeks, and compare what each ranks first. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set, grouped by week. If you want to include us, [request a scan](/request-demo).
+For the POC itself, give two vendors plus Orca read-only access to the same non-production accounts for two weeks, and compare what each ranks first. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set, grouped by week. If you want to include us, start on the free plan or ask for the free audit scan of one account.
 
-## Frequently asked questions
+## How this list was built
 
+- Each vendor is quoted verbatim from its own public page, with the address and date. If a page changes, tell us and we will update the quote.
+- We did not test these products, and nothing here says what any of them cannot do. "Trade-off to check" means a design choice on the vendor's own page that you should confirm fits you.
+- No ranking. Alphabetical order, with our own entry last.
+- SentinelOne Singularity Cloud Security is often on these shortlists, but its page returned a security check for us on 23 November 2026, so we left it out rather than quote it from memory.
+
+:::faq Frequently asked questions
 ### What are the best Orca Security alternatives in 2026?
 
 The platforms most often compared with Orca Security are Wiz, Palo Alto Networks Cortex Cloud, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Sysdig Secure, Tenable One Cloud Exposure, Upwind and Aqua Security, with SentinelOne also on many shortlists. "Best" depends on your clouds, your current security vendor and how much runtime protection you need, so run the same POC against two or three of them.
@@ -561,11 +688,12 @@ On their own pages, both describe agentless coverage, an optional runtime sensor
 
 ### Is there a cheaper or free alternative to Orca Security?
 
-We did not find Orca list prices on the pages we read, so a comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete and $14 per unit for Posture, and offers a free one-time audit scan. A lower price only helps if it covers what you need, so compare tools on the same accounts.
+We did not find Orca list prices on the pages we read, so a comparison starts with a quote. Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free. Onam publishes $20 per unit a month for Complete and $14 per unit for Posture, and has a free plan of up to 25 units (API-based scanning only) plus a free one-time audit scan. A lower price only helps if it covers what you need, so compare tools on the same accounts.
+:::
 
 ## Corrections
 
-Last updated 23 November 2026. Every vendor page quoted here was read that day, and every statement about another vendor is a quotation from its own public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and we will correct it.
+Last updated 27 November 2026 (Onam's own figures and free plan). Every vendor page quoted here was read on 23 November 2026, and every statement about another vendor is a quotation from its own public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and we will correct it.
 
 *Read next: [Wiz.io alternatives & competitors 2026](/resources/blog/wiz-alternatives), [Wiz vs Orca: what to ask in a POC](/resources/blog/wiz-vs-orca-poc-questions), and [Onam vs Orca](/compare/onam-vs-orca).*
 `,
@@ -574,15 +702,16 @@ Last updated 23 November 2026. Every vendor page quoted here was read that day, 
     slug: "wiz-vs-orca-poc-questions",
     title: "Wiz vs Orca POC: 30 questions to ask in any CNAPP trial",
     category: "Buyer's Guide",
-    excerpt:
-      "Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.",
+    tags: ["cnapp","poc"],
+    excerpt: "Running a Wiz vs Orca (or any CNAPP) POC? 30 vendor-neutral questions grouped by week: access, coverage, accuracy, prioritisation, remediation and cost.",
     author: "anup-yadav",
     date: "October 7, 2026",
+    updated: "November 27, 2026",
     readTime: "9 min",
     body: `
 A cloud security proof of concept usually ends with two vendors who both found plenty, both demoed well, and a team that still cannot say which one to buy. That is not the buyer's fault. Point any CNAPP at a messy cloud account and findings appear. The questions below are designed to separate platforms that look identical in a demo, whether your shortlist is Wiz vs Orca, Wiz vs Cortex Cloud, or anything else.
 
-They are vendor-neutral on purpose. Onam Security wrote this, and Onam sells a cloud security platform, so where we mention ourselves it is labelled. Every question works just as well with us left off your list.
+*Updated 27 November 2026: Onam's own answers below now use current figures, and they absorb our older post "Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC", which now redirects here. Onam sells a cloud security platform; where we mention it, it is labelled. Every question works just as well with us left off your list.*
 
 ## Before the POC: set it up so the answers mean something
 
@@ -672,12 +801,20 @@ None of these proves a product is wrong for you, but each deserves a direct ques
 
 ## Where Onam fits (our section)
 
-If you include us, these are our answers, stated so you can check them. Posture scanning connects through read-only cloud roles you can read before you run them; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, including OCI, Alibaba Cloud and IBM Cloud, and we publish the per-cloud counts. All findings share a single security graph, so a path can cross clouds, and each finding carries a FAIR-style loss estimate with its inputs shown. Compliance is recomputed on every scan against 78 frameworks.
+If you include us, these are our answers to the questions that decide most POCs, stated so you can check them in your own accounts.
 
-The honest limit: we have no public reference customers yet and no runtime enforcement. If inline blocking is one of your success criteria, we will not meet it. Our answers to the seven questions that matter most are in [Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC](/resources/blog/onam-vs-wiz-orca-prisma-cloud), and the head-to-heads are on the [Onam vs Wiz](/compare/onam-vs-wiz) and [Onam vs Orca](/compare/onam-vs-orca) pages.
+| Question | Onam's answer (product facts, 27 November 2026) |
+| --- | --- |
+| 1, 3. What does onboarding grant, and what runs in my account? | Posture scanning connects through read-only cloud roles you can read before you run them; agentless workload scanning runs inside your account. On AWS, Onam stores no secret: it assumes your role. |
+| 6. Which clouds get the full engine? | Posture rules on seven clouds (AWS, Azure, Google Cloud, OCI, Alibaba Cloud, IBM Cloud, Kubernetes): 12,912 rule definitions, published per cloud. Definitions, not working checks: some are switched off or have no check yet. |
+| 9. Identity: on which clouds? | Shadow-admin detection runs on AWS, Azure, Google Cloud and Kubernetes. Unused-access analysis (granted compared with used) runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access. |
+| 10. Code to cloud? | Code findings link to the cloud workload or image built from them, with the method and confidence shown; IaC matches are labelled as suggestions. Terraform findings can open a fix pull request. |
+| 16–19. What is first, and why? | One security graph across clouds, so a path can cross a provider boundary. Each finding carries a FAIR-style loss estimate with its inputs shown: an estimate for ranking, not a prediction. |
+| 26. Frameworks? | 144 compliance frameworks: 119 with automated checks, 25 attestation-only. Controls with no automated check are marked for manual review. |
 
-## Frequently asked questions
+The honest limit: we have no public reference customers yet and no runtime enforcement. Response to threats is guidance only: Onam does not quarantine roles, revoke sessions or block IP addresses. If inline blocking is one of your success criteria, we will not meet it. The head-to-heads are on the [Onam vs Wiz](/compare/onam-vs-wiz) and [Onam vs Orca](/compare/onam-vs-orca) pages.
 
+:::faq Frequently asked questions
 ### What questions should I ask during a Wiz vs Orca POC?
 
 Ask what onboarding grants, what the runtime sensor adds, whether each platform found your planted issues, its false-positive rate in the top 50 findings, what it ranks first and why, how it routes and verifies fixes, and what unit the price grows with. The 30 questions above cover each week of a two-week POC.
@@ -697,6 +834,7 @@ Start with non-production accounts that mirror production and contain known issu
 ### What success criteria should a cloud security POC have?
 
 Three to five measurable outcomes agreed before it starts, for example: finds all planted issues, false-positive rate below an agreed level in the top 50, top three findings explained live, and a fix verified automatically on rescan.
+:::
 
 *Read next: [What is CNAPP](/learn/cnapp), [What is CSPM](/learn/cspm), and [how attack paths work](/learn/cloud-attack-path).*
 `,
@@ -705,15 +843,16 @@ Three to five measurable outcomes agreed before it starts, for example: finds al
     slug: "dspm-implementation-checklist",
     title: "DSPM implementation checklist: a practical rollout for cloud data",
     category: "Data Security",
-    excerpt:
-      "A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.",
+    tags: ["dspm","data","aws"],
+    excerpt: "A step-by-step DSPM implementation checklist: inventory every data store, classify it, map who can reach it, and fix exposure in a sensible order.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-Most teams do not decide to buy data security posture management in the abstract. Something forces the question. An auditor asks for a map of where customer data lives. A data export turns up in a bucket nobody remembers creating. A new analytics platform arrives and nobody can say which identities can read it. DSPM is the discipline of answering those questions continuously instead of once, in a panic, the week before an audit.
+**How do we roll out DSPM without boiling the ocean?** Inventory every data store, including the non-production copies. Label how sensitive each one is, and record how confident the label is. Map who and what can reach each sensitive store. Then fix in order of reachability, not in order of discovery. The seven steps below do exactly that, and the first one needs nothing but the cloud CLI you already have.
 
-This post is the checklist we would use to roll it out. It is deliberately tool-neutral until the last section.
+*Updated 27 November 2026: the Onam section now matches our current product facts (DSPM content scanning, and one unsourced claim removed). The checklist is tool-neutral until the last section.*
 
 ## The problem DSPM exists to solve
 
@@ -761,6 +900,16 @@ Checklist for this step:
 - Every cloud account and subscription is connected, including the ones outside production.
 - Every region is covered, including ones you do not think you use.
 - Each store has an owner, even if the first owner is "unknown, needs triage".
+
+On AWS you can start the inventory for object storage with read-only CLI calls. List the buckets, then check each one's public access block and default encryption:
+
+\`\`\`
+aws s3api list-buckets --query "Buckets[].Name" --output text
+aws s3api get-public-access-block --bucket <bucket-name>
+aws s3api get-bucket-encryption --bucket <bucket-name>
+\`\`\`
+
+The public access block is the bucket-level setting only; AWS applies the most restrictive combination of the bucket and account settings, so check the account level too. Commands from the AWS CLI reference: [list-buckets](https://docs.aws.amazon.com/cli/latest/reference/s3api/list-buckets.html), [get-public-access-block](https://docs.aws.amazon.com/cli/latest/reference/s3api/get-public-access-block.html), [get-bucket-encryption](https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-encryption.html) (accessed 27 November 2026). Repeat per account; the same idea applies to databases and warehouses with their own list and describe calls.
 
 ### 3. Classify, and record your confidence
 
@@ -812,28 +961,40 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 ## How Onam approaches it
 
-[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles. That covers object storage, managed databases and warehouses, streams and Kubernetes secrets, plus self-hosted databases, including Snowflake, that you onboard.
+[Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles: object storage, managed databases and warehouses, streams, and self-hosted databases you onboard.
 
-Classification is metadata-based: Onam labels each store PII, PHI, PCI, financial or confidential from its name, description, tags and schema, without reading the contents. Because the labels come from names and tags, the reason is readable in the store's own metadata, and a missing label is fixed with a tag.
+**How it classifies (updated 26 and 27 November 2026).** By default, Onam labels each store from metadata: its name, description, tags and schema. Where you choose to adopt it, by deploying Onam's DSPM scanner in your own cloud account (AWS: S3, RDS and Aurora snapshots; Azure: Blob, Files, Azure SQL; Google Cloud: Cloud Storage, BigQuery, Cloud SQL) or the on-premises collector, it also reads samples of files and rows and classifies their contents with country-specific detectors. Content scanning is opt-in per tenant: nothing configured means nothing scanned. Without the scanner, a store whose names and tags say nothing gets no label until someone tags it.
 
-*Update, 26 November 2026: Onam's DSPM can now also read data contents, but only where you adopt it: if you deploy Onam's DSPM scanner in your own cloud account or the on-premises collector, it reads samples of files and rows and classifies what they contain. Without that scanner, classification works from metadata as described above, and everything else Onam does is read-only and does not read data contents.*
+Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, and data lineage across up to 8 hops of replication, backup, ETL, streaming and export. Copies made by scripts are not visible today; only copies the cloud records are followed. The detail is in the [DSPM documentation](/docs/dspm/overview).
 
-Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, a 0–100 governance score per store, and data lineage across replication, backup, ETL, streaming and export hops. Everything is re-evaluated on every scan. The detail is in the [DSPM documentation](/docs/dspm/overview).
+:::faq Frequently asked questions
+### What is the first step of a DSPM rollout?
+Agree what "sensitive" means for you, then inventory every data store in every account and region, including development and test copies. Classification without a complete inventory leaves the riskiest copies out.
 
-If you want to see what this looks like on your own accounts, a [free one-time audit scan](/audit-scan) is the quickest way to find out.
+### Does DSPM have to read our data to classify it?
+No. Classification can work from metadata such as names, tags and schemas. Reading samples of contents is more precise. In Onam, content scanning happens only where you deploy its DSPM scanner or on-premises collector; otherwise labels come from metadata.
+
+### How should DSPM findings be prioritised?
+By exposure: sensitive data reachable from the internet first, then sensitive data readable by over-privileged or unused identities, then sensitive data without encryption or logging.
+:::
 `,
   },
   {
     slug: "data-lineage-security-unencrypted-hops",
-    title: "Data lineage security: why encryption is a property of the flow, not the bucket",
+    title: "Is every hop our customer data takes encrypted? Data lineage security in practice",
     category: "Data Security",
-    excerpt:
-      "Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.",
+    tags: ["dspm","data","encryption","aws"],
+    excerpt: "Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-Here is a pattern that turns up in almost every data platform review. The source database is encrypted with a customer-managed key. The data lake it feeds is encrypted. The warehouse is encrypted. Every individual resource passes its encryption check. And yet, somewhere in the middle, a nightly job writes an intermediate extract to a staging location that has default settings, broad read access and no lifecycle rule. The data is sitting there in a form nobody intended.
+**Is every hop our customer data takes encrypted, or only the places it starts and ends?** Check the route, not the resources. Follow each sensitive source through every copy, export and staging location, and compare encryption, access and lifecycle at each stop. The weak point is usually an intermediate extract nobody owns.
+
+*Updated 27 November 2026: the Onam section now describes DSPM content scanning, which customers can adopt since 26 November.*
+
+Here is the pattern. The source database is encrypted with a customer-managed key. The data lake it feeds is encrypted. The warehouse is encrypted. Every individual resource passes its encryption check. And yet, somewhere in the middle, a nightly job writes an intermediate extract to a staging location that has default settings, broad read access and no lifecycle rule. The data is sitting there in a form nobody intended.
 
 No per-resource check will flag this as a data protection problem in context, because each resource is judged alone. The weakness is in the path. That is what data lineage security is about.
 
@@ -908,40 +1069,85 @@ New jobs, new destinations and new consumers change the route. Treat a new downs
 
 A customer table lives in an encrypted managed database. A nightly job exports it to an object storage folder, then loads it into a warehouse.
 
-- Source: encrypted, private, access limited to the application role.
-- Export folder: encrypted with a default key, readable by a broad data engineering role, no lifecycle rule.
-- Warehouse: encrypted, readable by the analytics group.
+:::flow Customer table route, illustrative
+Source database | encrypted, customer-managed key, app role only
+Nightly export folder | default key, broad engineering role, no lifecycle rule
+Warehouse | encrypted, analytics group
+:::
 
-Every resource passes a basic encryption check. The route still has a problem: the export folder keeps every night's full copy forever, readable by more identities than the source. The fix is a lifecycle rule and a narrower role on the export location, made in the template that creates it.
+| Hop | Encrypted at rest | Who can read | Lifecycle |
+| --- | --- | --- | --- |
+| Source database | Yes, customer-managed key | Application role | Backups per policy |
+| Export folder | Yes, default key | Broad data engineering role | **None: every night's copy kept forever** |
+| Warehouse | Yes | Analytics group | Per policy |
+
+Every resource passes a basic encryption check. The route still has a problem: the export folder keeps every night's full copy forever, readable by more identities than the source. The fix is a lifecycle rule and a narrower role on the export location, made in the template that creates it. On AWS, you can see whether an export bucket has any lifecycle rule with one read-only call; a bucket with none returns a \`NoSuchLifecycleConfiguration\` error:
+
+\`\`\`
+aws s3api get-bucket-lifecycle-configuration --bucket <export-bucket>
+\`\`\`
+
+Command from the AWS CLI reference, [get-bucket-lifecycle-configuration](https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-lifecycle-configuration.html), accessed 27 November 2026.
 
 ## How Onam approaches it
 
 Data lineage is part of [Onam's Data Security engine](/platform/data-security), its DSPM implementation. Onam links the relationships your cloud's configuration already records (replication, backup, ETL writes, streaming, export and import) into chains that start at the original source and follow each path up to eight hops. Every hop that crosses a region or an account is flagged, because those are the moments a copy leaves the controls on the original.
 
-Each store in a chain carries its own DSPM checks (encryption, public access, logging, lifecycle) and its metadata-based classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: a copy made by a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
+Each store in a chain carries its own DSPM checks (encryption, public access, logging, lifecycle) and its classification, so the route and the state of each stop on it can be read together. Lineage sees what configuration describes: copies made by scripts are not visible today, because a script with its own credentials leaves no relationship to follow. How chains are built is set out in the [lineage documentation](/docs/dspm/lineage).
 
-To see the chains in your own environment, [request a demo](/request-demo) or a [free one-time audit scan](/audit-scan).
+*Update, 26 November 2026: classification is from metadata (names, tags, schema) by default. Where you choose to adopt it, by deploying Onam's DSPM scanner in your own cloud account or the on-premises collector, Onam also reads samples of files and rows and classifies their contents. Content scanning is opt-in per tenant; without it, Onam does not read data contents.*
+
+:::faq Frequently asked questions
+### What is data lineage security?
+Applying data lineage, the record of where data comes from and where it ends up, to protection: checking that encryption, access and region controls stay consistent on every hop a sensitive dataset takes.
+
+### Why do encrypted pipelines still leak data?
+Because each resource is checked alone. Intermediate stores such as staging buckets and export folders are created for one job with default settings, and often keep copies longer and open them to more people than the source.
+
+### How many hops does Onam follow?
+Up to eight, starting at the original source, with every region or account crossing flagged.
+:::
 `,
   },
   {
     slug: "iac-security-scanning-fix-at-source",
-    title: "IaC security scanning: fix the template, or the finding comes back",
+    title: "Why does a fixed cloud finding come back? IaC security scanning that fixes the template",
     category: "Code Security",
-    excerpt:
-      "Console fixes are undone by the next terraform apply. A practical guide to IaC security scanning that traces cloud findings back to the template line.",
+    tags: ["code","iac","terraform","devsecops"],
+    excerpt: "Console fixes are undone by the next terraform apply. A practical guide to IaC security scanning that traces cloud findings back to the template line.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-An engineer gets a ticket: a storage bucket allows public access. They open the cloud console, turn public access off, and close the ticket. A week later the same finding is back. Nobody re-opened the bucket by hand. The next \`terraform apply\` recreated it exactly as the template describes it, because the template was never changed.
+**Why does a security finding we fixed in the console come back a week later?** Because the template that created the resource was never changed, so the next apply put the old setting back. Fix it in the infrastructure-as-code (IaC) source, scan templates before they deploy, and link runtime findings back to the code that made them.
 
-This loop is one of the most common reasons cloud security programmes feel busy without improving. The fix is not working harder on the console. It is scanning and fixing infrastructure as code (IaC), and connecting runtime findings back to the code that created them.
+*Updated 27 November 2026: Onam now links code findings to the cloud workload or image built from them, so the Onam section below has changed.*
+
+An engineer gets a ticket: a storage bucket allows public access. They open the cloud console, turn public access off, and close the ticket. A week later the same finding is back. Nobody re-opened the bucket by hand. The next \`terraform apply\` recreated it exactly as the template describes it, because the template was never changed.
 
 ## Why console fixes do not stick
 
 When infrastructure is managed as code, the code is the source of truth. Terraform, CloudFormation, Helm charts and Kubernetes manifests describe the desired state, and every apply pushes the cloud back towards that state. A manual change in the console is drift. Depending on how the resource is managed, the next deployment either reverts it silently or shows it as an unexpected diff that someone "fixes" by re-applying.
 
 The result is a finding that keeps coming back, gets triaged again, and wears down trust in the security tool that keeps reporting it.
+
+## What the fix looks like in Terraform
+
+Turning public access off in the console changes the bucket, not the code. The lasting fix is a resource in the template:
+
+\`\`\`
+resource "aws_s3_bucket_public_access_block" "exports" {
+  bucket = aws_s3_bucket.exports.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
+}
+\`\`\`
+
+The resource and its four arguments are from the Terraform AWS provider documentation, [aws_s3_bucket_public_access_block](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_public_access_block) (accessed 27 November 2026). To see where the console and the code already disagree, run \`terraform plan -refresh-only\`, which reports changes made outside Terraform without proposing to change anything ([terraform plan](https://developer.hashicorp.com/terraform/cli/commands/plan), accessed 27 November 2026).
 
 ## What IaC security scanning does
 
@@ -1010,26 +1216,38 @@ The first full scan of a mature codebase is usually discouraging. Some practical
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) checks Terraform, Kubernetes manifests, CloudFormation templates and Dockerfiles in a repository as part of every scan, alongside static analysis, dependency analysis and secret detection. The IaC checks use their own rule set, separate from the rules the runtime posture engine applies to deployed resources, and Onam does not yet trace a runtime finding back to the template line that created it. The discipline described above, fixing in code rather than the console, is still yours to enforce.
+[Onam's Code Security engine](/platform/code-security) checks Terraform in a repository as part of every scan, alongside static analysis in 13 languages, dependency analysis, secret detection and CI workflow files (GitHub Actions, GitLab CI, Bitbucket Pipelines and Azure Pipelines). The template checks use Code Security's own rules; the posture engine checks what is deployed.
 
-On gating, Onam has no CI plugin today: a scan reports, and a pipeline that wants a gate calls the scan API and decides for itself ([CI usage](/docs/code-security/ci)). For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files on a separate branch for your team to review; nothing merges itself.
+**New since 26 November 2026: the link back from runtime.** Code findings now link to the cloud workload or image built from them, with the method and confidence of the match shown. IaC matches are labelled as suggestions, because a template-to-resource match is an inference. Terraform findings can open a fix pull request for your team to review.
 
-[Request a demo](/request-demo) to see a repository scanned end to end.
+What Onam does not do here yet: it cannot gate a build on new findings only (a pipeline can start a scan itself and decide), and it does not comment on pull requests. For static-analysis findings in application code, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected file on a separate branch for review; nothing merges itself. See [CI usage](/docs/code-security/ci).
+
+:::faq Frequently asked questions
+### What is IaC security scanning?
+Checking infrastructure templates such as Terraform against security policy before anything is created, so a public bucket or an open security group is caught in the pull request rather than in production.
+
+### Why does a fixed cloud finding come back?
+The resource is managed as code and the code still describes the old setting, so the next apply recreates it. Change the template, not only the console.
+
+### How do I find drift between Terraform and the cloud?
+Run \`terraform plan -refresh-only\`. It shows what changed outside Terraform without proposing changes.
+:::
 `,
   },
   {
     slug: "ci-cd-security-gates-delta-gating",
-    title: "CI/CD security gates that engineers do not bypass",
+    title: "How do we add a CI/CD security gate engineers do not switch off?",
     category: "Code Security",
-    excerpt:
-      "Security gates that fail every build get switched off. How to design CI/CD security gates around new findings, clear output and an exception path.",
+    tags: ["code","ci-cd","devsecops"],
+    excerpt: "Security gates that fail every build get switched off. How to design CI/CD security gates around new findings, clear output and an exception path.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-Most security teams have lived through this. A scanner is added to the pipeline with every rule set to block. On day one it fails every build in the organisation, because the codebase already has hundreds of findings. By the end of the week there is an urgent request to make the step non-blocking "just for now". A month later nobody looks at its output.
+**How do we add a security gate to CI that engineers do not switch off?** Block only on findings the change introduces, start with a short list of high-confidence rules, put the reason in the pull request, and give people a recorded exception path. A gate that blocks on three-year-old findings will be made "non-blocking just for now" within a week, and then nobody reads it.
 
-A CI/CD security gate is only useful if it stays switched on. This post covers how to design one that does.
+*Updated 27 November 2026: the Onam section now matches our current product facts; two claims we could not source were removed.*
 
 ## What a security gate is for
 
@@ -1097,7 +1315,14 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ### Keep it fast
 
-- Run incremental scans on the changed files where the scanner supports it.
+- Run incremental scans on the changed files where the scanner supports it. In a pull request job, Git gives you that list directly:
+
+\`\`\`
+git diff --name-only --diff-filter=ACMR origin/main...HEAD
+\`\`\`
+
+The three-dot form compares the branch with the point where it left \`main\`, and \`--diff-filter=ACMR\` keeps added, copied, modified and renamed files ([git diff](https://git-scm.com/docs/git-diff), accessed 27 November 2026).
+
 - Run heavier scans, such as full DAST, on a schedule or before release, not on every commit.
 
 ### Measure the gate itself
@@ -1107,28 +1332,40 @@ Most teams get real value from moving from step 2 to step 3. Step 4 is where noi
 
 ## How Onam approaches it
 
-[Onam's Code Security engine](/platform/code-security) brings static analysis, dependency analysis, IaC checks and secret detection into the same platform as its cloud posture. Static analysis keeps proven security issues apart from pattern-match hotspots, and dependency findings are ranked by EPSS and CISA KEV as well as CVSS. Both help keep a gate from firing on noise.
+[Onam's Code Security engine](/platform/code-security) brings static analysis (13 languages, 835 rules Onam wrote itself), dependency analysis, Terraform checks and secret detection into the same platform as its cloud posture. Code findings link to the cloud workload or image built from them, with the method and confidence shown, which is the runtime context step 4 above asks for.
 
-On gating, Onam is deliberately conservative: a scan reports its findings and nothing fails on its own. Onam has no CI plugin today; a pipeline step calls the scan API, reads the findings and decides ([CI usage](/docs/code-security/ci)). Scans cover the whole branch rather than only new findings, so the practical route to the delta-gating pattern described above is to start in report-only mode, work the backlog down, and turn your gate on once the baseline is small.
+The honest limit on gating: Onam cannot yet gate a build on new findings only. A pipeline can start a scan itself, read the findings and decide ([CI usage](/docs/code-security/ci)). It does not comment on pull requests today. So the practical route to the baseline-and-diff pattern is to start in report-only mode, work the backlog down, and turn your own gate on once the baseline is small.
 
-For SAST findings, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected files and push them to a separate branch for your team to review; nothing merges itself.
+For static-analysis findings, [AI Code Fix](/platform/ai-code-fix) can rewrite the affected file and push it to a separate branch for your team to review; nothing merges itself.
 
-[Request a demo](/request-demo) to see the gate on one of your repositories.
+:::faq Frequently asked questions
+### What is delta gating in CI/CD security?
+Recording existing findings as a baseline and blocking a change only on findings it introduces. Old findings go to a backlog with owners and dates.
+
+### Which findings should block a build first?
+High-confidence, high-impact ones: committed secrets, critical injection flaws, and public storage or open admin ports in IaC. Run the rest in report-only mode until their false-positive rate is known.
+
+### Should a security gate scan every file on every commit?
+No. Scan the changed files in the pull request and run heavier scans, such as full DAST, on a schedule or before release.
+:::
 `,
   },
   {
     slug: "ai-sast-remediation-fix-branch",
     title: "AI SAST remediation: what an AI code fix should and should not do",
     category: "Code Security",
-    excerpt:
-      "AI can draft fixes for SAST findings, but it should never merge its own code. A practical look at safe AI SAST remediation, with a review checklist.",
+    tags: ["code","sast","ai","remediation"],
+    excerpt: "AI can draft fixes for SAST findings, but it should never merge its own code. A practical look at safe AI SAST remediation, with a review checklist.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-Static analysis tools are good at finding problems and poor at getting them fixed. A typical SAST run produces a list of findings, each with a rule, a file, a line and a severity. Turning each one into a correct code change is still a developer's job, and that is where the backlog grows.
+**Can we let AI fix our SAST findings?** Let it draft, never ship. A safe AI code fix changes only the flagged lines, is grounded in the rule's own guidance, lands on a separate branch, and goes through the same review and tests as any other change. Below: the design rules, a review checklist, and what a good fix diff looks like.
 
-AI code-fix tools promise to close that gap by drafting the change. They can help. They can also introduce subtle bugs, change behaviour nobody asked them to change, or create a false sense that something has been fixed. This post covers what a safe AI SAST remediation workflow looks like, and what to check before trusting one.
+*Updated 27 November 2026: this post now includes our older post "AI-powered cloud remediation", which redirects here, and names the model Onam's AI Code Fix uses.*
+
+Static analysis tools are good at finding problems and poor at getting them fixed. Turning each finding into a correct code change is still a developer's job, and that is where the backlog grows. AI drafting helps, and it can also introduce subtle bugs or a false sense that something is fixed.
 
 ## Why SAST findings do not get fixed
 
@@ -1194,30 +1431,59 @@ Before merging any AI-drafted fix, check:
 - Track how many AI-drafted fixes are merged as-is, merged after edits, or rejected. That ratio tells you where the tool helps.
 - Keep severity filters in mind: running AI fixes on critical and high findings first keeps review effort where it matters.
 
+## What a good AI fix looks like
+
+For a hard-coded database password, a good fix branch carries the same file with the literal replaced by an environment-variable lookup, and nothing else changed. Illustrative Python diff:
+
+\`\`\`
+-    conn = psycopg2.connect(host=DB_HOST, user="app", password="s3cr3t-prod")
++    conn = psycopg2.connect(host=DB_HOST, user="app", password=os.environ["DB_PASSWORD"])
+\`\`\`
+
+If the diff also renames variables, reorders imports or reformats the file, reject it: the reviewer can no longer see the security change. (\`os.environ\` is Python's standard mapping of environment variables, [os.environ](https://docs.python.org/3/library/os.html#os.environ), accessed 27 November 2026.)
+
 ## How Onam approaches it
 
-[Onam's code-fix engine](/platform/remediation) works on the findings produced by its static analysis scanner. For a completed scan, it reads the findings, skipping any already marked as false positives, and can be limited to chosen severities. It looks up each rule's metadata (title, description, recommendation and a compliant example matched to the language where one exists) and makes a shallow clone of the source repository.
+[Onam's AI Code Fix](/platform/ai-code-fix) works on the findings produced by its static analysis scanner. It rewrites static-analysis findings only; library (dependency) and live-app (DAST) findings are not rewritten, because there is no source line of yours to change.
 
-Findings are grouped by file. For each file, the engine sends the full file content and every finding in it, with the rule guidance, to a large language model, with instructions to fix only the listed issues and preserve everything else, including style and indentation. The corrected files are committed to a separate fix branch named after the scan and pushed to your repository for review. The engine does not merge or deploy anything; your team reviews the diff, runs tests and merges through your normal process.
+| Step | What happens |
+| --- | --- |
+| Select | You choose the scan and which severities to fix. Findings your team marked as false positives are left out. |
+| Group | Findings are grouped by file, so every issue in one file is fixed in a single pass. |
+| Ground | The model receives the whole file, every finding in it, and the rule's guidance: the recommendation, plus a compliant example in the same language where one exists. |
+| Constrain | The model is told to fix only the listed issues and keep indentation, names and style unchanged. |
+| Hand over | Corrected files are committed to a fix branch named after the scan and pushed for review. Nothing merges and nothing deploys on its own. |
 
-The Git token needed to push the branch is passed per request in a header, and is not stored or logged. Each finding's outcome is recorded with a status, so you can see which were patched on the branch and which were not. If AI generation is not available, findings still carry the rule's explanation and compliant example as guidance.
+**Data handling.** For AI Code Fix, the affected file is sent to a language model (Mistral). Only files with findings are sent. The Git token needed to push the branch is passed per request and is not stored or logged. Each finding's outcome is recorded with a status, so you can see which were patched on the branch and which were not. If AI generation is not available, findings still carry the rule's explanation and compliant example as guidance.
 
-[Request a demo](/request-demo) to see a fix branch generated from one of your scans.
+:::faq Frequently asked questions
+### Is it safe to let AI fix SAST findings?
+Yes, if the AI only proposes: a separate branch, a small diff limited to the flagged issues, and the same review and tests as any other change. Never let a generated fix merge itself.
+
+### Which model does Onam's AI Code Fix use?
+Mistral. The affected file, the findings in it and the rule guidance are sent to it; only files with findings are sent.
+
+### Can AI Code Fix fix vulnerable dependencies?
+No. It rewrites static-analysis findings in your source only. Dependency and live-app findings carry guidance instead.
+:::
 `,
   },
   {
     slug: "cloud-access-review-checklist",
-    title: "Cloud access reviews: a checklist that ends in decisions, not spreadsheets",
+    title: "How do we run a cloud access review that removes access? A checklist",
     category: "Identity",
-    excerpt:
-      "Most cloud access reviews are a spreadsheet nobody answers. A practical checklist for reviewing cloud entitlements, including machine identities.",
+    tags: ["identity","ciem","aws"],
+    excerpt: "Most cloud access reviews are a spreadsheet nobody answers. A practical checklist for reviewing cloud entitlements, including machine identities.",
     author: "anup-yadav",
     date: "October 5, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
 Once a quarter, someone exports a list of users and their roles, splits it by team, and emails each manager a spreadsheet with a column headed "Still needed? Y/N". Most rows come back "Y". Some do not come back at all. The spreadsheet is filed as audit evidence, and the access stays exactly as it was.
 
-That is the typical cloud access review. It satisfies an auditor's checkbox and changes very little. This post covers why, and a checklist for a review that removes access that should not exist.
+**How do we run a cloud access review that actually removes access?** Review effective permissions next to recent usage, start with shadow admins and external access, give reviewers concrete outcomes (keep, reduce, remove, defer with a date), and record each decision as a state that expires. "Still needed? Y/N" changes nothing; evidence and states do.
+
+*Updated 27 November 2026: Onam's identity analysis now covers more clouds, so the Onam section has changed.*
 
 ## Why cloud access reviews are harder than they look
 
@@ -1263,6 +1529,15 @@ You cannot review everything with the same care. Put these at the top:
 
 ### During the review: give reviewers evidence
 
+On AWS you can produce the usage evidence for one role yourself with two read-only IAM calls. The first starts a report of when each service was last used; the second reads it:
+
+\`\`\`
+aws iam generate-service-last-accessed-details --arn arn:aws:iam::<account-id>:role/<role-name>
+aws iam get-service-last-accessed-details --job-id <job-id-from-the-first-command>
+\`\`\`
+
+Services the role is allowed to use but has never called are the first candidates to remove. Commands from the AWS CLI reference: [generate-service-last-accessed-details](https://docs.aws.amazon.com/cli/latest/reference/iam/generate-service-last-accessed-details.html) and [get-service-last-accessed-details](https://docs.aws.amazon.com/cli/latest/reference/iam/get-service-last-accessed-details.html), accessed 27 November 2026.
+
 - Show effective permissions rather than policy names.
 - Show recent usage next to granted permissions, so the gap is visible.
 - Show why the identity was flagged, if it was.
@@ -1301,32 +1576,49 @@ States make the review measurable. You can see what was decided, what is outstan
 
 ## How Onam approaches it
 
-[Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory, walking policies, group memberships, conditions, explicit denies and cross-account trust. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity, a high-risk unused list and a 0–100 risk score; a suggested right-sized policy is in development, so today the replacement policy is built from the used actions. Machine identities such as Lambda execution roles, instance profiles, CI/CD roles over OIDC and EKS service accounts are classified and analysed alongside users. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today.
+[Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory, walking policies, group memberships, conditions, explicit denies and cross-account trust. Machine identities such as Lambda execution roles, instance profiles, CI/CD roles over OIDC and Kubernetes service accounts are analysed alongside users.
 
-For review, Onam lists shadow admins, zombie identities, stale keys, external principals that can assume privileged roles, and MFA coverage for privileged identities. Escalation paths are searched on the identity graph and cross-checked against Onam's cloud detection and response, so a path that has been used is kept apart from one that is only reachable. Database CIEM extends this to grants inside managed databases.
+**Which clouds get what (updated 27 November 2026):**
 
-Access reviews in Onam are an attestation and remediation workflow: every identity carries a state (pending, needs remediation, reviewed or deferred), and the finding that triggered the review stays attached, so the reviewer can see why it was flagged.
+| Capability | Clouds |
+| --- | --- |
+| Shadow-admin detection | AWS, Azure, Google Cloud and Kubernetes |
+| Unused access (granted compared with used, over a 30-day window) | AWS and Google Cloud, with cloud audit logs flowing into Onam; other clouds show granted access only |
+| Escalation paths | AWS assume-role chains up to 12 hops; Google Cloud service-account impersonation chains up to 4 hops |
+| Access reviews | AWS, with a risk score from usage; Azure and Google Cloud, opened from high or critical escalation findings, using granted access |
 
-[Request a demo](/request-demo) to run a review against your own accounts. For the background on CIEM itself, see [CIEM vs IAM security](/resources/blog/ciem-vs-iam-security).
+On AWS, an identity whose risk score reaches 60 is put up for review, and a review decision expires after 90 days, so "keep" is never permanent. Every identity in a review carries a state (pending, needs remediation, reviewed or deferred), and the finding that triggered the review stays attached, so the reviewer can see why it was flagged.
+
+:::faq Frequently asked questions
+### How often should cloud access be reviewed?
+Quarterly is common for audits, but the useful pattern is continuous: re-review an identity when its permissions or its usage change, and let every "keep" decision expire.
+
+### What should a cloud access review look at first?
+Shadow admins (identities that can reach admin through a chain), external and cross-account access to privileged roles, zombie identities, privileged identities without MFA, and the largest gaps between granted and used permissions.
+
+### Which clouds does Onam run access reviews on?
+AWS, with a usage-based risk score; Azure and Google Cloud, opened from high or critical escalation findings and based on granted access.
+:::
+
+For the background on CIEM itself, see [CIEM vs IAM security](/resources/blog/ciem-vs-iam-security).
 `,
   },
   {
     slug: "wiz-alternatives",
     title: "Wiz.io alternatives & competitors 2026: 8 compared, with public pricing",
     category: "Buyer's Guide",
-    excerpt:
-      "Wiz.io alternatives and competitors for 2026, quoted from their own sites with dates: Orca, Cortex Cloud, Defender, CrowdStrike, Sysdig. Public pricing noted.",
+    tags: ["cnapp","cspm","vendor-list"],
+    excerpt: "Wiz.io alternatives and competitors for 2026, quoted from their own sites with dates: Orca, Cortex Cloud, Defender, CrowdStrike, Sysdig. Public pricing noted.",
     author: "anup-yadav",
     date: "September 15, 2026",
+    updated: "November 27, 2026",
     readTime: "12 min",
     body: `
-*Updated 23 November 2026. Onam Security wrote this list, and Onam is on it.* Read everything below with that in mind. We have tried to make it useful anyway: every vendor is described in its own published words, with the page we read and the date we read it, and nobody is scored. Where we add a view of our own, it is labelled as ours.
+*Updated 27 November 2026: Onam's own figures and free plan. Vendor read dates are in the Corrections note. Onam sells a cloud security platform and is on this list; where we mention it, it is labelled. How the list was built is at the end.*
 
 ## The short answer
 
 The main Wiz.io alternatives and competitors in 2026 are **Orca Security**, **Palo Alto Networks Cortex Cloud** (formerly Prisma Cloud), **Microsoft Defender for Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security**, **Sysdig Secure** and **Fortinet's Lacework FortiCNAPP**. Orca is closest to Wiz in design. Defender for Cloud has a free foundational tier. Choose by your clouds, your current security vendor and whether you need runtime blocking.
-
-If you would rather see findings from your own account before reading further, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## Wiz.io alternatives and competitors at a glance
 
@@ -1342,7 +1634,7 @@ Each cell in the deployment and ranking columns is what the vendor's own page sa
 | SentinelOne Singularity Cloud Security | SentinelOne endpoint customers | Not stated on the page we read; ask | "Verified, exploitable risk" | Ask for a quote |
 | Sysdig Secure | Container and Kubernetes-heavy teams that want runtime depth | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Lacework FortiCNAPP (Fortinet) | Fortinet network estates | Not stated on the page we read; ask | Attack path visualisation | Ask for a quote |
-| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles; workload scanning in your account; no sensor | FAIR-style loss estimate per finding, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free one-time audit scan ([pricing](/pricing)) |
+| Onam Security (us) | Multi-cloud estates including OCI, Alibaba or IBM Cloud; teams that want risk in money | Read-only cloud roles for posture; agentless workload scanning in your account | FAIR-style loss estimate per finding, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free plan up to 25 units ([pricing](/pricing)) |
 
 ## Why teams look for a Wiz alternative
 
@@ -1355,13 +1647,6 @@ None of those is a verdict on Wiz, which is on nearly every cloud security short
 Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platform to secure your AI applications from code to runtime." On prioritisation it promises "A single list of prioritized issues of toxic combinations of cloud and AI risk that have a high probability of being exploited." On deployment: "Wiz connects in minutes via API and achieves full coverage across cloud and AI resources", and "Runtime protection from the Wiz Sensor stops threats and provides deep, real-time threat detection." Source: wiz.io/platform, re-checked 7 October 2026. Wiz does not publish list prices; its pricing page describes packages called Wiz One and Wiz Go plus à la carte options, quoted on request (wiz.io/pricing, 7 October 2026).
 
 Two things in that description matter for a shortlist. The ranking unit is a prioritised list of combined risks, and runtime coverage comes from a sensor. Neither is a weakness. They are design choices, and the alternatives below make different ones.
-
-## How this list was built
-
-- Each vendor is quoted from its own public page, verbatim, with the address and the date. If the page changes, the quote is out of date, not wrong, and we will fix it when told.
-- Nothing here says what any product cannot do. We did not test them. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you, not a gap.
-- No ranking. Alternatives are listed alphabetically, with our own entry last.
-- Corrections go to hello@onamsecurity.com and we apply them.
 
 ## Eight Wiz competitors, in their own words
 
@@ -1431,10 +1716,12 @@ Tenable positions the product to "Prevent cloud breaches and reduce cloud risk b
 
 ### And Onam Security (that is us)
 
-We are the newest company on this list, so here are the facts rather than the adjectives. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. Posture rules cover seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, and we publish the per-cloud breakdown. Engines write into one security graph, so an attack path can start in one cloud and end in another. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths. Compliance is recomputed on every scan against 78 frameworks, and SaaS posture covers 8 platforms. These figures come from our published fact set.
+${ONAM_AT_A_GLANCE}
+
+${ONAM_PRICES}
 
 - **Best for, in our view:** estates that run OCI, Alibaba Cloud or IBM Cloud alongside AWS, Azure or GCP, and teams that need to rank risk in money for a board.
-- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from someone above who sells it.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. API-based posture scanning cannot see inside a running process. If inline blocking is what you are buying, buy it from someone above who sells it.
 - **Ask us:** the same questions as everyone else. Our answers are on the record on the [Onam vs Wiz](/compare/onam-vs-wiz) page.
 
 ## How to choose a Wiz alternative
@@ -1463,10 +1750,16 @@ Then score every finalist on the same seven questions:
 
 Pick two vendors plus the incumbent. Give each read-only access to the same non-production accounts that you know have real problems. Compare what each ranks first, what unit that ranking is expressed in, and how many of the top findings are the same problem seen from different angles. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) has the full set of questions, grouped by week.
 
-If you want to include us, [request a scan](/request-demo) and we will run it against one account. If the attack paths we surface are noise, tell us. That is more useful to us than a signature.
+If you want to include us, start on the free plan, or ask for the free audit scan and we will run it against one account. If the attack paths we surface are noise, tell us. That is more useful to us than a signature.
 
-## Frequently asked questions
+## How this list was built
 
+- Each vendor is quoted from its own public page, verbatim, with the address and the date. If the page changes, the quote is out of date, not wrong, and we will fix it when told.
+- Nothing here says what any product cannot do. We did not test them. "Trade-off to check" means a design choice stated on the vendor's own page that you should confirm fits you, not a gap.
+- No ranking. Alternatives are listed alphabetically, with our own entry last.
+- Corrections go to hello@onamsecurity.com and we apply them.
+
+:::faq Frequently asked questions
 ### What are the best Wiz alternatives in 2026?
 
 The platforms most often compared with Wiz are Orca Security, Palo Alto Networks Cortex Cloud, Microsoft Defender for Cloud, CrowdStrike Falcon Cloud Security, Tenable Cloud Security, SentinelOne Singularity Cloud Security, Sysdig Secure and Lacework FortiCNAPP. "Best" depends on your clouds, your existing security vendor and whether you need runtime blocking; run the same POC against two or three of them.
@@ -1477,7 +1770,7 @@ In cloud security posture and CNAPP, Wiz's main competitors are Orca Security, P
 
 ### What is a cheaper alternative to Wiz?
 
-Wiz does not publish list prices, so any price comparison starts with a quote. Of the platforms here, Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free, Prowler is an open-source posture scanner, and Onam publishes $20 per unit a month with CIEM and DSPM included, plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Cheaper only helps if it covers what you need, so compare tools on the same accounts.
+Wiz does not publish list prices, so any price comparison starts with a quote. Of the platforms here, Microsoft publishes Defender for Cloud pricing and its foundational CSPM tier is free, Prowler is an open-source posture scanner, and Onam publishes $20 per unit a month with CIEM and DSPM included, and has a free plan of up to 25 units plus a free one-time audit scan ([pricing](/pricing)). The others quote on request. Cheaper only helps if it covers what you need, so compare tools on the same accounts.
 
 ### What is the difference between Wiz and Orca?
 
@@ -1485,7 +1778,7 @@ On their own pages, both describe agentless scanning with an optional runtime se
 
 ### Is there a free alternative to Wiz?
 
-Microsoft's foundational CSPM tier in Defender for Cloud is free, open-source scanners such as Prowler cover posture checks for the main clouds, and Onam offers a free one-time audit scan of one cloud account. None of these is a like-for-like replacement for a full CNAPP, so compare what each covers.
+Microsoft's foundational CSPM tier in Defender for Cloud is free, open-source scanners such as Prowler cover posture checks for the main clouds, and Onam has a free plan of up to 25 units with API-based scanning only (CSPM, CIEM, API-based DSPM and AI-SPM). None of these is a like-for-like replacement for a full CNAPP, so compare what each covers.
 
 ### How much does Wiz cost?
 
@@ -1494,10 +1787,11 @@ Wiz does not publish list prices. Its pricing page describes the Wiz One and Wiz
 ### Is Wiz owned by Google?
 
 Yes. Google completed its acquisition of Wiz in March 2026. Google has said Wiz will continue to support other clouds, including AWS, Azure and Oracle Cloud.
+:::
 
 ## Corrections
 
-Last updated 23 November 2026. Cortex Cloud and CrowdStrike were re-read on 23 November 2026; Wiz, Orca, SentinelOne and Sysdig on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 27 November 2026 (Onam's own figures and free plan). Cortex Cloud and CrowdStrike were re-read on 23 November 2026; Wiz, Orca, SentinelOne and Sysdig on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's own public page. If any of it is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
 *Read next: [Best CSPM tools in 2026](/resources/blog/best-cspm-tools), [Prisma Cloud alternatives](/resources/blog/prisma-cloud-alternatives), [Orca Security alternatives](/resources/blog/orca-security-alternatives), [Which CSPM tools have public pricing](/resources/blog/cspm-tools-public-pricing), and [what a CNAPP is](/learn/cnapp).*
 `,
@@ -1506,19 +1800,18 @@ Last updated 23 November 2026. Cortex Cloud and CrowdStrike were re-read on 23 N
     slug: "best-cspm-tools",
     title: "Best CSPM tools 2026: 9 compared in vendors' own words, with public pricing",
     category: "Buyer's Guide",
-    excerpt:
-      "Best CSPM tools 2026: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable, Sysdig and more, quoted from their own pages, with public pricing.",
+    tags: ["cspm","cnapp","vendor-list"],
+    excerpt: "Best CSPM tools 2026: Wiz, Orca, Defender for Cloud, Cortex Cloud, CrowdStrike, Tenable, Sysdig and more, quoted from their own pages, with public pricing.",
     author: "anup-yadav",
     date: "September 15, 2026",
+    updated: "November 27, 2026",
     readTime: "12 min",
     body: `
-*Updated 11 November 2026. Onam Security wrote this list, and Onam is on it.* That is the first thing to know. The second is that every other tool below is described in its vendor's own published words, with the page and the date, and nobody is scored. A "best tools" list written by a vendor is only worth reading if it is honest about both of those things.
+*Updated 27 November 2026: Onam's own figures and free plan. Onam sells a cloud security platform and is on this list; where we mention it, it is labelled. Every other tool is described in its vendor's own words, with the page and the date, and nobody is scored.*
 
 ## The short answer
 
 The best CSPM tools in 2026 to shortlist are **Wiz**, **Orca Security**, **Microsoft Defender for Cloud**, **Palo Alto Networks Cortex Cloud**, **CrowdStrike Falcon Cloud Security**, **Tenable Cloud Security**, **SentinelOne Singularity Cloud Security** and **Sysdig Secure**, with Onam as a newer option. Most are sold as CNAPPs. Pick by your clouds, your current security vendor and whether you need runtime blocking.
-
-If you want to see real findings before you shortlist, Onam runs a [free audit scan](/audit-scan) of one cloud account, once, and goes through the results with you.
 
 ## What a CSPM tool is, in one paragraph
 
@@ -1538,7 +1831,7 @@ Deployment and ranking are what each vendor's own page says, on the date read. "
 | Sysdig Secure | Container and Kubernetes-heavy teams | Agentless posture plus an agent | Runtime insights with cloud context | Ask for a quote |
 | Tenable Cloud Security | Tenable VM customers | Integrates with AWS, Azure, GCP; in-account scanning add-on | Toxic combinations, attack path visualisations | Ask for a quote |
 | Wiz | Almost any shortlist; the category reference point | API connection; Wiz Sensor for runtime | "Prioritized issues of toxic combinations" | Packages quoted on request |
-| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles; workload scanning in your account; no sensor | FAIR-style loss estimate, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free one-time audit scan ([pricing](/pricing)) |
+| Onam Security (us) | Estates beyond the big three clouds; risk in money | Read-only roles for posture; agentless workload scanning in your account | FAIR-style loss estimate, raised on attack paths | $20 per unit a month, CIEM and DSPM included; free plan up to 25 units ([pricing](/pricing)) |
 
 ## How to evaluate CSPM tools: five criteria that still separate them
 
@@ -1549,10 +1842,6 @@ Every tool on this list finds misconfigurations. That stopped being a differenti
 3. **Deployment.** What onboarding grants, and which features need an agent or sensor. Anything that needs a rollout reaches part of the estate.
 4. **The ranking unit.** Severity labels rank findings against each other. Business impact, ideally in money, ranks them against everything else the company could fund. See [cloud risk quantification](/learn/cloud-risk-quantification).
 5. **Continuous compliance evidence.** Evidence generated when someone clicks export is evidence for one day a quarter.
-
-## How this list was built
-
-Vendors' own public pages, quoted verbatim, with the address and the date read. No claims about what any product cannot do, because we did not test them. "Check" lines are design choices stated on the vendor's own page that you should confirm fit you. Alphabetical order, with our own entry last. Corrections to hello@onamsecurity.com.
 
 ## The CSPM tools worth shortlisting in 2026
 
@@ -1614,10 +1903,12 @@ Wiz describes its platform as "Built for cloud and AI, Wiz AI-APP is the platfor
 
 ### 9. Onam Security (that is us)
 
-Here are the facts. Posture scanning connects through read-only cloud roles; workload scanning runs inside your account, and there is no Onam sensor on your hosts. One posture engine covers seven clouds, AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes, with 11,433 posture rule definitions across 549 cloud services as the all-cloud totals, of which 9,853 are CSPM posture rules. Engines write into one security graph, so a path can cross a cloud boundary. Each finding gets a FAIR-style loss estimate (FAIR is The Open Group's risk analysis standard), raised for findings on attack paths, with the inputs shown next to the figure. Compliance is recomputed on every scan against 78 frameworks. SaaS posture covers 8 platforms. Every number traces to our published fact set.
+${ONAM_AT_A_GLANCE}
+
+${ONAM_PRICES}
 
 - **Best for:** estates running OCI, Alibaba Cloud or IBM Cloud alongside the big three, and teams that need risk in money for a board.
-- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. Without a sensor, read-only scanning cannot see inside a running process. If inline blocking is a requirement, one of the tools above sells it and we do not.
+- **The honest gap:** we have no public reference customers yet, and no live runtime enforcement. API-based posture scanning cannot see inside a running process. If inline blocking is a requirement, one of the tools above sells it and we do not.
 
 ## How to choose a CSPM tool
 
@@ -1630,14 +1921,17 @@ Match the shortlist to your situation first:
 | You want an agentless-first platform from an independent vendor | Wiz and Orca, side by side |
 | Containers and Kubernetes dominate, runtime matters most | A runtime-first platform such as Sysdig, plus one posture-first platform |
 | You run OCI, Alibaba Cloud or IBM Cloud, or need risk in money | Include Onam and ask every vendor to demo those clouds |
-| Small team, tight budget | Start with a free option (Defender foundational CSPM, open-source Prowler, or Onam's free one-time audit scan) before buying |
+| Small team, tight budget | Start with a free option (Defender foundational CSPM, open-source Prowler, or Onam's free plan of up to 25 units) before buying |
 
 Then run a two-week proof of concept. Connect three tools to the same non-production accounts you know have real problems, and compare what each ranks first, in what unit, and how many of the top findings are the same problem viewed from different angles. Our [CNAPP POC question list](/resources/blog/wiz-vs-orca-poc-questions) gives you the questions to ask in each week.
 
-If you want Onam in that three, [request a scan](/request-demo). If the paths we surface are noise, say so.
+If you want Onam in that three, start on the free plan or ask for the free audit scan. If the paths we surface are noise, say so.
 
-## Frequently asked questions
+## How this list was built
 
+Vendors' own public pages, quoted verbatim, with the address and the date read. No claims about what any product cannot do, because we did not test them. "Check" lines are design choices stated on the vendor's own page that you should confirm fit you. Alphabetical order, with our own entry last. Corrections to hello@onamsecurity.com.
+
+:::faq Frequently asked questions
 ### What is the best CSPM tool in 2026?
 
 There is no single best tool for every estate. Wiz, Orca Security, Microsoft Defender for Cloud, Cortex Cloud, CrowdStrike Falcon Cloud Security, Tenable Cloud Security, SentinelOne and Sysdig are the most commonly shortlisted. Pick by your clouds, your existing security vendor and whether you need runtime protection, then prove it in a POC on your own accounts.
@@ -1656,239 +1950,268 @@ Every vendor says multi-cloud. Ask for the per-cloud rule breakdown, a live demo
 
 ### Are there free CSPM tools?
 
-Yes. Microsoft's foundational CSPM tier in Defender for Cloud is free, Prowler is an open-source posture scanner, and Onam offers a free one-time audit scan of one cloud account. Free options usually stop short of attack paths and full compliance coverage, so compare what is included.
+Yes. Microsoft's foundational CSPM tier in Defender for Cloud is free, Prowler is an open-source posture scanner, and Onam has a free plan of up to 25 units with API-based scanning only. Free options usually stop short of attack paths and full compliance coverage, so compare what is included.
 
 ### How long does a CSPM deployment take?
 
 Connecting an account through a read-only role is usually quick for any of these tools; reaching your whole estate takes as long as your change process for granting that role across every account. Measure time to a complete inventory in your own POC rather than relying on vendor claims.
+:::
 
 ## Corrections
 
-Last updated 11 November 2026. Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
+Last updated 27 November 2026 (Onam's own figures and free plan). Wiz, Orca, SentinelOne and Sysdig were read on 7 October 2026; the others on the dates shown. Every statement about another vendor is a quotation from that vendor's public page. If anything is wrong or out of date, including anything about us, email hello@onamsecurity.com and it will be corrected.
 
 *Read next: [Which CSPM tools have public pricing](/resources/blog/cspm-tools-public-pricing), [Wiz alternatives](/resources/blog/wiz-alternatives), [Prisma Cloud alternatives](/resources/blog/prisma-cloud-alternatives), [Orca Security alternatives](/resources/blog/orca-security-alternatives), the [comparison pages](/compare), and [What is CSPM](/learn/cspm).*
 `,
   },
   {
-    slug: "onam-vs-wiz-orca-prisma-cloud",
-    title: "Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC",
-    category: "Buyer's Guide",
-    excerpt:
-      "Wiz vs Orca vs Prisma Cloud (now Cortex Cloud) in 2026: the 7 POC questions that separate them, a copyable scorecard, and where Onam fits and falls short.",
-    author: "anup-yadav",
-    date: "July 20, 2026",
-    readTime: "9 min",
-    body: `
-Most cloud security proofs of concept are run badly. The buyer is rarely careless; the trouble is that every platform demos well. Point any of them at a messy AWS account and findings appear. That is table stakes, and a POC that only proves it tells you nothing about which tool to buy.
-
-The seven questions below are the ones worth asking *during* the trial, while you still have hands on the product and a vendor engineer on the call. Each one is answerable inside a two-week POC, and each separates platforms that look identical in a demo. For the full week-by-week list of 30 questions, including setup, accuracy and cost, see [Wiz vs Orca POC: 30 questions to ask in any CNAPP trial](/resources/blog/wiz-vs-orca-poc-questions).
-
-If you're evaluating cloud security platforms in 2026, your shortlist probably reads: Wiz, Orca Security, Palo Alto Networks' Prisma Cloud (check whether your quote says Cortex Cloud), and maybe us. We describe nobody else's product here; for that, read each vendor's own pages, or our [Wiz alternatives](/resources/blog/wiz-alternatives) post, which quotes them with sources and dates. And if a vendor tells you their competitors are bad products, stop trusting that vendor.
-
-So this is not that post. Instead, here are the seven questions we think separate cloud security platforms. They are the ones that predict whether the tool still works for you two years in. We give Onam's answer to each, on the record. Then run the same checklist against every vendor on your shortlist and compare the answers side by side.
-
-## The seven questions that separate platforms
-
-### 1. How many clouds get *first-class* treatment?
-
-Every platform says "multi-cloud." The question is which clouds get the full engine depth and which get a check-the-box connector. If you run anything on Oracle Cloud (OCI), Alibaba Cloud or IBM Cloud, which is common in finance, manufacturing and Asia-Pacific enterprises, ask each vendor to demo *those* clouds as well as AWS.
-
-**Onam's answer:** posture rules on all 7 clouds (AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes) through one rule engine and one compliance mapping, and we publish the per-cloud rule counts rather than only the total. Depth is not identical everywhere: some identity analysis, such as unused-permission and shadow-admin detection, is AWS-only today, and our docs say which.
-
-### 2. Is the analysis cross-cloud, or per-cloud silos side by side?
-
-Real attack paths cross boundaries: an exposed GCP service account key that can assume a role into your AWS production account is invisible to any tool that analyses each cloud separately. A dashboard that *displays* seven clouds is not the same as a graph that *correlates* them.
-
-**Onam's answer:** a single graph across all clouds, fed by posture, identity, network, data and threat-detection evidence. Attack-path entry points include other clouds, and federation between clouds is modelled as an edge, so a path can cross a provider boundary.
-
-### 3. Is it agentless, and what does onboarding take?
-
-Deployment friction predicts coverage: if connecting an account takes a change-management ticket, half your estate never gets connected. Ask for the exact onboarding steps and every permission each one grants.
-
-**Onam's answer:** no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. You connect a cloud with a template run in your own account, so every permission is readable first. For AWS we store no secret, because Onam assumes your role. Where a cloud needs a stored credential, it is kept in AWS Secrets Manager, encrypted with AWS KMS.
-
-### 4. How does it prioritise findings: severity labels or business impact?
-
-An alert firehose with 4,000 "critical" findings is operationally identical to no prioritisation at all. Ask *how* the platform decides what's first, and whether that reasoning is explainable to your CFO.
-
-**Onam's answer:** a FAIR-style loss estimate for each finding. It is a minimum, likely and maximum figure computed from exploit likelihood (EPSS), exposure, records at risk, data sensitivity, asset value and applicable regulations, and it is raised for findings on attack paths. The inputs are shown next to the figure, so you can explain the top of the queue in business terms rather than CVSS arithmetic.
-
-### 5. Does it connect findings across engines?
-
-A public subnet is medium. An over-privileged identity is medium. A workload with a critical CVE is high. The same three on one attack path is a breach waiting to happen. Connecting them is the point of a unified platform, so ask each vendor to show it live.
-
-**Onam's answer:** attack paths are built from evidence across posture, identity, network, data and threat detection in the same graph. Only edges confirmed by that evidence are walked, and a high-EPSS vulnerability on a node raises the path's score.
-
-### 6. Is compliance evidence continuous or point-in-time?
-
-If evidence is generated when you click "export report," you are audit-ready one day per quarter. Ask whether framework mappings update as infrastructure changes.
-
-**Onam's answer:** 78 frameworks, recomputed from the latest findings on every scan, with evidence per control. They include CIS benchmarks for each cloud, NIST 800-53, ISO 27001:2022, PCI DSS, HIPAA and SOC 2. One finding maps to every framework it affects, and auditors get PDF, CSV or Excel exports instead of screenshots.
-
-### 7. Does coverage span code to runtime?
-
-Fixing a misconfiguration in the console while the Terraform that created it stays broken means the finding comes back on the next deploy. Ask whether the platform sees IaC, code, and runtime as one pipeline.
-
-**Onam's answer:** Code Security scans repositories for SAST, secrets, IaC and dependency issues, and DAST tests a running application when you give it a URL. Code findings are reported on their own today rather than traced to the cloud resource they deploy, so ask every vendor to show that link live rather than take it on trust. That includes us.
-
-## The checklist, in one table
-
-| Evaluation criterion | Ask every vendor | Onam's answer |
-| --- | --- | --- |
-| Cloud coverage | Which clouds are first-class? Demo OCI/Alibaba/IBM. | Posture rules on all 7 clouds, counts published per cloud |
-| Cross-cloud analysis | A single graph or per-cloud silos? | A single graph; paths can cross clouds |
-| Deployment | Agents? What does onboarding grant? | No host agents; read-only posture roles, workload scanning in your account |
-| Prioritisation | How is "what's first" decided? | FAIR-style loss estimate per finding, raised on attack paths |
-| Cross-engine paths | Cross-engine evidence, live demo | Paths built from confirmed evidence across engines |
-| Compliance | Continuous or point-in-time evidence? | 78 frameworks, recomputed every scan, PDF/CSV/Excel export |
-| Code + runtime | IaC/code linked to runtime findings? | SAST · secrets · IaC · SCA · DAST; code findings reported separately today |
-
-## Our bet, stated plainly
-
-Onam's bet is that cloud security is increasingly decided by **posture coverage on every cloud you run**, including OCI, Alibaba Cloud and IBM Cloud, **a single graph instead of separate modules**, and **prioritisation a CFO can read**. That's what we built. We are a young company with no public reference customers yet, and we have no runtime sensor. If either is your first filter, weigh it.
-
-The honest way to decide is the checklist above. Run it against all four of us. We'll take our chances.
-
-*Want Onam's answers demonstrated on your own environment instead of a slide deck? [Request a demo](/request-demo).*
-`,
-  },
-  {
     slug: "cdr-behavioral-threat-detection",
-    title: "Beyond GuardDuty: how three-level behavioral detection catches what rules miss",
-    category: "CDR",
-    excerpt:
-      "Cloud threat detection needs three levels: rules for single suspicious events, correlation across several events, and statistical behaviour baselines.",
+    title: "We run GuardDuty. What would we still miss in cloud threat detection?",
+    category: "Threat Detection",
+    tags: ["threat-detection","cdr","aws","logging"],
+    excerpt: "Which logs to switch on, one attack traced from the first CloudTrail line to an incident, and what correlation and baselines add to GuardDuty. With honest limits.",
     author: "anup-yadav",
     date: "July 15, 2026",
-    readTime: "10 min",
+    updated: "November 27, 2026",
+    readTime: "6 min",
     body: `
-AWS GuardDuty is a good product. It detects known malicious IP addresses, known cryptocurrency mining domains, known port scanning patterns, and a catalogue of documented attack signatures. If an attacker uses infrastructure that has appeared in threat feeds, GuardDuty will catch it.
+**We run GuardDuty. What would we still miss, and what does it take to catch it?** Mostly the attacks built from legitimate calls: stolen credentials used slowly, a role assumed the way your own engineers assume it, an admin role created by a pipeline identity. Catching those needs the right logs switched on, then detection that looks at the order of events and at each identity's normal behaviour, not only at single known-bad events. Keep GuardDuty; this post is about what sits around it.
 
-The problem is that sophisticated attackers do not use infrastructure that appears in threat feeds. They use compromised legitimate accounts, new cloud instances with clean IP addresses, and legitimate cloud services as their command-and-control channel. They operate slowly enough to avoid rate-based anomaly rules. They escalate privileges in small steps, one permission at a time, over days or weeks.
+*Rewritten 27 November 2026. The earlier version was titled "Beyond GuardDuty" and showed an out-of-date screenshot. It now says which logs to switch on, traces one attack from the first log line to an incident, and states Onam's limits. Every AWS command below is from the AWS CLI reference, read on 27 November 2026.*
 
-Rule-based detection catches what you already know to look for. The question is how to catch what you do not.
+## Step 1: are the logs there at all?
 
-## The three-level detection architecture
+No detection, ours or anyone's, sees an event that was never logged. On AWS, check four sources. All four commands are read-only.
 
-Onam's CDR (Cloud Detection and Response) engine reads the audit logs your clouds already produce and judges them at three levels. Each level catches a different class of attacker behaviour, and together they cover gaps a single level leaves open.
+\`\`\`
+aws cloudtrail describe-trails --query "trailList[].[Name,IsMultiRegionTrail]" --output table
+aws ec2 describe-flow-logs --query "FlowLogs[].[ResourceId,FlowLogStatus]" --output table
+aws eks describe-cluster --name <cluster-name> --query "cluster.logging.clusterLogging"
+aws guardduty list-publishing-destinations --detector-id <detector-id>
+\`\`\`
 
-| Level | Approach | What it catches |
+What you want to see:
+
+| Source | Good looks like | Why it matters |
 | --- | --- | --- |
-| L1 | Detection rules over single events | Actions suspicious on their own: disabling logging, creating access keys for another user, known-bad indicators |
-| L2 | Correlation scenarios across several events | Ordered steps by one actor within a time window: the shape of an attack that no single event shows |
-| L3 | Statistical behaviour baselines | An identity or account departing from its own recent history, even when no rule names the action |
+| CloudTrail | A multi-Region trail | Every API call by every identity, the raw material for detection |
+| VPC flow logs | An entry, status \`ACTIVE\`, for each VPC you care about | Network evidence: who talked to what |
+| EKS control-plane logs | \`audit\` and \`authenticator\` in a block with \`"enabled": true\` | Who did what inside the cluster, and which IAM identity they signed in as |
+| GuardDuty export | A destination of type \`S3\` with status \`PUBLISHING\` | GuardDuty findings in a place other tools can read |
 
-**L1: single-event rules.** This is the same idea as a cloud's built-in threat service, applied across seven clouds' audit logs with one alert schema. The logs are CloudTrail, Azure Activity Log, Google Cloud Audit Logs, OCI Audit, Alibaba Cloud ActionTrail, IBM Cloud Activity Tracker and Kubernetes audit logs. Detections are mapped to MITRE ATT&CK techniques, so each alert says which phase of an attack it represents.
+Get the detector ID from \`aws guardduty list-detectors\`. Sources: [describe-trails](https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/describe-trails.html), [describe-flow-logs](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-flow-logs.html), [eks describe-cluster](https://docs.aws.amazon.com/cli/latest/reference/eks/describe-cluster.html), [list-publishing-destinations](https://docs.aws.amazon.com/cli/latest/reference/guardduty/list-publishing-destinations.html), [list-detectors](https://docs.aws.amazon.com/cli/latest/reference/guardduty/list-detectors.html).
 
-**L2: correlation scenarios.** L2 reads the L1 findings for each actor and resource and matches them against scenarios: an ordered list of steps that must all occur within a time window. A role lookup, then an AssumeRole, then a new role created by a deployment stack is three ordinary events to L1. To L2 it is one scenario. On top of the scenarios, a sequence detector looks for four attack shapes in every supported cloud's own vocabulary: data exfiltration, identity pivot, secrets staging and compute hijack.
+## Step 2: one attack, from the first log line to an incident
 
-**L3: behaviour baselines.** L3 keeps daily statistics per identity and per account, such as session counts, superuser counts and admin role grants. It compares today's value with the mean and spread of the recent window. A value well above that range, or activity where there was none before, raises a finding. There is no black box here. Each L3 finding carries the metric, today's value, the historical mean and how far it departed.
+A pattern that appears in published cloud intrusion write-ups, shown as the CloudTrail events it leaves:
 
-![The CDR alert view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
+:::flow One stolen key, seven days (illustrative)
+Day 1: discovery | ListBuckets, GetAccountAuthorizationDetails from a developer key
+Day 3: pivot | ListRolePolicies, then AssumeRole into the CI/CD role
+Day 7: escalation | CreateRole and AttachRolePolicy with admin rights, by the CI/CD role
+Incident | one actor, ordered steps, inside a time window
+:::
 
-## How L2 and L3 catch what L1 misses: incremental privilege escalation
+**Day 1.** The attacker has a developer's access key, from phishing or a key committed to a public repository. They list resources and read IAM policies. Every call is legitimate. No threat-intelligence indicator fires, because the source address is new and clean.
 
-The canonical example of what single-event rules cannot detect is incremental privilege escalation. Here is a pattern that shows up in published cloud intrusion write-ups.
+**Day 3.** The developer's identity can call \`iam:ListRolePolicies\`. The attacker finds a CI/CD role that can deploy stacks and calls \`sts:AssumeRole\`, the same call the developer makes for manual deployments.
 
-**Day 1.** The attacker gains access to a developer's AWS credentials, through phishing or an access key committed to a public repository. The developer's account can read from S3 buckets and invoke Lambda functions. The attacker reads the environment: lists resources, describes IAM policies, maps the account structure. All of these are legitimate API operations. No threat-intelligence indicator fires.
+**Day 7.** Using the CI/CD role, the attacker creates a new role with administrator access. It looks like ordinary pipeline work.
 
-**Day 3.** The attacker notices that the developer's role has \`iam:ListRolePolicies\` and uses it to map roles with elevated permissions. They find a CI/CD role that can deploy CloudFormation stacks, and call \`sts:AssumeRole\` to take it on. The developer makes that same call legitimately for manual deployments.
+No single event is malicious on its own. What gives it away is the order and the actor: discovery, then a role assumption, then an admin role created by the assumed identity. In ATT&CK terms that is Valid Accounts: Cloud Accounts (T1078.004), then Cloud Infrastructure Discovery (T1580), then account manipulation to keep the access.
 
-**Day 7.** Using the CI/CD role, the attacker deploys a stack that creates a new IAM role with administrator access. The deployment looks like ordinary CI/CD activity.
+## Step 3: detection that reads order and behaviour
 
-At no point did a single event look malicious on its own. What gives the attack away is the order and the volume: discovery calls, then a role assumption, then an administrator role created by the assumed identity. That ordered chain is what an L2 scenario or the identity-pivot sequence is written to match, and an admin role grant or a jump in an identity's session count is what an L3 baseline is written to flag.
+Onam's CDR engine reads the cloud audit logs you already produce and judges them at three levels:
 
-## What a baseline needs
+| Level | Approach | In the example above |
+| --- | --- | --- |
+| L1 | Rules over single events | Each call alone: low or no severity |
+| L2 | Correlation scenarios: ordered steps by one actor within a time window | Discovery, then AssumeRole, then an admin role created: one scenario |
+| L3 | Statistical baselines per identity and account | An admin role grant and a jump in the identity's session count, against its own recent history |
 
-A baseline is only as good as its history. L3 compares each metric against a recent window of daily values and only judges a metric once enough days of history exist, so a brand-new identity or account is not flagged simply for having no past. The thresholds are set per baseline in the rule files, at two or three standard deviations above the mean, rather than hidden inside a model.
+L3 judges a metric only once enough daily history exists, so a new identity is not flagged just for having no past. Each L3 finding carries the metric, today's value and the baseline it was compared with.
 
-## MITRE ATT&CK mapping in CDR context
+Events are also checked against open threat-intelligence lists (botnet command-and-control addresses, Spamhaus DROP, phishing domains, with Tor exit nodes as context). A hit raises the alert's severity or raises its own alert.
 
-CDR detections are mapped to MITRE ATT&CK techniques. That matters for two reasons.
+All of this lands in one **Threats** area with five views: Overview, Incidents, Detections, Coverage and Threat intelligence. **Coverage** shows, per account, which logs Onam reads and which you still need to switch on. Onam never turns logging on for you.
 
-First, it puts the alert in attack-chain context. A single unusual API call from a new IP is low severity in isolation. The same identity showing Valid Accounts (T1078.004) followed by Cloud Infrastructure Discovery (T1580) tells a story, and the ATT&CK tagging makes that visible in the timeline without manual analysis.
+## What Onam reads, and what it does not do
 
-Second, it connects detections to posture. Every detection is joined to posture and identity context from the Onam graph, so an alert on a role assumption arrives next to what that role can reach. A confirmed exfiltration sequence is also written back to the resource's security posture, where attack-path analysis can see it.
+:::ledger
+yes: What Onam reads
+no: What Onam does not do
++ Cloud audit logs such as CloudTrail, Azure Activity Log and Google Cloud Audit Logs
++ Entra ID sign-in and audit logs, Defender for Cloud alerts, RDS and Azure SQL database audit logs and EKS authenticator logs, where they are exported
++ GuardDuty findings, read from your S3 export
++ Network flow logs on AWS, Azure and Google Cloud
+- Response is guidance only: Onam does not quarantine roles, revoke sessions or block IP addresses
+- Reading GuardDuty findings straight from the GuardDuty API is not generally available; Onam reads the S3 export
+- Flow logs are not read on OCI, Alibaba Cloud or IBM Cloud
+- DNS query logs are not a general CDR source yet
+- Load-balancer, WAF, CloudFront and S3 access logs are read as context; Onam does not alert on web traffic patterns
+:::
 
-## Multi-cloud coverage
-
-An attacker who compromises one cloud's identity may use it to reach another, for example through a secret in one provider's secrets manager that holds another provider's credentials. Onam applies the same three levels and the same four sequence shapes to every supported cloud's audit logs, in that cloud's own service vocabulary, and federation between clouds is modelled in the identity graph that attack paths walk. Each detection still belongs to the cloud whose log produced it; the graph is where the clouds meet.
+If automated containment through EventBridge or Lambda is why you run GuardDuty, keep it: Onam will tell you what to do, not do it for you.
 
 ## What to expect in the first weeks
 
-The first weeks of CDR are about tuning out operational noise.
+- **Week one: noise.** L1 rules start as soon as logs are read. The first findings are usually configuration patterns that look like threats: pipelines creating roles during provisioning, functions calling APIs across Regions.
+- **Tuning.** Suppress legitimate patterns with a reason and an expiry date. Aim for an alert volume one person can review each day.
+- **Once history exists.** L3 baselines start judging. Expect maintenance windows and irregular but legitimate identities first; each needs a decision.
 
-**First scans.** L1 rules start producing findings as soon as logs are read. The most common early findings are configuration patterns that look like threats, rather than active threats: instances making repeated metadata calls, functions calling APIs across regions, CI/CD pipelines creating IAM roles during provisioning.
+:::faq Frequently asked questions
+### Is GuardDuty enough for cloud threat detection?
+It catches known-bad infrastructure and documented attack signatures well. It is weaker against attacks made of legitimate calls in an unusual order. Keep it, export its findings, and add detection that correlates events by actor and time.
 
-**Tuning.** Review the L1 noise and suppress legitimate patterns with a reason and an expiry date. Suppressing a cloud detection rule should not be permanent. Aim for an alert volume a person can review every day.
+### Which logs do I need for cloud threat detection on AWS?
+At least a multi-Region CloudTrail trail, VPC flow logs for the VPCs that matter, EKS audit and authenticator logs for your clusters, and GuardDuty findings exported to S3.
 
-**Once history exists.** L3 baselines begin judging metrics once enough daily history has built up. The first L3 findings typically flag maintenance windows, pipelines that run at unusual hours and identities with legitimate but irregular usage. Each needs a decision: suppress with a reason and expiry, investigate, or escalate.
+### Does Onam block attackers automatically?
+No. Response is guidance only. Onam does not quarantine roles, revoke sessions or block IP addresses.
 
-> CDR needs sustained analyst attention to tune and investigate. In return you cover attacker behaviour that single-event rules cannot see.
-
-To see the three levels against your own audit logs, [book a demo](/request-demo).
+### Does Onam switch on logging for me?
+No. The Coverage view shows which logs Onam reads and which you need to switch on, per account. Onam never turns logging on for you.
+:::
 `,
   },
   {
     slug: "aws-misconfigurations-first-scan",
-    title: "5 AWS misconfigurations that commonly show up on a first scan",
+    title: "Which five AWS misconfigurations should we check first? Commands and fixes",
     category: "CSPM",
-    excerpt:
-      "Five AWS misconfigurations that commonly show up on a first scan: what they are, why they persist, and how to fix them fast.",
+    tags: ["cspm","aws","misconfiguration"],
+    excerpt: "Five read-only AWS CLI checks, each with its fix: public S3 bucket policies, IMDSv1, public RDS snapshots, open admin ports and CloudTrail gaps.",
     author: "anup-yadav",
     date: "July 10, 2026",
-    readTime: "6 min",
+    updated: "November 27, 2026",
+    readTime: "5 min",
     body: `
-## Why the same five keep showing up
+**Which AWS misconfigurations should we check before anything else?** Five, because each one turns a small mistake into a breach: S3 buckets that are public through a policy, EC2 instances that still accept IMDSv1, RDS snapshots shared with every AWS account, security groups open to the internet on admin ports, and CloudTrail that does not cover every Region. Each check below is a read-only AWS CLI command you can run in a few minutes, with its fix.
 
-Cloud teams move fast, and defaults rarely favour the defender. Five misconfigurations come up again and again in AWS security reviews, often in accounts run by teams that consider themselves mature. Each is easy to introduce and easy to miss. Any of them can turn a routine credential leak into a full compromise.
+*Rewritten 27 November 2026. The earlier version listed the same five without commands or fixes. Every command below is from the AWS CLI reference, linked under each check and read on 27 November 2026. We make no claim about how often these appear; we have not published data on that.*
 
-## 1. S3 buckets exposed via bucket policies (not ACLs)
+**Before you start.** The checks need only read permissions such as \`Describe\`, \`Get\` and \`List\` (the AWS managed \`SecurityAudit\` policy covers them). The fixes change things, so run them through your normal change process, and in Terraform if Terraform owns the resource. EC2, RDS and CloudTrail checks are per Region: add \`--region <region>\` and repeat.
 
-Everyone knows to block public ACLs. Fewer teams audit **bucket policies** that grant \`s3:GetObject\` to \`Principal: "*"\`. The AWS console labels these buckets "Public" only when the policy resource is the bucket itself. It does not when the resource is \`arn:aws:s3:::acme-corp-uploads/public/*\`.
+## 1. Is any S3 bucket public through its policy?
 
-- Enable **Block Public Access** at the account level.
-- Alert on any new bucket policy statement whose principal is \`*\` or whose condition allows broad IPs.
-- Treat any \`s3:*\` grant to \`arn:aws:iam::****4821:root\` from another account as a finding until proven intentional.
+Blocking public ACLs is not enough; a bucket policy can still grant \`s3:GetObject\` to everyone. Check the account-level Block Public Access first, then ask S3 whether a bucket's policy makes it public:
 
-## 2. Over-privileged IAM roles attached to EC2
+\`\`\`
+aws s3control get-public-access-block --account-id <account-id>
+aws s3api get-bucket-policy-status --bucket <bucket-name>
+\`\`\`
 
-It is common to find \`AdministratorAccess\` on instance profiles that only need to read from one S3 prefix. Combined with an SSRF bug or an exposed metadata endpoint (IMDSv1), that role becomes an admin foothold.
+All four account-level settings should be \`true\`. For the bucket, \`"IsPublic": true\` is the finding.
 
-- Enforce **IMDSv2** across the fleet.
-- Replace \`*\` policies on instance profiles with least-privilege equivalents generated from IAM Access Analyzer.
-- In Onam, a public-facing workload that can reach such a role shows up as a step on an attack path.
+**Fix**, once you have confirmed no bucket is meant to be public: turn on all four Block Public Access settings for the account (console: S3, Block Public Access settings for this account), or in Terraform for each bucket. Sources: [s3control get-public-access-block](https://docs.aws.amazon.com/cli/latest/reference/s3control/get-public-access-block.html), [get-bucket-policy-status](https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-policy-status.html).
 
-## 3. Public RDS snapshots
+## 2. Can an EC2 instance still use IMDSv1?
 
-RDS snapshot sharing is a per-snapshot ACL. Flipping it to "public" makes the entire database available to any AWS account. Teams do this to move data between environments and forget to revert.
+With IMDSv1, a server-side request forgery (SSRF) bug in an application can fetch the instance role's temporary credentials. IMDSv2 requires a session token first.
 
-## 4. Security groups with 0.0.0.0/0 on non-web ports
+\`\`\`
+aws ec2 describe-instances --filters Name=metadata-options.http-tokens,Values=optional --query "Reservations[].Instances[].InstanceId" --output text
+\`\`\`
 
-SSH (22), RDP (3389), database ports, and \`ANY\`-protocol rules facing the internet remain a classic initial-access route. Many are legacy: a rule opened for a demo years ago on an account no one owns any more.
+Any instance ID printed still accepts IMDSv1.
 
-## 5. CloudTrail gaps
+**Fix**, after checking the instance makes no IMDSv1 calls (AWS's \`MetadataNoToken\` CloudWatch metric tracks them):
 
-CloudTrail is either not enabled in every region, not covering S3 data events, or writing to a bucket in the same account with no MFA delete. Any attacker with account-level access rewinds the tape.
+\`\`\`
+aws ec2 modify-instance-metadata-options --instance-id <instance-id> --http-tokens required --http-endpoint enabled
+\`\`\`
 
-## How to prioritise fixing AWS misconfigurations
+Sources: [describe-instances](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html), [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html).
 
-Prioritisation matters more than volume. Onam raises findings that sit on an attack path from an internet-exposed resource to a high-value target such as a data store or key. So the SSH-open bastion in front of an admin IAM role comes before the internal-only bucket policy.
+## 3. Is any RDS snapshot shared with every AWS account?
 
-If you're onboarding a new AWS organisation, check for all five on the first scan. Finding some of them says more about AWS defaults than about your team.
+Teams share a manual snapshot to move data between environments and forget to undo it. AWS documents that if \`all\` is in the values of a snapshot's \`restore\` attribute, "the manual DB snapshot is public and can be copied or restored by all Amazon Web Services accounts".
+
+\`\`\`
+aws rds describe-db-snapshot-attributes --db-snapshot-identifier <snapshot-id>
+\`\`\`
+
+**Fix:**
+
+\`\`\`
+aws rds modify-db-snapshot-attribute --db-snapshot-identifier <snapshot-id> --attribute-name restore --values-to-remove all
+\`\`\`
+
+Accounts added to the attribute by ID keep their access, so review those too. Sources: [describe-db-snapshot-attributes](https://docs.aws.amazon.com/cli/latest/reference/rds/describe-db-snapshot-attributes.html), [modify-db-snapshot-attribute](https://docs.aws.amazon.com/cli/latest/reference/rds/modify-db-snapshot-attribute.html).
+
+## 4. Is SSH, RDP or a database port open to the whole internet?
+
+This command is adapted from an example in the AWS CLI reference. It lists security groups with a rule on port 22 and a rule open to \`0.0.0.0/0\`. AWS notes that a group matches when any combination of its rules matches the filters, so confirm each result by reading the group's rules:
+
+\`\`\`
+aws ec2 describe-security-groups --filters Name=ip-permission.from-port,Values=22 Name=ip-permission.to-port,Values=22 Name=ip-permission.cidr,Values='0.0.0.0/0' --query "SecurityGroups[*].[GroupId,GroupName]"
+\`\`\`
+
+Repeat with 3389 (RDP), 3306, 5432 and the other database ports you use. Repeat with \`Name=ip-permission.ipv6-cidr,Values='::/0'\` for IPv6. Port 443 on a load balancer may be intended; admin ports rarely are.
+
+**Fix:**
+
+\`\`\`
+aws ec2 revoke-security-group-ingress --group-id <group-id> --protocol tcp --port 22 --cidr 0.0.0.0/0
+\`\`\`
+
+For admin access, AWS Systems Manager Session Manager needs no inbound port at all. Sources: [describe-security-groups](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-security-groups.html), [revoke-security-group-ingress](https://docs.aws.amazon.com/cli/latest/reference/ec2/revoke-security-group-ingress.html).
+
+## 5. Would you have a record if someone did any of the above?
+
+\`\`\`
+aws cloudtrail describe-trails --query "trailList[].[Name,IsMultiRegionTrail,LogFileValidationEnabled,S3BucketName]" --output table
+\`\`\`
+
+You want at least one trail with \`IsMultiRegionTrail\` and \`LogFileValidationEnabled\` both \`True\`, writing to a bucket that passes check 1.
+
+**Fix:** turn an existing trail into a multi-Region trail with log file validation:
+
+\`\`\`
+aws cloudtrail update-trail --name <trail-name> --is-multi-region-trail --enable-log-file-validation
+\`\`\`
+
+Run it from the trail's home Region. S3 object-level (data) events are not logged unless you add them, and they are billed separately, so add them first for the buckets that hold sensitive data. Sources: [describe-trails](https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/describe-trails.html), [update-trail](https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/update-trail.html).
+
+## Which of the five comes first?
+
+The one that connects to others. An instance that accepts IMDSv1, is reachable on port 22 from the internet and has a broad instance role is one path, not three findings. Fix the link that breaks the path cheapest, usually IMDSv2 or the open port. More in [attack paths vs. misconfigurations](/resources/blog/attack-path-4000-to-3).
+
+## Do we need a tool for this at all?
+
+For these five, not necessarily: the commands above work, and AWS Security Hub CSPM checks them as controls. Fixing all five without us is a good outcome. A tool earns its place when you have many accounts and Regions, more than one cloud, or want these findings joined to identity and data so you can see which ones chain.
+
+## Where Onam fits
+
+Onam's posture scanning connects through read-only cloud roles and checks these five, and the rest of its AWS rule definitions, on every scan, across accounts and Regions. A finding that sits on an attack path from an internet-facing resource to a data store or key is ranked above one that does not. The free plan covers this kind of API-based posture scanning.
+
+:::faq Frequently asked questions
+### How do I check if an S3 bucket is public with the AWS CLI?
+Run \`aws s3api get-bucket-policy-status --bucket <name>\`. \`"IsPublic": true\` means the bucket policy makes it public. Also check the account-level setting with \`aws s3control get-public-access-block --account-id <id>\`.
+
+### How do I find EC2 instances that still allow IMDSv1?
+Run \`aws ec2 describe-instances --filters Name=metadata-options.http-tokens,Values=optional\` in each Region. Those instances accept IMDSv1; require IMDSv2 with \`modify-instance-metadata-options --http-tokens required\`.
+
+### How do I tell if an RDS snapshot is public?
+Run \`aws rds describe-db-snapshot-attributes --db-snapshot-identifier <id>\`. If the \`restore\` attribute's values include \`all\`, any AWS account can copy or restore it.
+
+### Are these checks safe to run in production?
+The check commands only read configuration. The fix commands change resources, so run them through your change process.
+:::
 `,
   },
   {
     slug: "ciem-vs-iam-security",
     title: "CIEM vs IAM: what is the difference, and which do I need?",
     category: "Identity",
-    excerpt:
-      "The difference between CIEM and traditional IAM in plain words: IAM grants access, CIEM checks what it adds up to and what is used. Table and FAQ.",
+    tags: ["identity","ciem","aws"],
+    excerpt: "The difference between CIEM and traditional IAM in plain words: IAM grants access, CIEM checks what it adds up to and what is used. Table and FAQ.",
     author: "poonam-yadav",
     date: "July 3, 2026",
+    updated: "November 27, 2026",
     readTime: "6 min",
     body: `
-*Updated 11 November 2026.*
+*Updated 27 November 2026: Onam's identity analysis now runs on more clouds; the Onam section reflects that.*
 
 ## CIEM vs IAM: the short answer
 
@@ -1928,7 +2251,7 @@ CIEM starts where IAM security stops. It reconciles **who has which entitlements
 The output isn't "this user has AdministratorAccess." Every scanner will tell you that. The output looks more like this (illustrative examples):
 
 - \`user@example.com\` has effective \`s3:PutObject\` on 412 buckets across 3 accounts, but has only ever written to 4 of them.
-- \`OnamReadOnly\` in account \`****4821\` is assumable by 17 principals in 6 other accounts through a chain of two roles.
+- \`ReadOnlyAudit\` in account \`123456789012\` (AWS's documentation placeholder) is assumable by 17 principals in 6 other accounts through a chain of two roles.
 - The CI service account \`build-runner\` has never called most of the actions it was granted when it was created.
 
 The third bullet is the urgent one. **Unused entitlements are usually where over-privilege hides.**
@@ -1952,12 +2275,16 @@ IAM security keeps the door from being obviously open. CIEM makes sure that if i
 
 ## How Onam handles it, and what it does not do
 
-[Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. On AWS, CloudTrail activity over the last 30 days is joined against granted permissions, which produces the used and unused actions per identity. Unused-permission analysis, shadow-admin detection, the risk score and automatic access reviews run on AWS identities today. A suggested right-sized policy is in development, so today the replacement policy is built from the used actions.
+[Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. Where it applies:
 
-Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools. If you want to see what your own accounts look like, request a [free audit scan](/audit-scan).
+- **Shadow-admin detection** runs on AWS, Azure, Google Cloud and Kubernetes.
+- **Unused-access analysis** (granted compared with used, over a 30-day window) runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access only.
+- **Escalation paths** are followed on AWS (assume-role chains, up to 12 hops) and Google Cloud (service-account impersonation chains, up to 4 hops).
+- **Access reviews** run on AWS with a usage-based risk score, and on Azure and Google Cloud from high or critical escalation findings, using granted access.
 
-## Frequently asked questions
+Onam is not an identity provider and does not run joiner, mover and leaver workflows or access requests. Those stay with your IAM and identity tools.
 
+:::faq Frequently asked questions
 ### What is the difference between CIEM and IAM?
 
 IAM is the cloud provider's own identity service: it is where roles, policies and permissions are defined and granted. CIEM sits on top of it and answers a question IAM does not: what can each identity do once role chaining, permission boundaries, SCPs and resource policies are all resolved, and how much of that has it ever used.
@@ -1977,77 +2304,24 @@ No. Every cloud account still runs on its provider's IAM. CIEM audits what IAM h
 ### Is CIEM part of CSPM or CNAPP?
 
 Often, yes. Many platforms include CIEM alongside posture management as part of a CNAPP. Basic identity posture checks, such as missing MFA, usually sit in CSPM; effective-permission and usage analysis is CIEM. More on [what CSPM is](/learn/cspm) and [what a CNAPP is](/learn/cnapp).
-`,
-  },
-  {
-    slug: "ai-powered-cloud-remediation",
-    title: "AI-powered cloud remediation: from finding to a reviewed fix",
-    category: "Engineering",
-    excerpt:
-      "AI-powered cloud remediation: fix prompts that name the resource, AI code fixes on a review branch, and attack-path stories that explain why a fix matters.",
-    author: "anup-yadav",
-    date: "June 30, 2026",
-    readTime: "6 min",
-    body: `
-Security tools got better at finding things. The bottleneck was always fixing. A security team that surfaces hundreds of findings a week and has engineering time to fix a few dozen will always have a growing backlog, however well tuned the detection is.
-
-AI-assisted remediation goes at that bottleneck. It does not reduce the number of findings, which are real and need fixing. It shortens the work between "identified" and "resolved" for each one.
-
-## Why generic LLM suggestions fail
-
-The obvious approach is to pipe findings into a general-purpose LLM and ask it to produce a fix. This works poorly in practice, for a specific reason: cloud security remediation is context-dependent in ways a general LLM cannot know without being told.
-
-Consider a finding: "Lambda function \`payment-processor-prod\` has a role with \`s3:GetObject\` on \`*\`." A generic LLM will suggest: "Restrict the IAM role to only the specific S3 bucket the function needs to access." Technically correct. But which bucket? What is the ARN? Are there multiple buckets? Is the function deployed by Terraform, CloudFormation, or CDK? Is the role shared with other functions?
-
-A useful fix starts from context the platform already holds: the resource, its account and region, the rule that failed and the rule's remediation guidance. In Onam, every finding carries an AI fix prompt built from that context. It names the resource and your cloud's tooling. You paste it into an assistant to draft the CLI command, Terraform change or console steps, then review the draft before applying it.
-
-![AI-assisted remediation in the Onam platform](/diagrams/p-ai-security.svg)
-
-## AI Code Fix: corrected source files on a fix branch
-
-AI Code Fix works on the findings from a completed SAST scan of a repository, meaning source files flagged by static analysis. It does not write tests, generate infrastructure-as-code patches or fix DAST results, because those have no source file to rewrite.
-
-| Step | What happens |
-| --- | --- |
-| Select | You choose the scan and which severities to fix. Findings your team marked as false positives are left out. |
-| Group | Findings are grouped by file, so every issue in one file is fixed in a single pass. |
-| Ground | A large language model receives the whole file, every finding in it, and the rule's guidance: the recommendation, plus a safe example in the same language where one exists. |
-| Constrain | The model is told to fix only the listed issues and keep indentation, names and style unchanged. |
-| Hand over | Corrected files are committed to a new fix branch and pushed for review. Nothing merges and nothing deploys on its own. |
-
-For a hardcoded database password, the fix branch carries the same file with the literal replaced by an environment-variable lookup, and nothing else in the file changed. A developer reviews the diff, runs the tests and opens the pull request through the team's normal process.
-
-## Attack-path stories: why the fix matters
-
-The third piece addresses a different bottleneck: communication.
-
-Attack path analysis produces a graph of nodes and edges, resource IDs and MITRE technique codes. That is precise for a security engineer and hard going for a CISO preparing a board update or a GRC team answering an auditor.
-
-In Onam, each attack path opens as a step-by-step story: where the path starts, each hop with its MITRE ATT&CK tactic and technique, the data store or key it ends at, and a remediation step for each hop. The choke point, meaning the resource that appears in the most paths, is marked with the number of paths that fixing it would block. The story and the graph are drawn from the same path data, so they stay in sync.
-
-## Data handling
-
-AI Code Fix sends the full content of each affected file to the language model that writes the fix. Only files with findings are sent. The Git token it uses needs read access and permission to push a branch, and it is not stored. Every run is audit-logged: who asked, for which scan and which repository. The AI fix prompt on a posture finding is text you copy into the assistant of your choice, so you decide where it goes.
-
-## Making AI remediation part of the workflow
-
-The most common mistake in AI remediation rollout is treating it as a replacement for security engineering judgment. It is not. Every generated fix requires review before deployment. The model sees the file, the finding and the rule's guidance. It does not understand your team's operational constraints, your change management process, or the business reasons a particular configuration might be intentional.
-
-> The right workflow is: AI drafts, an engineer reviews, an engineer approves, your pipeline deploys. The AI shortens the drafting. It should not replace the judgement.
-
-What remains is review, approval and change management. Those timelines are set by your process rather than by how long it takes someone to write the change.
+:::
 `,
   },
   {
     slug: "attack-path-4000-to-3",
-    title: "Attack paths vs. misconfigurations: why chained findings are your real cloud risk",
+    title: "Which of our findings could actually get us breached? Attack paths vs. misconfigurations",
     category: "Attack Path",
-    excerpt:
-      "CSPM tools surface hundreds of misconfigurations. The ones behind breaches chain together; attack path analysis shows which chains are dangerous.",
+    tags: ["attack-path","risk","aws","identity"],
+    excerpt: "CSPM tools surface hundreds of misconfigurations. The ones behind breaches chain together; attack path analysis shows which chains are dangerous.",
     author: "anup-yadav",
     date: "June 24, 2026",
+    updated: "November 27, 2026",
     readTime: "11 min",
     body: `
+**Which of our hundreds of findings could actually get us breached?** The ones that chain. An attacker rarely needs one Critical finding; they need three or four ordinary ones in a row that lead from the internet to your data. Map the chains, then fix the one link that breaks the most of them. Below: a five-step AWS path, the read-only check that finds its weakest link, and how to pick the break point.
+
+*Updated 27 November 2026: corrected the worked example (it now starts on an EC2 instance, which is what has an instance metadata service), added a copy-paste check, and brought the Onam section in line with current product facts.*
+
 A busy cloud estate carries hundreds of open posture findings at any given time. Security teams triage by severity, work through the Critical queue, and ship patches. Three months later, the finding count is roughly the same. The board asks why the environment is still at risk.
 
 Severity scores do not tell you which findings lead to breaches. They tell you how bad one misconfiguration is on its own. Attackers rarely exploit misconfigurations one at a time. They chain them.
@@ -2060,13 +2334,22 @@ An attack path is a sequence of exploitation steps that an attacker could take t
 
 A typical AWS attack path might look like this:
 
-1. A Lambda function is exposed to the internet via an API Gateway without authentication. An attacker sends a crafted request that triggers an SSRF vulnerability in the application code.
-2. The SSRF reaches the EC2 Instance Metadata Service (IMDSv1) and retrieves temporary credentials for the Lambda execution role.
-3. The Lambda execution role has \`iam:PassRole\` permission on a deployment role used by the CI/CD pipeline.
+1. A web application on an internet-facing EC2 instance has an SSRF vulnerability. An attacker sends a crafted request that makes the server fetch a URL of the attacker's choosing.
+2. The SSRF reaches the EC2 Instance Metadata Service, which still accepts IMDSv1 requests, and retrieves temporary credentials for the instance role.
+3. The instance role has \`iam:PassRole\` permission on a deployment role used by the CI/CD pipeline, plus permission to create Lambda functions.
 4. Using \`iam:PassRole\`, the attacker creates a new Lambda function and assigns the deployment role, giving them pipeline-level permissions.
 5. The deployment role has \`s3:GetObject\` on the S3 bucket where customer PII exports are staged for the data warehouse ETL pipeline.
 
-At step one, the attacker is an anonymous internet user. At step five, they are reading customer PII. None of the individual misconfigurations (IMDSv1 enabled, an overly permissive execution role, an unscoped PassRole) is rated Critical on its own. Together, they form a breach.
+At step one, the attacker is an anonymous internet user. At step five, they are reading customer PII. None of the individual misconfigurations (IMDSv1 allowed, an overly permissive instance role, an unscoped PassRole) is rated Critical on its own. Together, they form a breach.
+
+**Find the cheapest link yourself.** Step 2 is usually the one-line fix. List the instances that still accept IMDSv1, then require IMDSv2 on one after checking it makes no IMDSv1 calls (AWS's \`MetadataNoToken\` CloudWatch metric tracks them):
+
+\`\`\`
+aws ec2 describe-instances --filters Name=metadata-options.http-tokens,Values=optional --query "Reservations[].Instances[].InstanceId" --output text
+aws ec2 modify-instance-metadata-options --instance-id <instance-id> --http-tokens required --http-endpoint enabled
+\`\`\`
+
+The first command is read-only; the second changes the instance. Sources: [describe-instances](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html) (the \`metadata-options.http-tokens\` filter) and [Modify instance metadata options for existing instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/configuring-IMDS-existing-instances.html), both accessed 27 November 2026.
 
 ![The attack path view in the Onam console (demo account)](/screenshots/screenshot-attack-path.png)
 
@@ -2082,32 +2365,21 @@ Add one more element: suppose the instance profile grants \`ec2:DescribeInstance
 
 Not all attack paths matter equally. A path that reaches a development environment with synthetic test data is not the same as a path that reaches your production payment processor or customer data lake. Crown jewel path analysis focuses on the resources you care most about and on every path that leads to them.
 
-In Onam, these are the resources a path can end at: data stores such as S3, RDS and DynamoDB, encryption keys, admin roles and similar high-value targets. Data classification labels from data security posture (taken from names, tags and schema) raise the impact of paths that reach sensitive stores.
+In Onam, these are the resources a path can end at: data stores such as S3, RDS and DynamoDB, encryption keys, admin roles and similar high-value targets. Data classification labels from data security posture raise the impact of paths that reach sensitive stores. Those labels come from names, tags and schema by default, and from sampled contents where you have deployed Onam's DSPM scanner.
 
 The result is a list of paths ranked by likelihood and impact, so the path to the customer data lake outranks the path to a test bucket.
 
 ## How Onam implements attack path analysis
 
-Onam's attack path engine is built on a property graph. Every cloud resource is a node: EC2 instances, IAM roles, S3 buckets, Lambda functions, security groups, VPCs, subnets and load balancers. Relationships between resources are represented as typed edges.
+Onam's attack path engine is built on one security graph. Every cloud resource is a node: instances, roles, buckets, functions, security groups, networks and load balancers. Relationships between resources are typed edges derived from posture, identity, network, data and threat-detection evidence: an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, a key that encrypts a store. Because the graph spans clouds, a path can start in one cloud and end in another. Each finding on a path carries a FAIR-style loss estimate, used for ranking: it is an estimate per finding, not a price for the whole route.
 
-Edges are derived from posture, identity, network, data and threat-detection evidence. Examples include an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, or a key that encrypts a store. Each edge is marked confirmed, blocked or a gap, and only confirmed edges are walked.
-
-Attack path discovery runs a breadth-first search across this graph, starting from entry points (the internet, admin identities, other identities, CI/CD, third parties and other clouds) and walking to every reachable high-value target. Each path is scored on:
-
-- Likelihood, which starts from the entry point and decays with every hop, so shorter paths score higher.
-- Exploitability. A node with a high-EPSS vulnerability raises the path's likelihood.
-- Impact of the target, raised by its data classification.
-- Confirmed controls. A WAF in front of the target or MFA on the entry point lowers the score.
+What it does not cover yet: AI services do not appear on attack paths.
 
 ![A privilege escalation chain modelled as a graph of identities and permissions](/diagrams/feat-ciem-privesc-chain.svg)
 
-## MITRE ATT&CK tagging on every path step
+## Naming each step with MITRE ATT&CK
 
-Each step in an attack path is tagged with the MITRE ATT&CK technique it represents. This does two things. It grounds the abstract graph traversal in threat intelligence that security teams and CISOs recognise, and it gives security teams and auditors a shared, published vocabulary for what each step of a path does.
-
-A path step that exploits IMDSv1 to steal credentials is tagged T1552.005 (Unsecured Credentials: Cloud Instance Metadata API). A step that uses \`iam:PassRole\` for privilege escalation is tagged T1548.005. A step that exfiltrates data from S3 is tagged T1530.
-
-This tagging means that when you present an attack path finding to an engineering team, you can say: "This is a five-step privilege escalation path from an internet-exposed Lambda to your production database, using T1078 to T1548 to T1530. Here are the three changes that break the path at step two."
+Naming each step with its MITRE ATT&CK technique gives engineers and auditors a shared, published vocabulary. In the path above, stealing credentials from the metadata service is T1552.005 (Unsecured Credentials: Cloud Instance Metadata API), using \`iam:PassRole\` to gain the deployment role's rights is commonly mapped to T1548.005 (Temporary Elevated Cloud Access), and reading the bucket is T1530 (Data from Cloud Storage). So you can tell an engineering team: "This is a five-step path from an internet-facing instance to customer data. Here is the one change that breaks it at step two."
 
 ## What to fix first on an attack path: break the chain or harden the target
 
@@ -2121,7 +2393,7 @@ Finding the optimal break point means identifying the link that:
 - Blocks the most paths at once. A single overly permissive role may appear in a dozen paths.
 - Has no compensating control already in place.
 
-> Onam's path analysis marks the choke point (the resource that appears in the most paths) and shows how many paths fixing it would block.
+> The best break point is usually the resource that appears in the most paths: one fix, many paths closed.
 
 ## Making the case to engineering
 
@@ -2130,23 +2402,39 @@ The practical challenge in attack path remediation is organisational more than t
 That is what attack path visualisations are for. Show an engineer an interactive graph where each node is a resource they recognise and each edge is a permission they can check in the AWS console, and the priority is obvious. You are showing them the exact sequence an attacker would follow instead of asking them to trust a risk score.
 
 So attack path analysis works as a communication tool as much as a CSPM feature. It turns cloud misconfiguration into plain statements: here is how you get breached, and here is what to change.
+
+:::faq Frequently asked questions
+### What is an attack path in cloud security?
+A sequence of steps an attacker could take from a foothold, such as an internet-facing service, to a valuable target such as a data store, where each step uses one misconfiguration, vulnerability or permission.
+
+### What is a toxic combination?
+Findings that are moderate on their own but serious together, for example an internet-facing instance, a remote code execution CVE on it, and an instance role that can run commands across the account.
+
+### Should we fix the target or break the chain?
+Break the chain, at the link that is cheapest to change and blocks the most paths. Hardening the target is still worth doing, but it leaves the path in place.
+:::
 `,
   },
   {
     slug: "fair-model-cloud-risk",
-    title: "The FAIR model for cloud security: putting a dollar value on your attack surface",
+    title: "The FAIR model for cloud findings: ranking risk in money, per finding",
     category: "Risk",
-    excerpt:
-      "FAIR model for cloud risk: CVSS ranks severity, FAIR asks what a breach of this attack surface would cost. How Onam applies a FAIR-style estimate.",
+    tags: ["risk","fair","attack-path","prioritisation"],
+    excerpt: "Two findings, both CVSS 9.1: which first? How FAIR ranks cloud findings by estimated loss, and why Onam's figures are per-finding estimates for ranking, not predictions.",
     author: "anup-yadav",
     date: "June 17, 2026",
+    updated: "November 27, 2026",
     readTime: "9 min",
     body: `
+**Two findings are both CVSS 9.1. Which one do we fix first?** The one that could lose the business more money: CVSS scores the vulnerability, not your environment. FAIR adds how often a loss is likely and how big it would be, so the same CVE on a test server and on a payment API stop looking equal. Below: the model, a worked pair, and how Onam computes a per-finding estimate.
+
+*Updated 27 November 2026: retitled from "putting a dollar value on your attack surface". Onam's figures are loss estimates per finding, for ranking: not a price for a whole route and not a prediction.*
+
 Every cloud security tool produces a list of findings ranked by CVSS score. Critical findings go to the top of the queue; engineers fix them in order. The approach feels right. Surely the highest-severity vulnerability is the most urgent.
 
 The problem is that CVSS measures the exploitability and impact of a vulnerability in isolation. It does not know whether your environment has compensating controls. It does not know whether the vulnerable resource is a developer's test server or your payment processing API. It does not know whether you process ten thousand transactions per day or ten million. Two organisations with identical CVSS scores can face risks that differ by three orders of magnitude.
 
-FAIR (Factor Analysis of Information Risk) fills this gap. The Open Group publishes it as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards. FAIR does not replace CVSS. It uses CVSS as one input in a model that produces the figure your board cares about: the dollar value of your attack surface.
+FAIR (Factor Analysis of Information Risk) fills this gap. The Open Group publishes it as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards. FAIR does not replace CVSS. It uses severity as one input in a model that expresses risk as a range of loss in money, which is the unit your board already uses for every other decision.
 
 ## CVSS example: a developer server and a payment processor
 
@@ -2155,7 +2443,16 @@ Consider two findings, both rated CVSS 9.1 (Critical):
 - An unauthenticated RCE vulnerability in a web framework running on a developer's personal EC2 instance used for feature testing. The instance has no production data and can only be reached from the corporate VPN.
 - The same vulnerability in the same web framework running on the API servers that process payment authorisations for your e-commerce platform, directly accessible from the internet.
 
-CVSS says these are equivalent. Any security engineer knows they are not. FAIR makes that difference numerically explicit.
+CVSS says these are equivalent. Any security engineer knows they are not. FAIR makes that difference numerically explicit. An illustrative pair (made-up inputs, for the arithmetic only):
+
+| | Developer test server | Payment API |
+| --- | --- | --- |
+| CVSS | 9.1 | 9.1 |
+| Reachable from the internet | No (VPN only) | Yes |
+| Records at risk | 0 | 2 million card authorisations |
+| Regulations in play | None | PCI DSS |
+| Loss range, illustrative | Low thousands | Millions |
+| Fix first? | Later | **Now** |
 
 ## FAIR fundamentals: frequency times magnitude
 
@@ -2189,7 +2486,7 @@ Secondary losses from regulation are often larger than the incident itself. When
 
 ## From a finding list to a ranked queue
 
-Each finding gets a minimum, likely and maximum loss estimate, a risk tier, the regulations that apply and the MITRE ATT&CK techniques involved, with the calculation inputs shown alongside. Instead of forty Critical findings and eighty High findings sorted by CVSS, you get a list ordered by estimated loss.
+Each finding gets a minimum, likely and maximum loss estimate (an estimate for ranking, not a price for a whole attack route and not a prediction), a risk tier, the regulations that apply and the MITRE ATT&CK techniques involved, with the calculation inputs shown alongside. Instead of forty Critical findings and eighty High findings sorted by CVSS, you get a list ordered by estimated loss.
 
 > This reordering often surprises security teams. The highest-loss finding is not always the highest-CVSS finding. It can be a Medium-severity misconfiguration, such as an RDS instance missing encryption at rest or a bucket open to another account, on a resource that holds sensitive data and never reached the top of a severity-sorted queue.
 
@@ -2200,74 +2497,142 @@ Security teams have historically struggled to translate findings into language t
 FAIR makes this conversation tractable. "This finding puts an estimated range of loss on a customer data store, most of it regulatory. The fix is a small IAM policy change." That is a conversation an engineering manager can act on.
 
 FAIR does not aim at a precise dollar figure, and the uncertainty ranges in the model make that plain. The aim is a defensible estimate grounded in data. With it, prioritisation stops being an argument about severity scores and becomes a business decision with the stakes written down.
+
+:::faq Frequently asked questions
+### What is the FAIR model?
+Factor Analysis of Information Risk: a model that expresses risk as loss event frequency times loss magnitude, each as a range. The Open Group publishes it as the O-RT (Risk Taxonomy) and O-RA (Risk Analysis) standards. It complements the largely qualitative ISO/IEC 27005.
+
+### Does FAIR replace CVSS?
+No. CVSS describes a vulnerability in isolation. FAIR uses severity and exploit likelihood as inputs, then adds exposure, data and business impact to rank findings in money.
+
+### Are Onam's loss figures predictions?
+No. They are loss estimates per finding, used to rank the queue. They are not a price for a whole attack route and not a forecast of what an incident would cost.
+:::
 `,
   },
   {
     slug: "kubernetes-rbac-pitfalls",
-    title: "Kubernetes RBAC pitfalls that grant cluster-admin by accident",
+    title: "How does a ServiceAccount end up as cluster-admin? Kubernetes RBAC pitfalls with kubectl checks",
     category: "Containers",
-    excerpt:
-      "Kubernetes RBAC pitfalls: a ClusterRoleBinding here, an aggregated role there, and a role that can only create pods can mount the host filesystem. Six patterns to audit.",
+    tags: ["kubernetes","containers","identity","ciem","attack-path"],
+    excerpt: "Six Kubernetes RBAC patterns that grant cluster-admin by accident, each with a read-only kubectl and jq command to find it in your own cluster.",
     author: "poonam-yadav",
     date: "June 10, 2026",
-    readTime: "6 min",
+    updated: "November 27, 2026",
+    readTime: "4 min",
     body: `
-Kubernetes RBAC looks simple: roles list verbs on resources, bindings attach roles to subjects. The trouble is that several ordinary-looking grants are equivalent to cluster-admin once you follow what they allow. None of the six patterns below is exotic, and each one is easy to miss in a review that reads roles one at a time.
+**How does a default ServiceAccount end up as cluster-admin?** Usually through an ordinary-looking grant: a ClusterRoleBinding where a RoleBinding was meant, a binding to a \`system:\` group, a wildcard, the right to create pods, or a verb such as \`bind\` that grants more verbs. Each of the six patterns below comes with a read-only \`kubectl\` check you can run today.
+
+*Updated 27 November 2026: added copy-paste audit commands for each pattern and current Onam coverage.*
+
+Kubernetes RBAC looks simple: roles list verbs on resources, bindings attach roles to subjects. The trouble is that several grants are equivalent to cluster-admin once you follow what they allow, and each is easy to miss in a review that reads roles one at a time. The commands below need \`kubectl\` with read access to RBAC objects and [jq](https://jqlang.org/manual/). RBAC object fields are from the Kubernetes [RBAC documentation](https://kubernetes.io/docs/reference/access-authn-authz/rbac/) (accessed 27 November 2026).
 
 ## 1. A ClusterRoleBinding where a RoleBinding was meant
 
 A ClusterRole can be bound in two ways. A RoleBinding grants its rules inside one namespace; a ClusterRoleBinding grants them in every namespace and on cluster-scoped resources. Teams often reuse a ClusterRole such as \`edit\` and bind it with a ClusterRoleBinding by habit, turning "can edit the payments namespace" into "can edit every namespace".
 
-**Audit:** list every ClusterRoleBinding and ask, for each, whether the subject genuinely needs cluster-wide scope.
+**Audit:** list every ClusterRoleBinding and ask, for each, whether the subject genuinely needs cluster-wide scope. Start with the ones that hand out \`cluster-admin\`:
+
+\`\`\`
+kubectl get clusterrolebindings -o json | jq -r '.items[] | select(.roleRef.name=="cluster-admin") | .metadata.name + " -> " + ([.subjects[]? | .kind + ":" + .name] | join(", "))'
+\`\`\`
 
 ## 2. Bindings to broad groups
 
 Subjects such as \`system:authenticated\` (every authenticated identity) or \`system:serviceaccounts\` (every service account) appear in bindings created for convenience during setup. Anything granted to them is granted to every workload and user in the cluster.
 
-**Audit:** search bindings for group subjects that start with \`system:\` and justify each one.
+**Audit:** search bindings for group subjects that start with \`system:\` and justify each one. Built-in bindings (for example \`system:basic-user\` and \`system:discovery\`) will appear; anything else needs a reason:
+
+\`\`\`
+kubectl get rolebindings,clusterrolebindings -A -o json | jq -r '.items[] | select(any(.subjects[]?; .kind=="Group" and (.name | startswith("system:")))) | (.metadata.namespace // "cluster") + "/" + .metadata.name'
+\`\`\`
 
 ## 3. Wildcards
 
 \`verbs: ["*"]\` or \`resources: ["*"]\` in a custom role grants everything that exists today and everything a future CRD adds tomorrow. A wildcard on resources in the core API group includes secrets.
 
-**Audit:** treat any wildcard outside the built-in \`cluster-admin\` role as a finding until proven necessary.
+**Audit:** treat any wildcard outside the built-in \`cluster-admin\` role as a finding until proven necessary:
+
+\`\`\`
+kubectl get clusterroles,roles -A -o json | jq -r '.items[] | select(any(.rules[]?; ((.verbs // []) | index("*")) or ((.resources // []) | index("*")))) | (.metadata.namespace // "cluster") + "/" + .metadata.name'
+\`\`\`
 
 ## 4. Pod creation rights that reach the node
 
 A subject that can create pods in a namespace can run a pod that mounts the node's filesystem through a \`hostPath\` volume, runs privileged, or uses any service account in that namespace, and so inherits that service account's permissions. Unless Pod Security admission (or an equivalent policy) blocks privileged and host-path pods in that namespace, "create pods" is a path to the node and from there, often, to the cluster.
 
-**Audit:** list who can create pods, deployments, jobs and other workload controllers, and confirm the namespace enforces the restricted or baseline Pod Security standard.
+**Audit:** list who can create pods, deployments, jobs and other workload controllers, and confirm the namespace enforces the restricted or baseline Pod Security standard. Check one identity, then every namespace's enforcement label:
+
+\`\`\`
+kubectl auth can-i create pods -n payments --as=system:serviceaccount:payments:default
+kubectl get namespaces -L pod-security.kubernetes.io/enforce
+\`\`\`
+
+An empty value in the \`ENFORCE\` column means no Pod Security level is enforced on that namespace. See [kubectl auth can-i](https://kubernetes.io/docs/reference/kubectl/generated/kubectl_auth/kubectl_auth_can-i/) and [Pod Security admission](https://kubernetes.io/docs/concepts/security/pod-security-admission/) (accessed 27 November 2026).
 
 ## 5. Verbs that grant more verbs
 
 Some permissions exist to manage permissions. \`escalate\` lets a subject create roles with rules it does not hold; \`bind\` lets it bind roles it does not hold; \`impersonate\` lets it act as another user, group or service account. \`create\` on \`serviceaccounts/token\` mints tokens for other identities, and read access to \`secrets\` exposes whatever credentials the namespace stores.
 
-**Audit:** search every role for \`escalate\`, \`bind\`, \`impersonate\`, \`serviceaccounts/token\` and \`secrets\`, and treat each as admin-adjacent.
+**Audit:** search every role for \`escalate\`, \`bind\`, \`impersonate\`, \`serviceaccounts/token\` and \`secrets\`, and treat each as admin-adjacent. The first three verbs:
+
+\`\`\`
+kubectl get clusterroles,roles -A -o json | jq -r '.items[] | select(any(.rules[]?; (.verbs // []) | any(. == "escalate" or . == "bind" or . == "impersonate"))) | (.metadata.namespace // "cluster") + "/" + .metadata.name'
+\`\`\`
 
 ## 6. Aggregated roles that grow on their own
 
 ClusterRoles with an \`aggregationRule\` collect the rules of every ClusterRole carrying a matching label. The built-in \`admin\`, \`edit\` and \`view\` roles work this way, so installing an operator whose ClusterRoles carry those labels quietly widens what everyone bound to \`edit\` can do.
 
-**Audit:** after installing an operator or CRD, diff the effective rules of \`admin\`, \`edit\` and \`view\` against what they held before.
+**Audit:** after installing an operator or CRD, diff the effective rules of \`admin\`, \`edit\` and \`view\` against what they held before:
+
+\`\`\`
+kubectl get clusterrole edit -o jsonpath='{.rules}' > edit-before.json
+# install the operator, then:
+kubectl get clusterrole edit -o jsonpath='{.rules}' > edit-after.json
+diff edit-before.json edit-after.json
+\`\`\`
 
 ## A habit that catches most of this
 
-Review RBAC as effective access per subject rather than as a list of roles. For each service account and group, ask what it can do across the whole cluster once every binding is counted. The six patterns above are the usual reasons the answer is "more than anyone intended".
+Review RBAC as effective access per subject rather than as a list of roles. For each service account and group, ask what it can do across the whole cluster once every binding is counted:
 
-[Onam's container security](/platform/container-security) checks Kubernetes clusters against posture rules, including RBAC and Pod Security settings, alongside the cloud accounts the clusters run in.
+\`\`\`
+kubectl auth can-i --list --as=system:serviceaccount:<namespace>:<serviceaccount>
+\`\`\`
+
+The six patterns above are the usual reasons the answer is "more than anyone intended".
+
+## Where Onam fits
+
+[Onam's container security](/platform/container-security) checks Kubernetes clusters against posture rules, including RBAC and Pod Security settings, alongside the cloud accounts the clusters run in. It has 1,023 Kubernetes rule definitions, and not every definition is a working check yet. Its shadow-admin detection covers the Kubernetes patterns above that grant more than they look: \`bind\` and \`escalate\`, \`impersonate\`, and pod creation with a privileged service account. Kubernetes posture needs Onam's read access inside the cluster, so it is on the paid plans rather than the free plan.
+
+:::faq Frequently asked questions
+### How do I find who has cluster-admin in Kubernetes?
+List the ClusterRoleBindings whose \`roleRef\` is \`cluster-admin\` and print their subjects with \`kubectl get clusterrolebindings -o json\` and a jq filter, then check groups starting with \`system:\` separately.
+
+### What can a ServiceAccount do in my cluster?
+Run \`kubectl auth can-i --list --as=system:serviceaccount:<namespace>:<name>\`. It lists the actions that identity is allowed, after every binding is counted.
+
+### Why is pod creation dangerous in Kubernetes RBAC?
+A subject that can create pods can run one that mounts the node's filesystem, runs privileged or uses any service account in the namespace, unless Pod Security admission blocks it.
+:::
 `,
   },
   {
     slug: "epss-over-cvss",
-    title: "EPSS over CVSS: prioritising the CVEs attackers actually exploit",
+    title: "EPSS over CVSS: which CVEs do we patch first?",
     category: "Vulnerability",
-    excerpt:
-      "CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.",
+    tags: ["vulnerability","prioritisation","risk"],
+    excerpt: "CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.",
     author: "anup-yadav",
     date: "June 3, 2026",
-    readTime: "5 min",
+    updated: "November 27, 2026",
+    readTime: "4 min",
     body: `
-Every vulnerability scanner sorts by CVSS, and every team that has worked a CVSS-sorted queue knows the problem: there are far more "critical" and "high" CVEs than anyone can patch, and the score does not say which of them attackers are using.
+**We have more critical CVEs than we can patch. Which ones first?** Anything on CISA's Known Exploited Vulnerabilities (KEV) list, then high EPSS, then the rest by CVSS, with internet exposure breaking ties. CVSS says how bad a flaw could be; EPSS forecasts whether attackers will use it; KEV records that they already have. You can pull both signals yourself with two commands, below.
+
+*Updated 27 November 2026: added the commands to fetch EPSS and KEV data, and removed one Onam scoring claim we could not source.*
 
 ## What CVSS measures, and what it does not
 
@@ -2288,28 +2653,58 @@ The CISA Known Exploited Vulnerabilities catalogue lists CVEs with evidence of e
 - **High CVSS, low EPSS, not on KEV:** schedule it, but it should not displace the two groups above.
 - **Context last, but always:** a CVE on an internet-facing workload with a path to sensitive data matters more than the same CVE on an isolated test box. Exploitability and exposure together decide the order.
 
+## Check it yourself
+
+FIRST publishes EPSS scores through a free API. For Log4Shell (CVE-2021-44228) it returned an EPSS of 0.99999, at the 100th percentile, for 26 November 2026:
+
+\`\`\`
+curl -s "https://api.first.org/data/v1/epss?cve=CVE-2021-44228"
+\`\`\`
+
+CISA publishes the KEV catalogue as a JSON feed. This prints the KEV entry for a CVE, or nothing if it is not listed. Log4Shell's entry shows it was added on 10 December 2021:
+
+\`\`\`
+curl -s https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json | jq '.vulnerabilities[] | select(.cveID=="CVE-2021-44228")'
+\`\`\`
+
+Run the EPSS call for every critical in your queue (it accepts a comma-separated list of CVEs) and sort by the score. Sources: the FIRST EPSS API at api.first.org/data/v1/epss and the [CISA KEV catalogue](https://www.cisa.gov/known-exploited-vulnerabilities-catalog), both accessed 27 November 2026.
+
 ## The caveat
 
 EPSS is a probability across the whole internet, not a statement about your environment. A low score does not make a vulnerability safe to ignore when it sits on your most exposed system, and a high score on an unreachable internal host is less urgent than it looks. Use it to order work, not to close tickets.
 
 ## How Onam uses it
 
-Onam carries EPSS and KEV on vulnerability findings alongside CVSS. Dependency findings from Code Security get a 0–10 risk score that weighs EPSS and KEV, attack paths through a node with a high-EPSS vulnerability score as more likely, and the FAIR-style loss estimate on each finding uses EPSS as its starting point for how often a loss event is expected. See [vulnerability management](/platform/vulnerability) for the details.
+The FAIR-style loss estimate Onam puts on each finding uses EPSS as its starting point for how often a loss event is expected, then adds exposure and the data at risk. The estimate is for ranking the queue, not a prediction. See [the FAIR model for cloud findings](/resources/blog/fair-model-cloud-risk) and [vulnerability management](/platform/vulnerability). Vulnerability scanning needs Onam's in-account scanner, so it is on the paid plans rather than the free plan.
+
+:::faq Frequently asked questions
+### What is the difference between EPSS and CVSS?
+CVSS, maintained by FIRST, scores how severe a vulnerability is. EPSS, also from FIRST, estimates the probability it will be exploited in the next 30 days. Severity and likelihood are different questions.
+
+### Should KEV vulnerabilities be patched first?
+Yes. A CVE in CISA's Known Exploited Vulnerabilities catalogue has evidence of exploitation in the wild, so it outranks any forecast.
+
+### Is a low EPSS score safe to ignore?
+No. EPSS is a probability across the whole internet. A low-EPSS CVE on your most exposed system can still come first.
+:::
 `,
   },
   {
     slug: "why-cloud-iam-permissions-are-never-used",
     title: "Why cloud IAM permissions go unused — and why that matters",
     category: "Identity",
-    excerpt:
-      "Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.",
+    tags: ["identity","ciem","aws"],
+    excerpt: "Your IAM policies are accumulating unused permissions faster than your team can audit them. Here's what the data shows and how to close the gap.",
     author: "poonam-yadav",
     date: "May 28, 2026",
+    updated: "November 27, 2026",
     readTime: "8 min",
     body: `
-Every cloud security team has the same conversation at some point: "We have too many IAM policies to audit manually." What they rarely say out loud is that most of the permissions in those policies have never been used once.
+**Why do so many cloud IAM permissions never get used, and does it matter?** They are granted to make something work and almost never removed when the need ends. It matters because an attacker who takes over an identity inherits every permission it holds, used or not. The fix is to measure granted against used, and remove the gap carefully, starting with identities that can reach admin.
 
-We are not going to put a percentage on it, because a figure without a published sample behind it is marketing. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. That is less a failure of individual teams than a consequence of how cloud IAM works in practice.
+*Updated 27 November 2026: Onam's unused-access analysis now covers Google Cloud as well as AWS; one unsourced historical example was removed.*
+
+We are not going to put a percentage on how many permissions go unused, because a figure without a published sample behind it is marketing. What is consistent is the mechanism. Permissions are granted to make something work and almost never removed when the thing stops needing them. That is less a failure of individual teams than a consequence of how cloud IAM works in practice.
 
 ![Illustrative IAM Security view, stylised, with demo data](/screenshots/screenshot-iam.png)
 
@@ -2329,7 +2724,7 @@ An unused permission is a door that does not need to exist. From an attacker's p
 
 Consider the MITRE ATT&CK technique T1078.004 (Valid Cloud Accounts). When an attacker compromises a service account, whether through a misconfigured endpoint, a credential leaked in source code or a supply chain attack, they inherit exactly the permissions that account holds. If that account has permissions it never uses, the attacker has capabilities the account's legitimate owners never intended to grant.
 
-The SolarWinds attack showed this at scale: once attackers held accounts with broad cloud permissions, they could move far beyond the systems they first reached. Tighter scoping would have limited how far they got. Every permission that exists but is not needed is a pivot point that should not exist.
+Every permission that exists but is not needed is a pivot point that should not exist.
 
 ## How CIEM measures the gap
 
@@ -2339,7 +2734,16 @@ CIEM (Cloud Infrastructure Entitlement Management) addresses this by computing t
 
 ![How Onam resolves effective permissions on AWS: statements, groups, conditions, denies and SCPs](/diagrams/ciem-effective-access.svg)
 
-**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones are listed separately. These include \`iam:PassRole\`, \`iam:CreatePolicyVersion\`, \`s3:PutBucketPolicy\` and \`kms:ScheduleKeyDeletion\`. Onam does this for AWS today.
+**2. Usage analysis from activity logs.** CloudTrail records the API calls made in your AWS account. Onam reads the CloudTrail events its threat detection collects and builds a map of which actions each identity called. A granted action that has not appeared in the activity window is counted as unused, and the high-risk ones are listed separately. These include \`iam:PassRole\`, \`iam:CreatePolicyVersion\`, \`s3:PutBucketPolicy\` and \`kms:ScheduleKeyDeletion\`. The activity window is 30 days. Unused-access analysis runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access only.
+
+You can see a first version of this gap on AWS without any tool: IAM's service last accessed data lists the services a role is allowed to use and when it last tried. Two read-only calls:
+
+\`\`\`
+aws iam generate-service-last-accessed-details --arn arn:aws:iam::<account-id>:role/<role-name>
+aws iam get-service-last-accessed-details --job-id <job-id-from-the-first-command>
+\`\`\`
+
+AWS notes the data counts all access attempts, including denied ones, and considers identity-based permissions policies only ([generate-service-last-accessed-details](https://docs.aws.amazon.com/cli/latest/reference/iam/generate-service-last-accessed-details.html), accessed 27 November 2026).
 
 **3. A concrete change to review.** The unused list, especially the high-risk unused actions, tells engineers exactly what to remove, and the used list is the starting point for a replacement policy. That is a change someone can review, rather than a vague "reduce permissions" ticket.
 
@@ -2365,112 +2769,95 @@ Do not aim for zero unused permissions straight away. That would mean rewriting 
 > The cost of a false-positive access removal is a production incident. Measure automatically, remove carefully.
 
 You will not fix over-provisioning in a sprint. It is a long-running hygiene practice, and good tooling lets you see and measure the progress.
+
+:::faq Frequently asked questions
+### What is an unused cloud permission?
+A permission an identity is granted but has not called during a recent activity window, measured from cloud audit logs such as CloudTrail.
+
+### Should unused permissions be removed automatically?
+No. Measure automatically and remove carefully. Something unused for a few weeks may run quarterly or annually, and a wrong removal is a production incident.
+
+### Which clouds does Onam measure unused access on?
+AWS and Google Cloud, over a 30-day window, with cloud audit logs flowing into Onam. Other clouds show granted access only.
+:::
 `,
   },
   {
     slug: "mitre-attack-cloud-mapping",
-    title: "MITRE ATT&CK for Cloud: mapping real attacks to your posture score",
+    title: "Which MITRE ATT&CK techniques are open in our AWS account today?",
     category: "Threat Detection",
-    excerpt:
-      "How MITRE ATT&CK for Cloud translates abstract threat techniques into concrete cloud misconfigurations — and how your posture score tracks each one.",
+    tags: ["threat-detection","mitre","aws"],
+    excerpt: "Four ATT&CK cloud techniques, the misconfiguration each one needs, and a read-only AWS CLI command that tells you whether it is open in your account.",
     author: "poonam-yadav",
     date: "May 20, 2026",
-    readTime: "10 min",
+    updated: "November 27, 2026",
+    readTime: "4 min",
     body: `
-MITRE ATT&CK for Cloud is a framework that catalogues the tactics, techniques, and procedures (TTPs) that adversaries use to attack cloud environments. It is maintained by MITRE, built from publicly reported adversary behaviour, and updated as new cloud attack techniques are observed in the wild.
+**Which MITRE ATT&CK techniques are open in our AWS account today?** Look at preconditions, not at the matrix. Most cloud techniques need a misconfiguration to work: a credential that can be stolen from instance metadata, a trail that does not cover every Region, a bucket a policy makes public, a role nobody has trimmed. Check those preconditions and you know which techniques an attacker with basic access could use against you this week. Below: four techniques, the precondition each needs, and a read-only AWS CLI command that tells you whether it is met.
 
-Most discussions of MITRE ATT&CK treat it as an abstract threat intelligence reference. This post is more practical. It shows how individual ATT&CK techniques translate into specific cloud misconfigurations that a CSPM tool can detect and score, and what that means for how you read your posture score.
+*Rewritten 27 November 2026. The earlier version described ATT&CK in general and claimed every Onam posture rule carries ATT&CK tags, which our product facts do not yet support, so that claim is gone. AWS commands are from the AWS CLI reference, read on 27 November 2026. Technique names are from MITRE ATT&CK at attack.mitre.org.*
 
-## How ATT&CK for Cloud is structured
+## Four techniques, four checks
 
-The ATT&CK Cloud matrix covers IaaS, SaaS, Office Suite and Identity Provider platforms. It is organised as tactics (the adversary's goal) and techniques (the method used to achieve that goal).
+| Technique | Precondition that makes it easy | Read-only check | Open if |
+| --- | --- | --- | --- |
+| T1552.005 Unsecured Credentials: Cloud Instance Metadata API | EC2 instances still accept IMDSv1, so an SSRF bug can fetch role credentials | \`aws ec2 describe-instances --filters Name=metadata-options.http-tokens,Values=optional --query "Reservations[].Instances[].InstanceId" --output text\` | Any instance ID is printed |
+| T1562.008 Impair Defenses: Disable or Modify Cloud Logs | No multi-Region trail, or no log file validation | \`aws cloudtrail describe-trails --query "trailList[].[Name,IsMultiRegionTrail,LogFileValidationEnabled]" --output table\` | No trail shows \`True\` for both |
+| T1530 Data from Cloud Storage | A bucket policy makes a bucket public | \`aws s3api get-bucket-policy-status --bucket <bucket-name>\` | \`"IsPublic": true\` |
+| T1078.004 Valid Accounts: Cloud Accounts | Identities hold far more than they use, so a stolen key buys a lot | \`aws iam generate-service-last-accessed-details --arn <role-arn>\`, then \`aws iam get-service-last-accessed-details --job-id <job-id>\` | Services granted but never used |
 
-| Tactic | Adversary goal |
-| --- | --- |
-| Initial Access | Getting into the environment |
-| Execution | Running code |
-| Persistence | Maintaining access after the initial foothold |
-| Privilege Escalation | Gaining higher-level permissions |
-| Defense Evasion | Hiding activity from detection |
-| Credential Access | Stealing credentials for further use |
-| Discovery | Mapping the environment |
-| Lateral Movement | Moving from one resource to another |
-| Collection | Gathering data of interest |
-| Exfiltration | Removing data from the environment |
-| Impact | Disrupting availability or integrity |
+Sources: [describe-instances](https://docs.aws.amazon.com/cli/latest/reference/ec2/describe-instances.html), [describe-trails](https://docs.aws.amazon.com/cli/latest/reference/cloudtrail/describe-trails.html), [get-bucket-policy-status](https://docs.aws.amazon.com/cli/latest/reference/s3api/get-bucket-policy-status.html), [generate-service-last-accessed-details](https://docs.aws.amazon.com/cli/latest/reference/iam/generate-service-last-accessed-details.html). EC2 and CloudTrail checks are per Region; add \`--region\` and repeat.
 
-## Misconfigurations as enablers
+## Why preconditions, not the matrix
 
-Most ATT&CK techniques need a precondition: a misconfiguration, gap or overly permissive setting that the attacker can exploit. CSPM rules are, in effect, precondition detectors. When your posture score flags a finding, it is identifying a configuration that makes a specific technique easier to execute.
+The ATT&CK cloud matrices (IaaS, SaaS, Office Suite and Identity Provider) list what attackers do, organised by tactic: initial access, privilege escalation, defense evasion, collection and so on. Read as a list, it is overwhelming. Read as "what does each technique need from my environment?", it becomes a short to-do list, because a handful of settings are the precondition for many techniques at once.
 
-![Findings tagged with ATT&CK techniques in the Onam console (demo account)](/screenshots/screenshot-findings.png)
+Two more mappings worth knowing for privilege escalation:
 
-Here are some specific examples.
+- **T1548.005 Temporary Elevated Cloud Access.** MITRE notes that in AWS, users with the \`PassRole\` permission can let a service they create assume a given role. Preconditions: identities with \`iam:PassRole\` on roles more privileged than themselves, and trust policies any principal in the account can satisfy.
+- **Cross-account trust without an external ID**, which lets a third party's compromise become yours.
 
-### T1078.004: Valid Cloud Accounts (Initial Access)
+## Which to close first
 
-This technique covers attackers using legitimately issued cloud credentials to access cloud resources. The credentials might come from phishing, credential stuffing or exposure in source code. The CSPM rules that map to T1078.004:
+Close the preconditions that need the least prior access:
 
-- IAM access keys not rotated in 90+ days. Stale credentials widen the exposure window.
-- MFA not enforced on IAM users with console access, which makes a stolen credential cheaper to use.
-- Long-lived GCP service account keys or Azure service principal secrets not rotated.
-- EC2 instance metadata service (IMDSv1) accessible without authentication, which allows credential theft via SSRF.
+1. **Credential theft and valid accounts** (T1552.005, T1078.004): an outsider can use these from the internet.
+2. **Log tampering** (T1562.008): close it before an incident, because afterwards the evidence is gone.
+3. **Privilege escalation** (T1548.005): these need a foothold, but turn a small one into admin.
+4. **Collection** (T1530): the last step, often blocked by fixing the first three.
 
-When your posture score degrades on any of these rules, it means T1078.004 is now easier to execute against your environment.
+A finding that is a precondition for an early technique, on a resource reachable from the internet, outranks a higher-severity finding that needs an attacker who is already admin.
 
-### T1548.005: Temporary Elevated Cloud Access (Privilege Escalation)
+## Where Onam fits
 
-Attackers with limited initial access use misconfigured IAM role assumption chains to escalate privileges to administrator level. The CSPM rules that map to T1548.005:
+Onam's posture scanning checks these preconditions, with the rest of its AWS rule definitions, on every scan across accounts and Regions, through read-only cloud roles. Findings that chain from an internet-facing resource to data or keys sit on attack paths and are ranked above ones that do not. On the threat-detection side, Onam's CDR correlates the events these techniques leave in CloudTrail; see [what GuardDuty would miss](/resources/blog/cdr-behavioral-threat-detection).
 
-- IAM roles with overly permissive trust policies that allow any principal in the account to assume them.
-- Service accounts with \`iam:PassRole\` to roles with higher privileges.
-- Lambda functions with execution roles that include \`iam:CreatePolicyVersion\`.
-- Cross-account trust relationships with external accounts without external ID requirements.
+:::faq Frequently asked questions
+### What is MITRE ATT&CK for cloud?
+The part of MITRE's ATT&CK knowledge base that covers cloud platforms, organised as tactics (the attacker's goal) and techniques (how they reach it), built from publicly reported adversary behaviour.
 
-### T1562.008: Disable Cloud Logs (Defense Evasion)
+### How do I map ATT&CK techniques to my cloud configuration?
+For each technique, ask what it needs from your environment, such as IMDSv1 for T1552.005 or a public bucket policy for T1530, and check that precondition directly with a read-only command.
 
-Before exfiltrating data or moving laterally, sophisticated attackers disable or tamper with logging to reduce the chance of detection. The CSPM rules that map to T1562.008:
-
-- CloudTrail not enabled in all regions, leaving blind spots.
-- CloudTrail log file validation not enabled, so logs can be tampered with undetected.
-- S3 buckets holding CloudTrail logs without MFA delete protection. An attacker can delete the evidence.
-- GuardDuty not enabled, which switches off the main anomaly detection layer.
-
-### T1530: Data from Cloud Storage (Collection)
-
-Attackers access cloud object storage that holds sensitive data such as customer PII, source code, secrets or financial records. The CSPM rules that map to T1530:
-
-- S3 buckets with public read access, so no authentication is needed.
-- S3 buckets without server-side encryption. Data is readable in plain text if the bucket policy is bypassed.
-- S3 access logging disabled, so collection leaves no trace.
-- Overly permissive IAM policies that grant \`s3:GetObject\` on \`*\` resources.
-
-## How posture score maps to technique coverage
-
-Each Onam posture rule carries the MITRE ATT&CK tactics and techniques it relates to. So a posture score below 100 means more than some failing rules. It points to a specific set of ATT&CK techniques whose preconditions are currently met in your environment.
-
-> This framing changes how you should prioritise remediation. A rule failure that maps to T1562.008 (Disable Cloud Logs) or T1078.004 (Valid Cloud Accounts) should be treated more urgently than one mapping to a technique that requires prior compromise of a privileged identity. The first set needs very little prior access. The second needs steps the attacker has not yet taken.
-
-## Putting it into practice
-
-You do not need to implement every mitigation in the matrix at once. Use the technique-to-misconfiguration mapping to answer one question: "If an attacker is already in my environment with basic credentials, which techniques can they execute today?"
-
-Walk through the privilege escalation techniques first. Then defense evasion. Then collection and exfiltration. Fix the rules that open the door to these techniques, and your posture score becomes a leading indicator of how hard your environment is to attack. It stops being only a compliance checkbox.
+### Which ATT&CK techniques should a cloud team close first?
+Those an outsider can use without prior access: stealing credentials from instance metadata and using valid cloud accounts. Then log tampering, privilege escalation and collection.
+:::
 `,
   },
   {
     slug: "agentless-cloud-security-architecture",
     title: "How we check thousands of rules without agents: the architecture behind Onam",
     category: "Engineering",
-    excerpt:
-      "Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.",
+    tags: ["architecture","cspm","agentless","aws"],
+    excerpt: "Agentless cloud security architecture: how Onam scans 7 clouds with read-only posture roles and agentless workload scanning that runs in your account.",
     author: "anup-yadav",
     date: "May 6, 2026",
+    updated: "November 27, 2026",
     readTime: "10 min",
     body: `
-The most common question we get from security engineers evaluating Onam is some variation of: "How can you possibly check thousands of rules across dozens of cloud services without installing anything?"
+**How can a security tool check thousands of rules across dozens of cloud services without an agent on our workloads?** By reading configuration from each cloud's control-plane APIs through a read-only role. Posture scanning needs nothing more. Finding vulnerable packages inside a VM is different: Onam's agentless workload scanning reads volume snapshots inside your account, so it deploys scanning resources there. This post shows both, with the exact API calls, and where agentless stops.
 
-It is a reasonable question, and "agentless" means different things in different products. This post explains how Onam's agentless architecture works across all seven supported clouds (AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud and Kubernetes), and where its limits are.
+*Updated 27 November 2026: the data-classification section now describes DSPM content scanning (opt-in since 26 November), and the free plan's scope is stated. "Agentless" means different things in different products, so we are specific below. The clouds are AWS, Azure, Google Cloud, OCI, Alibaba Cloud, IBM Cloud and Kubernetes.*
 
 ## How agentless scanning reads cloud control plane APIs
 
@@ -2503,7 +2890,7 @@ Rules are written in YAML, a readable format that non-engineers can review. Each
 - The resource type it applies to.
 - The condition expression that determines PASS or FAIL.
 - The severity (Critical, High, Medium, Low), the rationale and references, and compliance framework mappings.
-- The MITRE ATT&CK tactics and techniques it relates to, and written remediation guidance.
+- Written remediation guidance.
 
 This YAML-first approach means adding a new rule for a new cloud service does not require changes to the core evaluation engine. It needs only a new YAML file with the right schema.
 
@@ -2519,13 +2906,13 @@ This is why network security analysis runs as a separate phase after discovery, 
 
 Agentless works for everything that lives in the cloud control plane. It does not work for everything, and it is worth being precise about the boundaries.
 
-**OS-level vulnerability scanning** requires enumerating installed packages and kernel versions. Cloud APIs do not expose that information. Onam's agentless workload scanning handles this by reading snapshots of instance volumes inside your own account, which means it deploys scanning resources there with the permissions they need. For hosts where you want package-level depth from the machine itself, an optional host agent is available.
+**OS-level vulnerability scanning** requires enumerating installed packages and kernel versions. Cloud APIs do not expose that information. Onam's agentless workload scanning handles this by reading snapshots of instance volumes inside your own account, which means it deploys scanning resources there with the permissions they need.
 
-**Runtime workload behaviour** needs a sensor on the host: which processes are running, which network connections are open, which system calls a container makes. Onam does not have one. Rule evaluation covers the configuration surface and cloud audit logs cover control-plane activity. Live runtime behaviour is a different layer.
+**Runtime workload behaviour** needs a sensor on the host: which processes are running, which network connections are open, which system calls a container makes. Onam does not offer runtime enforcement. Rule evaluation covers the configuration surface and cloud audit logs cover control-plane activity. Live runtime behaviour is a different layer.
 
-**Data plane access patterns** are out of scope too. Onam does not read the contents of S3 objects, database rows or file system data. Data classification is based on metadata signals: naming patterns, tags, schema metadata, and resource configuration. This is sufficient for most DSPM use cases, but it will not detect sensitive data stored in an unexpectedly named bucket.
+**Data contents** are not read through the control plane. By default, Onam's data classification uses metadata signals: naming patterns, tags, schema metadata and resource configuration, which will not detect sensitive data in an unexpectedly named bucket.
 
-*Update, 26 November 2026: Onam's DSPM can now also read data contents, but only where you adopt it: if you deploy Onam's DSPM scanner in your own cloud account or the on-premises collector, it reads samples of files and rows and classifies what they contain. Without that scanner, classification works from metadata as described in this post, and everything else Onam does is read-only and does not read data contents.*
+*Update, 26 November 2026: Onam's DSPM can now also read data contents, but only where you adopt it: if you deploy Onam's DSPM scanner in your own cloud account or the on-premises collector, it reads samples of files and rows and classifies what they contain. Content scanning is opt-in per tenant; without that scanner, classification works from metadata and Onam does not read data contents.*
 
 ## Why agentless matters for security teams
 
@@ -2533,17 +2920,43 @@ The operational argument for agentless is usually framed around deployment compl
 
 Agents expand your attack surface. An agent running on every instance in your fleet is a piece of software with elevated privileges that needs to be patched, monitored and secured, and if it has a vulnerability, every host it runs on is exposed.
 
-Agentless does not mean footprint-free, and it is worth being exact. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. Nothing runs on your hosts, but the workload scanner's resources do live in your account, with the permissions that onboarding template grants. You can read every one of them before you run it.
+Agentless does not mean footprint-free, and it is worth being exact. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. The workload scanner's resources live in your account, with the permissions the onboarding template grants, and you can read every one of them before you run it. The free plan uses the read-only API part only: it deploys no agent or scanner, which is why vulnerability scanning, Kubernetes posture and data-content classification are on the paid plans.
 
 For organisations in regulated sectors such as healthcare, financial services and government, that precision matters. The question is what a tool adds to your system boundary, and the answer should be a list you can review.
 
-To see the scan pipeline against one of your own accounts, [book a demo](/request-demo).
+:::faq Frequently asked questions
+### What does agentless cloud security mean?
+Reading configuration and activity from the cloud provider's APIs instead of installing software on each workload. Posture checks need only a read-only role; scanning inside VMs for vulnerable packages needs snapshot-based scanning in your account or an agent.
+
+### Does Onam install anything in my cloud account?
+Posture scanning connects through read-only cloud roles. Agentless workload scanning deploys scanning resources inside your account, with permissions you can review in the onboarding template before running it. The free plan deploys no agent or scanner.
+
+### Can agentless scanning see runtime behaviour?
+No. Processes, network connections and system calls need a sensor on the host. Onam covers configuration, audit-log activity and snapshot-based workload scanning, and does not offer runtime enforcement.
+:::
 `,
   },
 ];
+
+export const BLOG_POSTS: BlogPost[] = POSTS.map((p) => ({
+  ...p,
+  body: p.body ? `${p.body}\n${freePlanCta(p.slug)}` : p.body,
+}));
 
 export const BLOG_CATEGORIES = Array.from(new Set(BLOG_POSTS.map((p) => p.category)));
 
 export function getPost(slug: string) {
   return BLOG_POSTS.find((p) => p.slug === slug);
+}
+
+/** Related posts by topic: same category first, then shared tags, then newest. Never the post itself. */
+export function relatedPosts(post: BlogPost, n = 3): BlogPost[] {
+  const tags = new Set(post.tags ?? []);
+  const score = (p: BlogPost) =>
+    (p.category === post.category ? 3 : 0) + (p.tags ?? []).filter((t) => tags.has(t)).length * 2;
+  return BLOG_POSTS.filter((p) => p.slug !== post.slug)
+    .map((p) => ({ p, s: score(p), t: new Date(p.updated ?? p.date).getTime() }))
+    .sort((a, b) => b.s - a.s || b.t - a.t)
+    .slice(0, n)
+    .map((x) => x.p);
 }

@@ -1,12 +1,33 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect } from "@tanstack/react-router";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { Prose, faqJsonLd } from "@/components/site/Prose";
-import { BLOG_POSTS, getPost, type BlogPost } from "@/data/blog-posts";
+import { getPost, relatedPosts, type BlogPost } from "@/data/blog-posts";
+import { retiredTarget } from "@/data/retired-pages";
 import { seo, SITE_URL } from "@/lib/seo";
 import { getAuthor, personJsonLd } from "@/data/authors";
-import { ChevronRight, Newspaper } from "@/components/site/icons";
+import { ArrowRight, ChevronRight, Newspaper } from "@/components/site/icons";
 import { Backdrop } from "@/components/site/system";
+
+/** "November 27, 2026" -> "2026-11-27", from the local calendar date (toISOString would shift it a day in UTC+ zones). */
+const isoDate = (d: string) => {
+  const t = new Date(d);
+  return `${t.getFullYear()}-${String(t.getMonth() + 1).padStart(2, "0")}-${String(t.getDate()).padStart(2, "0")}`;
+};
+
+/**
+ * A body may open with an `:::answer` block: the short answer, shown in a box above the
+ * article and used as the meta description. Blog-only; Prose never sees it.
+ */
+function splitAnswer(body: string): { answer?: string; rest: string } {
+  const m = /^\s*:::answer[^\n]*\n([\s\S]*?)\n:::\s*\n/.exec(body);
+  if (!m) return { rest: body };
+  return { answer: m[1].trim(), rest: body.slice(m[0].length) };
+}
+
+function plainAnswer(md: string) {
+  return md.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1").replace(/[*`]/g, "").replace(/\s+/g, " ").trim();
+}
 
 function articleJsonLd(p: BlogPost) {
   const author = getAuthor(p.author);
@@ -20,7 +41,8 @@ function articleJsonLd(p: BlogPost) {
     // anonymous Organization — the entity Google can corroborate.
     author: author ? personJsonLd(author) : { "@type": "Organization", name: "Onam Security" },
     ...(reviewer ? { reviewedBy: personJsonLd(reviewer) } : {}),
-    datePublished: new Date(p.date).toISOString().slice(0, 10),
+    datePublished: isoDate(p.date),
+    dateModified: isoDate(p.updated ?? p.date),
     mainEntityOfPage: `${SITE_URL}/resources/blog/${p.slug}`,
     image: `${SITE_URL}/og-image.png`,
     publisher: {
@@ -33,6 +55,9 @@ function articleJsonLd(p: BlogPost) {
 
 export const Route = createFileRoute("/resources/blog/$slug")({
   loader: ({ params }) => {
+    // Retired or merged posts 301 to the post that absorbed them (src/data/retired-pages.ts).
+    const moved = retiredTarget(`/resources/blog/${params.slug}`);
+    if (moved) throw redirect({ href: moved, statusCode: 301 });
     const post = getPost(params.slug);
     if (!post) throw notFound();
     return { post };
@@ -42,9 +67,10 @@ export const Route = createFileRoute("/resources/blog/$slug")({
       return { meta: [{ title: "Not found — Onam Security" }, { name: "robots", content: "noindex" }] };
     }
     const p = loaderData.post;
+    const answer = p.body ? splitAnswer(p.body).answer : undefined;
     return seo({
       title: `${p.title} — Onam Security`,
-      description: p.excerpt,
+      description: answer ? plainAnswer(answer) : p.excerpt,
       path: `/resources/blog/${p.slug}`,
       ogType: "article",
     });
@@ -81,8 +107,9 @@ The full article is not published yet. In the meantime:
 
 function Article() {
   const { post } = Route.useLoaderData();
-  const body = post.body ?? fallbackBody(post);
-  const related = BLOG_POSTS.filter((p) => p.slug !== post.slug).slice(0, 3);
+  const { answer, rest: body } = splitAnswer(post.body ?? fallbackBody(post));
+  const related = relatedPosts(post);
+  const ctaFrom = `/resources/blog/${post.slug}`;
   const author = getAuthor(post.author);
   const reviewer = post.reviewedBy ? getAuthor(post.reviewedBy) : undefined;
 
@@ -142,6 +169,12 @@ function Article() {
               )}
               <span>•</span>
               <span>{post.date}</span>
+              {post.updated && post.updated !== post.date && (
+                <>
+                  <span>•</span>
+                  <span>Updated {post.updated}</span>
+                </>
+              )}
               <span>•</span>
               <span>{post.readTime} read</span>
             </div>
@@ -154,16 +187,17 @@ function Article() {
         <section className="max-w-3xl mx-auto px-6 pt-8">
           <div className="bg-[#F7F9FC] border border-[#E5E9F0] rounded-xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <p className="text-sm text-[#475569]">
-              <span className="font-semibold text-[#0B1220]">See your own cloud, free.</span>{" "}
-              We run a one-time read-only scan of one cloud account and walk you through the results. No charge, no commitment.
+              <span className="font-semibold text-[#0B1220]">Would rather we looked for you?</span>{" "}
+              We run a free one-time audit scan of one cloud account and go through the results with you. No charge, no commitment.
             </p>
-            <BrandButton to="/audit-scan">
+            <BrandButton to="/audit-scan" variant="secondary">
               Free audit scan
             </BrandButton>
           </div>
         </section>
 
         <section className="max-w-3xl mx-auto px-6 py-14">
+          {answer && <AnswerBox source={answer} />}
           <Prose source={body} />
         </section>
       </article>
@@ -195,17 +229,30 @@ function Article() {
       <section className="max-w-7xl mx-auto px-6 py-16">
         <div className="bg-white border border-[#E5E9F0] rounded-2xl p-8 md:p-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 shadow-[0_1px_3px_rgba(16,24,40,.04)]">
           <div>
-            <h3 className="font-display font-extrabold text-2xl text-[#0B1220]">See how this looks on your cloud</h3>
+            <h3 className="font-display font-extrabold text-2xl text-[#0B1220]">See this on your own cloud, free</h3>
             <p className="mt-2 text-[#475569] max-w-2xl">
-              A live 30-minute walkthrough of Onam against a sample environment that mirrors yours.
+              The free plan covers up to 25 units of cloud security with read-only cloud API scanning. It deploys no agent or
+              scanner and needs no card. Register, and the team emails you the login.
             </p>
           </div>
-          <div className="flex gap-3">
-            <BrandButton to="/audit-scan">Free audit scan</BrandButton>
-            <BrandButton to="/request-demo" variant="secondary">Request demo</BrandButton>
+          <div className="flex flex-wrap gap-3">
+            <BrandButton to="/start-free" search={{ from: ctaFrom }}>
+              Start free <ArrowRight className="w-4 h-4" />
+            </BrandButton>
+            <BrandButton to="/request-demo" variant="secondary">Book a demo</BrandButton>
           </div>
         </div>
       </section>
     </SiteLayout>
+  );
+}
+
+/** The short answer at the top of a customer-question post (`:::answer`). */
+function AnswerBox({ source }: { source: string }) {
+  return (
+    <aside aria-label="Short answer" className="mb-10 rounded-xl border border-[#DBE7FE] bg-[#F5F8FF] px-5 pt-4 pb-1">
+      <div className="text-[11px] font-semibold uppercase tracking-widest text-[#1D4ED8] mb-2">The short answer</div>
+      <Prose source={source} />
+    </aside>
   );
 }

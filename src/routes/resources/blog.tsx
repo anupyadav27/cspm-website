@@ -10,9 +10,9 @@ export const Route = createFileRoute("/resources/blog")({
   head: () => ({
     meta: [
       { title: "The Onam blog — Onam Security" },
-      { name: "description", content: "New findings, deep dives on cloud attacks, and product updates from the Onam team." },
+      { name: "description", content: "Answers to the questions cloud security teams ask, with the commands and screens to check them yourself." },
       { property: "og:title", content: "The Onam blog — Onam Security" },
-      { property: "og:description", content: "New findings, deep dives on cloud attacks, and product updates from the Onam team." },
+      { property: "og:description", content: "Answers to the questions cloud security teams ask, with the commands and screens to check them yourself." },
     ],
   }),
   component: BlogLayout,
@@ -41,7 +41,7 @@ function BlogIndex() {
             The Onam blog
           </h1>
           <p className="mt-4 text-lg text-[#475569] max-w-2xl">
-            New findings, deep dives on cloud attacks, and product updates from the Onam team.
+            Answers to the questions cloud security teams ask, with the commands and screens to check them yourself.
           </p>
         </div>
       </section>

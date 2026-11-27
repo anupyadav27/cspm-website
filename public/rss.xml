@@ -7,6 +7,14 @@
     <language>en</language>
     <atom:link href="https://www.onamsecurity.com/rss.xml" rel="self" type="application/rss+xml"/>
     <item>
+      <title>I already have AWS Security Hub. What would Onam add?</title>
+      <link>https://www.onamsecurity.com/resources/blog/aws-security-hub-what-would-onam-add</link>
+      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/aws-security-hub-what-would-onam-add</guid>
+      <description>Keep Security Hub. What it already does (exposure findings, attack path graph, unused access, Azure and Google Cloud CSPM), per AWS's own docs, and the lanes Onam adds.</description>
+      <category>CSPM</category>
+      <pubDate>Thu, 26 Nov 2026 18:30:00 GMT</pubDate>
+    </item>
+    <item>
       <title>Which CSPM tools have public pricing? 2026 list with sources</title>
       <link>https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/cspm-tools-public-pricing</guid>
@@ -47,7 +55,7 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Data lineage security: why encryption is a property of the flow, not the bucket</title>
+      <title>Is every hop our customer data takes encrypted? Data lineage security in practice</title>
       <link>https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/data-lineage-security-unencrypted-hops</guid>
       <description>Every bucket passes its encryption check, yet the data still lands somewhere unprotected. How data lineage security finds the weak hop in a pipeline.</description>
@@ -55,7 +63,7 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>IaC security scanning: fix the template, or the finding comes back</title>
+      <title>Why does a fixed cloud finding come back? IaC security scanning that fixes the template</title>
       <link>https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/iac-security-scanning-fix-at-source</guid>
       <description>Console fixes are undone by the next terraform apply. A practical guide to IaC security scanning that traces cloud findings back to the template line.</description>
@@ -63,7 +71,7 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>CI/CD security gates that engineers do not bypass</title>
+      <title>How do we add a CI/CD security gate engineers do not switch off?</title>
       <link>https://www.onamsecurity.com/resources/blog/ci-cd-security-gates-delta-gating</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ci-cd-security-gates-delta-gating</guid>
       <description>Security gates that fail every build get switched off. How to design CI/CD security gates around new findings, clear output and an exception path.</description>
@@ -79,7 +87,7 @@
       <pubDate>Sun, 04 Oct 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Cloud access reviews: a checklist that ends in decisions, not spreadsheets</title>
+      <title>How do we run a cloud access review that removes access? A checklist</title>
       <link>https://www.onamsecurity.com/resources/blog/cloud-access-review-checklist</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/cloud-access-review-checklist</guid>
       <description>Most cloud access reviews are a spreadsheet nobody answers. A practical checklist for reviewing cloud entitlements, including machine identities.</description>
@@ -103,26 +111,18 @@
       <pubDate>Mon, 14 Sep 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Wiz vs Orca vs Prisma Cloud: 7 questions that decide a POC</title>
-      <link>https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</link>
-      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/onam-vs-wiz-orca-prisma-cloud</guid>
-      <description>Wiz vs Orca vs Prisma Cloud (now Cortex Cloud) in 2026: the 7 POC questions that separate them, a copyable scorecard, and where Onam fits and falls short.</description>
-      <category>Buyer's Guide</category>
-      <pubDate>Sun, 19 Jul 2026 18:30:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Beyond GuardDuty: how three-level behavioral detection catches what rules miss</title>
+      <title>We run GuardDuty. What would we still miss in cloud threat detection?</title>
       <link>https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/cdr-behavioral-threat-detection</guid>
-      <description>Cloud threat detection needs three levels: rules for single suspicious events, correlation across several events, and statistical behaviour baselines.</description>
-      <category>CDR</category>
+      <description>Which logs to switch on, one attack traced from the first CloudTrail line to an incident, and what correlation and baselines add to GuardDuty. With honest limits.</description>
+      <category>Threat Detection</category>
       <pubDate>Tue, 14 Jul 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>5 AWS misconfigurations that commonly show up on a first scan</title>
+      <title>Which five AWS misconfigurations should we check first? Commands and fixes</title>
       <link>https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/aws-misconfigurations-first-scan</guid>
-      <description>Five AWS misconfigurations that commonly show up on a first scan: what they are, why they persist, and how to fix them fast.</description>
+      <description>Five read-only AWS CLI checks, each with its fix: public S3 bucket policies, IMDSv1, public RDS snapshots, open admin ports and CloudTrail gaps.</description>
       <category>CSPM</category>
       <pubDate>Thu, 09 Jul 2026 18:30:00 GMT</pubDate>
     </item>
@@ -135,15 +135,7 @@
       <pubDate>Thu, 02 Jul 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>AI-powered cloud remediation: from finding to a reviewed fix</title>
-      <link>https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</link>
-      <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/ai-powered-cloud-remediation</guid>
-      <description>AI-powered cloud remediation: fix prompts that name the resource, AI code fixes on a review branch, and attack-path stories that explain why a fix matters.</description>
-      <category>Engineering</category>
-      <pubDate>Mon, 29 Jun 2026 18:30:00 GMT</pubDate>
-    </item>
-    <item>
-      <title>Attack paths vs. misconfigurations: why chained findings are your real cloud risk</title>
+      <title>Which of our findings could actually get us breached? Attack paths vs. misconfigurations</title>
       <link>https://www.onamsecurity.com/resources/blog/attack-path-4000-to-3</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/attack-path-4000-to-3</guid>
       <description>CSPM tools surface hundreds of misconfigurations. The ones behind breaches chain together; attack path analysis shows which chains are dangerous.</description>
@@ -151,23 +143,23 @@
       <pubDate>Tue, 23 Jun 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>The FAIR model for cloud security: putting a dollar value on your attack surface</title>
+      <title>The FAIR model for cloud findings: ranking risk in money, per finding</title>
       <link>https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/fair-model-cloud-risk</guid>
-      <description>FAIR model for cloud risk: CVSS ranks severity, FAIR asks what a breach of this attack surface would cost. How Onam applies a FAIR-style estimate.</description>
+      <description>Two findings, both CVSS 9.1: which first? How FAIR ranks cloud findings by estimated loss, and why Onam's figures are per-finding estimates for ranking, not predictions.</description>
       <category>Risk</category>
       <pubDate>Tue, 16 Jun 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>Kubernetes RBAC pitfalls that grant cluster-admin by accident</title>
+      <title>How does a ServiceAccount end up as cluster-admin? Kubernetes RBAC pitfalls with kubectl checks</title>
       <link>https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/kubernetes-rbac-pitfalls</guid>
-      <description>Kubernetes RBAC pitfalls: a ClusterRoleBinding here, an aggregated role there, and a role that can only create pods can mount the host filesystem. Six patterns to audit.</description>
+      <description>Six Kubernetes RBAC patterns that grant cluster-admin by accident, each with a read-only kubectl and jq command to find it in your own cluster.</description>
       <category>Containers</category>
       <pubDate>Tue, 09 Jun 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>EPSS over CVSS: prioritising the CVEs attackers actually exploit</title>
+      <title>EPSS over CVSS: which CVEs do we patch first?</title>
       <link>https://www.onamsecurity.com/resources/blog/epss-over-cvss</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/epss-over-cvss</guid>
       <description>CVSS tells you how bad a vulnerability could be. EPSS tells you how likely it is to be exploited in the next 30 days. Guess which one predicts breaches.</description>
@@ -183,10 +175,10 @@
       <pubDate>Wed, 27 May 2026 18:30:00 GMT</pubDate>
     </item>
     <item>
-      <title>MITRE ATT&amp;CK for Cloud: mapping real attacks to your posture score</title>
+      <title>Which MITRE ATT&amp;CK techniques are open in our AWS account today?</title>
       <link>https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping</link>
       <guid isPermaLink="true">https://www.onamsecurity.com/resources/blog/mitre-attack-cloud-mapping</guid>
-      <description>How MITRE ATT&amp;CK for Cloud translates abstract threat techniques into concrete cloud misconfigurations — and how your posture score tracks each one.</description>
+      <description>Four ATT&amp;CK cloud techniques, the misconfiguration each one needs, and a read-only AWS CLI command that tells you whether it is open in your account.</description>
       <category>Threat Detection</category>
       <pubDate>Tue, 19 May 2026 18:30:00 GMT</pubDate>
     </item>

@@ -43,6 +43,9 @@ export const RETIRED_PAGES: Record<string, string> = {
   "/learn/rto-vs-rpo": "/learn",
   "/learn/cloud-disaster-recovery": "/learn",
   "/learn/agentic-aiops": "/onam-ai",
+  // Blog posts retired and merged on 27 Nov 2026 (blog review): each 301s to the post that absorbed it
+  "/resources/blog/onam-vs-wiz-orca-prisma-cloud": "/resources/blog/wiz-vs-orca-poc-questions",
+  "/resources/blog/ai-powered-cloud-remediation": "/resources/blog/ai-sast-remediation-fix-branch",
 };
 
 /** Whole retired sections: any path under the prefix goes to the target. */
