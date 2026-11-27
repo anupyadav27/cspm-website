@@ -1,5 +1,6 @@
 // Scenario tests for inbound lead handling. Run: npx tsx scripts/test-lead-capture.ts
 import { AckThrottle, ackEmail, replyByDate, routeTag, wantsAck } from "../src/lib/lead-inbound";
+import { externalHost, nextVisit, sourceFor, utmFrom } from "../src/lib/lead-source";
 
 let pass = 0, fail = 0;
 const eq = (name: string, got: unknown, want: unknown) => {
@@ -31,7 +32,7 @@ eq("partner reason on contact", routeTag({ kind: "contact", reason: "Partner or 
 eq("MSSP on demo form", routeTag({ kind: "demo", message: "We are an MSSP and want to resell" }), "partner");
 eq("investor", routeTag({ kind: "contact", reason: "General question", message: "I am an angel investor" }), "investor");
 eq("VC word", routeTag({ kind: "contact", message: "We are a VC looking at cloud security" }), "investor");
-eq("second opinion reason", routeTag({ kind: "contact", reason: "A second opinion on our cloud (security, cost or recovery)" }), "audit");
+eq("second opinion reason", routeTag({ kind: "contact", reason: "A second opinion on our cloud security" }), "audit");
 eq("pricing reason", routeTag({ kind: "contact", reason: "Pre-sales & pricing" }), "demo");
 eq("press", routeTag({ kind: "contact", reason: "Press or analyst", message: "Article request" }), "other");
 eq("no false VC in word", routeTag({ kind: "contact", message: "Our svc mesh" }), "other");
@@ -67,6 +68,32 @@ eq("other address", t.allow("y@a.com", 10), true);
 eq("after window", t.allow("x@a.com", 1500), true);
 t.allow("z@a.com", 1500);
 eq("cap keeps working", t.allow("w@a.com", 1600), true);
+
+console.log("— Lead source: page, landing, UTM");
+const HOST = "www.onamsecurity.com";
+eq("utm picks only utm_ keys", utmFrom("?utm_source=li&x=1&utm_campaign=free"), "utm_source=li&utm_campaign=free");
+eq("no utm", utmFrom("?from=/pricing"), "");
+eq("external host", externalHost("https://www.google.com/search?q=x", HOST), "www.google.com");
+eq("own site is not external", externalHost("https://onamsecurity.com/blog", HOST), "");
+eq("junk referrer", externalHost("not a url", HOST), "");
+// A visit: lands on a blog post from Google with UTM tags, reads pricing, opens the demo form.
+let v = nextVisit(null, { path: "/resources/blog/x", search: "?utm_source=google&utm_medium=cpc" }, "https://www.google.com/", HOST);
+eq("landing recorded", v.landing, "/resources/blog/x?utm_source=google&utm_medium=cpc");
+eq("referrer host recorded", v.referrer, "www.google.com");
+v = nextVisit(v, { path: "/pricing", search: "" }, "https://www.google.com/", HOST);
+v = nextVisit(v, { path: "/request-demo", search: "" }, "https://www.google.com/", HOST);
+eq("same path is a no-op", nextVisit(v, { path: "/request-demo", search: "?x=1" }, "", HOST), v);
+let src = sourceFor({ path: "/request-demo", search: "" }, v, "https://www.google.com/", HOST);
+eq("page = previous page on our site", src.page, "/pricing");
+eq("utm = first-touch utm", src.utm, "utm_source=google&utm_medium=cpc");
+eq("landing names the referrer", src.landing, "/resources/blog/x?utm_source=google&utm_medium=cpc (referred by www.google.com)");
+src = sourceFor({ path: "/request-demo", search: "?from=/platform/cspm&utm_source=mail" }, v, "", HOST);
+eq("?from= wins", src.page, "/platform/cspm");
+eq("current utm wins", src.utm, "utm_source=mail");
+src = sourceFor({ path: "/audit-scan", search: "" }, null, "https://news.ycombinator.com/item?id=1", HOST);
+eq("no visit state: external referrer", src.page, "https://news.ycombinator.com/item?id=1");
+eq("no visit state: no landing", src.landing, "");
+eq("stale visit state ignored", sourceFor({ path: "/company/contact", search: "" }, v, "", HOST).page, "");
 
 console.log(`\n${pass} passed, ${fail} failed`);
 process.exit(fail ? 1 : 0);

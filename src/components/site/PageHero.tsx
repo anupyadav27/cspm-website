@@ -38,7 +38,7 @@ export function PageHero({
           <p className="mt-6 text-lg text-[#475569] max-w-2xl mx-auto leading-relaxed">{subtitle}</p>
         )}
         <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
-          <BrandButton to="/request-demo" size="lg">Request demo →</BrandButton>
+          <BrandButton to="/request-demo" size="lg">Book a demo →</BrandButton>
           <BrandButton to="/platform/cspm" size="lg" variant="secondary">Explore platform</BrandButton>
         </div>
       </div>
@@ -73,7 +73,7 @@ export function StubPage({
             capability live in Onam.
           </p>
           <div className="mt-6">
-            <BrandButton to="/request-demo">Request demo</BrandButton>
+            <BrandButton to="/request-demo">Book a demo</BrandButton>
           </div>
         </div>
       </section>

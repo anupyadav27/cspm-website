@@ -25,7 +25,7 @@ This page explains what each part answers and how the documentation is organised
 
 ## Connect once
 
-Everything works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others) — nothing is installed on your workloads and nothing is written to your environment. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
+Everything works from **one connection per cloud account**. Onboarding uses a read-only role (AWS), service principal (Azure) or service account (Google Cloud and others). Posture scanning connects through those read-only roles and changes nothing in your cloud; agentless workload scanning, if you turn it on, runs inside your account and creates short-lived scan resources there. The [connection guides](/docs/onboarding/aws) cover seven targets: AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes.
 
 ## How the documentation is organised
 
@@ -41,7 +41,8 @@ Everything works from **one connection per cloud account**. Onboarding uses a re
 - [Quickstart](/docs/getting-started/quickstart) — connect a cloud and see your first results.
 - [Core Concepts](/docs/getting-started/core-concepts) — assets, findings, engines and the glossary.
 - [Connect AWS](/docs/onboarding/aws) — or pick your cloud from the sidebar.
-- [Book a demo](/request-demo) — see the platform on your own cloud with an engineer.
+- [Start free](/start-free?from=/docs) — up to 25 units with read-only scanning; we create your workspace and email your login.
+- [Book a demo](/request-demo?from=/docs) — see the platform on your own cloud with an engineer.
 `,
   },
   {
@@ -49,27 +50,27 @@ Everything works from **one connection per cloud account**. Onboarding uses a re
     title: "Quickstart",
     breadcrumb: "Getting Started / Quickstart",
     body: `
-This guide takes you from nothing to your first triaged Critical finding: create an account, connect a cloud with a read-only role, run the first scan, read the dashboard, triage what it finds, and wire findings into the tool your team already watches.
+This guide takes you from nothing to your first triaged Critical finding: get your account, connect a cloud with a read-only role, run the first scan, read the dashboard, triage what it finds, and wire findings into the tool your team already watches.
 
 Most of the steps are clicks. The longest wait is the first scan itself — and it streams findings as it runs, so you will usually be reading results before it finishes. How long it takes depends on how many accounts, regions and resources you connect.
 
 ## Before you begin
 
-- An Onam account invitation or sign-up link (your admin, or [Book a demo](/request-demo) to get one).
+- An Onam account. Console login is by invitation: [start free](/start-free?from=/docs/getting-started/quickstart) (up to 25 units) or [book a demo](/request-demo?from=/docs/getting-started/quickstart), and the team creates your workspace and emails your login details. If your organization already uses Onam, ask your admin for an invite.
 - Credentials for the cloud you're connecting — for AWS, permission to create a CloudFormation stack and an IAM role in the target account.
 - No agents to install for posture scanning, no network changes, no maintenance window.
 
-## Step 1: Create your account
+## Step 1: Get your account
 
-1. Open the Onam console and sign up with your work email, or accept your organization's invite.
-2. Verify your email and set a password — or use SSO if your organization has [SAML configured](/docs/reference/rbac-and-sso).
+1. [Start free](/start-free?from=/docs/getting-started/quickstart) or [book a demo](/request-demo?from=/docs/getting-started/quickstart). There is no self-service sign-up in the console: the Onam team creates your workspace and emails your login details to the address you registered. If your organization already uses Onam, accept your admin's invite instead.
+2. Open that email and sign in to the console with your work email — or use SSO if your organization has [SAML configured](/docs/reference/rbac-and-sso).
 3. On first login you land on the onboarding screen with zero connected accounts.
 
 ## Step 2: Connect your first cloud
 
 Each provider has a dedicated guide: [AWS](/docs/onboarding/aws), [Azure](/docs/onboarding/azure), [Google Cloud](/docs/onboarding/gcp), [OCI](/docs/onboarding/oci), [Alibaba Cloud](/docs/onboarding/alicloud), [IBM Cloud](/docs/onboarding/ibm), and [Kubernetes](/docs/onboarding/kubernetes). All of them follow the same pattern: create a read-only credential in your environment, hand Onam the reference, never share a long-lived admin key.
 
-![The onboarding flow in the Onam console (demo account)](/screenshots/screenshot-onboarding.png)
+![Illustration with sample data: a drawing of connecting a cloud account to Onam. It is not a console capture, and the console's onboarding now sits under Organization › Onboarding.](/screenshots/screenshot-onboarding.png)
 
 Here is the AWS flow end to end — it is the most common first connection:
 
@@ -160,7 +161,16 @@ A **finding** is one rule failing on one resource: rule, resource, severity, evi
 | Low | Hardening opportunity | Batch with related changes |
 | Info | Observation, no action required | Awareness only |
 
-![The findings queue in the Onam console (demo account)](/screenshots/screenshot-findings.png)
+:::screen /screens/cloud-posture/posture-findings.webp
+url: app.onamsecurity.com/ui/misconfig
+alt: Cloud Posture, Posture findings tab in the Onam console: tabs for Posture findings, IAM, Network, Encryption, Containers, APIs and Databases, quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings, and a list where each finding has a plain title and its rule ID.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 28,12: Cloud Posture tabs: Posture findings, IAM, Network, Encryption, Containers, APIs and Databases.
+2 @ 50,41: Quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings.
+3 @ 27,71: Each finding gives a plain title and the rule ID behind it.
+:::
 
 > Severity is a property of the rule; **priority** is a property of the graph. A Medium finding on an attack path to a crown jewel routinely outranks an isolated Critical. Triage from the Attack Paths and Risk views, not from raw severity counts.
 

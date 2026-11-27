@@ -78,7 +78,7 @@ function WhyOnam() {
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button to="/request-demo" size="lg">
-              Request a demo <ArrowRight className="h-4 w-4" />
+              Book a demo <ArrowRight className="h-4 w-4" />
             </Button>
             <Button to="/" variant="onDark" size="lg">
               See the platform
@@ -189,7 +189,7 @@ function WhyOnam() {
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3">
             <Button to="/request-demo" size="lg">
-              Request a demo <ArrowRight className="h-4 w-4" />
+              Book a demo <ArrowRight className="h-4 w-4" />
             </Button>
             <Button to="/trust" variant="secondary" size="lg">
               Visit the Trust Center

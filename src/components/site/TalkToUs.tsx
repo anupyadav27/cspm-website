@@ -9,11 +9,19 @@
  *
  * Deliberately not a live-chat widget yet: nobody can promise an answer within minutes, and an unanswered
  * chat window does more harm than a form with an honest reply time. It never opens on its own, loads no
- * third-party script and sets no cookie, so it needs no consent. It sits above the cookie banner (z-50).
+ * third-party script and sets no cookie, so it needs no consent. The consent banner sits above it (z-70).
+ *
+ * Conversion audit (27 Nov 2026):
+ *  - "Start free" is the first option, then "Book a demo", both carrying the page as `from`.
+ *  - The page goes into the lead's structured `page` field, not the message text.
+ *  - It records each route change for lead attribution (src/lib/lead-source.ts); it is the one
+ *    component mounted on every page.
+ *  - It never covers a form's submit button or a sticky bar: while one is under it, the closed
+ *    bubble fades out. Below 640px it is an icon-only 48px button.
  */
 
-import { useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { useEffect, useRef, useState } from "react";
+import { Link, useRouterState } from "@tanstack/react-router";
 import {
   ArrowLeft,
   ArrowRight,
@@ -25,10 +33,16 @@ import {
   MessageSquare,
   MonitorPlay,
   Receipt,
+  Rocket,
   X,
 } from "lucide-react";
 
 import { submitLead } from "@/lib/lead-capture";
+import { recordVisitInWindow } from "@/lib/lead-source";
+import { cn } from "@/lib/utils";
+
+/** Things the closed bubble must never sit on top of. */
+const AVOID = 'form button[type="submit"], [data-float-avoid], .sticky.bottom-0';
 
 const WHATSAPP = "919871585677";
 const SALES = "sales@onamsecurity.com";
@@ -59,6 +73,55 @@ export function TalkToUs() {
   const [form, setForm] = useState({ name: "", email: "", company: "", message: "", website: "" });
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
   const [error, setError] = useState("");
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [covering, setCovering] = useState(false);
+
+  // Lead attribution: remember the visit's landing page and the previous page.
+  useEffect(() => {
+    recordVisitInWindow();
+  }, [pathname]);
+
+  // Fade the closed bubble while it would cover a submit button or a sticky bar.
+  useEffect(() => {
+    if (open) {
+      setCovering(false);
+      return;
+    }
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const el = wrapRef.current;
+      if (!el) return;
+      const b = el.getBoundingClientRect();
+      const pad = 8;
+      let hit = false;
+      for (const t of document.querySelectorAll<HTMLElement>(AVOID)) {
+        if (el.contains(t)) continue;
+        const r = t.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) continue;
+        if (r.left < b.right + pad && r.right > b.left - pad && r.top < b.bottom + pad && r.bottom > b.top - pad) {
+          hit = true;
+          break;
+        }
+      }
+      setCovering(hit);
+    };
+    const schedule = () => {
+      if (!raf) raf = requestAnimationFrame(check);
+    };
+    schedule();
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    // Layout can change without a scroll (a form expanding, an error appearing).
+    const timer = window.setInterval(schedule, 800);
+    return () => {
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      window.clearInterval(timer);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, [open, pathname]);
 
   function reset() {
     setTopic(null);
@@ -76,13 +139,16 @@ export function TalkToUs() {
     try {
       const page = typeof window !== "undefined" ? window.location.pathname : "";
       await submitLead({
+        form: "talk-to-us",
         data: {
           kind: "contact",
           name: form.name,
           email: form.email,
           company: form.company,
           reason: `Talk to us: ${topic?.title ?? "General"}`,
-          message: `${form.message}\n\n(Sent from the Talk to us panel on ${page || "/"})`,
+          message: form.message,
+          // The panel is on the page the visitor is reading, so that page is the source.
+          page: page || "/",
           website: form.website,
         },
       });
@@ -97,7 +163,14 @@ export function TalkToUs() {
   const label = "block text-[13px] font-medium text-[#334155]";
 
   return (
-    <div className="fixed bottom-5 right-5 z-[60] flex flex-col items-end gap-3 print:hidden">
+    <div
+      ref={wrapRef}
+      className={cn(
+        "fixed bottom-4 right-4 sm:bottom-5 sm:right-5 z-[60] flex flex-col items-end gap-3 print:hidden transition-opacity duration-200",
+        covering && "opacity-0 pointer-events-none",
+      )}
+      aria-hidden={covering || undefined}
+    >
       {open && (
         <div
           role="dialog"
@@ -149,16 +222,30 @@ export function TalkToUs() {
             ) : !topic ? (
               <div className="px-4 py-4">
                 <Link
-                  to="/request-demo"
+                  to="/start-free"
+                  search={{ from: pathname } as never}
                   onClick={() => setOpen(false)}
                   className="group flex items-center gap-3 rounded-lg bg-[#2563EB] px-4 py-3.5 text-white hover:bg-[#1D4ED8]"
                 >
-                  <MonitorPlay className="h-5 w-5 shrink-0" />
+                  <Rocket className="h-5 w-5 shrink-0" />
                   <span className="flex-1">
-                    <span className="block text-sm font-semibold">Book a demo</span>
-                    <span className="block text-xs text-white/80">See Onam on your own cloud estate</span>
+                    <span className="block text-sm font-semibold">Start free</span>
+                    <span className="block text-xs text-white/80">Up to 25 units, read-only scanning, no card</span>
                   </span>
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+                </Link>
+                <Link
+                  to="/request-demo"
+                  search={{ from: pathname } as never}
+                  onClick={() => setOpen(false)}
+                  className="group mt-2 flex items-center gap-3 rounded-lg border border-[#D6DCE5] px-4 py-3 text-[#0B1220] hover:border-[#2563EB]"
+                >
+                  <MonitorPlay className="h-5 w-5 shrink-0 text-[#2563EB]" />
+                  <span className="flex-1">
+                    <span className="block text-sm font-semibold">Book a demo</span>
+                    <span className="block text-xs text-[#64748B]">See Onam on your own cloud estate</span>
+                  </span>
+                  <ArrowRight className="h-4 w-4 text-[#94A3B8] transition-transform group-hover:translate-x-0.5" />
                 </Link>
                 <ul className="mt-3 divide-y divide-[#EEF1F5] rounded-lg border border-[#E5E9F0]">
                   {TOPICS.map((t) => (
@@ -272,13 +359,15 @@ export function TalkToUs() {
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-label={open ? "Close contact panel" : "Talk to our team"}
-        className="group inline-flex items-center gap-2.5 rounded-full py-2 pl-2 pr-5 text-sm font-semibold text-white shadow-[0_10px_28px_rgba(8,40,105,0.35)] transition-transform hover:-translate-y-0.5"
+        tabIndex={covering ? -1 : undefined}
+        className="group inline-flex h-12 w-12 items-center justify-center gap-2.5 rounded-full text-sm font-semibold text-white shadow-[0_10px_28px_rgba(8,40,105,0.35)] transition-transform hover:-translate-y-0.5 sm:h-auto sm:w-auto sm:justify-start sm:py-2 sm:pl-2 sm:pr-5"
         style={{ background: NAVY }}
       >
         <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white">
           {open ? <X className="h-4 w-4 text-[#082869]" /> : <Mark className="h-5 w-5" />}
         </span>
-        {open ? "Close" : "Talk to our team"}
+        {/* Icon-only below 640px so it covers less of the page (audit F5); the aria-label names it. */}
+        <span className="hidden sm:inline">{open ? "Close" : "Talk to our team"}</span>
       </button>
     </div>
   );

@@ -45,28 +45,37 @@ export function Hero() {
           ))}
         </ul>
 
+        {/* Conversion audit F6 (27 Nov 2026): the H1 says the outcome, not the product list, and
+            makes no claim that needs a number. */}
         <h1 className="mt-6 font-display font-black text-white text-[40px] leading-[1.05] sm:text-5xl md:text-6xl lg:text-[68px] tracking-tight md:leading-[1.02] text-balance">
-          Cloud, SaaS and code security,{" "}
-          <span className="text-[#4D8DFF]">with an AI security analyst.</span>
+          Find what's exposed in your cloud and{" "}
+          <span className="text-[#4D8DFF]">fix the risks that matter first.</span>
         </h1>
 
         <p className="mt-6 text-lg text-[#9FB0CC] leading-relaxed max-w-2xl mx-auto text-pretty">
-          Onam Security finds and ranks risk across posture, identity, data, workloads, SaaS and
-          code, on one security graph across {CLOUDS} clouds. Onam AI, your AI security analyst,
-          answers questions about your findings and suggests fixes. A person approves every change.
+          For teams on AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud or IBM Cloud. Onam ranks
+          what an attacker could actually use and shows the fix. Onam AI, your AI security analyst, answers
+          questions about your findings.
         </p>
 
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-          <BrandButton to="/request-demo" size="lg">
-            Request a demo <ArrowRight className="w-4 h-4" />
+          <BrandButton to="/start-free" search={{ from: "/" }} size="lg">
+            Start free <ArrowRight className="w-4 h-4" />
           </BrandButton>
-          <a
-            href="#platform"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-lg text-base font-semibold text-white border border-white/20 hover:bg-white/[0.06] transition focus:outline-none focus-visible:ring-2 focus-visible:ring-[#4D8DFF] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0B1220]"
-          >
-            See how it fits together <ArrowDown className="w-4 h-4" />
-          </a>
+          <BrandButton to="/request-demo" search={{ from: "/" }} size="lg" variant="onDark">
+            Book a demo
+          </BrandButton>
         </div>
+        <p className="mt-4 text-sm text-[#9FB0CC]">
+          Free for up to 25 units, with read-only scanning. No card.{" "}
+          <a href="/pricing" className="font-semibold text-white underline-offset-4 hover:underline">
+            See pricing
+          </a>{" "}
+          ·{" "}
+          <a href="#platform" className="inline-flex items-center gap-1 font-semibold text-white underline-offset-4 hover:underline">
+            How it fits together <ArrowDown className="w-3.5 h-3.5" />
+          </a>
+        </p>
       </div>
     </section>
   );

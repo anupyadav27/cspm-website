@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   CheckCircle2,
   ClipboardCheck,
@@ -15,6 +15,7 @@ import { Backdrop, IconTile } from "@/components/site/system";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
 import { submitLead } from "@/lib/lead-capture";
+import { errorSummary, fieldA11y, focusFirstInvalid } from "@/lib/form-a11y";
 
 /**
  * /audit-scan — the free one-time audit scan, self-serve.
@@ -25,13 +26,18 @@ import { submitLead } from "@/lib/lead-capture";
  * Wording rules that apply here: posture scanning is read-only through cloud roles;
  * agentless workload scanning runs inside the customer's account and is not part of
  * the scan unless agreed. No time to first findings is promised.
+ *
+ * Positioning (conversion audit F1, owner 27 Nov 2026): the free plan (up to 25 units,
+ * self-serve) is the default free start. This page is for estates over 25 units, regulated
+ * buyers, and anyone who wants a person to run the scan and read out the results. It links
+ * smaller estates to /start-free. The scan's own facts below are unchanged.
  */
 export const Route = createFileRoute("/audit-scan")({
   head: () =>
     seo({
-      title: "Free cloud security audit scan — Onam",
+      title: "Free cloud security audit scan, with a readout — Onam",
       description:
-        "A one-time scan of one cloud account through read-only roles, at no charge. You get ranked findings with fixes and a 45-minute readout.",
+        "For estates over 25 units, regulated teams, or anyone who wants a readout: a one-time scan of one cloud account through read-only roles, at no charge, with ranked findings, fixes and a 45-minute readout.",
       path: "/audit-scan",
     }),
   component: AuditScanPage,
@@ -111,18 +117,34 @@ function AuditScanPage() {
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-line bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="grid" icon={ScanSearch} />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 md:pt-24 md:pb-20 grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-muted-500">Free audit scan</div>
+        {/* Three blocks so that on a phone the form follows the heading (audit F5); at lg the intro
+            and the scope lists share the left column and the form sits on the right. */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 md:pt-24 md:pb-20 grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-x-12 gap-y-8 items-start">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-muted-500">Free audit scan, with a readout</div>
             <h1 className="mt-5 font-display font-black text-ink text-4xl md:text-5xl tracking-tight leading-[1.05]">
-              See what to fix first in one of your cloud accounts.
+              Bigger estate or regulated? We'll run the scan with you.
             </h1>
             <p className="mt-5 text-lg text-body leading-relaxed">
-              We scan one cloud account once, through read-only cloud roles, and walk you through what we
-              found. There is no charge and no commitment. You keep the findings report.
+              For estates over 25 units, teams that answer to a regulator or an auditor, and anyone who wants a
+              person to walk them through the results. We scan one cloud account once, through read-only cloud
+              roles, and go through what we found with you. There is no charge and no commitment. You keep the
+              findings report.
             </p>
+            <div className="mt-6 rounded-xl border border-line bg-[#F7F9FC] px-4 py-3 text-sm text-body leading-relaxed">
+              <strong className="text-ink">Under 25 units?</strong>{" "}
+              <Link to="/start-free" search={{ from: "/audit-scan" } as never} className="text-brand-500 font-semibold hover:underline">
+                Start free
+              </Link>{" "}
+              and see your own results without a meeting. No card.
+            </div>
+          </div>
 
-            <h2 className="mt-12 font-display font-bold text-ink text-xl">What the scan covers</h2>
+          <div className="lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24">
+            <AuditForm />
+          </div>
+          <div className="lg:col-start-1 lg:row-start-2">
+            <h2 className="font-display font-bold text-ink text-xl">What the scan covers</h2>
             <ul className="mt-4 space-y-2.5">
               {COVERS.map((c) => (
                 <li key={c} className="flex gap-3 text-sm text-body leading-relaxed">
@@ -143,9 +165,6 @@ function AuditScanPage() {
             </ul>
           </div>
 
-          <div className="lg:sticky lg:top-24">
-            <AuditForm />
-          </div>
         </div>
       </section>
 
@@ -259,8 +278,8 @@ function AuditScanPage() {
               </p>
               <p className="mt-3 text-sm text-body">
                 Prefer a conversation first?{" "}
-                <Link to="/request-demo" search={{ product: "security" }} className="text-brand-500 font-semibold hover:underline">
-                  Request a demo
+                <Link to="/request-demo" search={{ product: "security", from: "/audit-scan" }} className="text-brand-500 font-semibold hover:underline">
+                  Book a demo
                 </Link>{" "}
                 or see{" "}
                 <Link to="/pricing" className="text-brand-500 font-semibold hover:underline">
@@ -293,6 +312,7 @@ function AuditForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   /** Hidden honeypot field — see submitLead. */
   const [website, setWebsite] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const toggleCloud = (c: string) =>
     setSelectedClouds((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
@@ -308,7 +328,10 @@ function AuditForm() {
     if (!form.size) errs.size = "Please pick a rough size.";
     if (!form.environment) errs.environment = "Please pick one.";
     setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    if (Object.keys(errs).length > 0) {
+      focusFirstInvalid(formRef.current);
+      return;
+    }
 
     setSending(true);
     try {
@@ -331,7 +354,14 @@ function AuditForm() {
       setForm({ ...form, [key]: e.target.value }),
   });
   const border = (key: string) => (errors[key] ? "border-[#E32D25]" : "border-[#CBD5E1]");
-  const err = (key: string) => errors[key] && <p className="mt-1 text-xs text-[#C81E1E]">{errors[key]}</p>;
+  const err = (key: string) =>
+    errors[key] && (
+      <p id={`audit-${key}-error`} className="mt-1 text-xs text-[#C81E1E]">
+        {errors[key]}
+      </p>
+    );
+  /** aria-invalid / aria-describedby for the field whose error key is `key`. */
+  const a11y = (key: string) => fieldA11y(`audit-${key}`, errors[key]);
 
   return (
     <div className="bg-white border border-line rounded-2xl p-6 sm:p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)]">
@@ -347,7 +377,10 @@ function AuditForm() {
           </p>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+        <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+          <div aria-live="polite" className="sr-only">
+            {errorSummary(Object.keys(errors).filter((k) => k !== "submit").length)}
+          </div>
           <div>
             <h2 className="font-display font-black text-ink text-2xl tracking-tight">Request your audit scan</h2>
             <p className="mt-1 text-sm text-body">One cloud account, once, at no charge.</p>
@@ -355,19 +388,19 @@ function AuditForm() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="audit-name" className="block text-sm font-semibold text-ink">Name</label>
-              <input id="audit-name" {...field("name")} placeholder="Alex Rivera" className={cn(inputCls, border("name"))} />
+              <input id="audit-name" {...a11y("name")} {...field("name")} placeholder="Alex Rivera" className={cn(inputCls, border("name"))} />
               {err("name")}
             </div>
             <div>
               <label htmlFor="audit-email" className="block text-sm font-semibold text-ink">Work email</label>
-              <input id="audit-email" type="email" {...field("email")} placeholder="you@company.com" className={cn(inputCls, border("email"))} />
+              <input id="audit-email" {...a11y("email")} type="email" {...field("email")} placeholder="you@company.com" className={cn(inputCls, border("email"))} />
               {err("email")}
             </div>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="audit-company" className="block text-sm font-semibold text-ink">Company</label>
-              <input id="audit-company" {...field("company")} placeholder="Acme Corp" className={cn(inputCls, border("company"))} />
+              <input id="audit-company" {...a11y("company")} {...field("company")} placeholder="Acme Corp" className={cn(inputCls, border("company"))} />
               {err("company")}
             </div>
             <div>
@@ -379,7 +412,7 @@ function AuditForm() {
           </div>
           <div>
             <label htmlFor="audit-country" className="block text-sm font-semibold text-ink">Country</label>
-            <select id="audit-country" {...field("country")} className={cn(inputCls, border("country"))}>
+            <select id="audit-country" {...a11y("country")} {...field("country")} className={cn(inputCls, border("country"))}>
               <option value="">Select…</option>
               {COUNTRIES.map((c) => <option key={c} value={c}>{c}</option>)}
             </select>
@@ -395,6 +428,7 @@ function AuditForm() {
                     type="button"
                     key={c}
                     aria-pressed={active}
+                    {...(c === CLOUDS[0] ? a11y("clouds") : {})}
                     onClick={() => toggleCloud(c)}
                     className={cn(
                       "px-3 py-1.5 rounded-full text-xs font-semibold border transition",
@@ -411,7 +445,7 @@ function AuditForm() {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="audit-size" className="block text-sm font-semibold text-ink">Roughly how many resources?</label>
-              <select id="audit-size" {...field("size")} className={cn(inputCls, border("size"))}>
+              <select id="audit-size" {...a11y("size")} {...field("size")} className={cn(inputCls, border("size"))}>
                 <option value="">Select…</option>
                 {RESOURCES.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
@@ -419,7 +453,7 @@ function AuditForm() {
             </div>
             <div>
               <label htmlFor="audit-env" className="block text-sm font-semibold text-ink">Which environment?</label>
-              <select id="audit-env" {...field("environment")} className={cn(inputCls, border("environment"))}>
+              <select id="audit-env" {...a11y("environment")} {...field("environment")} className={cn(inputCls, border("environment"))}>
                 <option value="">Select…</option>
                 {ENVIRONMENTS.map((s) => <option key={s} value={s}>{s}</option>)}
               </select>
@@ -445,7 +479,11 @@ function AuditForm() {
           >
             {sending ? "Sending…" : "Request the audit scan"}
           </button>
-          {errors.submit && <p className="text-xs text-[#C81E1E] text-center">{errors.submit}</p>}
+          {errors.submit && (
+            <p role="alert" className="text-xs text-[#C81E1E] text-center">
+              {errors.submit}
+            </p>
+          )}
           {/* Honeypot: hidden from humans, irresistible to bots. */}
           <input
             type="text"

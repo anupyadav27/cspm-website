@@ -14,7 +14,8 @@ import { submitLead } from "@/lib/lead-capture";
  *
  * Submits through the same `submitLead` pipeline as the demo and contact
  * forms — S3 first, email notification best-effort — so there is one lead
- * path to maintain, not three.
+ * path to maintain, not three. `submitLead` adds the source page, landing page
+ * and UTM tags, and counts a consented `generate_lead` event on success.
  */
 export function ResourceSignup() {
   const [email, setEmail] = useState("");
@@ -70,6 +71,8 @@ export function ResourceSignup() {
           }}
           placeholder="you@company.com"
           aria-label="Work email"
+          aria-invalid={state === "error" || undefined}
+          aria-describedby={state === "error" ? "resource-signup-error" : undefined}
           className={cn(
             "flex-1 rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30",
             state === "error" ? "border-[#E32D25]" : "border-[#CBD5E1]",
@@ -95,7 +98,7 @@ export function ResourceSignup() {
         </button>
       </form>
       {state === "error" && (
-        <p className="mt-2 text-xs text-[#E32D25]">
+        <p id="resource-signup-error" role="alert" className="mt-2 text-xs text-[#C81E1E]">
           That didn't go through. Check the address, or email sales@onamsecurity.com.
         </p>
       )}

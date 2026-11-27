@@ -1,5 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { AckThrottle, ackEmail, replyByDate, routeTag, wantsAck, type LeadKind } from "./lead-inbound";
+import { trackLead } from "./analytics";
+import { leadSourceFromWindow } from "./lead-source";
 
 /**
  * Lead capture for /request-demo, /audit-scan, /company/contact and the resource signup.
@@ -77,6 +79,8 @@ export type LeadInput = {
   /** The page the visitor came from and any UTM tags, so sales can see which pages produce leads. */
   page?: string;
   utm?: string;
+  /** First page of the visit and the external site that sent the visitor (see ./lead-source). */
+  landing?: string;
   /** Honeypot — real users never fill this. Bots do. */
   website?: string;
 };
@@ -137,6 +141,7 @@ function validate(raw: unknown): LeadInput {
       : [],
     page: clean(d.page, 500),
     utm: clean(d.utm, 300),
+    landing: clean(d.landing, 500),
     website: clean(d.website, 200),
   };
 }
@@ -146,7 +151,7 @@ function leadId(): string {
   return `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 10)}`;
 }
 
-export const submitLead = createServerFn({ method: "POST" })
+const submitLeadFn = createServerFn({ method: "POST" })
   .validator(validate)
   .handler(async ({ data }) => {
     // Honeypot: accept and discard so the bot sees success and does not retry.
@@ -174,6 +179,7 @@ export const submitLead = createServerFn({ method: "POST" })
       route: routeTag(data),
       page: data.page || null,
       utm: data.utm || null,
+      landing: data.landing || null,
       source: "www.onamsecurity.com",
     };
 
@@ -211,6 +217,7 @@ export const submitLead = createServerFn({ method: "POST" })
         data.clouds?.length ? `Clouds:   ${data.clouds.join(", ")}` : null,
         data.page ? `From:     ${data.page}` : null,
         data.utm ? `UTM:      ${data.utm}` : null,
+        data.landing ? `Landing:  ${data.landing}` : null,
         data.message ? `\nMessage:\n${data.message}` : null,
         ``,
         `Received: ${now.toISOString()}`,
@@ -268,3 +275,24 @@ export const submitLead = createServerFn({ method: "POST" })
 
     return { ok: true as const };
   });
+
+/**
+ * What every form calls. In the browser it fills in the lead source (`page`, `utm`,
+ * `landing`) where the form did not set it, sends the lead, and only after the server
+ * has stored it counts a `generate_lead` analytics event, which itself checks consent.
+ * `form` names the form in that event when the kind alone is not enough (for example
+ * "talk-to-us", which is a contact lead).
+ */
+export async function submitLead(opts: { data: LeadInput; form?: string }) {
+  const src = leadSourceFromWindow();
+  const data: LeadInput = {
+    ...opts.data,
+    page: opts.data.page || src.page,
+    utm: opts.data.utm || src.utm,
+    landing: opts.data.landing || src.landing,
+  };
+  const result = await submitLeadFn({ data });
+  // A filled honeypot is a bot; it gets "success" but is not counted.
+  if (!data.website) trackLead(opts.form || data.kind, data.page || "");
+  return result;
+}

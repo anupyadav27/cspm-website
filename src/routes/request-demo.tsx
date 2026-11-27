@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CheckCircle2, MessageSquare, Timer, Users, Cloud, CalendarCheck } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { ProductDemo } from "@/components/site/DemoVideos";
@@ -7,20 +7,24 @@ import { Backdrop, IconTile } from "@/components/site/system";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
 import { submitLead } from "@/lib/lead-capture";
+import { errorSummary, fieldA11y, focusFirstInvalid } from "@/lib/form-a11y";
 import { SUITE, type SuiteKey } from "@/data/product-suite";
 
 const PRODUCT_KEYS: SuiteKey[] = ["security", "aiops"];
 
-type DemoSearch = { product?: SuiteKey };
+/** `from`: the page whose CTA sent the visitor; read by submitLead as the lead's source. */
+type DemoSearch = { product?: SuiteKey; from?: string };
 
 export const Route = createFileRoute("/request-demo")({
   validateSearch: (search: Record<string, unknown>): DemoSearch => {
     const raw = typeof search.product === "string" ? search.product.toLowerCase() : "";
-    return PRODUCT_KEYS.includes(raw as SuiteKey) ? { product: raw as SuiteKey } : {};
+    const out: DemoSearch = PRODUCT_KEYS.includes(raw as SuiteKey) ? { product: raw as SuiteKey } : {};
+    if (typeof search.from === "string" && search.from) out.from = search.from.slice(0, 200);
+    return out;
   },
   head: () =>
     seo({
-      title: "Request a demo — Onam",
+      title: "Book a demo — Onam",
       description:
         "Book a 45-minute demo of Onam Security or Onam AI, your AI security analyst, with someone who knows the product. No deck, no generic walkthrough.",
       path: "/request-demo",
@@ -82,10 +86,12 @@ function RequestDemo() {
   const [selectedClouds, setSelectedClouds] = useState<string[]>([]);
   const [selectedProducts, setSelectedProducts] = useState<SuiteKey[]>(product ? [product] : []);
   const [submitted, setSubmitted] = useState(false);
+  const [firstName, setFirstName] = useState("");
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   /** Hidden honeypot field — see submitLead. */
   const [website, setWebsite] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
 
   const toggleCloud = (c: string) =>
     setSelectedClouds((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
@@ -105,11 +111,13 @@ function RequestDemo() {
     if (!form.email || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(form.email)) errs.email = "Please enter a valid work email.";
     if (!form.name.trim()) errs.name = "Please enter your name.";
     if (!form.company.trim()) errs.company = "Please enter your company.";
-    if (!form.country) errs.country = "Please pick your country.";
-    if (selectedClouds.length === 0) errs.clouds = "Select at least one cloud.";
-    if (!form.size) errs.size = "Please pick a size.";
+    // Only email, name and company are required (audit F9). Country, clouds and size are optional:
+    // the call itself establishes them.
     setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    if (Object.keys(errs).length > 0) {
+      focusFirstInvalid(formRef.current);
+      return;
+    }
 
     // Only show success once the lead is actually persisted server-side.
     setSending(true);
@@ -124,6 +132,7 @@ function RequestDemo() {
           website,
         },
       });
+      setFirstName(form.name.trim().split(/\s+/)[0] ?? "");
       setSubmitted(true);
     } catch {
       setErrors({
@@ -134,13 +143,25 @@ function RequestDemo() {
     }
   };
 
+  const errCount = Object.keys(errors).filter((k) => k !== "submit").length;
+  const errText = (id: string, key: string) =>
+    errors[key] && (
+      <p id={`${id}-error`} className="mt-1 text-xs text-[#C81E1E]">
+        {errors[key]}
+      </p>
+    );
+  const border = (key: string) => (errors[key] ? "border-[#E32D25]" : "border-[#CBD5E1]");
+  const optional = <span className="text-muted-500 font-normal">(optional)</span>;
+
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-line bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="grid" icon={CalendarCheck} />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 md:pt-24 md:pb-20 grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <div className="text-xs font-bold uppercase tracking-[0.2em] text-muted-500">Request a demo</div>
+        {/* Three blocks so that on a phone the form comes straight after the heading (audit F5);
+            at lg the intro and the details share the left column and the form sits on the right. */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 pt-20 pb-16 md:pt-24 md:pb-20 grid lg:grid-cols-2 lg:grid-rows-[auto_1fr] gap-x-12 gap-y-8 items-start">
+          <div className="lg:col-start-1 lg:row-start-1">
+            <div className="text-xs font-bold uppercase tracking-[0.2em] text-muted-500">Book a demo</div>
             <h1 className="mt-5 font-display font-black text-ink text-4xl md:text-5xl tracking-tight leading-[1.05]">
               {heading}
             </h1>
@@ -150,42 +171,37 @@ function RequestDemo() {
               meant to solve.
             </p>
             <p className="mt-4 text-sm text-body leading-relaxed">
-              Would you rather see findings from one of your own cloud accounts first?{" "}
-              <Link to="/audit-scan" className="text-brand-500 font-semibold hover:underline">
-                Ask for a free audit scan
-              </Link>
-              . One account, once, at no charge.
+              Would you rather try it yourself first?{" "}
+              <Link to="/start-free" search={{ from: "/request-demo" } as never} className="text-brand-500 font-semibold hover:underline">
+                Start free
+              </Link>{" "}
+              on up to 25 units, with no meeting and no card.
             </p>
-            <div className="mt-10 space-y-4">
-              {expectations.map((e) => (
-                <div
-                  key={e.title}
-                  className="bg-white border border-line rounded-2xl p-5 flex gap-4 items-start shadow-[0_1px_2px_rgba(16,24,40,.04)]"
-                >
-                  <IconTile icon={e.icon} color={e.iconColor} />
-                  <div>
-                    <div className="font-display font-bold text-ink">{e.title}</div>
-                    <p className="mt-1 text-sm text-body leading-relaxed">{e.body}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
           </div>
 
-          <div className="bg-white border border-line rounded-2xl p-6 sm:p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)] lg:sticky lg:top-24">
+          <div className="bg-white border border-line rounded-2xl p-6 sm:p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)] lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:sticky lg:top-24">
             {submitted ? (
               <div className="text-center py-8" role="status">
                 <div className="w-14 h-14 rounded-full bg-tint-blue grid place-items-center mx-auto">
                   <CheckCircle2 className="w-7 h-7 text-brand-500" />
                 </div>
-                <h2 className="mt-5 font-display font-black text-ink text-2xl tracking-tight">Thanks — you're in.</h2>
+                {/* Same promise as the acknowledgement email (lead-inbound.ts, kind "demo"). */}
+                <h2 className="mt-5 font-display font-black text-ink text-2xl tracking-tight">
+                  Thanks{firstName ? `, ${firstName}` : ""}. We have your request.
+                </h2>
                 <p className="mt-3 text-body leading-relaxed">
-                  Someone who knows {picked.length === 1 ? picked[0].name : "the products you picked"} will reach out
-                  within one business day to schedule your 45-minute session.
+                  Anup, Onam's founder, will reply to you himself within one working day to agree a time for your
+                  45-minute session. We have also sent you a confirmation email.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+                <p className="text-sm text-body">
+                  Three fields are required. Everything else helps us prepare, and is optional.
+                </p>
+                <div aria-live="polite" className="sr-only">
+                  {errorSummary(errCount)}
+                </div>
                 {/* Order (owner, 14 Nov 2026): who you are, then your cloud, then optional notes. */}
                 <div className="text-xs font-bold uppercase tracking-[0.16em] text-muted-500">1 · About you</div>
                 <div>
@@ -193,68 +209,79 @@ function RequestDemo() {
                   <input
                     id="demo-email"
                     type="email"
+                    autoComplete="email"
+                    required
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     placeholder="you@company.com"
-                    className={cn(inputCls, errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                    className={cn(inputCls, border("email"))}
+                    {...fieldA11y("demo-email", errors.email)}
                   />
-                  {errors.email && <p className="mt-1 text-xs text-[#C81E1E]">{errors.email}</p>}
+                  {errText("demo-email", "email")}
                 </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="demo-name" className="block text-sm font-semibold text-ink">Name</label>
                     <input
                       id="demo-name"
+                      autoComplete="name"
+                      required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Alex Rivera"
-                      className={cn(inputCls, errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn(inputCls, border("name"))}
+                      {...fieldA11y("demo-name", errors.name)}
                     />
-                    {errors.name && <p className="mt-1 text-xs text-[#C81E1E]">{errors.name}</p>}
+                    {errText("demo-name", "name")}
                   </div>
                   <div>
+                    <label htmlFor="demo-company" className="block text-sm font-semibold text-ink">Company</label>
+                    <input
+                      id="demo-company"
+                      autoComplete="organization"
+                      required
+                      value={form.company}
+                      onChange={(e) => setForm({ ...form, company: e.target.value })}
+                      placeholder="Acme Corp"
+                      className={cn(inputCls, border("company"))}
+                      {...fieldA11y("demo-company", errors.company)}
+                    />
+                    {errText("demo-company", "company")}
+                  </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
                     <label htmlFor="demo-title" className="block text-sm font-semibold text-ink">
-                      Job title <span className="text-muted-500 font-normal">(optional)</span>
+                      Job title {optional}
                     </label>
                     <input
                       id="demo-title"
+                      autoComplete="organization-title"
                       value={form.title}
                       onChange={(e) => setForm({ ...form, title: e.target.value })}
                       placeholder="Head of Cloud Security"
                       className={cn(inputCls, "border-[#CBD5E1]")}
                     />
                   </div>
-                </div>
-                <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="demo-company" className="block text-sm font-semibold text-ink">Company</label>
-                    <input
-                      id="demo-company"
-                      value={form.company}
-                      onChange={(e) => setForm({ ...form, company: e.target.value })}
-                      placeholder="Acme Corp"
-                      className={cn(inputCls, errors.company ? "border-[#E32D25]" : "border-[#CBD5E1]")}
-                    />
-                    {errors.company && <p className="mt-1 text-xs text-[#C81E1E]">{errors.company}</p>}
-                  </div>
-                  <div>
-                    <label htmlFor="demo-country" className="block text-sm font-semibold text-ink">Country</label>
+                    <label htmlFor="demo-country" className="block text-sm font-semibold text-ink">
+                      Country {optional}
+                    </label>
                     <select
                       id="demo-country"
                       value={form.country}
                       onChange={(e) => setForm({ ...form, country: e.target.value })}
-                      className={cn(inputCls, errors.country ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn(inputCls, "border-[#CBD5E1]")}
                     >
                       <option value="">Select…</option>
                       {COUNTRIES.map((c) => (
                         <option key={c} value={c}>{c}</option>
                       ))}
                     </select>
-                    {errors.country && <p className="mt-1 text-xs text-[#C81E1E]">{errors.country}</p>}
                   </div>
                 </div>
 
-                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">2 · Your cloud</div>
+                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">2 · Your cloud {optional}</div>
                 <fieldset>
                   <legend className="block text-sm font-semibold text-ink">Cloud provider(s)</legend>
                   <div className="mt-2 flex flex-wrap gap-2">
@@ -278,7 +305,6 @@ function RequestDemo() {
                       );
                     })}
                   </div>
-                  {errors.clouds && <p className="mt-1 text-xs text-[#C81E1E]">{errors.clouds}</p>}
                 </fieldset>
                 <div>
                   <label htmlFor="demo-size" className="block text-sm font-semibold text-ink">
@@ -288,18 +314,17 @@ function RequestDemo() {
                     id="demo-size"
                     value={form.size}
                     onChange={(e) => setForm({ ...form, size: e.target.value })}
-                    className={cn(inputCls, errors.size ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                    className={cn(inputCls, "border-[#CBD5E1]")}
                   >
                     <option value="">Select…</option>
                     {SIZES.map((s) => (
                       <option key={s} value={s}>{s}</option>
                     ))}
                   </select>
-                  {errors.size && <p className="mt-1 text-xs text-[#C81E1E]">{errors.size}</p>}
                 </div>
                 <fieldset>
                   <legend className="block text-sm font-semibold text-ink">
-                    Products to see <span className="text-muted-500 font-normal">(optional — leave empty for both)</span>
+                    Products to see <span className="text-muted-500 font-normal">(leave empty for both)</span>
                   </legend>
                   <div className="mt-2 grid grid-cols-1 sm:grid-cols-2 gap-2">
                     {SUITE.map((s) => {
@@ -327,10 +352,10 @@ function RequestDemo() {
                   </div>
                 </fieldset>
 
-                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">3 · Anything else</div>
+                <div className="pt-2 text-xs font-bold uppercase tracking-[0.16em] text-muted-500">3 · Anything else {optional}</div>
                 <div>
                   <label htmlFor="demo-message" className="block text-sm font-semibold text-ink">
-                    What would you like us to focus on? <span className="text-muted-500 font-normal">(optional)</span>
+                    What would you like us to focus on?
                   </label>
                   <textarea
                     id="demo-message"
@@ -346,9 +371,13 @@ function RequestDemo() {
                   disabled={sending}
                   className="w-full inline-flex justify-center items-center rounded-[10px] px-4 py-3 text-sm font-semibold bg-brand-500 text-white hover:bg-brand-600 shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition disabled:opacity-60 disabled:cursor-not-allowed"
                 >
-                  {sending ? "Sending…" : "Book my demo"}
+                  {sending ? "Sending…" : "Book a demo"}
                 </button>
-                {errors.submit && <p className="text-xs text-[#C81E1E] text-center">{errors.submit}</p>}
+                {errors.submit && (
+                  <p role="alert" className="text-xs text-[#C81E1E] text-center">
+                    {errors.submit}
+                  </p>
+                )}
                 {/* Honeypot: hidden from humans, irresistible to bots. */}
                 <input
                   type="text"
@@ -366,6 +395,21 @@ function RequestDemo() {
               </form>
             )}
           </div>
+          <div className="lg:col-start-1 lg:row-start-2 space-y-4">
+            {expectations.map((e) => (
+              <div
+                key={e.title}
+                className="bg-white border border-line rounded-2xl p-5 flex gap-4 items-start shadow-[0_1px_2px_rgba(16,24,40,.04)]"
+              >
+                <IconTile icon={e.icon} color={e.iconColor} />
+                <div>
+                  <div className="font-display font-bold text-ink">{e.title}</div>
+                  <p className="mt-1 text-sm text-body leading-relaxed">{e.body}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </section>
       {(selectedProducts.length === 0 || selectedProducts.includes("security")) && (

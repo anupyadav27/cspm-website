@@ -82,19 +82,57 @@ export function loadAnalytics(): void {
   tag.src = `https://www.googletagmanager.com/gtag/js?id=${id}`;
   document.head.appendChild(tag);
 
-  // gtag pushes to dataLayer synchronously; the queue is drained once the async
-  // script above arrives, so ordering here does not matter.
-  //
-  // This MUST push the `arguments` object, not a rest-parameter array. gtag.js
-  // treats an Arguments object as a gtag command and a plain array as a raw
-  // dataLayer entry, so `push([...args])` silently records nothing. That is why
-  // this is a function declaration rather than an arrow.
-  const w = window as unknown as { dataLayer?: IArguments[] };
-  w.dataLayer = w.dataLayer || [];
-  function gtag(..._args: unknown[]) {
-    // eslint-disable-next-line prefer-rest-params
-    w.dataLayer!.push(arguments);
-  }
   gtag("js", new Date());
   gtag("config", id);
+}
+
+/**
+ * gtag pushes to dataLayer synchronously; the queue is drained once the async
+ * script arrives, so calls made before it loads are not lost.
+ *
+ * This MUST push the `arguments` object, not a rest-parameter array. gtag.js
+ * treats an Arguments object as a gtag command and a plain array as a raw
+ * dataLayer entry, so `push([...args])` silently records nothing. That is why
+ * this is a function declaration rather than an arrow.
+ */
+function gtag(..._args: unknown[]) {
+  const w = window as unknown as { dataLayer?: IArguments[] };
+  w.dataLayer = w.dataLayer || [];
+  // eslint-disable-next-line prefer-rest-params
+  w.dataLayer.push(arguments);
+}
+
+/** A path or host short enough for a GA4 parameter (100 characters), with no query string. */
+function shortSource(source: string): string {
+  if (!source) return "(direct)";
+  try {
+    const u = new URL(source, "https://www.onamsecurity.com");
+    const own = /(^|\.)onamsecurity\.com$/.test(u.hostname);
+    return (own ? u.pathname : u.hostname).slice(0, 100);
+  } catch {
+    return source.split("?")[0].slice(0, 100);
+  }
+}
+
+/**
+ * Count a completed form as a GA4 `generate_lead` event (conversion audit F4).
+ *
+ * Consent is checked here, at the moment of the event: with GA4 nothing is sent
+ * unless the visitor said yes. No personal data goes in the event — only which
+ * form it was and the page (path or referring host) that sent the visitor.
+ * Called by `submitLead` after the server has stored the lead.
+ */
+export function trackLead(form: string, source = ""): void {
+  if (typeof window === "undefined") return;
+  const params = { form_kind: form.slice(0, 40), lead_source: shortSource(source) };
+
+  if (ANALYTICS.provider === "plausible") {
+    const w = window as unknown as { plausible?: (e: string, o?: unknown) => void };
+    w.plausible?.("generate_lead", { props: params });
+    return;
+  }
+  if (ANALYTICS.provider !== "ga4") return;
+  if (readConsent() !== "granted") return;
+  loadAnalytics();
+  gtag("event", "generate_lead", params);
 }

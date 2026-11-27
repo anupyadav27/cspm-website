@@ -278,7 +278,7 @@ function LearnPage() {
             <p className="mt-2 text-[#475569] max-w-2xl">{cta.line}</p>
           </div>
           <div className="flex gap-3 shrink-0">
-            <BrandButton to="/request-demo" search={{ product: cta.demo }}>Request demo</BrandButton>
+            <BrandButton to="/request-demo" search={{ product: cta.demo }}>Book a demo</BrandButton>
             <BrandButton to={cta.to} variant="secondary">{cta.label}</BrandButton>
           </div>
         </div>

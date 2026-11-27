@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CheckCircle2, Mail, ShieldAlert, Lock, MessageSquare } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { cn } from "@/lib/utils";
 import { seo } from "@/lib/seo";
 import { submitLead } from "@/lib/lead-capture";
+import { errorSummary, fieldA11y, focusFirstInvalid } from "@/lib/form-a11y";
 import { SUITE, type SuiteKey } from "@/data/product-suite";
 import { Backdrop } from "@/components/site/system";
 
@@ -22,7 +23,8 @@ export const Route = createFileRoute("/company/contact")({
 const reasons = [
   "General question",
   "Pre-sales & pricing",
-  "A second opinion on our cloud (security, cost or recovery)",
+  // Cost and recovery were Estate/FinOps/DRM, retired 17 Nov 2026.
+  "A second opinion on our cloud security",
   "Partner or integration enquiry",
   "Press or analyst",
 ];
@@ -39,6 +41,9 @@ function ContactPage() {
   const [sending, setSending] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [products, setProducts] = useState<SuiteKey[]>([]);
+  /** Hidden honeypot field — see submitLead. It was missing from this form until 27 Nov 2026. */
+  const [website, setWebsite] = useState("");
+  const formRef = useRef<HTMLFormElement>(null);
   const toggleProduct = (k: SuiteKey) =>
     setProducts((prev) => (prev.includes(k) ? prev.filter((x) => x !== k) : [...prev, k]));
 
@@ -50,12 +55,15 @@ function ContactPage() {
     if (!form.reason) errs.reason = "Please pick a reason.";
     if (!form.message.trim()) errs.message = "Please write a short message.";
     setErrors(errs);
-    if (Object.keys(errs).length > 0) return;
+    if (Object.keys(errs).length > 0) {
+      focusFirstInvalid(formRef.current);
+      return;
+    }
 
     // Only show success once the lead is actually persisted server-side.
     setSending(true);
     try {
-      await submitLead({ data: { kind: "contact", ...form, products } });
+      await submitLead({ data: { kind: "contact", ...form, products, website } });
       setSubmitted(true);
     } catch {
       setErrors({
@@ -85,36 +93,47 @@ function ContactPage() {
         <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-[1.4fr_1fr] gap-10 items-start">
           <div className="bg-white border border-[#E5E9F0] rounded-2xl p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)]">
             {submitted ? (
-              <div className="text-center py-8">
+              <div className="text-center py-8" role="status">
                 <div className="w-14 h-14 rounded-full bg-[#EFF4FF] grid place-items-center mx-auto">
                   <CheckCircle2 className="w-7 h-7 text-[#2563EB]" />
                 </div>
                 <h2 className="mt-5 font-display font-black text-[#0B1220] text-2xl tracking-tight">Message received.</h2>
-                <p className="mt-3 text-[#475569]">Thanks — we'll get back to you within one business day.</p>
+                {/* Same promise as the acknowledgement email (lead-inbound.ts, kind "contact"). */}
+                <p className="mt-3 text-[#475569]">
+                  Thanks. Anup, Onam's founder, will reply to you himself within one working day. We have also sent
+                  you a confirmation email.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5" noValidate>
+                <div aria-live="polite" className="sr-only">
+                  {errorSummary(Object.keys(errors).filter((k) => k !== "submit").length)}
+                </div>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1220]">Name</label>
+                    <label htmlFor="contact-name" className="block text-sm font-semibold text-[#0B1220]">Name</label>
                     <input
+                      id="contact-name"
+                      {...fieldA11y("contact-name", errors.name)}
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Alex Rivera"
                       className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
-                    {errors.name && <p className="mt-1 text-xs text-[#E32D25]">{errors.name}</p>}
+                    {errors.name && <p id="contact-name-error" className="mt-1 text-xs text-[#C81E1E]">{errors.name}</p>}
                   </div>
                   <div>
-                    <label className="block text-sm font-semibold text-[#0B1220]">Work email</label>
+                    <label htmlFor="contact-email" className="block text-sm font-semibold text-[#0B1220]">Work email</label>
                     <input
+                      id="contact-email"
+                      {...fieldA11y("contact-email", errors.email)}
                       type="email"
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="you@company.com"
                       className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
-                    {errors.email && <p className="mt-1 text-xs text-[#E32D25]">{errors.email}</p>}
+                    {errors.email && <p id="contact-email-error" className="mt-1 text-xs text-[#C81E1E]">{errors.email}</p>}
                   </div>
                 </div>
                 <fieldset>
@@ -144,8 +163,10 @@ function ContactPage() {
                   </div>
                 </fieldset>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1220]">Reason</label>
+                  <label htmlFor="contact-reason" className="block text-sm font-semibold text-[#0B1220]">Reason</label>
                   <select
+                    id="contact-reason"
+                    {...fieldA11y("contact-reason", errors.reason)}
                     value={form.reason}
                     onChange={(e) => setForm({ ...form, reason: e.target.value })}
                     className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.reason ? "border-[#E32D25]" : "border-[#CBD5E1]")}
@@ -153,18 +174,20 @@ function ContactPage() {
                     <option value="">Select one…</option>
                     {reasons.map((r) => <option key={r} value={r}>{r}</option>)}
                   </select>
-                  {errors.reason && <p className="mt-1 text-xs text-[#E32D25]">{errors.reason}</p>}
+                  {errors.reason && <p id="contact-reason-error" className="mt-1 text-xs text-[#C81E1E]">{errors.reason}</p>}
                 </div>
                 <div>
-                  <label className="block text-sm font-semibold text-[#0B1220]">Message</label>
+                  <label htmlFor="contact-message" className="block text-sm font-semibold text-[#0B1220]">Message</label>
                   <textarea
+                    id="contact-message"
+                    {...fieldA11y("contact-message", errors.message)}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={5}
                     placeholder="A short note about what you're looking for."
                     className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.message ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                   />
-                  {errors.message && <p className="mt-1 text-xs text-[#E32D25]">{errors.message}</p>}
+                  {errors.message && <p id="contact-message-error" className="mt-1 text-xs text-[#C81E1E]">{errors.message}</p>}
                 </div>
                 <button
                   type="submit"
@@ -174,8 +197,19 @@ function ContactPage() {
                   {sending ? "Sending…" : "Send message"}
                 </button>
                 {errors.submit && (
-                  <p className="text-xs text-[#E32D25] text-center">{errors.submit}</p>
+                  <p role="alert" className="text-xs text-[#C81E1E] text-center">{errors.submit}</p>
                 )}
+                {/* Honeypot: hidden from humans, irresistible to bots. */}
+                <input
+                  type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  aria-hidden="true"
+                  style={{ position: "absolute", left: "-9999px", width: 1, height: 1 }}
+                />
               </form>
             )}
           </div>

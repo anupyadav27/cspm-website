@@ -14,8 +14,9 @@ type MenuKey = "products" | "solutions" | "resources" | "company";
 
 /**
  * Top bar (owner decision 2026-10-07): Products · Solutions · Why Onam · Resources ·
- * Company, with Docs, Log in and Request demo on the right. Pricing is under
- * Resources › Evaluate: enterprise buyers start with a demo, not a price list. Learn, Docs and the
+ * Company, with Docs, Log in and Request demo on the right. Pricing was under
+ * Resources › Evaluate; since the free plan (27 Nov 2026) it is also a top-level item after
+ * Why Onam, desktop and mobile, because small buyers look for the price first. Learn, Docs and the
  * resource library used to be three separate top-level links; they are one
  * Resources menu now, grouped by what the visitor is doing.
  */
@@ -346,6 +347,16 @@ export function Navbar() {
             Why Onam
           </Link>
 
+          {/* Top-level since the free plan (owner: act on the conversion audit, 27 Nov 2026, F8):
+              SMB buyers look for the price before they book anything. */}
+          <Link
+            to="/pricing"
+            className="px-3 py-2 text-sm font-medium text-[#334155] hover:text-[#2563EB] transition"
+            activeProps={{ className: "text-[#2563EB]" }}
+          >
+            Pricing
+          </Link>
+
           <div
             className="relative h-16 flex items-center"
             onMouseEnter={() => hoverOpen("resources")}
@@ -401,7 +412,7 @@ export function Navbar() {
             to="/request-demo"
             className="text-sm font-semibold px-4 py-2 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
           >
-            Request demo
+            Book a demo
           </Link>
           <StartFreeLink className="text-sm font-semibold px-4 py-2 rounded-[10px] bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition" />
         </div>
@@ -418,6 +429,13 @@ export function Navbar() {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-t border-[#E5E9F0] max-h-[calc(100vh-4rem)] overflow-y-auto">
           <div className="p-6 space-y-6">
+            <Link
+              to="/pricing"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between rounded-[10px] border border-[#E5E9F0] px-4 py-3 text-sm font-bold text-[#0B1220]"
+            >
+              Pricing <span className="text-xs font-medium text-[#64748B]">Public prices · free plan</span>
+            </Link>
             <div>
               <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">Products</div>
               <div className="divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
@@ -514,7 +532,7 @@ export function Navbar() {
                 onClick={() => setMobileOpen(false)}
                 className="block text-center text-sm font-semibold px-4 py-3 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] mt-2"
               >
-                Request demo
+                Book a demo
               </Link>
             </div>
           </div>
