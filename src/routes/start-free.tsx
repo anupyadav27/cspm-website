@@ -1,6 +1,6 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Circle, KeyRound, Mail, UserRound } from "@/components/site/icons";
+import { ArrowDown, CheckCircle2, Circle, Globe, KeyRound, Lock, Mail, ShieldCheck, UserRound } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Backdrop } from "@/components/site/system";
 import { cn } from "@/lib/utils";
@@ -81,6 +81,12 @@ function StartFreePage() {
               controls you are tested on. Free for up to 50 units, through{" "}
               <strong className="text-ink">read-only cloud roles</strong>. No agent, no card.
             </p>
+            <a
+              href="#signup"
+              className="mt-6 inline-flex min-h-11 items-center gap-2 rounded-[10px] bg-brand-500 px-5 text-sm font-semibold text-white lg:hidden"
+            >
+              Start free <ArrowDown className="h-4 w-4" aria-hidden />
+            </a>
 
             <ol className="mt-8 space-y-4">
               {STEPS.map((s, i) => (
@@ -138,7 +144,10 @@ function StartFreePage() {
             </div>
           </div>
 
-          <SignUpForm />
+          <div id="signup" className="scroll-mt-24 lg:sticky lg:top-24 space-y-4">
+            <SignUpForm />
+            <TrustBox />
+          </div>
         </div>
       </section>
     </SiteLayout>
@@ -168,6 +177,7 @@ function SignUpForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [website, setWebsite] = useState("");
   const source = useSource();
+  const navigate = useNavigate();
 
   const toggleCloud = (c: string) =>
     setSelectedClouds((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
@@ -197,6 +207,7 @@ function SignUpForm() {
         },
       });
       setSubmitted(true);
+      navigate({ to: "/start-free/thanks" });
     } catch {
       setErrors({ submit: "Something went wrong sending that. Please email sales@onamsecurity.com and we'll set you up." });
     } finally {
@@ -213,7 +224,7 @@ function SignUpForm() {
   const err = (key: string) => errors[key] && <p className="mt-1 text-xs text-[#C81E1E]">{errors[key]}</p>;
 
   return (
-    <div className="bg-white border border-line rounded-2xl p-6 sm:p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)] lg:sticky lg:top-24">
+    <div className="bg-white border border-line rounded-2xl p-6 sm:p-8 shadow-[0_1px_2px_rgba(16,24,40,.04),0_12px_28px_rgba(16,24,40,.06)]">
       {submitted ? (
         <div className="text-center py-8" role="status">
           <div className="w-14 h-14 rounded-full bg-tint-blue grid place-items-center mx-auto">
@@ -322,6 +333,35 @@ function SignUpForm() {
           </p>
         </form>
       )}
+    </div>
+  );
+}
+
+/** Cleared facts only (product.yaml company.hosting, retention_after_deactivation_days; tenant wording rule). */
+function TrustBox() {
+  const items = [
+    { Icon: KeyRound, t: "Read-only roles", d: "Posture scanning connects through read-only cloud roles. Read every permission before you deploy it." },
+    { Icon: Globe, t: "Your region", d: "Your data is hosted in the region you choose, such as the US, Europe or India." },
+    { Icon: Lock, t: "30 days, then gone", d: "If you leave, your data is kept for 30 days after deactivation." },
+  ];
+  return (
+    <div className="rounded-2xl bg-white ring-1 ring-line p-5">
+      <div className="flex items-center gap-2 font-display font-bold text-ink">
+        <ShieldCheck className="h-5 w-5 text-brand-600" aria-hidden /> Before you connect
+      </div>
+      <ul className="mt-3 space-y-3">
+        {items.map((x) => (
+          <li key={x.t} className="flex gap-3">
+            <x.Icon className="mt-0.5 h-4 w-4 shrink-0 text-muted-500" aria-hidden />
+            <div className="text-sm leading-relaxed">
+              <span className="font-semibold text-ink">{x.t}.</span> <span className="text-body">{x.d}</span>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <Link to="/trust" className="mt-3 inline-block text-sm font-semibold text-brand-600 hover:underline">
+        How we handle your data
+      </Link>
     </div>
   );
 }

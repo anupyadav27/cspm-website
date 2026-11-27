@@ -170,8 +170,8 @@ function Page() {
             that it is noise. That is more useful to us than a signature.
           </p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <BrandButton to="/request-demo" search={{ product: "security" }} size="lg">
-              Run a scan on one account
+            <BrandButton to="/start-free" search={{ from: "/case-studies" }} size="lg">
+              Scan one account free
               <ArrowRight className="h-4 w-4" />
             </BrandButton>
           </div>

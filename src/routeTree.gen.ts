@@ -87,6 +87,7 @@ import { Route as SolutionsHealthcareRouteImport } from './routes/solutions/heal
 import { Route as SolutionsIbmRouteImport } from './routes/solutions/ibm'
 import { Route as SolutionsKubernetesRouteImport } from './routes/solutions/kubernetes'
 import { Route as SolutionsOciRouteImport } from './routes/solutions/oci'
+import { Route as StartFreeThanksRouteImport } from './routes/start-free.thanks'
 import { Route as CompanyTeamSlugRouteImport } from './routes/company/team.$slug'
 import { Route as PlatformAiOperationsIndexRouteImport } from './routes/platform/ai-operations.index'
 import { Route as PlatformAiOperationsArchitectureRouteImport } from './routes/platform/ai-operations.architecture'
@@ -491,6 +492,11 @@ const SolutionsOciRoute = SolutionsOciRouteImport.update({
   path: '/solutions/oci',
   getParentRoute: () => rootRouteImport,
 } as any)
+const StartFreeThanksRoute = StartFreeThanksRouteImport.update({
+  id: '/thanks',
+  path: '/thanks',
+  getParentRoute: () => StartFreeRoute,
+} as any)
 const CompanyTeamSlugRoute = CompanyTeamSlugRouteImport.update({
   id: '/company/team/$slug',
   path: '/company/team/$slug',
@@ -549,7 +555,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
-  '/start-free': typeof StartFreeRoute
+  '/start-free': typeof StartFreeRouteWithChildren
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -610,6 +616,7 @@ export interface FileRoutesByFullPath {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/start-free/thanks': typeof StartFreeThanksRoute
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
@@ -636,7 +643,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
-  '/start-free': typeof StartFreeRoute
+  '/start-free': typeof StartFreeRouteWithChildren
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -697,6 +704,7 @@ export interface FileRoutesByTo {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/start-free/thanks': typeof StartFreeThanksRoute
   '/compare': typeof CompareIndexRoute
   '/docs': typeof DocsIndexRoute
   '/learn': typeof LearnIndexRoute
@@ -725,7 +733,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
-  '/start-free': typeof StartFreeRoute
+  '/start-free': typeof StartFreeRouteWithChildren
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -786,6 +794,7 @@ export interface FileRoutesById {
   '/solutions/ibm': typeof SolutionsIbmRoute
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
+  '/start-free/thanks': typeof StartFreeThanksRoute
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
@@ -876,6 +885,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/start-free/thanks'
     | '/compare/'
     | '/docs/'
     | '/learn/'
@@ -963,6 +973,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/start-free/thanks'
     | '/compare'
     | '/docs'
     | '/learn'
@@ -1051,6 +1062,7 @@ export interface FileRouteTypes {
     | '/solutions/ibm'
     | '/solutions/kubernetes'
     | '/solutions/oci'
+    | '/start-free/thanks'
     | '/compare/'
     | '/docs/'
     | '/learn/'
@@ -1079,7 +1091,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
   SecurityRoute: typeof SecurityRoute
-  StartFreeRoute: typeof StartFreeRoute
+  StartFreeRoute: typeof StartFreeRouteWithChildren
   ToolsRoute: typeof ToolsRoute
   TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
@@ -1702,6 +1714,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SolutionsOciRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/start-free/thanks': {
+      id: '/start-free/thanks'
+      path: '/thanks'
+      fullPath: '/start-free/thanks'
+      preLoaderRoute: typeof StartFreeThanksRouteImport
+      parentRoute: typeof StartFreeRoute
+    }
     '/company/team/$slug': {
       id: '/company/team/$slug'
       path: '/company/team/$slug'
@@ -1773,6 +1792,18 @@ const DocsRouteChildren: DocsRouteChildren = {
 
 const DocsRouteWithChildren = DocsRoute._addFileChildren(DocsRouteChildren)
 
+interface StartFreeRouteChildren {
+  StartFreeThanksRoute: typeof StartFreeThanksRoute
+}
+
+const StartFreeRouteChildren: StartFreeRouteChildren = {
+  StartFreeThanksRoute: StartFreeThanksRoute,
+}
+
+const StartFreeRouteWithChildren = StartFreeRoute._addFileChildren(
+  StartFreeRouteChildren,
+)
+
 interface ResourcesBlogRouteChildren {
   ResourcesBlogSlugRoute: typeof ResourcesBlogSlugRoute
 }
@@ -1796,7 +1827,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
   SecurityRoute: SecurityRoute,
-  StartFreeRoute: StartFreeRoute,
+  StartFreeRoute: StartFreeRouteWithChildren,
   ToolsRoute: ToolsRoute,
   TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,

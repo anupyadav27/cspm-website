@@ -102,11 +102,11 @@ export function SecuritySpotlight({ asHero = false }: { asHero?: boolean } = {})
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-3">
             <BrandButton
-              to={asHero ? "/request-demo" : "/platform"}
-              search={asHero ? { product: "security" } : undefined}
+              to={asHero ? "/start-free" : "/platform"}
+              search={asHero ? { from: "/" } : undefined}
               size="lg"
             >
-              {asHero ? "Scan my cloud" : "Explore Onam Security"} <ArrowRight className="w-4 h-4" />
+              {asHero ? "Start free" : "Explore Onam Security"} <ArrowRight className="w-4 h-4" />
             </BrandButton>
             <a
               href="/resources/scenarios"

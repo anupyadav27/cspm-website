@@ -121,7 +121,8 @@ function Hero({ data }: { data: ProductPageData }) {
         <p className="mt-6 text-lg text-[#475569] leading-relaxed">{data.sub}</p>
         </div>
         <div className="mt-9 flex flex-wrap items-center gap-3">
-          <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg">See it in my cloud <ArrowRight className="w-4 h-4" /></BrandButton>
+          <BrandButton to="/start-free" search={{ from: pathnameForCta() }} size="lg">Start free <ArrowRight className="w-4 h-4" /></BrandButton>
+          <BrandButton to="/request-demo" search={ctx.demoSearch} size="lg" variant="secondary">Book a demo</BrandButton>
           <BrandButton to={ctx.docsHref} size="lg" variant="secondary">Read the docs</BrandButton>
         </div>
 
@@ -378,8 +379,8 @@ export function ProductPageTemplate({
           tone="white"
           clips={data.demoClips ?? ["dashboard", "scan"]}
           eyebrow="See it live"
-          title={`${data.label} in the real console.`}
-          gradientWords="real console."
+          title={`How ${data.label} looks in Onam.`}
+          gradientWords="looks in Onam."
           subtitle="A recreation of the Onam console with sample data — the screens and finding types your team works with."
         />
       )}
@@ -388,4 +389,9 @@ export function ProductPageTemplate({
       <CtaAndRelated data={data} />
     </SiteLayout>
   );
+}
+
+/** The current path, for the free-plan CTA's source tracking (read at click time on the client). */
+function pathnameForCta(): string {
+  return typeof window === "undefined" ? "" : window.location.pathname;
 }

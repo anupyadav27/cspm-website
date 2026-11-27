@@ -183,8 +183,8 @@ function Page() {
             check yourself today.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <BrandButton to="/request-demo" size="lg">
-              Run a scan on one account
+            <BrandButton to="/start-free" search={{ from: "/compare" }} size="lg">
+              Scan one account free
               <ArrowRight className="h-4 w-4" />
             </BrandButton>
             {c.platformHref ? (
