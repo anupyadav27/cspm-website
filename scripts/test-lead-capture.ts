@@ -26,6 +26,7 @@ eq("month/year roll", iso(replyByDate(new Date("2026-12-31T06:00:00Z")).date), "
 console.log("— Route tag");
 eq("demo form", routeTag({ kind: "demo", message: "Want to see attack paths" }), "demo");
 eq("audit form", routeTag({ kind: "audit" }), "audit");
+eq("free plan form", routeTag({ kind: "free" }), "free");
 eq("partner reason on contact", routeTag({ kind: "contact", reason: "Partner or integration enquiry" }), "partner");
 eq("MSSP on demo form", routeTag({ kind: "demo", message: "We are an MSSP and want to resell" }), "partner");
 eq("investor", routeTag({ kind: "contact", reason: "General question", message: "I am an angel investor" }), "investor");
@@ -40,6 +41,11 @@ eq("demo wants ack", wantsAck("demo"), true);
 eq("audit wants ack", wantsAck("audit"), true);
 eq("contact wants ack", wantsAck("contact"), true);
 eq("subscribe gets none", wantsAck("subscribe"), false);
+eq("free plan wants ack", wantsAck("free"), true);
+const f = ackEmail({ kind: "free", name: "Ravi K" }, "");
+eq("free subject", f.subject, "Your Onam free plan: we are setting it up");
+eq("free says login by email", f.body.includes("email your login details"), true);
+eq("free says 50 units", f.body.includes("up to 50 units"), true);
 const a = ackEmail({ kind: "audit", name: "Priya Sharma" }, "");
 eq("greets first name", a.body.startsWith("Hello Priya,"), true);
 eq("one working day", a.body.includes("within one working day"), true);
@@ -49,7 +55,7 @@ const b = ackEmail({ kind: "demo", name: "" }, "https://calendar.app.google/abc"
 eq("plain hello when no name", b.body.startsWith("Hello,"), true);
 eq("booking line when set", b.body.includes("If you would like to pick a time now: https://calendar.app.google/abc"), true);
 const banned = /within minutes|guarantee|risk-free|free trial|certified|our customers/i;
-for (const k of ["demo", "audit", "contact"] as const) {
+for (const k of ["demo", "audit", "contact", "free"] as const) {
   eq(`${k} ack has no banned claims`, banned.test(ackEmail({ kind: k, name: "A" }, "x").body), false);
 }
 

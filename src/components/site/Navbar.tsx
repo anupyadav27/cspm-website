@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { useState, useEffect, useRef } from "react";
 import { Menu, X, ChevronDown } from "@/components/site/icons";
 import { cn } from "@/lib/utils";
@@ -399,10 +399,11 @@ export function Navbar() {
           </a>
           <Link
             to="/request-demo"
-            className="text-sm font-semibold px-4 py-2 rounded-[10px] bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition"
+            className="text-sm font-semibold px-4 py-2 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] hover:border-[#2563EB] hover:text-[#2563EB] transition"
           >
             Request demo
           </Link>
+          <StartFreeLink className="text-sm font-semibold px-4 py-2 rounded-[10px] bg-[#2563EB] text-white hover:bg-[#1D4ED8] shadow-[0_1px_2px_rgba(16,24,40,.06),0_4px_10px_rgba(37,99,235,.20)] transition" />
         </div>
 
         <button
@@ -504,10 +505,14 @@ export function Navbar() {
               >
                 Log in
               </a>
+              <StartFreeLink
+                onClick={() => setMobileOpen(false)}
+                className="block text-center text-sm font-semibold px-4 py-3 rounded-[10px] bg-[#2563EB] text-white mt-3"
+              />
               <Link
                 to="/request-demo"
                 onClick={() => setMobileOpen(false)}
-                className="block text-center text-sm font-semibold px-4 py-3 rounded-[10px] bg-[#2563EB] text-white mt-3"
+                className="block text-center text-sm font-semibold px-4 py-3 rounded-[10px] border border-[#CBD5E1] text-[#0B1220] mt-2"
               >
                 Request demo
               </Link>
@@ -516,5 +521,15 @@ export function Navbar() {
         </div>
       )}
     </header>
+  );
+}
+
+/** The free-plan CTA, carrying the page it was clicked on so sign-ups show their source. */
+function StartFreeLink({ className, onClick }: { className: string; onClick?: () => void }) {
+  const pathname = useRouterState({ select: (st) => st.location.pathname });
+  return (
+    <Link to="/start-free" search={{ from: pathname } as never} onClick={onClick} className={className}>
+      Start free
+    </Link>
   );
 }

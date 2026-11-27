@@ -74,6 +74,9 @@ export type LeadInput = {
   clouds?: string[];
   /** Products of interest: security | aiops (aiops = Onam AI; Estate, FinOps, DRM retired 17 Nov 2026). */
   products?: string[];
+  /** The page the visitor came from and any UTM tags, so sales can see which pages produce leads. */
+  page?: string;
+  utm?: string;
   /** Honeypot — real users never fill this. Bots do. */
   website?: string;
 };
@@ -87,12 +90,14 @@ const LABEL: Record<LeadKind, string> = {
   audit: "Free audit scan",
   contact: "Contact",
   subscribe: "Resource library signup",
+  free: "Free plan sign-up",
 };
 const SUBJECT: Record<LeadKind, string> = {
   demo: "Demo",
   audit: "Audit scan",
   contact: "Contact",
   subscribe: "Subscribe",
+  free: "Free plan",
 };
 
 /** Trim, cap length, and strip control characters before anything is stored. */
@@ -105,7 +110,7 @@ function clean(v: unknown, max = 2000): string {
 function validate(raw: unknown): LeadInput {
   const d = (raw ?? {}) as Record<string, unknown>;
   const kind: LeadKind =
-    d.kind === "contact" || d.kind === "subscribe" || d.kind === "audit" ? d.kind : "demo";
+    d.kind === "contact" || d.kind === "subscribe" || d.kind === "audit" || d.kind === "free" ? d.kind : "demo";
   const email = clean(d.email, 254);
   const name = clean(d.name, 200);
 
@@ -130,6 +135,8 @@ function validate(raw: unknown): LeadInput {
           .filter((x) => PRODUCT_KEYS.includes(x))
           .slice(0, 5)
       : [],
+    page: clean(d.page, 500),
+    utm: clean(d.utm, 300),
     website: clean(d.website, 200),
   };
 }
@@ -165,6 +172,8 @@ export const submitLead = createServerFn({ method: "POST" })
       clouds: data.clouds?.length ? data.clouds : null,
       products: data.products?.length ? data.products : null,
       route: routeTag(data),
+      page: data.page || null,
+      utm: data.utm || null,
       source: "www.onamsecurity.com",
     };
 
@@ -200,6 +209,8 @@ export const submitLead = createServerFn({ method: "POST" })
         data.reason ? `Reason:   ${data.reason}` : null,
         data.products?.length ? `Products: ${data.products.join(", ")}` : null,
         data.clouds?.length ? `Clouds:   ${data.clouds.join(", ")}` : null,
+        data.page ? `From:     ${data.page}` : null,
+        data.utm ? `UTM:      ${data.utm}` : null,
         data.message ? `\nMessage:\n${data.message}` : null,
         ``,
         `Received: ${now.toISOString()}`,

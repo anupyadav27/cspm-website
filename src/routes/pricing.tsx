@@ -41,6 +41,7 @@ import {
   DEV_PRICE,
   FREE_RESOURCES,
   MIN_UNITS,
+  FREE_UNITS,
   SAAS_BANDS,
   SAAS_PLATFORMS,
   volumePrice,
@@ -553,7 +554,23 @@ function PriceCalculator() {
           </p>
         )}
 
+        {est.units > 0 && est.units <= FREE_UNITS && plan === "posture" && (
+          <p className="mt-4 rounded-md bg-white/10 px-3 py-2 text-xs text-white">
+            This estate fits the free plan (up to {FREE_UNITS} units) if you don't need Kubernetes, data-content or
+            vulnerability scanning.
+          </p>
+        )}
+        {est.units > 0 && est.units <= FREE_UNITS && plan === "complete" && (
+          <p className="mt-4 rounded-md bg-white/10 px-3 py-2 text-xs text-white">
+            Under {FREE_UNITS} units: the free plan covers read-only posture, compliance and identity checks at no charge.
+          </p>
+        )}
         <div className="mt-6 grid gap-2">
+          {est.units > 0 && est.units <= FREE_UNITS && (
+            <BrandButton to="/start-free" search={{ from: "/pricing#calculator" }} className="w-full">
+              Start free <ArrowRight className="w-4 h-4" />
+            </BrandButton>
+          )}
           <BrandButton to="/company/contact" className="w-full">
             Get a quote for this estimate <ArrowRight className="w-4 h-4" />
           </BrandButton>
@@ -726,6 +743,10 @@ const faqs = [
     a: `The smallest cloud and SaaS bill is ${MIN_UNITS} units a month (${usd(MIN_UNITS * COMPLETE.unitPrice)} on Complete). Before that, a free one-time audit scan of one cloud account lets you see the findings first.`,
   },
   {
+    q: "Is there a free plan?",
+    a: `Yes. The free plan covers up to ${FREE_UNITS} units, counted the same way as the paid plans. It runs read-only through your cloud's APIs: posture and compliance, identity and permissions, and the data stores your cloud reports. Kubernetes posture, reading data to classify it, and vulnerability and malware scanning need a scanner or access inside your environment, so they are on paid plans. There is no card. Register at /start-free and our team emails your login details.`,
+  },
+  {
     q: "What does the free audit scan include?",
     a: "We connect to one cloud account through read-only posture scanning, run the checks once and walk you through the results in a 45-minute readout. Each finding is ranked by risk and comes with its fix and the compliance frameworks it affects. You keep the report. There is no charge and no commitment.",
   },
@@ -775,7 +796,21 @@ function PricingPage() {
             Identity (CIEM) and data (DSPM) checks are in every cloud unit, with no add-ons. Enter
             your numbers below for a monthly estimate.
           </p>
-          <dl className="mt-10 grid sm:grid-cols-2 lg:grid-cols-4 border border-[#E5E9F0] rounded-lg divide-y sm:divide-y-0 sm:divide-x divide-[#E5E9F0]">
+          <div className="mt-8 flex flex-col gap-4 rounded-lg border border-[#2563EB]/30 bg-[#F5F8FF] p-5 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+              <div className="font-display font-bold text-[#0B1220]">
+                Free plan: up to {FREE_UNITS} units, free
+              </div>
+              <p className="mt-1 text-sm text-[#475569] leading-relaxed">
+                Read-only posture, compliance and identity checks through cloud APIs. No agent, no card. Kubernetes,
+                data-content and vulnerability scanning are on paid plans.
+              </p>
+            </div>
+            <BrandButton to="/start-free" search={{ from: "/pricing" }} className="shrink-0">
+              Start free <ArrowRight className="w-4 h-4" />
+            </BrandButton>
+          </div>
+          <dl className="mt-6 grid sm:grid-cols-2 lg:grid-cols-4 border border-[#E5E9F0] rounded-lg divide-y sm:divide-y-0 sm:divide-x divide-[#E5E9F0]">
             {[
               {
                 k: "Cloud, Complete",
@@ -818,8 +853,8 @@ function PricingPage() {
             <BrandButton href="#calculator" size="lg">
               Work out your price <ArrowRight className="w-4 h-4" />
             </BrandButton>
-            <BrandButton to="/audit-scan" variant="secondary" size="lg">
-              Request a free audit scan
+            <BrandButton to="/start-free" search={{ from: "/pricing" }} variant="secondary" size="lg">
+              Start free (up to {FREE_UNITS} units)
             </BrandButton>
           </div>
         </div>

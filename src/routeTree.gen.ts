@@ -19,6 +19,7 @@ import { Route as FinopsRouteImport } from './routes/finops'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as RequestDemoRouteImport } from './routes/request-demo'
 import { Route as SecurityRouteImport } from './routes/security'
+import { Route as StartFreeRouteImport } from './routes/start-free'
 import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
@@ -143,6 +144,11 @@ const RequestDemoRoute = RequestDemoRouteImport.update({
 const SecurityRoute = SecurityRouteImport.update({
   id: '/security',
   path: '/security',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StartFreeRoute = StartFreeRouteImport.update({
+  id: '/start-free',
+  path: '/start-free',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ToolsRoute = ToolsRouteImport.update({
@@ -543,6 +549,7 @@ export interface FileRoutesByFullPath {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
+  '/start-free': typeof StartFreeRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -629,6 +636,7 @@ export interface FileRoutesByTo {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
+  '/start-free': typeof StartFreeRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -717,6 +725,7 @@ export interface FileRoutesById {
   '/pricing': typeof PricingRoute
   '/request-demo': typeof RequestDemoRoute
   '/security': typeof SecurityRoute
+  '/start-free': typeof StartFreeRoute
   '/tools': typeof ToolsRoute
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
@@ -806,6 +815,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/security'
+    | '/start-free'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -892,6 +902,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/security'
+    | '/start-free'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -979,6 +990,7 @@ export interface FileRouteTypes {
     | '/pricing'
     | '/request-demo'
     | '/security'
+    | '/start-free'
     | '/tools'
     | '/trust'
     | '/whitepapers'
@@ -1067,6 +1079,7 @@ export interface RootRouteChildren {
   PricingRoute: typeof PricingRoute
   RequestDemoRoute: typeof RequestDemoRoute
   SecurityRoute: typeof SecurityRoute
+  StartFreeRoute: typeof StartFreeRoute
   ToolsRoute: typeof ToolsRoute
   TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
@@ -1211,6 +1224,13 @@ declare module '@tanstack/react-router' {
       path: '/security'
       fullPath: '/security'
       preLoaderRoute: typeof SecurityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/start-free': {
+      id: '/start-free'
+      path: '/start-free'
+      fullPath: '/start-free'
+      preLoaderRoute: typeof StartFreeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/tools': {
@@ -1776,6 +1796,7 @@ const rootRouteChildren: RootRouteChildren = {
   PricingRoute: PricingRoute,
   RequestDemoRoute: RequestDemoRoute,
   SecurityRoute: SecurityRoute,
+  StartFreeRoute: StartFreeRoute,
   ToolsRoute: ToolsRoute,
   TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,

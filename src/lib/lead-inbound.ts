@@ -12,8 +12,8 @@
  *                  cannot be used to flood someone's inbox with our mail.
  */
 
-export type LeadKind = "demo" | "audit" | "contact" | "subscribe";
-export type RouteTag = "demo" | "audit" | "partner" | "investor" | "other";
+export type LeadKind = "demo" | "audit" | "contact" | "subscribe" | "free";
+export type RouteTag = "demo" | "audit" | "partner" | "investor" | "free" | "other";
 
 /** India Standard Time is UTC+5:30 all year (no daylight saving). */
 const IST_OFFSET_MS = (5 * 60 + 30) * 60 * 1000;
@@ -51,6 +51,7 @@ export function routeTag(input: { kind: LeadKind; reason?: string; message?: str
   const text = `${input.reason ?? ""}\n${input.message ?? ""}`;
   if (INVESTOR_RE.test(text)) return "investor";
   if (/partner/i.test(input.reason ?? "") || PARTNER_RE.test(input.message ?? "")) return "partner";
+  if (input.kind === "free") return "free";
   if (input.kind === "audit") return "audit";
   if (input.kind === "demo") return "demo";
   if (AUDIT_RE.test(text)) return "audit";
@@ -60,7 +61,7 @@ export function routeTag(input: { kind: LeadKind; reason?: string; message?: str
 
 /** Only these forms get an acknowledgement; a newsletter signup does not. */
 export function wantsAck(kind: LeadKind): boolean {
-  return kind === "demo" || kind === "audit" || kind === "contact";
+  return kind === "demo" || kind === "audit" || kind === "contact" || kind === "free";
 }
 
 function firstName(name: string): string {
@@ -75,14 +76,23 @@ export function ackEmail(
 ): { subject: string; body: string } {
   const hello = firstName(input.name) ? `Hello ${firstName(input.name)},` : "Hello,";
   const asked =
-    input.kind === "audit"
+    input.kind === "free"
+      ? "signing up for Onam's free plan"
+      : input.kind === "audit"
       ? "asking for a free audit scan"
       : input.kind === "demo"
         ? "asking for a demo of Onam"
         : "getting in touch";
 
   const next: string[] =
-    input.kind === "audit"
+    input.kind === "free"
+      ? [
+          "- We create your Onam workspace on the free plan (up to 50 units, read-only scanning) and email your login details to this address.",
+          "- You connect a cloud account with a read-only role. You can read every permission before you deploy it, and nothing is installed.",
+          "- If you would like, we walk you through your first results on a short call.",
+          "- There is no charge and no card. You can move to a paid plan when you need more.",
+        ]
+      : input.kind === "audit"
       ? [
           "- A short scoping call to agree which cloud account we scan and what is in scope.",
           "- We send you a template to run in your own account. You can read every permission before you deploy it.",
@@ -117,7 +127,9 @@ export function ackEmail(
   ];
 
   const subject =
-    input.kind === "audit"
+    input.kind === "free"
+      ? "Your Onam free plan: we are setting it up"
+      : input.kind === "audit"
       ? "Your audit scan request: we have it"
       : input.kind === "demo"
         ? "Your demo request: we have it"
