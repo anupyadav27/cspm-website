@@ -88,7 +88,7 @@ export function ackEmail(
     input.kind === "free"
       ? [
           "- We create your Onam workspace on the free plan (up to 50 units, read-only scanning) and email your login details to this address.",
-          "- You connect a cloud account with a read-only role. You can read every permission before you deploy it, and nothing is installed.",
+          "- You connect a cloud account with a read-only role. You can read every permission before you deploy it. The free plan deploys no agent or scanner.",
           "- If you would like, we walk you through your first results on a short call.",
           "- There is no charge and no card. You can move to a paid plan when you need more.",
         ]

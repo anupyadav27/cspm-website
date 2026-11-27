@@ -57,7 +57,7 @@ const NOT_INCLUDED = [
 const STEPS = [
   { Icon: UserRound, title: "Register", body: "Tell us who you are and which cloud you use. No card." },
   { Icon: Mail, title: "We email your login", body: "Our team creates your Onam workspace and sends the login details to the address you register with." },
-  { Icon: KeyRound, title: "Connect read-only", body: "Connect a cloud account with a read-only role. You can read every permission first; nothing is installed." },
+  { Icon: KeyRound, title: "Connect read-only", body: "Connect a cloud account with a read-only role. You can read every permission first. Onam deploys no agent or scanner." },
 ];
 
 const inputCls =
@@ -71,14 +71,15 @@ function StartFreePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 md:py-20 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div>
             <span className="inline-flex rounded-full bg-tint-blue px-3 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-brand-700">
-              Free plan
+              Free plan · up to 50 units
             </span>
             <h1 className="mt-5 font-display font-black text-ink text-4xl md:text-5xl tracking-tight leading-[1.05]">
-              Cloud security for up to 50 units. Free.
+              See what your auditor would flag in your cloud, before they do.
             </h1>
             <p className="mt-5 text-lg text-body leading-relaxed max-w-xl">
-              See what is misconfigured, what is open to the internet and who can do too much in your cloud,
-              through <strong className="text-ink">read-only cloud APIs</strong>. No agent, no card.
+              Misconfigurations, what is open to the internet and who can do too much, mapped to the compliance
+              controls you are tested on. Free for up to 50 units, through{" "}
+              <strong className="text-ink">read-only cloud roles</strong>. No agent, no card.
             </p>
 
             <ol className="mt-8 space-y-4">

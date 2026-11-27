@@ -136,7 +136,7 @@ AWS, Azure and Google Cloud for managed AI services, plus self-hosted AI on any 
 ### We already have a CNAPP with AI-SPM. Why look at Onam?
 Ask it four questions: does it check that a guardrail is attached on AWS, Azure **and** Google Cloud; does it find a model server someone runs on your own Kubernetes cluster; does it list the AI libraries and MCP SDKs in your code; and does it show which data each AI service reads and which AI agents hold admin rights? Onam does all four, read-only, in the posture scan you already run. Where it stops is written on every page.
 ### Our clusters are private. Can Onam still see self-hosted AI?
-Only if Onam can reach the cluster's API server, for example a public endpoint restricted to Onam's egress IPs. Nothing is installed in the cluster. See [Connect Kubernetes clusters](/docs/onboarding/kubernetes).
+Only if Onam can reach the cluster's API server, for example a public endpoint restricted to Onam's egress IPs. Onam deploys no agent or scanner in the cluster. See [Connect Kubernetes clusters](/docs/onboarding/kubernetes).
 ### Will Onam find staff using AI tools on their laptops?
 No. Onam sees AI in the cloud accounts, clusters, code and SaaS platforms you connect. AI apps used through a connected SaaS platform appear under **AI in SaaS**; a tool running only on a laptop does not.
 ### Where is our data hosted?
@@ -175,7 +175,7 @@ From the workload itself. A classifier reads the images and custom resources in 
 **Serving platform** (custom resource). Also recognised: KubeRay, NVIDIA NIM and Seldon.
 :::
 
-Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Beyond that ServiceAccount, nothing is installed in the cluster and no object is changed. The cluster's API server must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs.
+Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Onam deploys no agent or scanner in the cluster and changes no object. The cluster's API server must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs.
 
 ## Which managed AI services are discovered?
 
@@ -237,7 +237,7 @@ Pick a cloud and see exactly what is discovered.
 ### A team runs Ollama on a GPU node in our cluster. Will Onam find it?
 Yes, if the cluster is connected. The classifier recognises Ollama and the other model servers listed above from the workload itself, adds it to the AI inventory and checks whether it is reachable without authentication.
 ### Do I have to install an agent in the cluster?
-No. Discovery uses the read-only ServiceAccount from [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Nothing is installed and no object is changed.
+No. Discovery uses the read-only ServiceAccount from [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Onam deploys no agent or scanner in the cluster and changes no object.
 ### Where does the AI bill of materials come from?
 From the SBOMs Onam builds for your repositories and images. It is a view of those SBOMs filtered to AI libraries, model servers and MCP SDKs, so it is as complete as the code and images you have connected.
 ### How do I group our AI into applications?

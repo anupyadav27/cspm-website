@@ -43,6 +43,7 @@ const NEVER: RegExp[] = [
   /\b\d{2,}\s+AI (rules|checks|detectors)\b/i,
   /(OCI|Oracle Cloud|Alibaba Cloud|IBM Cloud)[^.]{0,40}\bare covered\b/i,
   /does not read prompts/i, // superseded: prompt-text detection exists (off by default)
+  /nothing (else )?is installed/i, // retired 27 Sep: say "deploys no agent or scanner"
 ];
 const corpus = [
   ...articles.map((a) => [`docs:${a.slug}`, a.body] as const),

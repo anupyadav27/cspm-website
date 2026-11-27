@@ -54,7 +54,7 @@ eq("audit subject", a.subject, "Your audit scan request: we have it");
 const b = ackEmail({ kind: "demo", name: "" }, "https://calendar.app.google/abc");
 eq("plain hello when no name", b.body.startsWith("Hello,"), true);
 eq("booking line when set", b.body.includes("If you would like to pick a time now: https://calendar.app.google/abc"), true);
-const banned = /within minutes|guarantee|risk-free|free trial|certified|our customers/i;
+const banned = /within minutes|guarantee|risk-free|free trial|certified|our customers|nothing is installed/i;
 for (const k of ["demo", "audit", "contact", "free"] as const) {
   eq(`${k} ack has no banned claims`, banned.test(ackEmail({ kind: k, name: "A" }, "x").body), false);
 }
