@@ -1,148 +1,100 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="920" height="504" viewBox="0 36 920 504" font-family="Arial, sans-serif">
-  <!-- Canvas -->
-  <rect width="920" height="504" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5" rx="10"/>
-
-  <!-- Title -->
-  <text x="460" y="20" text-anchor="middle" fill="#4F46E5" font-size="9" font-weight="700" letter-spacing="1.2">PLATFORM ARCHITECTURE — CLOUD SCAN PIPELINE</text>
-  <line x1="20" y1="28" x2="900" y2="28" stroke="#94A3B8" stroke-width="1"/>
-
-  <!-- Row 1: Cloud Provider Badges -->
-  <!-- Badge 1: AWS -->
-  <rect x="20" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="79" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">AWS</text>
-  <!-- Badge 2: Azure -->
-  <rect x="144" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="203" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Azure</text>
-  <!-- Badge 3: GCP -->
-  <rect x="268" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="327" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">GCP</text>
-  <!-- Badge 4: OCI -->
-  <rect x="392" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="451" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">OCI</text>
-  <!-- Badge 5: AliCloud -->
-  <rect x="516" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="575" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">AliCloud</text>
-  <!-- Badge 6: IBM Cloud -->
-  <rect x="640" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="699" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">IBM Cloud</text>
-  <!-- Badge 7: Kubernetes -->
-  <rect x="764" y="34" width="118" height="44" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="6"/>
-  <text x="823" y="58" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Kubernetes</text>
-
-  <!-- 7 cloud providers label -->
-  <text x="460" y="90" text-anchor="middle" fill="#3B82F6" font-size="8">7 cloud providers</text>
-
-  <!-- Connector arrow row1 -> row2 -->
-  <line x1="460" y1="94" x2="460" y2="104" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="455,104 465,104 460,110" fill="#94A3B8"/>
-  <text x="460" y="102" text-anchor="middle" fill="#64748B" font-size="8">Read-only posture roles · Agentless workload scanning in your account · Continuous</text>
-
-  <!-- Row 2: Core Pipeline -->
-  <!-- Box 1: Discovery -->
-  <rect x="38" y="113" width="155" height="55" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="120" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Discovery</text>
-  <text x="120" y="152" text-anchor="middle" fill="#64748B" font-size="9">#8001</text>
-
-  <!-- Arrow 1->2 -->
-  <line x1="193" y1="140" x2="209" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="207,136 215,140 207,144" fill="#94A3B8"/>
-
-  <!-- Box 2: Inventory -->
-  <rect x="213" y="113" width="155" height="55" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="290" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Inventory</text>
-  <text x="290" y="152" text-anchor="middle" fill="#64748B" font-size="9">#8022</text>
-
-  <!-- Arrow 2->3 -->
-  <line x1="368" y1="140" x2="384" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="382,136 390,140 382,144" fill="#94A3B8"/>
-
-  <!-- Box 3: Check -->
-  <rect x="388" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="465" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Check</text>
-  <text x="465" y="152" text-anchor="middle" fill="#64748B" font-size="9">1,900+ rules</text>
-
-  <!-- Arrow 3->4 -->
-  <line x1="543" y1="140" x2="559" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="557,136 565,140 557,144" fill="#94A3B8"/>
-
-  <!-- Box 4: Threat -->
-  <rect x="563" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="640" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Threat</text>
-  <text x="640" y="152" text-anchor="middle" fill="#64748B" font-size="9">MITRE ATT&amp;CK</text>
-
-  <!-- Arrow 4->5 -->
-  <line x1="718" y1="140" x2="734" y2="140" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="732,136 740,140 732,144" fill="#94A3B8"/>
-
-  <!-- Box 5: Analysis -->
-  <rect x="738" y="113" width="155" height="55" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="815" y="136" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Analysis</text>
-  <text x="815" y="152" text-anchor="middle" fill="#64748B" font-size="9">All engines</text>
-
-  <!-- Connector Row2 -> Row3 -->
-  <line x1="460" y1="168" x2="460" y2="190" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="455,188 465,188 460,194" fill="#94A3B8"/>
-
-  <!-- Row 3a: Security Engines top -->
-  <!-- IAM Security -->
-  <rect x="20" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="122" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">IAM Security</text>
-  <text x="122" y="236" text-anchor="middle" fill="#64748B" font-size="8">Identity posture · MFA · Policies</text>
-
-  <!-- Network Security -->
-  <rect x="236" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="338" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Network Security</text>
-  <text x="338" y="236" text-anchor="middle" fill="#64748B" font-size="8">7-layer topology · SG · VPC</text>
-
-  <!-- CIEM -->
-  <rect x="452" y="196" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="554" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">CIEM</text>
-  <text x="554" y="236" text-anchor="middle" fill="#64748B" font-size="8">Entitlements · CloudTrail</text>
-
-  <!-- Data Security -->
-  <rect x="668" y="196" width="232" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="784" y="220" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Data Security</text>
-  <text x="784" y="236" text-anchor="middle" fill="#64748B" font-size="8">DSPM · S3 classification</text>
-
-  <!-- Row 3b: Security Engines bottom -->
-  <!-- Compliance -->
-  <rect x="20" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="122" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Compliance</text>
-  <text x="122" y="300" text-anchor="middle" fill="#64748B" font-size="8">144 frameworks · CIS · NIST</text>
-
-  <!-- Risk Engine -->
-  <rect x="236" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="338" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Risk Engine</text>
-  <text x="338" y="300" text-anchor="middle" fill="#64748B" font-size="8">FAIR model · 0–100 score</text>
-
-  <!-- Vulnerability -->
-  <rect x="452" y="260" width="204" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="554" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Vulnerability</text>
-  <text x="554" y="300" text-anchor="middle" fill="#64748B" font-size="8">CVE · SBOM · Agent-based</text>
-
-  <!-- Container Sec -->
-  <rect x="668" y="260" width="232" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="784" y="284" text-anchor="middle" fill="#1E3A8A" font-size="10" font-weight="700">Container Security</text>
-  <text x="784" y="300" text-anchor="middle" fill="#64748B" font-size="8">EKS · K8s RBAC · Images</text>
-
-  <!-- Arrow Row3 -> Row4 -->
-  <line x1="460" y1="316" x2="460" y2="332" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="455,330 465,330 460,336" fill="#94A3B8"/>
-
-  <!-- Row 4: Data Platform -->
-  <rect x="20" y="336" width="880" height="46" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="460" y="356" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Data Platform</text>
-  <text x="460" y="372" text-anchor="middle" fill="#64748B" font-size="9">PostgreSQL (per-engine) · Neo4j (security graph) · Redis (cache) · S3 (exports)</text>
-
-  <!-- Arrow Row4 -> Row5 -->
-  <line x1="460" y1="382" x2="460" y2="396" stroke="#94A3B8" stroke-width="1.5"/>
-  <polygon points="455,394 465,394 460,400" fill="#94A3B8"/>
-
-  <!-- Row 5: Output -->
-  <rect x="20" y="400" width="880" height="52" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="460" y="422" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Posture Score + Compliance Reports + Threat Findings + Remediation Guidance</text>
-  <text x="460" y="440" text-anchor="middle" fill="#64748B" font-size="9">Continuous · Real-time · 144 compliance frameworks · 0–100 risk score</text>
-
-  <!-- Footer -->
-  <text x="460" y="530" text-anchor="middle" fill="#94A3B8" font-size="8">Onam CSPM Platform — Cloud Scan Pipeline Architecture</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 792 566" width="792" height="566" font-family="Inter, 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">How an Onam Security scan works</title>
+  <desc id="d">Seven clouds are read through read-only roles. Discovery, inventory, the rule check, threat mapping and analysis run in order; the security engines share one graph; results become posture scores, compliance reports, threat findings and fix guidance.</desc>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker></defs>
+  <rect width="792" height="566" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="396.0" y="28.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="1">HOW A SCAN WORKS: FROM YOUR CLOUDS TO ONE POSTURE SCORE</text>
+  <line x1="16.0" y1="40.0" x2="776.0" y2="40.0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16.0" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="67.7" y="77.0" font-size="12.5" fill="#1E3A8A" text-anchor="middle" font-weight="700">AWS</text>
+  <rect x="125.4" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="177.1" y="77.0" font-size="12.5" fill="#1E3A8A" text-anchor="middle" font-weight="700">Azure</text>
+  <rect x="234.9" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="286.6" y="77.0" font-size="12" fill="#1E3A8A" text-anchor="middle" font-weight="700">Google Cloud</text>
+  <rect x="344.3" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="396.0" y="77.0" font-size="12.5" fill="#1E3A8A" text-anchor="middle" font-weight="700">OCI</text>
+  <rect x="453.7" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="505.4" y="77.0" font-size="12" fill="#1E3A8A" text-anchor="middle" font-weight="700">Alibaba Cloud</text>
+  <rect x="563.1" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="614.9" y="77.0" font-size="12.5" fill="#1E3A8A" text-anchor="middle" font-weight="700">IBM Cloud</text>
+  <rect x="672.6" y="52.0" width="103.4" height="40.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="724.3" y="77.0" font-size="12.5" fill="#1E3A8A" text-anchor="middle" font-weight="700">Kubernetes</text>
+  <text x="396.0" y="112.0" font-size="12" fill="#475569" text-anchor="middle">Read-only posture roles · agentless workload scanning inside your account</text>
+  <line x1="396.0" y1="118.0" x2="396.0" y2="132.0" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="16.0" y="136.0" width="137.6" height="71.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="16.0" y="144.1" width="137.6" height="55.0" rx="8" fill="none"/>
+  <text x="84.8" y="166.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Discovery</text>
+  <text x="84.8" y="187.0" font-size="12" fill="#475569" text-anchor="middle">Find every resource</text>
+  <line x1="155.6" y1="171.6" x2="169.6" y2="171.6" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="171.6" y="136.0" width="137.6" height="71.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="171.6" y="136.0" width="137.6" height="71.1" rx="8" fill="none"/>
+  <text x="240.4" y="158.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Inventory</text>
+  <text x="240.4" y="178.9" font-size="12" fill="#475569" text-anchor="middle">Resources and their</text>
+  <text x="240.4" y="195.0" font-size="12" fill="#475569" text-anchor="middle">links</text>
+  <line x1="311.2" y1="171.6" x2="325.2" y2="171.6" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="327.2" y="136.0" width="137.6" height="71.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="327.2" y="136.0" width="137.6" height="71.1" rx="8" fill="none"/>
+  <text x="396.0" y="158.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Check</text>
+  <text x="396.0" y="178.9" font-size="12" fill="#475569" text-anchor="middle">11,856 posture rule</text>
+  <text x="396.0" y="195.0" font-size="12" fill="#475569" text-anchor="middle">definitions</text>
+  <line x1="466.8" y1="171.6" x2="480.8" y2="171.6" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="482.8" y="136.0" width="137.6" height="71.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="482.8" y="136.0" width="137.6" height="71.1" rx="8" fill="none"/>
+  <text x="551.6" y="158.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Threat</text>
+  <text x="551.6" y="178.9" font-size="12" fill="#475569" text-anchor="middle">MITRE ATT&amp;CK</text>
+  <text x="551.6" y="195.0" font-size="12" fill="#475569" text-anchor="middle">mapping</text>
+  <line x1="622.4" y1="171.6" x2="636.4" y2="171.6" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="638.4" y="136.0" width="137.6" height="71.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="638.4" y="136.0" width="137.6" height="71.1" rx="8" fill="none"/>
+  <text x="707.2" y="158.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Analysis</text>
+  <text x="707.2" y="178.9" font-size="12" fill="#475569" text-anchor="middle">30 engines, one</text>
+  <text x="707.2" y="195.0" font-size="12" fill="#475569" text-anchor="middle">graph</text>
+  <line x1="396.0" y1="213.1" x2="396.0" y2="229.1" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="16.0" y="233.1" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="16.0" y="233.1" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="107.2" y="255.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Cloud posture</text>
+  <text x="107.2" y="276.0" font-size="12" fill="#475569" text-anchor="middle">Settings checked against</text>
+  <text x="107.2" y="292.1" font-size="12" fill="#475569" text-anchor="middle">rules</text>
+  <rect x="208.5" y="233.1" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="208.5" y="233.1" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="299.8" y="255.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">IAM and CIEM</text>
+  <text x="299.8" y="276.0" font-size="12" fill="#475569" text-anchor="middle">Identity hygiene, effective</text>
+  <text x="299.8" y="292.1" font-size="12" fill="#475569" text-anchor="middle">permissions</text>
+  <rect x="401.0" y="233.1" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="401.0" y="233.1" width="182.5" height="55.0" rx="8" fill="none"/>
+  <text x="492.2" y="255.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Network</text>
+  <text x="492.2" y="276.0" font-size="12" fill="#475569" text-anchor="middle">Exposure, layer by layer</text>
+  <rect x="593.5" y="233.1" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="593.5" y="233.1" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="684.8" y="255.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Data security</text>
+  <text x="684.8" y="276.0" font-size="12" fill="#475569" text-anchor="middle">DSPM: where sensitive data</text>
+  <text x="684.8" y="292.1" font-size="12" fill="#475569" text-anchor="middle">sits</text>
+  <rect x="16.0" y="315.0" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="16.0" y="315.0" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="107.2" y="337.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Compliance</text>
+  <text x="107.2" y="357.9" font-size="12" fill="#475569" text-anchor="middle">144 frameworks, 119 with</text>
+  <text x="107.2" y="374.0" font-size="12" fill="#475569" text-anchor="middle">automated checks</text>
+  <rect x="208.5" y="315.0" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="208.5" y="315.0" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="299.8" y="337.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Risk</text>
+  <text x="299.8" y="357.9" font-size="12" fill="#475569" text-anchor="middle">FAIR-style loss estimate,</text>
+  <text x="299.8" y="374.0" font-size="12" fill="#475569" text-anchor="middle">0–100 score</text>
+  <rect x="401.0" y="315.0" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="401.0" y="315.0" width="182.5" height="71.1" rx="8" fill="none"/>
+  <text x="492.2" y="337.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Vulnerabilities</text>
+  <text x="492.2" y="357.9" font-size="12" fill="#475569" text-anchor="middle">CVEs, SBOM,</text>
+  <text x="492.2" y="374.0" font-size="12" fill="#475569" text-anchor="middle">known-exploited</text>
+  <rect x="593.5" y="315.0" width="182.5" height="71.9" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <rect x="593.5" y="315.0" width="182.5" height="71.9" rx="8" fill="none"/>
+  <text x="684.8" y="337.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Containers and</text>
+  <text x="684.8" y="353.9" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Kubernetes</text>
+  <text x="684.8" y="374.8" font-size="12" fill="#475569" text-anchor="middle">Clusters, RBAC, images</text>
+  <line x1="396.0" y1="392.9" x2="396.0" y2="408.9" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="16.0" y="412.9" width="760.0" height="55.0" rx="8" fill="#EFF4FF" stroke="#BFDBFE" stroke-width="1.2"/>
+  <text x="396.0" y="434.9" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">One security graph</text>
+  <text x="396.0" y="455.8" font-size="12" fill="#475569" text-anchor="middle">Every engine writes to the same resources, identities and relationships, so findings can be joined into attack paths.</text>
+  <line x1="396.0" y1="473.9" x2="396.0" y2="489.9" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <rect x="16.0" y="493.9" width="760.0" height="55.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="396.0" y="515.9" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Posture scores · compliance reports · threat findings · fix guidance</text>
+  <text x="396.0" y="536.8" font-size="12" fill="#475569" text-anchor="middle">Recalculated after every scan; scores run 0–100.</text>
 </svg>

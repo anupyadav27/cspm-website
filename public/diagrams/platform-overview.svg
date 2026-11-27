@@ -44,7 +44,7 @@
   <!-- step 2: Evaluate -->
   <rect x="324" y="130" width="272" height="52" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
   <text x="460" y="152" text-anchor="middle" font-size="12" font-weight="700" fill="#1E40AF">Evaluate Security Rules</text>
-  <text x="460" y="170" text-anchor="middle" font-size="10" fill="#64748B">1,900+ rules · PASS / FAIL scoring</text>
+  <text x="460" y="170" text-anchor="middle" font-size="10" fill="#64748B">11,856 rule definitions · PASS / FAIL</text>
   <!-- arrow -->
   <line x1="460" y1="182" x2="460" y2="196" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="454,194 460,204 466,194" fill="#94A3B8"/>
@@ -90,16 +90,16 @@
 
   <rect x="684" y="184" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
   <text x="787" y="207" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Compliance Reports</text>
-  <text x="787" y="226" text-anchor="middle" font-size="10" fill="#64748B">144 frameworks · Audit-ready</text>
+  <text x="787" y="226" text-anchor="middle" font-size="10" fill="#64748B">144 frameworks, 119 automated</text>
 
   <rect x="684" y="248" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
   <text x="787" y="271" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Threat Alerts</text>
-  <text x="787" y="290" text-anchor="middle" font-size="10" fill="#64748B">MITRE ATT&amp;CK · Real-time</text>
+  <text x="787" y="290" text-anchor="middle" font-size="10" fill="#64748B">MITRE ATT&amp;CK · per scan</text>
 
   <rect x="684" y="312" width="206" height="54" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
   <text x="787" y="335" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Attack Graph</text>
   <text x="787" y="354" text-anchor="middle" font-size="10" fill="#64748B">Neo4j · Blast radius · Paths</text>
 
   <rect x="684" y="376" width="206" height="30" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="787" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">Financial Risk View</text>
+  <text x="787" y="396" text-anchor="middle" font-size="12" font-weight="700" fill="#1E3A8A">FAIR loss estimate</text>
 </svg>

@@ -1,170 +1,185 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 470" width="960" height="470" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 792 773" width="792" height="773" font-family="Inter, 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
   <title id="t">How Onam Security DSPM works</title>
-  <desc id="d">Five stages: data stores, discovery, metadata classification, the access and exposure join, and findings.</desc>
-  <rect width="960" height="470" fill="#F8FAFC" rx="10"/>
-
-  <text x="480" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">HOW DSPM WORKS — FROM DATA STORES TO FINDINGS ON THE SECURITY GRAPH</text>
-  <line x1="16" y1="34" x2="944" y2="34" stroke="#CBD5E1" stroke-width="1"/>
-
-  <!-- ── 1. DATA STORES ── -->
-  <rect x="16" y="48" width="170" height="370" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="101" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">1. DATA STORES</text>
-  <text x="101" y="82" text-anchor="middle" font-size="8" fill="#64748B">What gets analysed</text>
-  <line x1="26" y1="90" x2="176" y2="90" stroke="#CBD5E1" stroke-width="1"/>
-
-  <rect x="26" y="100" width="150" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="101" y="119" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Object storage</text>
-  <text x="101" y="135" text-anchor="middle" font-size="8" fill="#64748B">S3 · Azure Storage</text>
-  <text x="101" y="147" text-anchor="middle" font-size="8" fill="#64748B">Cloud Storage · OCI · OSS</text>
-  <text x="101" y="159" text-anchor="middle" font-size="8" fill="#64748B">IBM Cloud Object Storage</text>
-
-  <rect x="26" y="174" width="150" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="101" y="193" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Databases</text>
-  <text x="101" y="209" text-anchor="middle" font-size="8" fill="#64748B">RDS · DynamoDB · Redshift</text>
-  <text x="101" y="221" text-anchor="middle" font-size="8" fill="#64748B">Azure SQL · Cosmos DB</text>
-  <text x="101" y="233" text-anchor="middle" font-size="8" fill="#64748B">Cloud SQL · BigQuery · Spanner</text>
-
-  <rect x="26" y="248" width="150" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="101" y="267" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Streams &amp; Kubernetes</text>
-  <text x="101" y="283" text-anchor="middle" font-size="8" fill="#64748B">Kinesis · OCI Streaming</text>
-  <text x="101" y="295" text-anchor="middle" font-size="8" fill="#64748B">Event Streams</text>
-  <text x="101" y="307" text-anchor="middle" font-size="8" fill="#64748B">Secrets · ConfigMaps · PVCs</text>
-
-  <rect x="26" y="322" width="150" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="101" y="341" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Self-hosted databases</text>
-  <text x="101" y="357" text-anchor="middle" font-size="8" fill="#64748B">PostgreSQL · MySQL · MongoDB</text>
-  <text x="101" y="369" text-anchor="middle" font-size="8" fill="#64748B">Oracle · SQL Server · Snowflake</text>
-  <text x="101" y="381" text-anchor="middle" font-size="8" fill="#64748B">onboarded as technology accounts</text>
-
-  <text x="101" y="406" text-anchor="middle" font-size="8" fill="#64748B">Seven clouds plus self-hosted</text>
-
-  <!-- arrow -->
-  <line x1="186" y1="233" x2="196" y2="233" stroke="#94A3B8" stroke-width="2"/>
-  <polygon points="195,228 204,233 195,238" fill="#94A3B8"/>
-
-  <!-- ── 2. DISCOVER ── -->
-  <rect x="206" y="48" width="170" height="370" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="291" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">2. DISCOVER</text>
-  <text x="291" y="82" text-anchor="middle" font-size="8" fill="#64748B">Configuration, not contents</text>
-  <line x1="216" y1="90" x2="366" y2="90" stroke="#CBD5E1" stroke-width="1"/>
-
-  <rect x="216" y="100" width="150" height="104" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
-  <text x="291" y="119" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Read-only cloud roles</text>
-  <text x="291" y="137" text-anchor="middle" font-size="8" fill="#475569">The same posture scan that</text>
-  <text x="291" y="149" text-anchor="middle" font-size="8" fill="#475569">feeds CSPM inventories each</text>
-  <text x="291" y="161" text-anchor="middle" font-size="8" fill="#475569">store and its settings.</text>
-  <text x="291" y="181" text-anchor="middle" font-size="8" fill="#475569">No object or row is opened.</text>
-
-  <text x="226" y="228" font-size="8" font-weight="700" fill="#334155">Recorded per store</text>
-  <text x="226" y="246" font-size="8" fill="#64748B">• Encryption settings &amp; key</text>
-  <text x="226" y="262" font-size="8" fill="#64748B">• Bucket policy, ACLs, public-</text>
-  <text x="232" y="274" font-size="8" fill="#64748B">access block, public flags</text>
-  <text x="226" y="290" font-size="8" fill="#64748B">• Access logging</text>
-  <text x="226" y="306" font-size="8" fill="#64748B">• Versioning, lifecycle, backup</text>
-  <text x="232" y="318" font-size="8" fill="#64748B">retention, point-in-time restore</text>
-  <text x="226" y="334" font-size="8" fill="#64748B">• Region and account</text>
-  <text x="226" y="350" font-size="8" fill="#64748B">• Name, tags, description</text>
-  <text x="226" y="366" font-size="8" fill="#64748B">• Relationships to other</text>
-  <text x="232" y="378" font-size="8" fill="#64748B">resources (for lineage)</text>
-
-  <line x1="376" y1="233" x2="386" y2="233" stroke="#94A3B8" stroke-width="2"/>
-  <polygon points="385,228 394,233 385,238" fill="#94A3B8"/>
-
-  <!-- ── 3. CLASSIFY ── -->
-  <rect x="396" y="48" width="170" height="370" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="481" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#3730A3" letter-spacing="1">3. CLASSIFY</text>
-  <text x="481" y="82" text-anchor="middle" font-size="8" fill="#64748B">From metadata only</text>
-  <line x1="406" y1="90" x2="556" y2="90" stroke="#CBD5E1" stroke-width="1"/>
-
-  <text x="416" y="110" font-size="8" font-weight="700" fill="#334155">Signals read</text>
-  <text x="416" y="126" font-size="8" fill="#64748B">• Store names and descriptions</text>
-  <text x="416" y="140" font-size="8" fill="#64748B">• Tags</text>
-  <text x="416" y="154" font-size="8" fill="#64748B">• Database and schema names</text>
-  <text x="416" y="168" font-size="8" fill="#64748B">• Rule metadata on findings</text>
-
-  <text x="416" y="194" font-size="8" font-weight="700" fill="#334155">Labels</text>
-  <rect x="416" y="202" width="40" height="18" rx="9" fill="#FDECEA"/>
-  <text x="436" y="214" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C">PII</text>
-  <rect x="460" y="202" width="40" height="18" rx="9" fill="#FDECEA"/>
-  <text x="480" y="214" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C">PHI</text>
-  <rect x="504" y="202" width="40" height="18" rx="9" fill="#FDECEA"/>
-  <text x="524" y="214" text-anchor="middle" font-size="8" font-weight="700" fill="#B91C1C">PCI</text>
-  <rect x="416" y="226" width="62" height="18" rx="9" fill="#FEF3C7"/>
-  <text x="447" y="238" text-anchor="middle" font-size="8" font-weight="700" fill="#92400E">FINANCIAL</text>
-  <rect x="482" y="226" width="74" height="18" rx="9" fill="#FEF3C7"/>
-  <text x="519" y="238" text-anchor="middle" font-size="8" font-weight="700" fill="#92400E">CONFIDENTIAL</text>
-
-  <rect x="406" y="262" width="150" height="122" fill="#FFF7ED" stroke="#FED7AA" stroke-width="1.2" rx="8"/>
-  <text x="481" y="281" text-anchor="middle" font-size="9" font-weight="700" fill="#9A3412">The limit, stated plainly</text>
-  <text x="481" y="299" text-anchor="middle" font-size="8" fill="#7C2D12">Contents are not read.</text>
-  <text x="481" y="313" text-anchor="middle" font-size="8" fill="#7C2D12">A bucket named "exports"</text>
-  <text x="481" y="327" text-anchor="middle" font-size="8" fill="#7C2D12">holding customer records</text>
-  <text x="481" y="341" text-anchor="middle" font-size="8" fill="#7C2D12">gets no label until it is</text>
-  <text x="481" y="355" text-anchor="middle" font-size="8" fill="#7C2D12">named or tagged for what</text>
-  <text x="481" y="369" text-anchor="middle" font-size="8" fill="#7C2D12">it holds.</text>
-
-  <line x1="566" y1="233" x2="576" y2="233" stroke="#94A3B8" stroke-width="2"/>
-  <polygon points="575,228 584,233 575,238" fill="#94A3B8"/>
-
-  <!-- ── 4. JOIN ── -->
-  <rect x="586" y="48" width="170" height="370" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="671" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">4. JOIN</text>
-  <text x="671" y="82" text-anchor="middle" font-size="8" fill="#64748B">Who and what can reach it</text>
-  <line x1="596" y1="90" x2="746" y2="90" stroke="#CBD5E1" stroke-width="1"/>
-
-  <rect x="596" y="100" width="150" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="671" y="118" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Public exposure</text>
-  <text x="671" y="134" text-anchor="middle" font-size="8" fill="#64748B">Policy status, ACL grants,</text>
-  <text x="671" y="146" text-anchor="middle" font-size="8" fill="#64748B">wildcard principals</text>
-
-  <rect x="596" y="162" width="150" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="671" y="180" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Cross-account grants</text>
-  <text x="671" y="196" text-anchor="middle" font-size="8" fill="#64748B">Bucket policies that allow</text>
-  <text x="671" y="208" text-anchor="middle" font-size="8" fill="#64748B">other accounts in</text>
-
-  <rect x="596" y="224" width="150" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="671" y="242" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Observed access</text>
-  <text x="671" y="258" text-anchor="middle" font-size="8" fill="#64748B">Who touched it in the last</text>
-  <text x="671" y="270" text-anchor="middle" font-size="8" fill="#64748B">30 days, from audit events</text>
-
-  <rect x="596" y="286" width="150" height="56" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2" rx="8"/>
-  <text x="671" y="304" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Encryption &amp; keys</text>
-  <text x="671" y="320" text-anchor="middle" font-size="8" fill="#64748B">Unencrypted, or on a</text>
-  <text x="671" y="332" text-anchor="middle" font-size="8" fill="#64748B">provider-managed key</text>
-
-  <rect x="596" y="348" width="150" height="56" fill="#EFF4FF" stroke="#C7D2FE" stroke-width="1.2" rx="8"/>
-  <text x="671" y="366" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Identity &amp; attack paths</text>
-  <text x="671" y="382" text-anchor="middle" font-size="8" fill="#475569">Sensitive stores become the</text>
-  <text x="671" y="394" text-anchor="middle" font-size="8" fill="#475569">targets attack paths end at</text>
-
-  <line x1="756" y1="233" x2="766" y2="233" stroke="#94A3B8" stroke-width="2"/>
-  <polygon points="765,228 774,233 765,238" fill="#94A3B8"/>
-
-  <!-- ── 5. FINDINGS ── -->
-  <rect x="776" y="48" width="168" height="370" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="860" y="68" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1">5. FINDINGS</text>
-  <text x="860" y="82" text-anchor="middle" font-size="8" fill="#64748B">Per store, every scan</text>
-  <line x1="786" y1="90" x2="934" y2="90" stroke="#CBD5E1" stroke-width="1"/>
-
-  <text x="792" y="110" font-size="8" fill="#334155">• Classification</text>
-  <text x="792" y="126" font-size="8" fill="#334155">• Encryption posture</text>
-  <text x="792" y="142" font-size="8" fill="#334155">• Access control</text>
-  <text x="792" y="158" font-size="8" fill="#334155">• Data residency</text>
-  <text x="792" y="174" font-size="8" fill="#334155">• Activity logging</text>
-  <text x="792" y="190" font-size="8" fill="#334155">• Lifecycle &amp; backup</text>
-  <text x="792" y="206" font-size="8" fill="#334155">• Lineage</text>
-  <text x="792" y="222" font-size="8" fill="#334155">• Governance score 0–100</text>
-
-  <rect x="786" y="240" width="148" height="164" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="860" y="258" text-anchor="middle" font-size="8" font-weight="700" fill="#334155">Shared with other engines</text>
-  <text x="796" y="278" font-size="8" fill="#475569">→ Attack Path: sensitive,</text>
-  <text x="806" y="290" font-size="8" fill="#475569">public, unencrypted</text>
-  <text x="796" y="310" font-size="8" fill="#475569">→ Database Security:</text>
-  <text x="806" y="322" font-size="8" fill="#475569">labels rank databases</text>
-  <text x="796" y="342" font-size="8" fill="#475569">→ Encryption: sensitive</text>
-  <text x="806" y="354" font-size="8" fill="#475569">data on weak keys</text>
-  <text x="796" y="374" font-size="8" fill="#475569">→ Compliance: GDPR,</text>
-  <text x="806" y="386" font-size="8" fill="#475569">HIPAA, PCI DSS mapping</text>
-
-  <text x="480" y="446" text-anchor="middle" font-size="8" fill="#64748B">Posture scanning connects through read-only cloud roles. Classification reads metadata; it does not open files or query rows.</text>
+  <desc id="d">Five stages: data stores, discovery, classification (from metadata by default, plus sampled contents where you deploy Onam&#x27;s DSPM scanner or the on-prem collector), the access and exposure join, and findings.</desc>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker></defs>
+  <rect width="792" height="773" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="396.0" y="28.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="1">HOW DSPM WORKS: FROM DATA STORES TO FINDINGS</text>
+  <line x1="16.0" y1="40.0" x2="776.0" y2="40.0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="12.0" y="52.0" width="140.8" height="658.8" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="82.4" y="74.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="0.6">1. DATA STORES</text>
+  <text x="82.4" y="91.0" font-size="12" fill="#475569" text-anchor="middle">What gets analysed</text>
+  <line x1="20.0" y1="104.1" x2="144.8" y2="104.1" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="20.0" y="114.1" width="124.8" height="103.3" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="82.4" y="136.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Object storage</text>
+  <text x="82.4" y="157.0" font-size="12" fill="#475569" text-anchor="middle">S3 · Azure</text>
+  <text x="82.4" y="173.1" font-size="12" fill="#475569" text-anchor="middle">Storage · Cloud</text>
+  <text x="82.4" y="189.2" font-size="12" fill="#475569" text-anchor="middle">Storage · OCI ·</text>
+  <text x="82.4" y="205.3" font-size="12" fill="#475569" text-anchor="middle">OSS · IBM COS</text>
+  <rect x="20.0" y="225.4" width="124.8" height="135.5" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="82.4" y="247.4" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Databases</text>
+  <text x="82.4" y="268.3" font-size="12" fill="#475569" text-anchor="middle">RDS · DynamoDB</text>
+  <text x="82.4" y="284.4" font-size="12" fill="#475569" text-anchor="middle">· Redshift · Azure</text>
+  <text x="82.4" y="300.5" font-size="12" fill="#475569" text-anchor="middle">SQL · Cosmos DB</text>
+  <text x="82.4" y="316.6" font-size="12" fill="#475569" text-anchor="middle">· Cloud SQL ·</text>
+  <text x="82.4" y="332.7" font-size="12" fill="#475569" text-anchor="middle">BigQuery ·</text>
+  <text x="82.4" y="348.8" font-size="12" fill="#475569" text-anchor="middle">Spanner</text>
+  <rect x="20.0" y="368.9" width="124.8" height="136.3" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="82.4" y="390.9" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Streams &amp;</text>
+  <text x="82.4" y="407.8" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Kubernetes</text>
+  <text x="82.4" y="428.7" font-size="12" fill="#475569" text-anchor="middle">Kinesis · OCI</text>
+  <text x="82.4" y="444.8" font-size="12" fill="#475569" text-anchor="middle">Streaming · Event</text>
+  <text x="82.4" y="460.9" font-size="12" fill="#475569" text-anchor="middle">Streams · Secrets</text>
+  <text x="82.4" y="477.0" font-size="12" fill="#475569" text-anchor="middle">· ConfigMaps ·</text>
+  <text x="82.4" y="493.1" font-size="12" fill="#475569" text-anchor="middle">PVCs</text>
+  <rect x="20.0" y="513.2" width="124.8" height="136.3" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="82.4" y="535.2" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Self-hosted</text>
+  <text x="82.4" y="552.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">databases</text>
+  <text x="82.4" y="573.0" font-size="12" fill="#475569" text-anchor="middle">PostgreSQL ·</text>
+  <text x="82.4" y="589.1" font-size="12" fill="#475569" text-anchor="middle">MySQL ·</text>
+  <text x="82.4" y="605.2" font-size="12" fill="#475569" text-anchor="middle">MongoDB · Oracle</text>
+  <text x="82.4" y="621.3" font-size="12" fill="#475569" text-anchor="middle">· SQL Server ·</text>
+  <text x="82.4" y="637.4" font-size="12" fill="#475569" text-anchor="middle">Snowflake</text>
+  <text x="82.4" y="669.5" font-size="12" fill="#475569" text-anchor="middle">Seven clouds plus</text>
+  <text x="82.4" y="685.6" font-size="12" fill="#475569" text-anchor="middle">self-hosted</text>
+  <rect x="168.8" y="52.0" width="140.8" height="658.8" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="239.2" y="74.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="0.6">2. DISCOVER</text>
+  <text x="239.2" y="91.0" font-size="12" fill="#475569" text-anchor="middle">Configuration,</text>
+  <text x="239.2" y="107.1" font-size="12" fill="#475569" text-anchor="middle">through read-only</text>
+  <text x="239.2" y="123.2" font-size="12" fill="#475569" text-anchor="middle">roles</text>
+  <line x1="176.8" y1="136.3" x2="301.6" y2="136.3" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="176.8" y="146.3" width="124.8" height="120.2" rx="8" fill="#EFF4FF" stroke="#BFDBFE" stroke-width="1.2"/>
+  <text x="239.2" y="168.3" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Read-only</text>
+  <text x="239.2" y="185.2" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">cloud roles</text>
+  <text x="239.2" y="206.1" font-size="12" fill="#475569" text-anchor="middle">The posture scan</text>
+  <text x="239.2" y="222.2" font-size="12" fill="#475569" text-anchor="middle">that feeds CSPM</text>
+  <text x="239.2" y="238.3" font-size="12" fill="#475569" text-anchor="middle">records each store</text>
+  <text x="239.2" y="254.4" font-size="12" fill="#475569" text-anchor="middle">and its settings.</text>
+  <text x="178.8" y="286.5" font-size="12" fill="#0B1220" font-weight="700">Recorded per store</text>
+  <text x="178.8" y="306.6" font-size="12" fill="#475569">• Encryption settings</text>
+  <text x="189.8" y="322.6" font-size="12" fill="#475569">and key</text>
+  <text x="178.8" y="341.6" font-size="12" fill="#475569">• Bucket policy,</text>
+  <text x="189.8" y="357.6" font-size="12" fill="#475569">ACLs, public</text>
+  <text x="189.8" y="373.6" font-size="12" fill="#475569">access</text>
+  <text x="178.8" y="392.6" font-size="12" fill="#475569">• Access logging</text>
+  <text x="178.8" y="411.6" font-size="12" fill="#475569">• Versioning,</text>
+  <text x="189.8" y="427.6" font-size="12" fill="#475569">lifecycle, backup</text>
+  <text x="178.8" y="446.6" font-size="12" fill="#475569">• Region and</text>
+  <text x="189.8" y="462.6" font-size="12" fill="#475569">account</text>
+  <text x="178.8" y="481.6" font-size="12" fill="#475569">• Name, tags,</text>
+  <text x="189.8" y="497.6" font-size="12" fill="#475569">description</text>
+  <text x="178.8" y="516.6" font-size="12" fill="#475569">• Links to other</text>
+  <text x="189.8" y="532.6" font-size="12" fill="#475569">resources (for</text>
+  <text x="189.8" y="548.6" font-size="12" fill="#475569">lineage)</text>
+  <rect x="325.6" y="52.0" width="140.8" height="658.8" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="396.0" y="74.0" font-size="12.5" fill="#9A3412" text-anchor="middle" font-weight="700" letter-spacing="0.6">3. CLASSIFY</text>
+  <text x="396.0" y="91.0" font-size="12" fill="#475569" text-anchor="middle">Metadata by default</text>
+  <line x1="333.6" y1="104.1" x2="458.4" y2="104.1" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="335.6" y="126.1" font-size="12" fill="#0B1220" font-weight="700">Always read</text>
+  <text x="335.6" y="146.2" font-size="12" fill="#475569">• Store names and</text>
+  <text x="346.6" y="162.2" font-size="12" fill="#475569">descriptions</text>
+  <text x="335.6" y="181.2" font-size="12" fill="#475569">• Tags</text>
+  <text x="335.6" y="200.2" font-size="12" fill="#475569">• Database and</text>
+  <text x="346.6" y="216.2" font-size="12" fill="#475569">schema names</text>
+  <text x="335.6" y="239.2" font-size="12" fill="#0B1220" font-weight="700">Labels</text>
+  <rect x="333.6" y="247.3" width="31.5" height="21.0" rx="10" fill="#FDECEA"/>
+  <text x="349.3" y="262.3" font-size="12" fill="#B91C1C" text-anchor="middle" font-weight="700">PII</text>
+  <rect x="370.1" y="247.3" width="37.0" height="21.0" rx="10" fill="#FDECEA"/>
+  <text x="388.6" y="262.3" font-size="12" fill="#B91C1C" text-anchor="middle" font-weight="700">PHI</text>
+  <rect x="412.1" y="247.3" width="37.0" height="21.0" rx="10" fill="#FDECEA"/>
+  <text x="430.7" y="262.3" font-size="12" fill="#B91C1C" text-anchor="middle" font-weight="700">PCI</text>
+  <rect x="333.6" y="273.3" width="83.8" height="21.0" rx="10" fill="#FEF3C7"/>
+  <text x="375.5" y="288.3" font-size="12" fill="#92400E" text-anchor="middle" font-weight="700">FINANCIAL</text>
+  <rect x="333.6" y="299.3" width="109.7" height="21.0" rx="10" fill="#FEF3C7"/>
+  <text x="388.5" y="314.3" font-size="12" fill="#92400E" text-anchor="middle" font-weight="700">CONFIDENTIAL</text>
+  <rect x="333.6" y="331.3" width="124.8" height="250.6" rx="8" fill="#FFF7ED" stroke="#FDBA74" stroke-width="1.2"/>
+  <text x="396.0" y="353.3" font-size="13" fill="#9A3412" text-anchor="middle" font-weight="700">Content</text>
+  <text x="396.0" y="370.2" font-size="13" fill="#9A3412" text-anchor="middle" font-weight="700">sampling,</text>
+  <text x="396.0" y="387.1" font-size="13" fill="#9A3412" text-anchor="middle" font-weight="700">where you</text>
+  <text x="396.0" y="404.0" font-size="13" fill="#9A3412" text-anchor="middle" font-weight="700">adopt it</text>
+  <text x="396.0" y="424.9" font-size="12" fill="#7C2D12" text-anchor="middle">Deploy Onam&#x27;s</text>
+  <text x="396.0" y="441.0" font-size="12" fill="#7C2D12" text-anchor="middle">DSPM scanner in</text>
+  <text x="396.0" y="457.1" font-size="12" fill="#7C2D12" text-anchor="middle">your own cloud</text>
+  <text x="396.0" y="473.2" font-size="12" fill="#7C2D12" text-anchor="middle">account, or the</text>
+  <text x="396.0" y="489.3" font-size="12" fill="#7C2D12" text-anchor="middle">on-prem collector,</text>
+  <text x="396.0" y="505.4" font-size="12" fill="#7C2D12" text-anchor="middle">and it also reads</text>
+  <text x="396.0" y="521.5" font-size="12" fill="#7C2D12" text-anchor="middle">samples of files</text>
+  <text x="396.0" y="537.6" font-size="12" fill="#7C2D12" text-anchor="middle">and rows and</text>
+  <text x="396.0" y="553.7" font-size="12" fill="#7C2D12" text-anchor="middle">classifies their</text>
+  <text x="396.0" y="569.8" font-size="12" fill="#7C2D12" text-anchor="middle">contents.</text>
+  <text x="396.0" y="601.9" font-size="12" fill="#475569" text-anchor="middle">Without it, a store</text>
+  <text x="396.0" y="618.0" font-size="12" fill="#475569" text-anchor="middle">whose names and</text>
+  <text x="396.0" y="634.1" font-size="12" fill="#475569" text-anchor="middle">tags say nothing gets</text>
+  <text x="396.0" y="650.2" font-size="12" fill="#475569" text-anchor="middle">no label until it is</text>
+  <text x="396.0" y="666.3" font-size="12" fill="#475569" text-anchor="middle">tagged.</text>
+  <rect x="482.4" y="52.0" width="140.8" height="658.8" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="552.8" y="74.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="0.6">4. JOIN</text>
+  <text x="552.8" y="91.0" font-size="12" fill="#475569" text-anchor="middle">Who and what can</text>
+  <text x="552.8" y="107.1" font-size="12" fill="#475569" text-anchor="middle">reach it</text>
+  <line x1="490.4" y1="120.2" x2="615.2" y2="120.2" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="490.4" y="130.2" width="124.8" height="104.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="552.8" y="152.2" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Public</text>
+  <text x="552.8" y="169.1" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">exposure</text>
+  <text x="552.8" y="190.0" font-size="12" fill="#475569" text-anchor="middle">Policy status, ACL</text>
+  <text x="552.8" y="206.1" font-size="12" fill="#475569" text-anchor="middle">grants, wildcard</text>
+  <text x="552.8" y="222.2" font-size="12" fill="#475569" text-anchor="middle">principals</text>
+  <rect x="490.4" y="242.3" width="124.8" height="88.0" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="552.8" y="264.3" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Cross-account</text>
+  <text x="552.8" y="281.2" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">grants</text>
+  <text x="552.8" y="302.1" font-size="12" fill="#475569" text-anchor="middle">Policies that let</text>
+  <text x="552.8" y="318.2" font-size="12" fill="#475569" text-anchor="middle">other accounts in</text>
+  <rect x="490.4" y="338.3" width="124.8" height="104.1" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="552.8" y="360.3" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Observed</text>
+  <text x="552.8" y="377.2" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">access</text>
+  <text x="552.8" y="398.1" font-size="12" fill="#475569" text-anchor="middle">Who touched it in</text>
+  <text x="552.8" y="414.2" font-size="12" fill="#475569" text-anchor="middle">the last 30 days,</text>
+  <text x="552.8" y="430.3" font-size="12" fill="#475569" text-anchor="middle">from audit events</text>
+  <rect x="490.4" y="450.4" width="124.8" height="120.2" rx="8" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="552.8" y="472.4" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Encryption and</text>
+  <text x="552.8" y="489.3" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">keys</text>
+  <text x="552.8" y="510.2" font-size="12" fill="#475569" text-anchor="middle">Unencrypted, or</text>
+  <text x="552.8" y="526.3" font-size="12" fill="#475569" text-anchor="middle">on a</text>
+  <text x="552.8" y="542.4" font-size="12" fill="#475569" text-anchor="middle">provider-managed</text>
+  <text x="552.8" y="558.5" font-size="12" fill="#475569" text-anchor="middle">key</text>
+  <rect x="490.4" y="578.6" width="124.8" height="120.2" rx="8" fill="#EFF4FF" stroke="#BFDBFE" stroke-width="1.2"/>
+  <text x="552.8" y="600.6" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">Identity and</text>
+  <text x="552.8" y="617.5" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">attack paths</text>
+  <text x="552.8" y="638.4" font-size="12" fill="#475569" text-anchor="middle">Sensitive stores</text>
+  <text x="552.8" y="654.5" font-size="12" fill="#475569" text-anchor="middle">become the</text>
+  <text x="552.8" y="670.6" font-size="12" fill="#475569" text-anchor="middle">targets attack</text>
+  <text x="552.8" y="686.7" font-size="12" fill="#475569" text-anchor="middle">paths end at</text>
+  <rect x="639.2" y="52.0" width="140.8" height="658.8" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="709.6" y="74.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="0.6">5. FINDINGS</text>
+  <text x="709.6" y="91.0" font-size="12" fill="#475569" text-anchor="middle">Per store, every scan</text>
+  <line x1="647.2" y1="104.1" x2="772.0" y2="104.1" stroke="#CBD5E1" stroke-width="1"/>
+  <text x="649.2" y="126.1" font-size="12" fill="#475569">• Classification</text>
+  <text x="649.2" y="145.1" font-size="12" fill="#475569">• Encryption posture</text>
+  <text x="649.2" y="164.1" font-size="12" fill="#475569">• Access control</text>
+  <text x="649.2" y="183.1" font-size="12" fill="#475569">• Data residency</text>
+  <text x="649.2" y="202.1" font-size="12" fill="#475569">• Activity logging</text>
+  <text x="649.2" y="221.1" font-size="12" fill="#475569">• Lifecycle and</text>
+  <text x="660.2" y="237.1" font-size="12" fill="#475569">backup</text>
+  <text x="649.2" y="256.1" font-size="12" fill="#475569">• Lineage</text>
+  <text x="649.2" y="275.1" font-size="12" fill="#475569">• Governance score</text>
+  <text x="660.2" y="291.1" font-size="12" fill="#475569">0–100</text>
+  <rect x="647.2" y="302.1" width="124.8" height="261.0" rx="8" fill="#F1F5F9" stroke="#CBD5E1" stroke-width="1.2"/>
+  <text x="657.2" y="324.1" font-size="13" fill="#1E3A8A" font-weight="700">Shared with</text>
+  <text x="657.2" y="341.0" font-size="13" fill="#1E3A8A" font-weight="700">other engines</text>
+  <text x="657.2" y="361.9" font-size="12" fill="#475569">• Attack paths:</text>
+  <text x="667.2" y="378.0" font-size="12" fill="#475569">sensitive, public,</text>
+  <text x="667.2" y="394.1" font-size="12" fill="#475569">unencrypted</text>
+  <text x="657.2" y="413.2" font-size="12" fill="#475569">• Database</text>
+  <text x="667.2" y="429.3" font-size="12" fill="#475569">security: labels</text>
+  <text x="667.2" y="445.4" font-size="12" fill="#475569">rank databases</text>
+  <text x="657.2" y="464.5" font-size="12" fill="#475569">• Encryption:</text>
+  <text x="667.2" y="480.6" font-size="12" fill="#475569">sensitive data</text>
+  <text x="667.2" y="496.7" font-size="12" fill="#475569">on weak keys</text>
+  <text x="657.2" y="515.8" font-size="12" fill="#475569">• Compliance:</text>
+  <text x="667.2" y="531.9" font-size="12" fill="#475569">GDPR, HIPAA,</text>
+  <text x="667.2" y="548.0" font-size="12" fill="#475569">PCI DSS</text>
+  <line x1="154.8" y1="381.4" x2="166.8" y2="381.4" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="311.6" y1="381.4" x2="323.6" y2="381.4" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="468.4" y1="381.4" x2="480.4" y2="381.4" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <line x1="625.2" y1="381.4" x2="637.2" y2="381.4" stroke="#94A3B8" stroke-width="1.6" marker-end="url(#ah)"/>
+  <text x="396.0" y="734.8" font-size="12" fill="#475569" text-anchor="middle">Posture scanning connects through read-only cloud roles. Classification reads metadata by default; contents are sampled only</text>
+  <text x="396.0" y="750.9" font-size="12" fill="#475569" text-anchor="middle">where you deploy the DSPM scanner or the on-prem collector.</text>
 </svg>

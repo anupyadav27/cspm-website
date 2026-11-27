@@ -103,22 +103,25 @@ const CARDS = [
   ['learn-choke-point',           'Learn', 'What is a choke point?', 'Fix one node, eliminate hundreds of attack paths.', '#EA580C'],
 
   // ── Platform ──────────────────────────────────────────────────────────────
-  ['platform',                    'Onam Security', 'Is your cloud secure, or does it just feel that way?', '29 engines on one security graph, across seven clouds and your SaaS.', '#2563EB'],
-  ['platform-cspm',               'Platform', 'Cloud Security Posture Management', '9,853 posture rules across seven clouds. Read-only, no agents.', '#2563EB'],
-  ['platform-cnapp',              'Platform', 'CNAPP — one posture score', 'Seven scored pillars that decompose to a single finding.', '#4F46E5'],
+  // Numbers are from marketing/facts/product.yaml (engines, rules.cspm_posture, frameworks,
+  // services.per_cloud), re-checked 27 Nov 2026. CNAPP carries no area count until the
+  // cnapp_seven_pillars limit is updated; indigo stays reserved for Onam AI.
+  ['platform',                    'Onam Security', 'Is your cloud secure, or does it just feel that way?', '30 engines on one security graph, across seven clouds and your SaaS.', '#2563EB'],
+  ['platform-cspm',               'Platform', 'Cloud Security Posture Management', '11,856 posture rule definitions across seven clouds, read through read-only roles.', '#2563EB'],
+  ['platform-cnapp',              'Platform', 'CNAPP — one posture score', 'Every security area scored on its own, down to a single finding.', '#2563EB'],
   ['platform-cwpp',               'Platform', 'CWPP — Workload Protection', 'VMs, containers, serverless and hosts. No agents.', '#059669'],
   ['platform-saas-security',      'Platform', 'SaaS Security (SSPM)', 'M365, Workspace, GitHub, Snowflake — 433 CIS SaaS rules.', '#8B5CF6'],
   ['platform-attack-path',        'Platform', 'Cloud Attack Path Analysis', 'Toxic combinations and choke points across your estate.', '#E32D25'],
   ['platform-agentless',          'Platform', 'Agentless Scanning', 'Snapshot-based, inside your own account. Nothing to install.', '#06B6D4'],
   ['platform-ciem',               'Platform', 'CIEM — Identity & Entitlements', 'Effective permissions and escalation paths, from 30-day behaviour.', '#F2AF04'],
   ['platform-data-security',      'Platform', 'DSPM — Data Security', 'Where your sensitive data lives, and who can reach it.', '#7C3AED'],
-  ['platform-compliance',         'Platform', 'Compliance — 78 frameworks', 'Continuous evidence. Export in one click.', '#059669'],
+  ['platform-compliance',         'Platform', 'Compliance across 144 frameworks', '144 compliance frameworks: 119 with automated checks, 25 attestation-only. Evidence per control.', '#059669'],
 
   // ── Solutions (Tier 1 clouds first) ───────────────────────────────────────
-  ['solutions-oci',               'Solutions', 'Oracle Cloud (OCI) Security', '2,059 posture rules — more than most vendors ship for AWS.', '#C74634'],
-  ['solutions-alicloud',          'Solutions', 'Alibaba Cloud Security', '1,151 rules across ECS, ACK, OSS, RDS, RAM and VPC.', '#FF6A00'],
+  ['solutions-oci',               'Solutions', 'Oracle Cloud (OCI) Security', '2,163 posture rule definitions across 69 OCI services.', '#C74634'],
+  ['solutions-alicloud',          'Solutions', 'Alibaba Cloud Security', '1,735 posture rule definitions across ECS, ACK, OSS, RDS, RAM and VPC.', '#FF6A00'],
   ['solutions-ibm',               'Solutions', 'IBM Cloud Security', 'Full CSPM depth — not a checkbox integration.', '#0F62FE'],
-  ['solutions-aws',               'Solutions', 'AWS Cloud Security', '2,018 posture rules across 123 AWS services.', '#FF9900'],
+  ['solutions-aws',               'Solutions', 'AWS Cloud Security', '2,633 posture rule definitions across 147 AWS services.', '#FF9900'],
   ['solutions-azure',             'Solutions', 'Azure Cloud Security', 'Every subscription and tenant, continuously.', '#0078D4'],
   ['solutions-gcp',               'Solutions', 'Google Cloud Security', 'Projects, folders and org policy on one graph.', '#4285F4'],
   ['solutions-kubernetes',        'Solutions', 'Kubernetes Security', 'EKS, AKS, GKE, OKE and any conformant cluster.', '#326CE5'],

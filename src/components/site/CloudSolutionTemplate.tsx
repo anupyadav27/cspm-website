@@ -405,7 +405,7 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
         compact
         tone="white"
         clips={["onboard", "assets", "dashboard"]}
-        eyebrow="See it live"
+        eyebrow="Recreation with sample data"
         title={`${data.cloudName} in the Onam Security console.`}
         gradientWords="Onam Security console."
         subtitle="A recreation of the Onam console with sample data: connect, inventory and posture in one view."

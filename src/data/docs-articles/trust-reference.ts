@@ -405,7 +405,16 @@ Official clients are in development. Until they ship, generate a client from the
     body: `
 Every engine on the platform — CSPM checks, CIEM, vulnerability, data security, CDR, and the rest of the 30 engines — emits findings normalized to one shared data model. This reference documents that model: the base finding item, the detail response with its compliance and remediation blocks, the list envelopes, the status lifecycle, and the severity scale. If you consume findings through the [REST API](/docs/reference/api) or a [webhook integration](/docs/reference/integration-catalog), this is the contract.
 
-![The findings view in the Onam console (demo account)](/screenshots/screenshot-findings.png)
+:::screen /screens/cloud-posture/posture-findings.webp
+url: app.onamsecurity.com/ui/misconfig
+alt: Cloud Posture, Posture findings tab in the Onam console: tabs for Posture findings, IAM, Network, Encryption, Containers, APIs and Databases, quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings, and a list where each finding has a plain title and its rule ID.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 28,12: Cloud Posture tabs: Posture findings, IAM, Network, Encryption, Containers, APIs and Databases.
+2 @ 50,41: Quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings.
+3 @ 27,71: Each finding gives a plain title and the rule ID behind it.
+:::
 
 ## Where findings come from
 

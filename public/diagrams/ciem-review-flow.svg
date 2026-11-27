@@ -11,7 +11,7 @@
   <text x="30" y="123" text-anchor="start" font-size="8.5" fill="#475569">10 per path, up to 30</text>
   <rect x="250" y="102" width="90" height="10" rx="5" fill="#E2E8F0"/>
   <rect x="250" y="102" width="67.5" height="10" rx="5" fill="#EF4444"/>
-  <text x="30" y="156" text-anchor="start" font-size="10" font-weight="700" fill="#0F172A">Recent escalation activity (CDR)</text>
+  <text x="30" y="156" text-anchor="start" font-size="10" font-weight="700" fill="#0F172A">Recent escalation activity (Threats)</text>
   <text x="30" y="169" text-anchor="start" font-size="8.5" fill="#475569">40 when confirmed</text>
   <rect x="250" y="148" width="90" height="10" rx="5" fill="#E2E8F0"/>
   <rect x="250" y="148" width="90.0" height="10" rx="5" fill="#B91C1C"/>

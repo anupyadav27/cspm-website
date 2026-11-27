@@ -10,7 +10,16 @@ Everything that shipped in the Onam platform, newest first. Each month covers ne
 
 > **Release cadence:** monthly, published on the first business day of each month. **Changelog format:** New · Changed · Fixed · Deprecated · Breaking.
 
-![The Onam console dashboard after the July 2026 release (demo account)](/screenshots/screenshot-dashboard.png)
+:::screen /screens/cnapp/cnapp-areas.webp
+url: app.onamsecurity.com/ui/cnapp
+alt: The CNAPP page in the Onam console: one CNAPP score out of 100 with its risk level, a card for each security area with its findings and its critical and high counts, and the same areas as a table with views, columns, grouping and export.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted. Shows the console today, not as it looked at this release.
+1 @ 7,18: One CNAPP score out of 100, with its risk level and how many security areas have data.
+2 @ 85,54: Each area (cloud posture, threat detection, workloads, data, network, attack paths, code and AI) is scored on its own, with findings, critical and high.
+3 @ 75,86: The same areas as a table, with views, columns, group by and PDF or Excel export.
+:::
 
 ## November 2026
 
@@ -39,7 +48,16 @@ Attack Path v2 replaces the June 2026 graph engine with a rebuilt architecture o
 - Crown-jewel and entry-point classification is catalog-driven, so newly discovered asset types are classified automatically
 - New console views: attack path list, full path detail, and choke points, served by \`GET /api/v1/attack-paths\`
 
-![The Attack Path v2 graph view in the Onam console (demo account)](/screenshots/screenshot-attack-path.png)
+:::screen /screens/attack-paths/attack-paths.webp
+url: app.onamsecurity.com/ui/attack-paths
+alt: The Attack Paths page in the Onam console: counts of confirmed paths, live attacker activity and paths one fix breaks, saved views, and a list of paths that each read from entry point to target with LIVE, CHOKE or EXPLOITABLE tags.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted. Shows the console today, not as it looked at this release.
+1 @ 73,38: Confirmed paths (every step checked), live attacker activity, and paths one fix breaks.
+2 @ 50,54: Saved views: live activity, confirmed critical, critical one fix breaks it, mine, unassigned.
+3 @ 79,77: Each path reads from entry point to target, tagged LIVE, CHOKE or EXPLOITABLE.
+:::
 
 > Pro tip: start remediation from the choke-points view, not the path list. Fixing the #1 choke point typically severs more paths than fixing the five highest-severity individual findings.
 
@@ -65,7 +83,16 @@ Log source coverage:
 | IBM Cloud | IBM Cloud Object Storage |
 | Kubernetes | Kubernetes audit logs (via Discovery & Inventory) |
 
-![The Behavioral Analysis view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
+:::screen /screens/threats/threats-detections.webp
+url: app.onamsecurity.com/ui/threats/detections
+alt: Threats, Detections tab in the Onam console: every alert by identity or by the rule that fired, counts of correlated activity, unusual behaviour and indicator matches, and when logs were last read.
+size: 1440x701
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted. Shows the console today, not as it looked at this release.
+1 @ 13,36: Every alert, by identity or by the rule that fired.
+2 @ 50,73: Correlated activity, unusual behaviour and indicator-match counts.
+3 @ 19,27: When logs were last read and attack paths last updated.
+:::
 
 ### Rule catalog passes 10,000 rules; framework mappings reach 78
 

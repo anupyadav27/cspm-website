@@ -1,123 +1,62 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 36 920 364" width="920" height="364" font-family="Arial, sans-serif">
-  <rect width="920" height="364" fill="#F8FAFC" rx="10"/>
-
-  <!-- header -->
-  <text x="460" y="26" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF" letter-spacing="1.2">10 SECURITY PILLARS — INDEPENDENT ENGINES · UNIFIED POSTURE SCORE</text>
-  <line x1="16" y1="34" x2="904" y2="34" stroke="#CBD5E1" stroke-width="1"/>
-
-  <!-- ── ROW 1: 5 pillars ── -->
-  <!-- CSPM -->
-  <rect x="16" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="2" rx="10"/>
-  <text x="100" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CSPM</text>
-  <text x="100" y="80" text-anchor="middle" font-size="8" fill="#64748B">Cloud Security Posture</text>
-  <line x1="26" y1="88" x2="174" y2="88" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="100" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">11,856 rule definitions</text>
-  <text x="100" y="120" text-anchor="middle" font-size="8" fill="#64748B">PASS/FAIL per resource</text>
-  <text x="100" y="136" text-anchor="middle" font-size="8" fill="#64748B">YAML rule-as-code</text>
-  <text x="100" y="152" text-anchor="middle" font-size="8" fill="#64748B">7 cloud providers</text>
-  <text x="100" y="168" text-anchor="middle" font-size="8" fill="#64748B">Continuous evaluation</text>
-
-  <!-- CIEM -->
-  <rect x="196" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="280" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">CIEM</text>
-  <text x="280" y="80" text-anchor="middle" font-size="8" fill="#64748B">Identity Entitlements</text>
-  <line x1="206" y1="88" x2="354" y2="88" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="280" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">Effective permissions</text>
-  <text x="280" y="120" text-anchor="middle" font-size="8" fill="#64748B">Unused access 90-day</text>
-  <text x="280" y="136" text-anchor="middle" font-size="8" fill="#64748B">Shadow admin paths</text>
-  <text x="280" y="152" text-anchor="middle" font-size="8" fill="#64748B">Stale identities</text>
-  <text x="280" y="168" text-anchor="middle" font-size="8" fill="#64748B">Cross-account trust</text>
-
-  <!-- DSPM -->
-  <rect x="376" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="460" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">DSPM</text>
-  <text x="460" y="80" text-anchor="middle" font-size="8" fill="#64748B">Data Security Posture</text>
-  <line x1="386" y1="88" x2="534" y2="88" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="460" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">62 rules · 7 domains</text>
-  <text x="460" y="120" text-anchor="middle" font-size="8" fill="#64748B">PII · PCI · PHI detection</text>
-  <text x="460" y="136" text-anchor="middle" font-size="8" fill="#64748B">Encryption compliance</text>
-  <text x="460" y="152" text-anchor="middle" font-size="8" fill="#64748B">Data exposure levels</text>
-  <text x="460" y="168" text-anchor="middle" font-size="8" fill="#64748B">GDPR/HIPAA mapping</text>
-
-  <!-- Network Security -->
-  <rect x="556" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="640" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Network Security</text>
-  <text x="640" y="80" text-anchor="middle" font-size="8" fill="#64748B">7-Layer Topology</text>
-  <line x1="566" y1="88" x2="714" y2="88" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="640" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">L1–L7 analysis</text>
-  <text x="640" y="120" text-anchor="middle" font-size="8" fill="#64748B">VPC isolation</text>
-  <text x="640" y="136" text-anchor="middle" font-size="8" fill="#64748B">SG / NACL rules</text>
-  <text x="640" y="152" text-anchor="middle" font-size="8" fill="#64748B">WAF coverage</text>
-  <text x="640" y="168" text-anchor="middle" font-size="8" fill="#64748B">Flow log monitoring</text>
-
-  <!-- Vulnerability -->
-  <rect x="736" y="44" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="820" y="64" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Vulnerability</text>
-  <text x="820" y="80" text-anchor="middle" font-size="8" fill="#64748B">Agentless CVE Scanning</text>
-  <line x1="746" y1="88" x2="894" y2="88" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="820" y="104" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">EPSS · CVSS · KEV</text>
-  <text x="820" y="120" text-anchor="middle" font-size="8" fill="#64748B">SBOM generation</text>
-  <text x="820" y="136" text-anchor="middle" font-size="8" fill="#64748B">CycloneDX / SPDX</text>
-  <text x="820" y="152" text-anchor="middle" font-size="8" fill="#64748B">Effective risk score</text>
-  <text x="820" y="168" text-anchor="middle" font-size="8" fill="#64748B">Patch guidance</text>
-
-  <!-- ── ROW 2: 5 pillars ── -->
-  <!-- Container Security -->
-  <rect x="16" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="100" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">Container Security</text>
-  <text x="100" y="248" text-anchor="middle" font-size="8" fill="#64748B">EKS · AKS · GKE · OKE</text>
-  <line x1="26" y1="256" x2="174" y2="256" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="100" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">250+ K8s rules</text>
-  <text x="100" y="288" text-anchor="middle" font-size="8" fill="#64748B">RBAC analysis</text>
-  <text x="100" y="304" text-anchor="middle" font-size="8" fill="#64748B">Pod security standards</text>
-  <text x="100" y="320" text-anchor="middle" font-size="8" fill="#64748B">Image CVE scanning</text>
-  <text x="100" y="336" text-anchor="middle" font-size="8" fill="#64748B">Network policy gaps</text>
-
-  <!-- AI Security -->
-  <rect x="196" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="280" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">AI Security</text>
-  <text x="280" y="248" text-anchor="middle" font-size="8" fill="#64748B">AWS · Azure · Google Cloud</text>
-  <line x1="206" y1="256" x2="354" y2="256" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="280" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">ML model posture</text>
-  <text x="280" y="288" text-anchor="middle" font-size="8" fill="#64748B">Access control checks</text>
-  <text x="280" y="304" text-anchor="middle" font-size="8" fill="#64748B">Training data security</text>
-  <text x="280" y="320" text-anchor="middle" font-size="8" fill="#64748B">Endpoint exposure</text>
-  <text x="280" y="336" text-anchor="middle" font-size="8" fill="#64748B">IAM roles on models</text>
-
-  <!-- Threat Detection -->
-  <rect x="376" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="460" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Threat Detection</text>
-  <text x="460" y="248" text-anchor="middle" font-size="8" fill="#64748B">MITRE ATT&amp;CK</text>
-  <line x1="386" y1="256" x2="534" y2="256" stroke="#94A3B8" stroke-width="1"/>
-  <text x="460" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">Attack path analysis</text>
-  <text x="460" y="288" text-anchor="middle" font-size="8" fill="#64748B">Blast radius scoring</text>
-  <text x="460" y="304" text-anchor="middle" font-size="8" fill="#64748B">Security graph (Neo4j)</text>
-  <text x="460" y="320" text-anchor="middle" font-size="8" fill="#64748B">Toxic combinations</text>
-  <text x="460" y="336" text-anchor="middle" font-size="8" fill="#64748B">Attack narrative (AI)</text>
-
-  <!-- SecOps -->
-  <rect x="556" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="640" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E40AF">SecOps</text>
-  <text x="640" y="248" text-anchor="middle" font-size="8" fill="#64748B">SAST · DAST · SCA</text>
-  <line x1="566" y1="256" x2="714" y2="256" stroke="#CBD5E1" stroke-width="1"/>
-  <text x="640" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#2563EB">2,852 SAST rules</text>
-  <text x="640" y="288" text-anchor="middle" font-size="8" fill="#64748B">14 languages</text>
-  <text x="640" y="304" text-anchor="middle" font-size="8" fill="#64748B">479 DAST payloads</text>
-  <text x="640" y="320" text-anchor="middle" font-size="8" fill="#64748B">IaC scanning</text>
-  <text x="640" y="336" text-anchor="middle" font-size="8" fill="#64748B">CI/CD integration</text>
-
-  <!-- Compliance -->
-  <rect x="736" y="212" width="168" height="152" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.5" rx="10"/>
-  <text x="820" y="232" text-anchor="middle" font-size="10" font-weight="700" fill="#1E3A8A">Compliance</text>
-  <text x="820" y="248" text-anchor="middle" font-size="8" fill="#64748B">144 Frameworks</text>
-  <line x1="746" y1="256" x2="894" y2="256" stroke="#94A3B8" stroke-width="1"/>
-  <text x="820" y="272" text-anchor="middle" font-size="9" font-weight="700" fill="#1E3A8A">CIS · NIST · ISO 27001</text>
-  <text x="820" y="288" text-anchor="middle" font-size="8" fill="#64748B">PCI-DSS · HIPAA</text>
-  <text x="820" y="304" text-anchor="middle" font-size="8" fill="#64748B">SOC 2 · GDPR</text>
-  <text x="820" y="320" text-anchor="middle" font-size="8" fill="#64748B">FedRAMP · DORA</text>
-  <text x="820" y="336" text-anchor="middle" font-size="8" fill="#64748B">Continuous evaluation</text>
-
-  <!-- bottom arrow to unified score -->
-  <rect x="16" y="372" width="888" height="20" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="4"/>
-  <text x="460" y="386" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">All 10 posture engines feed into a unified 0–100 posture score via the Risk Engine (FAIR model)</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 792 395" width="792" height="395" font-family="Inter, 'IBM Plex Sans', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img" aria-labelledby="t d">
+  <title id="t">Security areas in the CNAPP score, as the console names them</title>
+  <desc id="d">Cloud posture, threat detection, workloads, data security, network, threats and attack paths, code security and AI security are each scored on their own, then rolled up into one CNAPP score out of 100.</desc>
+  <defs><marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#94A3B8"/></marker></defs>
+  <rect width="792" height="395" rx="12" fill="#F8FAFC" stroke="#E2E8F0" stroke-width="1.5"/>
+  <text x="396.0" y="28.0" font-size="12.5" fill="#1D4ED8" text-anchor="middle" font-weight="700" letter-spacing="1">SECURITY AREAS IN THE CNAPP SCORE, AS THE CONSOLE NAMES THEM</text>
+  <line x1="16.0" y1="40.0" x2="776.0" y2="40.0" stroke="#CBD5E1" stroke-width="1"/>
+  <rect x="16.0" y="56.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="28.0" y="81.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Cloud posture</text>
+  <text x="28.0" y="103.0" font-size="12" fill="#475569">Cloud settings checked</text>
+  <text x="28.0" y="119.0" font-size="12" fill="#475569">against rules</text>
+  <line x1="28.0" y1="146.0" x2="186.5" y2="146.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="28.0" y="162.0" font-size="12" fill="#1D4ED8">CSPM · IAM</text>
+  <rect x="208.5" y="56.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="220.5" y="81.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Threat detection</text>
+  <text x="220.5" y="103.0" font-size="12" fill="#475569">Alerts from cloud activity</text>
+  <text x="220.5" y="119.0" font-size="12" fill="#475569">logs</text>
+  <line x1="220.5" y1="146.0" x2="379.0" y2="146.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="220.5" y="162.0" font-size="12" fill="#1D4ED8">Threats</text>
+  <rect x="401.0" y="56.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="413.0" y="81.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Workloads</text>
+  <text x="413.0" y="103.0" font-size="12" fill="#475569">Machines, containers and</text>
+  <text x="413.0" y="119.0" font-size="12" fill="#475569">their vulnerabilities</text>
+  <line x1="413.0" y1="130.0" x2="571.5" y2="130.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="413.0" y="146.0" font-size="12" fill="#1D4ED8">CWPP · vulnerabilities ·</text>
+  <text x="413.0" y="162.0" font-size="12" fill="#1D4ED8">containers</text>
+  <rect x="593.5" y="56.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="605.5" y="81.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Data security</text>
+  <text x="605.5" y="103.0" font-size="12" fill="#475569">Where sensitive data is and</text>
+  <text x="605.5" y="119.0" font-size="12" fill="#475569">who can reach it</text>
+  <line x1="605.5" y1="146.0" x2="764.0" y2="146.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="605.5" y="162.0" font-size="12" fill="#1D4ED8">DSPM</text>
+  <rect x="16.0" y="188.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="28.0" y="213.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Network</text>
+  <text x="28.0" y="235.0" font-size="12" fill="#475569">Network exposure, layer by</text>
+  <text x="28.0" y="251.0" font-size="12" fill="#475569">layer</text>
+  <line x1="28.0" y1="278.0" x2="186.5" y2="278.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="28.0" y="294.0" font-size="12" fill="#1D4ED8">Network security</text>
+  <rect x="208.5" y="188.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="220.5" y="213.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Threats and attack</text>
+  <text x="220.5" y="231.0" font-size="13.5" fill="#1E3A8A" font-weight="700">paths</text>
+  <text x="220.5" y="253.0" font-size="12" fill="#475569">Attack paths and MITRE</text>
+  <text x="220.5" y="269.0" font-size="12" fill="#475569">ATT&amp;CK techniques</text>
+  <line x1="220.5" y1="278.0" x2="379.0" y2="278.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="220.5" y="294.0" font-size="12" fill="#1D4ED8">Attack paths · choke points</text>
+  <rect x="401.0" y="188.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="413.0" y="213.0" font-size="13.5" fill="#1E3A8A" font-weight="700">Code security</text>
+  <text x="413.0" y="235.0" font-size="12" fill="#475569">Code, dependency and web</text>
+  <text x="413.0" y="251.0" font-size="12" fill="#475569">app scans</text>
+  <line x1="413.0" y1="262.0" x2="571.5" y2="262.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="413.0" y="278.0" font-size="12" fill="#1D4ED8">SAST · SCA · DAST ·</text>
+  <text x="413.0" y="294.0" font-size="12" fill="#1D4ED8">secrets</text>
+  <rect x="593.5" y="188.0" width="182.5" height="122.0" rx="10" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1.4"/>
+  <text x="605.5" y="213.0" font-size="13.5" fill="#1E3A8A" font-weight="700">AI security</text>
+  <text x="605.5" y="235.0" font-size="12" fill="#475569">Models, agents and AI</text>
+  <text x="605.5" y="251.0" font-size="12" fill="#475569">services</text>
+  <line x1="605.5" y1="278.0" x2="764.0" y2="278.0" stroke="#E2E8F0" stroke-width="1"/>
+  <text x="605.5" y="294.0" font-size="12" fill="#1D4ED8">AI security</text>
+  <rect x="16.0" y="324.0" width="760.0" height="55.0" rx="8" fill="#EFF4FF" stroke="#BFDBFE" stroke-width="1.2"/>
+  <text x="396.0" y="346.0" font-size="13" fill="#1E3A8A" text-anchor="middle" font-weight="700">One CNAPP score out of 100</text>
+  <text x="396.0" y="366.9" font-size="12" fill="#475569" text-anchor="middle">Each area is scored on its own, with its findings and its critical and high counts; the CNAPP score rolls them up.</text>
 </svg>

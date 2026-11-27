@@ -1235,7 +1235,7 @@ Choke-point remediation follows the same discipline as any high-severity work, t
       { label: "Onam Attack Path Analysis", href: "/platform/attack-path" },
       { label: "Onam on AWS, Azure, GCP and four more clouds", href: "/solutions" },
       { label: "How Onam compares to Wiz, Orca and Prisma Cloud", href: "/compare" },
-      { label: "AI-powered cloud remediation: from finding to fix", href: "/resources/blog/ai-powered-cloud-remediation" },
+      { label: "AI SAST remediation: what an AI code fix should and should not do", href: "/resources/blog/ai-sast-remediation-fix-branch" },
     ],
   },
   {

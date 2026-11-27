@@ -10,7 +10,16 @@ CSPM is the core posture engine of the Onam platform. It evaluates every resourc
 
 This page explains what the rule registry covers per cloud, how a single rule is evaluated, how the severity model works, how to suppress findings you have accepted, and how PASS/FAIL results roll up into compliance scores.
 
-![The Findings view in the Onam console (demo account)](/screenshots/screenshot-findings.png)
+:::screen /screens/cloud-posture/posture-findings.webp
+url: app.onamsecurity.com/ui/misconfig
+alt: Cloud Posture, Posture findings tab in the Onam console: tabs for Posture findings, IAM, Network, Encryption, Containers, APIs and Databases, quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings, and a list where each finding has a plain title and its rule ID.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 28,12: Cloud Posture tabs: Posture findings, IAM, Network, Encryption, Containers, APIs and Databases.
+2 @ 50,41: Quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings.
+3 @ 27,71: Each finding gives a plain title and the rule ID behind it.
+:::
 
 ## What CSPM checks
 
@@ -164,7 +173,16 @@ IAM Security is the identity-hygiene view of Onam's identity engine: MFA, access
 
 It shares its engine and inventory with [CIEM](/docs/ciem/overview). IAM Security checks each identity's configuration; CIEM works out what the identity can actually do and how it could escalate.
 
-![Illustrative IAM Security view — stylised, with demo data](/screenshots/screenshot-iam.png)
+:::screen /screens/cloud-posture/iam-findings.webp
+url: app.onamsecurity.com/ui/iam
+alt: Cloud Posture, IAM tab in the Onam console: counters for no MFA, admin or wildcard, keys to rotate and unused for 90 days, status tabs for open, new, muted and resolved identity findings, and findings grouped by module.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 50,37: Counters for no MFA, admin or wildcard, keys to rotate, and unused for 90 days.
+2 @ 29,28: Open, new, muted and resolved identity findings.
+3 @ 11,64: Findings grouped by module, here access control.
+:::
 
 ## What IAM Security covers
 
@@ -242,7 +260,16 @@ Attack Path Analysis connects individual security findings — misconfigurations
 
 This page explains how the graph is built and verified, how paths are found and ranked, how MITRE techniques are attached per hop, and how **choke points** tell you the one fix that severs the most paths.
 
-![The Attack Path view in the Onam console (demo account)](/screenshots/screenshot-attack-path.png)
+:::screen /screens/attack-paths/attack-paths.webp
+url: app.onamsecurity.com/ui/attack-paths
+alt: The Attack Paths page in the Onam console: counts of confirmed paths, live attacker activity and paths one fix breaks, saved views, and a list of paths that each read from entry point to target with LIVE, CHOKE or EXPLOITABLE tags.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 73,38: Confirmed paths (every step checked), live attacker activity, and paths one fix breaks.
+2 @ 50,54: Saved views: live activity, confirmed critical, critical one fix breaks it, mine, unassigned.
+3 @ 79,77: Each path reads from entry point to target, tagged LIVE, CHOKE or EXPLOITABLE.
+:::
 
 ## How the graph is built
 
@@ -332,7 +359,16 @@ Choke points are the resources that many attack paths share. Fixing one choke po
     body: `
 Onam detects threats on three planes at once: **posture rules** that find exploitable configuration before an attacker does, **behavioral detection** that watches audit logs for active attack activity, and **correlation** that stitches findings and detections into attack paths and incidents. This page explains how the three planes divide the work, how MITRE ATT&CK ties every result together, and how an analyst moves from alert to resolution in the console.
 
-![The detection view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
+:::screen /screens/threats/threats-detections.webp
+url: app.onamsecurity.com/ui/threats/detections
+alt: Threats, Detections tab in the Onam console: every alert by identity or by the rule that fired, counts of correlated activity, unusual behaviour and indicator matches, and when logs were last read.
+size: 1440x701
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 13,36: Every alert, by identity or by the rule that fired.
+2 @ 50,73: Correlated activity, unusual behaviour and indicator-match counts.
+3 @ 19,27: When logs were last read and attack paths last updated.
+:::
 
 ## The three detection planes
 
@@ -417,7 +453,16 @@ Onam CDR provides continuous behavioral threat detection across your cloud audit
 
 This page covers the log sources per provider, the L1/L2/L3 detection model, how detections correlate into incidents, and how to configure and tune CDR for your accounts.
 
-![The CDR view in the Onam console (demo account)](/screenshots/screenshot-cdr.png)
+:::screen /screens/threats/threats-incidents.webp
+url: app.onamsecurity.com/ui/threats/incidents
+alt: Threats, Incidents tab in the Onam console: incidents regrouped every 15 minutes with a Group now button, status tabs from active to closed, and incident rows that say what happened and which areas raised it.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 22,23: Incidents regroup every 15 minutes, and Group now runs it on demand.
+2 @ 29,28: Active, open, investigating, resolved, closed and all.
+3 @ 76,70: Each incident says what happened and which areas raised it, for example cloud activity and posture.
+:::
 
 ## Log sources
 

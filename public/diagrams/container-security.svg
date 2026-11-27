@@ -60,7 +60,7 @@
   <text x="402" y="332" text-anchor="middle" font-size="9"  fill="#64748B">Default-allow posture across namespaces</text>
 
   <rect x="282" y="344" width="240" height="48" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="8"/>
-  <text x="402" y="368" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">250+ rules · CIS Kubernetes Benchmark</text>
+  <text x="402" y="368" text-anchor="middle" font-size="9" font-weight="700" fill="#1E40AF">Kubernetes rule definitions · CIS Kubernetes Benchmark</text>
 
   <!-- arrow -->
   <line x1="536" y1="213" x2="558" y2="213" stroke="#94A3B8" stroke-width="2"/>

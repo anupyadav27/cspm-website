@@ -225,7 +225,7 @@ function ArchitecturePage() {
       >
         <DiagramFigure
           src="/diagrams/ops-block-architecture.svg"
-          alt="Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with a control-plane column of governance, policy, approval and audit beside them."
+          alt="Block architecture: workspace, entry, orchestration, agents and capability blocks descend to cloud context from Onam Security, the execution sandbox and approved models, with a control-plane column of governance, policy, approval and audit beside them."
           caption="Onam Security feeds Cloud Estate Intelligence; agents reach it only through the tool gateway; inference goes only through the model gateway; changes go only through the approval gate and the sandbox."
         />
         <div className="mt-8 grid gap-6 lg:grid-cols-[1.5fr_1fr] [&>*]:min-w-0">

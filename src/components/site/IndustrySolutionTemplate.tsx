@@ -253,7 +253,7 @@ export function IndustrySolutionTemplate({ data }: { data: IndustrySolutionData 
         compact
         tone="white"
         clips={["compliance", "risk", "datasec"]}
-        eyebrow="See it live"
+        eyebrow="Recreation with sample data"
         title="Evidence, in the Onam Security console."
         gradientWords="Onam Security console."
         subtitle="An animated walkthrough of Onam console views with demo-account data: compliance scores, FAIR-style risk estimates and data classification."

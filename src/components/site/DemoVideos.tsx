@@ -132,13 +132,13 @@ const CLIPS: Clip[] = [
   },
   {
     key: "cdr",
-    label: "CDR",
+    label: "Threats",
     icon: Eye,
     title: "Detections correlated across events",
     sub: "2.3M events/hour distilled into 4 active alerts, mapped to MITRE ATT&CK",
     nav: "cdr",
     page: {
-      title: "CDR — Detection & Response",
+      title: "Threats — Detections & Incidents",
       chips: [
         { text: "4 Active Alerts", tone: "red" },
         { text: "2.3M events/hr", tone: "green" },
@@ -271,6 +271,9 @@ export function ProductDemo({
   const [i, setI] = useState(0);
   const clip = list[Math.min(i, list.length - 1)];
   if (!clip) return null;
+  // This is a coded recreation, never a capture. Callers still pass "See it live"; the
+  // section must not read as a live or real console, so that eyebrow is replaced here.
+  const shownEyebrow = /\blive\b|real console/i.test(eyebrow) ? "Recreation with sample data" : eyebrow;
 
   return (
     <section
@@ -284,7 +287,7 @@ export function ProductDemo({
       {tone === "gray" && <div className="absolute inset-0 dot-grid opacity-40 pointer-events-none" />}
       <div className="relative max-w-7xl mx-auto px-6">
         <SectionHeader
-          eyebrow={eyebrow}
+          eyebrow={shownEyebrow}
           title={title}
           subtitle={subtitle}
           gradientWords={gradientWords}
@@ -320,6 +323,9 @@ export function ProductDemo({
           {/* key resets the animation on tab change so it plays from t=0 */}
           <ConsoleStage key={clip.key} clip={clip} />
         </div>
+        <p className="mt-3 text-center text-[13px] text-[#64748B]">
+          Recreation of the console with sample data, not a capture. Layout and figures are illustrative.
+        </p>
 
         {/* Meta row */}
         <div className="mt-6 grid md:grid-cols-[1fr_auto] gap-4 items-center">
@@ -374,7 +380,7 @@ const NAV_GROUPS: { group?: string; items: { key: string; label: string; sub?: s
     group: "Detection & data",
     items: [
       { key: "ciem", label: "CIEM", sub: "Identity & Entitlements", icon: Users },
-      { key: "cdr", label: "CDR", sub: "Detection & Response", icon: Eye },
+      { key: "cdr", label: "Threats", sub: "Detections · Incidents", icon: Eye },
       { key: "cwpp", label: "CWPP", sub: "Workload Protection", icon: Box },
       { key: "datasec", label: "Data Security", sub: "DSPM · Database", icon: Database },
     ],
@@ -425,9 +431,9 @@ function ConsoleSidebar({ active }: { active: string }) {
                     isActive ? "bg-[#EEF0FF]" : "opacity-80",
                   )}
                 >
-                  <Icon className={cn("w-3.5 h-3.5 shrink-0", isActive ? "text-[#4F46E5]" : "text-[#64748B]")} />
+                  <Icon className={cn("w-3.5 h-3.5 shrink-0", isActive ? "text-[#2563EB]" : "text-[#64748B]")} />
                   <div className="min-w-0">
-                    <div className={cn("text-[11px] font-semibold leading-tight truncate", isActive ? "text-[#4F46E5]" : "text-[#334155]")}>
+                    <div className={cn("text-[11px] font-semibold leading-tight truncate", isActive ? "text-[#2563EB]" : "text-[#334155]")}>
                       {it.label}
                     </div>
                     {it.sub && <div className="text-[8px] text-[#5C6B84] leading-tight truncate">{it.sub}</div>}
@@ -441,7 +447,7 @@ function ConsoleSidebar({ active }: { active: string }) {
 
       {/* User */}
       <div className="flex items-center gap-2 px-3 py-3 border-t border-[#E9EDF3]">
-        <div className="w-6 h-6 rounded-full bg-[#4F46E5] text-white grid place-items-center text-[9px] font-bold">OS</div>
+        <div className="w-6 h-6 rounded-full bg-[#2563EB] text-white grid place-items-center text-[9px] font-bold">OS</div>
         <div className="min-w-0">
           <div className="text-[10px] font-semibold text-[#0B1220] leading-tight truncate">Onam Admin</div>
           <div className="text-[8px] text-[#5C6B84] leading-tight">Security Admin</div>
@@ -475,7 +481,7 @@ function ConsoleTopbar({ page }: { page: Clip["page"] }) {
       <div className="flex-1" />
       <span className="hidden lg:inline text-[10px] text-[#5C6B84]">Last scan: 2 min ago</span>
       {page.action && (
-        <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#4F46E5] text-white text-[11px] font-semibold shadow-sm">
+        <span className="inline-flex items-center px-3 py-1.5 rounded-lg bg-[#2563EB] text-white text-[11px] font-semibold shadow-sm">
           {page.action}
         </span>
       )}
@@ -545,7 +551,7 @@ const KPIS = [
   { label: "Compliance Score", value: 74, suffix: "%", color: "#05A052", sub: "CIS · NIST · SOC 2", subColor: "#64748B" },
 ];
 
-const ENGINES = ["IAM", "Network", "Compliance", "CDR", "Risk", "Encryption", "Container", "Data Sec", "Vuln"];
+const ENGINES = ["IAM", "Network", "Compliance", "Threats", "Risk", "Encryption", "Container", "Data Sec", "Vuln"];
 
 const SEVERITY_BARS = [
   { label: "Critical", n: "12", color: "#E32D25", w: 4 },
@@ -772,7 +778,7 @@ function ScanAnimation({ duration }: { duration: number }) {
         {rowsVisible >= ALERT_ROWS.length && (
           <div className="px-3 py-1.5 border-t border-[#E9EDF3] bg-[#F8FAFC] text-[8px] text-[#5C6B84] flex justify-between animate-[fade-in_.3s_ease-out_both]">
             <span>Showing 1–7 of 1,051 findings</span>
-            <span className="font-semibold text-[#4F46E5]">1 · 2 · 3 · … · 105</span>
+            <span className="font-semibold text-[#2563EB]">1 · 2 · 3 · … · 105</span>
           </div>
         )}
       </div>
@@ -816,7 +822,7 @@ function OnboardAnimation({ duration }: { duration: number }) {
               className={cn(
                 "rounded-xl border p-3 transition-all",
                 done ? "border-[#BFE8D2] bg-[#F1FAF4]"
-                  : active ? "border-[#4F46E5] bg-[#F5F6FF] shadow-[0_4px_16px_rgba(79,70,229,.14)]"
+                  : active ? "border-[#2563EB] bg-[#EFF4FF] shadow-[0_4px_16px_rgba(37,99,235,.14)]"
                   : "border-[#E9EDF3] bg-[#F8FAFC] opacity-70",
               )}
             >
@@ -825,7 +831,7 @@ function OnboardAnimation({ duration }: { duration: number }) {
                   className={cn(
                     "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0",
                     done ? "bg-[#05A052] text-white"
-                      : active ? "bg-[#4F46E5] text-white"
+                      : active ? "bg-[#2563EB] text-white"
                       : "bg-white border border-[#CBD5E1] text-[#64748B]",
                   )}
                 >
@@ -839,7 +845,7 @@ function OnboardAnimation({ duration }: { duration: number }) {
               {active && (
                 <div className="mt-2 h-1 rounded-full bg-white overflow-hidden border border-[#DDDEFB]">
                   <div
-                    className="h-full bg-[#4F46E5]"
+                    className="h-full bg-[#2563EB]"
                     style={{ width: `${Math.min(phaseT, 1) * 100}%`, transition: "width .1s linear" }}
                   />
                 </div>
@@ -917,7 +923,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
           3 Attack Paths
         </div>
         {PATHS.slice(0, pathsVisible).map((p, idx) => (
-          <div key={idx} className={cn("px-3 py-2.5 border-b border-[#F1F5F9] animate-[fade-in_.3s_ease-out_both]", idx === 0 && "bg-[#F5F6FF] border-l-2 border-l-[#4F46E5]")}>
+          <div key={idx} className={cn("px-3 py-2.5 border-b border-[#F1F5F9] animate-[fade-in_.3s_ease-out_both]", idx === 0 && "bg-[#EFF4FF] border-l-2 border-l-[#2563EB]")}>
             <div className="flex items-center justify-between gap-1">
               <span className="text-[10px] font-bold text-[#0B1220] truncate">{p.title}</span>
               <span className={cn(
@@ -1102,7 +1108,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
         <div className="flex-1 overflow-hidden">
           {CONTROL_ROWS.slice(0, rowsVisible).map((r, idx) => (
             <div key={idx} className="grid grid-cols-[86px_1fr_54px] md:grid-cols-[96px_1.7fr_86px_110px_54px] items-center gap-2 px-3 py-[7px] border-b border-[#F1F5F9] last:border-b-0 animate-[fade-in_.3s_ease-out_both]">
-              <span className="text-[9px] font-mono font-semibold text-[#4F46E5] truncate">{r.id}</span>
+              <span className="text-[9px] font-mono font-semibold text-[#2563EB] truncate">{r.id}</span>
               <span className="text-[10px] text-[#0B1220] font-medium truncate">{r.desc}</span>
               <span className="hidden md:inline-flex w-fit items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold bg-[#F3E8FF] text-[#7C3AED] border border-[#E4D0FB]">{r.fw}</span>
               <span className="hidden md:block text-[9px] font-mono text-[#64748B] truncate">{r.res}</span>
@@ -1128,7 +1134,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
 
 /* ============================================================
    Generic KPI + table screen — the real product's layout for
-   Assets, CIEM, CWPP, CDR, Network and Data Security views.
+   Assets, CIEM, CWPP, Threats, Network and Data Security views.
    ============================================================ */
 
 type Cell =
@@ -1236,7 +1242,7 @@ function KpiScreen({ config, duration }: { config: KpiScreenConfig; duration: nu
 /* ---- Assets — inventory across clouds ---- */
 const ASSETS_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "12,481", label: "Total Assets", color: "#4F46E5" },
+    { value: "12,481", label: "Total Assets", color: "#2563EB" },
     { value: "3", label: "Clouds Connected", color: "#0B1220" },
     { value: "231", label: "New (7 days)", color: "#05A052" },
     { value: "3", label: "Crown Jewels", color: "#E32D25" },
@@ -1259,7 +1265,7 @@ const ASSETS_CONFIG: KpiScreenConfig = {
 /* ---- CIEM / IAM Security — identities ranked by risk ---- */
 const CIEM_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "189", label: "Total Identities", color: "#4F46E5" },
+    { value: "189", label: "Total Identities", color: "#2563EB" },
     { value: "47", label: "Overprivileged", color: "#DC7A00" },
     { value: "3", label: "No MFA (Admin)", color: "#E32D25" },
     { value: "8", label: "Wildcard Policies", color: "#B45309" },
@@ -1282,7 +1288,7 @@ const CIEM_CONFIG: KpiScreenConfig = {
 /* ---- CWPP / Container Security — CVEs ranked by CVSS × EPSS ---- */
 const CWPP_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "3", label: "EKS Clusters", color: "#4F46E5" },
+    { value: "3", label: "EKS Clusters", color: "#2563EB" },
     { value: "24", label: "Nodes", color: "#0B1220" },
     { value: "3", label: "Critical CVEs", color: "#E32D25" },
     { value: "12", label: "RBAC Violations", color: "#DC7A00" },
@@ -1301,10 +1307,10 @@ const CWPP_CONFIG: KpiScreenConfig = {
   footer: "SBOM generated for 148 images · runtime context applied to prioritisation",
 };
 
-/* ---- CDR — live detection stream ---- */
+/* ---- Threats — detection stream (key stays "cdr" for page data) ---- */
 const CDR_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "2.3M", label: "Events / Hour", color: "#4F46E5" },
+    { value: "2.3M", label: "Events / Hour", color: "#2563EB" },
     { value: "4", label: "Active Alerts", color: "#E32D25" },
     { value: "847", label: "CloudTrail Events", color: "#0B1220" },
     { value: "12", label: "Blocked IPs", color: "#DC7A00" },
@@ -1326,7 +1332,7 @@ const CDR_CONFIG: KpiScreenConfig = {
 /* ---- Network Security — internet exposure ---- */
 const NETWORK_CONFIG: KpiScreenConfig = {
   kpis: [
-    { value: "5", label: "VPCs", color: "#4F46E5" },
+    { value: "5", label: "VPCs", color: "#2563EB" },
     { value: "47", label: "Security Groups", color: "#0B1220" },
     { value: "7", label: "Internet-Exposed", color: "#E32D25" },
     { value: "23", label: "Open Ports", color: "#DC7A00" },
@@ -1397,7 +1403,7 @@ function RiskAnimation({ duration }: { duration: number }) {
   const kpis = [
     { value: `$${(5.1 * kpiT).toFixed(1)}M`, label: "Likely exposure", color: "#E32D25" },
     { value: `${Math.round(68 * kpiT)}`, label: "Risk Score", color: "#DC7A00" },
-    { value: `${Math.round(3 * kpiT)}`, label: "Crown Jewels", color: "#4F46E5" },
+    { value: `${Math.round(3 * kpiT)}`, label: "Crown Jewels", color: "#2563EB" },
     { value: "$2.4M–$8.7M", label: "Likely–max range", color: "#0EA5E9" },
   ];
 

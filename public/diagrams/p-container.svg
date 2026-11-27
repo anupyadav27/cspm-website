@@ -6,7 +6,7 @@
   <rect x="20" y="44" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
   <text x="190" y="69" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Cluster Discovery</text>
   <text x="190" y="86" text-anchor="middle" font-size="9" fill="#64748B">EKS · AKS · GKE · OKE · IKS · ECS</text>
-  <text x="190" y="101" text-anchor="middle" font-size="8" fill="#3B82F6">250+ rules · CIS Kubernetes Benchmark coverage</text>
+  <text x="190" y="101" text-anchor="middle" font-size="8" fill="#3B82F6">Kubernetes rule definitions · CIS Kubernetes Benchmark</text>
   <line x1="190" y1="110" x2="190" y2="122" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="185,120 190,128 195,120" fill="#94A3B8"/>
 

@@ -172,7 +172,7 @@ arn:aws:iam::123456789012:role/CSPMScannerRole
 
 Onam attempts to assume the role and verifies read access. A green checkmark means the connection succeeded.
 
-![The Onboarding view in the Onam console (demo account)](/screenshots/screenshot-onboarding.png)
+![Illustration with sample data: a drawing of connecting a cloud account to Onam. It is not a console capture, and the console's onboarding now sits under Organization › Onboarding.](/screenshots/screenshot-onboarding.png)
 
 ### Run your first scan
 
@@ -1423,7 +1423,7 @@ This guide walks you through connecting a Kubernetes cluster to Onam — any CNC
 
 **Time to complete**: ~10 minutes per cluster. **Kubernetes knowledge required**: kubectl, RBAC basics.
 
-![The Onboarding view in the Onam console (demo account)](/screenshots/screenshot-onboarding.png)
+![Illustration with sample data: a drawing of connecting a cloud account to Onam. It is not a console capture, and the console's onboarding now sits under Organization › Onboarding.](/screenshots/screenshot-onboarding.png)
 
 ## How the connection works
 

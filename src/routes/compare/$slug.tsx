@@ -193,7 +193,7 @@ function Page() {
               </BrandButton>
             ) : (
               <BrandButton
-                href="/resources/blog/onam-vs-wiz-orca-prisma-cloud"
+                href="/resources/blog/wiz-vs-orca-poc-questions"
                 variant="secondary"
                 size="lg"
               >

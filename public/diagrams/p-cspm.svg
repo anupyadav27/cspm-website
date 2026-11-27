@@ -5,21 +5,21 @@
   <rect x="20" y="10" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
   <text x="190" y="35" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Connect Cloud Accounts</text>
   <text x="190" y="52" text-anchor="middle" font-size="9" fill="#64748B">AWS · Azure · GCP · OCI · AliCloud · IBM · K8s</text>
-  <text x="190" y="67" text-anchor="middle" font-size="8" fill="#3B82F6">Read-only IAM role · 5-min setup · Agentless</text>
+  <text x="190" y="67" text-anchor="middle" font-size="8" fill="#3B82F6">Read-only cloud roles · no agent for posture</text>
   <line x1="190" y1="76" x2="190" y2="88" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="185,86 190,94 195,86" fill="#94A3B8"/>
 
   <!-- Step 2 -->
   <rect x="20" y="96" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
   <text x="190" y="121" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Discover All Resources</text>
-  <text x="190" y="138" text-anchor="middle" font-size="9" fill="#64748B">up to 123 services per cloud account</text>
+  <text x="190" y="138" text-anchor="middle" font-size="9" fill="#64748B">672 services across 7 clouds (147 on AWS)</text>
   <text x="190" y="153" text-anchor="middle" font-size="8" fill="#3B82F6">Compute · Storage · Networking · Identity · Data</text>
   <line x1="190" y1="162" x2="190" y2="174" stroke="#94A3B8" stroke-width="1.5"/>
   <polygon points="185,172 190,180 195,172" fill="#94A3B8"/>
 
   <!-- Step 3 -->
   <rect x="20" y="182" width="340" height="66" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="1" rx="7"/>
-  <text x="190" y="207" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Evaluate 1,900+ Rules</text>
+  <text x="190" y="207" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">Evaluate 11,856 Rule Definitions</text>
   <text x="190" y="224" text-anchor="middle" font-size="9" fill="#64748B">PASS / FAIL per resource per rule</text>
   <text x="190" y="239" text-anchor="middle" font-size="8" fill="#64748B">CIS · NIST · PCI-DSS · HIPAA · SOC 2 · GDPR</text>
   <line x1="190" y1="248" x2="190" y2="260" stroke="#94A3B8" stroke-width="1.5"/>

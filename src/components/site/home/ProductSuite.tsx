@@ -16,9 +16,17 @@ import { StatusBadge } from "@/components/site/ops/OpsUi";
  * Homepage sections built on src/data/product-suite.ts, plus SuiteStrip, which the
  * Onam Security and Onam AI pages use to point at each other.
  *
- * Pictures: a real console screenshot for Security, a flat console-style drawing for
- * Onam AI (public/images/products/onam-ai.svg).
+ * Pictures: a real, redacted console capture for Security (public/screens/cnapp), a flat
+ * console-style drawing for Onam AI (public/images/products/onam-ai.svg). Each carries its
+ * provenance label from product-suite.ts (imageLabel); never infer it from the file type.
  */
+
+/** Real captures in public/screens/ ship a @2x WebP beside the 1x file. */
+function hidpiSrcSet(src: string): string | undefined {
+  return src.startsWith("/screens/") && src.endsWith(".webp")
+    ? `${src} 1x, ${src.replace(/\.webp$/, "@2x.webp")} 2x`
+    : undefined;
+}
 
 function IconTile({ p, size = "md" }: { p: SuiteProduct; size?: "sm" | "md" }) {
   const Icon = p.icon;
@@ -222,14 +230,15 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
         <div className="relative min-h-[260px] border-t lg:border-t-0 lg:border-l border-[#E5E9F0] bg-white">
           <img
             src={p.image}
+            srcSet={hidpiSrcSet(p.image)}
             alt={p.imageAlt}
             width={640}
             height={420}
             loading="lazy"
-            className={cn("w-full h-full", p.image.endsWith(".svg") ? "object-contain bg-[#F7F9FC]" : "object-cover object-left-top")}
+            className={cn("w-full h-full", p.image.endsWith(".svg") ? "object-contain bg-[#F7F9FC]" : "object-cover object-[0%_8%]")}
           />
-          <p className="absolute bottom-3 right-4 rounded bg-white/90 px-1.5 text-[11px] text-[#64748B]">
-            {p.image.endsWith(".svg") ? "Drawing, sample data" : "Console screenshot, sample data"}
+          <p className="absolute bottom-3 left-4 right-4 rounded bg-white/90 px-1.5 py-0.5 text-[11px] leading-snug text-[#64748B] sm:left-auto sm:max-w-[340px]">
+            {p.imageLabel}
           </p>
         </div>
       </div>
@@ -426,7 +435,8 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
                 >
                   <img
                     src={p.image}
-                    alt=""
+                    srcSet={hidpiSrcSet(p.image)}
+                    alt={p.imageAlt}
                     width={640}
                     height={420}
                     loading="lazy"

@@ -10,7 +10,7 @@ The Onam platform is a multi-tenant SaaS that continuously discovers, evaluates,
 
 By the end you will be able to trace any number in the Onam console — a posture score, a compliance percentage, an attack path — back to the exact engine, table, and scan run that produced it.
 
-![Onam platform architecture — 7 cloud providers, the scan pipeline, security engines, data platform, and output layer](/diagrams/arch-overview.svg)
+![How a scan works: seven clouds read through read-only roles, the scan pipeline, the security engines, one security graph, and the scores and findings that come out](/diagrams/arch-overview.svg)
 
 **What you're looking at, top to bottom:**
 
@@ -138,7 +138,6 @@ A connected cloud account flows through a value pipeline that turns raw cloud co
 
 The output serves three audiences: a **posture dashboard** for security engineers, **compliance reports** for auditors, and **actionable findings** with remediation steps for the cloud account owner.
 
-![Platform components — security domains layered over the core pipeline](/diagrams/platform-components.svg)
 
 **Domains by layer in the diagram:**
 
@@ -149,7 +148,7 @@ The output serves three audiences: a **posture dashboard** for security engineer
 
 You don't enable domains individually. Once a cloud account is connected, every applicable domain runs on every scan.
 
-![Ten security pillars — independent engines unified into one posture score](/diagrams/arch-security-pillars.svg)
+![The security areas in the CNAPP score as the console names them: cloud posture, threat detection, workloads, data security, network, threats and attack paths, code security and AI security](/diagrams/arch-security-pillars.svg)
 
 **The ten security pillars and what each one answers:**
 
@@ -168,7 +167,16 @@ You don't enable domains individually. Once a cloud account is connected, every 
 
 **The unified posture score** is a weighted roll-up across all pillars, normalized to 0–100. Each pillar contributes proportionally to its severity-weighted findings — fixing a single Critical finding moves the score more than fixing ten Low findings.
 
-![The unified CNAPP posture score and its seven scored pillars (demo account)](/screenshots/screenshot-cnapp.png)
+:::screen /screens/cnapp/cnapp-areas.webp
+url: app.onamsecurity.com/ui/cnapp
+alt: The CNAPP page in the Onam console: one CNAPP score out of 100 with its risk level, a card for each security area with its findings and its critical and high counts, and the same areas as a table with views, columns, grouping and export.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 7,18: One CNAPP score out of 100, with its risk level and how many security areas have data.
+2 @ 85,54: Each area (cloud posture, threat detection, workloads, data, network, attack paths, code and AI) is scored on its own, with findings, critical and high.
+3 @ 75,86: The same areas as a table, with views, columns, group by and PDF or Excel export.
+:::
 
 ### Engines beyond the core pillars
 
@@ -185,8 +193,6 @@ The ten pillars above are the scoring backbone. Several further engines run on t
 | **Technology Engine** | What software is running on our hosts? | 34 technologies under CIS benchmarks — Linux, databases, web servers, virtualization, network devices |
 | **Remediation (Fix)** | How does a finding actually get resolved? | Per-resource CLI and Terraform remediation, dependency upgrade paths, and pull requests against your repository |
 | **AI Assistant** | Can I ask about posture in plain language? | Orchestrator plus 13 domain specialists querying live findings, read-only and tenant-scoped |
-
-![SaaS security posture across connected platforms (demo account)](/screenshots/screenshot-saas-security.png)
 
 For the stage-by-stage walkthrough of a scan — triggers, DI phases, engine fan-out, graph build, and monitoring — see [The scan pipeline](/docs/architecture/scanning).
 
@@ -308,7 +314,6 @@ Every API request carries an \`AuthContext\` — a server-built object with the 
 
 The platform ships with **five seeded roles** and **27 permissions** in the \`feature:action\` format. Roles are hierarchical — higher levels inherit the read permissions of lower levels.
 
-![RBAC — 5 roles with 27 permissions in feature:action format](/diagrams/arch-rbac.svg)
 
 | Role | Level | Scope | Typical user |
 | --- | --- | --- | --- |
@@ -476,13 +481,21 @@ The result is a dollar-denominated exposure figure per finding, per asset, and p
 
 Findings stream into the console as each stage completes — you can start triaging from around minute 5 of a typical run. Results land in the area that matches their engine (Findings, Inventory, Attack Paths, Compliance, Risk), all filtered to the current \`scan_run_id\` or aggregated across runs.
 
-![Findings streaming into the Onam console during a scan (demo account)](/screenshots/screenshot-findings.png)
+:::screen /screens/cloud-posture/posture-findings.webp
+url: app.onamsecurity.com/ui/misconfig
+alt: Cloud Posture, Posture findings tab in the Onam console: tabs for Posture findings, IAM, Network, Encryption, Containers, APIs and Databases, quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings, and a list where each finding has a plain title and its rule ID.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 28,12: Cloud Posture tabs: Posture findings, IAM, Network, Encryption, Containers, APIs and Databases.
+2 @ 50,41: Quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings.
+3 @ 27,71: Each finding gives a plain title and the rule ID behind it.
+:::
 
 The **Pipeline Monitor** engine gives you live visibility into every run — per-stage status, timing, and log streaming — in the console under **Scans**, or via \`/api/v1/pipeline\` and \`/api/v1/scan-runs\`.
 
 **When a stage fails**, the pipeline marks it and continues: findings from successful stages are still surfaced, the failure is logged with root-cause context, and you can re-trigger the run without affecting the prior scan's data. Findings auto-resolve on subsequent runs — a finding flips to PASS when the rule no longer triggers, and findings unseen for 30 days are auto-closed.
 
-![Horizontal scaling — parallel workers per account, service, and region keep large estates inside the scan SLO](/diagrams/arch-scaling.svg)
 
 Scanning scales horizontally: enumeration and rule evaluation parallelize per account, per service, and per region, so a 50-account organization scans in roughly the same wall-clock time as a single account. Accounts are always scanned independently — one account's failure never blocks another's results.
 
@@ -554,7 +567,7 @@ Revoking the role or credential in your cloud cuts off Onam's access.
 
 You grant access with a template run in your own account, so you can read every permission before you deploy it.
 
-![The security domains all share the same tenancy and access model](/diagrams/arch-security-pillars.svg)
+![The security areas in the CNAPP score, which all share the same tenancy and access model](/diagrams/arch-security-pillars.svg)
 
 ## Encryption
 
@@ -591,7 +604,16 @@ Where a stored credential is needed, in AWS Secrets Manager, encrypted with AWS 
     body: `
 The Onam platform maps security findings to the compliance frameworks you care about — **144 frameworks** (119 with automated checks, 25 attestation-only), including CIS benchmarks, NIST 800-53, NIST 800-171, PCI DSS, HIPAA, ISO 27001:2022, SOC 2, GDPR, FedRAMP and RBI. One finding can count against controls in many frameworks at once. This page covers how the mapping works, how controls and frameworks are scored, which frameworks are included, and how to export a report.
 
-![The Compliance view in the Onam console (demo account)](/screenshots/screenshot-compliance.png)
+:::screen /screens/compliance/compliance-heatmap-grid.webp
+url: app.onamsecurity.com/ui/compliance
+alt: The compliance heatmap in the Onam console: a score per framework and per connected account from the latest scan, with cloud, code and Kubernetes accounts side by side.
+size: 1440x714
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 14,7: A score per framework and account from the latest scan. Select a cell to see its controls.
+2 @ 77,32: Kubernetes accounts are scored against CIS EKS and other container benchmarks next to cloud accounts.
+3 @ 22,45: Each row is one framework; a dash means it does not apply to that account.
+:::
 
 Instead of running a separate compliance scan for each framework, the platform evaluates **every applicable rule once** and projects the results into the framework views you need. A failing check on "S3 public access blocked" is reflected in every framework that maps a control to it — **one fix, several compliance gains**.
 
@@ -601,7 +623,6 @@ Instead of running a separate compliance scan for each framework, the platform e
 
 A single platform rule can evidence controls in many frameworks at the same time. When a resource passes or fails a rule, that result updates every framework mapped to it, on every compliance run. There is no separate "PCI scan" or "HIPAA scan" to schedule.
 
-![How compliance scoring works — rules map to controls, controls roll up to frameworks](/diagrams/compliance-framework.svg)
 
 **The three-layer model:**
 

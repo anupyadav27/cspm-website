@@ -24,6 +24,8 @@ import { Route as ToolsRouteImport } from './routes/tools'
 import { Route as TrustRouteImport } from './routes/trust'
 import { Route as WhitepapersRouteImport } from './routes/whitepapers'
 import { Route as WhyOnamRouteImport } from './routes/why-onam'
+import { Route as BlogIndexRouteImport } from './routes/blog.index'
+import { Route as BlogSplatRouteImport } from './routes/blog.$'
 import { Route as CompanyAboutRouteImport } from './routes/company/about'
 import { Route as CompanyCareersRouteImport } from './routes/company/careers'
 import { Route as CompanyContactRouteImport } from './routes/company/contact'
@@ -170,6 +172,16 @@ const WhitepapersRoute = WhitepapersRouteImport.update({
 const WhyOnamRoute = WhyOnamRouteImport.update({
   id: '/why-onam',
   path: '/why-onam',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSplatRoute = BlogSplatRouteImport.update({
+  id: '/blog/$',
+  path: '/blog/$',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompanyAboutRoute = CompanyAboutRouteImport.update({
@@ -560,6 +572,7 @@ export interface FileRoutesByFullPath {
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/why-onam': typeof WhyOnamRoute
+  '/blog/$': typeof BlogSplatRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -617,6 +630,7 @@ export interface FileRoutesByFullPath {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/start-free/thanks': typeof StartFreeThanksRoute
+  '/blog/': typeof BlogIndexRoute
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
@@ -648,6 +662,7 @@ export interface FileRoutesByTo {
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/why-onam': typeof WhyOnamRoute
+  '/blog/$': typeof BlogSplatRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -705,6 +720,7 @@ export interface FileRoutesByTo {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/start-free/thanks': typeof StartFreeThanksRoute
+  '/blog': typeof BlogIndexRoute
   '/compare': typeof CompareIndexRoute
   '/docs': typeof DocsIndexRoute
   '/learn': typeof LearnIndexRoute
@@ -738,6 +754,7 @@ export interface FileRoutesById {
   '/trust': typeof TrustRoute
   '/whitepapers': typeof WhitepapersRoute
   '/why-onam': typeof WhyOnamRoute
+  '/blog/$': typeof BlogSplatRoute
   '/company/about': typeof CompanyAboutRoute
   '/company/careers': typeof CompanyCareersRoute
   '/company/contact': typeof CompanyContactRoute
@@ -795,6 +812,7 @@ export interface FileRoutesById {
   '/solutions/kubernetes': typeof SolutionsKubernetesRoute
   '/solutions/oci': typeof SolutionsOciRoute
   '/start-free/thanks': typeof StartFreeThanksRoute
+  '/blog/': typeof BlogIndexRoute
   '/compare/': typeof CompareIndexRoute
   '/docs/': typeof DocsIndexRoute
   '/learn/': typeof LearnIndexRoute
@@ -829,6 +847,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/whitepapers'
     | '/why-onam'
+    | '/blog/$'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -886,6 +905,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/start-free/thanks'
+    | '/blog/'
     | '/compare/'
     | '/docs/'
     | '/learn/'
@@ -917,6 +937,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/whitepapers'
     | '/why-onam'
+    | '/blog/$'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -974,6 +995,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/start-free/thanks'
+    | '/blog'
     | '/compare'
     | '/docs'
     | '/learn'
@@ -1006,6 +1028,7 @@ export interface FileRouteTypes {
     | '/trust'
     | '/whitepapers'
     | '/why-onam'
+    | '/blog/$'
     | '/company/about'
     | '/company/careers'
     | '/company/contact'
@@ -1063,6 +1086,7 @@ export interface FileRouteTypes {
     | '/solutions/kubernetes'
     | '/solutions/oci'
     | '/start-free/thanks'
+    | '/blog/'
     | '/compare/'
     | '/docs/'
     | '/learn/'
@@ -1096,6 +1120,7 @@ export interface RootRouteChildren {
   TrustRoute: typeof TrustRoute
   WhitepapersRoute: typeof WhitepapersRoute
   WhyOnamRoute: typeof WhyOnamRoute
+  BlogSplatRoute: typeof BlogSplatRoute
   CompanyAboutRoute: typeof CompanyAboutRoute
   CompanyCareersRoute: typeof CompanyCareersRoute
   CompanyContactRoute: typeof CompanyContactRoute
@@ -1151,6 +1176,7 @@ export interface RootRouteChildren {
   SolutionsIbmRoute: typeof SolutionsIbmRoute
   SolutionsKubernetesRoute: typeof SolutionsKubernetesRoute
   SolutionsOciRoute: typeof SolutionsOciRoute
+  BlogIndexRoute: typeof BlogIndexRoute
   CompareIndexRoute: typeof CompareIndexRoute
   LearnIndexRoute: typeof LearnIndexRoute
   OnamAiIndexRoute: typeof OnamAiIndexRoute
@@ -1271,6 +1297,20 @@ declare module '@tanstack/react-router' {
       path: '/why-onam'
       fullPath: '/why-onam'
       preLoaderRoute: typeof WhyOnamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$': {
+      id: '/blog/$'
+      path: '/blog/$'
+      fullPath: '/blog/$'
+      preLoaderRoute: typeof BlogSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/company/about': {
@@ -1832,6 +1872,7 @@ const rootRouteChildren: RootRouteChildren = {
   TrustRoute: TrustRoute,
   WhitepapersRoute: WhitepapersRoute,
   WhyOnamRoute: WhyOnamRoute,
+  BlogSplatRoute: BlogSplatRoute,
   CompanyAboutRoute: CompanyAboutRoute,
   CompanyCareersRoute: CompanyCareersRoute,
   CompanyContactRoute: CompanyContactRoute,
@@ -1888,6 +1929,7 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsIbmRoute: SolutionsIbmRoute,
   SolutionsKubernetesRoute: SolutionsKubernetesRoute,
   SolutionsOciRoute: SolutionsOciRoute,
+  BlogIndexRoute: BlogIndexRoute,
   CompareIndexRoute: CompareIndexRoute,
   LearnIndexRoute: LearnIndexRoute,
   OnamAiIndexRoute: OnamAiIndexRoute,

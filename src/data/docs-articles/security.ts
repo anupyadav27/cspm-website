@@ -15,7 +15,16 @@ export const articles: DocArticle[] = [
 
 This page explains what Onam Security does, which environments it covers, who it is built for, and where its documentation lives. For Onam as a whole — Onam Security and Onam AI, your AI security analyst — start with the [Introduction](/docs/getting-started/introduction).
 
-![The Onam dashboard — posture score, severity counts, top risks, and compliance summary in one view (demo account)](/screenshots/screenshot-dashboard.png)
+:::screen /screens/cnapp/cnapp-areas.webp
+url: app.onamsecurity.com/ui/cnapp
+alt: The CNAPP page in the Onam console: one CNAPP score out of 100 with its risk level, a card for each security area with its findings and its critical and high counts, and the same areas as a table with views, columns, grouping and export.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 7,18: One CNAPP score out of 100, with its risk level and how many security areas have data.
+2 @ 85,54: Each area (cloud posture, threat detection, workloads, data, network, attack paths, code and AI) is scored on its own, with findings, critical and high.
+3 @ 75,86: The same areas as a table, with views, columns, group by and PDF or Excel export.
+:::
 
 ## What Onam Security does
 

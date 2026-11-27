@@ -74,7 +74,7 @@ const anchors = [
   { id: "why-it-matters", label: "Why it matters" },
   { id: "how-it-works", label: "How it works" },
   { id: "what-you-get", label: "What you get" },
-  { id: "live-demo", label: "See it live" },
+  { id: "live-demo", label: "How it looks" },
   { id: "faq", label: "FAQ" },
 ];
 
@@ -378,7 +378,7 @@ export function ProductPageTemplate({
           compact
           tone="white"
           clips={data.demoClips ?? ["dashboard", "scan"]}
-          eyebrow="See it live"
+          eyebrow="Recreation with sample data"
           title={`How ${data.label} looks in Onam.`}
           gradientWords="looks in Onam."
           subtitle="A recreation of the Onam console with sample data — the screens and finding types your team works with."

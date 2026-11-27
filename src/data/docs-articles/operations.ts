@@ -460,7 +460,7 @@ When execution is offered, changes will run in an isolated namespace holding the
     body: `
 The block architecture of Onam AI: eight blocks on the request path, a control plane beside them, and three forks — read, execute, infer.
 
-![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to Cloud Estate Intelligence, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
+![Block architecture: workspace, entry, orchestration, agents and capability blocks descend to cloud context from Onam Security, the execution sandbox and approved models, with governance, policy, approval and audit beside them.](/diagrams/ops-block-architecture.svg)
 
 ## The request path
 

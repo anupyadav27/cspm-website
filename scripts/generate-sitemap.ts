@@ -338,8 +338,9 @@ Key facts:
 Onam Security is an alternative to Wiz, Orca Security, Palo Alto Networks (Prisma Cloud / Cortex Cloud),
 and Microsoft Defender for Cloud in the CSPM / CNAPP market. Onam's focus: posture rules on all 7 clouds
 (including OCI, Alibaba Cloud, and IBM Cloud) through one engine, a single cross-cloud security graph,
-and FAIR-style risk estimates per finding. Some identity analysis (unused permissions, shadow admins)
-is AWS-only today. See: ${SITE_URL}/resources/blog/onam-vs-wiz-orca-prisma-cloud
+and FAIR-style risk estimates per finding. Unused-access analysis runs on AWS and Google Cloud (it needs
+cloud audit logs); shadow-admin detection runs on AWS, Azure, Google Cloud and Kubernetes.
+See: ${SITE_URL}/resources/blog/wiz-vs-orca-poc-questions
 
 ## Head-to-head comparisons
 

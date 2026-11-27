@@ -152,7 +152,7 @@ function DspmDeepDive() {
           <figure className="mt-10">
             <img
               src="/diagrams/dspm-pipeline.svg"
-              alt="Five stages of Onam DSPM: data stores, discovery through read-only roles, classification from metadata, the join with exposure, access, encryption and attack paths, and per-store findings"
+              alt="Five stages of Onam DSPM: data stores, discovery through read-only roles, classification from metadata by default (data contents only where you deploy the DSPM scanner or on-prem collector), the join with exposure, access, encryption and attack paths, and per-store findings"
               className="w-full h-auto rounded-xl border border-[#E5E9F0]"
               loading="lazy"
               width={960}

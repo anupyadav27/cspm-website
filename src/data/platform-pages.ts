@@ -167,11 +167,11 @@ export const platformPages: Record<string, ProductPageData> = {
 
   ciem: {
     heroImage: {
-      src: "/screenshots/screenshot-iam.png",
+      src: "/screens/ciem/ciem-identities.webp",
       width: 1440,
-      height: 900,
-      alt: "The IAM Security screen in the Onam console: total identities, overprivileged identities, admins without MFA and wildcard policies, then a table of identities with type, risk score, issues, last activity and MFA status.",
-      caption: "The IAM Security screen, with sample data. Escalation paths are found across clouds; unused-permission analysis and access reviews run for AWS today.",
+      height: 938,
+      alt: "The CIEM page in the Onam console: tabs for identities, used vs granted, people, identity providers, findings and access reviews; cards for identities at risk, hidden admins, unused identities and escalation paths; filters by cloud, risk, identity type, admin access and unused; and a list of identities with provider, identity type and a 0 to 100 risk score.",
+      caption: "Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.",
     },
     // The "ciem" demo clip is a coded animation of an IAM Security screen that does not
     // match the real console, so it is hidden here; the diagrams in CiemExtra carry the visuals.

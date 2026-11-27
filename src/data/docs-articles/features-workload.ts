@@ -12,7 +12,16 @@ This page explains the 7-layer model, how effective-exposure analysis works gate
 
 ![7-layer network security analysis](/diagrams/network-security.svg)
 
-![The network security view in the Onam console (demo account)](/screenshots/screenshot-network.png)
+:::screen /screens/cloud-posture/network-security.webp
+url: app.onamsecurity.com/ui/network-security
+alt: The Network Security page in the Onam console: tabs for findings, security groups, internet exposure, VPC topology, WAF and DDoS, DNS security and load balancers, with admin ports open to the internet called out.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 49,28: Findings, security groups, internet exposure, VPC topology, WAF / DDoS, DNS security and load balancers.
+2 @ 57,46: Admin ports open to the internet: SSH, RDP or database ports.
+3 @ 76,21: Trusted ranges, plus CSV and PDF export.
+:::
 
 ## The 7-Layer Analysis Model
 
@@ -51,7 +60,6 @@ If all gates permit the path, the resource is **effectively exposed** and the fi
 
 Each effectively-exposed finding shows the full path with the specific permit at each gate, so you see exactly what to change to break the chain — and you spend remediation time on the small fraction of open-port rules that attackers can actually use.
 
-![Network security platform view — 7-layer topology analysis, exposure paths, and firewall findings](/diagrams/p-network.svg)
 
 ## Layer-by-Layer Coverage
 
@@ -234,7 +242,7 @@ Data Security (DSPM): every cloud data store, classified from metadata and, wher
 
 This page is the short version. The full documentation has its own section: start at the [DSPM overview](/docs/dspm/overview).
 
-![How DSPM works — data stores, discovery, metadata classification, the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+![How DSPM works: data stores, discovery, classification (metadata by default, sampled contents where you deploy the DSPM scanner or on-prem collector), the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
 
 ## What it answers
 
@@ -309,7 +317,16 @@ Vendor advisories (Microsoft MSRC, Red Hat, GitHub Security Advisories) are also
 
 For registries, every image in ECR, ACR, GCR, OCIR, Alibaba ACR, and IBM Cloud Container Registry is scanned — both pushed images and images currently deployed.
 
-![Cloud workload protection across VMs, containers, serverless, and managed hosts (demo account)](/screenshots/screenshot-cwpp.png)
+:::screen /screens/vulnerabilities/vulnerabilities-overview.webp
+url: app.onamsecurity.com/ui/vulnerability
+alt: The Vulnerabilities overview in the Onam console: tabs for overview, scans, CVE explorer, agents and missing updates, counts of known-exploited and likely-to-be-exploited vulnerabilities, and the most exposed packages with version, severity and CVSS.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 23,12: Overview, scans, CVE explorer, agents and missing updates.
+2 @ 33,25: Known exploited (CISA list) and likely to be exploited (EPSS 50% or more in 30 days).
+3 @ 74,69: The most exposed packages, with installed version, severity and CVSS.
+:::
 
 Every workload type above is collected agentlessly. The agentless scanner creates a point-in-time volume snapshot inside your own cloud account, analyses it out-of-band, and deletes the snapshot when the scan completes — so package inventory and host configuration are captured with no daemon, no sidecar, and no impact on the running workload.
 
@@ -457,7 +474,16 @@ This page covers the six coverage surfaces, the scan pipeline, Kubernetes RBAC a
 
 ![Container and Kubernetes security](/diagrams/container-security.svg)
 
-![The container security view in the Onam console (demo account)](/screenshots/screenshot-container.png)
+:::screen /screens/cwpp/cwpp-overview.webp
+url: app.onamsecurity.com/ui/cwpp
+alt: The CWPP overview in the Onam console: open workload findings by severity, posture per workload type (VM or host, containers, Kubernetes, serverless, images and runtime), and open findings grouped by attack category with MITRE technique IDs.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted. This is the CWPP overview; a capture of the Container security screen is pending.
+1 @ 12,22: Open workload findings by severity.
+2 @ 25,57: Posture per workload type: VM or host, containers, Kubernetes, serverless, images and runtime.
+3 @ 74,49: Open findings grouped by attack category and ranked by risk, each with its MITRE technique ID.
+:::
 
 ## Coverage at a Glance
 
@@ -639,7 +665,16 @@ Onam's Compliance engine turns security findings into compliance posture: findin
 
 This page explains where the findings come from, how controls are assessed and scored, and how to export reports. For the framework list, see [Framework Coverage](/docs/compliance/frameworks).
 
-![The compliance view in the Onam console (demo account)](/screenshots/screenshot-compliance.png)
+:::screen /screens/compliance/compliance-heatmap-grid.webp
+url: app.onamsecurity.com/ui/compliance
+alt: The compliance heatmap in the Onam console: a score per framework and per connected account from the latest scan, with cloud, code and Kubernetes accounts side by side.
+size: 1440x714
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.
+1 @ 14,7: A score per framework and account from the latest scan. Select a cell to see its controls.
+2 @ 77,32: Kubernetes accounts are scored against CIS EKS and other container benchmarks next to cloud accounts.
+3 @ 22,45: Each row is one framework; a dash means it does not apply to that account.
+:::
 
 ## From Findings to Scores
 
@@ -754,7 +789,16 @@ Onam's Risk engine gives critical and high findings a **FAIR-style loss estimate
 
 This page explains the formula, the inputs it uses, how attack-path context raises an estimate, and where the engine runs in the platform pipeline.
 
-![The risk view in the Onam console (demo account)](/screenshots/screenshot-risk.png)
+:::screen /screens/risk/risk-overview.webp
+url: app.onamsecurity.com/ui/risk
+alt: The Risk overview in the Onam console: total expected loss in a year with its trend over recent risk runs, scenarios grouped by tier, and open findings past, near or on track for their fix deadline.
+size: 1440x1004
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted. Figures come from test data, not a customer.
+1 @ 17,24: Total expected loss in a year, with its trend over recent risk runs.
+2 @ 50,56: Scenarios grouped by tier, set by expected loss in a year.
+3 @ 17,88: Open findings past, near and on track for their fix deadline.
+:::
 
 ## The Model
 

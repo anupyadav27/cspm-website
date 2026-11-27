@@ -13,7 +13,7 @@
  * actually selling.
  *
  * So we sidestep it entirely, the same way the live blog post
- * (/resources/blog/onam-vs-wiz-orca-prisma-cloud) does: pose the seven
+ * (/resources/blog/wiz-vs-orca-poc-questions) does: pose the seven
  * questions a buyer should ask, answer them **only for Onam**, and describe the
  * other platform only in its own published words (inTheirWords). A question is
  * not a claim. There is no "strengths" list in our words any more: a

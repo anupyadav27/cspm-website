@@ -41,7 +41,7 @@
 
   <rect x="332" y="106" width="256" height="76" fill="#FFFFFF" rx="8" stroke="#CBD5E1" stroke-width="1"/>
   <text x="460" y="126" text-anchor="middle" font-size="11" font-weight="700" fill="#1E3A8A">CIS Kubernetes Benchmark</text>
-  <text x="460" y="146" text-anchor="middle" font-size="9" fill="#C7D2FE">v1.8 — 112 controls across</text>
+  <text x="460" y="146" text-anchor="middle" font-size="9" fill="#C7D2FE">Controls across the</text>
   <text x="460" y="160" text-anchor="middle" font-size="9" fill="#C7D2FE">control plane, etcd, nodes,</text>
   <text x="460" y="174" text-anchor="middle" font-size="9" fill="#C7D2FE">policies, managed-K8s</text>
 

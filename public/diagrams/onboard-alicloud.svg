@@ -41,7 +41,7 @@
   <rect x="458" y="48" width="22" height="18" fill="#FFFFFF" rx="3" stroke="#CBD5E1" stroke-width="1"/>
   <text x="469" y="61" text-anchor="middle" fill="#1E3A8A" font-size="8" font-weight="700">03</text>
   <text x="545" y="86" text-anchor="middle" fill="#1E3A8A" font-size="11" font-weight="700">Enter Credentials</text>
-  <text x="545" y="106" text-anchor="middle" fill="#64748B" font-size="9">Settings → Cloud Accounts</text>
+  <text x="545" y="106" text-anchor="middle" fill="#64748B" font-size="9">Organization › Onboarding</text>
   <text x="545" y="122" text-anchor="middle" fill="#64748B" font-size="9">Select AliCloud</text>
   <text x="545" y="138" text-anchor="middle" fill="#64748B" font-size="9">Enter AccessKey ID</text>
   <text x="545" y="154" text-anchor="middle" fill="#64748B" font-size="9">Enter AccessKey Secret</text>

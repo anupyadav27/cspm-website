@@ -40,6 +40,8 @@ export type SuiteProduct = {
   /** Reviewed product illustration — see IMAGE-REVIEW-CHECKLIST.md. */
   image: string;
   imageAlt: string;
+  /** Provenance shown on the picture: "Real console, …" for a capture, "Drawing, sample data" for a drawing. */
+  imageLabel: string;
   docs: string;
   badge?: string;
   groups: SuiteGroup[];
@@ -73,7 +75,7 @@ export const SECURITY_GROUPS: SuiteGroup[] = [
         desc: "Routes to crown jewels, choke points",
       },
       {
-        title: "CDR — Detection",
+        title: "Threats — Detection",
         href: "/platform/cdr",
         desc: "L1/L2/L3 behavioral threat detection",
       },
@@ -190,9 +192,10 @@ export const SUITE: SuiteProduct[] = [
     ...pick("security"),
     short: "Security",
     stage: "Cloud · SaaS · Code",
-    image: "/screenshots/screenshot-dashboard.png",
+    image: "/screens/cnapp/cnapp-areas.webp",
     imageAlt:
-      "The Onam Security overview screen in the console, with sample data.",
+      "The CNAPP page in the Onam console: one CNAPP score out of 100 and a card for each security area, such as cloud posture, threat detection, workloads, data, network, attack paths, code and AI, each with its findings and critical and high counts.",
+    imageLabel: "Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.",
     docs: "/docs/security/overview",
     groups: SECURITY_GROUPS,
     agent: {
@@ -218,6 +221,7 @@ export const SUITE: SuiteProduct[] = [
     image: "/images/products/onam-ai.svg",
     imageAlt:
       "Drawing of Onam AI's suggested fixes: each fix, the evidence behind it, and whether a person approved it.",
+    imageLabel: "Drawing, sample data",
     docs: "/docs/operations/overview",
     groups: [
       {

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 790" width="960" height="790" font-family="Arial, sans-serif" role="img" aria-labelledby="t d">
   <title id="t">Onam AI — block architecture</title>
-  <desc id="d">The request path descends from the workspace through entry, orchestration, agents and capability blocks to three forks: reading Cloud Estate Intelligence, executing approved changes in a sandbox, and calling approved models. A control-plane column of governance, policy, approval and audit sits beside every block and can refuse any request.</desc>
+  <desc id="d">The request path descends from the workspace through entry, orchestration, agents and capability blocks to three forks: reading Onam Security's inventory and graph, executing approved changes in a sandbox, and calling approved models. A control-plane column of governance, policy, approval and audit sits beside every block and can refuse any request.</desc>
   <defs>
     <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#64748B"/></marker>
     <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#DC2626"/></marker>
@@ -63,8 +63,8 @@
   <!-- F G H -->
   <rect x="30" y="540" width="214" height="84" rx="8" fill="#082869"/>
   <text x="46" y="560" font-size="11" font-weight="700" fill="#93B4F8">F · INTELLIGENCE</text>
-  <text x="46" y="580" font-size="12.5" font-weight="700" fill="#FFFFFF">Cloud Estate Intelligence</text>
-  <text x="46" y="597" font-size="10.5" fill="#CBD5E1">estate query · graph · identity resolver</text>
+  <text x="46" y="580" font-size="11.5" font-weight="700" fill="#FFFFFF" textLength="188" lengthAdjust="spacingAndGlyphs">Onam Security inventory &amp; graph</text>
+  <text x="46" y="597" font-size="10.5" fill="#CBD5E1">inventory query · graph · identity resolver</text>
   <text x="46" y="613" font-size="10.5" fill="#CBD5E1">read-only · rows + as-of + sources</text>
 
   <rect x="254" y="540" width="214" height="84" rx="8" fill="#FFFFFF" stroke="#DC2626" stroke-width="1.5"/>

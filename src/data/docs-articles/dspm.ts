@@ -26,7 +26,7 @@ DSPM in Onam Security: find every cloud data store, classify what it holds, and 
 
 Data security posture management answers three questions continuously rather than once before an audit: **what data do we hold, where is it, and how exposed is it?** Onam's DSPM runs inside every scan, alongside posture, identity and attack-path analysis, and writes its results onto the same security graph.
 
-![How DSPM works — data stores, discovery, metadata classification, the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+![How DSPM works — data stores, discovery, classification (metadata by default; contents only where you deploy the DSPM scanner or on-prem collector), the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
 
 ## The five stages
 
