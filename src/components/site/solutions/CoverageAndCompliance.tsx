@@ -21,9 +21,9 @@ import { CLOUD_SERVICE_ICONS } from "@/data/cloud-service-icons";
  *
  * Coverage groups a cloud's services by what a security team owns (identity, compute, data, ...), so
  * the reader finds their estate in seconds instead of scanning a flat list of tick boxes.
- * Compliance shows each framework as a typographic badge with its kind and issuer. Never the issuer's
- * logo: the AICPA SOC and ISO marks are reserved for audited or certified organisations, and a logo
- * here would read as a certification claim. Every framework named on a solution page sits in the
+ * Compliance shows each framework with its issuer's logo (owner decision 27 Nov 2026; sources in
+ * public/logos/frameworks/NOTICE.md), or a typographic badge where the framework has no logo (GDPR,
+ * HIPAA, RBI). The page says Onam maps findings as audit evidence, not that Onam is certified. Every framework named on a solution page sits in the
  * automated tier of marketing/facts (frameworks.tiers), which is what the "Automated checks" badge says.
  */
 
@@ -131,16 +131,16 @@ export function CoverageMap({
 
 /* ------------------------------ Compliance ------------------------------ */
 
-type FrameworkMeta = { badge: string; kind: string; issuer: string };
+type FrameworkMeta = { badge: string; kind: string; issuer: string; /** issuer logo in public/logos/frameworks */ logo?: string };
 
 const FRAMEWORK_META: { match: RegExp; meta: FrameworkMeta }[] = [
-  { match: /^CIS\b/i, meta: { badge: "CIS", kind: "Configuration benchmark", issuer: "Center for Internet Security" } },
-  { match: /NIST 800-171/i, meta: { badge: "NIST", kind: "Protecting CUI", issuer: "NIST · US" } },
-  { match: /NIST 800-53/i, meta: { badge: "NIST", kind: "Security control catalogue", issuer: "NIST · US" } },
-  { match: /FedRAMP/i, meta: { badge: "FedRAMP", kind: "US government cloud baseline", issuer: "GSA · US" } },
-  { match: /PCI/i, meta: { badge: "PCI", kind: "Card payments", issuer: "PCI Security Standards Council" } },
-  { match: /SOC 2/i, meta: { badge: "SOC 2", kind: "Trust Services Criteria", issuer: "AICPA" } },
-  { match: /ISO 27001/i, meta: { badge: "ISO", kind: "Information security management", issuer: "ISO/IEC" } },
+  { match: /^CIS\b/i, meta: { logo: "cis.svg", badge: "CIS", kind: "Configuration benchmark", issuer: "Center for Internet Security" } },
+  { match: /NIST 800-171/i, meta: { logo: "nist.svg", badge: "NIST", kind: "Protecting CUI", issuer: "NIST · US" } },
+  { match: /NIST 800-53/i, meta: { logo: "nist.svg", badge: "NIST", kind: "Security control catalogue", issuer: "NIST · US" } },
+  { match: /FedRAMP/i, meta: { logo: "fedramp.png", badge: "FedRAMP", kind: "US government cloud baseline", issuer: "GSA · US" } },
+  { match: /PCI/i, meta: { logo: "pci.svg", badge: "PCI", kind: "Card payments", issuer: "PCI Security Standards Council" } },
+  { match: /SOC 2/i, meta: { logo: "aicpa.png", badge: "SOC 2", kind: "Trust Services Criteria", issuer: "AICPA" } },
+  { match: /ISO 27001/i, meta: { logo: "iso.svg", badge: "ISO", kind: "Information security management", issuer: "ISO/IEC" } },
   { match: /GDPR/i, meta: { badge: "GDPR", kind: "Data protection law", issuer: "European Union" } },
   { match: /HIPAA/i, meta: { badge: "HIPAA", kind: "Health data security", issuer: "US HHS" } },
   { match: /RBI/i, meta: { badge: "RBI", kind: "Banking regulation", issuer: "Reserve Bank of India" } },
@@ -189,12 +189,24 @@ export function FrameworkWall({
             const m = frameworkMeta(f.name);
             return (
               <li key={f.name} className="flex gap-4 rounded-2xl border border-line bg-white p-5 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-                <div
-                  aria-hidden
-                  className="grid h-12 w-16 shrink-0 place-items-center self-start rounded-xl bg-ink px-1 text-center font-display text-[12px] font-black leading-tight tracking-tight text-white"
-                >
-                  {m.badge}
-                </div>
+                {m.logo ? (
+                  <div aria-hidden className="grid h-14 w-24 shrink-0 place-items-center self-start rounded-xl border border-line bg-white p-2">
+                    <img
+                      src={`/logos/frameworks/${m.logo}`}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="max-h-9 max-w-full object-contain"
+                    />
+                  </div>
+                ) : (
+                  <div
+                    aria-hidden
+                    className="grid h-14 w-24 shrink-0 place-items-center self-start rounded-xl border border-line bg-white px-1 text-center font-display text-[15px] font-black leading-tight tracking-tight text-ink"
+                  >
+                    {m.badge}
+                  </div>
+                )}
                 <div className="min-w-0">
                   <h3 className="font-display text-[16px] font-bold leading-snug text-ink">{f.name}</h3>
                   <p className="mt-0.5 text-[13px] text-muted-500">
