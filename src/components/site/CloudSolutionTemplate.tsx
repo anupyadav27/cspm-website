@@ -8,6 +8,8 @@ import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
 import { Backdrop, Section, Container, SectionHeading, IconTile, Card, StatusChip } from "@/components/site/system";
 import { getSuite, type SuiteKey } from "@/data/product-suite";
+import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
+import { CompassMark } from "@/components/site/Logo";
 import { CoverageMap, FrameworkWall } from "@/components/site/solutions/CoverageAndCompliance";
 
 export type CloudFeature = { icon: LucideIcon; iconColor: string; title: string; body: string };
@@ -65,6 +67,15 @@ function Hero({ data }: { data: CloudSolutionData }) {
         icon={data.cloudName === "Kubernetes" ? ContainerIcon : Cloud}
       />
       <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24 text-center">
+        <div className="mb-6 flex justify-center">
+          <span className="inline-flex items-center gap-3 rounded-2xl border border-line bg-white px-5 py-3 shadow-[0_1px_2px_rgba(16,24,40,.04),0_8px_24px_rgba(16,24,40,.06)]">
+            <CloudLogo name={data.cloudName} height={32} maxWidth={170} nameClassName="text-[16px] font-semibold text-ink-2" />
+            <span aria-hidden className="h-6 w-px bg-line" />
+            <span className="inline-flex items-center gap-1.5 font-display text-[16px] font-extrabold text-[#2563EB]">
+              <CompassMark size={18} /> Onam
+            </span>
+          </span>
+        </div>
         <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">{data.breadcrumb}</div>
         <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
           {data.headline}
@@ -120,10 +131,12 @@ function SetupSteps({ data }: { data: CloudSolutionData }) {
     <section className="bg-[#F8FAFC] border-b border-[#E5E9F0] py-20">
       <div className="max-w-7xl mx-auto px-6">
         <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
+          <div className="inline-flex items-center gap-3 text-sm font-semibold text-[#1D4ED8]">
+            <CloudLogo name={data.cloudName} height={22} maxWidth={110} nameClassName="text-sm font-semibold text-ink-2" />
+            <span aria-hidden className="h-4 w-px bg-line" />
             Onboarding
           </div>
-          <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Connect in 3 steps</h2>
+          <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Connect {data.cloudName} in 3 steps</h2>
           <p className="mt-3 text-[#475569]">From consent to your first findings, with no agents to install for posture scanning.</p>
         </div>
         <div className="mt-12 grid md:grid-cols-3 gap-5">

@@ -3,6 +3,7 @@ import { AppWindow, ArrowDown, Cloud, FileCode2 } from "@/components/site/icons"
 import { getSuite, AIOPS_COLOR } from "@/data/product-suite";
 import { StatusBadge } from "@/components/site/ops/OpsUi";
 import { IconTile } from "@/components/site/system";
+import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
 import { SAAS_PLATFORMS } from "@/lib/product-facts";
 
 /**
@@ -100,9 +101,9 @@ export function PlatformLayers() {
               {SOURCES.map((c) => (
                 <li
                   key={c}
-                  className="rounded-lg bg-white border border-line px-2 py-2 text-center text-[13px] font-semibold text-ink-2"
+                  className="flex min-h-14 items-center justify-center rounded-lg bg-white border border-line px-2 py-2 text-center text-[13px] font-semibold text-ink-2"
                 >
-                  {c}
+                  {cloudLogoKey(c) ? <CloudLogo name={c} height={24} maxWidth={96} stack nameClassName="text-[12px] font-semibold leading-tight text-ink-2" /> : c}
                 </li>
               ))}
             </ul>

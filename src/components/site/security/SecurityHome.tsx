@@ -10,6 +10,7 @@ import { SITE_URL } from "@/lib/seo";
 import { SectionHeader } from "@/components/site/SectionHeader";
 import { BrandButton } from "@/components/site/BrandButton";
 import { DemoVideos } from "@/components/site/DemoVideos";
+import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
 import { cn } from "@/lib/utils";
 
 /**
@@ -168,9 +169,7 @@ export function CloudBar() {
             <div key={c.name}
               className="group bg-white border border-[#E5E9F0] rounded-xl px-5 py-3 flex items-center gap-2 hover:border-[#CBD5E1] hover:shadow-[0_6px_16px_rgba(16,24,40,.08)] transition"
             >
-              <Cloud className="w-4 h-4 text-[#94A3B8] group-hover:text-[color:var(--c)] transition"
-                     style={{ ["--c" as string]: c.color } as React.CSSProperties} />
-              <span className="text-sm font-semibold text-[#334155] group-hover:text-[#0B1220]">{c.name}</span>
+              <CloudLogo name={c.name} height={28} maxWidth={130} nameClassName="text-sm font-semibold text-[#334155]" />
             </div>
           ))}
         </div>

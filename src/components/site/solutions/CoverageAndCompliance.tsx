@@ -13,6 +13,7 @@ import {
   type LucideIcon,
 } from "@/components/site/icons";
 import { FRAMEWORKS, fmt } from "@/lib/product-facts";
+import { CLOUD_SERVICE_ICONS } from "@/data/cloud-service-icons";
 
 /**
  * Solution-page Coverage and Compliance (UX spec: research_notes/Product update Nov 2026/reviews/
@@ -97,7 +98,18 @@ export function CoverageMap({
                       key={s}
                       className="inline-flex items-center gap-1.5 rounded-lg bg-surface px-3 py-1.5 text-[14px] font-medium text-ink-2 ring-1 ring-line"
                     >
-                      <Check className="h-3.5 w-3.5 shrink-0 text-brand-600" aria-hidden />
+                      {CLOUD_SERVICE_ICONS[`${cloudName}::${s}`] ? (
+                        <img
+                          src={CLOUD_SERVICE_ICONS[`${cloudName}::${s}`]}
+                          alt=""
+                          width={20}
+                          height={20}
+                          loading="lazy"
+                          className="h-5 w-5 shrink-0"
+                        />
+                      ) : (
+                        <Check className="h-3.5 w-3.5 shrink-0 text-brand-600" aria-hidden />
+                      )}
                       {s}
                     </li>
                   ))}

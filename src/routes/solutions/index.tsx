@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, Cloud, Cloudy, Server, Container, Landmark, HeartPulse, Building2, Globe } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { seo } from "@/lib/seo";
+import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
 import { Backdrop } from "@/components/site/system";
 
 type CardDef = { name: string; href: string; blurb: string; color: string; abbr: string };
@@ -33,6 +34,11 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
       to={item.href}
       className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] hover:shadow-[0_12px_28px_rgba(16,24,40,.10)] transition-all flex flex-col"
     >
+      {cloudLogoKey(item.name) ? (
+        <div className="flex h-11 items-center">
+          <CloudLogo name={item.name} height={34} maxWidth={150} showName={false} />
+        </div>
+      ) : (
       <div className="flex items-center gap-3">
         <div
           className="w-11 h-11 rounded-xl grid place-items-center"
@@ -45,6 +51,7 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
         </div>
         <div className="text-xs font-bold uppercase tracking-widest text-[#5A6A80]">{item.abbr}</div>
       </div>
+      )}
       <h3 className="mt-5 font-display font-bold text-[#0B1220] text-lg">{item.name}</h3>
       <p className="mt-2 text-sm text-[#475569] leading-relaxed flex-1">{item.blurb}</p>
       <div className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-[#2563EB]">
