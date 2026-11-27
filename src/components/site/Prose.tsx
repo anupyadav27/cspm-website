@@ -11,6 +11,8 @@ import { QuestionHero } from "./explainers/QuestionHero";
 import { LensMap } from "./explainers/LensMap";
 import { StoryStepper } from "./explainers/StoryStepper";
 import { AnnotatedScreen } from "./explainers/AnnotatedScreen";
+import { DataFlowDiagram } from "./product/DataFlow";
+import { PRODUCT_FLOWS } from "@/data/product-flows";
 import { Ledger } from "./explainers/Ledger";
 import { NextQuestions } from "./explainers/NextQuestions";
 import { Switchboard } from "./explainers/Switchboard";
@@ -43,6 +45,8 @@ import { ReachRings } from "./explainers/ReachRings";
 //   :::next [title]      Night band of question cards: `### Question | /href [| cta]` + preview.
 //   :::switchboard [t]   Pick-one panels: `### Label | yes|partial|no|info` + markdown body.
 //   :::xray / :::rings   Guardrail X-ray / one-hop reach (illustrative, no body).
+//   :::dataflow <key>    Animated product dataflow diagram (src/data/product-flows.tsx: ciem,
+//                        attack-path, cspm, data-security). No body.
 // An unknown block name renders its body as ordinary prose.
 
 type Block =
@@ -216,6 +220,10 @@ function renderDirective(b: Extract<Block, { kind: "directive" }>, key: number):
           visual={namedVisual(f.visual)}
         />
       );
+    }
+    case "dataflow": {
+      const spec = PRODUCT_FLOWS[b.title.trim()];
+      return spec ? <DataFlowDiagram key={key} spec={spec} /> : null;
     }
     case "lensmap":
       return <div key={key} className="my-8"><LensMap /></div>;

@@ -30,7 +30,7 @@ MAP = {
     "LockOpen": "lock_open", "Mail": "mail", "MapPin": "location_on", "Maximize2": "open_in_full",
     "Menu": "menu", "MessageSquare": "chat_bubble", "Minus": "remove", "MoreHorizontal": "more_horiz",
     "Network": "hub", "Newspaper": "newspaper", "PanelLeft": "side_navigation", "PiggyBank": "savings",
-    "Play": "play_arrow", "Power": "power_settings_new", "Quote": "format_quote", "Radar": "radar",
+    "Pause": "pause", "Play": "play_arrow", "Power": "power_settings_new", "Quote": "format_quote", "Radar": "radar",
     "Rocket": "rocket_launch", "Scale": "balance", "ScrollText": "receipt_long", "Search": "search",
     "Server": "dns", "Shield": "shield", "ShieldAlert": "gpp_maybe", "ShieldCheck": "verified_user",
     "ShieldHalf": "security", "ShoppingBag": "shopping_bag", "ShoppingCart": "shopping_cart",

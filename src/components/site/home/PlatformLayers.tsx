@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { AppWindow, ArrowDown, Cloud, FileCode2 } from "@/components/site/icons";
 import { getSuite, AIOPS_COLOR } from "@/data/product-suite";
@@ -5,6 +6,7 @@ import { StatusBadge } from "@/components/site/ops/OpsUi";
 import { IconTile } from "@/components/site/system";
 import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
 import { SAAS_PLATFORMS } from "@/lib/product-facts";
+import { CODE_HOSTS, SAAS_APPS, SourceSlider } from "./SourceSlider";
 
 /**
  * How Onam Security fits together — the homepage's first visual.
@@ -27,8 +29,6 @@ const SOURCES = [
   "Alibaba Cloud",
   "IBM Cloud",
   "Kubernetes",
-  "SaaS apps",
-  "Code repositories",
 ];
 
 const LINES = [
@@ -81,31 +81,70 @@ function Down() {
 export function PlatformLayers() {
   const security = getSuite("security");
   const ai = getSuite("aiops");
+  const [hover, setHover] = useState(false);
+  const [stopped, setStopped] = useState(false);
   return (
     <section id="platform" className="relative bg-white border-b border-line scroll-mt-20">
       <div className="absolute inset-x-0 top-0 h-24 md:h-40 bg-night" aria-hidden />
       <div className="relative max-w-6xl mx-auto px-4 sm:px-6 -mt-16 md:-mt-24 pb-16 md:pb-20">
         <figure className="rounded-3xl border border-line bg-white shadow-[0_24px_64px_rgba(11,18,32,.18)] p-4 sm:p-8">
           <figcaption className="sr-only">
-            How Onam Security fits together: your clouds, SaaS apps and code feed one inventory
-            and security graph; cloud, SaaS and code security act on it; Onam AI, your AI security
+            How Onam Security fits together: your clouds, SaaS apps and code feed one inventory and
+            security graph; cloud, SaaS and code security act on it; Onam AI, your AI security
             analyst, works across them with a person approving every change.
           </figcaption>
 
-          {/* 1 · Sources */}
-          <div className="rounded-2xl bg-surface border border-line p-4">
-            <div className="text-xs uppercase tracking-[0.12em] font-semibold text-muted-500">
-              What you connect
+          {/* 1 · Sources: seven clouds, then SaaS apps and code hosts sliding through their logos. */}
+          <div
+            className="rounded-2xl bg-surface border border-line p-4"
+            onMouseEnter={() => setHover(true)}
+            onMouseLeave={() => setHover(false)}
+            onFocus={() => setHover(true)}
+            onBlur={() => setHover(false)}
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-xs uppercase tracking-[0.12em] font-semibold text-muted-500">
+                What you connect
+              </div>
+              <button
+                type="button"
+                onClick={() => setStopped((v) => !v)}
+                aria-pressed={stopped}
+                className="inline-flex min-h-6 items-center rounded-md px-2 text-[12px] font-semibold text-navy-600 hover:bg-white hover:text-ink"
+              >
+                {stopped ? "Play logos" : "Pause logos"}
+              </button>
             </div>
             <ul className="mt-3 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-9 gap-2">
               {SOURCES.map((c) => (
                 <li
                   key={c}
-                  className="flex min-h-14 items-center justify-center rounded-lg bg-white border border-line px-2 py-2 text-center text-[13px] font-semibold text-ink-2"
+                  className="flex min-h-[84px] items-center justify-center rounded-lg bg-white border border-line px-2 py-2 text-center text-[13px] font-semibold text-ink-2"
                 >
-                  {cloudLogoKey(c) ? <CloudLogo name={c} height={24} maxWidth={96} stack nameClassName="text-[12px] font-semibold leading-tight text-ink-2" /> : c}
+                  {cloudLogoKey(c) ? (
+                    <CloudLogo
+                      name={c}
+                      height={24}
+                      maxWidth={96}
+                      stack
+                      nameClassName="text-[12px] font-semibold leading-tight text-ink-2"
+                    />
+                  ) : (
+                    c
+                  )}
                 </li>
               ))}
+              <li className="rounded-lg bg-white border border-line ring-1 ring-inset ring-[#EDE9FE]">
+                <SourceSlider label="SaaS apps" items={SAAS_APPS} paused={hover || stopped} />
+              </li>
+              <li className="rounded-lg bg-white border border-line ring-1 ring-inset ring-[#CFFAFE]">
+                <SourceSlider
+                  label="Code repositories"
+                  items={CODE_HOSTS}
+                  paused={hover || stopped}
+                  offset={1}
+                />
+              </li>
             </ul>
           </div>
           <Down />
@@ -118,8 +157,8 @@ export function PlatformLayers() {
           >
             <span className="font-display font-extrabold text-lg">Onam Security</span>
             <span className="text-[15px] text-white/90">
-              One inventory and one security graph. Every engine reads it, so findings from different
-              engines join up.
+              One inventory and one security graph. Every engine reads it, so findings from
+              different engines join up.
             </span>
           </Link>
           <Down />

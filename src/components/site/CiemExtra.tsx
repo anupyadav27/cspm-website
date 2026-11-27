@@ -39,7 +39,8 @@ const capabilities: Capability[] = [
     icon: ShieldAlert,
     title: "Escalation paths and shadow admins",
     body: "PassRole to an admin role, multi-hop assume-role chains, permission-boundary removal, Google Cloud service-account impersonation chains of up to 4 hops, and identities that can attach, rewrite or grant their way to admin — plus each cloud's own escalation vectors.",
-    where: "AWS, Azure, GCP, OCI, IBM Cloud, Kubernetes · shadow admins on AWS, Azure, GCP and Kubernetes",
+    where:
+      "AWS, Azure, GCP, OCI, IBM Cloud, Kubernetes · shadow admins on AWS, Azure, GCP and Kubernetes",
   },
   {
     icon: RouteIcon,
@@ -75,8 +76,14 @@ const coverage: { row: string; marks: Mark[] }[] = [
   { row: "Multi-hop escalation chains", marks: ["yes", "no", "yes", "no", "no", "no", "no"] },
   { row: "Shadow admin detection", marks: ["yes", "yes", "yes", "yes", "no", "no", "no"] },
   { row: "Trust and federation checks", marks: ["yes", "yes", "yes", "no", "yes", "yes", "yes"] },
-  { row: "Unused permissions (used vs granted)", marks: ["yes", "no", "yes", "no", "no", "no", "no"] },
-  { row: "Stale roles and risk score with usage", marks: ["yes", "no", "no", "no", "no", "no", "no"] },
+  {
+    row: "Unused permissions (used vs granted)",
+    marks: ["yes", "no", "yes", "no", "no", "no", "no"],
+  },
+  {
+    row: "Stale roles and risk score with usage",
+    marks: ["yes", "no", "no", "no", "no", "no", "no"],
+  },
   { row: "Access reviews", marks: ["yes", "yes", "yes", "no", "no", "no", "no"] },
   {
     row: "Identity hygiene (IAM Security)",
@@ -84,40 +91,13 @@ const coverage: { row: string; marks: Mark[] }[] = [
   },
 ];
 
-const eyebrow =
-  "inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]";
+const eyebrow = "inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]";
 const cardCls =
   "bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)]";
 
 export function CiemExtra() {
   return (
     <>
-      <section id="architecture" className="py-24 border-b border-[#E5E9F0] bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className={eyebrow}>The whole picture</div>
-            <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-4xl md:text-5xl tracking-tight">
-              From identity sources <span className="gradient-text">to a decision</span>
-            </h2>
-            <p className="mt-5 text-[#475569] leading-relaxed">
-              CIEM reads the identities Onam's posture scan already inventories, resolves what each
-              one can do, records how they connect, and turns that into findings a person can act
-              on.
-            </p>
-          </div>
-          <figure className="mt-12">
-            <img
-              src="/diagrams/ciem-architecture.svg"
-              alt="Onam CIEM: identity sources from seven clouds feed an effective-permission resolver, which builds an identity graph and produces escalation, trust, unused-permission, risk-score and access-review outputs"
-              className="w-full h-auto rounded-2xl border border-[#E5E9F0]"
-              loading="lazy"
-              width={920}
-              height={470}
-            />
-          </figure>
-        </div>
-      </section>
-
       <section id="capabilities" className="py-24 border-b border-[#E5E9F0] bg-[#F7F9FC]">
         <div className="max-w-7xl mx-auto px-6">
           <div className="max-w-3xl mx-auto text-center">

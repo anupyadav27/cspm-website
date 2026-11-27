@@ -1,16 +1,17 @@
 import { type LucideIcon, AlertTriangle, ArrowRight, ChevronRight } from "@/components/site/icons";
+import { ComicFaq } from "@/components/site/ComicFaq";
 import { Link, useRouterState } from "@tanstack/react-router";
-import { useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo, type ClipKey } from "@/components/site/DemoVideos";
 import { HeroIllustration, type HeroImage } from "@/components/site/HeroIllustration";
 import { VideoSection } from "@/components/site/VideoEmbed";
 import type { VideoKey } from "@/data/videos";
-import { cn } from "@/lib/utils";
-import { faqJsonLd } from "@/lib/seo";
 import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, SERVICES, fmt } from "@/lib/product-facts";
-import { HowItWorksFlow, WhatYouGetGrid } from "@/components/site/product/ProductSections";
+import { WhatYouGetGrid } from "@/components/site/product/ProductSections";
+import { HowItWorksStepper } from "@/components/site/product/HowItWorksStepper";
+import { WholePicture } from "@/components/site/product/DataFlow";
 import { productExtras } from "@/data/product-sections";
 
 export type FaqItem = { q: string; a: string };
@@ -265,54 +266,6 @@ function WhatYouGet({ data }: { data: ProductPageData }) {
   );
 }
 
-function Faqs({ data }: { data: ProductPageData }) {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section id="faq" className="py-24 border-b border-[#E5E9F0] bg-white">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(data.faqs)) }}
-      />
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-            FAQ
-          </div>
-          <h2 className="mt-2 font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Questions we get a lot
-          </h2>
-        </div>
-        <div className="mt-12 space-y-3">
-          {data.faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={f.q} className="bg-white border border-[#E5E9F0] rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-[#F8FAFC] transition"
-                >
-                  <span className="font-display font-semibold text-[#0B1220] text-base md:text-lg">{f.q}</span>
-                  <span
-                    className={cn(
-                      "shrink-0 w-7 h-7 rounded-full grid place-items-center border border-[#E5E9F0] text-[#475569] transition-transform",
-                      isOpen && "rotate-45 border-[#2563EB] text-[#2563EB] bg-[#EFF4FF]",
-                    )}
-                  >
-                    +
-                  </span>
-                </button>
-                {isOpen && (
-                  <div className="px-6 pb-6 -mt-1 text-[#475569] leading-relaxed animate-fade-in">{f.a}</div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CtaAndRelated({ data }: { data: ProductPageData }) {
   const ctx = useEngineContext(data);
   return (
@@ -365,7 +318,7 @@ export function ProductPageTemplate({
   /** Optional one-minute animated Short, shown after the main video. */
   short?: { video: VideoKey; title: string };
 }) {
-  const { sections, screen } = productExtras(data);
+  const { sections, screen, flow } = productExtras(data);
   // A real console capture in "What you get" replaces the coded recreation.
   const hideDemo = Boolean(data.hideDemo || screen);
   return (
@@ -375,7 +328,8 @@ export function ProductPageTemplate({
       <WhyItMatters data={data} />
       {video && <VideoSection video={video} title={`${data.label} in two minutes`} />}
       {short && <VideoSection video={short.video} eyebrow="One-minute short" title={short.title} />}
-      {sections ? <HowItWorksFlow label={data.label} sections={sections} /> : <HowItWorks data={data} />}
+      {flow && <WholePicture spec={flow} />}
+      {sections ? <HowItWorksStepper label={data.label} sections={sections} /> : <HowItWorks data={data} />}
       {sections ? <WhatYouGetGrid label={data.label} sections={sections} screen={screen} /> : <WhatYouGet data={data} />}
       {!hideDemo && (
         <ProductDemo
@@ -390,7 +344,7 @@ export function ProductPageTemplate({
         />
       )}
       {extra}
-      <Faqs data={data} />
+      <ComicFaq faqs={data.faqs} />
       <CtaAndRelated data={data} />
     </SiteLayout>
   );

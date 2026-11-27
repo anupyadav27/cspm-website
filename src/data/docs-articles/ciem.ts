@@ -21,7 +21,8 @@ export const articles: DocArticle[] = [
     body: `
 Onam CIEM resolves what each cloud identity can do, finds its escalation paths, and turns the riskiest into tracked access reviews.
 
-![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
+:::dataflow ciem
+:::
 
 ## What CIEM answers
 

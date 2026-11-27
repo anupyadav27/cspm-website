@@ -10,6 +10,9 @@ CSPM is the core posture engine of the Onam platform. It evaluates every resourc
 
 This page explains what the rule registry covers per cloud, how a single rule is evaluated, how the severity model works, how to suppress findings you have accepted, and how PASS/FAIL results roll up into compliance scores.
 
+:::dataflow cspm
+:::
+
 :::screen /screens/cloud-posture/posture-findings.webp
 url: app.onamsecurity.com/ui/misconfig
 alt: Cloud Posture, Posture findings tab in the Onam console: tabs for Posture findings, IAM, Network, Encryption, Containers, APIs and Databases, quick counts for internet-exposed, unencrypted, logging-off and admin-or-wildcard findings, and a list where each finding has a plain title and its rule ID.
@@ -140,7 +143,8 @@ There is no separate "compliance scan" — posture and compliance are the same e
     body: `
 CIEM works out what each cloud identity can do, how it could escalate, who outside your account can get in and, on AWS, what it never uses.
 
-![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
+:::dataflow ciem
+:::
 
 CIEM has its own documentation section. Start here:
 
@@ -259,6 +263,9 @@ Start with IAM Security to fix hygiene, then use [CIEM](/docs/ciem/overview) to 
 Attack Path Analysis connects individual security findings — misconfigurations, identity risks, network exposures, and vulnerabilities — into chains that reveal exactly how an attacker would move from an exposed entry point to your most critical assets. Rather than presenting a long list of disconnected findings, Onam builds a graph of your estate and searches it for the routes that actually reach something worth protecting.
 
 This page explains how the graph is built and verified, how paths are found and ranked, how MITRE techniques are attached per hop, and how **choke points** tell you the one fix that severs the most paths.
+
+:::dataflow attack-path
+:::
 
 :::screen /screens/attack-paths/attack-paths.webp
 url: app.onamsecurity.com/ui/attack-paths

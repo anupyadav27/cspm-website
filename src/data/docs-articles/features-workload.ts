@@ -242,7 +242,8 @@ Data Security (DSPM): every cloud data store, classified from metadata and, wher
 
 This page is the short version. The full documentation has its own section: start at the [DSPM overview](/docs/dspm/overview).
 
-![How DSPM works: data stores, discovery, classification (metadata by default, sampled contents where you deploy the DSPM scanner or on-prem collector), the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+:::dataflow data-security
+:::
 
 ## What it answers
 

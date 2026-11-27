@@ -136,32 +136,6 @@ function DspmDeepDive() {
     <>
       <DataSecurityFamily current="data-security" />
 
-      {/* Pipeline */}
-      <section id="pipeline" className="py-20 border-b border-[#E5E9F0] bg-white">
-        <div className="max-w-6xl mx-auto px-6">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className={eyebrow}>The whole pipeline</div>
-            <h2 className="mt-5 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-              From a list of stores to findings on the graph
-            </h2>
-            <p className="mt-4 text-[#475569] leading-relaxed">
-              DSPM runs inside every scan, after the posture checks. It reuses what the scan already
-              read about each store, so there is nothing extra to connect.
-            </p>
-          </div>
-          <figure className="mt-10">
-            <img
-              src="/diagrams/dspm-pipeline.svg"
-              alt="Five stages of Onam DSPM: data stores, discovery through read-only roles, classification from metadata by default (data contents only where you deploy the DSPM scanner or on-prem collector), the join with exposure, access, encryption and attack paths, and per-store findings"
-              className="w-full h-auto rounded-xl border border-[#E5E9F0]"
-              loading="lazy"
-              width={960}
-              height={470}
-            />
-          </figure>
-        </div>
-      </section>
-
       {/* Who can reach it */}
       <section id="who-can-reach-it" className="py-20 border-b border-[#E5E9F0] bg-[#F7F9FC]">
         <div className="max-w-7xl mx-auto px-6">

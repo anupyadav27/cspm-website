@@ -212,6 +212,62 @@
 }
 
 /* Prose :::flow diagrams — a dash that travels along each connector. */
+/* CIEM dataflow diagram (CiemFlow.tsx) */
+.cf-dash { animation: cf-dash 1.2s linear infinite; }
+@keyframes cf-dash { to { stroke-dashoffset: -28; } }
+.cf-edge { stroke-dasharray: 1; animation: cf-draw .7s ease-out both; }
+@keyframes cf-draw { from { stroke-dashoffset: 1; } to { stroke-dashoffset: 0; } }
+.cf-hot { opacity: 0; stroke-dasharray: 6 6; animation: cf-hot 3.2s 2.2s ease-in-out infinite; }
+@keyframes cf-hot { 0% { opacity: 0; stroke-dashoffset: 0; } 25%, 75% { opacity: 1; } 100% { opacity: 0; stroke-dashoffset: -48; } }
+.cf-alarm { opacity: 0; transform-box: fill-box; transform-origin: center; animation: cf-alarm 3.2s 2.2s ease-out infinite; }
+@keyframes cf-alarm { 0% { opacity: .45; transform: scale(.8); } 70%, 100% { opacity: 0; transform: scale(1.9); } }
+.cf-out { animation: cf-out 4.5s ease-in-out infinite; }
+@keyframes cf-out { 0%, 14%, 100% { box-shadow: 0 1px 2px rgba(16,24,40,.05); transform: none; } 6% { box-shadow: 0 8px 22px rgba(37,99,235,.18); transform: translateX(3px); } }
+.cf-pop { animation: cf-pop .45s cubic-bezier(.3,1.5,.5,1) both; }
+@keyframes cf-pop { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+.cf-tag { transform-box: fill-box; transform-origin: center; animation: cf-tag 3.2s 2.2s ease-in-out infinite; }
+@keyframes cf-tag { 0%, 100% { transform: none; } 50% { transform: scale(1.08); } }
+.cf-down { animation: cf-down 1s linear infinite; }
+@keyframes cf-down { to { background-position: 0 24px; } }
+@media (prefers-reduced-motion: reduce) { .cf-dash, .cf-edge, .cf-out, .cf-down, .cf-pop, .cf-tag { animation: none !important; } .cf-hot { animation: none !important; opacity: 1; } .cf-alarm { display: none; } }
+
+/* Questions we get a lot (ComicFaq.tsx): bubbles pop in, Onam types before it answers. */
+.comic-pop { animation: comic-pop .5s cubic-bezier(.3,1.5,.5,1) both; }
+@keyframes comic-pop { from { opacity: 0; transform: translateY(14px) scale(.92); } to { opacity: 1; transform: none; } }
+.comic-grow { animation: comic-grow .45s cubic-bezier(.3,1.4,.5,1) both; transform-origin: top right; }
+@keyframes comic-grow { from { opacity: .4; transform: scale(.85); } to { opacity: 1; transform: none; } }
+.comic-dot { animation: comic-dot 1s ease-in-out infinite; }
+@keyframes comic-dot { 0%, 60%, 100% { transform: translateY(0); opacity: .45; } 30% { transform: translateY(-5px); opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .comic-pop, .comic-grow, .comic-dot { animation: none !important; } }
+
+/* Product pages, What you get (ProductSections.tsx): cards fly in from the centre, small pictures play. */
+.wyg-fly { --dx-on: 0%; animation: wyg-fly .7s cubic-bezier(.2,.8,.2,1) both; }
+@media (min-width: 1024px) { .wyg-fly { --dx-on: var(--dx); } }
+@keyframes wyg-fly { from { opacity: 0; transform: translateX(var(--dx-on)) translateY(48px) scale(.9); } to { opacity: 1; transform: none; } }
+.wyg-sort { animation: wyg-sort .8s cubic-bezier(.3,1.3,.4,1) both; }
+@keyframes wyg-sort { 0% { opacity: 0; transform: translateY(var(--from)) translateX(-12px); } 35% { opacity: 1; transform: translateY(var(--from)); } 100% { opacity: 1; transform: none; } }
+.wyg-pop { animation-name: wyg-pop, wyg-lit; animation-timing-function: cubic-bezier(.3,1.4,.5,1), ease; animation-fill-mode: both, none; animation-iteration-count: 1, infinite; }
+@keyframes wyg-pop { from { opacity: 0; transform: scale(.6) translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes wyg-lit { 0%, 14% { background: #2563EB; color: #fff; box-shadow: 0 0 0 4px rgba(37,99,235,.18); } 24%, 100% { background: #fff; color: #1E293B; } }
+.wyg-ping { animation: wyg-ping 2.4s ease-out infinite; }
+@keyframes wyg-ping { from { opacity: .7; transform: scale(1); } to { opacity: 0; transform: scale(1.45); } }
+.wyg-ring { animation: wyg-ring 2.4s ease-out infinite; }
+@keyframes wyg-ring { from { opacity: .9; transform: scale(1); } to { opacity: 0; transform: scale(2.3); } }
+.wyg-draw { stroke-dasharray: 24; animation: wyg-draw .6s .6s ease-out both; }
+@keyframes wyg-draw { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+/* Phones show the whole capture without panning; the frame is fixed and the capture pans from 640px up. */
+@media (min-width: 640px) { .wyg-pan { --frame: 420px; animation: wyg-pan 26s 1.2s ease-in-out infinite alternate; } }
+@media (min-width: 1024px) { .wyg-pan { --frame: 520px; } }
+@keyframes wyg-pan { 0%, 12% { transform: translateY(0); } 88%, 100% { transform: translateY(calc(-100% + var(--frame))); } }
+.wyg-pan:hover { animation-play-state: paused !important; }
+@media (prefers-reduced-motion: reduce) {
+  .wyg-fly, .wyg-sort, .wyg-pop, .wyg-ping, .wyg-ring, .wyg-draw, .wyg-pan { animation: none !important; }
+}
+
+/* Product pages, How it works stepper: progress down the active stage, data flowing to the next node. */
+@keyframes hiw-progress { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes hiw-dash { to { background-position: 28px 0; } }
+@media (prefers-reduced-motion: reduce) { [style*="hiw-dash"] { animation: none !important; } }
 @keyframes onam-flow-dash { to { stroke-dashoffset: -32; } }
 .onam-flow-dash {
   stroke-dasharray: 6 10;

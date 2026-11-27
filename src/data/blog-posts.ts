@@ -963,6 +963,9 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 [Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles: object storage, managed databases and warehouses, streams, and self-hosted databases you onboard.
 
+:::dataflow data-security
+:::
+
 **How it classifies (updated 26 and 27 November 2026).** By default, Onam labels each store from metadata: its name, description, tags and schema. Where you choose to adopt it, by deploying Onam's DSPM scanner in your own cloud account (AWS: S3, RDS and Aurora snapshots; Azure: Blob, Files, Azure SQL; Google Cloud: Cloud Storage, BigQuery, Cloud SQL) or the on-premises collector, it also reads samples of files and rows and classifies their contents with country-specific detectors. Content scanning is opt-in per tenant: nothing configured means nothing scanned. Without the scanner, a store whose names and tags say nothing gets no label until someone tags it.
 
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, and data lineage across up to 8 hops of replication, backup, ETL, streaming and export. Copies made by scripts are not visible today; only copies the cloud records are followed. The detail is in the [DSPM documentation](/docs/dspm/overview).
@@ -2277,6 +2280,9 @@ IAM security keeps the door from being obviously open. CIEM makes sure that if i
 
 [Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. Where it applies:
 
+:::dataflow ciem
+:::
+
 - **Shadow-admin detection** runs on AWS, Azure, Google Cloud and Kubernetes.
 - **Unused-access analysis** (granted compared with used, over a 30-day window) runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access only.
 - **Escalation paths** are followed on AWS (assume-role chains, up to 12 hops) and Google Cloud (service-account impersonation chains, up to 4 hops).
@@ -2372,6 +2378,9 @@ The result is a list of paths ranked by likelihood and impact, so the path to th
 ## How Onam implements attack path analysis
 
 Onam's attack path engine is built on one security graph. Every cloud resource is a node: instances, roles, buckets, functions, security groups, networks and load balancers. Relationships between resources are typed edges derived from posture, identity, network, data and threat-detection evidence: an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, a key that encrypts a store. Because the graph spans clouds, a path can start in one cloud and end in another. Each finding on a path carries a FAIR-style loss estimate, used for ranking: it is an estimate per finding, not a price for the whole route.
+
+:::dataflow attack-path
+:::
 
 What it does not cover yet: AI services do not appear on attack paths.
 

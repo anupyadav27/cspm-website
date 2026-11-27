@@ -1,11 +1,9 @@
-import { useState } from "react";
+import { ComicFaq } from "@/components/site/ComicFaq";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CheckCircle2, Cloud, Container as ContainerIcon, ShieldCheck, type LucideIcon } from "@/components/site/icons";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo } from "@/components/site/DemoVideos";
-import { cn } from "@/lib/utils";
-import { faqJsonLd } from "@/lib/seo";
 import { Backdrop, Section, Container, SectionHeading, IconTile, Card, StatusChip } from "@/components/site/system";
 import { getSuite, type SuiteKey } from "@/data/product-suite";
 import { CloudLogo, cloudLogoKey } from "@/components/site/CloudLogo";
@@ -190,46 +188,6 @@ function Features({ data }: { data: CloudSolutionData }) {
   );
 }
 
-function Faqs({ faqs }: { faqs: CloudFaq[] }) {
-  const [open, setOpen] = useState<number | null>(0);
-  return (
-    <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd(faqs)) }}
-      />
-      <div className="max-w-3xl mx-auto px-6">
-        <div className="text-center">
-          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-            FAQ
-          </div>
-          <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Questions we get a lot</h2>
-        </div>
-        <div className="mt-10 space-y-3">
-          {faqs.map((f, i) => {
-            const isOpen = open === i;
-            return (
-              <div key={f.q} className="bg-white border border-[#E5E9F0] rounded-xl overflow-hidden">
-                <button
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-[#F8FAFC] transition"
-                >
-                  <span className="font-display font-semibold text-[#0B1220]">{f.q}</span>
-                  <span className={cn(
-                    "shrink-0 w-7 h-7 rounded-full grid place-items-center border border-[#E5E9F0] text-[#475569] transition-transform",
-                    isOpen && "rotate-45 border-[#2563EB] text-[#2563EB] bg-[#EFF4FF]",
-                  )}>+</span>
-                </button>
-                {isOpen && <div className="px-6 pb-6 text-[#475569] leading-relaxed">{f.a}</div>}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CTA({ data }: { data: CloudSolutionData }) {
   return (
     <section className="bg-white py-20">
@@ -390,7 +348,7 @@ export function CloudSolutionTemplate({ data }: { data: CloudSolutionData }) {
         subtitle="A recreation of the Onam console with sample data: connect, inventory and posture in one view."
       />
       <Features data={data} />
-      <Faqs faqs={data.faqs} />
+      <ComicFaq faqs={data.faqs} />
       <RelatedReading items={data.related ?? []} cloudName={data.cloudName} />
       <CTA data={data} />
     </SiteLayout>
