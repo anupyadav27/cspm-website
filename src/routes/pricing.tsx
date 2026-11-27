@@ -562,7 +562,7 @@ function PriceCalculator() {
         )}
         {est.units > 0 && est.units <= FREE_UNITS && plan === "complete" && (
           <p className="mt-4 rounded-md bg-white/10 px-3 py-2 text-xs text-white">
-            Under {FREE_UNITS} units: the free plan covers read-only posture, compliance and identity checks at no charge.
+            Up to {FREE_UNITS} units: the free plan covers posture, identity, data and AI security checks through your cloud's APIs at no charge.
           </p>
         )}
         <div className="mt-6 grid gap-2">
@@ -744,7 +744,7 @@ const faqs = [
   },
   {
     q: "Is there a free plan?",
-    a: `Yes. The free plan covers up to ${FREE_UNITS} units, counted the same way as the paid plans. It runs read-only through your cloud's APIs: posture and compliance, identity and permissions, and the data stores your cloud reports. Kubernetes posture, reading data to classify it, and vulnerability and malware scanning need a scanner or access inside your environment, so they are on paid plans. There is no card. Register at /start-free and our team emails your login details.`,
+    a: `Yes. The free plan covers up to ${FREE_UNITS} units, counted the same way as the paid plans. It covers cloud security through your cloud's APIs: posture and compliance (CSPM), identity and permissions (CIEM), data security from what the APIs report (DSPM), and AI security (AI-SPM). Kubernetes posture, reading data to classify it, and vulnerability and malware scanning need a scanner or access inside your environment, so they are on paid plans. There is no card. Register at /start-free and our team emails your login details.`,
   },
   {
     q: "What does the free audit scan include?",
@@ -799,10 +799,10 @@ function PricingPage() {
           <div className="mt-8 flex flex-col gap-4 rounded-lg border border-[#2563EB]/30 bg-[#F5F8FF] p-5 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="font-display font-bold text-[#0B1220]">
-                Free plan: up to {FREE_UNITS} units, free
+                Free plan: up to {FREE_UNITS} units of cloud security, free
               </div>
               <p className="mt-1 text-sm text-[#475569] leading-relaxed">
-                Read-only posture, compliance and identity checks through cloud APIs. No agent, no card. Kubernetes,
+                Cloud security through your cloud's APIs: posture (CSPM), identity (CIEM), data (DSPM) and AI (AI-SPM) checks. No agent, no card. Kubernetes,
                 data-content and vulnerability scanning are on paid plans.
               </p>
             </div>

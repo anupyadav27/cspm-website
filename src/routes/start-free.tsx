@@ -10,7 +10,7 @@ import { submitLead } from "@/lib/lead-capture";
 /**
  * /start-free — sign-up for the free plan (owner decision, 27 Nov 2026).
  *
- * Facts: onam-live/marketing/facts/product.yaml company.free_plan — up to 50 units, read-only
+ * Facts: onam-live/marketing/facts/product.yaml company.free_plan — up to 25 units of cloud security, API-based
  * cloud API scanning only; excludes KSPM, data-content classification and vulnerability/malware
  * scanning. There is no self-serve provisioning: the form becomes a "free" lead (S3 + sales@),
  * the team creates the tenant in the backend and emails the login details to the visitor.
@@ -19,16 +19,16 @@ import { submitLead } from "@/lib/lead-capture";
 export const Route = createFileRoute("/start-free")({
   head: () =>
     seo({
-      title: "Start free: cloud security for up to 50 units — Onam",
+      title: "Start free: cloud security for up to 25 units — Onam",
       description:
-        "Onam's free plan: read-only cloud security posture, identity and compliance for up to 50 units. No agent, no card. Register and we email your login.",
+        "Onam's free plan: cloud posture, identity, data and AI security checks through your cloud's APIs, for up to 25 units. No agent, no card.",
       path: "/start-free",
     }),
   component: StartFreePage,
 });
 
 const CLOUDS = ["AWS", "Azure", "Google Cloud", "Oracle Cloud", "Alibaba Cloud", "IBM Cloud"];
-const RESOURCES = ["Under 50", "50–200", "200–1,000", "More than 1,000", "Not sure"];
+const RESOURCES = ["Under 50 resources", "50–200", "200–1,000", "More than 1,000", "Not sure"];
 const COUNTRIES = [
   "India",
   "Australia",
@@ -46,7 +46,8 @@ const INCLUDED = [
   "Cloud posture (CSPM): misconfigurations and what is open to the internet, ranked with fixes",
   "Compliance reports against the frameworks Onam supports",
   "Identity and permissions (CIEM): who and what can do too much",
-  "Data stores found through your cloud APIs, and how they are set up",
+  "Data security (DSPM) through your cloud's APIs: where your data stores are and how they are set up",
+  "AI security (AI-SPM): the AI services in your cloud, missing guardrails and what they can reach",
 ];
 const NOT_INCLUDED = [
   "Kubernetes posture (KSPM)",
@@ -71,14 +72,14 @@ function StartFreePage() {
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-14 md:py-20 grid gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div>
             <span className="inline-flex rounded-full bg-tint-blue px-3 py-1 text-[12px] font-bold uppercase tracking-[0.12em] text-brand-700">
-              Free plan · up to 50 units
+              Free plan · up to 25 units
             </span>
             <h1 className="mt-5 font-display font-black text-ink text-4xl md:text-5xl tracking-tight leading-[1.05]">
               See what your auditor would flag in your cloud, before they do.
             </h1>
             <p className="mt-5 text-lg text-body leading-relaxed max-w-xl">
               Misconfigurations, what is open to the internet and who can do too much, mapped to the compliance
-              controls you are tested on. Free for up to 50 units, through{" "}
+              controls you are tested on. Free for up to 25 units of cloud security, through{" "}
               <strong className="text-ink">read-only cloud roles</strong>. No agent, no card.
             </p>
             <a
@@ -248,7 +249,7 @@ function SignUpForm() {
         <form onSubmit={handleSubmit} className="space-y-5" noValidate>
           <div>
             <h2 className="font-display font-black text-ink text-2xl tracking-tight">Start free</h2>
-            <p className="mt-1 text-sm text-body">Up to 50 units. No card. We email your login.</p>
+            <p className="mt-1 text-sm text-body">Up to 25 units. No card. We email your login.</p>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div>

@@ -87,7 +87,7 @@ export function ackEmail(
   const next: string[] =
     input.kind === "free"
       ? [
-          "- We create your Onam workspace on the free plan (up to 50 units, read-only scanning) and email your login details to this address.",
+          "- We create your Onam workspace on the free plan (up to 25 units of cloud security, scanned through your cloud's APIs) and email your login details to this address.",
           "- You connect a cloud account with a read-only role. You can read every permission before you deploy it. The free plan deploys no agent or scanner.",
           "- If you would like, we walk you through your first results on a short call.",
           "- There is no charge and no card. You can move to a paid plan when you need more.",

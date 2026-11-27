@@ -45,7 +45,7 @@ eq("free plan wants ack", wantsAck("free"), true);
 const f = ackEmail({ kind: "free", name: "Ravi K" }, "");
 eq("free subject", f.subject, "Your Onam free plan: we are setting it up");
 eq("free says login by email", f.body.includes("email your login details"), true);
-eq("free says 50 units", f.body.includes("up to 50 units"), true);
+eq("free says 25 units", f.body.includes("up to 25 units"), true);
 const a = ackEmail({ kind: "audit", name: "Priya Sharma" }, "");
 eq("greets first name", a.body.startsWith("Hello Priya,"), true);
 eq("one working day", a.body.includes("within one working day"), true);

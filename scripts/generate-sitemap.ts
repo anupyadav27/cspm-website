@@ -298,7 +298,7 @@ const llms = `# Onam
 > Noida, Uttar Pradesh), founded by Anup Yadav. Its product, Onam Security, is priced per unit:
 > $20 per unit a month on Complete (includes data security), $14 per unit on Posture, $39 per active
 > developer for code security, minimum 25 units; Enterprise contracts on request. A free plan covers
-> up to 50 units with read-only cloud API scanning (posture, compliance, identity; no Kubernetes,
+> up to 25 units of cloud security with API-based scanning (CSPM, CIEM, DSPM through APIs, AI-SPM; no Kubernetes,
 > data-content or vulnerability scanning): visitors register at /start-free and the team emails their
 > login. A free one-time audit scan of one cloud account is also offered.
 >
@@ -404,7 +404,7 @@ ${BLOG_POSTS.map((p) => `- [${p.title}](${SITE_URL}/resources/blog/${p.slug}): $
 
 - [Pricing](${SITE_URL}/pricing)
 - [Request a demo](${SITE_URL}/request-demo)
-- [Start free](${SITE_URL}/start-free): the free plan, up to 50 units with read-only cloud API scanning (posture, compliance, identity). Register, and the team emails your login.
+- [Start free](${SITE_URL}/start-free): the free plan, up to 25 units of cloud security with API-based scanning (CSPM, CIEM, DSPM through APIs, AI-SPM). Register, and the team emails your login.
 - [Free audit scan](${SITE_URL}/audit-scan): a one-time scan of one cloud account through read-only cloud roles, at no charge, with a findings report and a 45-minute readout.
 - [About](${SITE_URL}/company/about)
 ${AUTHORS.map((a) => `- [${a.name}, ${a.role}](${SITE_URL}/company/team/${a.slug})`).join("\n")}

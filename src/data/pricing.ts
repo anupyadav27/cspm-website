@@ -8,8 +8,8 @@
 
 export const UNIT_PRICE = 20; // USD per unit per month, cloud (CNAPP) and SaaS
 export const MIN_UNITS = 25; // smallest monthly bill, in units
-/** Free plan cap (owner, 27 Nov 2026; facts company.free_plan): read-only API scanning, no KSPM, data-content or vulnerability scanning. */
-export const FREE_UNITS = 50;
+/** Free plan cap in units, cloud security only (owner, 27 Nov 2026: 25 units; facts company.free_plan). API-based scanning: CSPM, CIEM, DSPM (API), AI-SPM. */
+export const FREE_UNITS = 25;
 export const DEV_PRICE = 39; // USD per active developer per month, code security
 
 /**
