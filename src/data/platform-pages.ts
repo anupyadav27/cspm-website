@@ -697,6 +697,7 @@ export const platformPages: Record<string, ProductPageData> = {
     whatYouGet: [
       "One AI inventory across cloud AI services and self-hosted AI on Kubernetes",
       "An AI bill of materials: AI libraries, model servers and MCP SDKs from your SBOMs",
+      "AI in SaaS: AI apps found in your connected SaaS platforms, such as Microsoft Copilot or Claude in Google Workspace",
       "Guardrail presence on models, deployments and agents: Bedrock Guardrails, Azure content filters, Google Model Armor",
       "Self-hosted model servers, notebooks and vector databases exposed without authentication",
       "AI-to-data links: which data stores each AI service reads",

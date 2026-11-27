@@ -95,6 +95,7 @@ It checks how your AI is set up and what it can reach. It does not test your mod
 + Finds managed AI services on AWS, Azure and Google Cloud
 + Finds self-hosted AI on your Kubernetes clusters, and flags it when it is **exposed without authentication**
 + Lists the AI components in your software from your SBOMs: the **AI bill of materials**
++ Finds **AI apps in your connected SaaS**, such as Microsoft Copilot or Claude in Google Workspace
 + Checks that **Bedrock Guardrails**, **Azure content filters** or **Google Model Armor** are attached
 + Shows which data stores an AI service reads, and flags **AI agents with admin or wide write access**
 + Maps AI findings to **OWASP Top 10 for LLM 2025**, **NIST AI RMF**, **ISO/IEC 42001** and the **EU AI Act**
@@ -148,7 +149,7 @@ No tool does that on its own. AI findings map to EU AI Act controls, which gives
 eyebrow: How does Onam find AI we didn't list?
 title: From three places you've already connected: your clouds, your clusters and your SBOMs.
 lead: Managed AI services come from read-only cloud roles, self-hosted AI from a workload classifier, and AI components from the software bills of materials Onam already holds.
-chips: Cloud roles · Read-only ServiceAccount · SBOMs
+chips: Cloud roles · Read-only ServiceAccount · SBOMs · Connected SaaS
 :::
 
 ## How does Onam recognise a self-hosted model server?
@@ -189,6 +190,10 @@ caption: Real console, Onam's internal test workspace, captured 27 Nov 2026. Ten
 3 @ 10.4,33.2: The source is the container image whose SBOM it came from.
 :::
 
+## Does it find AI apps in our SaaS?
+
+Yes. **Inventory › AI in SaaS** lists AI apps found in the SaaS platforms you've connected to Onam, such as Microsoft Copilot or Claude in Google Workspace. They sit in the same AI inventory as your cloud and self-hosted AI.
+
 ## What is the AI bill of materials?
 
 It is the list of AI software inside your applications, read from the SBOMs Onam builds for your code and images. It answers "which AI software do we ship?" and lives under **Inventory › Libraries (AI-BOM)**.
@@ -203,6 +208,7 @@ Read more about SBOMs in [Dependencies and SBOM](/docs/code-security/sca-sbom).
 + Managed AI resources and their settings on AWS, Azure and Google Cloud
 + Self-hosted model servers, notebooks, vector databases and serving platforms on connected clusters
 + AI libraries, model servers and MCP SDKs from your SBOMs
++ AI apps in your connected SaaS platforms (**AI in SaaS**)
 + Groups AI into applications from the \`onam-ai-app\` tag, links between AI assets, and code
 - Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections, or Bedrock knowledge-base data sources (not discovered yet)
 - AI services on Oracle Cloud, Alibaba Cloud or IBM Cloud
