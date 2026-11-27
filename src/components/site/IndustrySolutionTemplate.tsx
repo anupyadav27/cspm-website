@@ -6,6 +6,7 @@ import { BrandButton } from "@/components/site/BrandButton";
 import { ProductDemo } from "@/components/site/DemoVideos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
+import { FrameworkWall } from "@/components/site/solutions/CoverageAndCompliance";
 import { AcrossThePlatform, industryPlatformNotes, type PlatformNotes } from "@/components/site/CloudSolutionTemplate";
 
 export type IndustryUseCase = { icon: LucideIcon; iconColor: string; title: string; body: string };
@@ -111,33 +112,11 @@ function UseCases({ data }: { data: IndustrySolutionData }) {
 
 function Regulations({ data }: { data: IndustrySolutionData }) {
   return (
-    <section className="bg-white border-b border-[#E5E9F0] py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-            Compliance
-          </div>
-          <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            Regulations & frameworks Onam Security maps to
-          </h2>
-        </div>
-        <div className="mt-8 flex flex-wrap gap-2">
-          {data.regulations.map((r) => (
-            <span key={r.name} className="px-3 py-2 rounded-lg text-xs font-semibold text-[#0B1220] bg-[#F1F5F9] border border-[#E5E9F0]">
-              {r.name}
-            </span>
-          ))}
-        </div>
-        <div className="mt-10 grid md:grid-cols-2 gap-4">
-          {data.regulations.map((r) => (
-            <div key={r.name} className="border border-[#E5E9F0] rounded-xl p-5 bg-white">
-              <div className="font-display font-bold text-[#0B1220]">{r.name}</div>
-              <p className="mt-1.5 text-sm text-[#475569] leading-relaxed">{r.note}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+    <FrameworkWall
+      heading="Regulations & frameworks Onam Security maps to"
+      lead="Each finding is mapped to the controls it affects, and each framework is scored from the latest scan."
+      frameworks={data.regulations.map((r) => ({ name: r.name, note: r.note }))}
+    />
   );
 }
 

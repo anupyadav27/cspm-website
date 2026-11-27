@@ -10,6 +10,8 @@ import type { VideoKey } from "@/data/videos";
 import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
 import { CLOUDS, CSPM_POSTURE_RULES, FRAMEWORKS, SERVICES, fmt } from "@/lib/product-facts";
+import { HowItWorksFlow, WhatYouGetGrid } from "@/components/site/product/ProductSections";
+import { productExtras } from "@/data/product-sections";
 
 export type FaqItem = { q: string; a: string };
 export type RelatedLink = { label: string; href: string };
@@ -144,8 +146,8 @@ function Hero({ data }: { data: ProductPageData }) {
   );
 }
 
-function StickyNav({ data }: { data: ProductPageData }) {
-  const visible = anchors.filter((a) => !(data.hideDemo && a.id === "live-demo"));
+function StickyNav({ data, hideDemo }: { data: ProductPageData; hideDemo: boolean }) {
+  const visible = anchors.filter((a) => !(hideDemo && a.id === "live-demo"));
   return (
     <div className="sticky top-16 z-30 bg-white/90 backdrop-blur-xl border-b border-[#E5E9F0]">
       <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-center gap-1 overflow-x-auto">
@@ -363,16 +365,19 @@ export function ProductPageTemplate({
   /** Optional one-minute animated Short, shown after the main video. */
   short?: { video: VideoKey; title: string };
 }) {
+  const { sections, screen } = productExtras(data);
+  // A real console capture in "What you get" replaces the coded recreation.
+  const hideDemo = Boolean(data.hideDemo || screen);
   return (
     <SiteLayout>
       <Hero data={data} />
-      <StickyNav data={data} />
+      <StickyNav data={data} hideDemo={hideDemo} />
       <WhyItMatters data={data} />
       {video && <VideoSection video={video} title={`${data.label} in two minutes`} />}
       {short && <VideoSection video={short.video} eyebrow="One-minute short" title={short.title} />}
-      <HowItWorks data={data} />
-      <WhatYouGet data={data} />
-      {!data.hideDemo && (
+      {sections ? <HowItWorksFlow label={data.label} sections={sections} /> : <HowItWorks data={data} />}
+      {sections ? <WhatYouGetGrid label={data.label} sections={sections} screen={screen} /> : <WhatYouGet data={data} />}
+      {!hideDemo && (
         <ProductDemo
           id="live-demo"
           compact

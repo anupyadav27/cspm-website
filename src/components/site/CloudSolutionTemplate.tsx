@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { faqJsonLd } from "@/lib/seo";
 import { Backdrop, Section, Container, SectionHeading, IconTile, Card, StatusChip } from "@/components/site/system";
 import { getSuite, type SuiteKey } from "@/data/product-suite";
+import { CoverageMap, FrameworkWall } from "@/components/site/solutions/CoverageAndCompliance";
 
 export type CloudFeature = { icon: LucideIcon; iconColor: string; title: string; body: string };
 export type CloudStep = { title: string; body: string };
@@ -95,57 +96,22 @@ function StatStrip({ stats }: { stats: CloudStat[] }) {
 
 function Services({ data }: { data: CloudSolutionData }) {
   return (
-    <section className="bg-[#F7F9FC] border-b border-[#E5E9F0] py-20">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="max-w-3xl">
-          <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-            Coverage
-          </div>
-          <h2 className="mt-4 font-display font-extrabold text-[#0B1220] text-3xl md:text-4xl tracking-tight">
-            {data.servicesHeading ?? `Services we monitor on ${data.cloudName}`}
-          </h2>
-          <p className="mt-3 text-[#475569]">Every service below is scanned continuously. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account.</p>
-        </div>
-        <div className="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
-          {data.services.map((s) => (
-            <div key={s} className="bg-white border border-[#E5E9F0] rounded-xl px-4 py-3 text-sm font-medium text-[#0B1220] flex items-center gap-2 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-              <CheckCircle2 className="w-4 h-4 text-[#2563EB] shrink-0" />
-              <span>{s}</span>
-            </div>
-          ))}
-        </div>
-        {data.servicesPlusNote && (
-          <p className="mt-6 text-sm text-[#5A6A80]"><span className="font-semibold text-[#475569]">Plus:</span> {data.servicesPlusNote}</p>
-        )}
-      </div>
-    </section>
+    <CoverageMap
+      heading={data.servicesHeading ?? `Services we monitor on ${data.cloudName}`}
+      cloudName={data.cloudName}
+      services={data.services}
+      plusNote={data.servicesPlusNote}
+    />
   );
 }
 
 function Frameworks({ data }: { data: CloudSolutionData }) {
   return (
-    <section className="bg-white border-b border-[#E5E9F0] py-16">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 text-sm font-semibold text-[#1D4ED8]">
-              Compliance
-            </div>
-            <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-2xl md:text-3xl tracking-tight">
-              Compliance frameworks
-            </h2>
-            <p className="mt-2 text-[#475569] max-w-xl">Onam maps every {data.cloudName} finding to the frameworks your auditors care about.</p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {data.frameworks.map((f) => (
-              <span key={f} className="px-3 py-2 rounded-lg text-xs font-semibold text-[#0B1220] bg-[#F1F5F9] border border-[#E5E9F0]">
-                {f}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    <FrameworkWall
+      heading="Evidence for the frameworks your auditors ask about"
+      lead={`Onam maps every ${data.cloudName} finding to the controls it affects and scores each framework from the latest scan.`}
+      frameworks={data.frameworks.map((name) => ({ name }))}
+    />
   );
 }
 

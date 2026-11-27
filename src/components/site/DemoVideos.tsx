@@ -403,15 +403,12 @@ const NAV_GROUPS: { group?: string; items: { key: string; label: string; sub?: s
 function ConsoleSidebar({ active }: { active: string }) {
   return (
     <div className="hidden md:flex flex-col border-r border-[#E9EDF3] bg-[#F8FAFC] w-[188px] shrink-0">
-      {/* Logo */}
+      {/* Logo: the current mark and wordmark (Logo.tsx), not the retired four-colour ONAM */}
       <div className="flex items-center gap-1.5 px-4 pt-4 pb-3">
-        <span className="font-display font-extrabold text-[15px] tracking-tight leading-none">
-          <span style={{ color: "#2563EB" }}>O</span>
-          <span style={{ color: "#E32D25" }}>N</span>
-          <span style={{ color: "#F2AF04" }}>A</span>
-          <span style={{ color: "#05A052" }}>M</span>
+        <CompassMark size={14} />
+        <span className="font-display font-extrabold text-[15px] tracking-tight leading-none" style={{ color: "#2563EB" }}>
+          Onam
         </span>
-        <CompassMark size={13} />
         <span className="font-display font-bold uppercase text-[7px] leading-none mt-[3px]" style={{ color: "#082869", letterSpacing: "0.22em" }}>
           Security
         </span>
