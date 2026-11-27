@@ -277,7 +277,7 @@ function renderDirective(b: Extract<Block, { kind: "directive" }>, key: number):
             .filter((s) => s.title)
             .map((s) => {
               const [label, state] = s.title.split("|").map((x) => x.trim());
-              const st = (["yes", "partial", "no", "info"].includes(state) ? state : "info") as "yes" | "partial" | "no" | "info";
+              const st = (["yes", "partial", "auto", "no", "info"].includes(state) ? state : "info") as "yes" | "partial" | "auto" | "no" | "info";
               return { label, state: st, body: <Prose source={s.body} /> };
             })}
         />

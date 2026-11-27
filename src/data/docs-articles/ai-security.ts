@@ -29,10 +29,10 @@ export const articles: DocArticle[] = [
     body: `
 :::hero night
 pill: AI Security · AI-SPM
-title: Find every AI you run, see what's exposed and what it can reach.
-lead: AI Security finds the AI services, model servers and agents in the clouds and clusters you've already connected, read-only, and checks each one in your normal posture scan.
+title: Find the AI you run, see what's exposed and what it can reach.
+lead: AI Security finds the AI services, model servers and agents in the clouds and clusters you've already connected, **read-only and with no agent**, and checks each one in your normal posture scan.
 chips: AWS · Azure · Google Cloud · Kubernetes
-cta: Run a free audit scan | /audit-scan
+cta: Request a demo | /request-demo?product=security
 secondary: See the 2-minute story | #what-happens-to-the-model-server-someone-forgot
 visual: lensmap ai-estate
 :::
@@ -41,7 +41,7 @@ visual: lensmap ai-estate
 
 Onam finds it in the next posture scan, recognises it as AI, and flags it if anyone can reach it without a login.
 
-:::story A Tuesday test
+:::story A Friday test (illustrative)
 end: Read: guardrail and exposure checks | /docs/ai-security/guardrails-and-exposure
 ### Friday, 5:40 pm
 frame: forgotten
@@ -76,7 +76,7 @@ The tabs, in the order the console shows them:
 
 | Tab | What it answers |
 | --- | --- |
-| **Overview** | Not available yet. It arrives with the AI overview; today, Inventory and Findings show your AI and its findings |
+| **Overview** | Not available yet (planned). Today, Inventory and Findings show your AI and its findings |
 | **Inventory** | What AI do we run, and where? Services and models, agents, libraries (AI-BOM) and AI in SaaS |
 | **Applications** | Which AI belongs together? Assets grouped by the \`onam-ai-app\` tag, links between AI assets, and code |
 | **Findings** | What should we fix first? Grouped by category, with views for fix first, new this week and internet exposed |
@@ -96,7 +96,7 @@ It checks how your AI is set up and what it can reach. It does not test your mod
 + Finds self-hosted AI on your Kubernetes clusters, and flags it when it is **exposed without authentication**
 + Lists the AI components in your software from your SBOMs: the **AI bill of materials**
 + Finds **AI apps in your connected SaaS**, such as Microsoft Copilot or Claude in Google Workspace
-+ Checks that **Bedrock Guardrails**, **Azure content filters** or **Google Model Armor** are attached
++ Checks that a provider guardrail is attached **on all three clouds**: Bedrock Guardrails, Azure content filters or Google Model Armor
 + Shows which data stores an AI service reads, and flags **AI agents with admin or wide write access**
 + Maps AI findings to **OWASP Top 10 for LLM 2025**, **NIST AI RMF**, **ISO/IEC 42001** and the **EU AI Act**
 - Send prompts to your models, red-team them, or measure what a guardrail blocks
@@ -118,8 +118,8 @@ One hop each: the identity it runs as and the stores it reads.
 Partly automated, you attest, and why a mapping is not coverage.
 ### Does it cover our clouds? | /docs/ai-security/coverage
 Pick a cloud and see exactly what is checked.
-### Run a free audit scan | /audit-scan | cta
-One read-only scan of your estate, no commitment.
+### Request a demo | /request-demo?product=security | cta
+See AI Security on your own clouds, with someone who builds it.
 :::
 
 ## Questions customers ask
@@ -133,6 +133,14 @@ Not by default. AI Security works from configuration and metadata: what the clou
 No extra component. It runs in the posture scan of the cloud accounts and Kubernetes clusters you have already connected. If a cluster is not connected yet, follow [Connect Kubernetes clusters](/docs/onboarding/kubernetes).
 ### Which clouds are covered?
 AWS, Azure and Google Cloud for managed AI services, plus self-hosted AI on any connected Kubernetes cluster. Oracle Cloud, Alibaba Cloud and IBM Cloud AI services are not covered. See [Coverage by cloud](/docs/ai-security/coverage).
+### We already have a CNAPP with AI-SPM. Why look at Onam?
+Ask it four questions: does it check that a guardrail is attached on AWS, Azure **and** Google Cloud; does it find a model server someone runs on your own Kubernetes cluster; does it list the AI libraries and MCP SDKs in your code; and does it show which data each AI service reads and which AI agents hold admin rights? Onam does all four, read-only, in the posture scan you already run. Where it stops is written on every page.
+### Our clusters are private. Can Onam still see self-hosted AI?
+Only if Onam can reach the cluster's API server, for example a public endpoint restricted to Onam's egress IPs. Nothing is installed in the cluster. See [Connect Kubernetes clusters](/docs/onboarding/kubernetes).
+### Will Onam find staff using AI tools on their laptops?
+No. Onam sees AI in the cloud accounts, clusters, code and SaaS platforms you connect. AI apps used through a connected SaaS platform appear under **AI in SaaS**; a tool running only on a laptop does not.
+### Where is our data hosted?
+In the region you choose, such as the US, Europe or India, to meet your compliance requirements.
 ### Does this make us compliant with the EU AI Act?
 No tool does that on its own. AI findings map to EU AI Act controls, which gives you evidence for the controls a configuration check can speak to. Most of the Act is about how you build, document and govern AI, which you evidence yourself. See [AI compliance mappings](/docs/ai-security/compliance).
 :::
@@ -147,8 +155,8 @@ No tool does that on its own. AI findings map to EU AI Act controls, which gives
     body: `
 :::hero light
 eyebrow: How does Onam find AI we didn't list?
-title: From three places you've already connected: your clouds, your clusters and your SBOMs.
-lead: Managed AI services come from read-only cloud roles, self-hosted AI from a workload classifier, and AI components from the software bills of materials Onam already holds.
+title: From four places you've already connected: your clouds, your clusters, your SBOMs and your SaaS.
+lead: Managed AI services come from read-only cloud roles, self-hosted AI from a workload classifier, AI components from the SBOMs Onam already holds, and AI apps from your connected SaaS.
 chips: Cloud roles · Read-only ServiceAccount · SBOMs · Connected SaaS
 :::
 
@@ -167,7 +175,7 @@ From the workload itself. A classifier reads the images and custom resources in 
 **Serving platform** (custom resource). Also recognised: KubeRay, NVIDIA NIM and Seldon.
 :::
 
-Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Nothing is installed in the cluster and no object is changed.
+Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Beyond that ServiceAccount, nothing is installed in the cluster and no object is changed. The cluster's API server must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs.
 
 ## Which managed AI services are discovered?
 
@@ -269,7 +277,7 @@ Whether a provider guardrail is attached, and whether a self-hosted AI server ca
 
 ## Why is an open model server a big deal?
 
-Because it is started for a test with authentication off. Behind a public load balancer or ingress, that is an open model API, an open notebook that can run code, or an open copy of your embeddings.
+Because a server started for a test can be left running with no login in front of it. Behind a public load balancer or ingress, that is an open model API, an open notebook that can run code, or an open copy of your embeddings.
 
 The scan recognises the workload as AI (see [Discovery](/docs/ai-security/discovery-and-bom)), joins it with the network exposure found in the same scan, and raises **Self-hosted AI exposed without authentication**.
 
@@ -343,8 +351,8 @@ No. Onam reports; the fix is yours to make.
 :::hero light
 eyebrow: What data can our AI read, and what can our AI agents do?
 title: A model is only as risky as what it can reach.
-lead: Onam links each AI service to the identity it runs as and the data stores it reads, so an AI finding carries its blast radius with it.
-chips: CIEM · DSPM · One hop each
+lead: Onam links each AI service to the identity it runs as and the data stores it reads, so you can see what an AI finding puts at risk.
+chips: CIEM · DSPM
 :::
 
 ## How do I see what one AI agent can reach?
@@ -440,23 +448,23 @@ No. AI Security links an AI service to a store from the service's configuration.
 eyebrow: Which AI frameworks do our findings map to, and what does "mapped" mean?
 title: A mapping is evidence for some controls, not a verdict on the framework.
 lead: AI findings are linked to the framework controls they speak to. The Compliance tab shows each control as partly automated or you attest, so the gap is never hidden.
-chips: OWASP LLM · NIST AI RMF · ISO/IEC 42001 · EU AI Act · MITRE ATLAS · OWASP Agentic
+chips: OWASP LLM · NIST AI RMF · ISO/IEC 42001 · EU AI Act
 :::
 
 ## What do "partly automated" and "you attest" mean?
 
-**Partly automated:** at least one Onam rule checks the control, so failing resources show against it. **You attest:** no rule checks it, so you record the evidence.
+**Automated:** a rule checks the whole control. **Partly automated:** at least one Onam rule checks part of the control, so failing resources show against it. **You attest:** no rule checks it, so you record the evidence.
 
 The pass rate counts automated controls only. Controls you attest count once you attest them. Pick a framework:
 
 :::switchboard Six AI frameworks in Onam
-### OWASP Top 10 for LLM 2025 | partial
+### OWASP Top 10 for LLM 2025 | auto
 Some controls are **partly automated**: findings such as a missing guardrail or sensitive data reaching AI show against them. The rest you attest.
-### NIST AI RMF | partial
+### NIST AI RMF | auto
 Some controls are **partly automated**. Most of the framework is about governance and risk processes, which you attest.
-### ISO/IEC 42001 | partial
+### ISO/IEC 42001 | auto
 Some controls are **partly automated**. It is a management-system standard: most controls are your policies and records, which you attest. Onam does not certify you.
-### EU AI Act | partial
+### EU AI Act | auto
 Some controls are **partly automated**. Most obligations (risk management, documentation, human oversight) are evidenced by your own processes.
 ### MITRE ATLAS | info
 **Used for the threat model.** ATLAS catalogues how AI systems are attacked. Onam uses it as a threat model, not as a pass/fail framework, so it has no pass rate.
@@ -504,8 +512,8 @@ The AI estate map and the 2-minute story.
 No. It means the controls a configuration check can speak to show no failing findings. Most obligations in the Act, such as risk management, data governance, technical documentation and human oversight, are evidenced by your own processes.
 ### Our auditor asked for ISO/IEC 42001 evidence. What can we hand over?
 The Compliance view for ISO/IEC 42001 with the linked findings and their status, your attestations, and the AI inventory as a record of which AI systems you run. Pair it with your own management-system documents.
-### Why does a framework show 0% at first?
-The pass rate counts automated controls only. Partly automated controls show a result once their rules have run, and controls you attest count once you attest them.
+### Why does a framework show 0%?
+The pass rate counts fully automated controls and the controls you have attested. The AI frameworks have no fully automated controls today, so they show 0% until you attest. Read each partly automated control's result instead: it shows pass or fail from its linked rules.
 :::
 `,
   },
@@ -578,8 +586,8 @@ A product can show **Connected** with no active checks: Onam can see it but does
 :::next Keep going
 ### Back to the overview | /docs/ai-security/overview
 The AI estate map and the 2-minute story.
-### Run a free audit scan | /audit-scan | cta
-One read-only scan of your estate, no commitment.
+### Request a demo | /request-demo?product=security | cta
+See AI Security on your own clouds, with someone who builds it.
 :::
 
 ## Questions customers ask

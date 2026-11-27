@@ -675,23 +675,33 @@ export const platformPages: Record<string, ProductPageData> = {
   },
 
   "ai-security": {
-    demoClips: ["scan", "dashboard"],
+    docsHref: "/docs/ai-security/overview",
+    // The recreated console demo shows generic CSPM, not AI; the AI docs carry the real redacted screens.
+    hideDemo: true,
+    stats: [
+      { v: "3", l: "clouds for managed AI: AWS, Azure, Google Cloud" },
+      { v: "K8s", l: "self-hosted AI: inventory and exposure" },
+      { v: "4", l: "AI frameworks mapped" },
+      { v: "0", l: "agents installed: read-only" },
+    ],
     icon: Cpu,
     iconColor: violet400,
     label: "AI Security",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
-    headline: "AI security posture for SageMaker, Bedrock, Azure OpenAI, Google Agent Platform (formerly Vertex AI) and the AI you run yourself on Kubernetes.",
+    headline: "AI security posture for the AI in your clouds, and the AI you run yourself on Kubernetes.",
     metaDescription:
       "AI security posture (AI-SPM): one AI inventory and AI bill of materials, guardrail presence, exposed self-hosted AI, AI-to-data links and AI agent identities, on AWS, Azure, Google Cloud and Kubernetes.",
-    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud, and model servers, notebooks and vector databases on your own Kubernetes clusters: AI has its own security surface, and standard CSPM rules don't look at it. Onam finds the AI in your estate and checks how each piece is set up.",
+    sub: "SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud, and model servers, notebooks and vector databases on your own Kubernetes clusters: AI has its own settings, identities and data paths. Onam finds the AI in your estate and checks how each piece is set up, read-only and with no agent.",
+    // Source: AWS SageMaker docs, "Connect a notebook instance in a VPC to external resources" — without a VPC,
+    // direct internet access is enabled by default (accessed 27 Nov 2026).
     painPoint:
-      "A data scientist spins up a SageMaker endpoint to test a model. It's public by default, the notebook has a full-admin execution role attached, and training data is being pulled from a bucket the security team has never seen. Multiply that by every experimental model in your organisation. Traditional CSPM has no rule for it, so nobody is watching.",
+      "A data scientist starts a SageMaker notebook to test a model. Unless it is placed in a VPC, it has direct internet access by default; its execution role often holds far more rights than the test needs; and its training data comes from a bucket the security team has never reviewed. Multiply that by every experiment in your organisation.",
     mechanism: [
       "Onam finds AI-specific resources through read-only APIs: on AWS, SageMaker endpoints, notebooks, training jobs, Bedrock and model artifacts; on Azure, Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces; on Google Cloud, Vertex AI endpoints, datasets and Workbench instances.",
       "In each connected Kubernetes cluster, a classifier recognises self-hosted AI (model servers such as Ollama, vLLM and LiteLLM, Jupyter and MLflow, vector databases such as Qdrant and Milvus, and KServe, KubeRay, NVIDIA NIM and Seldon resources), adds it to the inventory and checks whether it is exposed without authentication. Clusters are read through a read-only ServiceAccount.",
       "An AI bill of materials picks the AI libraries, model servers and MCP SDKs out of the SBOMs Onam already builds for your code and images.",
       "Cloud AI resources are evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events. Onam also checks that a provider guardrail (Bedrock Guardrails, Azure content filters or Google Model Armor) is attached to your models, deployments and agents.",
-      "Each AI service is joined to the data stores it reads and to the identity it runs as. AI execution identities are marked as AI agents in CIEM, with findings for admin or wide write access,, and AI workloads show their identity's risk where Onam can resolve the identity.",
+      "Each AI service is joined to the data stores it reads and to the identity it runs as. AI execution identities are marked as AI agents in CIEM, with findings for admin or wide write access, and AI workloads show their identity's risk where Onam can resolve the identity.",
       "AI findings land in the same findings queue as the rest of the platform, and in an AI Security area of the console with Inventory, Applications, Findings, Threats, Compliance, Coverage and Settings tabs (the AI Overview tab is not available yet). Onam checks configuration and does not attack-test models. It reads prompt text only if an admin turns on prompt-text detection, which is off by default.",
     ],
     whatYouGet: [
@@ -701,7 +711,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Guardrail presence on models, deployments and agents: Bedrock Guardrails, Azure content filters, Google Model Armor",
       "Self-hosted model servers, notebooks and vector databases exposed without authentication",
       "AI-to-data links: which data stores each AI service reads",
-      "AI agents as identities, with admin and wide-write findings, and identity risk on every AI workload",
+      "AI agents as identities, with admin and wide-write findings, and identity risk on AI workloads where Onam can resolve the identity",
       "SageMaker endpoint access control: public vs VPC-only",
       "Bedrock model invocation audit",
       "Training job isolation (VPC + security groups)",
@@ -719,7 +729,7 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "Why does AI security need a separate engine if I already have CSPM?",
-        a: "AI services have configuration surfaces standard CSPM rules do not cover: network mode of endpoints, execution role scoping, artifact encryption, invocation logging, guardrails. AI Security applies AI-native rules, finds the AI teams run themselves, and puts the findings in the same queue as everything else. AI services are not drawn onto attack paths yet.",
+        a: "AI services add settings that matter only for AI: network mode of endpoints, execution role scoping, artifact encryption, invocation logging, guardrails. AI Security reads them as AI, applies AI-specific rules, finds the AI teams run themselves, and puts the findings in the same queue as everything else. AI services are not drawn onto attack paths yet.",
       },
       {
         q: "What about Azure and Google Cloud AI services?",

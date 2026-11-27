@@ -7,7 +7,7 @@ import { CheckCircle2, Circle, AlertTriangle } from "@/components/site/icons";
  * Amazon SageMaker and Amazon Bedrock …          (markdown body)
  * ### Oracle Cloud | no
  * Not covered today.
- * ### Kubernetes | partial
+ * ### Kubernetes | partial          (or `auto` for "Partly automated")
  * …
  * :::
  *
@@ -15,11 +15,12 @@ import { CheckCircle2, Circle, AlertTriangle } from "@/components/site/icons";
  * no) always come with an icon and a word, never colour alone. Every panel is in the server
  * HTML; inactive panels are visually hidden, not removed, so crawlers read all of them.
  */
-export type SwitchItem = { label: string; state: "yes" | "partial" | "no" | "info"; body: ReactNode };
+export type SwitchItem = { label: string; state: "yes" | "partial" | "auto" | "no" | "info"; body: ReactNode };
 
 const STATE = {
   yes: { Icon: CheckCircle2, word: "Covered", cls: "text-onam-green" },
   partial: { Icon: AlertTriangle, word: "Partly covered", cls: "text-[#B45309]" },
+  auto: { Icon: AlertTriangle, word: "Partly automated", cls: "text-[#B45309]" },
   no: { Icon: Circle, word: "Not covered today", cls: "text-muted-500" },
   info: { Icon: CheckCircle2, word: "", cls: "text-brand-600" },
 } as const;
