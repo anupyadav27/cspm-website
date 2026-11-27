@@ -403,7 +403,7 @@ Official clients are in development. Until they ship, generate a client from the
     title: "Finding Schema",
     breadcrumb: "Reference / Finding Schema",
     body: `
-Every engine on the platform — CSPM checks, CIEM, vulnerability, data security, CDR, and the rest of the 32 engines — emits findings normalized to one shared data model. This reference documents that model: the base finding item, the detail response with its compliance and remediation blocks, the list envelopes, the status lifecycle, and the severity scale. If you consume findings through the [REST API](/docs/reference/api) or a [webhook integration](/docs/reference/integration-catalog), this is the contract.
+Every engine on the platform — CSPM checks, CIEM, vulnerability, data security, CDR, and the rest of the 30 engines — emits findings normalized to one shared data model. This reference documents that model: the base finding item, the detail response with its compliance and remediation blocks, the list envelopes, the status lifecycle, and the severity scale. If you consume findings through the [REST API](/docs/reference/api) or a [webhook integration](/docs/reference/integration-catalog), this is the contract.
 
 ![The findings view in the Onam console (demo account)](/screenshots/screenshot-findings.png)
 

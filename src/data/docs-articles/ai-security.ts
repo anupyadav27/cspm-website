@@ -1,105 +1,124 @@
 import type { DocArticle } from "./types";
 
 /**
- * AI Security (AI-SPM) documentation section (/docs/ai-security/*).
+ * AI Security (AI-SPM) documentation section (/docs/ai-security/*), visual format.
  *
- * Ground truth, and nothing else:
- *  - research_notes/Product update Nov 2026/posture_engines.md, section 1 (AI-SPM).
- *    Only items marked **live** are described as working: A1 (self-hosted AI on
- *    Kubernetes, inventory and exposure only), A2 (AI bill of materials), A3
- *    (provider guardrail presence), A4 (AI-to-data links), A5 (AI agents as
- *    identities), A6 (identity risk on AI workloads), A7 (AI Security console area),
- *    A13 (AI framework tiers). Items that are switched off or "not applied" (A8 pipeline
- *    builder, A9 AI path sync, A10 code-finding join, A11/A12/A15 rules and extra
- *    discovery reads, A14 OpenAI connector) appear only in :::limits blocks or not at all.
- *  - marketing/facts/limits.yaml `ai_security_aws_only` (the per-cloud resource list).
- *  - marketing/facts/product.yaml `capabilities.ai_spm_live_items` and
- *    `capabilities.ai_compliance_frameworks` — cleared by the owner on 2026-11-26.
- *
- * No AI rule counts: none is cleared (posture_engines.md A11). Do not add one.
- * The first paragraph of each body becomes the page's meta description.
+ * Design: research_notes/Product update Nov 2026/ai_security_design_direction.md (estate map,
+ * Question pages, real annotated screens, ledger, next questions).
+ * Console truth: ai_security_console_validation.md (captured 26 Nov 2026; M1–M29 applied):
+ *  - Tab order is the console's: Overview, Inventory, Applications, Findings, Threats, Incidents,
+ *    Compliance, Coverage, Settings. Overview is "not available yet"; Incidents is not described.
+ *  - Prompt text: off by default; an admin can turn on prompt-text detection (owner, 27 Nov 2026).
+ *  - Compliance uses the console's words: partly automated / you attest / threat model / not scored yet.
+ *  - The Coverage tab's catalogue counts may be shown (owner, 27 Nov 2026), as an example workspace.
+ *  - No shadow AI, no AI on attack paths, no OCI/Alibaba/IBM/OpenAI as covered, no AI rule counts.
+ * Facts: marketing/facts/product.yaml capabilities.ai_spm_live_items, ai_compliance_frameworks;
+ * limits.yaml ai_security_aws_only. Screens: public/screens/ai-security/ (redacted, Onam's internal
+ * test workspace). The illustrative estate lives in src/data/explainers/ai-estate.ts.
  */
+
+const CAPTURED = "Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.";
+
 export const articles: DocArticle[] = [
   {
     slug: "ai-security/overview",
     title: "AI Security (AI-SPM) overview",
     breadcrumb: "AI Security / Overview",
+    description:
+      "AI Security finds the AI services, model servers and agents in the clouds and clusters you've connected, read-only, and checks each one in your normal posture scan.",
     body: `
-AI security posture management in Onam Security: find the AI services and self-hosted AI in your estate, and check how each one is set up.
-
-:::card In 60 seconds
-What it does: Finds the AI in your estate (managed AI services on AWS, Azure and Google Cloud, self-hosted model servers, notebooks and vector databases on Kubernetes, and the AI components in your software) and checks how each one is set up.
-What it needs from you: The cloud accounts and Kubernetes clusters you have already connected. AI Security runs inside the same posture scan, through read-only cloud roles and a read-only Kubernetes ServiceAccount.
-What you get: One AI inventory and AI bill of materials, plus findings for missing guardrails, AI servers exposed without authentication, risky AI configuration and over-privileged AI agents, mapped to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act.
+:::hero night
+pill: AI Security · AI-SPM
+title: Find every AI you run, see what's exposed and what it can reach.
+lead: AI Security finds the AI services, model servers and agents in the clouds and clusters you've already connected, read-only, and checks each one in your normal posture scan.
+chips: AWS · Azure · Google Cloud · Kubernetes
+cta: Run a free audit scan | /audit-scan
+secondary: See the 2-minute story | #what-happens-to-the-model-server-someone-forgot
+visual: lensmap ai-estate
 :::
 
-Teams adopt AI faster than security can review it. A model endpoint goes up for a test, a notebook gets a powerful execution role, someone runs a model server on a spare GPU node. AI Security gives that estate the same treatment the rest of your cloud gets: an inventory, checks every scan, and findings in the one queue.
+## What happens to the model server someone forgot?
 
-![How AI Security works: AI sources, read-only discovery, one AI inventory, checks, findings mapped to AI frameworks](/diagrams/ai-security-overview.svg)
+Onam finds it in the next posture scan, recognises it as AI, and flags it if anyone can reach it without a login.
 
-## How it works
-
-:::flow How AI security posture works, from AI services to findings
-Cloud AI services | SageMaker, Bedrock, Azure AI services, Azure OpenAI, Azure ML, Vertex AI || Self-hosted AI on Kubernetes | Ollama, vLLM, Jupyter, vector databases, KServe
-Read-only discovery | Cloud roles, a read-only ServiceAccount and your SBOMs
-AI inventory and AI BOM | Every AI resource and AI component in one list
-Checks | Guardrails, exposure, configuration, data links, agent identities
-Findings | In your queue, mapped to OWASP LLM, NIST AI RMF, ISO/IEC 42001 and the EU AI Act
+:::story A Tuesday test
+end: Read: guardrail and exposure checks | /docs/ai-security/guardrails-and-exposure
+### Friday, 5:40 pm
+frame: forgotten
+Someone starts a model server on a spare GPU node to test something. It's still running.
+### Loophole moves in
+frame: loophole
+**Loophole's doing:** anyone who finds the server can talk to it. There is no login in front.
+### The next scan
+frame: stamp
+Onam recognises it as Ollama, checks its exposure, and raises **Exposed without authentication** in your usual queue.
+### Monday
+frame: closed
+Close it the usual way. And the AI nobody listed is now in your inventory.
 :::
 
-| Stage | What happens | Read more |
-| --- | --- | --- |
-| 1. Sources | Managed AI services on AWS, Azure and Google Cloud; self-hosted AI on your Kubernetes clusters; AI components inside your software | [Coverage by cloud](/docs/ai-security/coverage) |
-| 2. Discover | The posture scan records each AI resource and its settings. A classifier recognises AI workloads in your clusters. The AI bill of materials is read from your SBOMs | [Discovery and AI bill of materials](/docs/ai-security/discovery-and-bom) |
-| 3. Inventory | One list of models, endpoints, deployments, agents, notebooks, model servers and vector databases | [Discovery and AI bill of materials](/docs/ai-security/discovery-and-bom) |
-| 4. Check | Guardrail presence, exposure without authentication, configuration, which data each AI service reads, and what each AI identity can do | [Guardrail and exposure checks](/docs/ai-security/guardrails-and-exposure), [AI and your data](/docs/ai-security/data-and-agents) |
-| 5. Findings | In the same queue and exports as every other finding, mapped to AI frameworks | [AI compliance mappings](/docs/ai-security/compliance) |
+## Where do I see this in Onam?
 
-## What AI Security covers today
+AI Security has its own area in the console. **Inventory** lists every AI resource the last scan found, in four views.
 
-:::matrix What runs today, by AI source
-| Capability | Cloud AI services | Self-hosted AI on Kubernetes | Your software |
-| --- | --- | --- | --- |
-| Inventory | yes (AWS, Azure, Google Cloud) | yes (model servers, notebooks, vector databases) | yes (AI bill of materials) |
-| Guardrail presence | yes (Bedrock Guardrails, Azure content filters, Model Armor) | — | — |
-| Exposed without authentication | — | yes | — |
-| Configuration checks | yes | planned (written, not yet switched on) | — |
-| AI identities and their access | yes | — | — |
-| Other clouds (OCI, Alibaba Cloud, IBM Cloud) | no | — | — |
+:::screen /screens/ai-security/ais-inventory-services-models.webp
+url: app.onamsecurity.com/ui/ai-security?tab=inventory
+alt: The AI Security Inventory tab, Services and models view: a table of AI notebooks, endpoints, models and guardrails on AWS and Azure, with account, region, kind, service and model columns.
+size: 1440x1004
+hidpi: yes
+caption: ${CAPTURED}
+1 @ 57,26.4: Four views of your AI: **services and models**, **agents**, **libraries (AI-BOM)** from your SBOMs, and **AI in SaaS**.
+2 @ 76,40.2: Each row is typed: notebook, endpoint, model or guardrail, with its service and model.
+3 @ 3,74.9: AI on every connected cloud in one list, with the account and region each runs in.
 :::
 
-A dash means the check does not apply to that source.
+The tabs, in the order the console shows them:
 
-## Find it in the console
+| Tab | What it answers |
+| --- | --- |
+| **Overview** | Not available yet. It arrives with the AI overview; today, Inventory and Findings show your AI and its findings |
+| **Inventory** | What AI do we run, and where? Services and models, agents, libraries (AI-BOM) and AI in SaaS |
+| **Applications** | Which AI belongs together? Assets grouped by the \`onam-ai-app\` tag, links between AI assets, and code |
+| **Findings** | What should we fix first? Grouped by category, with views for fix first, new this week and internet exposed |
+| **Threats** | Is anything suspicious happening on our AI? Detections on AI assets, from Onam threat detection |
+| **Compliance** | Where do we stand on AI frameworks? By framework or by resource |
+| **Coverage** | What can Onam see, and what can't it? Per AI product, with what to do about the gaps |
+| **Settings** | Prompt-text detection (off by default), AI detectors, the tool limit per AI agent and the application tag |
 
-:::steps A first tour of the AI Security area
-### Open AI Security
-AI Security has its own area in the console menu. Its tabs are **Overview**, **Inventory**, **Applications**, **Findings**, **Compliance**, **Coverage**, **Threats**, **Incidents** and **Settings**.
-### Read the inventory
-**Inventory** lists every AI resource the last scan found, from cloud AI services and from your Kubernetes clusters. Start here to answer "what AI do we run, and where?"
-### Look at your AI applications
-**Applications** lists your AI applications next to the raw inventory.
-### Work the findings
-**Findings** holds the AI findings: missing guardrails, AI servers exposed without authentication, risky configuration, AI agents with admin or wide write access. They are the same findings you see in the main queue.
-### Check the frameworks
-**Compliance** shows AI findings against OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act. The remaining tabs (Coverage, Threats, Incidents and Settings) sit alongside.
+Every AI finding is a normal Onam finding, so it also flows into [compliance reports](/docs/compliance/frameworks) and exports.
+
+## What does it check, and what doesn't it?
+
+It checks how your AI is set up and what it can reach. It does not test your models or change anything.
+
+:::ledger
++ Finds managed AI services on AWS, Azure and Google Cloud
++ Finds self-hosted AI on your Kubernetes clusters, and flags it when it is **exposed without authentication**
++ Lists the AI components in your software from your SBOMs: the **AI bill of materials**
++ Checks that **Bedrock Guardrails**, **Azure content filters** or **Google Model Armor** are attached
++ Shows which data stores an AI service reads, and flags **AI agents with admin or wide write access**
++ Maps AI findings to **OWASP Top 10 for LLM 2025**, **NIST AI RMF**, **ISO/IEC 42001** and the **EU AI Act**
+- Send prompts to your models, red-team them, or measure what a guardrail blocks
+- Read prompt or answer text, unless an admin turns on **prompt-text detection** in Settings
+- Run configuration rules on self-hosted AI (they are written, not yet switched on)
+- Draw AI findings on attack paths (not switched on yet)
+- Cover AI services on Oracle Cloud, Alibaba Cloud or IBM Cloud, or connect to the OpenAI platform
+- Make you compliant: a framework mapping is evidence, not full coverage
 :::
 
-## How it connects to the rest of Onam
-
-| Engine | What AI Security takes | What it gives back |
-| --- | --- | --- |
-| [CIEM](/docs/ciem/overview) | The identity behind each AI workload | AI execution identities marked as AI agents, with admin and wide-write findings |
-| [DSPM](/docs/dspm/overview) | The data stores in your estate | AI-to-data links: which stores each AI service reads |
-| [Compliance](/docs/compliance/frameworks) | — | AI findings mapped to AI frameworks |
-| [Code security](/docs/code-security/sca-sbom) | SBOMs | The AI bill of materials |
-
-:::limits Honest limits
-- **AI Security checks configuration.** It does not send prompts to your models, red-team them or measure how well a guardrail blocks content.
-- **AI on attack paths is not switched on yet.** AI findings sit in the findings queue; they are not yet drawn onto attack paths.
-- **Self-hosted AI on Kubernetes is inventory and exposure only today.** Configuration rules for it are written and not yet switched on.
-- **Other clouds are not covered.** AI services on Oracle Cloud, Alibaba Cloud and IBM Cloud are not checked. A connector for the OpenAI platform is not available.
-- **A framework mapping is not full coverage.** See [AI compliance mappings](/docs/ai-security/compliance).
+:::next Where do you want to go next?
+### How does Onam find AI we didn't list? | /docs/ai-security/discovery-and-bom
+Cloud roles, a read-only ServiceAccount, and the SBOMs you already have.
+### Which of our AI has no guardrail, and is any of it open? | /docs/ai-security/guardrails-and-exposure
+Guardrail presence on three clouds; self-hosted servers with no login.
+### What data can our AI read, and what can our agents do? | /docs/ai-security/data-and-agents
+One hop each: the identity it runs as and the stores it reads.
+### What does "mapped to the EU AI Act" actually mean? | /docs/ai-security/compliance
+Partly automated, you attest, and why a mapping is not coverage.
+### Does it cover our clouds? | /docs/ai-security/coverage
+Pick a cloud and see exactly what is checked.
+### Run a free audit scan | /audit-scan | cta
+One read-only scan of your estate, no commitment.
 :::
 
 ## Questions customers ask
@@ -108,7 +127,7 @@ AI Security has its own area in the console menu. Its tabs are **Overview**, **I
 ### We already use Bedrock Guardrails. What does Onam add?
 Bedrock Guardrails filters content on the models you attach it to. Onam checks **whether** a guardrail is attached, across models, deployments and agents, and does the same for Azure content filters and Google Model Armor, so one view answers "which of our AI has no guardrail?" on all three clouds. It also covers what guardrails do not: AI servers exposed without authentication, the identity each AI service runs as, which data stores it reads, and the mapping to AI frameworks. Onam does not replace the guardrail or test its policy.
 ### Does Onam read our prompts or model data?
-No. AI Security works from configuration and metadata: what the cloud APIs report about each AI resource, what the Kubernetes API reports about each workload, and the package lists in your SBOMs. It does not call your models and does not read prompts, completions, training data or model weights. (If you separately deploy Onam's DSPM scanner, that scanner classifies samples of the data stores you point it at. See [DSPM classification](/docs/dspm/classification).)
+Not by default. AI Security works from configuration and metadata: what the cloud APIs report about each AI resource, what the Kubernetes API reports about each workload, and the package lists in your SBOMs. Reading prompt and answer text, to find prompt injection, jailbreaks and sensitive answers, is a setting called **prompt-text detection**. It is off unless an admin turns it on. Onam never reads training data or model weights.
 ### Do I need to deploy anything for AI Security?
 No extra component. It runs in the posture scan of the cloud accounts and Kubernetes clusters you have already connected. If a cluster is not connected yet, follow [Connect Kubernetes clusters](/docs/onboarding/kubernetes).
 ### Which clouds are covered?
@@ -122,63 +141,80 @@ No tool does that on its own. AI findings map to EU AI Act controls, which gives
     slug: "ai-security/discovery-and-bom",
     title: "Discovery and AI bill of materials",
     breadcrumb: "AI Security / Discovery and AI bill of materials",
+    description:
+      "How Onam finds AI: managed AI services through read-only cloud roles, self-hosted AI on Kubernetes through a workload classifier, and AI components from your SBOMs.",
     body: `
-How Onam finds AI: managed AI services through read-only cloud roles, self-hosted AI on Kubernetes through a workload classifier, and AI components from SBOMs.
-
-You cannot secure AI you do not know about. Discovery builds one list from three places, each read the way the rest of Onam reads it.
-
-:::flow Three ways AI is discovered, into one inventory
-Cloud AI services | Read-only cloud roles || Kubernetes workloads | Read-only ServiceAccount || SBOMs | Packages in your code and images
-Recognise AI | Resource types, model-server images, custom resources, AI packages
-AI inventory | Resources, applications and the AI bill of materials
+:::hero light
+eyebrow: How does Onam find AI we didn't list?
+title: From three places you've already connected: your clouds, your clusters and your SBOMs.
+lead: Managed AI services come from read-only cloud roles, self-hosted AI from a workload classifier, and AI components from the software bills of materials Onam already holds.
+chips: Cloud roles · Read-only ServiceAccount · SBOMs
 :::
 
-## Managed AI services
+## How does Onam recognise a self-hosted model server?
 
-The posture scan records each AI resource and its settings through the same read-only cloud roles that feed CSPM. Nothing extra is deployed.
+From the workload itself. A classifier reads the images and custom resources in each connected cluster and labels the common building blocks of self-hosted AI. Pick one:
+
+:::switchboard What the classifier sees, and what it calls it
+### ollama/ollama | info
+**Model server.** Added to the AI inventory and checked for exposure without authentication. Other model servers and gateways recognised the same way: vLLM, Text Generation Inference (TGI), LiteLLM, llama.cpp and LocalAI.
+### qdrant/qdrant | info
+**Vector database.** Your embeddings, which can hold copies of your data. Also recognised: Weaviate, Chroma, Milvus, pgvector, and Redis used as a vector store.
+### jupyter/scipy-notebook | info
+**Notebook.** A notebook that is open to anyone can run code. Also recognised: MLflow.
+### KServe InferenceService | info
+**Serving platform** (custom resource). Also recognised: KubeRay, NVIDIA NIM and Seldon.
+:::
+
+Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Nothing is installed in the cluster and no object is changed.
+
+## Which managed AI services are discovered?
+
+The posture scan records each AI resource and its settings through the same read-only cloud roles that feed CSPM.
 
 | Cloud | What is discovered |
 | --- | --- |
-| AWS | SageMaker and Bedrock |
+| AWS | Amazon SageMaker and Amazon Bedrock |
 | Azure | Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces |
 | Google Cloud | Vertex AI endpoints, datasets and Workbench instances |
 
-## Self-hosted AI on Kubernetes
+:::screen /screens/ai-security/ais-inventory-services-models.webp
+url: app.onamsecurity.com/ui/ai-security?tab=inventory
+alt: The Inventory tab's Services and models view listing SageMaker, Azure OpenAI and Bedrock resources with their kind, service and model.
+size: 1440x1004
+hidpi: yes
+caption: ${CAPTURED}
+1 @ 57,26.4: **Libraries (AI-BOM)** is the AI bill of materials; **AI in SaaS** and **Agents** sit beside it.
+2 @ 76,40.2: The kind column tells a notebook from an endpoint, a model or a guardrail.
+3 @ 3,74.9: Provider, account and region on every row, so you know whose AI it is.
+:::
 
-Many teams run models themselves. A classifier reads the workloads and custom resources in each connected cluster and recognises the common building blocks of self-hosted AI:
+## What is the AI bill of materials?
 
-| Kind | Recognised |
-| --- | --- |
-| Model servers and gateways | Ollama, vLLM, Text Generation Inference (TGI), LiteLLM, llama.cpp, LocalAI |
-| Notebooks and ML tooling | Jupyter, MLflow |
-| Vector databases | Qdrant, Weaviate, Chroma, Milvus, pgvector, Redis used as a vector store |
-| Serving platforms (custom resources) | KServe, KubeRay, NVIDIA NIM, Seldon |
+It is the list of AI software inside your applications, read from the SBOMs Onam builds for your code and images. It answers "which AI software do we ship?" and lives under **Inventory › Libraries (AI-BOM)**.
 
-Each one is added to the AI inventory and checked for exposure without authentication (see [Guardrail and exposure checks](/docs/ai-security/guardrails-and-exposure)). Clusters are read through the read-only ServiceAccount you create in [Connect Kubernetes clusters](/docs/onboarding/kubernetes); nothing is installed in the cluster.
-
-## AI bill of materials
-
-The AI bill of materials (AI BOM) answers "which AI software do we ship?". Onam reads the software bills of materials it already holds for your code and images and picks out the AI components:
-
-- **AI libraries**, the frameworks and SDKs your services import.
-- **Model servers**, the serving software packaged in your images.
-- **MCP SDKs**, the Model Context Protocol libraries that let an application expose tools to an AI agent or call them.
+- **AI libraries:** the frameworks and SDKs your services import.
+- **Model servers:** the serving software packaged in your images.
+- **MCP SDKs:** the Model Context Protocol libraries that let an application expose tools to an AI agent or call them.
 
 Read more about SBOMs in [Dependencies and SBOM](/docs/code-security/sca-sbom).
 
-:::matrix What each discovery source records
-| Source | AI resources | Resource settings | Exposure without auth | AI components |
-| --- | --- | --- | --- | --- |
-| Cloud AI services | yes | yes | — | — |
-| Kubernetes workloads | yes | — | yes | — |
-| SBOMs | — | — | — | yes (libraries, model servers, MCP SDKs) |
+:::ledger
++ Managed AI resources and their settings on AWS, Azure and Google Cloud
++ Self-hosted model servers, notebooks, vector databases and serving platforms on connected clusters
++ AI libraries, model servers and MCP SDKs from your SBOMs
++ Groups AI into applications from the \`onam-ai-app\` tag, links between AI assets, and code
+- Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections, or Bedrock knowledge-base data sources (not discovered yet)
+- AI services on Oracle Cloud, Alibaba Cloud or IBM Cloud
+- The OpenAI platform itself: use of the OpenAI API from your code appears only as a library in the AI BOM
+- AI on a laptop or anywhere outside the accounts and clusters you connected
 :::
 
-:::limits What discovery does not see yet
-- **More Google Cloud, Azure and AWS AI resource kinds are on the way.** Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections and Bedrock knowledge-base data sources are not discovered yet.
-- **AI services on Oracle Cloud, Alibaba Cloud and IBM Cloud are not discovered.**
-- **The OpenAI platform is not connected.** Use of the OpenAI API from your own code shows up only as a library in the AI bill of materials.
-- **AI that runs outside connected accounts and clusters is not seen**, for example a model on a laptop or a SaaS AI tool.
+:::next Keep going
+### Which of our AI has no guardrail, and is any of it open? | /docs/ai-security/guardrails-and-exposure
+What the next scan flags on what discovery found.
+### Does it cover our clouds? | /docs/ai-security/coverage
+Pick a cloud and see exactly what is discovered.
 :::
 
 ## Questions customers ask
@@ -190,8 +226,10 @@ Yes, if the cluster is connected. The classifier recognises Ollama and the other
 No. Discovery uses the read-only ServiceAccount from [Connect Kubernetes clusters](/docs/onboarding/kubernetes). Nothing is installed and no object is changed.
 ### Where does the AI bill of materials come from?
 From the SBOMs Onam builds for your repositories and images. It is a view of those SBOMs filtered to AI libraries, model servers and MCP SDKs, so it is as complete as the code and images you have connected.
-### Can I export AI findings?
-Yes. AI findings sit in the same findings queue and exports as the rest of the platform.
+### How do I group our AI into applications?
+Put the tag \`onam-ai-app=<application name>\` on your AI resources. Onam also groups assets it can link to each other and to code. Onam never adds the tag itself.
+### Can I export the inventory?
+Yes. Inventory, Findings and the other AI tabs export to PDF and Excel or CSV, like the rest of the console.
 :::
 `,
   },
@@ -199,61 +237,82 @@ Yes. AI findings sit in the same findings queue and exports as the rest of the p
     slug: "ai-security/guardrails-and-exposure",
     title: "Guardrail and exposure checks",
     breadcrumb: "AI Security / Guardrail and exposure checks",
+    description:
+      "Which of your models, deployments and agents have no provider guardrail, and which self-hosted AI servers on Kubernetes answer anyone without authentication.",
     body: `
-Which of your models, deployments and agents have no provider guardrail, and which self-hosted AI servers on Kubernetes answer anyone without authentication.
+:::hero light
+eyebrow: Which of our AI has no guardrail, and is any of it open to the internet?
+title: Onam checks both on every scan: guardrail attached, and login in front.
+lead: Missing Bedrock Guardrails, Azure content filters or Google Model Armor, and self-hosted model servers that answer anyone, raise findings in your usual queue.
+chips: Bedrock Guardrails · Azure content filters · Model Armor · Self-hosted on Kubernetes
+:::
 
-Two questions catch most of the early AI risk in a cloud estate: **is a guardrail in front of this model?** and **can anyone reach it?** Onam asks both every scan.
+## What exactly does Onam see?
 
-## Provider guardrail presence
+Whether a provider guardrail is attached, and whether a self-hosted AI server can be reached with no authentication. It does not open the guardrail to test it.
 
-Each cloud offers a managed guardrail that filters what goes into and comes out of a model. Onam checks that one is attached to your models, deployments and agents.
+:::xray
+:::
 
-:::matrix Guardrail presence, by cloud
 | Cloud | Guardrail checked | Checked on |
 | --- | --- | --- |
-| AWS | yes (Amazon Bedrock Guardrails) | Models, deployments and agents |
-| Azure | yes (Azure AI content filters) | Models, deployments and agents |
-| Google Cloud | yes (Google Model Armor) | Models, deployments and agents |
-| Self-hosted on Kubernetes | — | No provider guardrail to check |
+| AWS | Amazon Bedrock Guardrails | Models, deployments and agents |
+| Azure | Azure AI content filters | Models, deployments and agents |
+| Google Cloud | Google Model Armor | Models, deployments and agents |
+| Self-hosted on Kubernetes | No provider guardrail to check | Exposure without authentication instead |
+
+## Why is an open model server a big deal?
+
+Because it is started for a test with authentication off. Behind a public load balancer or ingress, that is an open model API, an open notebook that can run code, or an open copy of your embeddings.
+
+The scan recognises the workload as AI (see [Discovery](/docs/ai-security/discovery-and-bom)), joins it with the network exposure found in the same scan, and raises **Self-hosted AI exposed without authentication**.
+
+## Where do these findings show up?
+
+On the **Findings** tab of AI Security, counted at the top and grouped by category, next to the configuration findings for your cloud AI services.
+
+:::screen /screens/ai-security/ais-findings.webp
+url: app.onamsecurity.com/ui/ai-security?tab=findings
+alt: The AI Security Findings tab: status tabs, four counters for public endpoints, no guardrail, logging off and sensitive data, and findings grouped by category with rule IDs, assets and regions.
+size: 1440x1004
+hidpi: yes
+caption: ${CAPTURED}
+1 @ 41.7,32.6: **No guardrail** counts models and agents without a provider guardrail, at the top of the tab.
+2 @ 22.5,62.3: Findings are grouped by category, each with a rule ID such as AI-AC-005.
+3 @ 51.5,57.9: Each finding names the asset, its AI service and its region.
+4 @ 30,44.4: Views for **fix first**, **new this week** and **internet exposed**.
 :::
 
-A model with no guardrail is a finding. What the guardrail blocks, and how well, is configured and tested in the provider's own console.
+## How do I fix a missing guardrail?
 
-## Self-hosted AI exposed without authentication
-
-Model servers, notebooks and vector databases are often started for a test with authentication switched off. On a cluster with a public load balancer or ingress, that becomes an open model API, an open notebook that can run code, or an open copy of your embeddings.
-
-:::flow From a Kubernetes workload to an exposure finding
-Kubernetes workload | Deployment, StatefulSet or serving custom resource
-Recognised as AI | Ollama, vLLM, Jupyter, Qdrant, KServe and others
-Exposure joined | Network exposure from the same scan
-Finding | Self-hosted AI exposed without authentication
-:::
-
-The list of recognised servers is on [Discovery and AI bill of materials](/docs/ai-security/discovery-and-bom).
-
-## Configuration checks on cloud AI services
-
-AI Security also runs configuration checks on the managed AI resources listed in [Coverage by cloud](/docs/ai-security/coverage). Their findings sit with the guardrail and exposure findings on the **Findings** tab of the AI Security area.
-
-## Walk through a finding
+Attach one in the provider's console; the next scan resolves the finding. Fix the riskiest first:
 
 :::steps Fixing a missing guardrail
 ### Find it
-Open **AI Security** and the **Findings** tab, and find the guardrail findings. Each one names the model, deployment or agent it applies to.
+Open **AI Security › Findings** and use the **Fix first** view. Each guardrail finding names the model, deployment or agent.
 ### Weigh it
-Look at the identity risk shown on the AI workload and at which data stores it reads (its AI-to-data links). A model with a powerful identity that reads sensitive data and has no guardrail comes first.
+Look at the identity the AI runs as and which data stores it reads ([AI and your data](/docs/ai-security/data-and-agents)). A model with a powerful identity that reads sensitive data and has no guardrail comes first.
 ### Attach a guardrail
-In the provider's console, attach a Bedrock guardrail, an Azure content filter or a Model Armor template. Onam does not change your AI configuration for you.
+In the provider's console, attach a Bedrock guardrail, an Azure content filter or a Model Armor template. Onam does not change your AI configuration.
 ### Confirm on the next scan
 The next scan sees the guardrail and the finding is resolved.
 :::
 
-:::limits Honest limits
-- **Presence, not quality.** Onam checks that a guardrail is attached. It does not test prompts against it or judge its policy.
-- **No model testing.** Onam does not send prompts to your models, red-team them or scan model weights.
-- **Self-hosted AI: exposure only.** Configuration rules for self-hosted AI on Kubernetes are written and not yet switched on.
-- **Onam does not change anything.** Attaching a guardrail or closing an exposed service is your change.
+:::ledger
++ Guardrail attached or not, on every model, deployment and agent, every scan
++ Self-hosted AI exposed without authentication
++ Configuration findings on cloud AI services, such as public endpoints and logging off
+- Test prompts against a guardrail or judge its policy
+- Send prompts to your models, red-team them or scan model weights
+- Run configuration rules on self-hosted AI (written, not yet switched on)
+- Change anything: attaching a guardrail or closing an exposed service is your change
+:::
+
+:::next Keep going
+### What data can our AI read, and what can our agents do? | /docs/ai-security/data-and-agents
+How to tell which missing guardrail matters most.
+### What does "mapped to the EU AI Act" mean? | /docs/ai-security/compliance
+How these findings become framework evidence.
 :::
 
 ## Questions customers ask
@@ -272,46 +331,72 @@ No. Onam reports; the fix is yours to make.
     slug: "ai-security/data-and-agents",
     title: "AI and your data, and AI agents as identities",
     breadcrumb: "AI Security / AI and your data, AI agents as identities",
+    description:
+      "Which data stores each AI service reads, and what the identity behind each AI workload or agent is allowed to do.",
     body: `
-Which data stores each AI service reads, and what the identity behind each AI workload or agent is allowed to do.
-
-A model is only as risky as what it can reach. Onam joins every AI resource to the data it reads and to the identity it runs as, so an AI finding carries its blast radius with it.
-
-:::flow What an AI workload can reach
-AI service or agent | Bedrock, SageMaker, Azure AI, Vertex AI
-Its identity | Execution role or service identity, marked as an AI agent
-What it is allowed to do | Admin or wide write access is a finding
-Data it reads | AI-to-data links to your data stores
+:::hero light
+eyebrow: What data can our AI read, and what can our AI agents do?
+title: A model is only as risky as what it can reach.
+lead: Onam links each AI service to the identity it runs as and the data stores it reads, so an AI finding carries its blast radius with it.
+chips: CIEM · DSPM · One hop each
 :::
 
-## AI-to-data links
+## How do I see what one AI agent can reach?
 
-For each AI service, Onam records which data stores it reads, as a link between the AI resource and the store. [DSPM](/docs/dspm/overview) labels the same stores, so a link from an AI service to a store labelled as holding personal or other sensitive data tells you that this AI is reading sensitive data.
+Pick it, and look both ways: the role it runs as on one side, the stores it reads on the other.
 
-The link records **that** an AI service uses a store. It does not read the data.
+:::rings
+:::
 
-## AI agents as identities
+## How does Onam know which data an AI service reads?
 
-AI services act through identities: Bedrock and SageMaker roles on AWS, and other AI execution identities. In [CIEM](/docs/ciem/overview) these identities are marked as **AI agents**, so they can be reviewed as a group rather than lost among human and machine roles.
+For each AI service, Onam records which data stores it reads, as a link between the AI resource and the store. [DSPM](/docs/dspm/overview) labels the same stores, so a link to a store holding personal or other sensitive data tells you this AI reads sensitive data.
 
-Two findings apply to AI agents in particular:
+The link records **that** an AI service uses a store, from the service's configuration. It does not read the data.
+
+## Why treat AI agents as identities?
+
+Because an agent acts through a role, and an over-powered role turns a prompt-injection problem into an account takeover. In [CIEM](/docs/ciem/overview), Bedrock and SageMaker roles and other AI execution identities are marked as **AI agents**, so you can review them as a group.
 
 | Finding | Why it matters |
 | --- | --- |
 | AI agent with admin access | An agent that can do anything turns a prompt-injection or tool-misuse problem into an account takeover |
 | AI agent with wide write access | An agent that can write or delete across many resources can damage data and infrastructure it never needed |
+| More tools than the limit | An agent with more tools than the limit set in **Settings** gets a finding |
 
-Right-sizing these identities follows the normal [right-sizing workflow](/docs/ciem/right-sizing).
+Where Onam can resolve the identity an AI workload runs as, the workload also shows that identity's risk, from Onam's IAM analysis. Right-sizing follows the normal [right-sizing workflow](/docs/ciem/right-sizing).
 
-## Identity risk on every AI workload
+## Does Onam watch what our AI does at run time?
 
-Each AI workload in the inventory shows the risk of the identity it runs as, taken from Onam's IAM posture analysis. A notebook with a broad execution role is visible as such on the notebook itself, without switching to the identity view.
+Partly. AI Security's **Threats** tab shows suspicious activity on your AI assets, found in your AI activity logs by Onam threat detection. The rest of AI Security is posture: what your AI is allowed to do and what it can reach.
 
-:::limits Honest limits
-- **AI is not on attack paths yet.** AI findings are not yet drawn onto attack paths.
-- **Code findings are not joined to AI applications yet.** A SAST finding in the code of an AI application appears in Code security, not on the AI application.
-- **Only links the scan can see.** An AI service that reaches data in a way the scan cannot see, for example with credentials embedded in code, is not linked.
-- **Onam never edits IAM.** Removing access from an AI agent is your change.
+:::screen /screens/ai-security/ais-threats.webp
+url: app.onamsecurity.com/ui/ai-security?tab=threats
+alt: The AI Security Threats tab with counters for open AI threats, critical or high, on AI assets and in an incident, filters for why the activity counts as AI and for AI application, and one medium threat on a Bedrock guardrail.
+size: 1440x696
+hidpi: yes
+caption: ${CAPTURED}
+1 @ 61.1,47: Threats on AI assets are counted on their own.
+2 @ 35.4,67.4: Filter by why the activity counts as AI, or by AI application.
+3 @ 93.5,86.6: Each threat names the detection that raised it.
+:::
+
+:::ledger
++ Which data stores each AI service reads, with DSPM's sensitivity labels
++ AI execution identities marked as AI agents, with admin and wide-write findings
++ The identity risk on AI workloads, where the identity can be resolved
++ Suspicious activity on AI assets, on the Threats tab
+- Draw multi-hop paths: AI is not on attack paths yet
+- Join SAST findings to AI applications: they stay in Code security
+- See data reached in ways the scan cannot see, such as credentials embedded in code
+- Edit IAM: removing access from an AI agent is your change
+:::
+
+:::next Keep going
+### What does "mapped to the EU AI Act" mean? | /docs/ai-security/compliance
+How these findings become framework evidence.
+### Does it cover our clouds? | /docs/ai-security/coverage
+Pick a cloud and see exactly what is checked.
 :::
 
 ## Questions customers ask
@@ -321,8 +406,8 @@ Each AI workload in the inventory shows the risk of the identity it runs as, tak
 Onam shows which data stores each AI service reads. If DSPM has classified those stores as holding personal or other sensitive data, you see the combination. It does not inspect the model itself.
 ### Our Bedrock agent has a role with AdministratorAccess "just for the demo". Will Onam flag it?
 Yes. The role is marked as an AI agent and its admin access raises a finding.
-### Does Onam watch what our agents actually do at run time?
-AI Security is posture: what an agent is allowed to do and what it can reach. Activity from cloud audit logs is covered by Onam's threat detection, not by these checks.
+### Does Onam read the data our AI uses?
+No. AI Security links an AI service to a store from the service's configuration. Classification of the store itself is DSPM's job, on the stores you choose. See [DSPM classification](/docs/dspm/classification).
 :::
 `,
   },
@@ -330,44 +415,68 @@ AI Security is posture: what an agent is allowed to do and what it can reach. Ac
     slug: "ai-security/compliance",
     title: "AI compliance mappings",
     breadcrumb: "AI Security / AI compliance mappings",
+    description:
+      "How AI findings map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act, and what a mapping does and does not prove.",
     body: `
-How AI findings map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act, and what a mapping does and does not prove.
-
-AI frameworks ask for evidence that you know what AI you run and that it is set up safely. AI Security's findings are mapped to the controls they speak to, and appear in the **Compliance** tab of the AI Security area and in Onam's [compliance](/docs/compliance/frameworks) reports.
-
-## Two tiers
-
-| Tier | What it means |
-| --- | --- |
-| **Automated** | At least one working Onam check is linked to the framework, so findings appear against its controls without you doing anything. It does **not** mean every control in the framework is checked. |
-| **Attestation** | Onam tracks the framework so you can record your own evidence against it. No check is linked automatically. |
-
-:::matrix AI frameworks in Onam
-| Framework | Findings mapped automatically | Every control checked automatically | You record evidence |
-| --- | --- | --- | --- |
-| OWASP Top 10 for LLM Applications 2025 | yes | no | yes (for the controls no check covers) |
-| NIST AI Risk Management Framework (AI RMF) | yes | no | yes (for the controls no check covers) |
-| ISO/IEC 42001 (AI management systems) | yes | no | yes (for the controls no check covers) |
-| EU AI Act | yes | no | yes (for the controls no check covers) |
-| MITRE ATLAS | no | no | yes (attestation only) |
-| OWASP Agentic 2026 | no | no | yes (attestation only) |
+:::hero light
+eyebrow: Which AI frameworks do our findings map to, and what does "mapped" mean?
+title: A mapping is evidence for some controls, not a verdict on the framework.
+lead: AI findings are linked to the framework controls they speak to. The Compliance tab shows each control as partly automated or you attest, so the gap is never hidden.
+chips: OWASP LLM · NIST AI RMF · ISO/IEC 42001 · EU AI Act · MITRE ATLAS · OWASP Agentic
 :::
 
-## Why a mapping is not coverage
+## What do "partly automated" and "you attest" mean?
 
-Most of these frameworks are about how an organisation builds and governs AI: risk assessments, documentation, human oversight, incident processes. A configuration check can speak to some controls, such as access to a model, its exposure or the presence of a guardrail, and Onam maps its findings to those. The rest you evidence yourself.
+**Partly automated:** at least one Onam rule checks the control, so failing resources show against it. **You attest:** no rule checks it, so you record the evidence.
 
-:::flow How a finding becomes framework evidence
-AI finding | Missing guardrail, exposed AI server, over-privileged agent
-Linked control | The framework controls the check speaks to
-Compliance view | Findings shown against each linked control
-Your evidence | Policies, assessments and records for the controls no check covers
+The pass rate counts automated controls only. Controls you attest count once you attest them. Pick a framework:
+
+:::switchboard Six AI frameworks in Onam
+### OWASP Top 10 for LLM 2025 | partial
+Some controls are **partly automated**: findings such as a missing guardrail or sensitive data reaching AI show against them. The rest you attest.
+### NIST AI RMF | partial
+Some controls are **partly automated**. Most of the framework is about governance and risk processes, which you attest.
+### ISO/IEC 42001 | partial
+Some controls are **partly automated**. It is a management-system standard: most controls are your policies and records, which you attest. Onam does not certify you.
+### EU AI Act | partial
+Some controls are **partly automated**. Most obligations (risk management, documentation, human oversight) are evidenced by your own processes.
+### MITRE ATLAS | info
+**Used for the threat model.** ATLAS catalogues how AI systems are attacked. Onam uses it as a threat model, not as a pass/fail framework, so it has no pass rate.
+### OWASP Agentic 2026 | no
+**Not scored yet.** You can attest its controls; no Onam rule is linked to it yet.
 :::
 
-:::limits Honest limits
-- **No framework is fully automated.** The automated tier means at least one working check is linked, not that every control is checked.
-- **No certification.** Onam does not certify you against ISO/IEC 42001 or declare EU AI Act conformity. An auditor or notified body does that.
-- **MITRE ATLAS and OWASP Agentic are attestation only** today.
+## Where do I see it?
+
+On AI Security's **Compliance** tab, by framework or by resource, and in Onam's [compliance reports](/docs/compliance/frameworks).
+
+:::screen /screens/ai-security/ais-compliance.webp
+url: app.onamsecurity.com/ui/ai-security?tab=compliance
+alt: The AI Security Compliance tab: six framework cards with their pass rate and counts of automated, partly automated and you-attest controls, and the OWASP LLM control table with type, checked-by and result columns.
+size: 1440x1313
+hidpi: yes
+caption: ${CAPTURED}
+1 @ 13.9,35.0: Six AI frameworks; each card splits controls into automated, partly automated and you attest.
+2 @ 45,36.4: MITRE ATLAS is used for the threat model; OWASP Agentic is not scored yet.
+3 @ 45.1,55.5: Each control says whether a rule checks it or you provide the evidence.
+4 @ 90.3,55.5: A partly automated control fails when a linked rule finds a failing resource.
+:::
+
+:::ledger
++ Links AI findings to the controls they speak to, in four frameworks
++ Shows each control's type and what checks it, by framework or by resource
++ Lets you attest the controls no rule checks
++ Feeds the same evidence into Onam's compliance reports and exports
+- Check every control in any framework automatically
+- Certify you against ISO/IEC 42001 or declare EU AI Act conformity: an auditor or notified body does that
+- Score OWASP Agentic yet
+:::
+
+:::next Keep going
+### Does it cover our clouds? | /docs/ai-security/coverage
+Pick a cloud and see exactly what is checked.
+### Back to the overview | /docs/ai-security/overview
+The AI estate map and the 2-minute story.
 :::
 
 ## Questions customers ask
@@ -376,9 +485,9 @@ Your evidence | Policies, assessments and records for the controls no check cove
 ### Does a clean AI compliance view mean we meet the EU AI Act?
 No. It means the controls a configuration check can speak to show no failing findings. Most obligations in the Act, such as risk management, data governance, technical documentation and human oversight, are evidenced by your own processes.
 ### Our auditor asked for ISO/IEC 42001 evidence. What can we hand over?
-The Compliance view for ISO/IEC 42001 with the linked findings and their status, plus the AI inventory as a record of which AI systems you run. Pair it with your own management-system documents.
-### Why are MITRE ATLAS and OWASP Agentic attestation only?
-No Onam check is linked to them yet, so findings do not appear against their controls automatically. You can still track your evidence against them in Onam.
+The Compliance view for ISO/IEC 42001 with the linked findings and their status, your attestations, and the AI inventory as a record of which AI systems you run. Pair it with your own management-system documents.
+### Why does a framework show 0% at first?
+The pass rate counts automated controls only. Partly automated controls show a result once their rules have run, and controls you attest count once you attest them.
 :::
 `,
   },
@@ -386,38 +495,73 @@ No Onam check is linked to them yet, so findings do not appear against their con
     slug: "ai-security/coverage",
     title: "AI Security coverage by cloud",
     breadcrumb: "AI Security / Coverage by cloud",
+    description:
+      "Which AI services AI Security discovers and checks on AWS, Azure, Google Cloud and Kubernetes, which clouds are not covered, and how the Coverage tab shows the gaps.",
     body: `
-Which AI services AI Security discovers and checks on AWS, Azure, Google Cloud and Kubernetes, and which clouds are not covered.
-
-AI Security covers managed AI services on AWS, Azure and Google Cloud, and self-hosted AI on any connected Kubernetes cluster. AI services on other clouds are not covered.
-
-:::matrix Coverage by cloud
-| Capability | AWS | Azure | Google Cloud | Kubernetes (self-hosted) | OCI, Alibaba Cloud, IBM Cloud |
-| --- | --- | --- | --- | --- | --- |
-| AI resource inventory | yes | yes | yes | yes | no |
-| Configuration checks | yes | yes | yes | planned (written, not switched on) | no |
-| Guardrail presence | yes (Bedrock Guardrails) | yes (content filters) | yes (Model Armor) | — | no |
-| Exposed without authentication | — | — | — | yes | no |
+:::hero light
+eyebrow: Does it cover our clouds?
+title: AWS, Azure, Google Cloud and Kubernetes today. Pick yours to see exactly what.
+lead: Managed AI services on three clouds, plus self-hosted AI on any connected cluster. Oracle Cloud, Alibaba Cloud and IBM Cloud AI services are not covered today.
+chips: AWS · Azure · Google Cloud · Kubernetes
 :::
 
-A dash means the check does not apply to that source. The AI bill of materials comes from SBOMs and does not depend on the cloud. AI-to-data links and AI agent identities are described on [AI and your data](/docs/ai-security/data-and-agents); on AWS, Bedrock and SageMaker roles are marked as AI agents.
+## What is covered on my cloud?
 
-## Per cloud
+:::switchboard Pick a cloud
+### AWS | yes
+**Amazon SageMaker and Amazon Bedrock:** inventory, configuration checks and Bedrock Guardrails presence. Bedrock and SageMaker roles are marked as AI agents in CIEM.
+### Azure | yes
+**Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces:** inventory, configuration checks and Azure AI content filter presence.
+### Google Cloud | yes
+**Vertex AI endpoints, datasets and Workbench instances:** inventory, configuration checks and Google Model Armor presence.
+### Kubernetes | partial
+**Self-hosted AI on any connected cluster, on any cloud or on-premises:** model servers (Ollama, vLLM, TGI, LiteLLM, llama.cpp, LocalAI), Jupyter, MLflow, vector databases (Qdrant, Weaviate, Chroma, Milvus, pgvector, Redis as a vector store) and serving resources (KServe, KubeRay, NVIDIA NIM, Seldon). Inventory and exposure without authentication today; configuration rules are written, not yet switched on.
+### Oracle Cloud | no
+Managed AI services on Oracle Cloud are not checked. Self-hosted AI on an OKE cluster is covered as Kubernetes once the cluster is connected.
+### Alibaba Cloud | no
+Managed AI services on Alibaba Cloud are not checked. Self-hosted AI on a connected cluster is covered as Kubernetes.
+### IBM Cloud | no
+IBM watsonx and other IBM Cloud AI services are not checked.
+### OpenAI platform | no
+Not connected. Use of OpenAI libraries in your code appears in the AI bill of materials.
+:::
 
-| Cloud | AI resources discovered and checked |
-| --- | --- |
-| AWS | Amazon SageMaker and Amazon Bedrock |
-| Azure | Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces |
-| Google Cloud | Vertex AI endpoints, datasets and Workbench instances |
-| Kubernetes | Self-hosted model servers (Ollama, vLLM, TGI, LiteLLM, llama.cpp, LocalAI), Jupyter, MLflow, vector databases (Qdrant, Weaviate, Chroma, Milvus, pgvector, Redis as a vector store) and serving custom resources (KServe, KubeRay, NVIDIA NIM, Seldon) |
+The AI bill of materials comes from your SBOMs and does not depend on the cloud. Connect clouds and clusters in [Connect a cloud](/docs/onboarding/aws).
 
-Connect clouds and clusters in [Connect a cloud](/docs/onboarding/aws). Kubernetes clusters on any cloud, or on-premises, count as Kubernetes here.
+## How do I see what Onam can't see in my estate?
 
-:::limits Honest limits
-- **Oracle Cloud, Alibaba Cloud and IBM Cloud AI services are not covered.** Do not read "all clouds" into this page.
-- **Some resource kinds are not discovered yet**, including Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections and Bedrock knowledge-base data sources.
-- **Self-hosted AI on Kubernetes is inventory and exposure only today.**
-- **The OpenAI platform is not connected.**
+Open AI Security's **Coverage** tab. It lists each AI product, whether Onam is connected to it, how much of it Onam can read, and how many checks are active or still waiting.
+
+:::screen /screens/ai-security/ais-coverage.webp
+url: app.onamsecurity.com/ui/ai-security?tab=coverage
+alt: The AI Security Coverage tab: a catalogue of 175 AI products split into cloud, self-run, SaaS and code, counters for products covered, checks active, checks waiting and products blocked, and a table of AWS Bedrock and SageMaker products with connection, read method and check counts.
+size: 1440x1004
+hidpi: yes
+caption: ${CAPTURED} The counts are that workspace's.
+1 @ 45,26.4: The catalogue of AI products, split by where they run: cloud, self-run, SaaS and code.
+2 @ 61.1,32.6: **Checks waiting** are written but still being verified. They don't count until they pass.
+3 @ 48.6,59.0: Whether Onam is connected to each AI product.
+4 @ 73.6,59.0: How much of each product Onam can read: full, partial or none.
+:::
+
+A product can show **Connected** with no active checks: Onam can see it but does not check it yet. That is why a cloud can appear in the catalogue and still be "not covered" above. **Blocked** means the vendor offers no read-only access.
+
+:::ledger
++ Managed AI services on AWS, Azure and Google Cloud
++ Self-hosted AI on any connected Kubernetes cluster: inventory and exposure
++ The AI bill of materials, whatever the cloud
++ A live Coverage tab that shows what Onam can and cannot see
+- Oracle Cloud, Alibaba Cloud or IBM Cloud AI services
+- The OpenAI platform
+- Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections or Bedrock knowledge-base data sources (not discovered yet)
+- Configuration rules on self-hosted AI (written, not yet switched on)
+:::
+
+:::next Keep going
+### Back to the overview | /docs/ai-security/overview
+The AI estate map and the 2-minute story.
+### Run a free audit scan | /audit-scan | cta
+One read-only scan of your estate, no commitment.
 :::
 
 ## Questions customers ask

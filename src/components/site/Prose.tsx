@@ -6,6 +6,16 @@ import { Walkthrough } from "./blocks/Walkthrough";
 import { LimitsCallout } from "./blocks/LimitsCallout";
 import { FaqList } from "./blocks/FaqList";
 import { splitByH3, plainText } from "./blocks/shared";
+import { parseFields, splitLink, parseHotspots, parseLedger } from "./explainers/parse";
+import { QuestionHero } from "./explainers/QuestionHero";
+import { LensMap } from "./explainers/LensMap";
+import { StoryStepper } from "./explainers/StoryStepper";
+import { AnnotatedScreen } from "./explainers/AnnotatedScreen";
+import { Ledger } from "./explainers/Ledger";
+import { NextQuestions } from "./explainers/NextQuestions";
+import { Switchboard } from "./explainers/Switchboard";
+import { GuardrailXray } from "./explainers/GuardrailXray";
+import { ReachRings } from "./explainers/ReachRings";
 
 // Ultra-small "markdown-ish" renderer for our in-house doc/blog copy.
 // Supports: ## headings, ### headings, paragraphs, - lists, 1. lists, > callouts,
@@ -23,6 +33,16 @@ import { splitByH3, plainText } from "./blocks/shared";
 //   :::steps [title]     Walkthrough. `### Step title` + markdown body per step.
 //   :::limits [title]    Amber "Honest limits" callout; markdown body.
 //   :::faq [title]       Q/A list. `### Question` + markdown answer; emits FAQPage JSON-LD.
+//
+// Explainers (src/components/site/explainers/; syntax in each file's header comment):
+//   :::hero night|light  Page hero with the page's only <h1> (docs.$.tsx then skips its own).
+//   :::lensmap ai-estate The AI estate map (data in src/data/explainers/ai-estate.ts).
+//   :::story [title]     Story stepper. `### Beat` + `frame: key|/path.png` + caption.
+//   :::screen /path.png  Real console screen with numbered hotspots `n @ x,y: text`.
+//   :::ledger            "What it checks" (+ lines) / "What it does not do" (- lines).
+//   :::next [title]      Night band of question cards: `### Question | /href [| cta]` + preview.
+//   :::switchboard [t]   Pick-one panels: `### Label | yes|partial|no|info` + markdown body.
+//   :::xray / :::rings   Guardrail X-ray / one-hop reach (illustrative, no body).
 // An unknown block name renders its body as ordinary prose.
 
 type Block =
@@ -170,8 +190,98 @@ export function faqJsonLd(src: string) {
   };
 }
 
+function namedVisual(v: string | undefined, key?: number): ReactNode {
+  if (!v) return null;
+  if (v.startsWith("lensmap")) return <LensMap key={key} />;
+  if (v === "xray") return <GuardrailXray key={key} />;
+  if (v === "rings") return <ReachRings key={key} />;
+  return null;
+}
+
 function renderDirective(b: Extract<Block, { kind: "directive" }>, key: number): ReactNode {
   switch (b.name) {
+    case "hero": {
+      const { fields: f } = parseFields(b.body);
+      return (
+        <QuestionHero
+          key={key}
+          variant={b.title === "light" ? "light" : "night"}
+          pill={f.pill}
+          eyebrow={f.eyebrow}
+          title={f.title ?? ""}
+          lead={f.lead ? renderInline(f.lead) : undefined}
+          chips={f.chips ? f.chips.split("·").map((c) => c.trim()).filter(Boolean) : undefined}
+          cta={splitLink(f.cta)}
+          secondary={splitLink(f.secondary)}
+          visual={namedVisual(f.visual)}
+        />
+      );
+    }
+    case "lensmap":
+      return <div key={key} className="my-8"><LensMap /></div>;
+    case "xray":
+    case "rings":
+      return namedVisual(b.name, key);
+    case "story": {
+      const parts = splitByH3(b.body).filter((s) => s.title);
+      const beats = parts.map((p) => {
+        const { fields, rest } = parseFields(p.body);
+        return { title: p.title, frame: fields.frame ?? "", alt: fields.alt ?? plainText(rest), caption: renderInline(rest) };
+      });
+      const end = splitLink(parseFields(splitByH3(b.body)[0]?.title ? "" : splitByH3(b.body)[0]?.body ?? "").fields.end);
+      return <StoryStepper key={key} title={b.title} beats={beats} end={end} />;
+    }
+    case "screen": {
+      const { fields: f, rest } = parseFields(b.body);
+      const [w, h] = (f.size ?? "1440x900").split("x").map(Number);
+      return (
+        <AnnotatedScreen
+          key={key}
+          src={b.title}
+          url={f.url ?? ""}
+          alt={f.alt ?? ""}
+          width={w}
+          height={h}
+          caption={f.caption}
+          hidpi={f.hidpi === "yes"}
+          hotspots={parseHotspots(rest)}
+          renderInline={renderInline}
+        />
+      );
+    }
+    case "ledger": {
+      const { fields: f, rest } = parseFields(b.body);
+      const l = parseLedger(rest);
+      return <Ledger key={key} yes={l.yes} no={l.no} yesTitle={f.yes} noTitle={f.no} renderInline={renderInline} />;
+    }
+    case "next":
+      return (
+        <NextQuestions
+          key={key}
+          title={b.title}
+          renderInline={renderInline}
+          cards={splitByH3(b.body)
+            .filter((s) => s.title)
+            .map((s) => {
+              const [q, href, flag] = s.title.split("|").map((x) => x.trim());
+              return { q, href: href ?? "#", cta: flag === "cta", preview: s.body };
+            })}
+        />
+      );
+    case "switchboard":
+      return (
+        <Switchboard
+          key={key}
+          title={b.title}
+          items={splitByH3(b.body)
+            .filter((s) => s.title)
+            .map((s) => {
+              const [label, state] = s.title.split("|").map((x) => x.trim());
+              const st = (["yes", "partial", "no", "info"].includes(state) ? state : "info") as "yes" | "partial" | "no" | "info";
+              return { label, state: st, body: <Prose source={s.body} /> };
+            })}
+        />
+      );
     case "card":
       return <SummaryCard key={key} title={b.title || "In 60 seconds"} rows={parseCardRows(b.body).map((r) => ({ label: r.label, content: renderInline(r.text) }))} />;
     case "flow":
@@ -199,6 +309,11 @@ function renderDirective(b: Extract<Block, { kind: "directive" }>, key: number):
     default:
       return <Prose key={key} source={b.body} />;
   }
+}
+
+/** True when the body opens with a :::hero block (the page's <h1> then comes from it). */
+export function hasHero(src: string): boolean {
+  return /^\s*:::hero\b/.test(src);
 }
 
 export function extractHeadings(src: string): { text: string; id: string }[] {

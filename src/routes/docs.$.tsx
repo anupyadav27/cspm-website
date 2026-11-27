@@ -4,7 +4,7 @@ import { Prose } from "@/components/site/Prose";
 import { BrandButton } from "@/components/site/BrandButton";
 import { getDocArticle, DOC_SECTIONS, DOC_PRODUCT_LABEL, allDocSlugs } from "@/data/docs";
 import { seo, descriptionFromMarkdown, SITE_URL } from "@/lib/seo";
-import { extractHeadings, slugifyHeading, faqJsonLd } from "@/components/site/Prose";
+import { extractHeadings, slugifyHeading, faqJsonLd, hasHero } from "@/components/site/Prose";
 import { ChevronRight } from "@/components/site/icons";
 
 export const Route = createFileRoute("/docs/$")({
@@ -24,7 +24,7 @@ export const Route = createFileRoute("/docs/$")({
     return seo({
       title: `${article.title} — Onam docs`,
       description:
-        descriptionFromMarkdown(article.body) || `${article.title} — Onam documentation.`,
+        article.description || descriptionFromMarkdown(article.body) || `${article.title} — Onam documentation.`,
       path: `/docs/${article.slug}`,
     });
   },
@@ -61,7 +61,7 @@ function productBreadcrumb(slug: string, breadcrumb: string) {
   return breadcrumb.startsWith(label) ? breadcrumb : `${label} / ${breadcrumb}`;
 }
 
-function docJsonLd(article: { title: string; slug: string; body: string }) {
+function docJsonLd(article: { title: string; slug: string; body: string; description?: string }) {
   // A page with a :::faq block also gets FAQPage structured data.
   const faq = faqJsonLd(article.body);
   return [
@@ -70,7 +70,7 @@ function docJsonLd(article: { title: string; slug: string; body: string }) {
       "@context": "https://schema.org",
       "@type": "TechArticle",
       headline: article.title,
-      description: descriptionFromMarkdown(article.body) || article.title,
+      description: article.description || descriptionFromMarkdown(article.body) || article.title,
       mainEntityOfPage: `${SITE_URL}/docs/${article.slug}`,
       author: { "@type": "Organization", name: "Onam" },
       publisher: {
@@ -93,7 +93,9 @@ function docJsonLd(article: { title: string; slug: string; body: string }) {
 
 function DocArticle() {
   const { article } = Route.useLoaderData();
-  const headings = extractHeadings(article.body);
+  const hero = hasHero(article.body);
+  // A hero page gets the full column (its hero is wide), so no side TOC.
+  const headings = hero ? [] : extractHeadings(article.body);
   const { prev, next } = findNeighbors(article.slug);
 
   return (
@@ -108,9 +110,11 @@ function DocArticle() {
           <ChevronRight className="w-3.5 h-3.5" />
           <span className="text-[#0B1220]">{productBreadcrumb(article.slug, article.breadcrumb)}</span>
         </nav>
-        <h1 className="font-display font-black text-[#0B1220] text-3xl md:text-[40px] tracking-tight leading-[1.1]">
-          {article.title}
-        </h1>
+        {!hero && (
+          <h1 className="font-display font-black text-[#0B1220] text-3xl md:text-[40px] tracking-tight leading-[1.1]">
+            {article.title}
+          </h1>
+        )}
         <Prose source={article.body} />
 
         <div className="mt-16 pt-8 border-t border-[#E5E9F0] grid sm:grid-cols-2 gap-4">

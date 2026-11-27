@@ -14,8 +14,8 @@
  * would read. Between the two, every surface is checked.
  */
 
-/** detection/analysis engines in the platform */
-export const ENGINES = 32;
+/** detection/analysis engines in the platform (retired products excluded) */
+export const ENGINES = 30;
 
 /** cloud services covered — the full definition catalog, all 7 clouds */
 export const SERVICES = 672;

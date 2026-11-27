@@ -12,7 +12,7 @@
     "facts:check": "node scripts/facts-gate.mjs",
     "format": "prettier --write .",
     "facts:generate": "node scripts/generate-facts.mjs",
-    "test": "tsx scripts/test-pricing.ts && tsx scripts/test-lead-capture.ts"
+    "test": "tsx scripts/test-pricing.ts && tsx scripts/test-lead-capture.ts && tsx scripts/test-ai-estate.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1104.0",

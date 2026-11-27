@@ -36,7 +36,7 @@ Supporting these are container security, network security, encryption, database 
 
 ## One platform, one graph
 
-Most security stacks bolt together a posture scanner, an identity tool, a data classifier, and a log-analytics product — then leave you to correlate their alerts by hand. Onam runs **32 engines** against one shared data model instead:
+Most security stacks bolt together a posture scanner, an identity tool, a data classifier, and a log-analytics product — then leave you to correlate their alerts by hand. Onam runs **30 engines** against one shared data model instead:
 
 1. Discovery and Inventory (DI) enumerates every resource and writes \`asset_inventory\` and \`asset_relationships\`.
 2. Every engine — posture, identity, data, network, runtime — evaluates the same inventory and attaches findings to the same resource identifiers.
@@ -152,7 +152,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 9 platforms; 433 CIS rules across 6 of them | GitHub, Bitbucket and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is AWS only. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
+| [AI Security](/platform/ai-security) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is not available yet. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
 | [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 144 frameworks: 119 with automated checks, 25 attestation-only | Controls with no automated check are marked for manual review. |
@@ -570,7 +570,7 @@ Inventory and risk checks for AI and machine-learning services on AWS, Azure and
 | Bedrock model invocation audit | — |
 | Training job isolation | VPC and security groups |
 | Model artifact encryption at rest | — |
-| Shadow AI detection | AWS only, from audit logs |
+| AI Coverage tab | per AI product: connected or not, how Onam reads it, checks active and waiting |
 | SageMaker Studio network isolation | — |
 | ML service role scoping | — |
 | Logging and monitoring | for inference and training |

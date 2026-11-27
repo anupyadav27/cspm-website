@@ -691,8 +691,8 @@ export const platformPages: Record<string, ProductPageData> = {
       "In each connected Kubernetes cluster, a classifier recognises self-hosted AI (model servers such as Ollama, vLLM and LiteLLM, Jupyter and MLflow, vector databases such as Qdrant and Milvus, and KServe, KubeRay, NVIDIA NIM and Seldon resources), adds it to the inventory and checks whether it is exposed without authentication. Clusters are read through a read-only ServiceAccount.",
       "An AI bill of materials picks the AI libraries, model servers and MCP SDKs out of the SBOMs Onam already builds for your code and images.",
       "Cloud AI resources are evaluated against AI-native rules that cover network isolation, IAM scope on execution roles, encryption of artifacts, and logging of inference and training events. Onam also checks that a provider guardrail (Bedrock Guardrails, Azure content filters or Google Model Armor) is attached to your models, deployments and agents.",
-      "Each AI service is joined to the data stores it reads and to the identity it runs as. AI execution identities are marked as AI agents in CIEM, with findings for admin or wide write access, and every AI workload shows its identity's risk. On AWS, AI services that show up in your cloud audit logs but are missing from the inventory are flagged as shadow AI.",
-      "AI findings land in the same findings queue as the rest of the platform, and in an AI Security area of the console with Overview, Inventory, Applications, Findings, Compliance, Coverage, Threats, Incidents and Settings tabs. Onam checks configuration. It does not read prompts or attack-test models.",
+      "Each AI service is joined to the data stores it reads and to the identity it runs as. AI execution identities are marked as AI agents in CIEM, with findings for admin or wide write access,, and AI workloads show their identity's risk where Onam can resolve the identity.",
+      "AI findings land in the same findings queue as the rest of the platform, and in an AI Security area of the console with Inventory, Applications, Findings, Threats, Compliance, Coverage and Settings tabs (the AI Overview tab is not available yet). Onam checks configuration and does not attack-test models. It reads prompt text only if an admin turns on prompt-text detection, which is off by default.",
     ],
     whatYouGet: [
       "One AI inventory across cloud AI services and self-hosted AI on Kubernetes",
@@ -705,7 +705,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Bedrock model invocation audit",
       "Training job isolation (VPC + security groups)",
       "Model artifact encryption at rest",
-      "Shadow AI detection (AWS, from audit logs)",
+      "A Coverage tab that shows, per AI product, what Onam can and cannot see",
       "Azure AI services and Azure OpenAI: public access, key-based sign-in, logging",
       "Azure Machine Learning workspace network isolation",
       "Vertex AI endpoints, datasets and Workbench instances: public access, encryption keys, logging",
@@ -722,15 +722,15 @@ export const platformPages: Record<string, ProductPageData> = {
       },
       {
         q: "What about Azure and Google Cloud AI services?",
-        a: "Both are covered, proven on live Azure and Google Cloud accounts in October 2026. On Azure, Onam checks Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces: public network access, key-based sign-in, logging, managed identity and customer-managed keys. On Google Cloud, it checks Vertex AI endpoints, datasets and Workbench instances: public access, customer-managed keys, request logging, public IPs and default service accounts. AWS has the longest list of services, and shadow AI detection from audit logs is AWS only.",
+        a: "Both are covered, proven on live Azure and Google Cloud accounts in October 2026. On Azure, Onam checks Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces: public network access, key-based sign-in, logging, managed identity and customer-managed keys. On Google Cloud, it checks Vertex AI endpoints, datasets and Workbench instances: public access, customer-managed keys, request logging, public IPs and default service accounts. AWS has the longest list of services.",
       },
       {
         q: "Does Onam read our prompts or model data?",
-        a: "No. AI Security works from configuration and metadata: what the cloud APIs report about each AI resource, what the Kubernetes API reports about each workload, and the package lists in your SBOMs. It does not call your models, and does not read prompts, completions, training data or model weights.",
+        a: "Not by default. AI Security works from configuration and metadata: what the cloud APIs report about each AI resource, what the Kubernetes API reports about each workload, and the package lists in your SBOMs. Reading prompt and answer text, to find prompt injection, jailbreaks and sensitive answers, is a setting called prompt-text detection; it is off unless an admin turns it on. Onam never reads training data or model weights.",
       },
       {
         q: "Do AI security findings appear in compliance reports?",
-        a: "Yes. AI findings sit in the same findings queue and exports as the rest of the platform. In Compliance, they map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act, which have automated checks; MITRE ATLAS and OWASP Agentic 2026 are tracked as attestation only. A mapping links findings to controls; it does not mean every control is checked automatically.",
+        a: "Yes. AI findings sit in the same findings queue and exports as the rest of the platform. In Compliance, they map to OWASP Top 10 for LLM Applications 2025, NIST AI RMF, ISO/IEC 42001 and the EU AI Act, where some controls are partly automated (an Onam rule checks them) and the rest you attest. MITRE ATLAS is used for the threat model, and OWASP Agentic 2026 is not scored yet. A mapping links findings to controls; it does not mean every control is checked automatically.",
       },
     ],
     related: [

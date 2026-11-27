@@ -220,3 +220,19 @@
 @media (prefers-reduced-motion: reduce) {
   .onam-flow-dash { animation: none; stroke-dasharray: none; opacity: 0.55; }
 }
+
+/* Explainers (src/components/site/explainers): one entrance per element, CSS only. */
+@keyframes ex-pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+@keyframes ex-stamp { 0% { opacity: 0; transform: scale(1.35); } 60% { opacity: 1; transform: scale(.96); } 100% { transform: none; } }
+@keyframes ex-fade { from { opacity: 0; } to { opacity: 1; } }
+.ex-map.ex-armed .ex-node { opacity: 0; }
+.ex-map.ex-armed.ex-entered .ex-node { animation: ex-pop .4s cubic-bezier(.16,1,.3,1) both; }
+.ex-map.ex-armed.ex-entered .ex-stamp { animation: ex-stamp .35s cubic-bezier(.16,1,.3,1) 1.1s both; }
+.ex-map .ex-node.ex-dim { border-color: transparent; --tw-ring-color: rgb(255 255 255 / .06); }
+.ex-map .ex-node.ex-dim svg { opacity: .55; }
+.ex-fade { animation: ex-fade .2s ease-out both; }
+.ex-zoom { transition: transform .25s cubic-bezier(.16,1,.3,1); }
+@media (prefers-reduced-motion: reduce) {
+  .ex-map.ex-armed .ex-node, .ex-map.ex-armed.ex-entered .ex-node, .ex-map.ex-armed.ex-entered .ex-stamp, .ex-fade { animation: none !important; opacity: 1; }
+  .ex-zoom { transition: none; }
+}

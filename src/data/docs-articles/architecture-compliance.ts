@@ -6,7 +6,7 @@ export const articles: DocArticle[] = [
     title: "Architecture Overview",
     breadcrumb: "Architecture / Overview",
     body: `
-The Onam platform is a multi-tenant SaaS that continuously discovers, evaluates, and monitors cloud resources across **seven cloud providers** — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes — with no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. This page explains how the platform is organized: the 32 engines, the pipeline a scan flows through, the unified data model behind every finding, and how your data is isolated from every other tenant.
+The Onam platform is a multi-tenant SaaS that continuously discovers, evaluates, and monitors cloud resources across **seven cloud providers** — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and Kubernetes — with no agents on your hosts. Posture scanning connects through read-only cloud roles; agentless workload scanning runs inside your account. This page explains how the platform is organized: the 30 engines, the pipeline a scan flows through, the unified data model behind every finding, and how your data is isolated from every other tenant.
 
 By the end you will be able to trace any number in the Onam console — a posture score, a compliance percentage, an attack path — back to the exact engine, table, and scan run that produced it.
 
@@ -16,7 +16,7 @@ By the end you will be able to trace any number in the Onam console — a postur
 
 1. **Your cloud environments** — AWS, Azure, GCP, OCI, Alibaba Cloud, IBM Cloud, and any Kubernetes cluster connect via a read-only IAM role, service principal, or service account.
 2. **The scan pipeline** — every connected account flows through the same ordered stages: credential validation, Discovery & Inventory (DI), rule evaluation, domain-engine fan-out, attack-path graph build, compliance mapping, and FAIR risk quantification.
-3. **Security engines** — 32 engines cover posture, identity, data, network, container, AI, vulnerability, and behavioral detection.
+3. **Security engines** — 30 engines cover posture, identity, data, network, container, AI, vulnerability, and behavioral detection.
 4. **The data platform** — findings, inventory, relationships, and the attack-path graph are stored in tenant-isolated databases that only your authenticated users can read.
 5. **Outputs** — a posture score (0–100), compliance reports for 144 frameworks (119 with automated checks), prioritized findings, attack paths with choke points, and step-by-step remediation guidance.
 
@@ -24,9 +24,9 @@ A typical scan of a 40-service AWS account completes in around **15 minutes**. F
 
 ---
 
-## The 32 security engines
+## The 30 security engines
 
-The platform runs **32 engines**, each a dedicated microservice responsible for one area of cloud security. (Attack Path v1 remains in maintenance for legacy tenants; Attack Path v2 is the active engine.) The main ones:
+The platform runs **30 engines**, each a dedicated microservice responsible for one area of cloud security. (Attack Path v1 remains in maintenance for legacy tenants; Attack Path v2 is the active engine.) The main ones:
 
 | Engine | Group | Purpose |
 | --- | --- | --- |
@@ -259,7 +259,7 @@ A single cloud resource — say one S3 bucket — flows through the platform fro
 
 ### The security_findings table
 
-All 32 engines write to a single \`security_findings\` table in the DI database. This is the canonical source of truth for every finding on the platform; the BFF gateway reads exclusively from it. Every engine upserts findings using a shared writer, keyed on \`(tenant_id, account_id, rule_id, resource_uid)\`:
+All 30 engines write to a single \`security_findings\` table in the DI database. This is the canonical source of truth for every finding on the platform; the BFF gateway reads exclusively from it. Every engine upserts findings using a shared writer, keyed on \`(tenant_id, account_id, rule_id, resource_uid)\`:
 
 | Column | Description |
 | --- | --- |
@@ -368,7 +368,7 @@ The [Trust Center](/trust) explains how Onam connects to your clouds, what it st
     title: "The Scan Pipeline — End to End",
     breadcrumb: "Architecture / Scan Pipeline",
     body: `
-This page walks through everything that happens between the moment a scan starts and the moment findings appear in the Onam console: how scans are triggered, how Discovery & Inventory (DI) enumerates your estate, how the 32 engines fan out, how the attack-path graph is built, and how compliance mapping and FAIR risk quantification finish the run.
+This page walks through everything that happens between the moment a scan starts and the moment findings appear in the Onam console: how scans are triggered, how Discovery & Inventory (DI) enumerates your estate, how the 30 engines fan out, how the attack-path graph is built, and how compliance mapping and FAIR risk quantification finish the run.
 
 You will also learn how to schedule scans, run them ad hoc, and watch a live pipeline through the Pipeline Monitor.
 
@@ -488,7 +488,7 @@ Scanning scales horizontally: enumeration and rule evaluation parallelize per ac
 
 ## Next steps
 
-- [Architecture overview](/docs/architecture/overview) — the 32 engines, the data model, and the finding contract
+- [Architecture overview](/docs/architecture/overview) — the 30 engines, the data model, and the finding contract
 - [Platform data security and tenancy](/docs/architecture/data-security) — credential handling and read-only enforcement behind every scan
 - [Compliance framework coverage](/docs/compliance/frameworks) — how scan results become framework scores and audit evidence
 - [Book a demo](/request-demo) — watch a live scan run end to end
@@ -579,7 +579,7 @@ Where a stored credential is needed, in AWS Secrets Manager, encrypted with AWS 
 ## Next steps
 
 - [Trust Center](/trust) — the authoritative summary of how Onam protects your data
-- [Architecture overview](/docs/architecture/overview) — the 32 engines and the tenant-isolated data model in context
+- [Architecture overview](/docs/architecture/overview) — the 30 engines and the tenant-isolated data model in context
 - [The scan pipeline](/docs/architecture/scanning) — what those credentials are used for, stage by stage
 - [Book a demo](/request-demo) — bring your security reviewer
 `,

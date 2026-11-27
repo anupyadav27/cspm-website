@@ -108,7 +108,7 @@ export const QUESTIONS: { q: string; onam: string }[] = [
   },
   {
     q: "Does coverage span code to runtime?",
-    onam: "Code Security (SAST, secrets, IaC, dependencies and DAST), posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 9 platforms, and cloud detection and response — 32 engines on one platform. Code findings link to the cloud workload or container image built from them.",
+    onam: "Code Security (SAST, secrets, IaC, dependencies and DAST), posture, attack paths, identity (CIEM), data, containers and Kubernetes, SaaS posture across 9 platforms, and cloud detection and response — 30 engines on one platform. Code findings link to the cloud workload or container image built from them.",
   },
 ];
 

@@ -168,7 +168,7 @@ Findings you accept as business risk can be **suppressed** with a justification 
 
 ## Engines
 
-The platform runs 32 engines; each is a service responsible for one security domain, and each writes findings to the same data model. The ones you will interact with directly:
+The platform runs 30 engines; each is a service responsible for one security domain, and each writes findings to the same data model. The ones you will interact with directly:
 
 | Engine | What it evaluates |
 | --- | --- |
@@ -235,7 +235,7 @@ Every input is visible: default per-record costs by industry (healthcare $10.93,
 ## Next steps
 
 - [Quickstart](/docs/getting-started/quickstart) — put the model into practice on your first account.
-- [Architecture Overview](/docs/architecture/overview) — the 32 engines and the pipeline in full detail.
+- [Architecture Overview](/docs/architecture/overview) — the 30 engines and the pipeline in full detail.
 - [Attack Path](/docs/features/attack-path) — derivation, verification, and choke-point ranking in depth.
 - [Risk Quantification](/docs/features/risk-quantification) — the full FAIR methodology and tenant overrides.
 `,
