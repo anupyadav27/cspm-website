@@ -105,7 +105,7 @@ function DocArticle() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(docJsonLd(article)) }}
       />
       <div className="flex-1 min-w-0 pb-16">
-        <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-4">
+        <nav className="flex items-center gap-1.5 text-xs text-[#5A6A80] mb-4">
           <Link to="/docs" className="hover:text-[#2563EB]">Docs</Link>
           <ChevronRight className="w-3.5 h-3.5" />
           <span className="text-[#0B1220]">{productBreadcrumb(article.slug, article.breadcrumb)}</span>
@@ -124,7 +124,7 @@ function DocArticle() {
               params={{ _splat: prev.slug }}
               className="group bg-white border border-[#E5E9F0] rounded-xl p-4 hover:border-[#2563EB] transition"
             >
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B]">Previous</div>
+              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80]">Previous</div>
               <div className="mt-1 font-semibold text-[#0B1220] group-hover:text-[#2563EB]">{prev.title}</div>
             </Link>
           ) : <span />}
@@ -134,7 +134,7 @@ function DocArticle() {
               params={{ _splat: next.slug }}
               className="group bg-white border border-[#E5E9F0] rounded-xl p-4 hover:border-[#2563EB] transition text-right"
             >
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B]">Next</div>
+              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80]">Next</div>
               <div className="mt-1 font-semibold text-[#0B1220] group-hover:text-[#2563EB]">{next.title}</div>
             </Link>
           ) : <span />}
@@ -144,7 +144,7 @@ function DocArticle() {
       {headings.length > 0 && (
         <aside className="hidden xl:block w-56 shrink-0">
           <div className="sticky top-24">
-            <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">On this page</div>
+            <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-3">On this page</div>
             <ul className="space-y-1.5 border-l border-[#E5E9F0] pl-4">
               {headings.map((h) => (
                 <li key={h.id}>

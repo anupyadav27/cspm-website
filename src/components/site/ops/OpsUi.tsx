@@ -13,7 +13,7 @@ export function StatusBadge({ status, className = "" }: { status: OpsStatus; cla
   const s = OPS_STATUS[status];
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[10.5px] font-bold uppercase tracking-wider whitespace-nowrap ${className}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-[12px] font-bold uppercase tracking-wider whitespace-nowrap ${className}`}
       style={{ color: s.fg, backgroundColor: s.bg, borderColor: s.border }}
     >
       <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: s.fg }} aria-hidden />
@@ -38,12 +38,14 @@ export function IllustrativeFrame({
         <span className="h-2.5 w-2.5 rounded-full bg-[#E2E8F0]" aria-hidden />
         <span className="h-2.5 w-2.5 rounded-full bg-[#E2E8F0]" aria-hidden />
         <span className="ml-2 truncate text-[12px] font-semibold text-[#334155]">{title}</span>
-        <span className="ml-auto shrink-0 rounded border border-dashed border-[#94A3B8] px-1.5 py-0.5 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
+        <span className="ml-auto shrink-0 rounded border border-dashed border-[#94A3B8] px-1.5 py-0.5 text-[12px] font-bold uppercase tracking-widest text-[#5A6A80]">
           Illustrative · sample data
         </span>
       </div>
-      <div className="overflow-x-auto">{children}</div>
-      <figcaption className="border-t border-[#E5E9F0] bg-[#F8FAFC] px-4 py-2.5 text-[12px] leading-relaxed text-[#64748B]">
+      <div className="overflow-x-auto" role="img" aria-label={`${title}: illustrative mockup with sample data. ${caption}`}>
+        <div aria-hidden="true">{children}</div>
+      </div>
+      <figcaption className="border-t border-[#E5E9F0] bg-[#F8FAFC] px-4 py-2.5 text-[12px] leading-relaxed text-[#5A6A80]">
         {caption} Illustrative mockup drawn from the design specification with sample data — not a
         screenshot of a customer environment.
       </figcaption>
@@ -90,7 +92,7 @@ export function WorkspaceMock() {
         <div className="mb-3 text-[11px] font-extrabold text-[#0B1220]">Onam AI</div>
         {NAV.map((g) => (
           <div key={g.section} className="mb-3">
-            <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
+            <div className="mb-1 text-[9.5px] font-bold uppercase tracking-widest text-[#5A6A80]">
               {g.section}
             </div>
             {g.items.map((i) => (
@@ -113,7 +115,7 @@ export function WorkspaceMock() {
       <main className="space-y-3 p-4">
         <div className="border-b border-[#E5E9F0] pb-2">
           <div className="font-bold text-[#0B1220]"># Exposed production assets</div>
-          <div className="text-[11px] text-[#64748B]">
+          <div className="text-[11px] text-[#5A6A80]">
             Agents in this conversation: Asset · Security
           </div>
         </div>
@@ -129,7 +131,7 @@ export function WorkspaceMock() {
           <div className="mb-1 flex items-center gap-2">
             <AgentDot color="#0F766E" label="As" />
             <span className="font-semibold text-[#0B1220]">Asset Agent</span>
-            <span className="text-[10.5px] text-[#64748B]">discover_assets · 214 rows</span>
+            <span className="text-[10.5px] text-[#5A6A80]">discover_assets · 214 rows</span>
           </div>
           <p className="text-[#334155]">
             214 production assets in the selected accounts; 9 are classified as crown jewels.
@@ -142,7 +144,7 @@ export function WorkspaceMock() {
           <div className="mb-1 flex items-center gap-2">
             <AgentDot color="#1D4ED8" label="Se" />
             <span className="font-semibold text-[#0B1220]">Security Agent</span>
-            <span className="text-[10.5px] text-[#64748B]">query_findings · 12 rows</span>
+            <span className="text-[10.5px] text-[#5A6A80]">query_findings · 12 rows</span>
           </div>
           <p className="text-[#334155]">
             <strong className="text-[#0B1220]">12 of them</strong> carry a critical finding. The top
@@ -156,7 +158,7 @@ export function WorkspaceMock() {
             <span className="font-semibold underline">Review</span>
           </div>
         </div>
-        <div className="flex items-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-3 py-2 text-[#64748B]">
+        <div className="flex items-center gap-2 rounded-xl border border-[#CBD5E1] bg-white px-3 py-2 text-[#5A6A80]">
           <span className="flex-1">Ask the agents… (@Security to target one)</span>
           <span className="rounded-md bg-[#2563EB] px-2 py-0.5 text-[11px] font-semibold text-white">
             Send
@@ -169,7 +171,7 @@ export function WorkspaceMock() {
           {["Context", "Assets", "Tasks", "Evidence"].map((t, i) => (
             <span
               key={t}
-              className={`rounded px-1.5 py-0.5 ${i === 0 ? "bg-[#0B1220] text-white" : "text-[#64748B]"}`}
+              className={`rounded px-1.5 py-0.5 ${i === 0 ? "bg-[#0B1220] text-white" : "text-[#5A6A80]"}`}
             >
               {t}
             </span>
@@ -186,12 +188,12 @@ export function WorkspaceMock() {
               key={k}
               className="flex justify-between border-b border-dashed border-[#E5E9F0] pb-1"
             >
-              <span className="text-[#64748B]">{k}</span>
+              <span className="text-[#5A6A80]">{k}</span>
               <span className="font-semibold text-[#0B1220]">{v}</span>
             </div>
           ))}
         </div>
-        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
+        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#5A6A80]">
           Evidence
         </div>
         {["E-101 findings", "E-102 inventory"].map((e) => (
@@ -199,7 +201,7 @@ export function WorkspaceMock() {
             ▸ {e}
           </div>
         ))}
-        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
+        <div className="mt-3 text-[9.5px] font-bold uppercase tracking-widest text-[#5A6A80]">
           Run
         </div>
         <div className="mt-1 text-[11px] text-[#475569]">2 steps · 1 wave · complete</div>
@@ -252,7 +254,7 @@ export function PlanMock({ compact = false }: { compact?: boolean }) {
     >
       <div className="mb-2 flex items-center justify-between text-[10.5px] font-bold uppercase tracking-widest text-[#1D4ED8]">
         <span>Plan · {steps.length} steps</span>
-        <span className="text-[#64748B] normal-case tracking-normal font-medium">
+        <span className="text-[#5A6A80] normal-case tracking-normal font-medium">
           {compact ? "complete" : "paused for approval"}
         </span>
       </div>
@@ -273,7 +275,7 @@ export function PlanMock({ compact = false }: { compact?: boolean }) {
               aria-hidden
             />
             <span className="font-semibold text-[#0B1220]">{s.agent}</span>
-            <span className="truncate font-mono text-[11px] text-[#64748B]">{s.skill}</span>
+            <span className="truncate font-mono text-[11px] text-[#5A6A80]">{s.skill}</span>
             <span className="ml-auto font-mono text-[11px] font-semibold text-[#0B1220]">
               {s.result}
             </span>
@@ -326,12 +328,12 @@ export function EvidenceMock() {
       <div className="rounded-xl border border-[#E5E9F0]">
         <div className="flex items-center justify-between border-b border-[#E5E9F0] bg-[#F8FAFC] px-3 py-2 text-[11px] font-bold uppercase tracking-widest text-[#334155]">
           <span>Evidence E-101</span>
-          <span className="font-medium normal-case tracking-normal text-[#64748B]">copy</span>
+          <span className="font-medium normal-case tracking-normal text-[#5A6A80]">copy</span>
         </div>
         <dl className="divide-y divide-[#F1F5F9] text-[12.5px]">
           {rows.map(([k, v]) => (
             <div key={k} className="grid grid-cols-[72px_1fr] gap-2 px-3 py-1.5">
-              <dt className="text-[#64748B]">{k}</dt>
+              <dt className="text-[#5A6A80]">{k}</dt>
               <dd className="text-[#0B1220]">{v}</dd>
             </div>
           ))}
@@ -367,7 +369,7 @@ export function ApprovalMock() {
             <div className="font-semibold text-[#0B1220]">
               Restrict SSH ingress — sg-example · prod-web-tier
             </div>
-            <div className="text-[11px] text-[#64748B]">
+            <div className="text-[11px] text-[#5A6A80]">
               Requested by Automation planner · task T-example
             </div>
           </div>
@@ -389,7 +391,7 @@ export function ApprovalMock() {
           <Block title="Rollback">
             Restore the previous rule · pre-state captured · reversible
           </Block>
-          <div className="text-[11px] text-[#64748B]">
+          <div className="text-[11px] text-[#5A6A80]">
             Bound to change hash (sample) · expires in 7 days · target re-checked before execution
           </div>
         </div>
@@ -413,7 +415,7 @@ export function ApprovalMock() {
 function Block({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <div className="mb-0.5 text-[9.5px] font-bold uppercase tracking-widest text-[#64748B]">
+      <div className="mb-0.5 text-[9.5px] font-bold uppercase tracking-widest text-[#5A6A80]">
         {title}
       </div>
       <div className="text-[#334155]">{children}</div>
@@ -438,7 +440,7 @@ export function AuditMock() {
         <span className="font-bold">Hash chain:</span> intact — no record edited or removed
       </div>
       <table className="w-full text-left text-[12px]">
-        <thead className="text-[10px] uppercase tracking-widest text-[#64748B]">
+        <thead className="text-[10px] uppercase tracking-widest text-[#5A6A80]">
           <tr>
             <th className="py-1.5 pr-3 font-bold">Time</th>
             <th className="py-1.5 pr-3 font-bold">Actor</th>
@@ -450,7 +452,7 @@ export function AuditMock() {
         <tbody className="divide-y divide-[#F1F5F9]">
           {AUDIT_ROWS.map((r) => (
             <tr key={r[0] + r[2]}>
-              <td className="py-1.5 pr-3 font-mono text-[#64748B]">{r[0]}</td>
+              <td className="py-1.5 pr-3 font-mono text-[#5A6A80]">{r[0]}</td>
               <td className="py-1.5 pr-3 text-[#0B1220]">{r[1]}</td>
               <td className="py-1.5 pr-3 font-mono text-[11px] text-[#334155]">{r[2]}</td>
               <td className="py-1.5 pr-3 text-[#475569]">{r[3]}</td>
@@ -490,7 +492,7 @@ export function DiagramFigure({
       >
         <img src={src} alt={alt} loading="lazy" className="h-auto w-full min-w-[560px]" />
       </a>
-      <figcaption className="mt-2 px-1 text-[12.5px] leading-relaxed text-[#64748B]">
+      <figcaption className="mt-2 px-1 text-[12.5px] leading-relaxed text-[#5A6A80]">
         {caption}
       </figcaption>
     </figure>
@@ -520,7 +522,7 @@ export function OpsSection({
     >
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <div className="max-w-3xl">
-          <div className="text-[11px] font-bold uppercase tracking-widest text-[#2563EB]">
+          <div className="text-[12px] font-bold uppercase tracking-widest text-[#2563EB]">
             {eyebrow}
           </div>
           <h2 className="mt-3 font-display text-3xl font-extrabold leading-[1.12] tracking-tight text-[#0B1220] md:text-[38px]">

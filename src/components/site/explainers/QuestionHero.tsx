@@ -67,7 +67,11 @@ export function QuestionHero({
             {title}
           </h1>
           {lead && (
-            <p className={`mt-4 text-[17px] leading-[28px] md:text-[18px] md:leading-[30px] ${night ? "text-on-night-muted" : "text-body"}`}>
+            <p
+              className={`mt-4 text-[17px] leading-[28px] md:text-[18px] md:leading-[30px] ${
+                night ? "text-on-night-muted [&_code]:bg-white/10 [&_code]:text-white [&_strong]:text-white" : "text-body"
+              }`}
+            >
               {lead}
             </p>
           )}

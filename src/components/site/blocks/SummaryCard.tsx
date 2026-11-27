@@ -32,7 +32,7 @@ export function SummaryCard({ title, rows }: { title: string; rows: { label: str
     >
       <div className="flex items-center gap-2 border-b border-[#DBE7FE] bg-[#0B1220] px-5 py-3">
         <span aria-hidden className="inline-block h-2 w-2 rounded-full bg-[#60A5FA]" />
-        <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-white">{title}</span>
+        <span className="text-[12px] font-bold uppercase tracking-[0.14em] text-white">{title}</span>
       </div>
       <dl className="divide-y divide-[#E5E9F0]">
         {rows.map((r, i) => (
@@ -40,7 +40,7 @@ export function SummaryCard({ title, rows }: { title: string; rows: { label: str
             <dt className="flex items-start gap-2 text-[13px] font-bold uppercase tracking-wide text-[#0B1220]">
               <span
                 aria-hidden
-                className="mt-[3px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[10px] font-black text-white"
+                className="mt-[3px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[12px] font-black text-white"
                 style={{ background: ACCENTS[i % ACCENTS.length] }}
               >
                 {i + 1}

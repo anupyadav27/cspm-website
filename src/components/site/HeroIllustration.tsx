@@ -16,7 +16,7 @@ export function HeroIllustration({ image }: { image: HeroImage }) {
         decoding="async"
         className="h-auto w-full rounded-2xl border border-[#E5E9F0] shadow-[0_12px_28px_rgba(16,24,40,.08)]"
       />
-      <figcaption className="mt-3 text-center text-xs text-[#64748B]">{image.caption}</figcaption>
+      <figcaption className="mt-3 text-center text-xs text-[#5A6A80]">{image.caption}</figcaption>
     </figure>
   );
 }

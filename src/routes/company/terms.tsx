@@ -126,13 +126,13 @@ function TermsPage() {
   return (
     <SiteLayout>
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
-        <Backdrop tone="light" color="#64748B" pattern="dots" icon={FileText} className="opacity-70" />
+        <Backdrop tone="light" color="#5A6A80" pattern="dots" icon={FileText} className="opacity-70" />
         <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-14 md:pt-24 md:pb-16">
-          <div className="text-[11px] font-bold uppercase tracking-[0.2em] text-[#64748B]">Legal</div>
+          <div className="text-[12px] font-bold uppercase tracking-[0.2em] text-[#5A6A80]">Legal</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Terms of Service
           </h1>
-          <p className="mt-4 text-sm text-[#64748B]">Last updated: November 2026</p>
+          <p className="mt-4 text-sm text-[#5A6A80]">Last updated: November 2026</p>
         </div>
       </section>
 
@@ -140,7 +140,7 @@ function TermsPage() {
         <div className="max-w-4xl mx-auto px-6 grid lg:grid-cols-[220px_1fr] gap-10">
           <aside className="hidden lg:block">
             <div className="sticky top-24">
-              <div className="text-[11px] uppercase tracking-widest font-bold text-[#64748B] mb-3">On this page</div>
+              <div className="text-[12px] uppercase tracking-widest font-bold text-[#5A6A80] mb-3">On this page</div>
               <nav className="space-y-1.5">
                 {sections.map((s) => (
                   <a key={s.id} href={`#${s.id}`} className="block text-sm text-[#475569] hover:text-[#2563EB] transition">

@@ -23,7 +23,7 @@ export function FaqList({ title, items }: { title?: string; items: { q: string; 
               <svg
                 aria-hidden
                 viewBox="0 0 16 16"
-                className="mt-1 h-4 w-4 shrink-0 text-[#64748B] transition-transform group-open:rotate-45"
+                className="mt-1 h-4 w-4 shrink-0 text-[#5A6A80] transition-transform group-open:rotate-45"
               >
                 <path d="M8 3v10M3 8h10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
               </svg>

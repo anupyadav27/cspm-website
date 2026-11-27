@@ -63,7 +63,7 @@ function AboutPage() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="graph" icon={Compass} />
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">About Onam</div>
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">About Onam</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
             One discovery of your cloud, answering the questions every team asks of it.
           </h1>
@@ -136,7 +136,7 @@ function AboutPage() {
           {stats.map((s) => (
             <div key={s.label} className="px-6 first:pl-0 last:pr-0 text-center md:text-left">
               <div className="text-3xl md:text-4xl font-display font-black text-[#0B1220]">{s.value}</div>
-              <div className="mt-1 text-xs uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
+              <div className="mt-1 text-xs uppercase tracking-widest text-[#5A6A80] font-semibold">{s.label}</div>
             </div>
           ))}
         </div>
@@ -158,7 +158,7 @@ function AboutPage() {
               >
                 <div
                   className="w-16 h-16 rounded-2xl grid place-items-center font-display font-black text-white text-lg shrink-0"
-                  style={{ backgroundColor: p.color }}
+                  style={{ backgroundColor: `color-mix(in srgb, ${p.color}, #0B1220 45%)` }}
                 >
                   {p.initials}
                 </div>
@@ -166,7 +166,7 @@ function AboutPage() {
                   <div className="font-display font-bold text-[#0B1220] text-lg group-hover:text-[#2563EB]">{p.name}</div>
                   <div className="text-sm font-semibold text-[#2563EB]">{p.role}</div>
                   {p.bio && <p className="mt-3 text-sm text-[#475569] leading-relaxed">{p.bio}</p>}
-                  <div className="mt-3 text-xs text-[#64748B]">{p.topics.join(" · ")}</div>
+                  <div className="mt-3 text-xs text-[#5A6A80]">{p.topics.join(" · ")}</div>
                 </div>
               </Link>
             ))}

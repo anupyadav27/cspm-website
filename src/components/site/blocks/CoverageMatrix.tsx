@@ -119,7 +119,7 @@ export function CoverageMatrix({
                     {c.state ? (
                       <>
                         <Pill state={c.state} />
-                        {c.note && <div className="mt-1 text-[12px] leading-snug text-[#64748B]">{renderInline(c.note)}</div>}
+                        {c.note && <div className="mt-1 text-[12px] leading-snug text-[#5A6A80]">{renderInline(c.note)}</div>}
                       </>
                     ) : (
                       <span className="text-[#334155]">{renderInline(c.raw)}</span>
@@ -132,7 +132,7 @@ export function CoverageMatrix({
         </table>
       </div>
       {used.length > 0 && (
-        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-[#64748B]" aria-label="Legend">
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] text-[#5A6A80]" aria-label="Legend">
           <span className="font-semibold text-[#475569]">Legend</span>
           {used.map((k) => (
             <Pill key={k} state={k} />

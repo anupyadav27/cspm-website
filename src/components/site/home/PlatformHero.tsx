@@ -195,7 +195,7 @@ function HeroMock() {
               Attack path to customer data
             </span>
           </div>
-          <span className="shrink-0 inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FF6B63]/15 text-[#FF6B63]">
+          <span className="shrink-0 inline-flex items-center gap-1 text-[12px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-[#FF6B63]/15 text-[#FF6B63]">
             Critical
           </span>
         </div>
@@ -228,7 +228,7 @@ function HeroMock() {
                   />
                 )}
                 <span
-                  className="absolute -left-9 top-3 grid place-items-center w-[27px] h-[27px] rounded-full text-[11px] font-bold text-[#0B1220] ring-4 ring-[#121C31]"
+                  className="absolute -left-9 top-3 grid place-items-center w-[27px] h-[27px] rounded-full text-[12px] font-bold text-[#0B1220] ring-4 ring-[#121C31]"
                   style={{ background: h.dot }}
                 >
                   {h.n}
@@ -244,18 +244,18 @@ function HeroMock() {
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
                       <div className="flex items-center gap-2">
-                        <span className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">
+                        <span className="text-[12px] uppercase tracking-wider text-[#7C8CA8]">
                           {h.kind}
                         </span>
-                        <span className="text-[10px] font-semibold" style={{ color: h.dot }}>
+                        <span className="text-[12px] font-semibold" style={{ color: h.dot }}>
                           {h.role}
                         </span>
                       </div>
                       <div className="text-sm font-semibold text-white truncate">{h.id}</div>
                     </div>
-                    <span className="shrink-0 text-[10px] font-mono text-[#8FA0BC]">{h.tag}</span>
+                    <span className="shrink-0 text-[12px] font-mono text-[#8FA0BC]">{h.tag}</span>
                   </div>
-                  <div className="mt-1 text-[11px] text-[#9FB0CC]">{h.note}</div>
+                  <div className="mt-1 text-[12px] text-[#9FB0CC]">{h.note}</div>
                 </div>
               </div>
             ))}
@@ -265,7 +265,7 @@ function HeroMock() {
         {/* The payoff: the cut, and the number. */}
         <div className="mt-5 pt-4 border-t border-white/10 flex flex-wrap items-end justify-between gap-x-4 gap-y-3">
           <div className="min-w-0">
-            <div className="text-[10px] uppercase tracking-wider text-[#7C8CA8]">
+            <div className="text-[12px] uppercase tracking-wider text-[#7C8CA8]">
               Estimated exposure
             </div>
             <div className="font-display font-black text-3xl text-white tracking-tight">
@@ -275,7 +275,7 @@ function HeroMock() {
           <div className="min-w-0">
             <div className="inline-flex items-center gap-2 rounded-lg border border-[#34D399]/30 bg-[#34D399]/10 px-2.5 py-1.5">
               <span className="w-1.5 h-1.5 rounded-full bg-[#34D399]" />
-              <span className="text-[11px] font-semibold text-[#34D399]">
+              <span className="text-[12px] font-semibold text-[#34D399]">
                 Disable IMDSv1: cuts all 3 paths
               </span>
             </div>
@@ -285,7 +285,7 @@ function HeroMock() {
 
       {/* Required by the marketing guardrails: demo-tenant numbers are
           illustrations and are never presented as customer outcomes. */}
-      <p className="mt-3 text-[11px] text-[#7C8CA8] text-center">
+      <p className="mt-3 text-[12px] text-[#7C8CA8] text-center">
         Illustrative, from a demo tenant. FAIR-based range, not a customer result.
       </p>
     </div>

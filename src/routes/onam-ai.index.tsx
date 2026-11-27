@@ -141,7 +141,7 @@ function Hero() {
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
               <span
-                className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest"
+                className="inline-flex items-center rounded-full border border-white/15 bg-white/[0.06] px-2.5 py-1 text-[12px] font-bold uppercase tracking-widest"
                 style={{ color: AIOPS_ON_NIGHT }}
               >
                 Onam AI
@@ -239,7 +239,7 @@ function TodaySection() {
         {STATUS_ORDER.map((st) => (
           <div key={st} className="rounded-2xl border border-[#E5E9F0] bg-white p-5">
             <StatusBadge status={st} />
-            <p className="mt-3 text-[13px] leading-relaxed text-[#64748B]">
+            <p className="mt-3 text-[13px] leading-relaxed text-[#5A6A80]">
               {OPS_STATUS[st].meaning}
             </p>
             <ul className="mt-4 space-y-3">
@@ -253,7 +253,7 @@ function TodaySection() {
           </div>
         ))}
       </div>
-      <p className="mt-6 text-[13.5px] text-[#64748B]">
+      <p className="mt-6 text-[13.5px] text-[#5A6A80]">
         Looking for the assistant you can use right now?{" "}
         <Link to="/platform/ai-assistant" className="font-semibold text-[#2563EB] hover:underline">
           AI Assistant in Onam Security
@@ -319,7 +319,7 @@ function ProblemSection() {
           </ul>
         </div>
       </div>
-      <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[#64748B]">
+      <p className="mt-6 max-w-3xl text-[14px] leading-relaxed text-[#5A6A80]">
         In early access Onam AI reads the Onam Security inventory and findings, on AWS first.
       </p>
     </OpsSection>
@@ -389,7 +389,7 @@ function WorkspaceSection() {
           ],
         ].map(([h, b]) => (
           <div key={h} className="rounded-xl border border-[#E5E9F0] bg-white p-4">
-            <div className="text-[11px] font-bold uppercase tracking-widest text-[#2563EB]">
+            <div className="text-[12px] font-bold uppercase tracking-widest text-[#2563EB]">
               {h}
             </div>
             <div className="mt-1">{b}</div>
@@ -431,7 +431,7 @@ function AgentsSection() {
               <h3 className="font-display text-lg font-bold text-[#0B1220]">{a.name}</h3>
               <StatusBadge status={a.status} />
             </div>
-            <div className="mt-1 text-[12px] font-semibold text-[#64748B]">
+            <div className="mt-1 text-[12px] font-semibold text-[#5A6A80]">
               {a.level} · {a.levelName} · {a.authority}
             </div>
             <p className="mt-3 text-[14px] italic text-[#334155]">“{a.question}”</p>
@@ -443,14 +443,14 @@ function AgentsSection() {
                 </li>
               ))}
             </ul>
-            <div className="mt-3 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">
+            <div className="mt-3 text-[12px] font-bold uppercase tracking-widest text-[#5A6A80]">
               Tools
             </div>
             <div className="mt-1.5 flex flex-wrap gap-1">
               {a.tools.slice(0, 5).map((t) => (
                 <span
                   key={t}
-                  className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[11px] text-[#334155]"
+                  className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[12px] text-[#334155]"
                 >
                   {t}
                 </span>
@@ -460,7 +460,7 @@ function AgentsSection() {
               <span className="font-semibold">Never:</span>{" "}
               {a.never[0].charAt(0).toLowerCase() + a.never[0].slice(1)}.
             </div>
-            <div className="mt-auto pt-4 text-[12.5px] text-[#64748B]">{a.statusNote}</div>
+            <div className="mt-auto pt-4 text-[12.5px] text-[#5A6A80]">{a.statusNote}</div>
           </article>
         ))}
       </div>
@@ -530,7 +530,7 @@ function OrchestratorSection() {
             <div key={k} className="rounded-xl border border-[#E5E9F0] bg-white p-4">
               <div className="flex flex-wrap items-baseline gap-2">
                 <span className="font-semibold text-[#0B1220]">{k}</span>
-                <span className="text-[13px] text-[#64748B]">{d}</span>
+                <span className="text-[13px] text-[#5A6A80]">{d}</span>
               </div>
               <div className="mt-1 text-[13.5px] italic text-[#334155]">“{ex}”</div>
             </div>
@@ -714,7 +714,7 @@ function SecuritySection() {
         })}
       </div>
       <div className="mt-8 rounded-2xl border border-[#082869] bg-[#082869] p-6 text-white md:p-8">
-        <div className="text-[11px] font-bold uppercase tracking-widest text-[#93B4F8]">
+        <div className="text-[12px] font-bold uppercase tracking-widest text-[#93B4F8]">
           Five things it will never do
         </div>
         <ol className="mt-4 grid gap-3 text-[15px] md:grid-cols-2 [&>*]:min-w-0">
@@ -758,11 +758,11 @@ function UseCasesSection() {
             </div>
             <p className="mt-2 text-[14px] italic text-[#334155]">“{u.ask}”</p>
             <dl className="mt-3 grid grid-cols-[88px_1fr] gap-x-3 gap-y-1.5 text-[13.5px] [&>*]:min-w-0">
-              <dt className="text-[#64748B]">Agents</dt>
+              <dt className="text-[#5A6A80]">Agents</dt>
               <dd className="text-[#0B1220]">{u.agents}</dd>
-              <dt className="text-[#64748B]">You get</dt>
+              <dt className="text-[#5A6A80]">You get</dt>
               <dd className="text-[#475569]">{u.outcome}</dd>
-              <dt className="text-[#64748B]">Approval</dt>
+              <dt className="text-[#5A6A80]">Approval</dt>
               <dd className="text-[#475569]">{u.approval}</dd>
             </dl>
           </div>
@@ -781,7 +781,7 @@ function FaqSection() {
             <summary className="cursor-pointer list-none font-semibold text-[#0B1220] marker:hidden">
               <span className="flex items-center justify-between gap-4">
                 {f.q}
-                <span className="text-[#94A3B8] transition group-open:rotate-45">+</span>
+                <span className="text-[#5A6A80] transition group-open:rotate-45" aria-hidden="true">+</span>
               </span>
             </summary>
             <p className="mt-3 text-[14.5px] leading-relaxed text-[#475569]">{f.a}</p>

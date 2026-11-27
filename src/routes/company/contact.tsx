@@ -79,7 +79,7 @@ function ContactPage() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="dots" icon={MessageSquare} />
         <div className="relative max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Contact</div>
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">Contact</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.05]">
             Get in touch.
           </h1>
@@ -118,7 +118,7 @@ function ContactPage() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Alex Rivera"
-                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#5A6A80] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.name ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
                     {errors.name && <p id="contact-name-error" className="mt-1 text-xs text-[#C81E1E]">{errors.name}</p>}
                   </div>
@@ -131,14 +131,14 @@ function ContactPage() {
                       value={form.email}
                       onChange={(e) => setForm({ ...form, email: e.target.value })}
                       placeholder="you@company.com"
-                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                      className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#5A6A80] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.email ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                     />
                     {errors.email && <p id="contact-email-error" className="mt-1 text-xs text-[#C81E1E]">{errors.email}</p>}
                   </div>
                 </div>
                 <fieldset>
                   <legend className="block text-sm font-semibold text-[#0B1220]">
-                    Which product is this about? <span className="text-[#64748B] font-normal">(optional)</span>
+                    Which product is this about? <span className="text-[#5A6A80] font-normal">(optional)</span>
                   </legend>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {SUITE.map((p) => {
@@ -153,7 +153,7 @@ function ContactPage() {
                             "px-3 py-1.5 rounded-full text-xs font-semibold border transition",
                             active
                               ? "bg-[#2563EB] text-white border-[#2563EB]"
-                              : "bg-white text-[#0B1220] border-[#CBD5E1] hover:border-[#64748B]",
+                              : "bg-white text-[#0B1220] border-[#CBD5E1] hover:border-[#5A6A80]",
                           )}
                         >
                           {p.name}
@@ -185,7 +185,7 @@ function ContactPage() {
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     rows={5}
                     placeholder="A short note about what you're looking for."
-                    className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.message ? "border-[#E32D25]" : "border-[#CBD5E1]")}
+                    className={cn("mt-1.5 w-full rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#5A6A80] focus:outline-none focus:ring-2 focus:ring-blue-500/30", errors.message ? "border-[#E32D25]" : "border-[#CBD5E1]")}
                   />
                   {errors.message && <p id="contact-message-error" className="mt-1 text-xs text-[#C81E1E]">{errors.message}</p>}
                 </div>
@@ -234,7 +234,7 @@ function ContactPage() {
                       <Icon className="w-5 h-5" style={{ color: i.iconColor }} />
                     </div>
                     <div>
-                      <div className="text-xs uppercase tracking-widest font-bold text-[#64748B]">{i.label}</div>
+                      <div className="text-xs uppercase tracking-widest font-bold text-[#5A6A80]">{i.label}</div>
                       <div className="mt-1 font-display font-bold text-[#0B1220] group-hover:text-[#2563EB] transition">{i.email}</div>
                       <p className="mt-1.5 text-sm text-[#475569] leading-relaxed">{i.note}</p>
                     </div>

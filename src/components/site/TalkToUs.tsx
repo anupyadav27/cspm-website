@@ -243,7 +243,7 @@ export function TalkToUs() {
                   <MonitorPlay className="h-5 w-5 shrink-0 text-[#2563EB]" />
                   <span className="flex-1">
                     <span className="block text-sm font-semibold">Book a demo</span>
-                    <span className="block text-xs text-[#64748B]">See Onam on your own cloud estate</span>
+                    <span className="block text-xs text-[#5A6A80]">See Onam on your own cloud estate</span>
                   </span>
                   <ArrowRight className="h-4 w-4 text-[#94A3B8] transition-transform group-hover:translate-x-0.5" />
                 </Link>
@@ -260,7 +260,7 @@ export function TalkToUs() {
                         </span>
                         <span className="flex-1">
                           <span className="block text-sm font-semibold text-[#0B1220]">{t.title}</span>
-                          <span className="block text-xs text-[#64748B]">{t.detail}</span>
+                          <span className="block text-xs text-[#5A6A80]">{t.detail}</span>
                         </span>
                         <ChevronRight className="h-4 w-4 text-[#94A3B8] group-hover:text-[#2563EB]" />
                       </button>
@@ -271,7 +271,7 @@ export function TalkToUs() {
                 <Link
                   to="/company/careers"
                   onClick={() => setOpen(false)}
-                  className="mt-3 flex items-center justify-between px-1 text-xs text-[#64748B] hover:text-[#0B1220]"
+                  className="mt-3 flex items-center justify-between px-1 text-xs text-[#5A6A80] hover:text-[#0B1220]"
                 >
                   <span>Looking for a job? See open roles</span>
                   <ChevronRight className="h-3.5 w-3.5" />
@@ -282,7 +282,7 @@ export function TalkToUs() {
                 <button
                   type="button"
                   onClick={reset}
-                  className="-mt-1 inline-flex items-center gap-1 text-xs font-semibold text-[#64748B] hover:text-[#0B1220]"
+                  className="-mt-1 inline-flex items-center gap-1 text-xs font-semibold text-[#5A6A80] hover:text-[#0B1220]"
                 >
                   <ArrowLeft className="h-3.5 w-3.5" /> All topics
                 </button>
@@ -326,7 +326,7 @@ export function TalkToUs() {
                   {state === "sending" ? "Sending…" : "Send to our team"}
                   {state !== "sending" && <ArrowRight className="h-4 w-4" />}
                 </button>
-                <p className="text-[11px] leading-relaxed text-[#64748B]">
+                <p className="text-[12px] leading-relaxed text-[#5A6A80]">
                   We use these details only to reply to you. See our{" "}
                   <Link to="/company/privacy" className="underline hover:text-[#0B1220]" onClick={() => setOpen(false)}>
                     privacy policy

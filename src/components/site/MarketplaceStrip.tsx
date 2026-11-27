@@ -82,11 +82,11 @@ export function MarketplaceLine({ className }: { className?: string }) {
       {MARKETPLACES.map((m, i) => (
         <span key={m.key} className="inline-flex items-center gap-1">
           {m.url ? (
-            <a href={m.url} target="_blank" rel="noopener" className="font-medium text-brand-500 hover:text-brand-600">
+            <a href={m.url} target="_blank" rel="noopener" className="inline-flex min-h-6 items-center font-medium text-brand-500 hover:text-brand-600">
               {m.name}
             </a>
           ) : m.partner ? (
-            <a href={m.partner.url} target="_blank" rel="noopener" className="font-medium text-brand-500 hover:text-brand-600">
+            <a href={m.partner.url} target="_blank" rel="noopener" className="inline-flex min-h-6 items-center font-medium text-brand-500 hover:text-brand-600">
               {m.partner.label}
             </a>
           ) : (

@@ -13,7 +13,7 @@ export function OpsBand() {
       <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 lg:grid-cols-[1.2fr_1fr]">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-widest text-[#93B4F8]">
+            <span className="text-[12px] font-bold uppercase tracking-widest text-[#93B4F8]">
               Onam AI
             </span>
             <StatusBadge status="early" />
@@ -38,7 +38,7 @@ export function OpsBand() {
             </Link>
             <Link
               to="/onam-ai/architecture"
-              className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#64748B]"
+              className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#5A6A80]"
             >
               How it is designed
             </Link>

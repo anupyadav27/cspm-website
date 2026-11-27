@@ -158,12 +158,12 @@ function SuiteTab({ p, active, onActivate }: { p: SuiteProduct; active: boolean;
         <Icon className="w-[18px] h-[18px]" style={{ color: p.color }} />
       </span>
       <span className="min-w-0">
-        <span className="block text-[11px] uppercase tracking-wider font-semibold text-[#64748B]">{p.stage}</span>
+        <span className="block text-[12px] uppercase tracking-wider font-semibold text-[#5A6A80]">{p.stage}</span>
         <span className="flex items-center gap-1.5 text-sm font-bold text-[#0B1220]">
           {p.name}
           {p.badge && (
             <span
-              className="text-[11px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded"
+              className="text-[12px] uppercase tracking-wider font-bold px-1.5 py-0.5 rounded"
               style={{ color: AIOPS_COLOR, backgroundColor: "#EEF2FF" }}
             >
               Early
@@ -181,7 +181,7 @@ function SuitePanel({ p }: { p: SuiteProduct }) {
     <div className="mt-4 grid grid-cols-[250px_1fr] gap-6 pt-5 border-t border-[#E5E9F0]">
       <div className="pr-6 border-r border-[#E5E9F0]">
         <div className="text-sm font-semibold text-[#0B1220] leading-snug">{p.question}</div>
-        <p className="mt-2 text-xs text-[#64748B] leading-relaxed">{p.blurb}</p>
+        <p className="mt-2 text-xs text-[#5A6A80] leading-relaxed">{p.blurb}</p>
         <div className="mt-4 flex flex-col gap-2">
           <Link to={p.href} className="text-sm font-semibold text-[#2563EB] hover:text-[#1D4ED8]">
             Explore {p.name} →
@@ -192,7 +192,7 @@ function SuitePanel({ p }: { p: SuiteProduct }) {
         </div>
         {p.agent && (
           <Link to={p.agent.href} className="mt-4 block rounded-lg border border-[#E0E7FF] bg-[#F8F9FF] p-2.5 hover:border-[#C7D2FE] transition">
-            <span className="block text-[11px] uppercase tracking-wider font-bold" style={{ color: AIOPS_COLOR }}>
+            <span className="block text-[12px] uppercase tracking-wider font-bold" style={{ color: AIOPS_COLOR }}>
               Ask it with
             </span>
             <span className="mt-1 flex flex-wrap items-center gap-1.5 text-xs font-semibold text-[#0B1220]">
@@ -204,7 +204,7 @@ function SuitePanel({ p }: { p: SuiteProduct }) {
       <div className={cn("grid gap-5", cols)}>
         {p.groups.map((g) => (
           <div key={g.heading}>
-            <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">{g.heading}</div>
+            <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-3">{g.heading}</div>
             <div className={cn("gap-x-6", p.groups.length === 1 ? "grid grid-cols-2 gap-y-1" : "space-y-1")}>
               {g.items.map((i) => (
                 <MenuLink key={i.title + i.href} item={i} status={i.status} />
@@ -224,7 +224,7 @@ function MenuLink({ item, status }: { item: MenuItem; status?: SuiteProduct["gro
         {item.title}
         {status && status !== "early" && <StatusBadge status={status} />}
       </div>
-      <div className="text-xs text-[#64748B] mt-0.5">{item.desc}</div>
+      <div className="text-xs text-[#5A6A80] mt-0.5">{item.desc}</div>
     </Link>
   );
 }
@@ -324,7 +324,7 @@ export function Navbar() {
             <MegaWrap id="menu-solutions" open={open === "solutions"}>
               <div className="grid grid-cols-2 gap-8 w-[640px]" onClick={() => setOpen(null)}>
                 <div>
-                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">
+                  <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-3">
                     By cloud
                   </div>
                   <div className="space-y-1">
@@ -332,7 +332,7 @@ export function Navbar() {
                   </div>
                 </div>
                 <div>
-                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">
+                  <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-3">
                     By industry
                   </div>
                   <div className="space-y-1">
@@ -369,7 +369,7 @@ export function Navbar() {
               <div className="grid grid-cols-3 gap-8 w-[840px] max-w-[calc(100vw-3rem)]" onClick={() => setOpen(null)}>
                 {resourceGroups.map((g) => (
                   <div key={g.heading}>
-                    <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-3">{g.heading}</div>
+                    <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-3">{g.heading}</div>
                     <div className="space-y-1">
                       {g.items.map((i) => <MenuLink key={i.href} item={i} />)}
                     </div>
@@ -434,10 +434,10 @@ export function Navbar() {
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-between rounded-[10px] border border-[#E5E9F0] px-4 py-3 text-sm font-bold text-[#0B1220]"
             >
-              Pricing <span className="text-xs font-medium text-[#64748B]">Public prices · free plan</span>
+              Pricing <span className="text-xs font-medium text-[#5A6A80]">Public prices · free plan</span>
             </Link>
             <div>
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">Products</div>
+              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-2">Products</div>
               <div className="divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
                 {SUITE.map((p) => {
                   const open = mobileProduct === p.key;
@@ -452,10 +452,10 @@ export function Navbar() {
                         <Icon className="w-5 h-5 shrink-0" style={{ color: p.color }} />
                         <span className="flex-1 min-w-0">
                           <span className="block text-sm font-bold text-[#0B1220]">{p.name}</span>
-                          <span className="block text-xs text-[#64748B]">{p.stage}</span>
+                          <span className="block text-xs text-[#5A6A80]">{p.stage}</span>
                         </span>
                         {p.badge && <StatusBadge status="early" />}
-                        <ChevronDown className={cn("w-4 h-4 text-[#64748B] transition-transform", open && "rotate-180")} />
+                        <ChevronDown className={cn("w-4 h-4 text-[#5A6A80] transition-transform", open && "rotate-180")} />
                       </button>
                       {open && (
                         <div className="pb-4 pl-8 space-y-3">
@@ -464,7 +464,7 @@ export function Navbar() {
                           </Link>
                           {p.groups.map((g) => (
                             <div key={g.heading}>
-                              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-1">{g.heading}</div>
+                              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-1">{g.heading}</div>
                               {g.items.map((i) => (
                                 <Link
                                   key={i.title + i.href}
@@ -486,7 +486,7 @@ export function Navbar() {
               </div>
             </div>
             <div>
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">By cloud</div>
+              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-2">By cloud</div>
               <div className="grid grid-cols-2 gap-1">
                 {solutionsClouds.map((i) => (
                   <Link key={i.href} to={i.href} onClick={() => setMobileOpen(false)} className="text-sm text-[#0B1220] py-1.5">
@@ -496,7 +496,7 @@ export function Navbar() {
               </div>
             </div>
             <div>
-              <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">By industry</div>
+              <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-2">By industry</div>
               {solutionsIndustries.map((i) => (
                 <Link key={i.href} to={i.href} onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">
                   {i.title}
@@ -506,7 +506,7 @@ export function Navbar() {
             <div className="pt-4 border-t border-[#E5E9F0] space-y-2">
               {[...resourceGroups, { heading: "Company", items: companyItems }].map((g) => (
                 <div key={g.heading} className="pb-2">
-                  <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-1">{g.heading}</div>
+                  <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-1">{g.heading}</div>
                   {g.items.map((i) => (
                     <Link key={i.href} to={i.href} onClick={() => setMobileOpen(false)} className="block text-sm text-[#0B1220] py-1.5">
                       {i.title}

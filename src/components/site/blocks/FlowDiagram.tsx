@@ -106,7 +106,7 @@ function pairs(a: Box[], b: Box[]): [Box, Box][] {
 
 function tone(stage: number, last: number) {
   if (stage === last) return { fill: "#0B1220", stroke: "#0B1220", label: "#FFFFFF", sub: "#CBD5E1", badge: "#2563EB", badgeText: "#FFFFFF" };
-  if (stage === 0) return { fill: "#FFFFFF", stroke: "#CBD5E1", label: "#1E3A8A", sub: "#64748B", badge: "#E2E8F0", badgeText: "#334155" };
+  if (stage === 0) return { fill: "#FFFFFF", stroke: "#CBD5E1", label: "#1E3A8A", sub: "#5A6A80", badge: "#E2E8F0", badgeText: "#334155" };
   return { fill: "#EFF4FF", stroke: "#C7D2FE", label: "#1E3A8A", sub: "#475569", badge: "#2563EB", badgeText: "#FFFFFF" };
 }
 
@@ -168,7 +168,7 @@ export function FlowDiagram({ spec }: { spec: FlowSpec }) {
     <figure className="my-8">
       <Svg spec={spec} layout={layoutHorizontal(spec)} uid={`${uid}h`} className="hidden md:block w-full h-auto rounded-xl border border-[#E5E9F0]" />
       <Svg spec={spec} layout={layoutVertical(spec)} uid={`${uid}v`} className="md:hidden w-full h-auto rounded-xl border border-[#E5E9F0]" />
-      <figcaption className="mt-2.5 text-center text-[13px] text-[#64748B]">{spec.title}</figcaption>
+      <figcaption className="mt-2.5 text-center text-[13px] text-[#5A6A80]">{spec.title}</figcaption>
       <ol className="sr-only">
         {spec.stages.map((stage, s) => (
           <li key={s}>

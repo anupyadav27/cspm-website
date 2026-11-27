@@ -107,7 +107,7 @@ export function ProductSuite() {
               >
                 <IconTile p={p} size="sm" />
                 <span className="min-w-0">
-                  <span className="block text-[11px] uppercase tracking-wider font-semibold text-[#64748B]">
+                  <span className="block text-[12px] uppercase tracking-wider font-semibold text-[#5A6A80]">
                     {p.stage}
                   </span>
                   <span
@@ -151,7 +151,7 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
         <div className="p-6 sm:p-10 min-w-0">
           <div className="flex flex-wrap items-center gap-2">
             <span
-              className="text-[11px] uppercase tracking-widest font-bold"
+              className="text-[12px] uppercase tracking-widest font-bold"
               style={{ color: p.color }}
             >
               {p.name}
@@ -168,7 +168,7 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
           >
             {groups.map((g) => (
               <div key={g.heading} className="min-w-0">
-                <div className="text-[11px] uppercase tracking-widest font-semibold text-[#64748B] mb-2">
+                <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80] mb-2">
                   {g.heading}
                 </div>
                 <ul
@@ -186,7 +186,7 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
                             {m.title}
                             {m.status && m.status !== "early" && <StatusBadge status={m.status} />}
                           </span>
-                          <span className="block text-[13px] text-[#64748B] leading-snug">
+                          <span className="block text-[13px] text-[#5A6A80] leading-snug">
                             {m.desc}
                           </span>
                         </span>
@@ -237,7 +237,7 @@ function SuitePanel({ p, hidden }: { p: SuiteProduct; hidden: boolean }) {
             loading="lazy"
             className={cn("w-full h-full", p.image.endsWith(".svg") ? "object-contain bg-[#F7F9FC]" : "object-cover object-[0%_8%]")}
           />
-          <p className="absolute bottom-3 left-4 right-4 rounded bg-white/90 px-1.5 py-0.5 text-[11px] leading-snug text-[#64748B] sm:left-auto sm:max-w-[340px]">
+          <p className="absolute bottom-3 left-4 right-4 rounded bg-white/90 px-1.5 py-0.5 text-[12px] leading-snug text-[#5A6A80] sm:left-auto sm:max-w-[340px]">
             {p.imageLabel}
           </p>
         </div>
@@ -260,7 +260,7 @@ export function OnamAiSpotlight() {
         <div className="grid lg:grid-cols-[1.1fr_1fr] gap-12 items-center">
           <div className="min-w-0">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#A5B4FC]">
+              <span className="text-[12px] font-bold uppercase tracking-widest text-[#A5B4FC]">
                 Onam AI
               </span>
               <StatusBadge status="early" />
@@ -306,7 +306,7 @@ export function OnamAiSpotlight() {
               <Link
                 to="/request-demo"
                 search={{ product: "aiops" }}
-                className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#64748B]"
+                className="inline-flex items-center gap-2 rounded-[10px] border border-[#334155] px-5 py-3 text-[15px] font-semibold text-white transition hover:border-[#5A6A80]"
               >
                 Ask for early access
               </Link>
@@ -328,7 +328,7 @@ export function OnamAiSpotlight() {
         </div>
 
         <div className="mt-14">
-          <div className="text-[11px] uppercase tracking-widest font-semibold text-[#94A3B8]">
+          <div className="text-[12px] uppercase tracking-widest font-semibold text-[#94A3B8]">
             What teams ask it today
           </div>
           <div className="mt-4 grid md:grid-cols-3 gap-4">
@@ -404,7 +404,7 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
     <section className="py-20 bg-[#F7F9FC] border-y border-[#E5E9F0]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="text-center max-w-2xl mx-auto">
-          <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">
+          <div className="text-[12px] uppercase tracking-widest text-[#5A6A80] font-semibold">
             Onam
           </div>
           <h2 className="mt-3 font-display font-extrabold text-[#0B1220] text-3xl tracking-tight">
@@ -444,11 +444,11 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
                   />
                   <div className="p-5">
                     <div className="flex items-center justify-between gap-2">
-                      <span className="text-[11px] uppercase tracking-wider font-semibold text-[#64748B]">
+                      <span className="text-[12px] uppercase tracking-wider font-semibold text-[#5A6A80]">
                         {p.stage}
                       </span>
                       {here ? (
-                        <span className="text-[11px] uppercase tracking-widest font-bold text-[#1D4ED8]">
+                        <span className="text-[12px] uppercase tracking-widest font-bold text-[#1D4ED8]">
                           You are here
                         </span>
                       ) : (
@@ -458,7 +458,7 @@ export function SuiteStrip({ current }: { current: SuiteKey }) {
                     <div className="mt-1.5 font-display font-bold text-[#0B1220] group-hover:text-[#2563EB] transition">
                       {p.name}
                     </div>
-                    <p className="mt-2 text-[13px] text-[#64748B] leading-snug">{p.question}</p>
+                    <p className="mt-2 text-[13px] text-[#5A6A80] leading-snug">{p.question}</p>
                   </div>
                 </div>
               </Link>

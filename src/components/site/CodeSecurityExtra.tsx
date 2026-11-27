@@ -28,7 +28,7 @@ function DiagramFigure({ fig }: { fig: Figure }) {
   return (
     <figure className="bg-white border border-[#E5E9F0] rounded-2xl p-3 md:p-4 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
       <img src={fig.src} alt={fig.alt} loading="lazy" className="w-full h-auto rounded-lg" />
-      <figcaption className="mt-3 text-sm text-[#64748B] text-center">{fig.caption}</figcaption>
+      <figcaption className="mt-3 text-sm text-[#5A6A80] text-center">{fig.caption}</figcaption>
     </figure>
   );
 }
@@ -218,7 +218,7 @@ export function CodeSecurityOverviewExtra() {
               </ul>
             </div>
           </div>
-          <p className="mt-8 text-center text-sm text-[#64748B]">
+          <p className="mt-8 text-center text-sm text-[#5A6A80]">
             Full detail is in the{" "}
             <Link to={DOCS_OVERVIEW} className="text-[#2563EB] underline">
               Code Security documentation

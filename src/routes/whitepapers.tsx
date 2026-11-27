@@ -153,7 +153,7 @@ function Page() {
               >
                 <p.Icon className="h-5 w-5" style={{ color: p.color }} />
               </div>
-              <span className="text-[13px] font-bold tracking-[1px] text-[#64748B]">{p.n}</span>
+              <span className="text-[13px] font-bold tracking-[1px] text-[#5A6A80]">{p.n}</span>
             </div>
 
             <div className="mt-5 flex flex-wrap items-center gap-3">

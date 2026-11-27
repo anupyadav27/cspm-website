@@ -82,7 +82,7 @@ function AuthorPage() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color={author.color} pattern="dots" icon={UserRound} />
         <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-14 md:pt-20 md:pb-16">
-          <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-8">
+          <nav className="flex items-center gap-1.5 text-xs text-[#5A6A80] mb-8">
             <Link to="/company/about" className="hover:text-[#2563EB]">About</Link>
             <ChevronRight className="w-3.5 h-3.5" />
             <span className="text-[#0B1220]">{author.name}</span>
@@ -101,7 +101,7 @@ function AuthorPage() {
               {author.bio && <p className="mt-4 text-[#475569] leading-relaxed">{author.bio}</p>}
               <div className="mt-4 flex flex-wrap gap-2">
                 {author.topics.map((t) => (
-                  <span key={t} className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+                  <span key={t} className="inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
                     {t}
                   </span>
                 ))}
@@ -132,7 +132,7 @@ function AuthorPage() {
                     <Link to="/learn/$slug" params={{ slug: a.slug }} className="font-semibold text-[#0B1220] hover:text-[#2563EB]">
                       {a.question}
                     </Link>
-                    <div className="text-sm text-[#64748B]">{a.readTime} read</div>
+                    <div className="text-sm text-[#5A6A80]">{a.readTime} read</div>
                   </li>
                 ))}
               </ul>
@@ -147,7 +147,7 @@ function AuthorPage() {
                     <Link to="/resources/blog/$slug" params={{ slug: p.slug }} className="font-semibold text-[#0B1220] hover:text-[#2563EB]">
                       {p.title}
                     </Link>
-                    <div className="text-sm text-[#64748B]">{p.date} • {p.readTime}</div>
+                    <div className="text-sm text-[#5A6A80]">{p.date} • {p.readTime}</div>
                   </li>
                 ))}
               </ul>
@@ -162,7 +162,7 @@ function AuthorPage() {
                     <Link to="/resources/blog/$slug" params={{ slug: p.slug }} className="font-semibold text-[#0B1220] hover:text-[#2563EB]">
                       {p.title}
                     </Link>
-                    <div className="text-sm text-[#64748B]">{p.date}</div>
+                    <div className="text-sm text-[#5A6A80]">{p.date}</div>
                   </li>
                 ))}
               </ul>
@@ -187,7 +187,7 @@ function AuthorPage() {
               </Link>
             ))}
           </div>
-          <div className="mt-6 text-sm text-[#64748B]">
+          <div className="mt-6 text-sm text-[#5A6A80]">
             Canonical profile: <a href={authorUrl(author)} className="text-[#2563EB]">{authorUrl(author)}</a>
           </div>
         </div>

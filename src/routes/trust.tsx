@@ -178,7 +178,7 @@ function TrustPage() {
           <ul className="mt-3 grid gap-x-6 gap-y-1.5 text-[14.5px] sm:grid-cols-2">
             {SECTIONS.map((s) => (
               <li key={s.id}>
-                <a href={`#${s.id}`} className="text-[#2563EB] hover:underline">
+                <a href={`#${s.id}`} className="inline-flex min-h-6 items-center text-[#2563EB] hover:underline">
                   {s.label}
                 </a>
               </li>

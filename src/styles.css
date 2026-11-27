@@ -40,7 +40,7 @@
   --color-ink: #0B1220;
   --color-ink-2: #1E293B;
   --color-body: #475569;
-  --color-muted-500: #64748B;
+  --color-muted-500: #5A6A80;
   --color-line: #E5E9F0;
   --color-surface: #F7F9FC;
   --color-surface-2: #F8FAFC;
@@ -76,7 +76,7 @@
 
   /* Website v2 (WEBSITE-V2-PLAN.md §4). Product accents, and the two greys whose
      roles are easy to confuse: muted-500 (above) is the lightest grey allowed for
-     TEXT on white (4.76:1); subtle is for icons and borders only (2.56:1). */
+     TEXT on white (5.51:1) and on the tinted surfaces (4.73:1 or better); subtle is for icons and borders only (2.56:1). */
   --color-subtle: #94A3B8;
   --color-line-strong: #CBD5E1;
   --color-night: #0B1220;
@@ -102,7 +102,7 @@
   --secondary: #F1F5F9;
   --secondary-foreground: #0B1220;
   --muted: #F8FAFC;
-  --muted-foreground: #64748B;
+  --muted-foreground: #5A6A80;
   --accent: #EFF4FF;
   --accent-foreground: #1D4ED8;
   --destructive: #E32D25;

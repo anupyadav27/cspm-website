@@ -43,7 +43,7 @@ function Hero({ data }: { data: IndustrySolutionData }) {
     <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
       <Backdrop tone="light" color={banner.color} pattern="rings" icon={banner.icon} />
       <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24 text-center">
-        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">{data.breadcrumb}</div>
+        <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">{data.breadcrumb}</div>
         <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
           {data.headline}
         </h1>
@@ -64,7 +64,7 @@ function StatStrip({ stats }: { stats: IndustryStat[] }) {
         {stats.map((s, i) => (
           <div key={i} className="px-6 first:pl-0 last:pr-0 text-center md:text-left">
             <div className="text-2xl md:text-3xl font-display font-black text-[#0B1220]">{s.value}</div>
-            <div className="mt-1 text-xs uppercase tracking-widest text-[#64748B] font-semibold">{s.label}</div>
+            <div className="mt-1 text-xs uppercase tracking-widest text-[#5A6A80] font-semibold">{s.label}</div>
           </div>
         ))}
       </div>

@@ -208,7 +208,7 @@ export function CiemExtra() {
               </tbody>
             </table>
           </div>
-          <p className="mt-4 text-xs text-[#64748B] text-center">
+          <p className="mt-4 text-xs text-[#5A6A80] text-center">
             Identity hygiene — MFA, key age, password policy, root usage — is covered on all seven
             clouds through{" "}
             <Link to="/platform/iam" className="text-[#2563EB] hover:underline">

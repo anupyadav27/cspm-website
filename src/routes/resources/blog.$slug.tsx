@@ -138,20 +138,20 @@ function Article() {
         <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
           <Backdrop tone="light" color="#2563EB" pattern="dots" icon={Newspaper} className="opacity-80" />
           <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-14">
-            <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
+            <nav className="flex items-center gap-1.5 text-xs text-[#5A6A80] mb-6">
               <Link to="/resources" className="hover:text-[#2563EB]">Resources</Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <Link to="/resources/blog" className="hover:text-[#2563EB]">Blog</Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-[#0B1220]">{post.category}</span>
             </nav>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
               {post.category}
             </span>
             <h1 className="mt-4 font-display font-black text-[#0B1220] text-3xl md:text-[44px] tracking-tight leading-[1.1]">
               {post.title}
             </h1>
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#64748B]">
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#5A6A80]">
               {author ? (
                 <Link to="/company/team/$slug" params={{ slug: author.slug }} className="font-medium text-[#0B1220] hover:text-[#2563EB]">
                   By {author.name}, {author.role}
@@ -213,13 +213,13 @@ function Article() {
                 params={{ slug: p.slug }}
                 className="group bg-white border border-[#E5E9F0] rounded-2xl p-6 hover:shadow-[0_8px_24px_rgba(16,24,40,.08)] transition"
               >
-                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[11px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[12px] font-semibold uppercase tracking-wider bg-[#EFF4FF] text-[#1D4ED8] border border-[#DBE7FE]">
                   {p.category}
                 </span>
                 <h3 className="mt-3 font-display font-bold text-[17px] text-[#0B1220] leading-snug group-hover:text-[#2563EB]">
                   {p.title}
                 </h3>
-                <div className="mt-4 text-xs text-[#64748B]">{p.date} • {p.readTime}</div>
+                <div className="mt-4 text-xs text-[#5A6A80]">{p.date} • {p.readTime}</div>
               </Link>
             ))}
           </div>
@@ -251,7 +251,7 @@ function Article() {
 function AnswerBox({ source }: { source: string }) {
   return (
     <aside aria-label="Short answer" className="mb-10 rounded-xl border border-[#DBE7FE] bg-[#F5F8FF] px-5 pt-4 pb-1">
-      <div className="text-[11px] font-semibold uppercase tracking-widest text-[#1D4ED8] mb-2">The short answer</div>
+      <div className="text-[12px] font-semibold uppercase tracking-widest text-[#1D4ED8] mb-2">The short answer</div>
       <Prose source={source} />
     </aside>
   );

@@ -292,7 +292,7 @@ function Page() {
                   {p.title}
                 </h3>
                 <p className="mt-2 text-sm text-[#475569] line-clamp-2">{p.excerpt}</p>
-                <div className="mt-4 text-xs text-[#64748B]">{p.date} • {p.readTime} read</div>
+                <div className="mt-4 text-xs text-[#5A6A80]">{p.date} • {p.readTime} read</div>
               </Link>
             ))}
           </div>

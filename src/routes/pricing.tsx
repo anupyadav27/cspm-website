@@ -172,8 +172,8 @@ function SectionTitle({
         <Icon className="w-4 h-4 text-[#2563EB]" />
         <h3 className="font-display font-bold text-[#0B1220]">{title}</h3>
       </div>
-      <span className="text-xs text-[#64748B] tabular-nums">{meta}</span>
-      <p className="basis-full text-xs text-[#64748B]">{hint}</p>
+      <span className="text-xs text-[#5A6A80] tabular-nums">{meta}</span>
+      <p className="basis-full text-xs text-[#5A6A80]">{hint}</p>
     </div>
   );
 }
@@ -255,7 +255,7 @@ function PriceCalculator() {
                 <div className="flex items-baseline justify-between gap-3">
                   <span className="font-display font-bold text-[#0B1220]">{p.name}</span>
                   <span className="text-sm tabular-nums text-[#0B1220]">
-                    <b>{usd(p.unitPrice)}</b> <span className="text-[#64748B]">/ unit / month</span>
+                    <b>{usd(p.unitPrice)}</b> <span className="text-[#5A6A80]">/ unit / month</span>
                   </span>
                 </div>
                 <p className="mt-1.5 text-xs text-[#475569] leading-relaxed">{p.summary}</p>
@@ -305,7 +305,7 @@ function PriceCalculator() {
                       label={`Remove ${r.label}`}
                     />
                   </div>
-                  <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#64748B]">
+                  <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#5A6A80]">
                     <span className="truncate" title={r.examples}>
                       {r.examples}
                     </span>
@@ -377,7 +377,7 @@ function PriceCalculator() {
                         />
                       </div>
                     </div>
-                    <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#64748B]">
+                    <div className="mt-1.5 flex justify-between gap-3 text-xs text-[#5A6A80]">
                       <span className="truncate">{platform.note}</span>
                       <span className="shrink-0 tabular-nums">
                         {band.units === null ? "quote" : `${band.units} units`}
@@ -435,12 +435,12 @@ function PriceCalculator() {
         <div className="sticky bottom-0 rounded-b-lg bg-[#F5F8FF] px-5 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-x-6 gap-y-1 text-sm">
           <span className="text-[#0B1220]">
             <b className="tabular-nums">{num(est.units)}</b> units
-            {est.units > 0 && <span className="text-[#64748B]"> · {est.size.label}</span>}
-            {devs > 0 && <span className="text-[#64748B]"> · {devs} developers</span>}
+            {est.units > 0 && <span className="text-[#5A6A80]"> · {est.size.label}</span>}
+            {devs > 0 && <span className="text-[#5A6A80]"> · {devs} developers</span>}
           </span>
           <span className="text-[#0B1220]">
             <b className="tabular-nums">{usd(est.monthly)}</b>{" "}
-            <span className="text-[#64748B]">a month after discount</span>
+            <span className="text-[#5A6A80]">a month after discount</span>
           </span>
         </div>
       </div>
@@ -578,7 +578,7 @@ function PriceCalculator() {
             Start with a free audit scan
           </BrandButton>
         </div>
-        <p className="mt-4 text-[11px] leading-relaxed text-[#94A3B8]">
+        <p className="mt-4 text-[12px] leading-relaxed text-[#94A3B8]">
           List prices in US dollars, before tax. Your quote confirms the final price. Size is worked
           out from your units: {SIZES.map((s) => `${s.label} ${s.note.toLowerCase()}`).join("; ")}.
         </p>
@@ -785,7 +785,7 @@ function PricingPage() {
       {/* Hero */}
       <section className="border-b border-[#E5E9F0] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-16 pb-12 md:pt-24 md:pb-16">
-          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#64748B]">
+          <div className="text-xs font-semibold uppercase tracking-[0.16em] text-[#5A6A80]">
             Pricing
           </div>
           <h1 className="mt-4 max-w-3xl font-display font-bold text-[#0B1220] text-4xl sm:text-5xl tracking-tight leading-[1.08]">
@@ -838,12 +838,12 @@ function PricingPage() {
               },
             ].map((x) => (
               <div key={x.k} className="p-5">
-                <dt className="text-xs font-semibold text-[#64748B]">{x.k}</dt>
+                <dt className="text-xs font-semibold text-[#5A6A80]">{x.k}</dt>
                 <dd className="mt-2">
                   <span className="font-display font-bold text-3xl text-[#0B1220] tabular-nums">
                     {x.v}
                   </span>{" "}
-                  <span className="text-sm text-[#64748B]">{x.u}</span>
+                  <span className="text-sm text-[#5A6A80]">{x.u}</span>
                   <div className="mt-1.5 text-xs text-[#475569]">{x.d}</div>
                 </dd>
               </div>
@@ -896,7 +896,7 @@ function PricingPage() {
                   <span className="font-display font-bold text-3xl text-[#0B1220] tabular-nums">
                     {c.price}
                   </span>{" "}
-                  <span className="text-sm text-[#64748B]">{c.unit}</span>
+                  <span className="text-sm text-[#5A6A80]">{c.unit}</span>
                 </div>
                 <p className="mt-1.5 text-xs text-[#475569]">{c.sub}</p>
                 <ul className="mt-5 pt-5 border-t border-[#E5E9F0] space-y-2.5">
@@ -1062,7 +1062,7 @@ function PricingPage() {
                     <span className="font-display font-semibold text-[#0B1220]">{f.q}</span>
                     <span
                       className={cn(
-                        "shrink-0 text-[#64748B] transition-transform",
+                        "shrink-0 text-[#5A6A80] transition-transform",
                         isOpen && "rotate-45 text-[#2563EB]",
                       )}
                     >

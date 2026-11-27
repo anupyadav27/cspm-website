@@ -101,7 +101,7 @@ export function FAQSection({
             <details key={f.q} className="group bg-white rounded-2xl border border-[#E5E9F0] shadow-[0_1px_2px_rgba(16,24,40,.04)] open:shadow-[0_4px_12px_rgba(16,24,40,.06)]">
               <summary className="flex items-center justify-between gap-4 cursor-pointer list-none px-6 py-5 text-[15px] font-semibold text-[#0B1220] [&::-webkit-details-marker]:hidden">
                 {f.q}
-                <ArrowRight className="w-4 h-4 shrink-0 text-[#64748B] transition-transform group-open:rotate-90" />
+                <ArrowRight className="w-4 h-4 shrink-0 text-[#5A6A80] transition-transform group-open:rotate-90" />
               </summary>
               <div className="px-6 pb-5 text-sm leading-relaxed text-[#475569]">{f.a}</div>
             </details>
@@ -138,7 +138,7 @@ export function OutcomeStrip() {
         {items.map((i, idx) => (
           <div key={i.label} className={cn("px-6", idx === 0 && "pl-0", idx === items.length - 1 && "pr-0")}>
             <div className="font-display font-black text-3xl md:text-4xl text-[#0B1220]">{i.value}</div>
-            <div className="text-xs md:text-sm text-[#64748B] mt-1">{i.label}</div>
+            <div className="text-xs md:text-sm text-[#5A6A80] mt-1">{i.label}</div>
           </div>
         ))}
       </div>
@@ -160,7 +160,7 @@ export function CloudBar() {
   return (
     <section className="py-16 border-b border-[#E5E9F0] bg-white">
       <div className="max-w-7xl mx-auto px-6 text-center">
-        <div className="text-xs uppercase tracking-widest text-[#64748B] font-semibold">
+        <div className="text-xs uppercase tracking-widest text-[#5A6A80] font-semibold">
           Supported clouds
         </div>
         <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
@@ -200,7 +200,7 @@ export function HowItWorks() {
         <ol className="mt-12 grid md:grid-cols-3 gap-x-10 gap-y-8 border-t border-[#E5E9F0] pt-8">
           {steps.map((s, i) => (
             <li key={s.title}>
-              <div className="font-mono text-sm text-[#64748B]">Step {i + 1}</div>
+              <div className="font-mono text-sm text-[#5A6A80]">Step {i + 1}</div>
               <h3 className="mt-2 font-display font-bold text-xl text-[#0B1220] tracking-tight">{s.title}</h3>
               <p className="mt-3 text-[#475569] leading-relaxed">{s.body}</p>
             </li>
@@ -240,7 +240,7 @@ function SevChip({ sev, children }: { sev: Sev; children?: ReactNode }) {
   const s = sevStyle[sev];
   return (
     <span
-      className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
+      className="inline-flex items-center gap-1 text-[12px] font-bold uppercase tracking-wider px-2 py-0.5 rounded"
       style={{ color: s.text, backgroundColor: s.tint }}
     >
       {children ?? s.label}
@@ -349,7 +349,7 @@ export function ProductDemo() {
         <div className="mt-10 grid lg:grid-cols-[240px_1fr] gap-6">
           {/* Tab rail */}
           <div className="min-w-0 rounded-2xl border border-[#E5E9F0] bg-white p-2 shadow-[0_1px_2px_rgba(16,24,40,.04)]">
-            <div className="text-[10px] uppercase tracking-widest text-[#64748B] font-bold px-3 pt-2 pb-1">
+            <div className="text-[12px] uppercase tracking-widest text-[#5A6A80] font-bold px-3 pt-2 pb-1">
               Product tour
             </div>
             <div className="flex lg:flex-col overflow-x-auto lg:overflow-visible gap-1 p-1">
@@ -382,7 +382,7 @@ export function ProductDemo() {
               <span className="w-2.5 h-2.5 rounded-full bg-[#E32D25]/70" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#F2AF04]/80" />
               <span className="w-2.5 h-2.5 rounded-full bg-[#05A052]/80" />
-              <div className="mx-auto flex items-center gap-1.5 text-xs text-[#64748B] font-mono">
+              <div className="mx-auto flex items-center gap-1.5 text-xs text-[#5A6A80] font-mono">
                 <Lock className="w-3 h-3" />
                 app.onam.cloud / {t.key}
               </div>
@@ -401,11 +401,11 @@ export function ProductDemo() {
                 </div>
                 <div className="min-w-0">
                   <div className="text-sm font-semibold text-[#0B1220]">{t.label}</div>
-                  <div className="text-[11px] text-[#64748B] max-w-md truncate">{t.caption}</div>
+                  <div className="text-[12px] text-[#5A6A80] max-w-md truncate">{t.caption}</div>
                 </div>
               </div>
               <div className="flex items-center gap-2 shrink-0">
-                <div className="hidden md:flex items-center gap-1.5 text-xs text-[#64748B] px-2.5 py-1 rounded-md border border-[#E5E9F0] bg-white">
+                <div className="hidden md:flex items-center gap-1.5 text-xs text-[#5A6A80] px-2.5 py-1 rounded-md border border-[#E5E9F0] bg-white">
                   <Search className="w-3 h-3" /> Search resources
                 </div>
                 <SevChip sev={t.badge.sev}>{t.badge.text}</SevChip>
@@ -420,7 +420,9 @@ export function ProductDemo() {
                 inner min-w is what gives the mock room to keep its desktop
                 layout instead of collapsing into an unreadable stack. */}
             <div className="p-6 bg-[#FAFBFD] min-h-[520px] overflow-x-auto">
-              <div className="min-w-[680px] lg:min-w-0">{t.view()}</div>
+              <div role="img" aria-label={`Recreation of the Onam console with sample data: ${t.label}. ${t.caption}`} className="min-w-[680px] lg:min-w-0">
+                <div aria-hidden="true">{t.view()}</div>
+              </div>
             </div>
           </div>
         </div>
@@ -450,11 +452,11 @@ function StatTile({ label, value, sev, hint }: { label: string; value: string; s
   return (
     <div className="rounded-xl border border-[#E5E9F0] bg-white p-4">
       <div className="flex items-center justify-between">
-        <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-semibold">{label}</div>
+        <div className="text-[11px] uppercase tracking-widest text-[#5A6A80] font-semibold">{label}</div>
         <span className="w-2 h-2 rounded-full" style={{ backgroundColor: s.color }} />
       </div>
       <div className="mt-2 text-3xl font-display font-black" style={{ color: s.color }}>{value}</div>
-      {hint && <div className="mt-1 text-[11px] text-[#64748B]">{hint}</div>}
+      {hint && <div className="mt-1 text-[11px] text-[#5A6A80]">{hint}</div>}
     </div>
   );
 }
@@ -479,8 +481,8 @@ function ViewOverview() {
             ))}
           </div>
           <div className="mt-3 flex items-baseline justify-between">
-            <div className="text-[11px] text-[#64748B]">Trailing 30d</div>
-            <div><span className="text-3xl font-display font-black text-[#0B1220]">72</span><span className="text-[#64748B] text-sm font-semibold">/100</span></div>
+            <div className="text-[11px] text-[#5A6A80]">Trailing 30d</div>
+            <div><span className="text-3xl font-display font-black text-[#0B1220]">72</span><span className="text-[#5A6A80] text-sm font-semibold">/100</span></div>
           </div>
         </Panel>
       </div>
@@ -518,7 +520,7 @@ function ViewOverview() {
                 <div className="font-mono text-xs text-[#0B1220] truncate">{f.r}</div>
                 <div className="text-[#475569] text-sm">{f.d}</div>
               </div>
-              <div className="text-[11px] text-[#64748B]">{f.fw}</div>
+              <div className="text-[11px] text-[#5A6A80]">{f.fw}</div>
             </Row>
           ))}
         </Panel>
@@ -555,7 +557,7 @@ function ViewOnboarding() {
           ))}
         </ol>
         <div className="mt-4 rounded-lg border border-[#E5E9F0] bg-[#F8FAFC] p-3 font-mono text-[11px] text-[#334155] leading-relaxed">
-          <div className="text-[#64748B]"># Terraform snippet</div>
+          <div className="text-[#5A6A80]"># Terraform snippet</div>
           module "onam" {"{"} <br/>
           &nbsp;&nbsp;source = "onam-security/reader/aws"<br/>
           &nbsp;&nbsp;external_id = "onam-{"<tenant>"}"<br/>
@@ -582,7 +584,7 @@ function ViewOnboarding() {
             </div>
           ))}
         </div>
-        <div className="mt-5 pt-4 border-t border-[#E5E9F0] text-xs text-[#64748B]">
+        <div className="mt-5 pt-4 border-t border-[#E5E9F0] text-xs text-[#5A6A80]">
           <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#05A052]" /> Read-only roles for posture scanning</div>
           <div className="flex items-center gap-1.5 mt-1"><Check className="w-3 h-3 text-[#05A052]" /> No long-lived credentials</div>
           <div className="flex items-center gap-1.5 mt-1"><Check className="w-3 h-3 text-[#05A052]" /> Agentless workload scanning in your account</div>
@@ -613,7 +615,7 @@ function ViewFindings() {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="text-[10px] uppercase tracking-widest text-[#64748B]">
+            <tr className="text-[10px] uppercase tracking-widest text-[#5A6A80]">
               <th className="text-left px-3 py-2 font-semibold">Severity</th>
               <th className="text-left px-3 py-2 font-semibold">Resource</th>
               <th className="text-left px-3 py-2 font-semibold">Finding</th>
@@ -628,7 +630,7 @@ function ViewFindings() {
                 <td className="px-3 py-2.5"><SevChip sev={r.s} /></td>
                 <td className="px-3 py-2.5 font-mono text-xs text-[#0B1220]">{r.r}</td>
                 <td className="px-3 py-2.5 text-[#334155]">{r.d}</td>
-                <td className="px-3 py-2.5 text-xs text-[#64748B]">{r.fw}</td>
+                <td className="px-3 py-2.5 text-xs text-[#5A6A80]">{r.fw}</td>
                 <td className="px-3 py-2.5 text-xs text-[#334155]">{r.eng}</td>
                 <td className="px-3 py-2.5 text-right">
                   <button className="text-[11px] font-semibold text-[#2563EB] px-2 py-1 rounded border border-[#DBE7FE] bg-[#EFF4FF] hover:bg-[#DBE7FE] transition">
@@ -704,11 +706,11 @@ function ViewIAM() {
       <StatTile label="Admin wildcards" value="3" sev="critical" />
 
       <div className="md:col-span-3">
-        <Panel title="Overprivileged identities" right={<span className="text-xs text-[#64748B]">30-day behavior baseline</span>}>
+        <Panel title="Overprivileged identities" right={<span className="text-xs text-[#5A6A80]">30-day behavior baseline</span>}>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-[10px] uppercase tracking-widest text-[#64748B]">
+                <tr className="text-[10px] uppercase tracking-widest text-[#5A6A80]">
                   <th className="text-left px-3 py-2 font-semibold">Principal</th>
                   <th className="text-left px-3 py-2 font-semibold">Type</th>
                   <th className="text-left px-3 py-2 font-semibold">Effective access</th>
@@ -748,19 +750,19 @@ function ViewNetwork() {
     <div className="grid md:grid-cols-2 gap-4">
       <Panel title="VPC topology — us-east-1">
         <div className="relative h-[300px] rounded-lg bg-[#F8FAFC] border border-[#E5E9F0] p-4">
-          <div className="absolute top-4 left-4 text-[10px] uppercase tracking-widest text-[#64748B] font-bold">Internet</div>
+          <div className="absolute top-4 left-4 text-[10px] uppercase tracking-widest text-[#5A6A80] font-bold">Internet</div>
           <div className="absolute inset-6 rounded-md border-2 border-dashed border-[#CBD5E1] p-3">
-            <div className="text-[10px] uppercase tracking-widest text-[#64748B] font-bold">VPC prod / 10.0.0.0/16</div>
+            <div className="text-[10px] uppercase tracking-widest text-[#5A6A80] font-bold">VPC prod / 10.0.0.0/16</div>
             <div className="mt-6 grid grid-cols-2 gap-3">
               <div className="rounded-lg bg-white border border-[#E5E9F0] p-3">
-                <div className="text-[10px] uppercase text-[#64748B] font-bold">public subnet</div>
+                <div className="text-[10px] uppercase text-[#5A6A80] font-bold">public subnet</div>
                 <div className="mt-2 flex flex-wrap gap-1">
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#FDECEA] text-[#E32D25]">bastion</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#EFF4FF] text-[#2563EB]">alb</span>
                 </div>
               </div>
               <div className="rounded-lg bg-white border border-[#E5E9F0] p-3">
-                <div className="text-[10px] uppercase text-[#64748B] font-bold">private subnet</div>
+                <div className="text-[10px] uppercase text-[#5A6A80] font-bold">private subnet</div>
                 <div className="mt-2 flex flex-wrap gap-1">
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#F1F5F9] text-[#334155]">web x4</span>
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-[#FDECEA] text-[#E32D25]">mysql</span>
@@ -812,7 +814,7 @@ function ViewDetection() {
                right={<span className="text-[11px] text-[#047857] font-semibold flex items-center gap-1"><span className="w-1.5 h-1.5 rounded-full bg-[#05A052]" /> CloudTrail + VPC Flow Logs</span>}>
           {alerts.map((a, i) => (
             <div key={i} className="flex items-start gap-3 py-2.5 border-b border-[#E5E9F0] last:border-0">
-              <div className="w-14 shrink-0 text-[11px] text-[#64748B] font-mono pt-0.5">{a.t}</div>
+              <div className="w-14 shrink-0 text-[11px] text-[#5A6A80] font-mono pt-0.5">{a.t}</div>
               <SevChip sev={a.sev} />
               <div className="flex-1 min-w-0">
                 <div className="text-[11px] text-[#2563EB] font-semibold font-mono">{a.tech}</div>
@@ -849,7 +851,7 @@ function ViewContainer() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-[10px] uppercase tracking-widest text-[#64748B]">
+                <tr className="text-[10px] uppercase tracking-widest text-[#5A6A80]">
                   <th className="text-left px-3 py-2 font-semibold">CVE</th>
                   <th className="text-left px-3 py-2 font-semibold">Package</th>
                   <th className="text-left px-3 py-2 font-semibold">Image</th>
@@ -875,7 +877,7 @@ function ViewContainer() {
                     <td className="px-3 py-2.5">
                       {c.exploit
                         ? <span className="text-[10px] font-bold uppercase text-[#E32D25] bg-[#FDECEA] px-2 py-0.5 rounded">Active</span>
-                        : <span className="text-[10px] font-bold uppercase text-[#64748B] bg-[#F1F5F9] px-2 py-0.5 rounded">None</span>}
+                        : <span className="text-[10px] font-bold uppercase text-[#5A6A80] bg-[#F1F5F9] px-2 py-0.5 rounded">None</span>}
                     </td>
                     <td className="px-3 py-2.5"><SevChip sev={c.sev} /></td>
                   </tr>
@@ -913,7 +915,7 @@ function ViewCompliance() {
               backgroundColor: f.p >= 85 ? "#05A052" : f.p >= 75 ? "#F2AF04" : "#E32D25",
             }} />
           </div>
-          <div className="mt-3 flex items-center justify-between text-[11px] text-[#64748B]">
+          <div className="mt-3 flex items-center justify-between text-[11px] text-[#5A6A80]">
             <span>Evidence from the latest scan</span>
             <span>{Math.round(f.p * 3.2)} / {320} controls</span>
           </div>
@@ -955,7 +957,7 @@ function ViewData() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-[10px] uppercase tracking-widest text-[#64748B]">
+                <tr className="text-[10px] uppercase tracking-widest text-[#5A6A80]">
                   <th className="text-left px-3 py-2 font-semibold">Bucket</th>
                   <th className="text-left px-3 py-2 font-semibold">Exposure</th>
                   <th className="text-left px-3 py-2 font-semibold">PII</th>
@@ -974,7 +976,7 @@ function ViewData() {
                         {b.types.map((t) => (
                           <span key={t} className="text-[10px] font-medium text-[#E32D25] bg-[#FDECEA] px-1.5 py-0.5 rounded">{t}</span>
                         ))}
-                        {b.types.length === 0 && <span className="text-[11px] text-[#64748B]">none</span>}
+                        {b.types.length === 0 && <span className="text-[11px] text-[#5A6A80]">none</span>}
                       </div>
                     </td>
                     <td className="px-3 py-2.5"><SevChip sev={b.sev} /></td>
@@ -1001,7 +1003,7 @@ function ViewRisk() {
   return (
     <div className="grid md:grid-cols-3 gap-4">
       <div className="md:col-span-2">
-        <Panel title="Top exposures by annual loss expectancy" right={<span className="text-[11px] text-[#64748B]">FAIR model · 90% CI</span>}>
+        <Panel title="Top exposures by annual loss expectancy" right={<span className="text-[11px] text-[#5A6A80]">FAIR model · 90% CI</span>}>
           {items.map((r, i) => {
             const maxAle = 9_000_000;
             return (
@@ -1022,9 +1024,9 @@ function ViewRisk() {
       </div>
 
       <Panel title="Portfolio ALE">
-        <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-bold">Total 12-mo exposure</div>
+        <div className="text-[11px] uppercase tracking-widest text-[#5A6A80] font-bold">Total 12-mo exposure</div>
         <div className="mt-2 text-4xl font-display font-black text-[#0B1220]">$14.7M</div>
-        <div className="text-xs text-[#64748B] mt-1">Range $4.3M – $28.9M · 90% CI</div>
+        <div className="text-xs text-[#5A6A80] mt-1">Range $4.3M – $28.9M · 90% CI</div>
 
         <div className="mt-5 pt-5 border-t border-[#E5E9F0] space-y-2">
           <div className="flex items-center justify-between text-sm"><span className="text-[#475569]">Data breach</span><span className="font-mono text-[#0B1220] font-semibold">$8.2M</span></div>
@@ -1111,7 +1113,7 @@ export function PlatformPillars() {
         <div className="mt-14 grid md:grid-cols-2 gap-x-10 gap-y-10">
           {groups.map((g) => (
             <div key={g.heading} className="min-w-0">
-              <h3 className="text-[11px] uppercase tracking-widest font-bold text-[#64748B]">{g.heading}</h3>
+              <h3 className="text-[12px] uppercase tracking-widest font-bold text-[#5A6A80]">{g.heading}</h3>
               <ul className="mt-3 divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
                 {g.items.map((p) => (
                   <li key={p.title}>
@@ -1171,7 +1173,7 @@ export function StatsSection() {
               </div>
               <div className="mt-1 h-1 w-10 rounded-full" style={{ backgroundColor: s.accent }} />
               <div className="mt-4 text-sm font-semibold text-[#0B1220]">{s.label}</div>
-              <div className="mt-1 text-xs text-[#64748B]">{s.sub}</div>
+              <div className="mt-1 text-xs text-[#5A6A80]">{s.sub}</div>
             </div>
           ))}
         </div>
@@ -1224,7 +1226,7 @@ export function Differentiator() {
         <div className="mt-14 overflow-x-auto">
           <div className="min-w-[860px] bg-white rounded-2xl border border-[#E5E9F0] overflow-hidden shadow-[0_1px_2px_rgba(16,24,40,.04)]">
             <div className="grid grid-cols-5 bg-[#F8FAFC] border-b border-[#E5E9F0]">
-              <div className="px-5 py-4 text-[11px] uppercase tracking-widest text-[#64748B] font-bold">Capability</div>
+              <div className="px-5 py-4 text-[12px] uppercase tracking-widest text-[#5A6A80] font-bold">Capability</div>
               <div className="px-5 py-4 text-sm font-semibold text-[#334155]">Native cloud tools</div>
               <div className="px-5 py-4 text-sm font-semibold text-[#334155]">Single-layer point tools</div>
               <div className="px-5 py-4 text-sm font-semibold text-[#334155]">Manual audits / pen tests</div>
@@ -1268,7 +1270,7 @@ export function TrustBar() {
       icon: <CheckCircle2 className="w-4 h-4 text-[#2563EB]" />,
       label: "Agentless workload scanning in your account",
     },
-    { icon: <ScanLine className="w-4 h-4 text-[#64748B]" />, label: "Delete access anytime" },
+    { icon: <ScanLine className="w-4 h-4 text-[#5A6A80]" />, label: "Delete access anytime" },
   ];
   return (
     <section className="py-14 border-b border-[#E5E9F0] bg-[#F8FAFC]">
@@ -1306,7 +1308,7 @@ export function FinalCTA() {
             <BrandButton to="/audit-scan" size="lg">Book the audit scan →</BrandButton>
             <BrandButton to="/company/contact" size="lg" variant="secondary">Talk to us</BrandButton>
           </div>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#64748B]">
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-[#5A6A80]">
             <span>Read-only posture scanning</span>
             <span className="w-1 h-1 rounded-full bg-[#CBD5E1]" />
             <span>Delete access anytime</span>

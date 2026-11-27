@@ -344,7 +344,7 @@ function RequestDemo() {
                           <Icon className="w-4 h-4 shrink-0" style={{ color: s.color }} aria-hidden />
                           <span className="font-semibold text-ink">{s.name}</span>
                           {s.badge && (
-                            <span className="ml-auto text-[11px] font-semibold text-muted-500">{s.badge}</span>
+                            <span className="ml-auto text-[12px] font-semibold text-muted-500">{s.badge}</span>
                           )}
                         </button>
                       );

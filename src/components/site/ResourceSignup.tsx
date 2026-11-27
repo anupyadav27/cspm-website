@@ -74,7 +74,7 @@ export function ResourceSignup() {
           aria-invalid={state === "error" || undefined}
           aria-describedby={state === "error" ? "resource-signup-error" : undefined}
           className={cn(
-            "flex-1 rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#64748B] focus:outline-none focus:ring-2 focus:ring-blue-500/30",
+            "flex-1 rounded-[10px] border bg-white px-3.5 py-2.5 text-sm text-[#0B1220] placeholder:text-[#5A6A80] focus:outline-none focus:ring-2 focus:ring-blue-500/30",
             state === "error" ? "border-[#E32D25]" : "border-[#CBD5E1]",
           )}
         />

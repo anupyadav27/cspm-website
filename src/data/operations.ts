@@ -547,19 +547,19 @@ export const OPS_RISK_CLASSES: {
     cls: "Low",
     approval: "None",
     examples: "Any read or analysis; adding a tag; enabling a log",
-    color: "#16A34A",
+    color: "#15803D",
   },
   {
     cls: "Medium",
     approval: "One approver",
     examples: "Resizing a non-production instance; encrypting a new bucket",
-    color: "#CA8A04",
+    color: "#A16207",
   },
   {
     cls: "High",
     approval: "One approver plus a dry run",
     examples: "Narrowing a production security group; changing a production IAM policy",
-    color: "#EA580C",
+    color: "#C2410C",
   },
   {
     cls: "Critical",

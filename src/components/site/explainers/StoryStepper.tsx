@@ -86,7 +86,7 @@ const FRAMES: Record<string, ReactNode> = {
   stamp: (
     <>
       <rect x="40" y="40" width="400" height="190" rx="14" fill="#fff" stroke={LINE} strokeWidth="2" />
-      <text x="62" y="70" fontSize="13" fontWeight="700" fill="#64748B">AI INVENTORY</text>
+      <text x="62" y="70" fontSize="13" fontWeight="700" fill="#5A6A80">AI INVENTORY</text>
       {[
         ["support-assistant", "Bedrock agent"],
         ["chat-prod", "Azure OpenAI"],
@@ -114,7 +114,7 @@ const FRAMES: Record<string, ReactNode> = {
       <g transform="translate(350 60) rotate(18)">
         <Loophole x={0} y={0} s={0.8} />
       </g>
-      <text x="395" y="150" textAnchor="middle" fontSize="13" fontWeight="700" fill="#64748B">bounced</text>
+      <text x="395" y="150" textAnchor="middle" fontSize="13" fontWeight="700" fill="#5A6A80">bounced</text>
       <text x="240" y="262" textAnchor="middle" fontSize="13" fill="#475569">Still in the inventory. No longer open.</text>
     </>
   ),

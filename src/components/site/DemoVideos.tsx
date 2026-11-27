@@ -320,10 +320,16 @@ export function ProductDemo({
 
         {/* Console frame */}
         <div className={cn("rounded-2xl border border-[#E5E9F0] bg-white shadow-[0_18px_48px_rgba(16,24,40,.10)] overflow-hidden", list.length > 1 ? "mt-8" : "mt-10")}>
-          {/* key resets the animation on tab change so it plays from t=0 */}
-          <ConsoleStage key={clip.key} clip={clip} />
+          {/* A picture of a screen: one image with a text label for assistive tech; the scaled
+              console text inside is part of the picture, not page text. */}
+          <div role="img" aria-label={`Recreation of the Onam console with sample data: ${clip.title}. ${clip.sub}`}>
+            <div aria-hidden="true">
+              {/* key resets the animation on tab change so it plays from t=0 */}
+              <ConsoleStage key={clip.key} clip={clip} />
+            </div>
+          </div>
         </div>
-        <p className="mt-3 text-center text-[13px] text-[#64748B]">
+        <p className="mt-3 text-center text-[13px] text-[#5A6A80]">
           Recreation of the console with sample data, not a capture. Layout and figures are illustrative.
         </p>
 
@@ -351,7 +357,7 @@ export function DemoVideos() {
 function MiniStat({ label, value }: { label: string; value: string }) {
   return (
     <div className="rounded-xl border border-[#E5E9F0] bg-white px-4 py-2.5 min-w-[120px]">
-      <div className="text-[10px] uppercase tracking-widest font-semibold text-[#64748B]">{label}</div>
+      <div className="text-[12px] uppercase tracking-widest font-semibold text-[#5A6A80]">{label}</div>
       <div className="font-display font-extrabold text-[#0B1220] text-base leading-tight mt-0.5">{value}</div>
     </div>
   );
@@ -431,7 +437,7 @@ function ConsoleSidebar({ active }: { active: string }) {
                     isActive ? "bg-[#EEF0FF]" : "opacity-80",
                   )}
                 >
-                  <Icon className={cn("w-3.5 h-3.5 shrink-0", isActive ? "text-[#2563EB]" : "text-[#64748B]")} />
+                  <Icon className={cn("w-3.5 h-3.5 shrink-0", isActive ? "text-[#2563EB]" : "text-[#5A6A80]")} />
                   <div className="min-w-0">
                     <div className={cn("text-[11px] font-semibold leading-tight truncate", isActive ? "text-[#2563EB]" : "text-[#334155]")}>
                       {it.label}
@@ -548,7 +554,7 @@ const KPIS = [
   { label: "Risk Score", value: 68, suffix: "", color: "#DC7A00", sub: "▲ +4 this week", subColor: "#DC7A00" },
   { label: "Critical Findings", value: 12, suffix: "", color: "#E32D25", sub: "▲ 3 new today", subColor: "#E32D25" },
   { label: "Cloud Assets", value: 12481, suffix: "", color: "#0B1220", sub: "▲ 231 discovered", subColor: "#05A052" },
-  { label: "Compliance Score", value: 74, suffix: "%", color: "#05A052", sub: "CIS · NIST · SOC 2", subColor: "#64748B" },
+  { label: "Compliance Score", value: 74, suffix: "%", color: "#05A052", sub: "CIS · NIST · SOC 2", subColor: "#5A6A80" },
 ];
 
 const ENGINES = ["IAM", "Network", "Compliance", "Threats", "Risk", "Encryption", "Container", "Data Sec", "Vuln"];
@@ -592,7 +598,7 @@ function DashboardAnimation({ duration }: { duration: number }) {
             <div className="font-display font-black text-lg md:text-xl tabular-nums leading-none" style={{ color: k.color }}>
               {Math.round(k.value * kpiT).toLocaleString()}{k.suffix}
             </div>
-            <div className="text-[9px] text-[#64748B] font-medium mt-1">{k.label}</div>
+            <div className="text-[9px] text-[#5A6A80] font-medium mt-1">{k.label}</div>
             <div className="text-[8px] font-semibold mt-0.5" style={{ color: k.subColor }}>{k.sub}</div>
           </div>
         ))}
@@ -727,7 +733,7 @@ function ScanAnimation({ duration }: { duration: number }) {
         <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full border border-[#E2E8F0] bg-white text-[#475569] text-[9px] font-semibold">Open</span>
         <span className="hidden sm:inline-flex items-center px-2.5 py-1 rounded-full border border-[#E2E8F0] bg-white text-[#475569] text-[9px] font-semibold">Suppressed</span>
         <div className="flex-1" />
-        <span className="text-[9px] text-[#64748B] tabular-nums">
+        <span className="text-[9px] text-[#5A6A80] tabular-nums">
           Scanning <span className="font-semibold text-[#0B1220]">{resCount.toLocaleString()}</span> / 12,481 resources
         </span>
       </div>
@@ -754,14 +760,14 @@ function ScanAnimation({ duration }: { duration: number }) {
                   {r.sev}
                 </span>
                 <span className="text-[10px] font-medium text-[#0B1220] truncate">{r.title}</span>
-                <span className="hidden md:block text-[9px] font-mono text-[#64748B] truncate">{r.res}</span>
+                <span className="hidden md:block text-[9px] font-mono text-[#5A6A80] truncate">{r.res}</span>
                 <span className="hidden md:inline-flex w-fit items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold bg-[#F3E8FF] text-[#7C3AED] border border-[#E4D0FB] truncate">
                   {r.engine}
                 </span>
                 <span className="hidden md:block text-[9px] text-[#5C6B84] tabular-nums">{r.age}</span>
                 <span className={cn(
                   "inline-flex w-fit justify-self-end md:justify-self-start items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold border",
-                  r.status === "Open" ? "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]" : "bg-[#F1F5F9] text-[#64748B] border-[#E2E8F0]",
+                  r.status === "Open" ? "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]" : "bg-[#F1F5F9] text-[#5A6A80] border-[#E2E8F0]",
                 )}>
                   {r.status}
                 </span>
@@ -805,7 +811,7 @@ function OnboardAnimation({ duration }: { duration: number }) {
     <div className="absolute inset-0 p-3 md:p-5 flex flex-col gap-3">
       <div className="flex items-center justify-between">
         <div className="font-display font-black text-[#0B1220] text-lg md:text-xl">AWS · Production</div>
-        <div className="inline-flex items-center gap-2 text-[10px] text-[#64748B]">
+        <div className="inline-flex items-center gap-2 text-[10px] text-[#5A6A80]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse" />
           Read-only posture scanning
         </div>
@@ -832,16 +838,16 @@ function OnboardAnimation({ duration }: { duration: number }) {
                     "w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold shrink-0",
                     done ? "bg-[#05A052] text-white"
                       : active ? "bg-[#2563EB] text-white"
-                      : "bg-white border border-[#CBD5E1] text-[#64748B]",
+                      : "bg-white border border-[#CBD5E1] text-[#5A6A80]",
                   )}
                 >
                   {done ? "✓" : idx + 1}
                 </div>
-                <div className={cn("text-[11px] font-semibold leading-tight", done || active ? "text-[#0B1220]" : "text-[#64748B]")}>
+                <div className={cn("text-[11px] font-semibold leading-tight", done || active ? "text-[#0B1220]" : "text-[#5A6A80]")}>
                   {s.title}
                 </div>
               </div>
-              <div className="mt-1.5 text-[9px] text-[#64748B] leading-relaxed hidden sm:block">{s.desc}</div>
+              <div className="mt-1.5 text-[9px] text-[#5A6A80] leading-relaxed hidden sm:block">{s.desc}</div>
               {active && (
                 <div className="mt-2 h-1 rounded-full bg-white overflow-hidden border border-[#DDDEFB]">
                   <div
@@ -933,7 +939,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
                 {p.sev}
               </span>
             </div>
-            <div className="text-[8px] text-[#64748B] truncate mt-0.5">{p.sub}</div>
+            <div className="text-[8px] text-[#5A6A80] truncate mt-0.5">{p.sub}</div>
             <div className="flex gap-1 mt-1">
               <span className="px-1.5 py-0.5 rounded border border-[#E2E8F0] bg-white text-[7.5px] font-semibold text-[#475569]">{p.hops}</span>
               <span className="px-1.5 py-0.5 rounded border border-[#E4D0FB] bg-[#F3E8FF] text-[7.5px] font-semibold text-[#7C3AED]">{p.mitre}</span>
@@ -955,7 +961,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
         </svg>
 
         <div className="absolute top-3 left-4 right-4 flex items-center justify-between">
-          <div className="text-[9px] font-semibold uppercase tracking-widest text-[#64748B]">
+          <div className="text-[9px] font-semibold uppercase tracking-widest text-[#5A6A80]">
             Internet → Crown jewel · 4 hops
           </div>
           <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-[#FCEAEA] border border-[#F4C1BF] text-[9px] font-semibold text-[#B41F1A]">
@@ -1007,7 +1013,7 @@ function AttackPathAnimation({ duration }: { duration: number }) {
               <text x={n.x + NODE_W / 2} y={CY + 4} textAnchor="middle" fontSize="10" fontWeight="700" fill="#0B1220" fontFamily="Inter, sans-serif">
                 {n.name}
               </text>
-              <text x={n.x + NODE_W / 2} y={CY + 17} textAnchor="middle" fontSize="7.5" fill={n.crown ? "#B41F1A" : "#64748B"} fontWeight={n.crown ? 700 : 400} fontFamily="Inter, sans-serif">
+              <text x={n.x + NODE_W / 2} y={CY + 17} textAnchor="middle" fontSize="7.5" fill={n.crown ? "#B41F1A" : "#5A6A80"} fontWeight={n.crown ? 700 : 400} fontFamily="Inter, sans-serif">
                 {n.sub}
               </text>
               {/* severity underline */}
@@ -1111,7 +1117,7 @@ function ComplianceAnimation({ duration }: { duration: number }) {
               <span className="text-[9px] font-mono font-semibold text-[#2563EB] truncate">{r.id}</span>
               <span className="text-[10px] text-[#0B1220] font-medium truncate">{r.desc}</span>
               <span className="hidden md:inline-flex w-fit items-center px-1.5 py-0.5 rounded-full text-[8px] font-semibold bg-[#F3E8FF] text-[#7C3AED] border border-[#E4D0FB]">{r.fw}</span>
-              <span className="hidden md:block text-[9px] font-mono text-[#64748B] truncate">{r.res}</span>
+              <span className="hidden md:block text-[9px] font-mono text-[#5A6A80] truncate">{r.res}</span>
               <span className={cn(
                 "inline-flex w-fit justify-self-end items-center px-2 py-0.5 rounded text-[8px] font-bold border",
                 r.pass ? "bg-[#E7F6EF] text-[#047857] border-[#BFE8D2]" : "bg-[#FCEAEA] text-[#B41F1A] border-[#F4C1BF]",
@@ -1169,7 +1175,7 @@ function CellView({ c }: { c: Cell }) {
       </span>
     );
   }
-  if (c.kind === "mono") return <span className="text-[9px] font-mono text-[#64748B] truncate">{c.t}</span>;
+  if (c.kind === "mono") return <span className="text-[9px] font-mono text-[#5A6A80] truncate">{c.t}</span>;
   if (c.kind === "bold") return <span className="text-[10px] font-semibold text-[#0B1220] truncate">{c.t}</span>;
   return <span className="text-[9.5px] text-[#334155] truncate">{c.t}</span>;
 }
@@ -1192,7 +1198,7 @@ function KpiScreen({ config, duration }: { config: KpiScreenConfig; duration: nu
             <div className="font-display font-black text-lg md:text-xl tabular-nums leading-none" style={{ color: k.color }}>
               {k.value}
             </div>
-            <div className="text-[9px] text-[#64748B] font-medium mt-1">{k.label}</div>
+            <div className="text-[9px] text-[#5A6A80] font-medium mt-1">{k.label}</div>
           </div>
         ))}
       </div>
@@ -1413,7 +1419,7 @@ function RiskAnimation({ duration }: { duration: number }) {
         {kpis.map((k, idx) => (
           <div key={idx} className="rounded-xl bg-white border border-[#E9EDF3] px-3 py-2.5" style={{ borderLeft: `3px solid ${k.color}` }}>
             <div className="font-display font-black text-base md:text-lg tabular-nums leading-none" style={{ color: k.color }}>{k.value}</div>
-            <div className="text-[9px] text-[#64748B] font-medium mt-1">{k.label}</div>
+            <div className="text-[9px] text-[#5A6A80] font-medium mt-1">{k.label}</div>
           </div>
         ))}
       </div>
@@ -1446,7 +1452,7 @@ function RiskAnimation({ duration }: { duration: number }) {
             {CROWN_JEWELS.slice(0, jewelsVisible).map((j) => (
               <div key={j.name} className="rounded-lg border border-[#F1F5F9] bg-[#F8FAFC] px-2.5 py-1.5 mb-1.5 animate-[fade-in_.3s_ease-out_both]">
                 <div className="text-[9.5px] font-bold text-[#0B1220]">{j.name}</div>
-                <div className="text-[8px] text-[#64748B]">{j.sub}</div>
+                <div className="text-[8px] text-[#5A6A80]">{j.sub}</div>
                 <div className="text-[9px] font-bold text-[#E32D25] mt-0.5">{j.exposure}</div>
               </div>
             ))}

@@ -175,7 +175,7 @@ function LearnPage() {
             return <Backdrop tone="light" color={suite?.color ?? "#2563EB"} pattern="dots" icon={suite?.icon ?? BookOpenText} />;
           })()}
           <div className="relative max-w-3xl mx-auto px-6 pt-16 pb-12 md:pt-20 md:pb-14">
-            <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
+            <nav className="flex items-center gap-1.5 text-xs text-[#5A6A80] mb-6">
               <Link to="/learn" className="hover:text-[#2563EB]">Learn</Link>
               <ChevronRight className="w-3.5 h-3.5" />
               <span className="text-[#0B1220]">{article.term}</span>
@@ -187,13 +187,13 @@ function LearnPage() {
 
             {/* Snippet target: first content on the page, quotable standalone. */}
             <div className="mt-7 rounded-2xl border border-[#DBE7FE] bg-[#F5F8FF] p-6">
-              <div className="text-[11px] font-bold uppercase tracking-widest text-[#1D4ED8] mb-2">
+              <div className="text-[12px] font-bold uppercase tracking-widest text-[#1D4ED8] mb-2">
                 In short
               </div>
               <p className="text-[17px] text-[#0B1220] leading-relaxed font-medium">{article.answer}</p>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#64748B]">
+            <div className="mt-6 flex flex-wrap items-center gap-3 text-sm text-[#5A6A80]">
               {(() => {
                 const author = getAuthor(article.author);
                 return author ? (

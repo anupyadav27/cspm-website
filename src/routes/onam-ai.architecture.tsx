@@ -176,7 +176,7 @@ function ArchitecturePage() {
             <ArrowLeft className="h-3.5 w-3.5" /> Onam AI
           </Link>
           <div className="mt-5 flex flex-wrap items-center gap-2">
-            <span className="inline-flex items-center rounded-full border border-[#DBE7FE] bg-[#EFF4FF] px-2.5 py-1 text-[11px] font-bold uppercase tracking-widest text-[#1D4ED8]">
+            <span className="inline-flex items-center rounded-full border border-[#DBE7FE] bg-[#EFF4FF] px-2.5 py-1 text-[12px] font-bold uppercase tracking-widest text-[#1D4ED8]">
               How it is designed
             </span>
             <StatusBadge status="early" />
@@ -202,7 +202,7 @@ function ArchitecturePage() {
               </li>
             ))}
           </ol>
-          <p className="mt-3 text-[13px] text-[#64748B]">
+          <p className="mt-3 text-[13px] text-[#5A6A80]">
             Each step can refuse. Nothing reaches your cloud without passing back through a person.
           </p>
         </div>

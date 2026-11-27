@@ -78,7 +78,7 @@ function NotFoundComponent() {
       <div className="max-w-md text-center">
         <h1 className="text-7xl font-black gradient-text">404</h1>
         <h2 className="mt-4 text-xl font-semibold text-[#0B1220]">Page not found</h2>
-        <p className="mt-2 text-sm text-[#64748B]">
+        <p className="mt-2 text-sm text-[#5A6A80]">
           The page you're looking for doesn't exist or has been moved.
         </p>
         <div className="mt-6">
@@ -106,7 +106,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         <h1 className="text-xl font-semibold tracking-tight text-[#0B1220]">
           This page didn't load
         </h1>
-        <p className="mt-2 text-sm text-[#64748B]">
+        <p className="mt-2 text-sm text-[#5A6A80]">
           Something went wrong on our end. You can try refreshing or head back home.
         </p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">

@@ -24,7 +24,7 @@ export const Route = createFileRoute("/docs")({
 function docProductColor(p: DocProduct): string {
   const suite = SUITE.find((s) => s.key === p);
   if (suite) return suite.color;
-  return p === "platform" ? "#0B1220" : "#64748B";
+  return p === "platform" ? "#0B1220" : "#5A6A80";
 }
 
 function DocsLayout() {
@@ -68,7 +68,7 @@ function DocsLayout() {
                         <div key={sec.heading} className="mb-3">
                           {/* A single-section product repeats its name; show the heading only when it adds something. */}
                           {sec.heading !== g.label && (
-                            <div className="text-[11px] uppercase tracking-widest font-semibold text-muted-500 mb-1 px-2">
+                            <div className="text-[12px] uppercase tracking-widest font-semibold text-muted-500 mb-1 px-2">
                               {sec.heading}
                             </div>
                           )}

@@ -29,7 +29,7 @@ function CareersPage() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#7C3AED" pattern="grid" icon={Rocket} />
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Careers</div>
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">Careers</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-4xl md:text-5xl lg:text-[56px] tracking-tight leading-[1.05]">
             Work on Onam
           </h1>
@@ -48,7 +48,7 @@ function CareersPage() {
               <h2 className="font-display font-bold text-[#0B1220] text-3xl md:text-4xl tracking-tight">Roles we hire for</h2>
               <p className="mt-3 text-[#475569] max-w-2xl">We hire a few people at a time. If one of these fits you, write to us and say what you would want to work on.</p>
             </div>
-            <p className="text-sm text-[#64748B]">Don't see your role? Email <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.</p>
+            <p className="text-sm text-[#5A6A80]">Don't see your role? Email <a href="mailto:hello@onamsecurity.com" className="text-[#2563EB] font-semibold hover:underline">hello@onamsecurity.com</a>.</p>
           </div>
           <div className="mt-10 space-y-3">
             {roles.map((r) => (
@@ -59,7 +59,7 @@ function CareersPage() {
                     <span className="px-2 py-0.5 rounded-full text-xs font-semibold bg-[#F1F5F9] text-[#475569] border border-[#E5E9F0]">{r.team}</span>
                   </div>
                   <p className="mt-2 text-sm text-[#475569] leading-relaxed max-w-2xl">{r.blurb}</p>
-                  <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-[#64748B]">
+                  <div className="mt-3 inline-flex items-center gap-1.5 text-xs font-medium text-[#5A6A80]">
                     <MapPin className="w-3.5 h-3.5" /> {r.location}
                   </div>
                 </div>

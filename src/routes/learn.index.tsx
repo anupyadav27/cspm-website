@@ -81,9 +81,9 @@ function LearnIndex() {
             <table className="w-full text-left border-collapse min-w-[640px]">
               <thead>
                 <tr className="bg-[#F7F9FC]">
-                  <th className="px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">Acronym</th>
-                  <th className="px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">Stands for</th>
-                  <th className="px-5 py-3.5 text-[11px] font-bold uppercase tracking-widest text-[#64748B]">Question it answers</th>
+                  <th className="px-5 py-3.5 text-[12px] font-bold uppercase tracking-widest text-[#5A6A80]">Acronym</th>
+                  <th className="px-5 py-3.5 text-[12px] font-bold uppercase tracking-widest text-[#5A6A80]">Stands for</th>
+                  <th className="px-5 py-3.5 text-[12px] font-bold uppercase tracking-widest text-[#5A6A80]">Question it answers</th>
                 </tr>
               </thead>
               <tbody>

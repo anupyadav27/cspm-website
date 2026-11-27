@@ -21,7 +21,7 @@ export const Route = createFileRoute("/resources/scenarios")({
 function AttackPath({ s }: { s: Scenario }) {
   return (
     <div className="rounded-2xl border border-[#E5E9F0] bg-[#F7F9FC] p-5">
-      <div className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#64748B]">
+      <div className="text-[12px] font-bold uppercase tracking-[0.16em] text-[#5A6A80]">
         The attack path Onam surfaces
       </div>
       <div className="mt-4 overflow-x-auto">
@@ -40,7 +40,7 @@ function AttackPath({ s }: { s: Scenario }) {
                   {n.label}
                 </div>
                 {n.chokePoint && (
-                  <span className="mt-1.5 px-2 py-0.5 rounded-full bg-[#B45309] text-white text-[11px] font-bold uppercase tracking-wider">
+                  <span className="mt-1.5 px-2 py-0.5 rounded-full bg-[#B45309] text-white text-[12px] font-bold uppercase tracking-wider">
                     Choke point
                   </span>
                 )}
@@ -77,7 +77,7 @@ function Quadrant({
     >
       <div className="flex items-center gap-2">
         <Icon className="w-4 h-4" style={{ color }} />
-        <span className="text-[11px] font-bold uppercase tracking-[0.14em]" style={{ color }}>
+        <span className="text-[12px] font-bold uppercase tracking-[0.14em]" style={{ color }}>
           {label}
         </span>
       </div>
@@ -94,12 +94,12 @@ function ScenariosPage() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#7C3AED" pattern="graph" icon={Workflow} />
         <div className="relative max-w-4xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20">
-          <nav className="flex items-center gap-1.5 text-xs text-[#64748B] mb-6">
+          <nav className="flex items-center gap-1.5 text-xs text-[#5A6A80] mb-6">
             <Link to="/resources" className="hover:text-[#2563EB]">Resources</Link>
             <ChevronRight className="w-3.5 h-3.5" />
             <span className="text-[#0B1220]">Industry scenarios</span>
           </nav>
-          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-widest bg-[#FEF6E7] text-[#B45309] border border-[#FCD9A4]">
+          <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-full text-[12px] font-bold uppercase tracking-widest bg-[#FEF6E7] text-[#B45309] border border-[#FCD9A4]">
             Illustrative scenarios
           </div>
           <h1 className="mt-6 font-display font-black text-[#0B1220] text-4xl md:text-5xl tracking-tight leading-[1.06]">
@@ -109,7 +109,7 @@ function ScenariosPage() {
             Five industry archetypes showing the same story in each: the route to a high-value asset, the
             single choke point that cuts it, and the board-ready dollar figure.
           </p>
-          <p className="mt-5 text-sm text-[#64748B] leading-relaxed border-l-2 border-[#E5E9F0] pl-4">
+          <p className="mt-5 text-sm text-[#5A6A80] leading-relaxed border-l-2 border-[#E5E9F0] pl-4">
             These are <strong className="text-[#0B1220] font-semibold">illustrative archetypes, not customers</strong>.
             The paths and figures show how the platform reasons about sector-specific risk. They are
             not reported outcomes from named engagements.
@@ -130,11 +130,11 @@ function ScenariosPage() {
                   <h2 className="font-display font-black text-[#0B1220] text-2xl md:text-3xl tracking-tight">
                     {s.title}
                   </h2>
-                  <p className="mt-1.5 text-sm text-[#64748B]">{s.context}</p>
+                  <p className="mt-1.5 text-sm text-[#5A6A80]">{s.context}</p>
                 </div>
                 <span
-                  className="px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider border shrink-0"
-                  style={{ color: s.accent, borderColor: `${s.accent}44`, background: `${s.accent}0F` }}
+                  className="px-2.5 py-1 rounded-full text-[12px] font-bold uppercase tracking-wider border shrink-0"
+                  style={{ color: `color-mix(in srgb, ${s.accent}, #0B1220 35%)`, borderColor: `${s.accent}44`, background: `${s.accent}0F` }}
                 >
                   Illustrative
                 </span>

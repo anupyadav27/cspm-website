@@ -129,7 +129,7 @@ function Hero({ data }: { data: ProductPageData }) {
         <dl className="mt-14 grid grid-cols-2 md:grid-cols-4 gap-y-6 border-t border-[#E5E9F0] pt-6">
           {(data.stats ?? defaultStats).map((s) => (
             <div key={s.l} className="pr-6">
-              <dt className="order-2 text-sm text-[#64748B] mt-1">{s.l}</dt>
+              <dt className="order-2 text-sm text-[#5A6A80] mt-1">{s.l}</dt>
               <dd className="text-2xl font-display font-bold text-[#0B1220]">{s.v}</dd>
             </div>
           ))}
@@ -151,7 +151,7 @@ function StickyNav({ data }: { data: ProductPageData }) {
       <div className="max-w-7xl mx-auto px-6 h-12 flex items-center justify-center gap-1 overflow-x-auto">
         {visible.map((a) => (
           <a key={a.id} href={`#${a.id}`}
-             className="px-3 py-1.5 text-xs md:text-sm font-medium text-[#64748B] hover:text-[#2563EB] transition whitespace-nowrap">
+             className="px-3 py-1.5 text-xs md:text-sm font-medium text-[#5A6A80] hover:text-[#2563EB] transition whitespace-nowrap">
             {a.label}
           </a>
         ))}
@@ -212,7 +212,7 @@ function HowItWorks({ data }: { data: ProductPageData }) {
         <ol className="divide-y divide-[#E5E9F0] border-y border-[#E5E9F0]">
           {data.mechanism.map((step, i) => (
             <li key={i} className="py-5 flex gap-5 items-start">
-              <div className="w-6 shrink-0 pt-1.5 font-mono text-sm text-[#64748B]">
+              <div className="w-6 shrink-0 pt-1.5 font-mono text-sm text-[#5A6A80]">
                 {String(i + 1).padStart(2, "0")}
               </div>
               <p className="text-[#334155] leading-relaxed pt-1.5">{step}</p>
@@ -333,7 +333,7 @@ function CtaAndRelated({ data }: { data: ProductPageData }) {
         </div>
 
         <div className="bg-white border border-[#E5E9F0] rounded-2xl p-6 shadow-[0_1px_2px_rgba(16,24,40,.04),0_1px_3px_rgba(16,24,40,.06)] flex flex-col">
-          <div className="text-[11px] uppercase tracking-widest text-[#64748B] font-bold">Related capabilities</div>
+          <div className="text-[12px] uppercase tracking-widest text-[#5A6A80] font-bold">Related capabilities</div>
           <div className="mt-5 divide-y divide-[#E5E9F0] flex-1">
             {data.related.map((r) => (
               <Link key={r.href} to={r.href} className="group flex items-center justify-between py-3.5 gap-4 first:pt-0">

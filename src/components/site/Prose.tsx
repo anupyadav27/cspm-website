@@ -147,7 +147,7 @@ function renderInline(text: string): ReactNode[] {
     if (m.index > last) nodes.push(text.slice(last, m.index));
     const tok = m[0];
     if (tok.startsWith("`")) {
-      nodes.push(<code key={key++} className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[0.85em] text-[#0B1220]">{tok.slice(1, -1)}</code>);
+      nodes.push(<code key={key++} className="rounded bg-[#F1F5F9] px-1.5 py-0.5 font-mono text-[max(12px,0.85em)] text-[#0B1220]">{tok.slice(1, -1)}</code>);
     } else if (tok.startsWith("**")) {
       nodes.push(<strong key={key++} className="font-semibold text-[#0B1220]">{renderInline(tok.slice(2, -2))}</strong>);
     } else if (tok.startsWith("*")) {
@@ -363,7 +363,7 @@ export function Prose({ source }: { source: string }) {
                   loading="lazy"
                   className="w-full rounded-xl border border-[#E5E9F0] shadow-[0_4px_16px_rgba(16,24,40,.06)] bg-white"
                 />
-                {b.alt && <figcaption className="mt-2.5 text-center text-[13px] text-[#64748B]">{b.alt}</figcaption>}
+                {b.alt && <figcaption className="mt-2.5 text-center text-[13px] text-[#5A6A80]">{b.alt}</figcaption>}
               </figure>
             );
           case "quote":

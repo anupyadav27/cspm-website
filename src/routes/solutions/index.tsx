@@ -43,7 +43,7 @@ function Card({ item, Icon }: { item: CardDef; Icon: typeof Cloud }) {
         >
           <Icon className="w-5 h-5" style={{ color: item.color }} />
         </div>
-        <div className="text-xs font-bold uppercase tracking-widest text-[#64748B]">{item.abbr}</div>
+        <div className="text-xs font-bold uppercase tracking-widest text-[#5A6A80]">{item.abbr}</div>
       </div>
       <h3 className="mt-5 font-display font-bold text-[#0B1220] text-lg">{item.name}</h3>
       <p className="mt-2 text-sm text-[#475569] leading-relaxed flex-1">{item.blurb}</p>
@@ -71,7 +71,7 @@ function SolutionsIndex() {
       <section className="relative overflow-hidden border-b border-[#E5E9F0] bg-white">
         <Backdrop tone="light" color="#2563EB" pattern="grid" icon={Globe} />
         <div className="relative max-w-5xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-20 text-center">
-          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#64748B]">Solutions</div>
+          <div className="text-xs font-bold uppercase tracking-[0.2em] text-[#5A6A80]">Solutions</div>
           <h1 className="mt-5 font-display font-black text-[#0B1220] text-5xl md:text-6xl tracking-tight leading-[1.05]">
             Onam on every cloud, for every industry.
           </h1>

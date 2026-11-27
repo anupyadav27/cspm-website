@@ -53,7 +53,7 @@ function Page() {
           <span className="text-[#0B1220]">Onam vs {c.shortName}</span>
         </nav>
 
-        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[11px] font-bold uppercase tracking-[2px] text-[#2563EB]">
+        <div className="mt-5 inline-flex items-center gap-2 rounded-full border border-[#CBD5E1] bg-white px-3 py-1.5 text-[12px] font-bold uppercase tracking-[2px] text-[#2563EB]">
           <Scale className="h-3.5 w-3.5" />
           {c.domain ? `${c.domain} · ask both` : "Run these questions against both"}
         </div>

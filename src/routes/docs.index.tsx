@@ -115,7 +115,7 @@ function DocsHome() {
                 <Link
                   to="/docs/$"
                   params={{ _splat: d.overview }}
-                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-ink"
+                  className="inline-flex min-h-6 items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-ink"
                 >
                   Start with the {p.short} overview <ArrowRight className="w-4 h-4" aria-hidden />
                 </Link>

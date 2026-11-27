@@ -189,7 +189,7 @@ function DspmDeepDive() {
               );
             })}
           </div>
-          <p className="mt-8 max-w-3xl mx-auto text-center text-sm text-[#64748B] leading-relaxed">
+          <p className="mt-8 max-w-3xl mx-auto text-center text-sm text-[#5A6A80] leading-relaxed">
             What it does not do today: compute, for every store, the complete list of identities
             whose effective permissions allow a read. Identity-by-identity permissions are in{" "}
             <Link to="/platform/ciem" className="text-[#2563EB] font-semibold hover:underline">
@@ -222,7 +222,7 @@ function DspmDeepDive() {
               width={960}
               height={330}
             />
-            <figcaption className="mt-3 text-center text-xs text-[#64748B]">
+            <figcaption className="mt-3 text-center text-xs text-[#5A6A80]">
               Stylised illustration with fictional names — not a screenshot of the console.
             </figcaption>
           </figure>
@@ -259,7 +259,7 @@ function DspmDeepDive() {
                   </li>
                 ))}
               </ul>
-              <p className="mt-4 text-sm text-[#64748B] leading-relaxed">
+              <p className="mt-4 text-sm text-[#5A6A80] leading-relaxed">
                 The trade-off: a store named for what it holds is labelled; one named "exports" is
                 not, until you tag it.
               </p>
@@ -294,7 +294,7 @@ function DspmDeepDive() {
               height={400}
             />
           </figure>
-          <p className="mt-6 max-w-3xl mx-auto text-center text-sm text-[#64748B] leading-relaxed">
+          <p className="mt-6 max-w-3xl mx-auto text-center text-sm text-[#5A6A80] leading-relaxed">
             Lineage comes from the relationships the cloud's own configuration describes. A copy
             made by a script with no trace in configuration is outside its view.{" "}
             <Link

@@ -25,7 +25,7 @@ export function Walkthrough({ title, steps }: { title?: string; steps: { title: 
       <div className="border-b border-[#E5E9F0] bg-[#F7F9FC] px-5 pt-4 pb-3">
         <div className="flex items-center justify-between gap-4">
           <span className="text-[12px] font-bold uppercase tracking-[0.12em] text-[#1E40AF]">{title || "Walkthrough"}</span>
-          <span className="text-[12px] font-semibold text-[#64748B]" aria-live="polite">
+          <span className="text-[12px] font-semibold text-[#5A6A80]" aria-live="polite">
             Step {active + 1} of {n}
           </span>
         </div>
@@ -52,7 +52,7 @@ export function Walkthrough({ title, steps }: { title?: string; steps: { title: 
                     ? "bg-[#2563EB] text-white"
                     : i < active
                       ? "bg-[#DBE7FE] text-[#1D4ED8]"
-                      : "bg-white text-[#64748B] border border-[#E5E9F0]"
+                      : "bg-white text-[#5A6A80] border border-[#E5E9F0]"
                 }`}
                 title={s.title}
               >

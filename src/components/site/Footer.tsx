@@ -106,7 +106,7 @@ const siteCols: Col[] = [
   },
 ];
 
-const linkCls = "text-sm text-[#475569] hover:text-[#2563EB] transition";
+const linkCls = "inline-flex min-h-6 items-center text-sm text-[#475569] hover:text-[#2563EB] transition";
 
 function FooterCol({ c }: { c: Col }) {
   return (
@@ -115,7 +115,7 @@ function FooterCol({ c }: { c: Col }) {
         {c.to ? (
           <Link
             to={c.to}
-            className="text-xs uppercase tracking-widest font-semibold text-[#0B1220] hover:text-[#2563EB] transition"
+            className="inline-flex min-h-6 items-center text-xs uppercase tracking-widest font-semibold text-[#0B1220] hover:text-[#2563EB] transition"
           >
             {c.title}
           </Link>
@@ -123,7 +123,7 @@ function FooterCol({ c }: { c: Col }) {
           <div className="text-xs uppercase tracking-widest font-semibold text-[#0B1220]">{c.title}</div>
         )}
         {c.badge && (
-          <span className="rounded-full border border-[#C7D7FE] bg-[#EFF4FF] px-1.5 py-0.5 text-[11px] font-semibold text-[#1D4ED8]">
+          <span className="rounded-full border border-[#C7D7FE] bg-[#EFF4FF] px-1.5 py-0.5 text-[12px] font-semibold text-[#1D4ED8]">
             {c.badge}
           </span>
         )}
@@ -169,7 +169,7 @@ export function Footer() {
         <div className="mt-6 pt-8 border-t border-[#E5E9F0] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
           <div className="flex flex-wrap items-center gap-6">
             <Logo />
-            <span className="text-xs text-[#64748B]">© 2026 Onam Security, Inc.</span>
+            <span className="text-xs text-[#5A6A80]">© 2026 Onam Security, Inc.</span>
             {/* Keep in sync with the Organization `sameAs` array in __root.tsx. */}
             <div className="flex items-center gap-2">
               {SOCIALS.map((s) => (
@@ -180,7 +180,7 @@ export function Footer() {
                   rel="noopener noreferrer"
                   aria-label={s.label}
                   title={s.label}
-                  className="w-8 h-8 grid place-items-center rounded-md border border-[#E5E9F0] bg-white text-[#64748B] hover:text-[#2563EB] hover:border-[#CBD5E1] transition"
+                  className="w-8 h-8 grid place-items-center rounded-md border border-[#E5E9F0] bg-white text-[#5A6A80] hover:text-[#2563EB] hover:border-[#CBD5E1] transition"
                 >
                   <s.icon className="w-4 h-4" />
                 </a>
