@@ -354,6 +354,18 @@ For each AI service, Onam records which data stores it reads, as a link between 
 
 The link records **that** an AI service uses a store, from the service's configuration. It does not read the data.
 
+:::screen /screens/ai-security/ais-inventory-saas.webp
+url: app.onamsecurity.com/ui/ai-security?tab=inventory
+alt: The AI Security Inventory tab: the AI in SaaS view listing Microsoft Copilot and Claude as AI apps in Google Workspace, and the Sensitive data used by AI panel showing an AI knowledge base that retrieves from a data store.
+size: 1440x944
+hidpi: yes
+caption: Real console, Onam's internal test workspace, captured 27 Nov 2026. Account, tenant and resource IDs redacted.
+1 @ 41,91.7: Each link names the AI asset, how it uses the store, and the store. Here, an AI knowledge base **retrieves from** a data store.
+2 @ 78.2,72.8: Links come from each service's configuration. Data contents are not read.
+3 @ 93.5,91.7: The store's data classes come from DSPM. This one is not classified yet.
+4 @ 53.5,28: **AI in SaaS** lists AI apps found in your connected SaaS, such as Microsoft Copilot and Claude in Google Workspace.
+:::
+
 ## Why treat AI agents as identities?
 
 Because an agent acts through a role, and an over-powered role turns a prompt-injection problem into an account takeover. In [CIEM](/docs/ciem/overview), Bedrock and SageMaker roles and other AI execution identities are marked as **AI agents**, so you can review them as a group.
