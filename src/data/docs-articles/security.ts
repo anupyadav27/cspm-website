@@ -161,7 +161,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 9 platforms; 433 CIS rules across 6 of them | GitHub, Bitbucket and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is not available yet. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
+| [AI Security](/platform/ai-spm) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is not available yet. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
 | [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 144 frameworks: 119 with automated checks, 25 attestation-only | Controls with no automated check are marked for manual review. |
@@ -571,7 +571,7 @@ Posture checks for business SaaS platforms. Available with limits. [Product page
 
 ### AI Security
 
-Inventory and risk checks for AI and machine-learning services on AWS, Azure and Google Cloud, and for self-hosted AI on Kubernetes. Available with limits. [Product page](/platform/ai-security) · [AI security docs](/docs/ai-security/overview).
+Inventory and risk checks for AI and machine-learning services on AWS, Azure and Google Cloud, and for self-hosted AI on Kubernetes. Available with limits. [Product page](/platform/ai-spm) · [AI security docs](/docs/ai-security/overview).
 
 | Feature | Detail |
 | --- | --- |

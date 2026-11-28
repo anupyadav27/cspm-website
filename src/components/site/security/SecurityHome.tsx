@@ -1078,7 +1078,7 @@ export function PlatformPillars() {
         { title: "Vulnerability Mgmt", q: "Which CVEs matter for us?", metric: "Contextual, not CVSS-only", to: "/platform/vulnerability" },
         { title: "Code Security", q: "Are we shipping vulnerable code?", metric: "SAST · DAST · SCA · IaC", to: "/platform/code-security" },
         { title: "SaaS Security (SSPM)", q: "Are M365 and Workspace locked down?", metric: "433 CIS SaaS rules", to: "/platform/saas-security" },
-        { title: "AI Security", q: "Are my AI services safe on AWS, Azure and Google Cloud?", metric: "AI/ML risk detection", to: "/platform/ai-security" },
+        { title: "AI Security", q: "Are my AI services safe on AWS, Azure and Google Cloud?", metric: "AI/ML risk detection", to: "/platform/ai-spm" },
         { title: "Technology Engine", q: "What software is running here?", metric: "34 technologies", to: "/platform/technology" },
       ],
     },

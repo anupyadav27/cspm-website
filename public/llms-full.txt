@@ -78,7 +78,11 @@ the right choice. Onam has no public reference customers.
 - [Threat Detection](https://www.onamsecurity.com/platform/threat-detection): Onam maps every suspicious event to a MITRE ATT&CK for Cloud technique. When something unusual happens, your team can see the technique, the likely next move and how to respond.
 - [Network Security](https://www.onamsecurity.com/platform/network-security): Most tools tell you which security groups have port 22 open. Onam traces the full 7-layer network path, from VPC isolation to WAF coverage and flow log monitoring, and shows what…
 - [DSPM — Data Security Posture Management](https://www.onamsecurity.com/platform/data-security): Onam's DSPM inventories every data store across your clouds, classifies what it holds from metadata and, where you deploy its scanner, from its contents, and joins it to exposure,…
-- [AI Security](https://www.onamsecurity.com/platform/ai-security): SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud, and model servers, notebooks…
+- [AI Security (AI-SPM)](https://www.onamsecurity.com/platform/ai-spm): SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Gemini Enterprise Agent Platform (formerly Vertex AI) on Google Cloud, and model servers, notebooks…
+- [AI Inventory and AI Bill of Materials](https://www.onamsecurity.com/platform/ai-spm/inventory): Managed AI services on AWS, Azure and Google Cloud come from read-only cloud roles. The AI bill of materials lists the AI libraries, model servers and MCP SDKs in the SBOMs Onam…
+- [AI in SaaS](https://www.onamsecurity.com/platform/ai-spm/ai-in-saas): AI in SaaS lists the AI apps Onam finds in the SaaS platforms you have connected, such as Microsoft Copilot or Claude in Google Workspace. They sit next to your managed and…
+- [Self-hosted AI on Kubernetes](https://www.onamsecurity.com/platform/ai-spm/self-hosted): A classifier reads the images and custom resources in each connected cluster and recognises self-hosted AI: model servers, notebooks, vector databases and serving platforms. Each…
+- [AI Agents, Data and Guardrails](https://www.onamsecurity.com/platform/ai-spm/agents): Onam links each AI service to the identity it runs as and the data stores it reads, marks AI execution identities as AI agents with admin and wide-write findings, and checks that…
 - [Container & Kubernetes Security (KSPM)](https://www.onamsecurity.com/platform/container-security): Kubernetes Security Posture Management (KSPM) and container security in one place. It covers image vulnerabilities, Kubernetes RBAC, network policies, pod security standards and…
 - [Vulnerability Management](https://www.onamsecurity.com/platform/vulnerability): Onam combines EPSS probability, network reachability and CISA KEV status, so you fix first the CVEs most likely to be exploited in your environment.
 - [AI Code Fix](https://www.onamsecurity.com/platform/ai-code-fix): AI Code Fix takes the findings from a completed code scan, rewrites each affected source file with a large language model, and commits the result to a separate branch for your…
@@ -2333,7 +2337,7 @@ Each row links to its product page. **Available with limits** means the capabili
 | Capability | What it does | Status | Reach | Stated limit |
 | --- | --- | --- | --- | --- |
 | [SaaS Security (SSPM)](/platform/saas-security) | Posture checks for business SaaS platforms. | Available with limits | 9 platforms; 433 CIS rules across 6 of them | GitHub, Bitbucket and Okta have posture checks but no CIS rule pack yet. |
-| [AI Security](/platform/ai-security) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is not available yet. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
+| [AI Security](/platform/ai-spm) | Inventory and risk checks for AI and machine-learning services such as SageMaker, Bedrock, Azure OpenAI and Vertex AI, and for self-hosted AI on Kubernetes. | Available with limits | Cloud AI services on AWS, Azure and Google Cloud; self-hosted AI on Kubernetes (inventory and exposure) | AWS: SageMaker and Bedrock. Azure: Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces. Google Cloud: Vertex AI endpoints, datasets and Workbench instances. Shadow AI detection is not available yet. Configuration rules for self-hosted AI are written but not switched on. AI services do not appear on attack paths yet. AI services on OCI, Alibaba Cloud and IBM Cloud are not checked. |
 | [AI Assistant](/platform/ai-assistant) | Answers posture questions asked in plain language. | Available | — | — |
 | [Remediation](/platform/remediation) | Fix guidance and a ready-made AI fix prompt for each finding. | Available | — | Guidance only. Onam does not change the customer’s cloud. |
 | [Compliance](/platform/compliance) | Maps findings to frameworks with evidence per control. | Available with limits | 144 frameworks: 119 with automated checks, 25 attestation-only | Controls with no automated check are marked for manual review. |
@@ -2742,7 +2746,7 @@ Posture checks for business SaaS platforms. Available with limits. [Product page
 
 ### AI Security
 
-Inventory and risk checks for AI and machine-learning services on AWS, Azure and Google Cloud, and for self-hosted AI on Kubernetes. Available with limits. [Product page](/platform/ai-security) · [AI security docs](/docs/ai-security/overview).
+Inventory and risk checks for AI and machine-learning services on AWS, Azure and Google Cloud, and for self-hosted AI on Kubernetes. Available with limits. [Product page](/platform/ai-spm) · [AI security docs](/docs/ai-security/overview).
 
 | Feature | Detail |
 | --- | --- |
@@ -2865,6 +2869,9 @@ URL: https://www.onamsecurity.com/docs/features/cspm
 CSPM is the core posture engine of the Onam platform. It evaluates every resource in your connected clouds against **11,856 posture rule definitions**, records a PASS, FAIL or ERROR result for each rule-resource pair, and turns every FAIL into a severity-ranked finding with remediation guidance, MITRE ATT&CK mapping, and compliance citations.
 
 This page explains what the rule registry covers per cloud, how a single rule is evaluated, how the severity model works, how to suppress findings you have accepted, and how PASS/FAIL results roll up into compliance scores.
+
+:::dataflow cspm
+:::
 
 :::screen /screens/cloud-posture/posture-findings.webp
 url: app.onamsecurity.com/ui/misconfig
@@ -2995,7 +3002,8 @@ URL: https://www.onamsecurity.com/docs/features/ciem
 
 CIEM works out what each cloud identity can do, how it could escalate, who outside your account can get in and, on AWS, what it never uses.
 
-![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
+:::dataflow ciem
+:::
 
 CIEM has its own documentation section. Start here:
 
@@ -3144,6 +3152,9 @@ URL: https://www.onamsecurity.com/docs/features/attack-path
 Attack Path Analysis connects individual security findings — misconfigurations, identity risks, network exposures, and vulnerabilities — into chains that reveal exactly how an attacker would move from an exposed entry point to your most critical assets. Rather than presenting a long list of disconnected findings, Onam builds a graph of your estate and searches it for the routes that actually reach something worth protecting.
 
 This page explains how the graph is built and verified, how paths are found and ranked, how MITRE techniques are attached per hop, and how **choke points** tell you the one fix that severs the most paths.
+
+:::dataflow attack-path
+:::
 
 :::screen /screens/attack-paths/attack-paths.webp
 url: app.onamsecurity.com/ui/attack-paths
@@ -3752,7 +3763,8 @@ Data Security (DSPM): every cloud data store, classified from metadata and, wher
 
 This page is the short version. The full documentation has its own section: start at the [DSPM overview](/docs/dspm/overview).
 
-![How DSPM works: data stores, discovery, classification (metadata by default, sampled contents where you deploy the DSPM scanner or on-prem collector), the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+:::dataflow data-security
+:::
 
 ## What it answers
 
@@ -4511,7 +4523,8 @@ DSPM in Onam Security: find every cloud data store, classify what it holds, and 
 
 Data security posture management answers three questions continuously rather than once before an audit: **what data do we hold, where is it, and how exposed is it?** Onam's DSPM runs inside every scan, alongside posture, identity and attack-path analysis, and writes its results onto the same security graph.
 
-![How DSPM works — data stores, discovery, classification (metadata by default; contents only where you deploy the DSPM scanner or on-prem collector), the access and exposure join, findings](/diagrams/dspm-pipeline.svg)
+:::dataflow data-security
+:::
 
 ## The five stages
 
@@ -5959,7 +5972,8 @@ URL: https://www.onamsecurity.com/docs/ciem/overview
 
 Onam CIEM resolves what each cloud identity can do, finds its escalation paths, and turns the riskiest into tracked access reviews.
 
-![How Onam CIEM works — identity sources, effective-permission resolver, identity graph, findings and access reviews](/diagrams/ciem-architecture.svg)
+:::dataflow ciem
+:::
 
 ## What CIEM answers
 
@@ -10188,6 +10202,9 @@ A one-off DSPM assessment is out of date within weeks. Set a cadence for re-clas
 
 [Onam's Data Security engine](/platform/data-security) is its DSPM implementation. It inventories data stores across your connected clouds through read-only posture roles: object storage, managed databases and warehouses, streams, and self-hosted databases you onboard.
 
+:::dataflow data-security
+:::
+
 **How it classifies (updated 26 and 27 November 2026).** By default, Onam labels each store from metadata: its name, description, tags and schema. Where you choose to adopt it, by deploying Onam's DSPM scanner in your own cloud account (AWS: S3, RDS and Aurora snapshots; Azure: Blob, Files, Azure SQL; Google Cloud: Cloud Storage, BigQuery, Cloud SQL) or the on-premises collector, it also reads samples of files and rows and classifies their contents with country-specific detectors. Content scanning is opt-in per tenant: nothing configured means nothing scanned. Without the scanner, a store whose names and tags say nothing gets no label until someone tags it.
 
 Each store then carries the ways it can be reached: the grants that make it public, the other accounts its bucket policy lets in, the principals seen accessing it in the last 30 days, and the attack paths on the shared security graph that end at it. Alongside that you get encryption, logging, lifecycle and residency checks, and data lineage across up to 8 hops of replication, backup, ETL, streaming and export. Copies made by scripts are not visible today; only copies the cloud records are followed. The detail is in the [DSPM documentation](/docs/dspm/overview).
@@ -11512,6 +11529,9 @@ IAM security keeps the door from being obviously open. CIEM makes sure that if i
 
 [Onam's CIEM engine](/platform/ciem) resolves effective permissions for users, roles and service accounts from the posture inventory. Where it applies:
 
+:::dataflow ciem
+:::
+
 - **Shadow-admin detection** runs on AWS, Azure, Google Cloud and Kubernetes.
 - **Unused-access analysis** (granted compared with used, over a 30-day window) runs on AWS and Google Cloud and needs cloud audit logs flowing into Onam; other clouds show granted access only.
 - **Escalation paths** are followed on AWS (assume-role chains, up to 12 hops) and Google Cloud (service-account impersonation chains, up to 4 hops).
@@ -11608,6 +11628,9 @@ The result is a list of paths ranked by likelihood and impact, so the path to th
 ## How Onam implements attack path analysis
 
 Onam's attack path engine is built on one security graph. Every cloud resource is a node: instances, roles, buckets, functions, security groups, networks and load balancers. Relationships between resources are typed edges derived from posture, identity, network, data and threat-detection evidence: an identity that can assume a role, a federation from another cloud, a security group rule that lets one workload reach another, a key that encrypts a store. Because the graph spans clouds, a path can start in one cloud and end in another. Each finding on a path carries a FAIR-style loss estimate, used for ranking: it is an estimate per finding, not a price for the whole route.
+
+:::dataflow attack-path
+:::
 
 What it does not cover yet: AI services do not appear on attack paths.
 

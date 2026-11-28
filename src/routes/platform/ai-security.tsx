@@ -1,16 +1,12 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { ProductPageTemplate } from "@/components/site/ProductPageTemplate";
-import { platformPages } from "@/data/platform-pages";
-import { seo } from "@/lib/seo";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
-const data = platformPages["ai-security"];
-
+/**
+ * 301 for the old AI Security address. Owner, 28 Nov 2026: AI-SPM is its own product group with
+ * an overview at /platform/ai-spm and sub-pages under /platform/ai-spm/*. The old address is kept
+ * as a permanent redirect because nav, footer, docs and external links pointed here.
+ */
 export const Route = createFileRoute("/platform/ai-security")({
-  head: () =>
-    seo({
-      title: `${data.label} — Onam Security`,
-      description: data.metaDescription ?? data.sub,
-      path: "/platform/ai-security",
-    }),
-  component: () => <ProductPageTemplate data={data} />,
+  beforeLoad: () => {
+    throw redirect({ to: "/platform/ai-spm", statusCode: 301 });
+  },
 });

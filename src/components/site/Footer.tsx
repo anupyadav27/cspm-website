@@ -24,7 +24,7 @@ const productCols: Col[] = [
       { label: "CSPM", to: "/platform/cspm" },
       { label: "CIEM", to: "/platform/ciem" },
       { label: "DSPM — Data Security", to: "/platform/data-security" },
-      { label: "AI Security", to: "/platform/ai-security" },
+      { label: "AI Security (AI-SPM)", to: "/platform/ai-spm" },
       { label: "CWPP — Workloads", to: "/platform/cwpp" },
       { label: "Vulnerability Mgmt", to: "/platform/vulnerability" },
       { label: "Attack Path", to: "/platform/attack-path" },

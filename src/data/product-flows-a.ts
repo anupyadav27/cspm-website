@@ -451,9 +451,9 @@ export const flowsA: Record<string, FlowData> = {
       "How Onam Network Security works: network objects from AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud and Kubernetes, plus flow log summaries where enabled, go into Onam Network Security. It pulls every network object, builds a reachability graph, traces paths from the internet and scores each resource's effective exposure. The example shows a path from the internet through a load balancer and a peered VPC to a jump host with SSH open, one hop from a database. The outputs are an effective exposure score, a security group audit, subnet classification, load balancer checks, a WAF coverage map and flow log gaps.",
   },
 
-  // ai-security: sub, stats (3 clouds, K8s, read-only), mechanism (AI inventory, K8s classifier, AI BOM,
+  // ai-spm: sub, stats (3 clouds, K8s, read-only), mechanism (AI inventory, K8s classifier, AI BOM,
   // AI-native rules, guardrails, data and identity links, prompt text off by default), whatYouGet, faqs (not OCI/Alibaba/IBM).
-  "ai-security": {
+  "ai-spm": {
     heading: "From the AI in your clouds to its risky settings",
     intro:
       "Onam finds the AI in your clouds and on your clusters, checks how each piece is set up, and links it to the data and identity it uses.",
@@ -535,6 +535,352 @@ export const flowsA: Record<string, FlowData> = {
       "Covers AWS, Azure, Google Cloud and Kubernetes; not Oracle, Alibaba or IBM Cloud. Prompt-text detection is off by default.",
     caption:
       "How Onam AI Security works: SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud, self-hosted AI on Kubernetes, and the SBOMs Onam already builds go into Onam AI Security. It inventories AI resources, builds an AI bill of materials, runs AI-native rules and joins each AI service to the data it reads and the identity it runs as, read-only and with no agent. The example shows an AI service with a public endpoint and no guardrail, linked to a data store and an execution identity. The outputs are an AI inventory, an AI bill of materials, guardrail presence, exposed self-hosted AI, AI-to-data links and AI agents as identities.",
+  },
+
+  // ai-spm-inventory: sub, stats (3 clouds, 175 catalogue products), mechanism (cloud roles, SBOM filter,
+  // cluster and SaaS AI, onam-ai-app tag, Coverage tab), faqs (not discovered yet, OpenAI only via AI-BOM).
+  "ai-spm-inventory": {
+    heading: "From your accounts and code to one AI inventory",
+    intro:
+      "Onam reads the managed AI in your clouds, filters your SBOMs for AI software, and puts it with your cluster and SaaS AI in one inventory.",
+    stages: ["Where AI lives", "Find and group it", "One inventory", "What you get"],
+    inputs: [
+      { label: "AWS", hint: "SageMaker and Bedrock" },
+      { label: "Microsoft Azure", hint: "Azure OpenAI, Machine Learning" },
+      { label: "Google Cloud", hint: "Vertex AI" },
+      { label: "Kubernetes", hint: "Self-hosted AI" },
+      { label: "Connected SaaS", icon: "AppWindow", hint: "AI apps" },
+      { label: "Your SBOMs", icon: "Package", hint: "For the AI BOM", accent: true },
+    ],
+    engine: {
+      name: "Onam AI Security",
+      sub: "Finds the AI and lists it once",
+      steps: [
+        "Read managed AI",
+        "Filter SBOMs for AI",
+        "Group into applications",
+        "Show coverage per product",
+      ],
+      footer: "Read-only roles and the SBOMs you have",
+    },
+    visual: {
+      kind: "hub",
+      center: { label: "AI inventory", icon: "Boxes" },
+      around: [
+        { label: "Cloud AI", icon: "Cloud" },
+        { label: "Cluster AI", icon: "Server" },
+        { label: "SaaS AI", icon: "AppWindow" },
+        { label: "AI libraries", icon: "Package" },
+      ],
+    },
+    visualNote: { text: "Every kind of AI, one list", color: "#2563EB" },
+    outputs: [
+      {
+        id: "managed",
+        icon: "Cloud",
+        label: "Managed AI services",
+        hint: "With their settings",
+        color: "#2563EB",
+      },
+      {
+        id: "bom",
+        icon: "Package",
+        label: "AI bill of materials",
+        hint: "Libraries, servers, MCP SDKs",
+        color: "#0891B2",
+      },
+      {
+        id: "cluster",
+        icon: "Server",
+        label: "Self-hosted AI",
+        hint: "On connected clusters",
+        color: "#7C3AED",
+      },
+      {
+        id: "saas",
+        icon: "AppWindow",
+        label: "AI in SaaS",
+        hint: "Apps in connected SaaS",
+        color: "#DB2777",
+      },
+      {
+        id: "apps",
+        icon: "Layers",
+        label: "AI applications",
+        hint: "From the onam-ai-app tag",
+        color: "#059669",
+      },
+      {
+        id: "coverage",
+        icon: "Eye",
+        label: "Coverage tab",
+        hint: "What Onam can see",
+        color: "#D97706",
+      },
+    ],
+    footnote:
+      "Oracle Cloud, Alibaba Cloud and IBM Cloud AI are not covered. OpenAI API use shows up only as a library in the AI BOM.",
+    caption:
+      "How Onam builds the AI inventory: SageMaker and Bedrock on AWS, Azure OpenAI and Azure Machine Learning on Azure, Vertex AI on Google Cloud, self-hosted AI on Kubernetes, AI apps in connected SaaS and your SBOMs go into Onam AI Security. It reads managed AI, filters the SBOMs for AI software, groups AI into applications and shows coverage per AI product. The outputs are managed AI services, an AI bill of materials, self-hosted AI, AI in SaaS, AI applications and a Coverage tab.",
+  },
+
+  // ai-spm-ai-in-saas: sub, mechanism (read-only SaaS connectors, AI apps such as Microsoft Copilot or Claude
+  // in Google Workspace, Inventory › AI in SaaS), faqs (prompt-text detection off by default).
+  "ai-spm-ai-in-saas": {
+    heading: "From your connected SaaS to the AI inside it",
+    intro:
+      "Onam lists the AI apps it finds in the SaaS platforms you connected and puts them in the same AI inventory as the rest of your AI.",
+    stages: ["Your SaaS", "Find the AI apps", "One inventory", "What you get"],
+    inputs: [
+      { label: "Google Workspace", icon: "AppWindow", hint: "Connected read-only" },
+      { label: "Other connected SaaS", icon: "AppWindow", hint: "Read-only connectors" },
+      { label: "Cloud AI", icon: "Cloud", hint: "Already in the inventory" },
+      { label: "Self-hosted AI", icon: "Server", hint: "Already in the inventory" },
+    ],
+    engine: {
+      name: "Onam AI Security",
+      sub: "Lists AI apps found in your SaaS",
+      steps: [
+        "Read connected SaaS",
+        "Find the AI apps",
+        "Add to AI inventory",
+        "Keep settings in SSPM",
+      ],
+      footer: "No agent or browser extension",
+    },
+    visual: {
+      kind: "hub",
+      center: { label: "Google Workspace", icon: "AppWindow" },
+      around: [
+        { label: "Microsoft Copilot", icon: "Bot", flag: true },
+        { label: "Claude", icon: "Bot", flag: true },
+        { label: "Users", icon: "Users" },
+        { label: "Sharing settings", icon: "Share2" },
+      ],
+      chips: ["Example"],
+    },
+    visualNote: { text: "AI apps nobody listed", color: "#DB2777" },
+    outputs: [
+      {
+        id: "apps",
+        icon: "Bot",
+        label: "AI apps in SaaS",
+        hint: "Found in connected platforms",
+        color: "#DB2777",
+      },
+      {
+        id: "inventory",
+        icon: "Boxes",
+        label: "One AI inventory",
+        hint: "With cloud and cluster AI",
+        color: "#2563EB",
+      },
+      {
+        id: "where",
+        icon: "Search",
+        label: "AI in SaaS view",
+        hint: "AI Security › Inventory",
+        color: "#7C3AED",
+      },
+      {
+        id: "prompts",
+        icon: "Lock",
+        label: "No prompts read",
+        hint: "Unless an admin opts in",
+        color: "#059669",
+      },
+      {
+        id: "sspm",
+        icon: "ShieldHalf",
+        label: "Settings stay in SSPM",
+        hint: "Admin roles, sharing",
+        color: "#0891B2",
+      },
+      {
+        id: "export",
+        icon: "FileText",
+        label: "Exports",
+        hint: "PDF, Excel or CSV",
+        color: "#D97706",
+      },
+    ],
+    footnote:
+      "AI in SaaS lists the apps; prompt-text detection is off by default, and Onam never reads training data or model weights.",
+    caption:
+      "How Onam finds AI in SaaS: your connected SaaS platforms, such as Google Workspace, go into Onam AI Security alongside the cloud and self-hosted AI already in the inventory. It reads the connected platforms, finds the AI apps, adds them to the AI inventory and leaves platform settings to SaaS security. The example shows Microsoft Copilot and Claude found in Google Workspace. The outputs are AI apps in SaaS, one AI inventory, the Inventory › AI in SaaS view, no prompts read by default, settings kept in SaaS security, and exports.",
+  },
+
+  // ai-spm-self-hosted: sub, stats (read-only ServiceAccount, paid plans), mechanism (classifier list,
+  // exposure join, finding name, config rules not switched on), faqs.
+  "ai-spm-self-hosted": {
+    heading: "From a connected cluster to AI open to anyone",
+    intro:
+      "Onam reads each connected cluster through a read-only ServiceAccount, recognises self-hosted AI, and checks whether it answers without authentication.",
+    stages: ["Your clusters", "Recognise the AI", "Check exposure", "What you get"],
+    inputs: [
+      { label: "Kubernetes", hint: "Read-only ServiceAccount" },
+      { label: "Model servers", icon: "Server", hint: "Ollama, vLLM, LiteLLM" },
+      { label: "Notebooks", icon: "FileCode2", hint: "Jupyter, MLflow" },
+      { label: "Vector databases", icon: "Database", hint: "Qdrant, Milvus, pgvector" },
+      { label: "Serving platforms", icon: "Boxes", hint: "KServe, KubeRay, Seldon" },
+    ],
+    engine: {
+      name: "Onam AI Security",
+      sub: "Finds self-hosted AI and open access",
+      steps: [
+        "Read images and resources",
+        "Classify AI workloads",
+        "Join network exposure",
+        "Raise exposure findings",
+      ],
+      footer: "No agent or scanner in the cluster",
+    },
+    visual: {
+      kind: "chain",
+      nodes: [
+        { label: "Internet" },
+        { label: "Ingress", tone: "warn" },
+        { label: "Model server", tone: "hot" },
+      ],
+      edges: ["reaches", "no login"],
+    },
+    visualNote: { text: "Open model API, no authentication", color: "#B42318" },
+    outputs: [
+      {
+        id: "servers",
+        icon: "Server",
+        label: "Model servers",
+        hint: "In the AI inventory",
+        color: "#7C3AED",
+      },
+      {
+        id: "notebooks",
+        icon: "FileCode2",
+        label: "Notebooks",
+        hint: "That can run code",
+        color: "#0891B2",
+      },
+      {
+        id: "vectors",
+        icon: "Database",
+        label: "Vector databases",
+        hint: "Copies of your data",
+        color: "#D97706",
+      },
+      {
+        id: "serving",
+        icon: "Boxes",
+        label: "Serving platforms",
+        hint: "KServe, KubeRay, NIM",
+        color: "#2563EB",
+      },
+      {
+        id: "exposed",
+        icon: "Globe",
+        label: "Exposed without authentication",
+        hint: "Findings in your queue",
+        color: "#DC2626",
+      },
+      {
+        id: "readonly",
+        icon: "ShieldCheck",
+        label: "Read-only connection",
+        hint: "No object changed",
+        color: "#059669",
+      },
+    ],
+    footnote:
+      "Inventory and exposure only today: configuration rules for self-hosted AI are written but not switched on yet.",
+    caption:
+      "How Onam checks self-hosted AI: each connected Kubernetes cluster, read through a read-only ServiceAccount, goes into Onam AI Security with its model servers, notebooks, vector databases and serving platforms. It reads images and custom resources, classifies AI workloads, joins them with network exposure and raises findings for AI that answers without authentication. The example shows the internet reaching a model server through an ingress with no login. The outputs are model servers, notebooks, vector databases, serving platforms, exposure findings and a read-only connection.",
+  },
+
+  // ai-spm-agents: sub, stats (3 guardrails, CIEM, DSPM), mechanism (AI agents in CIEM, tool limit, identity
+  // risk, data links from configuration, guardrail presence, Threats tab), faqs (not on attack paths yet).
+  "ai-spm-agents": {
+    heading: "From one AI service to everything it can reach",
+    intro:
+      "Onam links each AI service to the identity it runs as and the data it reads, flags over-powered AI agents, and checks that a guardrail is attached.",
+    stages: ["Your AI", "Link identity and data", "See the risk", "What you get"],
+    inputs: [
+      { label: "AWS", hint: "Bedrock and SageMaker roles" },
+      { label: "Microsoft Azure", hint: "Azure content filters" },
+      { label: "Google Cloud", hint: "Google Model Armor" },
+      { label: "CIEM", icon: "KeyRound", hint: "Effective access" },
+      { label: "DSPM", icon: "Database", hint: "Sensitivity labels" },
+      { label: "AI activity logs", icon: "Activity", hint: "For the Threats tab", accent: true },
+    ],
+    engine: {
+      name: "Onam AI Security",
+      sub: "Shows what each AI can reach",
+      steps: [
+        "Mark AI agents",
+        "Flag admin and wide write",
+        "Link AI to data",
+        "Check guardrail presence",
+      ],
+      footer: "Configuration only, no prompts sent",
+    },
+    visual: {
+      kind: "hub",
+      center: { label: "AI agent", icon: "Bot" },
+      around: [
+        { label: "Admin role", icon: "KeyRound", flag: true },
+        { label: "No guardrail", icon: "ShieldAlert", flag: true },
+        { label: "Data store", icon: "Database" },
+        { label: "Activity logs", icon: "Activity" },
+      ],
+      chips: ["Example"],
+    },
+    visualNote: { text: "Over-powered, unguarded, reading data", color: "#B42318" },
+    outputs: [
+      {
+        id: "agents",
+        icon: "Bot",
+        label: "AI agents as identities",
+        hint: "Admin and wide write",
+        color: "#7C3AED",
+      },
+      {
+        id: "risk",
+        icon: "KeyRound",
+        label: "Identity risk",
+        hint: "On AI workloads",
+        color: "#2563EB",
+      },
+      {
+        id: "data",
+        icon: "Database",
+        label: "AI-to-data links",
+        hint: "With DSPM labels",
+        color: "#D97706",
+      },
+      {
+        id: "guard",
+        icon: "ShieldCheck",
+        label: "Guardrail presence",
+        hint: "Models, deployments, agents",
+        color: "#059669",
+      },
+      {
+        id: "tools",
+        icon: "Wrench",
+        label: "Tool limit findings",
+        hint: "Limit set in Settings",
+        color: "#0891B2",
+      },
+      {
+        id: "threats",
+        icon: "Activity",
+        label: "Threats on AI",
+        hint: "From AI activity logs",
+        color: "#DC2626",
+      },
+    ],
+    footnote:
+      "Onam checks guardrail presence, not strength, and never reads the data. AI is not drawn onto attack paths yet.",
+    caption:
+      "How Onam shows what an AI service can reach: AWS, Azure and Google Cloud AI, CIEM's effective access, DSPM's sensitivity labels and AI activity logs go into Onam AI Security. It marks AI agents, flags admin and wide-write access, links each AI service to the data it reads and checks guardrail presence. The example shows an AI agent with an admin role, no guardrail and a link to a data store. The outputs are AI agents as identities, identity risk, AI-to-data links, guardrail presence, tool limit findings and threats on AI.",
   },
 
   // container-security: sub, painPoint (root pod, service account listing secrets, old image), mechanism

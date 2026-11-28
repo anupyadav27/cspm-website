@@ -89,13 +89,23 @@ export const SECURITY_GROUPS: SuiteGroup[] = [
         href: "/platform/risk",
         desc: "FAIR-style loss estimate per finding",
       },
+      {
+        title: "Network Security",
+        href: "/platform/network-security",
+        desc: "7-layer topology analysis",
+      },
+      {
+        title: "API Security",
+        href: "/platform/api-security",
+        desc: "Shadow APIs, auth gaps, WAF coverage",
+      },
     ],
   },
   {
-    heading: "Data & Network",
+    heading: "Data Security (DSPM)",
     items: [
       {
-        title: "DSPM — Data Security",
+        title: "DSPM overview",
         href: "/platform/data-security",
         desc: "Sensitive data, who reaches it, where it flows",
       },
@@ -108,16 +118,6 @@ export const SECURITY_GROUPS: SuiteGroup[] = [
         title: "Encryption & Keys",
         href: "/platform/encryption",
         desc: "KMS keys, rotation, and key-policy reach",
-      },
-      {
-        title: "Network Security",
-        href: "/platform/network-security",
-        desc: "7-layer topology analysis",
-      },
-      {
-        title: "API Security",
-        href: "/platform/api-security",
-        desc: "Shadow APIs, auth gaps, WAF coverage",
       },
     ],
   },
@@ -149,17 +149,42 @@ export const SECURITY_GROUPS: SuiteGroup[] = [
     ],
   },
   {
-    heading: "SaaS, AI & Governance",
+    heading: "AI Security (AI-SPM)",
+    items: [
+      {
+        title: "AI-SPM overview",
+        href: "/platform/ai-spm",
+        desc: "Your AI on AWS, Azure, Google Cloud and Kubernetes",
+      },
+      {
+        title: "AI Inventory & AI-BOM",
+        href: "/platform/ai-spm/inventory",
+        desc: "Managed AI and the AI software you ship",
+      },
+      {
+        title: "AI in SaaS",
+        href: "/platform/ai-spm/ai-in-saas",
+        desc: "AI apps in your connected SaaS",
+      },
+      {
+        title: "Self-hosted AI",
+        href: "/platform/ai-spm/self-hosted",
+        desc: "Model servers on Kubernetes, open or not",
+      },
+      {
+        title: "AI Agents & Guardrails",
+        href: "/platform/ai-spm/agents",
+        desc: "What your AI can reach, guardrail attached",
+      },
+    ],
+  },
+  {
+    heading: "SaaS & Governance",
     items: [
       {
         title: "SaaS Security (SSPM)",
         href: "/platform/saas-security",
         desc: "M365, Workspace, GitHub, Snowflake",
-      },
-      {
-        title: "AI Security",
-        href: "/platform/ai-security",
-        desc: "SageMaker, Bedrock, Azure OpenAI and Google Agent Platform (Vertex AI) risk",
       },
       {
         title: "AI Assistant",
@@ -195,7 +220,8 @@ export const SUITE: SuiteProduct[] = [
     image: "/screens/cnapp/cnapp-areas.webp",
     imageAlt:
       "The CNAPP page in the Onam console: one CNAPP score out of 100 and a card for each security area, such as cloud posture, threat detection, workloads, data, network, attack paths, code and AI, each with its findings and critical and high counts.",
-    imageLabel: "Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.",
+    imageLabel:
+      "Real console, Onam's internal test workspace, captured 26 Nov 2026. Account and tenant IDs redacted.",
     docs: "/docs/security/overview",
     groups: SECURITY_GROUPS,
     agent: {

@@ -185,6 +185,11 @@ function fileToPath(rel: string): string | null {
   return `/${p}`;
 }
 
+/** platform-pages.ts key -> path under /platform: AI-SPM sub-pages live at /platform/ai-spm/<page>. */
+function platformPath(slug: string): string {
+  return slug.startsWith("ai-spm-") ? `ai-spm/${slug.slice("ai-spm-".length)}` : slug;
+}
+
 type Entry = { loc: string; lastmod?: string };
 
 const routeFileFor = new Map<string, string>();
@@ -354,7 +359,9 @@ ${COMPETITORS.map((c) => `- [Onam vs ${c.shortName}](${SITE_URL}/compare/${c.slu
 ## Onam Security engines
 
 ${Object.entries(platformPages)
-  .map(([slug, p]) => `- [${p.label}](${SITE_URL}/platform/${slug}): ${oneLine(p.sub)}`)
+  .map(
+    ([slug, p]) => `- [${p.label}](${SITE_URL}/platform/${platformPath(slug)}): ${oneLine(p.sub)}`,
+  )
   .join("\n")}
 
 ## Cloud security glossary (vendor-neutral definitions)

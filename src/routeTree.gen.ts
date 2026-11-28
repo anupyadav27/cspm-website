@@ -93,6 +93,11 @@ import { Route as StartFreeThanksRouteImport } from './routes/start-free.thanks'
 import { Route as CompanyTeamSlugRouteImport } from './routes/company/team.$slug'
 import { Route as PlatformAiOperationsIndexRouteImport } from './routes/platform/ai-operations.index'
 import { Route as PlatformAiOperationsArchitectureRouteImport } from './routes/platform/ai-operations.architecture'
+import { Route as PlatformAiSpmIndexRouteImport } from './routes/platform/ai-spm/index'
+import { Route as PlatformAiSpmAgentsRouteImport } from './routes/platform/ai-spm/agents'
+import { Route as PlatformAiSpmAiInSaasRouteImport } from './routes/platform/ai-spm/ai-in-saas'
+import { Route as PlatformAiSpmInventoryRouteImport } from './routes/platform/ai-spm/inventory'
+import { Route as PlatformAiSpmSelfHostedRouteImport } from './routes/platform/ai-spm/self-hosted'
 import { Route as PlatformCodeSecurityIndexRouteImport } from './routes/platform/code-security/index'
 import { Route as PlatformCodeSecurityDastRouteImport } from './routes/platform/code-security/dast'
 import { Route as PlatformCodeSecuritySastRouteImport } from './routes/platform/code-security/sast'
@@ -526,6 +531,31 @@ const PlatformAiOperationsArchitectureRoute =
     path: '/platform/ai-operations/architecture',
     getParentRoute: () => rootRouteImport,
   } as any)
+const PlatformAiSpmIndexRoute = PlatformAiSpmIndexRouteImport.update({
+  id: '/platform/ai-spm/',
+  path: '/platform/ai-spm/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiSpmAgentsRoute = PlatformAiSpmAgentsRouteImport.update({
+  id: '/platform/ai-spm/agents',
+  path: '/platform/ai-spm/agents',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiSpmAiInSaasRoute = PlatformAiSpmAiInSaasRouteImport.update({
+  id: '/platform/ai-spm/ai-in-saas',
+  path: '/platform/ai-spm/ai-in-saas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiSpmInventoryRoute = PlatformAiSpmInventoryRouteImport.update({
+  id: '/platform/ai-spm/inventory',
+  path: '/platform/ai-spm/inventory',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformAiSpmSelfHostedRoute = PlatformAiSpmSelfHostedRouteImport.update({
+  id: '/platform/ai-spm/self-hosted',
+  path: '/platform/ai-spm/self-hosted',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PlatformCodeSecurityIndexRoute =
   PlatformCodeSecurityIndexRouteImport.update({
     id: '/platform/code-security/',
@@ -640,11 +670,16 @@ export interface FileRoutesByFullPath {
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/ai-spm/agents': typeof PlatformAiSpmAgentsRoute
+  '/platform/ai-spm/ai-in-saas': typeof PlatformAiSpmAiInSaasRoute
+  '/platform/ai-spm/inventory': typeof PlatformAiSpmInventoryRoute
+  '/platform/ai-spm/self-hosted': typeof PlatformAiSpmSelfHostedRoute
   '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
   '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
   '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
+  '/platform/ai-spm/': typeof PlatformAiSpmIndexRoute
   '/platform/code-security/': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRoutesByTo {
@@ -730,11 +765,16 @@ export interface FileRoutesByTo {
   '/solutions': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/ai-spm/agents': typeof PlatformAiSpmAgentsRoute
+  '/platform/ai-spm/ai-in-saas': typeof PlatformAiSpmAiInSaasRoute
+  '/platform/ai-spm/inventory': typeof PlatformAiSpmInventoryRoute
+  '/platform/ai-spm/self-hosted': typeof PlatformAiSpmSelfHostedRoute
   '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
   '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
   '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations': typeof PlatformAiOperationsIndexRoute
+  '/platform/ai-spm': typeof PlatformAiSpmIndexRoute
   '/platform/code-security': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRoutesById {
@@ -822,11 +862,16 @@ export interface FileRoutesById {
   '/solutions/': typeof SolutionsIndexRoute
   '/company/team/$slug': typeof CompanyTeamSlugRoute
   '/platform/ai-operations/architecture': typeof PlatformAiOperationsArchitectureRoute
+  '/platform/ai-spm/agents': typeof PlatformAiSpmAgentsRoute
+  '/platform/ai-spm/ai-in-saas': typeof PlatformAiSpmAiInSaasRoute
+  '/platform/ai-spm/inventory': typeof PlatformAiSpmInventoryRoute
+  '/platform/ai-spm/self-hosted': typeof PlatformAiSpmSelfHostedRoute
   '/platform/code-security/dast': typeof PlatformCodeSecurityDastRoute
   '/platform/code-security/sast': typeof PlatformCodeSecuritySastRoute
   '/platform/code-security/sca-sbom': typeof PlatformCodeSecurityScaSbomRoute
   '/resources/blog/$slug': typeof ResourcesBlogSlugRoute
   '/platform/ai-operations/': typeof PlatformAiOperationsIndexRoute
+  '/platform/ai-spm/': typeof PlatformAiSpmIndexRoute
   '/platform/code-security/': typeof PlatformCodeSecurityIndexRoute
 }
 export interface FileRouteTypes {
@@ -915,11 +960,16 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/ai-spm/agents'
+    | '/platform/ai-spm/ai-in-saas'
+    | '/platform/ai-spm/inventory'
+    | '/platform/ai-spm/self-hosted'
     | '/platform/code-security/dast'
     | '/platform/code-security/sast'
     | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations/'
+    | '/platform/ai-spm/'
     | '/platform/code-security/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -1005,11 +1055,16 @@ export interface FileRouteTypes {
     | '/solutions'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/ai-spm/agents'
+    | '/platform/ai-spm/ai-in-saas'
+    | '/platform/ai-spm/inventory'
+    | '/platform/ai-spm/self-hosted'
     | '/platform/code-security/dast'
     | '/platform/code-security/sast'
     | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations'
+    | '/platform/ai-spm'
     | '/platform/code-security'
   id:
     | '__root__'
@@ -1096,11 +1151,16 @@ export interface FileRouteTypes {
     | '/solutions/'
     | '/company/team/$slug'
     | '/platform/ai-operations/architecture'
+    | '/platform/ai-spm/agents'
+    | '/platform/ai-spm/ai-in-saas'
+    | '/platform/ai-spm/inventory'
+    | '/platform/ai-spm/self-hosted'
     | '/platform/code-security/dast'
     | '/platform/code-security/sast'
     | '/platform/code-security/sca-sbom'
     | '/resources/blog/$slug'
     | '/platform/ai-operations/'
+    | '/platform/ai-spm/'
     | '/platform/code-security/'
   fileRoutesById: FileRoutesById
 }
@@ -1185,10 +1245,15 @@ export interface RootRouteChildren {
   SolutionsIndexRoute: typeof SolutionsIndexRoute
   CompanyTeamSlugRoute: typeof CompanyTeamSlugRoute
   PlatformAiOperationsArchitectureRoute: typeof PlatformAiOperationsArchitectureRoute
+  PlatformAiSpmAgentsRoute: typeof PlatformAiSpmAgentsRoute
+  PlatformAiSpmAiInSaasRoute: typeof PlatformAiSpmAiInSaasRoute
+  PlatformAiSpmInventoryRoute: typeof PlatformAiSpmInventoryRoute
+  PlatformAiSpmSelfHostedRoute: typeof PlatformAiSpmSelfHostedRoute
   PlatformCodeSecurityDastRoute: typeof PlatformCodeSecurityDastRoute
   PlatformCodeSecuritySastRoute: typeof PlatformCodeSecuritySastRoute
   PlatformCodeSecurityScaSbomRoute: typeof PlatformCodeSecurityScaSbomRoute
   PlatformAiOperationsIndexRoute: typeof PlatformAiOperationsIndexRoute
+  PlatformAiSpmIndexRoute: typeof PlatformAiSpmIndexRoute
   PlatformCodeSecurityIndexRoute: typeof PlatformCodeSecurityIndexRoute
 }
 
@@ -1782,6 +1847,41 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PlatformAiOperationsArchitectureRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/platform/ai-spm/': {
+      id: '/platform/ai-spm/'
+      path: '/platform/ai-spm'
+      fullPath: '/platform/ai-spm/'
+      preLoaderRoute: typeof PlatformAiSpmIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-spm/agents': {
+      id: '/platform/ai-spm/agents'
+      path: '/platform/ai-spm/agents'
+      fullPath: '/platform/ai-spm/agents'
+      preLoaderRoute: typeof PlatformAiSpmAgentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-spm/ai-in-saas': {
+      id: '/platform/ai-spm/ai-in-saas'
+      path: '/platform/ai-spm/ai-in-saas'
+      fullPath: '/platform/ai-spm/ai-in-saas'
+      preLoaderRoute: typeof PlatformAiSpmAiInSaasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-spm/inventory': {
+      id: '/platform/ai-spm/inventory'
+      path: '/platform/ai-spm/inventory'
+      fullPath: '/platform/ai-spm/inventory'
+      preLoaderRoute: typeof PlatformAiSpmInventoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform/ai-spm/self-hosted': {
+      id: '/platform/ai-spm/self-hosted'
+      path: '/platform/ai-spm/self-hosted'
+      fullPath: '/platform/ai-spm/self-hosted'
+      preLoaderRoute: typeof PlatformAiSpmSelfHostedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/platform/code-security/': {
       id: '/platform/code-security/'
       path: '/platform/code-security'
@@ -1938,10 +2038,15 @@ const rootRouteChildren: RootRouteChildren = {
   SolutionsIndexRoute: SolutionsIndexRoute,
   CompanyTeamSlugRoute: CompanyTeamSlugRoute,
   PlatformAiOperationsArchitectureRoute: PlatformAiOperationsArchitectureRoute,
+  PlatformAiSpmAgentsRoute: PlatformAiSpmAgentsRoute,
+  PlatformAiSpmAiInSaasRoute: PlatformAiSpmAiInSaasRoute,
+  PlatformAiSpmInventoryRoute: PlatformAiSpmInventoryRoute,
+  PlatformAiSpmSelfHostedRoute: PlatformAiSpmSelfHostedRoute,
   PlatformCodeSecurityDastRoute: PlatformCodeSecurityDastRoute,
   PlatformCodeSecuritySastRoute: PlatformCodeSecuritySastRoute,
   PlatformCodeSecurityScaSbomRoute: PlatformCodeSecurityScaSbomRoute,
   PlatformAiOperationsIndexRoute: PlatformAiOperationsIndexRoute,
+  PlatformAiSpmIndexRoute: PlatformAiSpmIndexRoute,
   PlatformCodeSecurityIndexRoute: PlatformCodeSecurityIndexRoute,
 }
 export const routeTree = rootRouteImport

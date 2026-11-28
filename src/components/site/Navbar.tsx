@@ -176,7 +176,7 @@ function SuiteTab({ p, active, onActivate }: { p: SuiteProduct; active: boolean;
 }
 
 function SuitePanel({ p }: { p: SuiteProduct }) {
-  const cols = p.groups.length >= 5 ? "grid-cols-5" : p.groups.length === 2 ? "grid-cols-2" : "grid-cols-1";
+  const cols = p.groups.length >= 6 ? "grid-cols-6" : p.groups.length === 5 ? "grid-cols-5" : p.groups.length === 2 ? "grid-cols-2" : "grid-cols-1";
   return (
     <div className="mt-4 grid grid-cols-[250px_1fr] gap-6 pt-5 border-t border-[#E5E9F0]">
       <div className="pr-6 border-r border-[#E5E9F0]">

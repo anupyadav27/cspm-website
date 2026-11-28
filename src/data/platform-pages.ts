@@ -674,7 +674,7 @@ export const platformPages: Record<string, ProductPageData> = {
       "Posture scanning connects through read-only cloud roles. Your data catalog fills in on the first scan.",
   },
 
-  "ai-security": {
+  "ai-spm": {
     docsHref: "/docs/ai-security/overview",
     // The recreated console demo shows generic CSPM, not AI; the AI docs carry the real redacted screens.
     hideDemo: true,
@@ -686,7 +686,7 @@ export const platformPages: Record<string, ProductPageData> = {
     ],
     icon: Cpu,
     iconColor: violet400,
-    label: "AI Security",
+    label: "AI Security (AI-SPM)",
     question: "Are my AI workloads introducing security risks I haven't thought about?",
     headline: "AI security posture for the AI in your clouds, and the AI you run yourself on Kubernetes.",
     metaDescription:
@@ -745,10 +745,246 @@ export const platformPages: Record<string, ProductPageData> = {
       },
     ],
     related: [
+      { label: "AI inventory and AI bill of materials", href: "/platform/ai-spm/inventory" },
+      { label: "AI in SaaS", href: "/platform/ai-spm/ai-in-saas" },
+      { label: "Self-hosted AI on Kubernetes", href: "/platform/ai-spm/self-hosted" },
+      { label: "AI agents, data and guardrails", href: "/platform/ai-spm/agents" },
       { label: "AI Security docs", href: "/docs/ai-security/overview" },
       { label: "CSPM", href: "/platform/cspm" },
       { label: "Data Security", href: "/platform/data-security" },
       { label: "IAM Security", href: "/platform/iam" },
+    ],
+  },
+
+  // AI-SPM sub-pages (/platform/ai-spm/*), owner 28 Nov 2026: AI-SPM gets its own menu group and pages.
+  // Sources: facts/product.yaml ai_spm_live_items, ai_prompt_text_detection, ai_coverage_catalogue,
+  // and the published AI Security docs (src/data/docs-articles/ai-security.ts). No AI rule counts.
+  "ai-spm-inventory": {
+    docsHref: "/docs/ai-security/discovery-and-bom",
+    hideDemo: true,
+    stats: [
+      { v: "3", l: "clouds for managed AI: AWS, Azure, Google Cloud" },
+      { v: "175", l: "AI products in the coverage catalogue 1.0" },
+      { v: "AI-BOM", l: "from the SBOMs Onam already builds" },
+      { v: "0", l: "agents installed: read-only" },
+    ],
+    icon: Boxes,
+    iconColor: violet400,
+    label: "AI Inventory and AI Bill of Materials",
+    question: "What AI is running in our clouds, and which AI software do we ship?",
+    headline: "One AI inventory and an AI bill of materials, from the accounts and code you already connected.",
+    metaDescription:
+      "AI inventory and AI bill of materials (AI-BOM): managed AI on AWS, Azure and Google Cloud, plus AI libraries, model servers and MCP SDKs from your SBOMs.",
+    sub: "Managed AI services on AWS, Azure and Google Cloud come from read-only cloud roles. The AI bill of materials lists the AI libraries, model servers and MCP SDKs in the SBOMs Onam builds for your code and images. A Coverage tab shows, per AI product, what Onam can and cannot see.",
+    painPoint:
+      "Ask three teams which AI services they use and you get three different lists. A notebook started for a test, a Bedrock model wired into one service, an AI SDK added to an image last sprint: none of it reached the security team's list, because nobody had to ask before starting it.",
+    mechanism: [
+      "The posture scan records each managed AI resource and its settings through the same read-only cloud roles that feed CSPM: Amazon SageMaker and Amazon Bedrock on AWS; Azure AI services accounts (including Azure OpenAI) and Azure Machine Learning workspaces on Azure; Vertex AI endpoints, datasets and Workbench instances on Google Cloud.",
+      "The AI bill of materials is a view of the SBOMs Onam builds for your repositories and images, filtered to AI libraries, model servers and MCP SDKs. It answers \"which AI software do we ship?\" and lives under Inventory › Libraries (AI-BOM).",
+      "Self-hosted AI on connected Kubernetes clusters and AI apps in your connected SaaS join the same inventory.",
+      "AI is grouped into applications from the onam-ai-app tag on your resources and from links Onam finds between AI assets and code. Onam never adds the tag itself.",
+      "The Coverage tab lists each AI product in the AI product catalogue (175 in catalogue 1.0: cloud, self-run, SaaS and code) with its connection state, how Onam reads it, and its checks active versus waiting for verification.",
+    ],
+    whatYouGet: [
+      "One inventory of managed AI services on AWS, Azure and Google Cloud",
+      "An AI bill of materials: AI libraries, model servers and MCP SDKs from your SBOMs",
+      "Self-hosted AI and AI in SaaS in the same inventory",
+      "AI grouped into applications from the onam-ai-app tag",
+      "A Coverage tab: per AI product, the connection state, how Onam reads it and which checks are active",
+      "Exports to PDF and Excel or CSV, like the rest of the console",
+    ],
+    faqs: [
+      {
+        q: "Which managed AI services are discovered?",
+        a: "On AWS, Amazon SageMaker and Amazon Bedrock. On Azure, Azure AI services accounts, including Azure OpenAI, and Azure Machine Learning workspaces. On Google Cloud, Vertex AI endpoints, datasets and Workbench instances. They come through the same read-only cloud roles that feed CSPM.",
+      },
+      {
+        q: "Where does the AI bill of materials come from?",
+        a: "From the SBOMs Onam builds for your repositories and images. It is a view of those SBOMs filtered to AI libraries, model servers and MCP SDKs, so it is as complete as the code and images you have connected.",
+      },
+      {
+        q: "What is not discovered yet?",
+        a: "Vertex AI feature stores, vector search and Colab, Azure Machine Learning connections, and Bedrock knowledge-base data sources. AI services on Oracle Cloud, Alibaba Cloud and IBM Cloud are not covered. The OpenAI platform itself is not connected: use of the OpenAI API from your code shows up only as a library in the AI bill of materials.",
+      },
+      {
+        q: "What does the Coverage tab tell me?",
+        a: "For each AI product in the catalogue, whether it is connected, how Onam reads it, and which checks are active or still waiting for verification. Connected with no active checks is not coverage, and the tab says so.",
+      },
+    ],
+    related: [
+      { label: "AI Security (AI-SPM) overview", href: "/platform/ai-spm" },
+      { label: "AI in SaaS", href: "/platform/ai-spm/ai-in-saas" },
+      { label: "Self-hosted AI on Kubernetes", href: "/platform/ai-spm/self-hosted" },
+      { label: "Discovery and AI bill of materials docs", href: "/docs/ai-security/discovery-and-bom" },
+    ],
+  },
+
+  "ai-spm-ai-in-saas": {
+    docsHref: "/docs/ai-security/discovery-and-bom",
+    hideDemo: true,
+    stats: [
+      { v: "SaaS", l: "AI apps in the platforms you connected" },
+      { v: "1", l: "AI inventory with your cloud and cluster AI" },
+      { v: "Off", l: "prompt-text detection, unless an admin turns it on" },
+      { v: "0", l: "agents or browser extensions" },
+    ],
+    icon: Bot,
+    iconColor: violet400,
+    label: "AI in SaaS",
+    question: "Which AI apps have found their way into our SaaS?",
+    headline: "The AI apps in your connected SaaS, in the same inventory as your cloud AI.",
+    metaDescription:
+      "AI in SaaS: the AI apps Onam finds in your connected SaaS platforms, such as Microsoft Copilot or Claude in Google Workspace, in one AI inventory.",
+    sub: "AI in SaaS lists the AI apps Onam finds in the SaaS platforms you have connected, such as Microsoft Copilot or Claude in Google Workspace. They sit next to your managed and self-hosted AI in one AI inventory, under Inventory › AI in SaaS.",
+    painPoint:
+      "AI rarely arrives through a purchase order. Someone connects an AI assistant to the company workspace to summarise documents, and colleagues follow. The security team hears about it later, if at all, and only for the one platform it happened to look at.",
+    mechanism: [
+      "You connect your SaaS platforms once, through the same read-only connectors that SaaS security uses, with no agent or browser extension.",
+      "Onam lists the AI apps it finds in those platforms, such as Microsoft Copilot or Claude in Google Workspace.",
+      "They appear in AI Security under Inventory › AI in SaaS, in the same AI inventory as managed AI services, self-hosted AI and the AI bill of materials.",
+      "The platform's own settings, such as admin roles and sharing, stay in SaaS security. The AI apps found there belong to AI security posture (AI-SPM).",
+    ],
+    whatYouGet: [
+      "AI apps found in your connected SaaS platforms",
+      "Examples from today's console: Microsoft Copilot and Claude in Google Workspace",
+      "One AI inventory with your managed AI, self-hosted AI and AI bill of materials",
+      "Exports to PDF and Excel or CSV, like the rest of the console",
+    ],
+    faqs: [
+      {
+        q: "Which SaaS platforms does it look in?",
+        a: "The SaaS platforms you have connected to Onam for SaaS security, through their read-only connectors. The examples in today's console are Microsoft Copilot and Claude found in Google Workspace.",
+      },
+      {
+        q: "Does Onam read what people type into those AI apps?",
+        a: "No. AI in SaaS lists the apps. AI Security reads prompt or answer text only if an admin turns on prompt-text detection, which is off by default, and Onam never reads training data or model weights.",
+      },
+      {
+        q: "Is this SaaS security or AI security?",
+        a: "AI security (AI-SPM). SaaS security checks the platform's own settings, such as admin roles and sharing. The AI apps found in those platforms are listed in the AI inventory, next to the rest of your AI.",
+      },
+    ],
+    related: [
+      { label: "AI Security (AI-SPM) overview", href: "/platform/ai-spm" },
+      { label: "AI inventory and AI bill of materials", href: "/platform/ai-spm/inventory" },
+      { label: "SaaS Security (SSPM)", href: "/platform/saas-security" },
+      { label: "AI and your data docs", href: "/docs/ai-security/data-and-agents" },
+    ],
+  },
+
+  "ai-spm-self-hosted": {
+    docsHref: "/docs/ai-security/guardrails-and-exposure",
+    hideDemo: true,
+    stats: [
+      { v: "K8s", l: "self-hosted AI on any connected cluster" },
+      { v: "0", l: "agents or scanners in the cluster" },
+      { v: "Read-only", l: "ServiceAccount, no object changed" },
+      { v: "Paid", l: "plans: needs a cluster connection" },
+    ],
+    icon: Server,
+    iconColor: violet400,
+    label: "Self-hosted AI on Kubernetes",
+    question: "Is anyone running a model server on our clusters with no login in front of it?",
+    headline: "Find the AI your teams run themselves on Kubernetes, and the pieces open to anyone.",
+    metaDescription:
+      "Self-hosted AI on Kubernetes: model servers, notebooks and vector databases found by a read-only classifier and checked for exposure without authentication.",
+    sub: "A classifier reads the images and custom resources in each connected cluster and recognises self-hosted AI: model servers, notebooks, vector databases and serving platforms. Each one joins the AI inventory and is checked for exposure without authentication. Today this is inventory and exposure only.",
+    painPoint:
+      "A model server started for a test can stay running with no login in front of it. Behind a public load balancer or ingress, that is an open model API, a notebook that can run code, or an open copy of your embeddings.",
+    mechanism: [
+      "Clusters are read through the read-only ServiceAccount you create when you connect them. Onam deploys no agent or scanner in the cluster and changes no object; the cluster's API server must be reachable from Onam.",
+      "A classifier reads the images and custom resources in each cluster and recognises model servers (Ollama, vLLM, Text Generation Inference, LiteLLM, llama.cpp, LocalAI), notebooks (Jupyter, MLflow), vector databases (Qdrant, Weaviate, Chroma, Milvus, pgvector, Redis as a vector store) and serving platforms (KServe, KubeRay, NVIDIA NIM, Seldon).",
+      "Each one is added to the AI inventory and joined with the network exposure found in the same scan. A server reachable without authentication raises the finding Self-hosted AI exposed without authentication.",
+      "Configuration rules for self-hosted AI are written but not switched on yet, so today this page covers inventory and exposure only.",
+    ],
+    whatYouGet: [
+      "Self-hosted model servers, notebooks, vector databases and serving platforms in the AI inventory",
+      "Self-hosted AI exposed without authentication, as findings in your usual queue",
+      "A read-only connection: no agent or scanner in the cluster, no object changed",
+      "The same inventory as your managed AI, AI in SaaS and AI bill of materials",
+    ],
+    faqs: [
+      {
+        q: "A team runs Ollama on a GPU node in our cluster. Will Onam find it?",
+        a: "Yes, if the cluster is connected. The classifier recognises Ollama and the other model servers from the workload itself, adds it to the AI inventory and checks whether it is reachable without authentication.",
+      },
+      {
+        q: "Does Onam check the configuration of our self-hosted AI?",
+        a: "Not yet. The configuration rules for self-hosted AI are written but not switched on. Today Onam finds self-hosted AI and checks whether it is exposed without authentication.",
+      },
+      {
+        q: "Do I have to install anything in the cluster?",
+        a: "No. Discovery uses the read-only ServiceAccount you create when you connect the cluster. The cluster's API server must be reachable from Onam, for example a public endpoint restricted to Onam's egress IPs. Kubernetes connections are on paid plans.",
+      },
+      {
+        q: "Will Onam shut down an exposed model server?",
+        a: "No. Onam reports; closing the service or putting a login in front of it is your change.",
+      },
+    ],
+    related: [
+      { label: "AI Security (AI-SPM) overview", href: "/platform/ai-spm" },
+      { label: "Container & Kubernetes Security (KSPM)", href: "/platform/container-security" },
+      { label: "AI agents, data and guardrails", href: "/platform/ai-spm/agents" },
+      { label: "Guardrail and exposure checks docs", href: "/docs/ai-security/guardrails-and-exposure" },
+    ],
+  },
+
+  "ai-spm-agents": {
+    docsHref: "/docs/ai-security/data-and-agents",
+    hideDemo: true,
+    stats: [
+      { v: "3", l: "provider guardrails checked for presence" },
+      { v: "CIEM", l: "AI execution identities marked as AI agents" },
+      { v: "DSPM", l: "labels on the stores your AI reads" },
+      { v: "0", l: "data read: links come from configuration" },
+    ],
+    icon: KeyRound,
+    iconColor: violet400,
+    label: "AI Agents, Data and Guardrails",
+    question: "What can our AI agents do, what data can our AI read, and does it have a guardrail?",
+    headline: "A model is only as risky as what it can reach. See the identity, the data and the guardrail.",
+    metaDescription:
+      "AI agents as identities, AI-to-data links and guardrail presence: admin and wide-write findings on AI agents, the stores each AI reads, guardrails attached.",
+    sub: "Onam links each AI service to the identity it runs as and the data stores it reads, marks AI execution identities as AI agents with admin and wide-write findings, and checks that a provider guardrail is attached to your models, deployments and agents.",
+    painPoint:
+      "A Bedrock agent gets a role with administrator access just for the demo, reads a bucket nobody has classified, and has no guardrail attached. Each setting looks harmless on its own. Together they turn a prompt-injection problem into an account takeover.",
+    mechanism: [
+      "In CIEM, Bedrock and SageMaker roles and other AI execution identities are marked as AI agents. An agent with admin access, with wide write access, or with more tools than the limit set in Settings gets a finding.",
+      "Where Onam can resolve the identity an AI workload runs as, the workload also shows that identity's risk, from Onam's IAM analysis.",
+      "For each AI service, Onam records which data stores it reads, as a link from the service's configuration. DSPM labels the same stores, so a link to a store holding personal or other sensitive data shows that this AI reads sensitive data. Onam does not read the data.",
+      "Onam checks that a provider guardrail is attached to your models, deployments and agents: Bedrock Guardrails on AWS, Azure content filters on Azure and Google Model Armor on Google Cloud. It checks presence, not strength, and does not send prompts to your models.",
+      "The Threats tab shows suspicious activity on your AI assets, found in your AI activity logs by Onam threat detection.",
+    ],
+    whatYouGet: [
+      "AI execution identities marked as AI agents, with admin and wide-write findings",
+      "Identity risk on AI workloads, where the identity can be resolved",
+      "AI-to-data links: which data stores each AI service reads, with DSPM's sensitivity labels",
+      "Guardrail presence on models, deployments and agents: Bedrock Guardrails, Azure content filters, Google Model Armor",
+      "Suspicious activity on AI assets, on the Threats tab",
+    ],
+    faqs: [
+      {
+        q: "Our Bedrock agent has a role with AdministratorAccess just for the demo. Will Onam flag it?",
+        a: "Yes. The role is marked as an AI agent and its admin access raises a finding.",
+      },
+      {
+        q: "Does Onam test whether our guardrail blocks prompt injection?",
+        a: "No. That needs prompts sent to the model, and Onam does not call your models. Onam checks that a guardrail is attached, on every model, deployment and agent, every scan. Use the provider's evaluation tools or an AI red-teaming tool to test the guardrail itself.",
+      },
+      {
+        q: "Does Onam read the data our AI uses?",
+        a: "No. A link between an AI service and a data store comes from the service's configuration. Classifying the store is DSPM's job, on the stores you choose.",
+      },
+      {
+        q: "Are AI services shown on attack paths?",
+        a: "Not yet. AI is not drawn onto attack paths today. The identity and data links on this page are direct links, not multi-hop paths.",
+      },
+    ],
+    related: [
+      { label: "AI Security (AI-SPM) overview", href: "/platform/ai-spm" },
+      { label: "CIEM", href: "/platform/ciem" },
+      { label: "Data Security", href: "/platform/data-security" },
+      { label: "AI and your data docs", href: "/docs/ai-security/data-and-agents" },
     ],
   },
 

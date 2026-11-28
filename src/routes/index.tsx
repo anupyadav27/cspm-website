@@ -7,7 +7,8 @@ import { CLOUDS } from "@/lib/product-facts";
 import { Hero } from "@/components/site/home/PlatformHero";
 import { PlatformLayers } from "@/components/site/home/PlatformLayers";
 import { OnamAiSpotlight, OneFoundation, ProductSuite } from "@/components/site/home/ProductSuite";
-import { FAQSection, TrustBar } from "@/components/site/security/SecurityHome";
+import { TrustBar } from "@/components/site/security/SecurityHome";
+import { ComicFaq } from "@/components/site/ComicFaq";
 
 /**
  * The homepage. Owner decision 17 Nov 2026: Onam is Onam Security — cloud, SaaS and
@@ -40,7 +41,7 @@ function HomePage() {
       <OneFoundation />
       <MarketplaceStrip />
       <TrustBar />
-      <FAQSection items={PLATFORM_FAQ} subtitle="" />
+      <ComicFaq faqs={PLATFORM_FAQ} />
       <PlatformCTA />
       <script
         type="application/ld+json"
@@ -50,26 +51,37 @@ function HomePage() {
   );
 }
 
+// Facts: marketing facts/product.yaml (ai_spm_live_items, plan wording), threat-engine
+// secops_fix routers/triage.py (AI review only labels likely false positives) and
+// bff/_ticket_content.py (tickets carry fix steps, commands and the AI fix prompt).
 const PLATFORM_FAQ = [
   {
     q: "What is Onam?",
-    a: "Onam is Onam Security: cloud security (CSPM, CIEM, DSPM, AI security, vulnerability and workload protection), SaaS security and code security on one security graph, across attack paths, threat detection and compliance. Onam AI, your AI security analyst, answers questions about your findings and suggests fixes; it is in early access.",
+    a: "Onam is Onam Security: code security, cloud security, SaaS security and AI security (AI-SPM) on one inventory and one security graph, so findings from different engines join up. On top of it, Onam AI, your AI security analyst, works through the findings with you. Onam AI is in early access.",
+  },
+  {
+    q: "What does Onam AI do with all those alerts?",
+    a: "It works the queue: it ranks alerts by real risk (exposure, attack paths, sensitive data), routes each finding to the team that owns it, flags likely false positives for your team to confirm, and cuts the list to what needs a person. For the real threats it raises a Jira or ServiceNow ticket that carries the fix steps and an AI fix prompt. It suggests; a person approves every change.",
+  },
+  {
+    q: "How do my developers fix what Onam AI hands over?",
+    a: "Each ticket carries the fix steps, ready-to-run commands where the rule has them, and an AI fix prompt. A developer's own coding agent in VS Code can read the ticket through the Jira or ServiceNow MCP server and draft the fix in your code. Your team reviews and merges as usual, and the next scan re-checks the resource and confirms the fix.",
+  },
+  {
+    q: "What does AI-SPM cover?",
+    a: "The AI in your estate: an AI inventory and an AI bill of materials built from your SBOMs, whether a provider guardrail is attached (Bedrock Guardrails, Azure content filters, Google Model Armor), which data each AI service can reach, AI agents as identities with findings for admin or wide write access, and AI apps found in your connected SaaS platforms. Self-hosted AI on Kubernetes is found and checked for exposure.",
+  },
+  {
+    q: "Which clouds, code hosts and SaaS apps does Onam connect to?",
+    a: `Posture scanning covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes. Code comes from GitHub, GitLab and Bitbucket, and SaaS security covers platforms such as Microsoft 365, Google Workspace, GitHub and Snowflake. Some features are narrower today, and the documentation says where.`,
   },
   {
     q: "How is Onam priced?",
-    a: "Onam Security has published prices in three lines: cloud security at $20 per unit a month on the Complete plan, with CIEM and DSPM included; SaaS security priced per unit; and code security priced per developer. A free one-time audit scan of one cloud account comes first, so you can decide with your own results.",
-  },
-  {
-    q: "What is Onam AI, and can I use it today?",
-    a: "Onam AI is your AI security analyst for Onam Security. Ask about findings, attack paths and data security in plain language; answers cite their evidence and mask sensitive values. It is in early access, enabled per organisation by invitation, starting on AWS. It suggests fixes and never changes your cloud without a person's approval. The AI Assistant inside Onam Security is available to every customer today.",
-  },
-  {
-    q: "Which clouds does Onam cover?",
-    a: `Posture scanning covers ${CLOUDS} clouds: AWS, Microsoft Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, IBM Cloud and Kubernetes, plus major SaaS platforms. Some features are narrower today (for example, unused-permission analysis runs on AWS and Google Cloud only), and the documentation says where.`,
+    a: "Prices are published in three lines: cloud security at $20 per unit a month on the Complete plan, with CIEM and DSPM included; SaaS security priced per unit; and code security priced per developer. The free plan covers up to 25 units of cloud security through your cloud's APIs, with no card.",
   },
   {
     q: "Does Onam change anything in my cloud accounts?",
-    a: "No. Posture scanning and discovery use read-only cloud roles, and agentless workload scanning runs inside your own account. Onam AI suggests fixes for a person to approve and does not execute them in a customer cloud.",
+    a: "No. Posture scanning and discovery use read-only cloud roles, and agentless workload scanning runs inside your own account. Onam AI suggests fixes for a person to approve and does not change anything in your cloud.",
   },
 ];
 
@@ -92,15 +104,6 @@ const HOME_JSONLD = [
     ],
     publisher: { "@type": "Organization", name: "Onam", url: SITE_URL },
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: PLATFORM_FAQ.map((f) => ({
-      "@type": "Question",
-      name: f.q,
-      acceptedAnswer: { "@type": "Answer", text: f.a },
-    })),
-  },
 ];
 
 function PlatformCTA() {
@@ -112,8 +115,7 @@ function PlatformCTA() {
             Where to start
           </div>
           <h2 className="mt-5 font-display font-black text-4xl md:text-5xl text-[#0B1220] tracking-tight">
-            Start with a free scan of{" "}
-            <span className="gradient-text">one cloud account.</span>
+            Start with a free scan of <span className="gradient-text">one cloud account.</span>
           </h2>
           <p className="mt-5 text-lg text-[#475569] max-w-2xl mx-auto">
             The scan is a one-time audit. We go through the results with you, and then you decide
