@@ -292,3 +292,19 @@
   .ex-map.ex-armed .ex-node, .ex-map.ex-armed.ex-entered .ex-node, .ex-map.ex-armed.ex-entered .ex-stamp, .ex-fade { animation: none !important; opacity: 1; }
   .ex-zoom { transition: none; }
 }
+
+/* Homepage, Onam AI showcase: the alert stream, the spinning core, light along the beams. */
+.ai-stream { animation: ai-stream 22s linear infinite; }
+@keyframes ai-stream { to { transform: translateY(-50%); } }
+.ai-spin { animation: ai-spin 6s linear infinite; }
+@keyframes ai-spin { to { transform: rotate(360deg); } }
+.ai-breathe { animation: ai-breathe 2.4s ease-in-out infinite; }
+@keyframes ai-breathe { 0%, 100% { transform: scale(.85); opacity: .5; } 50% { transform: scale(1); opacity: 1; } }
+.ai-packet { left: 0; animation: ai-packet 2.1s linear infinite; }
+@keyframes ai-packet { from { left: 0; opacity: 0; } 15%, 85% { opacity: 1; } to { left: calc(100% - 8px); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ai-stream, .ai-spin, .ai-breathe, .ai-packet { animation: none !important; } }
+/* Homepage, SaaS source card: the app logos slide left; paused on hover and for reduced motion. */
+.saas-marquee { animation: saas-marquee 26s linear infinite; }
+.group:hover .saas-marquee { animation-play-state: paused; }
+@keyframes saas-marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .saas-marquee { animation: none !important; } }
